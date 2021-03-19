@@ -1,5 +1,5 @@
 /*
- * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -45,7 +45,7 @@ public class ProgQuitFactory {
     }
 
     /**
-     * Quit the MTPlayer application
+     * Quit the application
      *
      * @param showOptionTerminate show options dialog when stations are running
      */

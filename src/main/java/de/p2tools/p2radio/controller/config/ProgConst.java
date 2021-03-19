@@ -1,5 +1,5 @@
 /*
- * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -50,14 +50,14 @@ public class ProgConst {
 
     // Website
     public static final String ADRESSE_WEBSITE = "https://www.p2tools.de/"; //todo
-    public static final String ADRESSE_WEBSITE_HELP = "https://www.p2tools.de/mtplayer/manual/"; //todo
+    public static final String ADRESSE_WEBSITE_HELP = "https://www.p2tools.de/p2radio/manual/"; //todo
 
     public static final String ADRESSE_P2_RADIO_VERSION = "https://www.p2tools.de/extra/p2radio-info.xml"; //todo
     public static final String ADRESSE_P2_RADIO_BETA_VERSION = "https://www.p2tools.de/extra/p2radio-beta-info.xml"; //todo
 
     // die URL der Sets, nicht mehr mit jeder Programmversion hochzählen, nur noch wenn notwendig
-    public static final String URL_MTPLAYER_CONFIG_DIRECTORY = "https://www.p2tools.de/extra/p2radio/v-1/";
-    public static final String URL_MTPLAYER_PROGRAM_SETS = URL_MTPLAYER_CONFIG_DIRECTORY + "pset-templates.xml";
+    public static final String URL_MTPLAYER_CONFIG_DIRECTORY = "https://www.p2tools.de/extra/p2radio/v-1/"; //todo
+    public static final String URL_MTPLAYER_PROGRAM_SETS = URL_MTPLAYER_CONFIG_DIRECTORY + "pset-templates.xml"; //todo
 
     // ProgrammUrls
     public static final String ADRESSE_WEBSITE_VLC = "http://www.videolan.org";

@@ -2,7 +2,7 @@
 
 # P2Radio
 
-P2Radio ist ein Programm zum Online-Radio hören. Es verwendet die Senderliste mit Online-Radionsendern
+P2Radio ist ein Programm zum Online-Radio hören. Es verwendet die Senderliste mit Online-Radiosendern
 von: www.radio-browser.info und listet die gefundenen Sender auf. Die Liste kann mit verschiedenen Filtern nach Sendern
 durchsucht werden. Mit einem Programm eigener Wahl können die Sender dann abgespielt werden. Es lassen sich "
 Lieblingssender" in eigenen Sammlungen ablegen und so archivieren.

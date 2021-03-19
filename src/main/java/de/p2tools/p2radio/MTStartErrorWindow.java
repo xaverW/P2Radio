@@ -1,5 +1,5 @@
 /*
- * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -36,7 +36,7 @@ public class MTStartErrorWindow extends Application {
     // toDo für weitere Startfehlermeldungen vorbereiten -> nach P2Tools
 
     private Stage primaryStage;
-    private final String url = "https://www.p2tools.de/mtplayer/manual/start.html";
+    private final String url = "https://www.p2tools.de/p2radio/manual/start.html";
 
     @Override
     public void init() throws Exception {
