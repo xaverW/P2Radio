@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<P2Radio>
+
+    <Programmset>
+        <Name>Linux Abspielen</Name>
+        <Beschreibung>Standardset zum Abspielen der Sender</Beschreibung>
+    </Programmset>
+    <Programm>
+        <Programmname>Vlc</Programmname>
+        <Programmpfad>PFAD_VLC</Programmpfad>
+        <Programmschalter>%f --play-and-exit :http-user-agent="Mozilla/5.0"</Programmschalter>
+    </Programm>
+
+</P2Radio>

@@ -1,0 +1,18 @@
+/*  style sheet for the dark-theme */
+
+
+/* ist die abgesetzte Zeile im favouritedialog */
+.favouriteDialog {
+    -fx-background-color: #64696b;
+}
+
+.channel-button {
+    -fx-font-size: 1em;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: #686d6f;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
