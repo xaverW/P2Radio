@@ -37,6 +37,7 @@ public class SetPane {
     private final TextArea txtDescription = new TextArea("");
     private final PToggleSwitch tglStandarSet = new PToggleSwitch("Standardset:");
     private ChangeListener changeListener;
+    private ChangeListener standardSetListener;
 
     private final Stage stage;
     private SetData setData = null;
@@ -51,6 +52,11 @@ public class SetPane {
 
     public void makePane(Collection<TitledPane> result) {
         changeListener = (observable, oldValue, newValue) -> ProgData.getInstance().setDataList.setListChanged();
+        standardSetListener = (observable, oldValue, newValue) -> {
+            if (setData != null) {
+                ProgData.getInstance().setDataList.setPlay(setData);
+            }
+        };
 
         VBox vBox = new VBox(10);
         vBox.setFillWidth(true);
@@ -98,8 +104,8 @@ public class SetPane {
             txtVisibleName.textProperty().addListener(changeListener);
 
             txtDescription.textProperty().bindBidirectional(setData.descriptionProperty());
-
             tglStandarSet.selectedProperty().bindBidirectional(setData.playProperty());
+            tglStandarSet.selectedProperty().addListener(standardSetListener);
         }
     }
 
@@ -110,7 +116,7 @@ public class SetPane {
 
             txtDescription.textProperty().unbindBidirectional(setData.descriptionProperty());
             tglStandarSet.selectedProperty().unbindBidirectional(setData.playProperty());
+            tglStandarSet.selectedProperty().removeListener(standardSetListener);
         }
     }
-
 }

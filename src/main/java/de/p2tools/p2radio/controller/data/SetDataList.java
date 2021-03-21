@@ -108,16 +108,16 @@ public class SetDataList extends SetDataListWorker {
         return ProgConfig.SYSTEM_PATH_VLC.get();
     }
 
-    public SetData getSetDataPlay(String id) {
-        //liefert die Programmgruppe zum Abspielen
-        //oder wenn nicht vorhanden, die Standard-Programmgruppe
-        for (final SetData setData : this) {
-            if (setData.getId().equals(id)) {
-                return setData;
-            }
-        }
-        return getSetDataPlay();
-    }
+//    public SetData getSetDataPlay(String id) {
+//        //liefert die Programmgruppe zum Abspielen
+//        //oder wenn nicht vorhanden, die Standard-Programmgruppe
+//        for (final SetData setData : this) {
+//            if (setData.getId().equals(id)) {
+//                return setData;
+//            }
+//        }
+//        return getSetDataPlay();
+//    }
 
     public SetData getSetDataPlay() {
         //liefert die Standard-Programmgruppe zum Abspielen
@@ -129,14 +129,14 @@ public class SetDataList extends SetDataListWorker {
         return null;
     }
 
-    public SetDataList getSetDataListPlay() {
-        //liefert eine Liste Programmsets, die zum abspielen angelegt sind
-        //sind jetzt alle
-        if (this.isEmpty()) {
-            return new SetDataList();
-        }
-        return this;
-    }
+//    public SetDataList getSetDataListPlay() {
+//        //liefert eine Liste Programmsets, die zum abspielen angelegt sind
+//        //sind jetzt alle
+//        if (this.isEmpty()) {
+//            return new SetDataList();
+//        }
+//        return this;
+//    }
 
     public SetDataList getSetDataListButton() {
         //liefert eine Liste Programmsets, die als Button angelegt sind
@@ -149,8 +149,11 @@ public class SetDataList extends SetDataListWorker {
 
     public void setPlay(SetData setData) {
         for (final SetData sData : this) {
-            sData.setPlay(false);
+            if (sData != setData) {
+                sData.setPlay(false);
+            }
         }
+
         setData.setPlay(true);
         setListChanged();
     }
