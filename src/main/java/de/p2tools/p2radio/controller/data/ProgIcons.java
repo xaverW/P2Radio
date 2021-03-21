@@ -28,6 +28,7 @@ public class ProgIcons {
     public final Image IMAGE_ACHTUNG_64 = GetIcon.getImage("achtung_64.png");
 
 
+    public final ImageView ICON_BUTTON_OWN = GetIcon.getImageView("button-own.png", 14, 14);
     public final ImageView ICON_BUTTON_RESET = GetIcon.getImageView("button-reset.png", 14, 14);
     public final ImageView ICON_BUTTON_EDIT_FILTER = GetIcon.getImageView("button-edit-filter.png", 16, 16);
     public final ImageView ICON_BUTTON_BACKWARD = GetIcon.getImageView("button-backward.png", 16, 16);

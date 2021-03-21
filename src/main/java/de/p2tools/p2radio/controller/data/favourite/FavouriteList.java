@@ -81,8 +81,9 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
         return super.addAll(elements);
     }
 
-    public void addFavourite() {
+    public void addFavourite(boolean own) {
         Favourite favourite = new Favourite();
+        favourite.setOwn(own);
         FavouriteAddNewDialogController favouriteEditDialogController =
                 new FavouriteAddNewDialogController(progData, favourite);
 

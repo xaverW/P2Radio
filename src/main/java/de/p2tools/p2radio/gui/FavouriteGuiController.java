@@ -56,6 +56,7 @@ public class FavouriteGuiController extends AnchorPane {
     private final AnchorPane tabStationInfo = new AnchorPane();
     private final TableView<Favourite> tableView = new TableView<>();
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
+    private final Button btnOwn = new Button();
     private final Button btnReset = new Button();
 
     private FavouriteGuiInfoController favouriteGuiInfoController;
@@ -82,7 +83,7 @@ public class FavouriteGuiController extends AnchorPane {
         HBox hBox = new HBox(10);
         hBox.setPadding(new Insets(5));
         hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.getChildren().addAll(new Label("meine Sammlungen: "), cboCollections, btnReset);
+        hBox.getChildren().addAll(new Label("meine Sammlungen: "), cboCollections, btnOwn, btnReset);
 
         vBox.getChildren().addAll(hBox, scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -283,10 +284,17 @@ public class FavouriteGuiController extends AnchorPane {
             }
         });
 
+        btnOwn.setGraphic(new ProgIcons().ICON_BUTTON_OWN);
+        btnOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
+        btnOwn.setOnAction(event -> {
+            filteredFavourites.setPredicate(favourite -> favourite.isOwn());
+        });
+
         btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
         btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnReset.setOnAction(event -> {
             cboCollections.getSelectionModel().clearSelection();
+            filteredFavourites.setPredicate(p -> true);
         });
     }
 

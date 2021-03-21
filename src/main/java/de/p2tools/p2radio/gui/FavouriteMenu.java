@@ -83,7 +83,7 @@ public class FavouriteMenu {
         miCopyUrl.setOnAction(a -> progData.favouriteGuiController.copyUrl());
 
         final MenuItem miFavouriteOwn = new MenuItem("eigenen Sender als Favoriten anlegen");
-        miFavouriteOwn.setOnAction(a -> progData.favouriteList.addFavourite());
+        miFavouriteOwn.setOnAction(a -> progData.favouriteList.addFavourite(true));
 
         mb.getItems().addAll(miFavouriteStart, miFavouriteStop, miStopAll, miCopyUrl, miFavouriteOwn);
 

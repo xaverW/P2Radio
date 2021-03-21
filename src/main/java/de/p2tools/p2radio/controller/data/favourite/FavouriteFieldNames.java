@@ -28,6 +28,7 @@ public class FavouriteFieldNames {
     public static final String FAVOURITE_GENRE = "Genre";
     public static final String FAVOURITE_CODEC = "Codec";
     public static final String FAVOURITE_BITRATE = "Bitrate";
+    public static final String FAVOURITE_OWN = "eigener";
 
     public static final String FAVOURITE_STATE = "Status";
     public static final String FAVOURITE_COUNTRY = "Land";

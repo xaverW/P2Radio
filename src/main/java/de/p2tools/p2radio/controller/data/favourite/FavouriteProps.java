@@ -16,17 +16,11 @@
 
 package de.p2tools.p2radio.controller.data.favourite;
 
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigIntPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigLocalDatePropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
 import de.p2tools.p2radio.tools.Data;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
@@ -40,6 +34,7 @@ public class FavouriteProps extends FavouriteXml {
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
     private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
+    private final BooleanProperty own = new SimpleBooleanProperty(false);
 
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
@@ -66,6 +61,7 @@ public class FavouriteProps extends FavouriteXml {
         list.add(new ConfigStringPropExtra("genre", FavouriteFieldNames.FAVOURITE_GENRE, genre));
         list.add(new ConfigStringPropExtra("codec", FavouriteFieldNames.FAVOURITE_GENRE, codec));
         list.add(new ConfigIntPropExtra("bitrate", FavouriteFieldNames.FAVOURITE_BITRATE, bitrate));
+        list.add(new ConfigBoolPropExtra("own", FavouriteFieldNames.FAVOURITE_OWN, own));
 
         list.add(new ConfigStringPropExtra("country", FavouriteFieldNames.FAVOURITE_COUNTRY, country));
         list.add(new ConfigStringPropExtra("countryCode", FavouriteFieldNames.FAVOURITE_COUNTRY, countryCode));
@@ -172,6 +168,18 @@ public class FavouriteProps extends FavouriteXml {
 
     public void setBitrate(int bitrate) {
         this.bitrate.set(bitrate);
+    }
+
+    public boolean isOwn() {
+        return own.get();
+    }
+
+    public BooleanProperty ownProperty() {
+        return own;
+    }
+
+    public void setOwn(boolean own) {
+        this.own.set(own);
     }
 
     public String getCountry() {

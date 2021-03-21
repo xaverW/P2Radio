@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
+import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgColorList;
@@ -87,6 +88,11 @@ public class TableFavourite {
         bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
+        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>("eigene");
+        ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
+        ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
+        ownColumn.getStyleClass().add("alignCenter");
+
         final TableColumn<Favourite, Integer> startColumn = new TableColumn<>("");
         startColumn.setCellFactory(cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
@@ -121,7 +127,7 @@ public class TableFavourite {
         return new TableColumn[]{
                 nrColumn, senderNoColumn,
                 senderColumn, collectionColumn, genreColumn, codecColumn,
-                bitrateColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
+                bitrateColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
                 datumColumn, urlColumn
         };
     }

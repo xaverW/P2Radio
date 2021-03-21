@@ -236,12 +236,13 @@ public class FavouriteEditDialogController extends PDialogExtra {
 
                 ++row;
                 break;
-//            case FavouriteXml.FAVOURITE_BITRATE:
-//                lblCont[i].textProperty().bind(favourite.bitrateProperty().asString());
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//                ++row;
-//                break;
+            case FavouriteXml.FAVOURITE_OWN:
+                cbx[i].selectedProperty().bindBidirectional(actFavourite.ownProperty());
+                cbx[i].setDisable(false);
+                gridPane.add(lbl[i], 0, row);
+                gridPane.add(cbx[i], 1, row);
+                ++row;
+                break;
 
             case FavouriteXml.FAVOURITE_BUTTON1:
             case FavouriteXml.FAVOURITE_BUTTON2:
@@ -259,24 +260,6 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 ++row;
                 break;
 
-//            case FavouriteXml.FAVOURITE_COUNTRY:
-//                lblCont[i].setText(favourite.getCountry());
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//                ++row;
-//                break;
-//            case FavouriteXml.FAVOURITE_COUNTRY_CODE:
-//                lblCont[i].textProperty().bind(favourite.countryCodeProperty());
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//                ++row;
-//                break;
-//            case FavouriteXml.FAVOURITE_LANGUAGE:
-//                lblCont[i].textProperty().bind(favourite.languageProperty());
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//                ++row;
-//                break;
             case FavouriteXml.FAVOURITE_DESCRIPTION:
                 lbl[i].setTextFill(Color.BLUE);
                 taDescription.textProperty().bindBidirectional(actFavourite.descriptionProperty());
@@ -287,6 +270,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
+
             case FavouriteXml.FAVOURITE_VOTES:
                 lblCont[i].textProperty().bind(actFavourite.votesProperty().asString());
                 gridPane.add(lbl[i], 0, row);
@@ -297,14 +281,13 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 lblCont[i].textProperty().bind(actFavourite.clickCountProperty().asString());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
+
+                lblCont[FavouriteXml.FAVOURITE_CLICK_TREND].textProperty().bind(actFavourite.clickTrendProperty().asString());
+                gridPane.add(lbl[FavouriteXml.FAVOURITE_CLICK_TREND], 2, row);
+                gridPane.add(lblCont[FavouriteXml.FAVOURITE_CLICK_TREND], 3, row);
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_CLICK_TREND:
-                lblCont[i].textProperty().bind(actFavourite.clickTrendProperty().asString());
-                gridPane.add(lbl[i], 0, row);
-                gridPane.add(lblCont[i], 1, row);
-                ++row;
-                break;
+
             case FavouriteXml.FAVOURITE_URL:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.urlProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
@@ -316,21 +299,6 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 gridPane.add(hyperlink, 1, row, 3, 1);
                 ++row;
                 break;
-//            case FavouriteXml.FAVOURITE_URL_RESOLVED:
-//                hyperlink = new PHyperlink(actFavourite.urlResolvedProperty().getValueSafe(),
-//                        ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
-//                actFavourite.urlProperty().addListener((ob, ol, ne) -> hyperlink.setUrl(actFavourite.getUrlResolved()));
-//                gridPane.add(lbl[FavouriteXml.FAVOURITE_URL], 0, row);
-//                gridPane.add(hyperlink, 1, row, 3, 1);
-//
-//                ++row;
-//                break;
-
-//                lblCont[i].textProperty().bind(actFavourite.urlResolvedProperty());
-//                gridPane.add(lbl[FavouriteXml.FAVOURITE_URL], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//                ++row;
-//                break;
             case FavouriteXml.FAVOURITE_WEBSITE:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.websiteProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
