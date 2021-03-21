@@ -18,11 +18,8 @@ package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -52,7 +49,7 @@ public class ProgramProps extends PDataSample<ProgramData> {
     private StringProperty progSwitch = new SimpleStringProperty("");
     private StringProperty praefix = new SimpleStringProperty("");
     private StringProperty suffix = new SimpleStringProperty("");
-    private BooleanProperty restart = new SimpleBooleanProperty(false);
+//    private BooleanProperty restart = new SimpleBooleanProperty(false);
 
     @Override
     public String getTag() {
@@ -67,7 +64,7 @@ public class ProgramProps extends PDataSample<ProgramData> {
                 new ConfigStringPropExtra("progSwitch", ProgramDataFieldNames.PROGRAM_SWITCH, progSwitch),
                 new ConfigStringPropExtra("praefix", ProgramDataFieldNames.PROGRAM_PRAEFIX, praefix),
                 new ConfigStringPropExtra("suffix", ProgramDataFieldNames.PROGRAM_SWITCH, suffix),
-                new ConfigBoolPropExtra("restart", ProgramDataFieldNames.PROGRAM_RESTART, restart),
+//                new ConfigBoolPropExtra("restart", ProgramDataFieldNames.PROGRAM_RESTART, restart),
         };
     }
 
@@ -131,17 +128,17 @@ public class ProgramProps extends PDataSample<ProgramData> {
         this.suffix.set(suffix);
     }
 
-    public boolean isRestart() {
-        return restart.get();
-    }
-
-    public BooleanProperty restartProperty() {
-        return restart;
-    }
-
-    public void setRestart(boolean restart) {
-        this.restart.set(restart);
-    }
+//    public boolean isRestart() {
+//        return restart.get();
+//    }
+//
+//    public BooleanProperty restartProperty() {
+//        return restart;
+//    }
+//
+//    public void setRestart(boolean restart) {
+//        this.restart.set(restart);
+//    }
 
     public ProgramProps() {
         makeArr();
@@ -188,7 +185,7 @@ public class ProgramProps extends PDataSample<ProgramData> {
         setProgSwitch(arr[PROGRAM_SCHALTER]);
         setPraefix(arr[PROGRAM_PRAEFIX]);
         setSuffix(arr[PROGRAM_SUFFIX]);
-        setRestart(Boolean.parseBoolean(arr[PROGRAM_RESTART]));
+//        setRestart(Boolean.parseBoolean(arr[PROGRAM_RESTART]));
     }
 
     public void setXmlFromProps() {
@@ -197,6 +194,6 @@ public class ProgramProps extends PDataSample<ProgramData> {
         arr[PROGRAM_SCHALTER] = getProgSwitch();
         arr[PROGRAM_PRAEFIX] = getPraefix();
         arr[PROGRAM_SUFFIX] = getSuffix();
-        arr[PROGRAM_RESTART] = String.valueOf(isRestart());
+//        arr[PROGRAM_RESTART] = String.valueOf(isRestart());
     }
 }

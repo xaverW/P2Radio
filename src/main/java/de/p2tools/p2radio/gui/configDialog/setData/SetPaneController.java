@@ -125,7 +125,7 @@ public class SetPaneController extends AnchorPane {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn()); //todo muss eindeutig sein
 
-        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standar");
+        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
         playColumn.setCellValueFactory(new PropertyValueFactory<>("play"));
         playColumn.setCellFactory(cellFactoryStart);
         playColumn.getStyleClass().add("center");

@@ -19,7 +19,6 @@ package de.p2tools.p2radio.gui.configDialog.setData;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -29,7 +28,6 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -47,7 +45,7 @@ public class ProgramPane {
     private final TextField txtProgSwitch = new TextField();
     private final TextField txtPraefix = new TextField();
     private final TextField txtSuffix = new TextField();
-    private final PToggleSwitch tglRestart = new PToggleSwitch("Restart:");
+    //    private final PToggleSwitch tglRestart = new PToggleSwitch("Restart:");
     private ProgramData programData = null;
     private final Stage stage;
 
@@ -93,17 +91,17 @@ public class ProgramPane {
         final TableColumn<ProgramData, String> suffixColumn = new TableColumn<>("Suffix");
         suffixColumn.setCellValueFactory(new PropertyValueFactory<>("suffix"));
 
-        final TableColumn<ProgramData, Boolean> restartColumn = new TableColumn<>("Restart");
-        restartColumn.setCellValueFactory(new PropertyValueFactory<>("restart"));
-        restartColumn.setCellFactory(CheckBoxTableCell.forTableColumn(restartColumn));
-        restartColumn.getStyleClass().add("center");
+//        final TableColumn<ProgramData, Boolean> restartColumn = new TableColumn<>("Restart");
+//        restartColumn.setCellValueFactory(new PropertyValueFactory<>("restart"));
+//        restartColumn.setCellFactory(CheckBoxTableCell.forTableColumn(restartColumn));
+//        restartColumn.getStyleClass().add("center");
 
         tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         tableView.getColumns().addAll(nameColumn, progColumn, switchColumn,
-                praefixColumn, suffixColumn, restartColumn);
+                praefixColumn, suffixColumn/*, restartColumn*/);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setActProgramData));
 
@@ -185,7 +183,7 @@ public class ProgramPane {
         gridPane.add(new Label("Suffix: "), 0, ++row);
         gridPane.add(txtSuffix, 1, row, 2, 1);
 
-        gridPane.add(tglRestart, 0, ++row, 2, 1);
+//        gridPane.add(tglRestart, 0, ++row, 2, 1);
 
         gridPane.getColumnConstraints().addAll(new ColumnConstraints(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
@@ -210,7 +208,7 @@ public class ProgramPane {
             txtProgSwitch.textProperty().bindBidirectional(programData.progSwitchProperty());
             txtPraefix.textProperty().bindBidirectional(programData.praefixProperty());
             txtSuffix.textProperty().bindBidirectional(programData.suffixProperty());
-            tglRestart.selectedProperty().bindBidirectional(programData.restartProperty());
+//            tglRestart.selectedProperty().bindBidirectional(programData.restartProperty());
         }
     }
 
@@ -221,7 +219,7 @@ public class ProgramPane {
             txtProgSwitch.textProperty().unbindBidirectional(programData.progSwitchProperty());
             txtPraefix.textProperty().unbindBidirectional(programData.praefixProperty());
             txtSuffix.textProperty().unbindBidirectional(programData.suffixProperty());
-            tglRestart.selectedProperty().unbindBidirectional(programData.restartProperty());
+//            tglRestart.selectedProperty().unbindBidirectional(programData.restartProperty());
         }
     }
 

@@ -21,7 +21,7 @@ import de.p2tools.p2radio.controller.data.start.StartRuntimeExec;
 public class ProgramData extends ProgramProps {
 
     public ProgramData() {
-        setRestart(false);
+//        setRestart(false);
     }
 
     public ProgramData copy() {
