@@ -45,7 +45,7 @@ public class StationGuiTableContextMenu {
     private void getMenu(ContextMenu contextMenu, Station station) {
         // Start/Save
         MenuItem miStart = new MenuItem("Sender abspielen");
-        miStart.setOnAction(a -> stationGuiController.playStationUrl());
+        miStart.setOnAction(a -> stationGuiController.playStation());
         MenuItem miSave = new MenuItem("Sender speichern");
         miSave.setOnAction(a -> stationGuiController.saveStation());
         contextMenu.getItems().addAll(miStart, miSave);
@@ -111,7 +111,7 @@ public class StationGuiTableContextMenu {
 
             list.stream().forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
-                item.setOnAction(event -> stationGuiController.playStationUrlWithSet(setData));
+                item.setOnAction(event -> stationGuiController.playStationWithSet(setData));
                 submenuSet.getItems().add(item);
             });
 

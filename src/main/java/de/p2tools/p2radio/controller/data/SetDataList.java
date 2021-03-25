@@ -126,6 +126,11 @@ public class SetDataList extends SetDataListWorker {
                 return setData;
             }
         }
+        if (!this.isEmpty()) {
+            SetData setData = this.get(0);
+            setData.setPlay(true);
+            return setData;
+        }
         return null;
     }
 

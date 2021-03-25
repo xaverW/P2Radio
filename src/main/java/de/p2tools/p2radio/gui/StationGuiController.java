@@ -125,9 +125,12 @@ public class StationGuiController extends AnchorPane {
         progData.stationInfoDialogController.showStationInfo();
     }
 
-    public void playStationUrl() {
+    public void playStation() {
         // Menü/Button Sender (URL) abspielen
-        startStationUrl();
+        final Optional<Station> stationSelection = getSel();
+        if (stationSelection.isPresent()) {
+            progData.startFactory.playStation(stationSelection.get());
+        }
     }
 
     public void stopStation(boolean all) {
@@ -143,8 +146,14 @@ public class StationGuiController extends AnchorPane {
         }
     }
 
-    public void playStationUrlWithSet(SetData psetData) {
-        startStationUrlWithSet(psetData);
+    public void playStationWithSet(SetData psetData) {
+        //Url mit Prognr. starten
+        final Optional<Station> sel = getSel();
+        if (!sel.isPresent()) {
+            return;
+        }
+
+        progData.startFactory.playStation(sel.get(), psetData);
     }
 
     public void saveStation() {
@@ -327,23 +336,5 @@ public class StationGuiController extends AnchorPane {
                 Platform.runLater(this::setStation)
         );
 
-    }
-
-
-    private synchronized void startStationUrl() {
-        final Optional<Station> stationSelection = getSel();
-        if (stationSelection.isPresent()) {
-            progData.startFactory.playStation(stationSelection.get());
-        }
-    }
-
-    private void startStationUrlWithSet(SetData pSet) {
-        //Url mit Prognr. starten
-        final Optional<Station> sel = getSel();
-        if (!sel.isPresent()) {
-            return;
-        }
-
-        progData.startFactory.playStation(sel.get(), pSet);
     }
 }

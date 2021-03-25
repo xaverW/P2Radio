@@ -63,7 +63,7 @@ public class StationMenu {
         vBoxSpace.setMinHeight(10);
         vBox.getChildren().add(vBoxSpace);
 
-        btPlay.setOnAction(a -> progData.stationGuiController.playStationUrl());
+        btPlay.setOnAction(a -> progData.stationGuiController.playStation());
         btStop.setOnAction(a -> progData.stationGuiController.stopStation(true));
         btSave.setOnAction(a -> progData.stationGuiController.saveStation());
     }
@@ -75,7 +75,7 @@ public class StationMenu {
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miPlay = new MenuItem("Sender abspielen");
-        miPlay.setOnAction(a -> progData.stationGuiController.playStationUrl());
+        miPlay.setOnAction(a -> progData.stationGuiController.playStation());
         PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
 
         final MenuItem miStop = new MenuItem("Sender stoppen");
