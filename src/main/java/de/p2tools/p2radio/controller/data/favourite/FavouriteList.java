@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.dialog.FavouriteAddNewDialogController;
+import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -84,8 +84,8 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     public void addFavourite(boolean own) {
         Favourite favourite = new Favourite();
         favourite.setOwn(own);
-        FavouriteAddNewDialogController favouriteEditDialogController =
-                new FavouriteAddNewDialogController(progData, favourite);
+        FavouriteAddOwnDialogController favouriteEditDialogController =
+                new FavouriteAddOwnDialogController(progData, favourite);
 
         if (favouriteEditDialogController.isOk()) {
             this.addAll(favourite);

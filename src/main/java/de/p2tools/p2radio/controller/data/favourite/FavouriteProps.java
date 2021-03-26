@@ -34,15 +34,17 @@ public class FavouriteProps extends FavouriteXml {
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
     private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
+    private final IntegerProperty grade = new SimpleIntegerProperty(0);
+
     private final BooleanProperty own = new SimpleBooleanProperty(false);
 
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-    private final IntegerProperty votes = new SimpleIntegerProperty();
-    private final IntegerProperty clickCount = new SimpleIntegerProperty();
-    private final IntegerProperty clickTrend = new SimpleIntegerProperty();
+    private final StringProperty votes = new SimpleStringProperty();
+    private final StringProperty clickCount = new SimpleStringProperty();
+    private final StringProperty clickTrend = new SimpleStringProperty();
 
     private final StringProperty url = new SimpleStringProperty("");
     private final StringProperty website = new SimpleStringProperty("");
@@ -61,6 +63,7 @@ public class FavouriteProps extends FavouriteXml {
         list.add(new ConfigStringPropExtra("genre", FavouriteFieldNames.FAVOURITE_GENRE, genre));
         list.add(new ConfigStringPropExtra("codec", FavouriteFieldNames.FAVOURITE_GENRE, codec));
         list.add(new ConfigIntPropExtra("bitrate", FavouriteFieldNames.FAVOURITE_BITRATE, bitrate));
+        list.add(new ConfigIntPropExtra("grade", FavouriteFieldNames.FAVOURITE_GRADE, grade));
         list.add(new ConfigBoolPropExtra("own", FavouriteFieldNames.FAVOURITE_OWN, own));
 
         list.add(new ConfigStringPropExtra("country", FavouriteFieldNames.FAVOURITE_COUNTRY, country));
@@ -68,9 +71,9 @@ public class FavouriteProps extends FavouriteXml {
         list.add(new ConfigStringPropExtra("language", FavouriteFieldNames.FAVOURITE_COUNTRY, language));
         list.add(new ConfigStringPropExtra("description", FavouriteFieldNames.FAVOURITE_DESCRIPTION, description));
 
-        list.add(new ConfigIntPropExtra("votes", FavouriteFieldNames.FAVOURITE_STATE, votes));
-        list.add(new ConfigIntPropExtra("clickCount", FavouriteFieldNames.FAVOURITE_STATE, clickCount));
-        list.add(new ConfigIntPropExtra("clickTrend", FavouriteFieldNames.FAVOURITE_STATE, clickTrend));
+        list.add(new ConfigStringPropExtra("votes", FavouriteFieldNames.FAVOURITE_STATE, votes));
+        list.add(new ConfigStringPropExtra("clickCount", FavouriteFieldNames.FAVOURITE_STATE, clickCount));
+        list.add(new ConfigStringPropExtra("clickTrend", FavouriteFieldNames.FAVOURITE_STATE, clickTrend));
 
         list.add(new ConfigStringPropExtra("url", FavouriteFieldNames.FAVOURITE_URL, url));
         list.add(new ConfigStringPropExtra("website", FavouriteFieldNames.FAVOURITE_URL, website));
@@ -170,6 +173,18 @@ public class FavouriteProps extends FavouriteXml {
         this.bitrate.set(bitrate);
     }
 
+    public int getGrade() {
+        return grade.get();
+    }
+
+    public IntegerProperty gradeProperty() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade.set(grade);
+    }
+
     public boolean isOwn() {
         return own.get();
     }
@@ -230,40 +245,39 @@ public class FavouriteProps extends FavouriteXml {
         this.description.set(description);
     }
 
-
-    public int getVotes() {
+    public String getVotes() {
         return votes.get();
     }
 
-    public IntegerProperty votesProperty() {
+    public StringProperty votesProperty() {
         return votes;
     }
 
-    public void setVotes(int votes) {
+    public void setVotes(String votes) {
         this.votes.set(votes);
     }
 
-    public int getClickCount() {
+    public String getClickCount() {
         return clickCount.get();
     }
 
-    public IntegerProperty clickCountProperty() {
+    public StringProperty clickCountProperty() {
         return clickCount;
     }
 
-    public void setClickCount(int clickCount) {
+    public void setClickCount(String clickCount) {
         this.clickCount.set(clickCount);
     }
 
-    public int getClickTrend() {
+    public String getClickTrend() {
         return clickTrend.get();
     }
 
-    public IntegerProperty clickTrendProperty() {
+    public StringProperty clickTrendProperty() {
         return clickTrend;
     }
 
-    public void setClickTrend(int clickTrend) {
+    public void setClickTrend(String clickTrend) {
         this.clickTrend.set(clickTrend);
     }
 

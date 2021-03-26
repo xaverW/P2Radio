@@ -213,7 +213,10 @@ public class FavouriteGuiController extends AnchorPane {
 
         if (favouriteEditDialogController.isOk()) {
             for (int i = 0; i < listCopy.size(); ++i) {
-                list.get(i).copyToMe(listCopy.get(i));
+                final Favourite f, fCopy;
+                f = list.get(i);
+                fCopy = listCopy.get(i);
+                f.copyToMe(fCopy);
             }
             progData.collectionList.updateNames();//könnte ja geändert sein
         }

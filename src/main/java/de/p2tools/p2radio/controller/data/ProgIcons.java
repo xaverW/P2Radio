@@ -46,6 +46,7 @@ public class ProgIcons {
     public static final Image IMAGE_TABLE_FAVOURITE_START = GetIcon.getImage("table-favourite-start.png", 14, 14);
     public static final Image IMAGE_TABLE_FAVOURITE_DEL = GetIcon.getImage("table-favourite-del.png", 14, 14);
     public static final Image IMAGE_TABLE_FAVOURITE_STOP = GetIcon.getImage("table-favourite-stop.png", 14, 14);
+    public static final Image IMAGE_TABLE_FAVOURITE_GRADE = GetIcon.getImage("table-favourite-grade.png", 14, 14);
 
     public final ImageView ICON_BUTTON_STOP = GetIcon.getImageView("button-stop.png", 16, 16);
     public final ImageView ICON_BUTTON_NEXT = GetIcon.getImageView("button-next.png", 16, 16);

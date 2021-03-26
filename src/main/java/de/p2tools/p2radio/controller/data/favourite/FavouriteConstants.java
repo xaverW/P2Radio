@@ -32,4 +32,5 @@ public class FavouriteConstants {
 
     public static final String ALL = "";
     public static final String SRC_BUTTON = "Button"; //sind im Tab Sender mit Button gestartete
+    public static final int MAX_FAVOURITE_GRADE = 3;
 }

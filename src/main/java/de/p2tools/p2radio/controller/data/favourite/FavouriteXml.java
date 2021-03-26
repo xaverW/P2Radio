@@ -29,23 +29,24 @@ public class FavouriteXml extends PDataSample<Favourite> {
     public static final int FAVOURITE_GENRE = 4;
     public static final int FAVOURITE_CODEC = 5;
     public static final int FAVOURITE_BITRATE = 6;
-    public static final int FAVOURITE_OWN = 7;
+    public static final int FAVOURITE_GRADE = 7;
+    public static final int FAVOURITE_OWN = 8;
 
-    public static final int FAVOURITE_BUTTON1 = 8;
-    public static final int FAVOURITE_BUTTON2 = 9;
+    public static final int FAVOURITE_BUTTON1 = 9;
+    public static final int FAVOURITE_BUTTON2 = 10;
 
-    public static final int FAVOURITE_COUNTRY = 10;
-    public static final int FAVOURITE_COUNTRY_CODE = 11;
-    public static final int FAVOURITE_LANGUAGE = 12;
-    public static final int FAVOURITE_DESCRIPTION = 13;
-    public static final int FAVOURITE_VOTES = 14;
-    public static final int FAVOURITE_CLICK_COUNT = 15;
-    public static final int FAVOURITE_CLICK_TREND = 16;
+    public static final int FAVOURITE_COUNTRY = 11;
+    public static final int FAVOURITE_COUNTRY_CODE = 12;
+    public static final int FAVOURITE_LANGUAGE = 13;
+    public static final int FAVOURITE_DESCRIPTION = 14;
+    public static final int FAVOURITE_VOTES = 15;
+    public static final int FAVOURITE_CLICK_COUNT = 16;
+    public static final int FAVOURITE_CLICK_TREND = 17;
 
-    public static final int FAVOURITE_URL = 17;
-    public static final int FAVOURITE_WEBSITE = 18;
-    public static final int FAVOURITE_DATE = 19;
-    public static final int FAVOURITE_DATE_LONG = 20;
+    public static final int FAVOURITE_URL = 18;
+    public static final int FAVOURITE_WEBSITE = 19;
+    public static final int FAVOURITE_DATE = 20;
+    public static final int FAVOURITE_DATE_LONG = 21;
 
     public static final String[] COLUMN_NAMES = {"Nr",
             "SenderNr",
@@ -54,6 +55,7 @@ public class FavouriteXml extends PDataSample<Favourite> {
             "Genre",
             "Codec",
             "Bitrate",
+            "Bewertung",
             "Eigener",
             "",
             "",
@@ -61,7 +63,7 @@ public class FavouriteXml extends PDataSample<Favourite> {
             "Land",
             "Sprache",
             "Beschreibung",
-            "Bewertung",
+            "Senderbewertung",
             "Klickzahl",
             "Trend",
             "URL",

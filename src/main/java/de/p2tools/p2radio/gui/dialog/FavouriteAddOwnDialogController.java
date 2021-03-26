@@ -30,7 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.converter.NumberStringConverter;
 
-public class FavouriteAddNewDialogController extends PDialogExtra {
+public class FavouriteAddOwnDialogController extends PDialogExtra {
 
     private Button btnOk = new Button("_Ok");
     private Button btnCancel = new Button("_Abbrechen");
@@ -47,7 +47,7 @@ public class FavouriteAddNewDialogController extends PDialogExtra {
     private Favourite favourite;
     private final ProgData progData;
 
-    public FavouriteAddNewDialogController(ProgData progData, Favourite favourite) {
+    public FavouriteAddOwnDialogController(ProgData progData, Favourite favourite) {
         super(progData.primaryStage, ProgConfig.FAVOURITE_DIALOG_ADD_SIZE,
                 "Favoriten hinzufügen", true, false);
 

@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 
 public final class Favourite extends FavouriteProps {
 
@@ -54,17 +53,19 @@ public final class Favourite extends FavouriteProps {
         }
 
         setStationNo(station.getNo());
-        setStationName(station.arr[StationXml.STATION_NAME]);
-        setGenre(station.arr[StationXml.STATION_GENRE]);
-        setCountry(station.arr[StationXml.STATION_COUNTRY]);
-        setCountryCode(station.arr[StationXml.STATION_COUNTRY_CODE]);
-        setWebsite(station.arr[StationXml.STATION_WEBSITE]);
-        setUrl(station.getUrl());
-
-        setCodec(station.arr[StationXml.STATION_CODEC]);
-        setStationDate(station.getDate());
-        setLanguage(station.arr[StationXml.STATION_LANGUAGE]);
+        setStationName(station.getName());
+        setGenre(station.getGenre());
+        setCodec(station.getCodec());
         setBitrate(station.getBitrateInt());
+        setCountry(station.getCountry());
+        setCountryCode(station.getCountryCode());
+        setLanguage(station.getLanguage());
+        setVotes(station.getVotes());
+        setClickCount(station.getClickCount());
+        setClickTrend(station.getClickTrend());
+        setWebsite(station.getWebsite());
+        setUrl(station.getUrl());
+        setStationDate(station.getDate());
     }
 
 

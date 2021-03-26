@@ -88,6 +88,11 @@ public class TableFavourite {
         bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
+        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>("Bewertung");
+        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        gradeColumn.setCellFactory(cellFactoryGrade);
+//        gradeColumn.getStyleClass().add("alignCenterRightPadding_10");
+
         final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>("eigene");
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
         ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
@@ -127,7 +132,7 @@ public class TableFavourite {
         return new TableColumn[]{
                 nrColumn, senderNoColumn,
                 senderColumn, collectionColumn, genreColumn, codecColumn,
-                bitrateColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
+                bitrateColumn, gradeColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
                 datumColumn, urlColumn
         };
     }
@@ -178,6 +183,41 @@ public class TableFavourite {
                 } else {
                     setGraphic(null);
                     setText(item + "");
+                }
+            }
+        };
+        return cell;
+    };
+    private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryGrade
+            = (final TableColumn<Favourite, Integer> param) -> {
+
+        final TableCell<Favourite, Integer> cell = new TableCell<>() {
+
+            @Override
+            public void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setGraphic(null);
+                    setText(null);
+                    return;
+                }
+
+                if (item == 0) {
+                    setGraphic(null);
+                    setText(null);
+
+                } else {
+                    HBox hBox = new HBox(3);
+                    hBox.setAlignment(Pos.CENTER);
+                    for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
+                        if (item.longValue() > i) {
+                            Label l = new Label();
+                            l.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getUrl()));
+                            hBox.getChildren().add(l);
+                        }
+                    }
+                    setGraphic(hBox);
                 }
             }
         };
