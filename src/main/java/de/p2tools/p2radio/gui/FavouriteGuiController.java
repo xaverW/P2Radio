@@ -17,13 +17,13 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.Listener;
@@ -55,11 +55,13 @@ public class FavouriteGuiController extends AnchorPane {
 
     private final AnchorPane tabStationInfo = new AnchorPane();
     private final TableView<Favourite> tableView = new TableView<>();
-    private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
-    private final Button btnOwn = new Button();
+    private final ComboBox<String> cboCollections = new ComboBox<>();
+    private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
+    private final PToggleSwitch tglGenre = new PToggleSwitch("positiv bewertete Sender");
     private final Button btnReset = new Button();
 
     private FavouriteGuiInfoController favouriteGuiInfoController;
+    private FavouriteFilter favouriteFilter = new FavouriteFilter();
 
     private final ProgData progData;
     private boolean bound = false;
@@ -80,10 +82,17 @@ public class FavouriteGuiController extends AnchorPane {
         getChildren().addAll(splitPane);
 
         cboCollections.setMinWidth(150);
+        HBox hb = new HBox(10);
+        hb.setPadding(new Insets(5));
+        hb.setAlignment(Pos.CENTER_LEFT);
+        hb.getChildren().addAll(new Label("meine Sammlungen: "), cboCollections, new Label("    "), tglOwn,
+                new Label("    "), tglGenre);
+
         HBox hBox = new HBox(10);
         hBox.setPadding(new Insets(5));
         hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.getChildren().addAll(new Label("meine Sammlungen: "), cboCollections, btnOwn, btnReset);
+        HBox.setHgrow(hb, Priority.ALWAYS);
+        hBox.getChildren().addAll(hb, btnReset);
 
         vBox.getChildren().addAll(hBox, scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -98,7 +107,7 @@ public class FavouriteGuiController extends AnchorPane {
         sortedFavourites = new SortedList<>(filteredFavourites);
 
         setInfoPane();
-        initCollection();
+        initFilter();
         initTable();
         initListener();
     }
@@ -276,28 +285,40 @@ public class FavouriteGuiController extends AnchorPane {
         }
     }
 
-    private void initCollection() {
-        cboCollections.setItems(progData.collectionList);
+    private void initFilter() {
+        cboCollections.setItems(progData.collectionList.getNames());
+        cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionNameFilterProperty());
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            if (n == null || n.getName().isEmpty() || n.getName().equals(CollectionList.COLLECTION_ALL)) {
-                filteredFavourites.setPredicate(p -> true);
-            } else {
-                String name = n.getName();
-                filteredFavourites.setPredicate(favourite -> favourite.getCollectionName().equals(name));
-            }
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+//            if (n == null || n.isEmpty() || n.equals(CollectionList.COLLECTION_ALL)) {
+//                filteredFavourites.setPredicate(p -> true);
+//            } else {
+//                String name = n;
+//                filteredFavourites.setPredicate(favourite -> favourite.getCollectionName().equals(name));
+//            }
         });
 
-        btnOwn.setGraphic(new ProgIcons().ICON_BUTTON_OWN);
-        btnOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
-        btnOwn.setOnAction(event -> {
-            filteredFavourites.setPredicate(favourite -> favourite.isOwn());
+        tglOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
+        tglOwn.selectedProperty().bindBidirectional(favouriteFilter.ownFilterProperty());
+        tglOwn.selectedProperty().addListener((u, o, n) -> {
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+//            if (tglOwn.isSelected()) {
+//                filteredFavourites.setPredicate(favourite -> favourite.isOwn());
+//            }
+        });
+
+        tglGenre.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
+        tglGenre.selectedProperty().bindBidirectional(favouriteFilter.gradeFilterProperty());
+        tglGenre.selectedProperty().addListener((u, o, n) -> {
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+//            filteredFavourites.setPredicate(favourite -> favourite.getGrade() > 0);
         });
 
         btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
         btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnReset.setOnAction(event -> {
-            cboCollections.getSelectionModel().clearSelection();
-            filteredFavourites.setPredicate(p -> true);
+//            cboCollections.getSelectionModel().clearSelection();
+            filteredFavourites.setPredicate(favouriteFilter.clearFilter());
         });
     }
 

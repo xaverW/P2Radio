@@ -35,9 +35,7 @@ public class FavouriteProps extends FavouriteXml {
     private final StringProperty codec = new SimpleStringProperty("");
     private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
     private final IntegerProperty grade = new SimpleIntegerProperty(0);
-
     private final BooleanProperty own = new SimpleBooleanProperty(false);
-
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");

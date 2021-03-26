@@ -26,12 +26,12 @@ public class FavouriteGuiPack {
 
     ProgData progData;
     private final HBox hBox = new HBox();
-    private final FavouriteGuiController guiController;
+    private final FavouriteGuiController favouriteGuiController;
 
     public FavouriteGuiPack() {
         progData = ProgData.getInstance();
-        guiController = new FavouriteGuiController();
-        progData.favouriteGuiController = guiController;
+        favouriteGuiController = new FavouriteGuiController();
+        progData.favouriteGuiController = favouriteGuiController;
     }
 
     public SplitPane pack() {
@@ -41,8 +41,8 @@ public class FavouriteGuiPack {
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        HBox.setHgrow(guiController, Priority.ALWAYS);
-        hBox.getChildren().addAll(guiController, menuController);
+        HBox.setHgrow(favouriteGuiController, Priority.ALWAYS);
+        hBox.getChildren().addAll(favouriteGuiController, menuController);
         return new SplitPane(hBox);
     }
 }
