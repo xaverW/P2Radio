@@ -35,6 +35,7 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     public static final String TAG = "FavouriteList";
     private final ProgData progData;
     private final FavouriteStartsFactory favouriteStartsFactory;
+    private int no = 0;
 
     private BooleanProperty favouriteChanged = new SimpleBooleanProperty(true);
 
@@ -73,13 +74,26 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     @Override
     public synchronized boolean add(Favourite d) {
         progData.collectionList.addNewName(d.getCollectionName());
+        d.setNo(++no);
         return super.add(d);
     }
 
     @Override
     public synchronized boolean addAll(Collection<? extends Favourite> elements) {
-        elements.stream().forEach(f -> progData.collectionList.addNewName(f.getCollectionName()));
+        elements.stream().forEach(f -> {
+            f.setNo(++no);
+            progData.collectionList.addNewName(f.getCollectionName());
+        });
         return super.addAll(elements);
+    }
+
+    @Override
+    public boolean addAll(Favourite... var1) {
+        for (Favourite f : var1) {
+            f.setNo(++no);
+            progData.collectionList.addNewName(f.getCollectionName());
+        }
+        return super.addAll(var1);
     }
 
     public void addFavourite(boolean own) {
@@ -90,7 +104,7 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
                 new FavouriteAddOwnDialogController(progData, favourite);
 
         if (favouriteEditDialogController.isOk()) {
-            this.addAll(favourite);
+            this.add(favourite);
             progData.collectionList.updateNames();//könnte ja geändert sein
         }
     }
