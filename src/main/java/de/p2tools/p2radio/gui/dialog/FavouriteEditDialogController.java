@@ -224,6 +224,21 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
+
+            case FavouriteXml.FAVOURITE_GRADE:
+                lbl[i].setTextFill(Color.BLUE);
+                initGrade();
+                HBox hBox = new HBox(5);
+                for (int ii = 0; ii < FavouriteConstants.MAX_FAVOURITE_GRADE; ++ii) {
+                    cbxGrade[ii].selectedProperty().addListener((u, o, n) -> controlGrade());
+                    hBox.getChildren().add(cbxGrade[ii]);
+                }
+                gridPane.add(lbl[i], 0, row);
+                gridPane.add(hBox, 1, row);
+
+                ++row;
+                break;
+
             case FavouriteXml.FAVOURITE_GENRE:
                 lblCont[i].textProperty().bind(actFavourite.genreProperty());
                 gridPane.add(lbl[i], 0, row);
@@ -241,22 +256,16 @@ public class FavouriteEditDialogController extends PDialogExtra {
 
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_GRADE:
-                lbl[i].setTextFill(Color.BLUE);
-                initGrade();
-                HBox hBox = new HBox(5);
-                for (int ii = 0; ii < FavouriteConstants.MAX_FAVOURITE_GRADE; ++ii) {
-                    cbxGrade[ii].selectedProperty().addListener((u, o, n) -> controlGrade());
-                    hBox.getChildren().add(cbxGrade[ii]);
-                }
-                gridPane.add(lbl[i], 0, row);
-                gridPane.add(hBox, 1, row);
 
+            case FavouriteXml.FAVOURITE_OWN:
                 cbx[FavouriteXml.FAVOURITE_OWN].selectedProperty().bindBidirectional(actFavourite.ownProperty());
-                cbx[FavouriteXml.FAVOURITE_OWN].setDisable(false);
+//                cbx[FavouriteXml.FAVOURITE_OWN].setDisable(false);
                 gridPane.add(lbl[FavouriteXml.FAVOURITE_OWN], 2, row);
                 gridPane.add(cbx[FavouriteXml.FAVOURITE_OWN], 3, row);
 
+                lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT].textProperty().bind(actFavourite.clickCountProperty().asString());
+                gridPane.add(lbl[FavouriteXml.FAVOURITE_CLICK_COUNT], 0, row);
+                gridPane.add(lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT], 1, row);
                 ++row;
                 break;
 
@@ -299,29 +308,6 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-
-            case FavouriteXml.FAVOURITE_VOTES:
-                HBox hb = new HBox(5);
-                hb.setAlignment(Pos.CENTER_LEFT);
-
-                lblCont[FavouriteXml.FAVOURITE_VOTES].textProperty().bind(actFavourite.votesProperty());
-                hb.getChildren().add(lbl[FavouriteXml.FAVOURITE_VOTES]);
-                hb.getChildren().add(lblCont[FavouriteXml.FAVOURITE_VOTES]);
-                hb.getChildren().add(new Label("   "));
-
-                lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT].textProperty().bind(actFavourite.clickCountProperty());
-                hb.getChildren().add(lbl[FavouriteXml.FAVOURITE_CLICK_COUNT]);
-                hb.getChildren().add(lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT]);
-                hb.getChildren().add(new Label("   "));
-
-                lblCont[FavouriteXml.FAVOURITE_CLICK_TREND].textProperty().bind(actFavourite.clickTrendProperty());
-                hb.getChildren().add(lbl[FavouriteXml.FAVOURITE_CLICK_TREND]);
-                hb.getChildren().add(lblCont[FavouriteXml.FAVOURITE_CLICK_TREND]);
-
-                gridPane.add(hb, 1, row, 3, 1);
-                ++row;
-                break;
-
 
 //            case FavouriteXml.FAVOURITE_VOTES:
 //                lblCont[i].textProperty().bind(actFavourite.votesProperty().asString());

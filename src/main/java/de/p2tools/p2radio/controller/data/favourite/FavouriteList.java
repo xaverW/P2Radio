@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
@@ -84,6 +85,7 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     public void addFavourite(boolean own) {
         Favourite favourite = new Favourite();
         favourite.setOwn(own);
+        favourite.setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
         FavouriteAddOwnDialogController favouriteEditDialogController =
                 new FavouriteAddOwnDialogController(progData, favourite);
 

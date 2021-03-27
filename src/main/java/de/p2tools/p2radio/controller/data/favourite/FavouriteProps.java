@@ -36,17 +36,14 @@ public class FavouriteProps extends FavouriteXml {
     private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
     private final IntegerProperty grade = new SimpleIntegerProperty(0);
     private final BooleanProperty own = new SimpleBooleanProperty(false);
+    private final IntegerProperty clickCount = new SimpleIntegerProperty();
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-    private final StringProperty votes = new SimpleStringProperty();
-    private final StringProperty clickCount = new SimpleStringProperty();
-    private final StringProperty clickTrend = new SimpleStringProperty();
 
     private final StringProperty url = new SimpleStringProperty("");
     private final StringProperty website = new SimpleStringProperty("");
-    private final StringProperty date = new SimpleStringProperty("");
 
     private final PLocalDateProperty stationDate = new PLocalDateProperty();
 
@@ -63,15 +60,12 @@ public class FavouriteProps extends FavouriteXml {
         list.add(new ConfigIntPropExtra("bitrate", FavouriteFieldNames.FAVOURITE_BITRATE, bitrate));
         list.add(new ConfigIntPropExtra("grade", FavouriteFieldNames.FAVOURITE_GRADE, grade));
         list.add(new ConfigBoolPropExtra("own", FavouriteFieldNames.FAVOURITE_OWN, own));
+        list.add(new ConfigIntPropExtra("clickCount", FavouriteFieldNames.FAVOURITE_STATE, clickCount));
 
         list.add(new ConfigStringPropExtra("country", FavouriteFieldNames.FAVOURITE_COUNTRY, country));
         list.add(new ConfigStringPropExtra("countryCode", FavouriteFieldNames.FAVOURITE_COUNTRY, countryCode));
         list.add(new ConfigStringPropExtra("language", FavouriteFieldNames.FAVOURITE_COUNTRY, language));
         list.add(new ConfigStringPropExtra("description", FavouriteFieldNames.FAVOURITE_DESCRIPTION, description));
-
-        list.add(new ConfigStringPropExtra("votes", FavouriteFieldNames.FAVOURITE_STATE, votes));
-        list.add(new ConfigStringPropExtra("clickCount", FavouriteFieldNames.FAVOURITE_STATE, clickCount));
-        list.add(new ConfigStringPropExtra("clickTrend", FavouriteFieldNames.FAVOURITE_STATE, clickTrend));
 
         list.add(new ConfigStringPropExtra("url", FavouriteFieldNames.FAVOURITE_URL, url));
         list.add(new ConfigStringPropExtra("website", FavouriteFieldNames.FAVOURITE_URL, website));
@@ -195,6 +189,18 @@ public class FavouriteProps extends FavouriteXml {
         this.own.set(own);
     }
 
+    public int getClickCount() {
+        return clickCount.get();
+    }
+
+    public IntegerProperty clickCountProperty() {
+        return clickCount;
+    }
+
+    public void setClickCount(int clickCount) {
+        this.clickCount.set(clickCount);
+    }
+
     public String getCountry() {
         return country.get();
     }
@@ -243,42 +249,6 @@ public class FavouriteProps extends FavouriteXml {
         this.description.set(description);
     }
 
-    public String getVotes() {
-        return votes.get();
-    }
-
-    public StringProperty votesProperty() {
-        return votes;
-    }
-
-    public void setVotes(String votes) {
-        this.votes.set(votes);
-    }
-
-    public String getClickCount() {
-        return clickCount.get();
-    }
-
-    public StringProperty clickCountProperty() {
-        return clickCount;
-    }
-
-    public void setClickCount(String clickCount) {
-        this.clickCount.set(clickCount);
-    }
-
-    public String getClickTrend() {
-        return clickTrend.get();
-    }
-
-    public StringProperty clickTrendProperty() {
-        return clickTrend;
-    }
-
-    public void setClickTrend(String clickTrend) {
-        this.clickTrend.set(clickTrend);
-    }
-
     public String getUrl() {
         return url.get();
     }
@@ -302,19 +272,7 @@ public class FavouriteProps extends FavouriteXml {
     public void setWebsite(String website) {
         this.website.set(website);
     }
-
-    public String getDate() {
-        return date.get();
-    }
-
-    public StringProperty dateProperty() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date.set(date);
-    }
-
+    
     public PLocalDate getStationDate() {
         return stationDate.get();
     }

@@ -137,9 +137,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
             case FavouriteXml.FAVOURITE_STATION_NO:
             case FavouriteXml.FAVOURITE_BUTTON1:
             case FavouriteXml.FAVOURITE_BUTTON2:
-            case FavouriteXml.FAVOURITE_VOTES:
             case FavouriteXml.FAVOURITE_CLICK_COUNT:
-            case FavouriteXml.FAVOURITE_CLICK_TREND:
             case FavouriteXml.FAVOURITE_DATE:
                 // bis hier nicht anzeigen
                 break;

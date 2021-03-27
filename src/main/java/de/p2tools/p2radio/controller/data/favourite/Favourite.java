@@ -60,9 +60,7 @@ public final class Favourite extends FavouriteProps {
         setCountry(station.getCountry());
         setCountryCode(station.getCountryCode());
         setLanguage(station.getLanguage());
-        setVotes(station.getVotes());
-        setClickCount(station.getClickCount());
-        setClickTrend(station.getClickTrend());
+//        setClickCount(station.getClickCount());
         setWebsite(station.getWebsite());
         setUrl(station.getUrl());
         setStationDate(station.getDate());
