@@ -41,11 +41,11 @@ public class StationXml extends PDataSample<Station> {
     public static final int STATION_VOTES = 11;
     public static final int STATION_CLICK_COUNT = 12;
     public static final int STATION_CLICK_TREND = 13;
-    public static final int STATION_URL = 14;
-    public static final int STATION_URL_RESOLVED = 15;
-    public static final int STATION_WEBSITE = 16;
-    public static final int STATION_NEW = 17;
-    public static final int STATION_DATE = 18;
+    public static final int STATION_DATE = 14;
+    public static final int STATION_WEBSITE = 15;
+    public static final int STATION_URL = 16;
+    public static final int STATION_URL_RESOLVED = 17;
+    public static final int STATION_NEW = 18;
 
     public static final int MAX_ELEM = 19;
     public static final String[] COLUMN_NAMES = {
@@ -56,18 +56,18 @@ public class StationXml extends PDataSample<Station> {
             "Bitrate",
             "",
             "",
-            "Stadt",
+            "Region",
             "Land",
             "Länderkürzel",
             "Sprache",
             "Bewertung",
             "Klickzahl",
             "Trend",
+            "Datum",
+            "Website",
             "Url",
             "Url Res",
-            "Website",
             "neu",
-            "Datum",
     };
     public final String[] arr = new String[]{
             "",

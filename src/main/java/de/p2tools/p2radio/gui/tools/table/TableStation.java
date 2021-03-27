@@ -24,6 +24,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationTools;
+import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -55,68 +56,68 @@ public class TableStation {
         ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
-        final TableColumn<Station, Integer> nrColumn = new TableColumn<>("Nr");
+        final TableColumn<Station, Integer> nrColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_NO]);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> nameColumn = new TableColumn<>("Name");
+        final TableColumn<Station, String> nameColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_NAME]);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> genreColumn = new TableColumn<>("Genre");
+        final TableColumn<Station, String> genreColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_GENRE]);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Station, String> codecColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_CODEC]);
+        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
+        codecColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Station, Integer> bitrateColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_BITRATE]);
+        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
+        bitrateColumn.setCellFactory(cellFactoryBitrate);
+        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<Station, String> startColumn = new TableColumn<>("");
         startColumn.setCellFactory(cellFactoryStart);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, String> codecColumn = new TableColumn<>("Codec");
-        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
-        codecColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Station, Integer> bitrateColumn = new TableColumn<>("Bitrate");
-        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
-        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
-
-        final TableColumn<Station, String> stateColumn = new TableColumn<>("Region");
+        final TableColumn<Station, String> stateColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_STATE]);
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
         stateColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> countryColumn = new TableColumn<>("Land");
+        final TableColumn<Station, String> countryColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_COUNTRY]);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> countryCodeColumn = new TableColumn<>("Länderkürzel");
+        final TableColumn<Station, String> countryCodeColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_COUNTRY_CODE]);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, String> languageColumn = new TableColumn<>("Sprache");
+        final TableColumn<Station, String> languageColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_LANGUAGE]);
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, Integer> votesColumn = new TableColumn<>("Bewertung");
+        final TableColumn<Station, Integer> votesColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_VOTES]);
         votesColumn.setCellValueFactory(new PropertyValueFactory<>("votes"));
         votesColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, Integer> clickCountColumn = new TableColumn<>("Klickzahl");
+        final TableColumn<Station, Integer> clickCountColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_CLICK_COUNT]);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
         clickCountColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, Boolean> clickTrendColumn = new TableColumn<>("Trend");
+        final TableColumn<Station, Boolean> clickTrendColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_CLICK_TREND]);
         clickTrendColumn.setCellValueFactory(new PropertyValueFactory<>("clickTrend"));
         clickTrendColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, PDate> dateColumn = new TableColumn<>("Datum");
+        final TableColumn<Station, PDate> dateColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_DATE]);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         dateColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, String> websiteColumn = new TableColumn<>("Homepage");
+        final TableColumn<Station, String> websiteColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_WEBSITE]);
         websiteColumn.setCellValueFactory(new PropertyValueFactory<>("website"));
         websiteColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> urlColumn = new TableColumn<>("URL");
+        final TableColumn<Station, String> urlColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_URL]);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
@@ -128,7 +129,7 @@ public class TableStation {
         addRowFact(table);
 
         return new TableColumn[]{
-                nrColumn, nameColumn, genreColumn, startColumn, codecColumn, bitrateColumn,
+                nrColumn, nameColumn, genreColumn, codecColumn, bitrateColumn, startColumn,
                 stateColumn, countryColumn, countryCodeColumn, languageColumn, votesColumn,
                 clickCountColumn, clickTrendColumn, dateColumn, websiteColumn, urlColumn
         };

@@ -75,7 +75,7 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
 
     // Fenstereinstellungen
-    public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:900");
+    public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
     public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "600:800");
 
     // Einstellungen Senderliste

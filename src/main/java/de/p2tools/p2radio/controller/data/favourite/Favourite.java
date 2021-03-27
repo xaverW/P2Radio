@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.data.station.Station;
 
 public final class Favourite extends FavouriteProps {
 
+    public static final int START_COUNTER_MIN_TIME = 60;
     private Start start = null;
 
     public Favourite() {

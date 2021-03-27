@@ -26,6 +26,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -56,44 +57,49 @@ public class TableFavourite {
         ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
-        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>("Nr");
+        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_NO]);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.setCellFactory(cellFactoryNo);
         nrColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>("SenderNr");
+        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION_NO]);
         senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
         senderNoColumn.setCellFactory(cellFactorySenderNo);
         senderNoColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, String> senderColumn = new TableColumn<>("Sender");
+        final TableColumn<Favourite, String> senderColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION]);
         senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         senderColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, String> collectionColumn = new TableColumn<>("Sammlung");
+        final TableColumn<Favourite, String> collectionColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COLLECTION]);
         collectionColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
         collectionColumn.getStyleClass().add("alignCenterLeft");
         collectionColumn.setComparator(sorter);
 
-        final TableColumn<Favourite, String> genreColumn = new TableColumn<>("Genre");
-        genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        genreColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>("Codec");
-        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
-        codecColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>("Bitrate");
-        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
-        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
-
-        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>("Bewertung");
+        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GRADE]);
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
         gradeColumn.setCellFactory(cellFactoryGrade);
 //        gradeColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>("eigene");
+        final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CLICK_COUNT]);
+        clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
+        clickCountColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, String> genreColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GENRE]);
+        genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        genreColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CODEC]);
+        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
+        codecColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_BITRATE]);
+        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
+        bitrateColumn.setCellFactory(cellFactoryBitrate);
+        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
+
+
+        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_OWN]);
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
         ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
         ownColumn.getStyleClass().add("alignCenter");
@@ -102,23 +108,23 @@ public class TableFavourite {
         startColumn.setCellFactory(cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>("Land");
+        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY]);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, PDate> countryCodeColumn = new TableColumn<>("Länderkürzel");
+        final TableColumn<Favourite, PDate> countryCodeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY_CODE]);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, String> languageColumn = new TableColumn<>("Sprache");
+        final TableColumn<Favourite, String> languageColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_LANGUAGE]);
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, PDate> datumColumn = new TableColumn<>("Datum");
+        final TableColumn<Favourite, PDate> datumColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_DATE]);
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
         datumColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, String> urlColumn = new TableColumn<>("URL");
+        final TableColumn<Favourite, String> urlColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_URL]);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
@@ -131,8 +137,8 @@ public class TableFavourite {
 
         return new TableColumn[]{
                 nrColumn, senderNoColumn,
-                senderColumn, collectionColumn, genreColumn, codecColumn,
-                bitrateColumn, gradeColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
+                senderColumn, collectionColumn, gradeColumn, clickCountColumn, genreColumn,
+                codecColumn, bitrateColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
                 datumColumn, urlColumn
         };
     }

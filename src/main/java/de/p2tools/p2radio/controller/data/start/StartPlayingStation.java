@@ -22,7 +22,9 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteInfos;
 import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.gui.tools.Listener;
 import javafx.application.Platform;
 
 import java.awt.*;
@@ -47,6 +49,7 @@ public class StartPlayingStation extends Thread {
     private final Start start;
     private Station station = null;
     private Favourite favourite = null;
+    private int runTime = 0;
 
     public StartPlayingStation(ProgData progData, Start start) {
         super();
@@ -62,6 +65,15 @@ public class StartPlayingStation extends Thread {
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
+        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, FavouriteInfos.class.getSimpleName()) {
+            @Override
+            public void ping() {
+                ++runTime;
+                if (runTime == Favourite.START_COUNTER_MIN_TIME) {
+                    favourite.setClickCount(favourite.getClickCount() + 1);
+                }
+            }
+        });
     }
 
     void stopThread() {

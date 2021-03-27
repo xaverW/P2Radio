@@ -27,11 +27,11 @@ public class FavouriteXml extends PDataSample<Favourite> {
     public static final int FAVOURITE_STATION = 2;
     public static final int FAVOURITE_COLLECTION = 3;
     public static final int FAVOURITE_GRADE = 4;
-    public static final int FAVOURITE_GENRE = 5;
-    public static final int FAVOURITE_CODEC = 6;
-    public static final int FAVOURITE_BITRATE = 7;
-    public static final int FAVOURITE_OWN = 8;
-    public static final int FAVOURITE_CLICK_COUNT = 9;
+    public static final int FAVOURITE_CLICK_COUNT = 5;
+    public static final int FAVOURITE_GENRE = 6;
+    public static final int FAVOURITE_CODEC = 7;
+    public static final int FAVOURITE_BITRATE = 8;
+    public static final int FAVOURITE_OWN = 9;
 
     public static final int FAVOURITE_BUTTON1 = 10;
     public static final int FAVOURITE_BUTTON2 = 11;
@@ -41,31 +41,32 @@ public class FavouriteXml extends PDataSample<Favourite> {
     public static final int FAVOURITE_LANGUAGE = 14;
     public static final int FAVOURITE_DESCRIPTION = 15;
 
-    public static final int FAVOURITE_URL = 16;
-    public static final int FAVOURITE_WEBSITE = 17;
-    public static final int FAVOURITE_DATE = 18;
-    public static final int FAVOURITE_DATE_LONG = 19;
+    public static final int FAVOURITE_DATE = 16;
+    public static final int FAVOURITE_DATE_LONG = 17;
+    public static final int FAVOURITE_URL = 18;
+    public static final int FAVOURITE_WEBSITE = 19;
 
-    public static final String[] COLUMN_NAMES = {"Nr",
+    public static final String[] COLUMN_NAMES = {
+            "Nr",
             "SenderNr",
             "Sender",
             "Sammlung",
             "Bewertung",
+            "Starts",
             "Genre",
             "Codec",
             "Bitrate",
             "Eigener",
-            "Starts",
             "",
             "",
             "Land",
             "Land",
             "Sprache",
             "Beschreibung",
-            "URL",
-            "Website",
             "Datum",
-            "DatumL"};
-
+            "DatumL",
+            "URL",
+            "Website"
+    };
     public static int MAX_ELEM = COLUMN_NAMES.length;
 }
