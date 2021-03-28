@@ -69,7 +69,7 @@ public class StartPlayingStation extends Thread {
             @Override
             public void ping() {
                 ++runTime;
-                if (runTime == Favourite.START_COUNTER_MIN_TIME) {
+                if (runTime == Favourite.START_COUNTER_MIN_TIME && favourite != null) {
                     favourite.setClickCount(favourite.getClickCount() + 1);
                 }
             }

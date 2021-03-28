@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.startDialog;
 
+
 import de.p2tools.p2Lib.P2LibConst;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -46,7 +47,6 @@ public class StartPane {
         iv.setSmooth(true);
         iv.setImage(im);
 
-        hBox.getChildren().addAll(iv);
         Label text = new Label("1) Hier kann die Liste der" + P2LibConst.LINE_SEPARATOR +
                 "Sender gefiltert werden." +
 
@@ -55,7 +55,7 @@ public class StartPane {
                 "wird hier umgeschaltet." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "3) Hier befinden sich" + P2LibConst.LINE_SEPARATOR +
+                "3) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
                 "die Programmeinstellungen." +
 
                 P2LibConst.LINE_SEPARATORx2 +
@@ -64,7 +64,7 @@ public class StartPane {
                 "ein- und ausgeblendet werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "5) Hier können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+                "5) In dem Menü können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
                 "und verarbeitet werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
@@ -75,8 +75,7 @@ public class StartPane {
                 "7) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
                 "den Favoriten hinzugefügt werden.");
 
-        hBox.getChildren().add(text);
-
+        hBox.getChildren().addAll(iv, text);
         TitledPane tpConfig = new TitledPane("Infos zur Programmoberfläche", hBox);
         return tpConfig;
     }
@@ -94,8 +93,8 @@ public class StartPane {
 
         hBox.getChildren().addAll(iv);
 
-        Label text = new Label("1) Damit werden nur die Favoriten" + P2LibConst.LINE_SEPARATOR +
-                "der ausgewählten Sammlung angezeigt." +
+        Label text = new Label("1) Damit können die Favoriten" + P2LibConst.LINE_SEPARATOR +
+                "gefiltert werden." +
                 P2LibConst.LINE_SEPARATORx2 +
 
                 "2) In dem Menü können die Favoriten" + P2LibConst.LINE_SEPARATOR +
@@ -115,16 +114,12 @@ public class StartPane {
     }
 
     private javafx.scene.image.Image getHelpScreen1() {
-        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-1.jpg";
-        return new javafx.scene.image.Image(path, 600,
-                600,
-                true, true);
+        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-1.png";
+        return new Image(path, 600, 600, true, true);
     }
 
     private javafx.scene.image.Image getHelpScreen2() {
-        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-2.jpg";
-        return new javafx.scene.image.Image(path, 600,
-                600,
-                true, true);
+        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-2.png";
+        return new Image(path, 600, 600, true, true);
     }
 }
