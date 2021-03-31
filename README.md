@@ -2,21 +2,17 @@
 
 # P2Radio
 
-P2Radio ist ein Programm zum Online-Radio hören. Es verwendet die Senderliste mit Online-Radiosendern
-von: www.radio-browser.info und listet die gefundenen Sender auf. Die Liste kann mit verschiedenen Filtern nach Sendern
-durchsucht werden. Mit einem Programm eigener Wahl können die Sender dann abgespielt werden. Es lassen sich "
-Lieblingssender" in eigenen Sammlungen ablegen und so archivieren.
+P2Radio ist ein Programm zum Online-Radio hören. Es verwendet die Senderliste mit Online-Radiosendern von: www.radio-browser.info und listet die gefundenen Sender auf. Die Liste kann mit verschiedenen Filtern nach Sendern durchsucht werden. Mit einem Programm eigener Wahl können die Sender dann abgespielt werden. Es lassen sich "Lieblingssender" in eigenen Sammlungen ablegen und so archivieren.
 
 <br />
 
 ## Infos
-
 Das Programm nutzt den Ordner ".p2Radio" unter Linux und den versteckten Ordner "p2Radio" unter Windows als
 Konfig-Ordner. Man kann dem Programm auch einen Ordner für die Einstellungen mitgeben (und es z.B. auf einem USB-Stick
 verwenden):
 
 ```
-java -jar P2Radio.jar ORDNER 
+java -jar P2Radio.jar ORDNER
 ```
 
 Weitere Infos über das Programm können auf der Website nachgelsesen werden.
@@ -26,14 +22,14 @@ https://www.p2tools.de/p2radio/
 <br />
 
 ## Systemvoraussetzungen
-
 Unterstützt wird Windows und Linux.
 
 Das Programm benötigt unter Windows und Linux eine aktuelle Java-VM ab Version: Java 11. Für Linux-Benutzer wird
 OpenJDK11 empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
 
-## Download
+<br />
 
+## Download
 Das Programm wird in drei Paketen angeboten. Diese unterscheiden sich nur im "Zubehör", das Programm selbst ist in allen
 Paketen identisch:
 
@@ -53,6 +49,4 @@ zum Download: [github.com/xaverW/P2Radio/releases](https://github.com/xaverW/P2R
 <br />
 
 ## Website
-
 [www.p2tools.de/p2radio/]( https://www.p2tools.de/p2radio/)
-
