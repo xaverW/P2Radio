@@ -59,10 +59,10 @@ public class FilterWorker {
             }
         });
 
-        allGenreList.addAll("classic", "disco", "dance", "90s", "80s", "70s",
-                "rock", "hard rock", "classic rock", "deutschrock", "pop", "disco", "oldies",
-                "electro", "electronic", "techno", "house", "trance",
-                "chillout");
+        allGenreList.addAll("70s", "80s", "90s", "classic", "classic rock", "dance",
+                "deutschrock", "chillout", "disco", "electro", "electronic",
+                "hard rock", "house", "jazz", "oldies", "pop", "rock",
+                "swing", "techno", "trance");
     }
 
     private void saveFilter() {
