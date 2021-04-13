@@ -23,10 +23,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.ProgLoadFactory;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.ProgStartFactory;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -77,6 +74,12 @@ public class P2Radio extends Application {
             scene = new Scene(progData.p2RadioController,
                     PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+
+            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
+                ProgColorList.setColorTheme();
+                addThemeCss();
+            });
+            ProgColorList.setColorTheme();
             addThemeCss(); //und jetzt noch für die neue Scene
 
             if (ProgConfig.SYSTEM_STYLE.get()) {

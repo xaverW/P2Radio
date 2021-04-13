@@ -41,14 +41,12 @@ public class ProgColorList extends PColorList {
             Color.rgb(255, 233, 233),
             Color.rgb(163, 82, 82), "Tabelle Sender/Favoriten, fehlerhaft");
 
-    // Filter wenn RegEx
-    public static final PColorData FILTER_REGEX = addNewKey("COLOR__FILTER_REGEX",
-            Color.rgb(225, 255, 225),
-            Color.rgb(128, 179, 213), "Filter ist RegEx");
-
-    public static final PColorData FILTER_REGEX_ERROR = addNewKey("COLOR__FILTER_REGEX_ERROR",
-            Color.rgb(255, 230, 230),
-            Color.rgb(170, 0, 0), "Filter ist Regex, fehlerhaft");
+    public static void setColorTheme() {
+        final boolean dark = ProgConfig.SYSTEM_DARK_THEME.get();
+        for (int i = 0; i < getColorList().size(); ++i) {
+            getColorList().get(i).setColorTheme(dark);
+        }
+    }
 
     public static PData getConfigsData() {
         return PColorList.getPData();

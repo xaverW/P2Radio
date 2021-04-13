@@ -153,17 +153,19 @@ public class StationFilterControllerTextFilter extends VBox {
     }
 
     private void initGenreFilter() {
+        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
         cboGenre.editableProperty().set(true);
         cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         cboGenre.setVisibleRowCount(25);
         cboGenre.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreProperty());
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
+                fN.checkPattern();
                 progData.storedFilters.getActFilterSettings().setGenre(newValue);
             }
         });
-
         initGenreMenu();
+
         progData.storedFilters.getActFilterSettings().genreProperty().addListener((observable, oldValue, newValue) -> {
             initGenreMenu();
         });

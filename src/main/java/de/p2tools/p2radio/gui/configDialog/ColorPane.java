@@ -72,6 +72,9 @@ public class ColorPane {
         TableView<PColorData> tableView = new TableView<>();
         VBox.setVgrow(tableView, Priority.ALWAYS);
         initTableColor(tableView);
+        tglDarkTheme.selectedProperty().addListener((u, o, n) -> {
+            tableView.refresh();
+        });
 
         Button button = new Button("Alle _Farben zurücksetzen");
         button.setOnAction(event -> {
@@ -101,10 +104,6 @@ public class ColorPane {
         changeColumn.setCellFactory(cellFactoryChange);
         changeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<PColorData, String> resetColumn = new TableColumn<>("Reset");
-        resetColumn.setCellFactory(cellFactoryReset);
-        resetColumn.getStyleClass().add("alignCenter");
-
         final TableColumn<PColorData, Color> colorColumn = new TableColumn<>("Farbe");
         colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
         colorColumn.setCellFactory(cellFactoryColor);
@@ -114,6 +113,10 @@ public class ColorPane {
         colorOrgColumn.setCellValueFactory(new PropertyValueFactory<>("resetColor"));
         colorOrgColumn.setCellFactory(cellFactoryColorReset);
         colorOrgColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<PColorData, String> resetColumn = new TableColumn<>("Reset");
+        resetColumn.setCellFactory(cellFactoryReset);
+        resetColumn.getStyleClass().add("alignCenter");
 
         tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -212,7 +215,7 @@ public class ColorPane {
                 }
 
                 PColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-                setStyle("-fx-background-color:" + PColorDataBlack.getActColorToWeb());
+                setStyle("-fx-background-color:" + PColorDataBlack.getColorSelectedToWeb());
             }
 
         };

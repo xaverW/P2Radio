@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.tools.storedFilter;
 
-import de.p2tools.p2radio.controller.config.ProgColorList;
+import de.p2tools.p2Lib.guiTools.PStyles;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
@@ -49,13 +49,11 @@ public class FilterCheckRegEx {
                 //aber falsch
                 colorRed = true;
                 tf.setStyle("");
-                tf.setStyle("-fx-control-inner-background: " + ProgColorList.FILTER_REGEX_ERROR.getActColorToWeb() + ";");
-
+                tf.setStyle(PStyles.PTEXTFIELD_ERROR);
             } else {
                 //RegEx OK
                 colorRed = false;
                 tf.setStyle("");
-                tf.setStyle("-fx-control-inner-background: " + ProgColorList.FILTER_REGEX.getActColorToWeb() + ";");
             }
 
             if (colorThread != null) {

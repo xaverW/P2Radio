@@ -52,7 +52,7 @@ public class TableStation {
 
         // bei Farbänderung der Schriftfarbe klappt es damit besser: Table.refresh_table(table)
         ProgConfig.SYSTEM_SMALL_ROW_TABLE_STATION.addListener((observableValue, s, t1) -> table.refresh());
-        ProgColorList.STATION_NEW.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
+        ProgColorList.STATION_NEW.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
@@ -136,7 +136,6 @@ public class TableStation {
     }
 
     private void addRowFact(TableView<Station> table) {
-
         table.setRowFactory(tableview -> new TableRow<>() {
             @Override
             public void updateItem(Station station, boolean empty) {
