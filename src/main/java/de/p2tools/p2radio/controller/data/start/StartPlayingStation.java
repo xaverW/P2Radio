@@ -137,8 +137,8 @@ public class StartPlayingStation extends Thread {
     }
 
     private int startProgram() {
-        // versuch das Programm zu Starten
-        // die Reihenfolge: startCounter - startmeldung ist wichtig!
+        //versuch das Programm zu Starten
+        //die Reihenfolge: startCounter - startmeldung ist wichtig!
         int retStat;
         start.getStarter().incStartCounter();
         startMsg(start);
@@ -147,6 +147,7 @@ public class StartPlayingStation extends Thread {
         start.getStarter().setProcess(process);
 
         if (process != null) {
+            start.getStartStatus().setStateStartedRun();
             retStat = stat_running;
         } else {
             retStat = stat_restart;
@@ -155,7 +156,7 @@ public class StartPlayingStation extends Thread {
     }
 
     private int runProgram() {
-        // hier läuft der Download bis zum Abbruch oder Ende
+        //hier läufts bis zum Abbruch oder Ende
         int retStatus = stat_running;
         try {
             if (start.getStartStatus().isStateStopped()) {

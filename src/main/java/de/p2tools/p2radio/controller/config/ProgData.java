@@ -74,6 +74,7 @@ public class ProgData {
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
     public StationInfoDialogController stationInfoDialogController = null;
     public StationFilterControllerClearFilter stationFilterControllerClearFilter = null;
+    public final ProgTray progTray;
 
     // Worker
     public Worker worker; // Liste aller Sender, Themen, ...
@@ -111,6 +112,7 @@ public class ProgData {
         filterWorker = new FilterWorker(this);
         favouriteInfos = new FavouriteInfos(this);
         startFactory = new StartFactory(this);
+        progTray = new ProgTray(this);
     }
 
     boolean oneSecond = false;

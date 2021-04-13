@@ -67,10 +67,8 @@ public class ProgQuitFactory {
         if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0) {
             // und ob der Dialog angezeigt werden soll
             if (showOptionTerminate) {
-
                 QuitDialogController quitDialogController;
                 quitDialogController = new QuitDialogController();
-
                 if (!quitDialogController.canTerminate()) {
                     return false;
                 }

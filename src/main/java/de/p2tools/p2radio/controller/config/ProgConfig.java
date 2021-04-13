@@ -61,6 +61,8 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
 
     // Configs
+
+    public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.FALSE);
     public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
     public static BooleanProperty SYSTEM_MARK_GEO = addBool("system-mark-geo", Boolean.TRUE);

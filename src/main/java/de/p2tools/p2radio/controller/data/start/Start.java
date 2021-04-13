@@ -26,7 +26,6 @@ import de.p2tools.p2radio.controller.data.station.StationXml;
 public final class Start extends StartProps {
 
     private final StartStatus startStatus = new StartStatus();
-
     private Starter starter = new Starter(this);
 
     private Station station = null;
@@ -47,7 +46,7 @@ public final class Start extends StartProps {
         setStationName(station.arr[StationXml.STATION_NAME]);
         setUrl(station.getUrl());
 
-        setSetData(setData, true);
+        setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
     }
 
@@ -56,7 +55,7 @@ public final class Start extends StartProps {
         setStationName(favourite.getStationName());
         setUrl(favourite.getUrl());
 
-        setSetData(setData, true);
+        setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
     }
 
@@ -110,7 +109,7 @@ public final class Start extends StartProps {
         return setData;
     }
 
-    public void setSetData(SetData setData, boolean initSetData) {
+    public void setSetData(SetData setData) {
         this.setData = setData;
         setSetDataId(setData.getId());
     }

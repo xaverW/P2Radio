@@ -119,7 +119,7 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     }
 
     public synchronized int countStartedAndRunningFavourites() {
-        // es wird nach gestarteten und laufenden Favoriten gesucht
+        //es wird nach gestarteten und laufenden Favoriten gesucht
         int ret = 0;
         for (final Favourite favourite : this) {
             if (favourite.getStart() != null &&

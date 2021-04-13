@@ -40,11 +40,11 @@ public class Starter {
         this.start = start;
     }
 
-    public StartPlayingStation getSt_externalProgramDownload() {
+    public StartPlayingStation getStartPlayingStation() {
         return startPlayingStation;
     }
 
-    public void setSt_externalProgramDownload(StartPlayingStation startPlayingStation) {
+    public void setStartPlayingStation(StartPlayingStation startPlayingStation) {
         this.startPlayingStation = startPlayingStation;
     }
 

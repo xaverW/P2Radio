@@ -29,7 +29,6 @@ public final class Favourite extends FavouriteProps {
     }
 
     public Favourite(Station station, String collectionName) {
-
         setStation(station);
         setCollectionName(collectionName);
         setUrl(station.getUrl());

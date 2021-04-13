@@ -48,16 +48,16 @@ public class FavouriteMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Sender abspielen", "markierten Sender abspielen", new ProgIcons().FX_ICON_TOOLBAR_STATION_START);
+                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().FX_ICON_TOOLBAR_STATION_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle Sender stoppen", "alle Sender stoppen", new ProgIcons().FX_ICON_TOOLBAR_STATION_STOP);
+                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().FX_ICON_TOOLBAR_STATION_STOP);
         final ToolBarButton btChange = new ToolBarButton(vBox,
-                "Favoriten ändern", "markierte Favoriten ändern", new ProgIcons().FX_ICON_TOOLBAR_FAVOURITE_CHANGE);
+                "markierte Favoriten ändern", "markierte Favoriten ändern", new ProgIcons().FX_ICON_TOOLBAR_FAVOURITE_CHANGE);
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Favoriten löschen", "markierte Favoriten löschen", new ProgIcons().FX_ICON_TOOLBAR_FAVOURITE_DEL);
+                "markierte Favoriten löschen", "markierte Favoriten löschen", new ProgIcons().FX_ICON_TOOLBAR_FAVOURITE_DEL);
 
         btStart.setOnAction(a -> progData.favouriteGuiController.playStation());
-        btStop.setOnAction(a -> progData.favouriteGuiController.stopStation(true));
+        btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         btChange.setOnAction(a -> progData.favouriteGuiController.changeFavourite(true));
         btDel.setOnAction(a -> progData.favouriteGuiController.deleteFavourite(true));
     }
@@ -74,10 +74,10 @@ public class FavouriteMenu {
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
         miFavouriteStop.setOnAction(a -> progData.favouriteGuiController.stopStation(false));
-        PShortcutWorker.addShortCut(miFavouriteStop, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> progData.favouriteGuiController.stopStation(true /* alle */));
+        miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.favouriteGuiController.copyUrl());

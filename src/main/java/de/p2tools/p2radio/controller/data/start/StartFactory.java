@@ -108,7 +108,7 @@ public class StartFactory {
             start.initStart();
 
             StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
-            start.getStarter().setSt_externalProgramDownload(startPlayingStation);
+            start.getStarter().setStartPlayingStation(startPlayingStation);
             startPlayingStation.start();
         }
     }
@@ -123,7 +123,7 @@ public class StartFactory {
             start.initStart();
 
             StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
-            start.getStarter().setSt_externalProgramDownload(startPlayingStation);
+            start.getStarter().setStartPlayingStation(startPlayingStation);
             startPlayingStation.start();
         }
     }

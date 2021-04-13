@@ -52,11 +52,11 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btPlay = new ToolBarButton(vBox,
-                "Sender abspielen", "markierten Sender abspielen", new ProgIcons().FX_ICON_TOOLBAR_STATION_START);
+                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().FX_ICON_TOOLBAR_STATION_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle Sender stoppen", "alle Sender stoppen", new ProgIcons().FX_ICON_TOOLBAR_STATION_STOP);
+                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().FX_ICON_TOOLBAR_STATION_STOP);
         final ToolBarButton btSave = new ToolBarButton(vBox,
-                "als Favoriten speichern", "markierte Sender als Favoriten speichern", new ProgIcons().FX_ICON_TOOLBAR_STATION_REC);
+                "markierte Sender als Favoriten speichern", "markierte Sender als Favoriten speichern", new ProgIcons().FX_ICON_TOOLBAR_STATION_REC);
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);
@@ -64,7 +64,7 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         btPlay.setOnAction(a -> progData.stationGuiController.playStation());
-        btStop.setOnAction(a -> progData.stationGuiController.stopStation(true));
+        btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         btSave.setOnAction(a -> progData.stationGuiController.saveStation());
     }
 
@@ -80,10 +80,10 @@ public class StationMenu {
 
         final MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> progData.stationGuiController.stopStation(false));
-        PShortcutWorker.addShortCut(miStop, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> progData.stationGuiController.stopStation(true /* alle */));
+        miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
         miSave.setOnAction(e -> progData.stationGuiController.saveStation());
