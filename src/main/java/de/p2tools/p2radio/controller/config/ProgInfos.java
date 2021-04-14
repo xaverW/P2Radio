@@ -106,9 +106,9 @@ public class ProgInfos {
     }
 
     /**
-     * Return the path to "mtplayer.xml"
+     * Return the path to style
      *
-     * @return Path object to mtplayer.xml file
+     * @return Path object to style.css file
      */
     public static Path getStyleFile() {
         return SettingsDirectory.getSettingsFile(ProgData.configDir,
@@ -117,9 +117,9 @@ public class ProgInfos {
     }
 
     /**
-     * Return the path to "mtplayer.xml"
+     * Return the path to "p2radio.xml"
      *
-     * @return Path object to mtplayer.xml file
+     * @return Path object to p2radio.xml file
      */
     public static Path getSettingsFile() {
         return SettingsDirectory.getSettingsFile(ProgData.configDir,

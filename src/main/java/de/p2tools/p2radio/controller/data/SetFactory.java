@@ -149,7 +149,7 @@ public class SetFactory {
             if (path.isEmpty()) {
             } else if (!testPath.isDirectory()) {
             } else if (testPath.canWrite()) {
-                final File tmpFile = File.createTempFile("mtplayer", "tmp", testPath);
+                final File tmpFile = File.createTempFile("p2radio", "tmp", testPath);
                 tmpFile.delete();
                 ret = true;
             }

@@ -104,7 +104,7 @@ public class PsetVorlagen {
             liste.clear();
             int event;
 
-            HttpURLConnection conn = (HttpURLConnection) new URL(ProgConst.URL_MTPLAYER_PROGRAM_SETS).openConnection();
+            HttpURLConnection conn = (HttpURLConnection) new URL(ProgConst.URL_WEB_PROGRAM_SETS).openConnection();
             conn.setRequestProperty("User-Agent", ProgInfos.getUserAgent());
             conn.setReadTimeout(TIMEOUT);
             conn.setConnectTimeout(TIMEOUT);

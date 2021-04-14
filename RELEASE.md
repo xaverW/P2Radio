@@ -12,10 +12,9 @@
 * als Favoriten kann man auch eigene externe Radiosender anlegen
 * ...
 
-
 <br />
 <br />
 
 **Links**
 
-[www.p2tools.de/mtplayer/]( https://www.p2tools.de/mtplayer/)
+[www.p2tools.de/p2radio/]( https://www.p2tools.de/p2radio/)
