@@ -49,6 +49,7 @@ public class StationProps extends StationXml {
         list.add(new ConfigStringExtra("clickCount", StationFieldNames.STATION_CLICK_COUNT, arr, STATION_CLICK_COUNT));
         list.add(new ConfigStringExtra("trend", StationFieldNames.STATION_CLICK_TREND, arr, STATION_CLICK_TREND));
         list.add(new ConfigStringExtra("url", StationFieldNames.STATION_URL, arr, STATION_URL));
+        list.add(new ConfigStringExtra("urlR", StationFieldNames.STATION_URL_RESOLVED, arr, STATION_URL_RESOLVED));
         list.add(new ConfigStringExtra("website", StationFieldNames.STATION_WEBSITE, arr, STATION_WEBSITE));
         list.add(new ConfigStringExtra("date", StationFieldNames.STATION_DATE, arr, STATION_DATE));
 
@@ -142,6 +143,10 @@ public class StationProps extends StationXml {
         } else {
             return arr[STATION_URL_RESOLVED];
         }
+    }
+
+    public String getUrlResolved() {
+        return arr[STATION_URL_RESOLVED];
     }
 
     public String getWebsite() {

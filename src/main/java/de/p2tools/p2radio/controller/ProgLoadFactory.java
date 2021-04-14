@@ -26,6 +26,7 @@ import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
 import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
 import de.p2tools.p2radio.controller.config.pEvent.EventNotifyLoadRadioList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
+import javafx.application.Platform;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -57,8 +58,6 @@ public class ProgLoadFactory {
      * Senderliste beim Programmstart laden
      */
     public static void loadStationProgStart(boolean firstProgramStart) {
-//        System.out.println("===============> loadStationProgStart");
-
         // Gui startet ein wenig flüssiger
         Thread th = new Thread(() -> {
             final ProgData progData = ProgData.getInstance();
@@ -96,6 +95,13 @@ public class ProgLoadFactory {
                                     EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
                     afterLoadingStationList(logList);
                 }
+            }
+
+            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
+            if (panelStation) {
+                Platform.runLater(() -> progData.stationGuiController.selUrl());
+            } else {
+                Platform.runLater(() -> progData.favouriteGuiController.selUrl());
             }
 
             logList.add("Liste der Radios geladen");

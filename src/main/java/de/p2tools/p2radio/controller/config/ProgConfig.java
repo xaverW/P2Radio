@@ -61,7 +61,6 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
 
     // Configs
-
     public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.FALSE);
     public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
@@ -75,6 +74,8 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty SYSTEM_SMALL_ROW_TABLE_FAVOURITE = addBool("system-small-row-table-favourite", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
+    public static BooleanProperty SYSTEM_LAST_TAB_STATION = addBool("system-last-tab-station", Boolean.TRUE);
+    public static StringProperty SYSTEM_LAST_PLAYED = addStr("system-last-played", "");
 
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");

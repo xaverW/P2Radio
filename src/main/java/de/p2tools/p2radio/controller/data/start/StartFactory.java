@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
@@ -102,6 +103,7 @@ public class StartFactory {
         final String url = station.arr[StationXml.STATION_URL];
         if (!url.isEmpty()) {
             progData.startFactory.stopAll();
+            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
 
             final Start start = new Start(setData, station);
             station.setStart(start);
@@ -117,6 +119,7 @@ public class StartFactory {
         final String url = favourite.getUrl();
         if (!url.isEmpty()) {
             progData.startFactory.stopAll();
+            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
 
             final Start start = new Start(setData, favourite);
             favourite.setStart(start);

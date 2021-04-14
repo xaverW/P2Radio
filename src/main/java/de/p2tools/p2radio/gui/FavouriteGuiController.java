@@ -260,6 +260,16 @@ public class FavouriteGuiController extends AnchorPane {
         return Optional.empty();
     }
 
+    public void selUrl() {
+        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
+        Optional<Favourite> optional = tableView.getItems().stream().filter(favourite -> favourite.getUrl().equals(url)).findFirst();
+        if (optional.isPresent()) {
+            tableView.getSelectionModel().select(optional.get());
+            int sel = tableView.getSelectionModel().getSelectedIndex();
+            tableView.scrollTo(sel);
+        }
+    }
+
     private void initListener() {
         Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
             @Override

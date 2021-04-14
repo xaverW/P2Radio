@@ -24,6 +24,7 @@ import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationTools;
+import de.p2tools.p2radio.controller.data.station.StationXml;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -191,6 +192,17 @@ public class StationGuiController extends AnchorPane {
                 PAlert.showInfoNoSelection();
             }
             return Optional.empty();
+        }
+    }
+
+    public void selUrl() {
+        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
+        Optional<Station> optional = tableView.getItems().stream().
+                filter(station -> station.arr[StationXml.STATION_URL].equals(url)).findFirst();
+        if (optional.isPresent()) {
+            tableView.getSelectionModel().select(optional.get());
+            int sel = tableView.getSelectionModel().getSelectedIndex();
+            tableView.scrollTo(sel);
         }
     }
 
