@@ -20,7 +20,6 @@ import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -45,9 +44,9 @@ public class StationInfoDialogController extends PDialogExtra {
     private final Text[] textTitle = new Text[StationXml.MAX_ELEM];
     private final Label[] lblCont = new Label[StationXml.MAX_ELEM];
 
+    private final Button btnUpDown = new Button("");
     private final Button btnOk = new Button("_Ok");
     private final ImageView ivNew = new ImageView();
-    private final PToggleSwitch tglUrl = new PToggleSwitch("URL");
 
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
@@ -91,15 +90,21 @@ public class StationInfoDialogController extends PDialogExtra {
     @Override
     public void make() {
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
-        getHboxLeft().getChildren().add(tglUrl);
+        getHboxLeft().getChildren().add(btnUpDown);
         addOkButton(btnOk);
         btnOk.setOnAction(a -> close());
 
-        tglUrl.setTooltip(new Tooltip("URL anzeigen"));
-        tglUrl.selectedProperty().bindBidirectional(urlProperty);
-        tglUrl.selectedProperty().addListener((observable, oldValue, newValue) -> {
+        btnUpDown.setTooltip(urlProperty.getValue() ? new Tooltip("weniger Informationen zum Sender anzeigen") :
+                new Tooltip("mehr Informationen zum Sender anzeigen"));
+        btnUpDown.setGraphic(urlProperty.getValue() ? new ProgIcons().ICON_BUTTON_UP : new ProgIcons().ICON_BUTTON_DOWN);
+        btnUpDown.setOnAction(event -> {
+            urlProperty.setValue(!urlProperty.getValue());
             makeGridPane(true);
+            btnUpDown.setTooltip(urlProperty.getValue() ? new Tooltip("weniger Informationen zum Sender anzeigen") :
+                    new Tooltip("mehr Informationen zum Sender anzeigen"));
+            btnUpDown.setGraphic(urlProperty.getValue() ? new ProgIcons().ICON_BUTTON_UP : new ProgIcons().ICON_BUTTON_DOWN);
         });
+
         initUrl();
         makeGridPane(false);
     }
@@ -172,7 +177,7 @@ public class StationInfoDialogController extends PDialogExtra {
             lblCont[i].maxWidthProperty().bind(getVBoxCompleteDialog().widthProperty().subtract(FREE)); //_______
         }
 
-        if (tglUrl.isSelected()) {
+        if (urlProperty.getValue()) {
             makeGridPaneBig(gridPane);
         } else {
             makeGridPaneSmall(gridPane);
@@ -185,7 +190,7 @@ public class StationInfoDialogController extends PDialogExtra {
     }
 
     private void setSize() {
-        if (tglUrl.isSelected()) {
+        if (urlProperty.getValue()) {
             int w = PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO);
             int h = PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO);
             if (w > 0 && h > 0) {

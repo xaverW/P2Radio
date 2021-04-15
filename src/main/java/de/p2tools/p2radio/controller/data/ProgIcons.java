@@ -55,6 +55,8 @@ public class ProgIcons {
     public final ImageView ICON_BUTTON_ADD = GetIcon.getImageView("button-add.png", 16, 16);
     public final ImageView ICON_BUTTON_MOVE_DOWN = GetIcon.getImageView("button-move-down.png", 16, 16);
     public final ImageView ICON_BUTTON_MOVE_UP = GetIcon.getImageView("button-move-up.png", 16, 16);
+    public final ImageView ICON_BUTTON_DOWN = GetIcon.getImageView("button-down.png", 16, 16);
+    public final ImageView ICON_BUTTON_UP = GetIcon.getImageView("button-up.png", 16, 16);
 
     public final ImageView FX_ICON_TOOLBAR_MENU = GetIcon.getImageView("toolbar-menu.png", 18, 15);
     public final ImageView FX_ICON_TOOLBAR_MENU_TOP = GetIcon.getImageView("toolbar-menu-top.png", 32, 18);
