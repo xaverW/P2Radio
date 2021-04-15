@@ -30,7 +30,7 @@ public class Station extends StationProps {
 
     public void init() {
         preserveMemory();
-        setBitrateInt();
+        setIntValues();
         setDate();
     }
 
@@ -48,20 +48,54 @@ public class Station extends StationProps {
         arr[STATION_LANGUAGE] = arr[STATION_LANGUAGE].intern();
     }
 
-    private void setBitrateInt() {
-        int durSecond;
+    private void setIntValues() {
+        //STATION_BITRATE
         try {
             if (!arr[STATION_BITRATE].isEmpty()) {
-                durSecond = Integer.parseInt(arr[STATION_BITRATE]);
+                setBitrateInt(Integer.parseInt(arr[STATION_BITRATE]));
             } else {
-                durSecond = 0;
+                setBitrateInt(0);
             }
         } catch (final Exception ex) {
-            durSecond = 0;
+            setBitrateInt(0);
             PLog.errorLog(468912049, "Bitrate: " + arr[STATION_BITRATE]);
         }
 
-        setBitrateInt(durSecond);
+        //STATION_VOTES
+        try {
+            if (!arr[STATION_VOTES].isEmpty()) {
+                setVotes(Integer.parseInt(arr[STATION_VOTES]));
+            } else {
+                setVotes(0);
+            }
+        } catch (final Exception ex) {
+            setVotes(0);
+            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_VOTES]);
+        }
+
+        //STATION_CLICK_COUNT
+        try {
+            if (!arr[STATION_CLICK_COUNT].isEmpty()) {
+                setClickCount(Integer.parseInt(arr[STATION_CLICK_COUNT]));
+            } else {
+                setClickCount(0);
+            }
+        } catch (final Exception ex) {
+            setClickCount(0);
+            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_CLICK_COUNT]);
+        }
+
+        //STATION_CLICK_TREND
+        try {
+            if (!arr[STATION_CLICK_TREND].isEmpty()) {
+                setClickTrend(Integer.parseInt(arr[STATION_CLICK_TREND]));
+            } else {
+                setClickTrend(0);
+            }
+        } catch (final Exception ex) {
+            setClickTrend(0);
+            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_CLICK_TREND]);
+        }
     }
 
     private void setDate() {
@@ -83,9 +117,8 @@ public class Station extends StationProps {
     public Station getCopy() {
         final Station ret = new Station();
         System.arraycopy(arr, 0, ret.arr, 0, arr.length);
-        ret.stationDate = stationDate;
         ret.no = no;
-        ret.setBitrateInt(getBitrateInt());
+        ret.init(); //Datum und int-Werte setzen
         return ret;
     }
 }

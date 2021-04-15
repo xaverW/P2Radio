@@ -29,6 +29,10 @@ public class StationProps extends StationXml {
     public int no;
     public PLocalDate stationDate = new PLocalDate();
     private int bitrateInt = 0;
+    private int votes = 0;
+    private int clickCount = 0;
+    private int clickTrend = 0;
+
     private boolean favouriteUrl = false;
     private boolean doubleUrl = false;
     private boolean newStation = false;
@@ -68,6 +72,31 @@ public class StationProps extends StationXml {
     public void setBitrateInt(int bitrateInt) {
         this.bitrateInt = bitrateInt;
     }
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
+    public int getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(int clickCount) {
+        this.clickCount = clickCount;
+    }
+
+    public int getClickTrend() {
+        return clickTrend;
+    }
+
+    public void setClickTrend(int clickTrend) {
+        this.clickTrend = clickTrend;
+    }
+
 
     public boolean isFavouriteUrl() {
         return favouriteUrl;
@@ -125,17 +154,17 @@ public class StationProps extends StationXml {
         return arr[STATION_LANGUAGE];
     }
 
-    public String getVotes() {
-        return arr[STATION_VOTES];
-    }
-
-    public String getClickCount() {
-        return arr[STATION_CLICK_COUNT];
-    }
-
-    public String getClickTrend() {
-        return arr[STATION_CLICK_TREND];
-    }
+//    public String getVotes() {
+//        return arr[STATION_VOTES];
+//    }
+//
+//    public String getClickCount() {
+//        return arr[STATION_CLICK_COUNT];
+//    }
+//
+//    public String getClickTrend() {
+//        return arr[STATION_CLICK_TREND];
+//    }
 
     public String getUrl() {
         if (arr[STATION_URL_RESOLVED].isEmpty()) {

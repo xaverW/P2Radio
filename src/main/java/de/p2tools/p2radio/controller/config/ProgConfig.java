@@ -80,6 +80,7 @@ public class ProgConfig extends PDataProgConfig {
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
     public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "600:800");
+    public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL = addStr("system-size-dialog-station-info-small", "600:300");
 
     // Einstellungen Senderliste
     public static StringProperty SYSTEM_PATH_VLC = addStr("path-vlc", SetFactory.getTemplatePathVlc());
