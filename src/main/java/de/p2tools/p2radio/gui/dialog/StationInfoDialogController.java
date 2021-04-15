@@ -26,8 +26,8 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationXml;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -42,7 +42,6 @@ import javafx.scene.text.Text;
 public class StationInfoDialogController extends PDialogExtra {
 
     private final int FREE = 220;
-
     private final Text[] textTitle = new Text[StationXml.MAX_ELEM];
     private final Label[] lblCont = new Label[StationXml.MAX_ELEM];
 
@@ -60,11 +59,24 @@ public class StationInfoDialogController extends PDialogExtra {
     private Station station;
 
     public StationInfoDialogController() {
-        super(ProgData.getInstance().primaryStage,
-                ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ? ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL,
+        super(ProgData.getInstance().primaryStage, null,
                 "Senderinfos", false, false, DECO.SMALL);
 
         init(false);
+    }
+
+    public void close() {
+        System.out.println("close");
+        final StringProperty sp = ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ? ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL;
+        PGuiSize.getSizeWindow(sp, getStage());
+        super.close();
+    }
+
+    public void showDialog() {
+        PGuiSize.setPos(ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ? ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL,
+                getStage());
+        getStage().show();
+        setSize();
     }
 
     public void showStationInfo() {
@@ -74,56 +86,6 @@ public class StationInfoDialogController extends PDialogExtra {
     public void setStation(Station station) {
         this.station = station;
         setStation();
-    }
-
-    private void setStation() {
-        Platform.runLater(() -> {
-            for (int i = 0; i < StationXml.MAX_ELEM; ++i) {
-                if (station == null) {
-                    lblCont[i].setText("");
-                    ivNew.setImage(null);
-                    pHyperlinkUrl.setUrl("");
-                    pHyperlinkWebsite.setUrl("");
-                } else {
-                    switch (i) {
-                        case StationXml.STATION_NO:
-                            lblCont[i].setText(station.getNo() + "");
-                            break;
-                        case StationXml.STATION_COUNTRY:
-                            lblCont[i].setText(station.getCountry() + " - " + station.getCountryCode());
-                            break;
-                        case StationXml.STATION_BITRATE:
-                            lblCont[i].setText(station.getBitrateInt() + "");
-                            break;
-                        case StationXml.STATION_VOTES:
-                            lblCont[i].setText(station.getVotes() + "");
-                            break;
-                        case StationXml.STATION_CLICK_COUNT:
-                            lblCont[i].setText(station.getClickCount() + "");
-                            break;
-                        case StationXml.STATION_CLICK_TREND:
-                            lblCont[i].setText(station.getClickTrend() + "");
-                            break;
-                        case StationXml.STATION_URL:
-                            pHyperlinkUrl.setUrl(station.arr[StationXml.STATION_URL]);
-                            break;
-                        case StationXml.STATION_WEBSITE:
-                            pHyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);
-                            break;
-                        case StationXml.STATION_NEW:
-                            if (station.isNewStation()) {
-                                ivNew.setImage(new ProgIcons().ICON_DIALOG_EIN_SW);
-                            } else {
-                                ivNew.setImage(null);
-                            }
-                            break;
-
-                        default:
-                            lblCont[i].setText(station.arr[i]);
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -136,13 +98,61 @@ public class StationInfoDialogController extends PDialogExtra {
         tglUrl.setTooltip(new Tooltip("URL anzeigen"));
         tglUrl.selectedProperty().bindBidirectional(urlProperty);
         tglUrl.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            makeGridPane();
+            makeGridPane(true);
         });
         initUrl();
-        makeGridPane();
+        makeGridPane(false);
     }
 
-    private void makeGridPane() {
+    private void setStation() {
+        for (int i = 0; i < StationXml.MAX_ELEM; ++i) {
+            if (station == null) {
+                lblCont[i].setText("");
+                ivNew.setImage(null);
+                pHyperlinkUrl.setUrl("");
+                pHyperlinkWebsite.setUrl("");
+            } else {
+                switch (i) {
+                    case StationXml.STATION_NO:
+                        lblCont[i].setText(station.getNo() + "");
+                        break;
+                    case StationXml.STATION_COUNTRY:
+                        lblCont[i].setText(station.getCountry() + " - " + station.getCountryCode());
+                        break;
+                    case StationXml.STATION_BITRATE:
+                        lblCont[i].setText(station.getBitrateInt() + "");
+                        break;
+                    case StationXml.STATION_VOTES:
+                        lblCont[i].setText(station.getVotes() + "");
+                        break;
+                    case StationXml.STATION_CLICK_COUNT:
+                        lblCont[i].setText(station.getClickCount() + "");
+                        break;
+                    case StationXml.STATION_CLICK_TREND:
+                        lblCont[i].setText(station.getClickTrend() + "");
+                        break;
+                    case StationXml.STATION_URL:
+                        pHyperlinkUrl.setUrl(station.arr[StationXml.STATION_URL]);
+                        break;
+                    case StationXml.STATION_WEBSITE:
+                        pHyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);
+                        break;
+                    case StationXml.STATION_NEW:
+                        if (station.isNewStation()) {
+                            ivNew.setImage(new ProgIcons().ICON_DIALOG_EIN_SW);
+                        } else {
+                            ivNew.setImage(null);
+                        }
+                        break;
+
+                    default:
+                        lblCont[i].setText(station.arr[i]);
+                }
+            }
+        }
+    }
+
+    private void makeGridPane(boolean setSize) {
         final GridPane gridPane = new GridPane();
         getvBoxCont().getChildren().clear();
         getvBoxCont().getChildren().add(gridPane);
@@ -151,7 +161,6 @@ public class StationInfoDialogController extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(5));
-//        gridPane.setGridLinesVisible(true);
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
@@ -170,8 +179,13 @@ public class StationInfoDialogController extends PDialogExtra {
         }
 
         setStation();
+        if (setSize) {
+            setSize();
+        }
+    }
+
+    private void setSize() {
         if (tglUrl.isSelected()) {
-            setSizeConfiguration(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO);
             int w = PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO);
             int h = PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO);
             if (w > 0 && h > 0) {
@@ -180,7 +194,6 @@ public class StationInfoDialogController extends PDialogExtra {
             }
 
         } else {
-            setSizeConfiguration(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL);
             int w = PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL);
             int h = PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL);
             if (w > 0 && h > 0) {
@@ -230,24 +243,19 @@ public class StationInfoDialogController extends PDialogExtra {
                 case StationXml.STATION_NEW:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(ivNew, 1, row++, 3, 1);
-//                    gridPane.getRowConstraints().add(new RowConstraints());
                     break;
 
                 case StationXml.STATION_URL:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(pHyperlinkUrl, 1, row++, 3, 1);
-//                    gridPane.getRowConstraints().add(new RowConstraints());
                     break;
                 case StationXml.STATION_WEBSITE:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(pHyperlinkWebsite, 1, row++, 3, 1);
-//                    gridPane.getRowConstraints().add(new RowConstraints());
                     break;
                 default:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(lblCont[i], 1, row++, 3, 1);
-//                    gridPane.getRowConstraints().add(new RowConstraints());
-
                     final int ii = i;
                     lblCont[i].setOnContextMenuRequested(event ->
                             getMenu(lblCont[ii].getText()).show(lblCont[ii], event.getScreenX(), event.getScreenY()));
@@ -321,18 +329,6 @@ public class StationInfoDialogController extends PDialogExtra {
 
         pHyperlinkWebsite.setWrapText(true);
         pHyperlinkWebsite.maxWidthProperty().bind(getVBoxCompleteDialog().widthProperty().subtract(FREE)); //----------
-
-//        textTitle[StationXml.STATION_URL].setVisible(urlProperty.get());
-//        textTitle[StationXml.STATION_URL].setManaged(urlProperty.get());
-//        pHyperlinkUrl.setVisible(urlProperty.get());
-//        pHyperlinkUrl.setManaged(urlProperty.get());
-//        pHyperlinkUrl.setMinHeight(Region.USE_PREF_SIZE);
-//
-//        textTitle[StationXml.STATION_WEBSITE].setVisible(urlProperty.get());
-//        textTitle[StationXml.STATION_WEBSITE].setManaged(urlProperty.get());
-//        pHyperlinkWebsite.setVisible(urlProperty.get());
-//        pHyperlinkWebsite.setManaged(urlProperty.get());
-//        pHyperlinkWebsite.setMinHeight(Region.USE_PREF_SIZE);
     }
 
     private ContextMenu getMenu(String url) {
