@@ -68,7 +68,7 @@ public class ReadRadioBrowser {
             //ToDo
             //URL laden, vorerst!!!!!!!!!!!!!!!!
             //sonst: http://all.api.radio-browser.info/xml/stations
-            //http://all.api.radio-browser.info/json/stations
+            //oder   http://all.api.radio-browser.info/json/stations
             String sourceFileUrl = "http://localhost:8080/stations";
             read(sourceFileUrl, stationList);
             if (!stationList.isEmpty()) {
@@ -78,7 +78,7 @@ public class ReadRadioBrowser {
 
         } else {
             try {
-                String updateUrl = "http://all.api.radio-browser.info/json/stations";
+                String updateUrl = ProgConst.STATION_LIST_URL;
                 read(updateUrl, stationList);
                 if (!stationList.isEmpty()) {
                     //dann hats geklappt
@@ -226,11 +226,12 @@ public class ReadRadioBrowser {
                 break;
             }
 
-            String value = jp.getValueAsString().trim();
+            String value = jp.getValueAsString();
             if (name == null || name.isEmpty() || value == null) {
                 continue;
             }
 
+            value = value.trim();
             switch (name) {
                 case StationFieldNamesWeb.NAME:
                     station.arr[Station.STATION_NAME] = value;
