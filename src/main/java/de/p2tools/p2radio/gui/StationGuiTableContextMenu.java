@@ -67,7 +67,7 @@ public class StationGuiTableContextMenu {
         contextMenu.getItems().addAll(mBlacklist, /*mBookmark,*/ mCopyUrl);
 
         MenuItem miStationInfo = new MenuItem("Senderinformation anzeigen");
-        miStationInfo.setOnAction(a -> stationGuiController.showStationInfo());
+        miStationInfo.setOnAction(a -> progData.stationInfoDialogController.showStationInfo());
         miStationInfo.setDisable(station == null);
 
         contextMenu.getItems().add(new SeparatorMenuItem());

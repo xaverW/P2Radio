@@ -46,6 +46,11 @@ public class ProgTray {
                 removeTray();
             }
         });
+        if (propTray.get()) {
+            setTray();
+        } else {
+            removeTray();
+        }
     }
 
     public void removeTray() {
@@ -65,6 +70,7 @@ public class ProgTray {
 
         java.awt.MenuItem miMaxMin = new java.awt.MenuItem("Programm maximieren/minimieren");
         java.awt.MenuItem miStop = new java.awt.MenuItem("alle laufenden Sender stoppen");
+        java.awt.MenuItem miInfo = new java.awt.MenuItem("Sender-Info-Dialog öffnen");
         java.awt.MenuItem miConfig = new java.awt.MenuItem("Einstellungen öffnen");
         java.awt.MenuItem miLogfile = new java.awt.MenuItem("LogDatei öffnen");
         java.awt.MenuItem miTray = new java.awt.MenuItem("Tray-Icon ausblenden");
@@ -77,6 +83,9 @@ public class ProgTray {
             progData.stationList.stream().forEach(f -> progData.startFactory.stopStation(f));
             progData.favouriteList.stream().forEach(f -> progData.startFactory.stopFavourite(f));
         });
+        miInfo.addActionListener(e -> Platform.runLater(() -> {
+            progData.stationInfoDialogController.toggleShowInfo();
+        }));
         miConfig.addActionListener(e -> Platform.runLater(() -> new ConfigDialogController()));
         miLogfile.addActionListener((e -> Platform.runLater(() -> PLogger.openLogFile())));
         miTray.addActionListener((e -> Platform.runLater(() -> ProgConfig.SYSTEM_TRAY.set(false))));
@@ -85,6 +94,7 @@ public class ProgTray {
 
         popup.add(miMaxMin);
         popup.add(miStop);
+        popup.add(miInfo);
         popup.add(miConfig);
         popup.add(miLogfile);
         popup.add(miTray);

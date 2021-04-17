@@ -23,12 +23,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ProgIcons {
-
     public final Image ICON_DIALOG_EIN_SW = GetIcon.getImage(ProgConfig.SYSTEM_DARK_THEME.get() ? "dialog-ein.png" : "dialog-ein-sw.png");
     public final Image IMAGE_ACHTUNG_64 = GetIcon.getImage("achtung_64.png");
 
-
-    public final ImageView ICON_BUTTON_OWN = GetIcon.getImageView("button-own.png", 14, 14);
     public final ImageView ICON_BUTTON_RESET = GetIcon.getImageView("button-reset.png", 14, 14);
     public final ImageView ICON_BUTTON_EDIT_FILTER = GetIcon.getImageView("button-edit-filter.png", 16, 16);
     public final ImageView ICON_BUTTON_BACKWARD = GetIcon.getImageView("button-backward.png", 16, 16);
@@ -36,18 +33,8 @@ public class ProgIcons {
     public final ImageView ICON_BUTTON_MENU = GetIcon.getImageView("button-menu.png", 18, 15);
     public final ImageView ICON_BUTTON_QUIT = GetIcon.getImageView("button-quit.png", 16, 16);
     public final ImageView ICON_BUTTON_FILE_OPEN = GetIcon.getImageView("button-file-open.png", 16, 16);
-    public final ImageView ICON_DIALOG_QUIT = GetIcon.getImageView("dialog-quit.png", 64, 64);
-
-
-    // table
-    public static final Image IMAGE_TABLE_STATION_PLAY = GetIcon.getImage("table-station-play.png", 14, 14);
-    public static final Image IMAGE_TABLE_STATION_STOP_PLAY = GetIcon.getImage("table-station-stop-play.png", 14, 14);
-    public static final Image IMAGE_TABLE_STATION_SAVE = GetIcon.getImage("table-station-save.png", 14, 14);
-    public static final Image IMAGE_TABLE_FAVOURITE_START = GetIcon.getImage("table-favourite-start.png", 14, 14);
-    public static final Image IMAGE_TABLE_FAVOURITE_DEL = GetIcon.getImage("table-favourite-del.png", 14, 14);
-    public static final Image IMAGE_TABLE_FAVOURITE_STOP = GetIcon.getImage("table-favourite-stop.png", 14, 14);
-    public static final Image IMAGE_TABLE_FAVOURITE_GRADE = GetIcon.getImage("table-favourite-grade.png", 14, 14);
-
+    public final ImageView ICON_BUTTON_PLAY = GetIcon.getImageView("button-play.png", 16, 16);
+    public final ImageView ICON_BUTTON_STOP_PLAY = GetIcon.getImageView("button-stop-play.png", 16, 16);
     public final ImageView ICON_BUTTON_STOP = GetIcon.getImageView("button-stop.png", 16, 16);
     public final ImageView ICON_BUTTON_NEXT = GetIcon.getImageView("button-next.png", 16, 16);
     public final ImageView ICON_BUTTON_PREV = GetIcon.getImageView("button-prev.png", 16, 16);
@@ -57,18 +44,26 @@ public class ProgIcons {
     public final ImageView ICON_BUTTON_MOVE_UP = GetIcon.getImageView("button-move-up.png", 16, 16);
     public final ImageView ICON_BUTTON_DOWN = GetIcon.getImageView("button-down.png", 16, 16);
     public final ImageView ICON_BUTTON_UP = GetIcon.getImageView("button-up.png", 16, 16);
+    public final ImageView ICON_DIALOG_QUIT = GetIcon.getImageView("dialog-quit.png", 64, 64);
+    public final ImageView ICON_FILTER_STATION_LOAD = GetIcon.getImageView("filter-station-load.png", 22, 22);
+    public final ImageView ICON_FILTER_STATION_SAVE = GetIcon.getImageView("filter-station-save.png", 22, 22);
+    public final ImageView ICON_FILTER_STATION_NEW = GetIcon.getImageView("filter-station-new.png", 22, 22);
 
-    public final ImageView FX_ICON_TOOLBAR_MENU = GetIcon.getImageView("toolbar-menu.png", 18, 15);
-    public final ImageView FX_ICON_TOOLBAR_MENU_TOP = GetIcon.getImageView("toolbar-menu-top.png", 32, 18);
+    //table
+    public static final Image IMAGE_TABLE_STATION_PLAY = GetIcon.getImage("table-station-play.png", 14, 14);
+    public static final Image IMAGE_TABLE_STATION_STOP_PLAY = GetIcon.getImage("table-station-stop-play.png", 14, 14);
+    public static final Image IMAGE_TABLE_STATION_SAVE = GetIcon.getImage("table-station-save.png", 14, 14);
+    public static final Image IMAGE_TABLE_FAVOURITE_DEL = GetIcon.getImage("table-favourite-del.png", 14, 14);
+    public static final Image IMAGE_TABLE_FAVOURITE_GRADE = GetIcon.getImage("table-favourite-grade.png", 14, 14);
 
-    public final ImageView FX_ICON_TOOLBAR_FAVOURITE_CHANGE = GetIcon.getImageView("toolbar-favourite-change.png", 32, 32);
-    public final ImageView FX_ICON_TOOLBAR_FAVOURITE_DEL = GetIcon.getImageView("toolbar-favourite-del.png", 32, 32);
+    //toolbar
+    public final ImageView ICON_TOOLBAR_MENU = GetIcon.getImageView("toolbar-menu.png", 18, 15);
+    public final ImageView ICON_TOOLBAR_MENU_TOP = GetIcon.getImageView("toolbar-menu-top.png", 32, 18);
+    public final ImageView ICON_TOOLBAR_FAVOURITE_CHANGE = GetIcon.getImageView("toolbar-favourite-change.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_FAVOURITE_DEL = GetIcon.getImageView("toolbar-favourite-del.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_STATION_START = GetIcon.getImageView("toolbar-station-start.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_STATION_STOP = GetIcon.getImageView("toolbar-station-stop.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_STATION_REC = GetIcon.getImageView("toolbar-station-rec.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_STATION_INFO = GetIcon.getImageView("toolbar-info.png", 32, 32);
 
-    public final ImageView FX_ICON_TOOLBAR_STATION_START = GetIcon.getImageView("toolbar-station-start.png", 32, 32);
-    public final ImageView FX_ICON_TOOLBAR_STATION_STOP = GetIcon.getImageView("toolbar-station-stop.png", 32, 32);
-    public final ImageView FX_ICON_TOOLBAR_STATION_REC = GetIcon.getImageView("toolbar-station-rec.png", 32, 32);
-
-    public final ImageView FX_ICON_FILTER_STATION_LOAD = GetIcon.getImageView("filter-station-load.png", 22, 22);
-    public final ImageView FX_ICON_FILTER_STATION_SAVE = GetIcon.getImageView("filter-station-save.png", 22, 22);
-    public final ImageView FX_ICON_FILTER_STATION_NEW = GetIcon.getImageView("filter-station-new.png", 22, 22);
 }

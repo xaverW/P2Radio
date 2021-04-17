@@ -64,7 +64,6 @@ public class StationGuiPack {
     }
 
     public SplitPane pack() {
-
         // Menü
         final MenuController menuController = new MenuController(MenuController.StartupMode.STATION);
         menuController.setId("station-menu-pane");
@@ -85,5 +84,4 @@ public class StationGuiPack {
         setSplit();
         return new SplitPane(hBox);
     }
-
 }

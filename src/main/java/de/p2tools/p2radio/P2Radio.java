@@ -68,7 +68,7 @@ public class P2Radio extends Application {
     private void initRootLayout() {
         try {
             addThemeCss(); // damit es für die 2 schon mal stimmt
-            progData.stationInfoDialogController = new StationInfoDialogController();
+            progData.stationInfoDialogController = new StationInfoDialogController(progData);
             progData.p2RadioController = new P2RadioController();
 
             scene = new Scene(progData.p2RadioController,

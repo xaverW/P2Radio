@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -24,6 +25,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
+import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.Listener;
@@ -136,6 +138,8 @@ public class FavouriteGuiController extends AnchorPane {
         Favourite favourite = tableView.getSelectionModel().getSelectedItem();
         if (favourite != null) {
             favouriteGuiInfoController.setFavourite(favourite);
+            Station station = progData.stationList.getSenderByUrl(favourite.getUrl());
+            progData.stationInfoDialogController.setStation(station);
         } else {
             favouriteGuiInfoController.setFavourite(null);
         }
@@ -268,6 +272,14 @@ public class FavouriteGuiController extends AnchorPane {
             int sel = tableView.getSelectionModel().getSelectedIndex();
             tableView.scrollTo(sel);
         }
+    }
+
+    public void setNextStation() {
+        PTableFactory.setNextStation(tableView);
+    }
+
+    public void setPreviousStation() {
+        PTableFactory.setPreviousStation(tableView);
     }
 
     private void initListener() {

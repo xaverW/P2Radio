@@ -52,11 +52,13 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btPlay = new ToolBarButton(vBox,
-                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().FX_ICON_TOOLBAR_STATION_START);
+                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().FX_ICON_TOOLBAR_STATION_STOP);
+                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
         final ToolBarButton btSave = new ToolBarButton(vBox,
-                "markierte Sender als Favoriten speichern", "markierte Sender als Favoriten speichern", new ProgIcons().FX_ICON_TOOLBAR_STATION_REC);
+                "markierte Sender als Favoriten speichern", "markierte Sender als Favoriten speichern", new ProgIcons().ICON_TOOLBAR_STATION_REC);
+        final ToolBarButton btInfo = new ToolBarButton(vBox,
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_STATION_INFO);
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);
@@ -64,14 +66,15 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         btPlay.setOnAction(a -> progData.stationGuiController.playStation());
-        btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        btStop.setOnAction(a -> progData.startFactory.stopAll());
         btSave.setOnAction(a -> progData.stationGuiController.saveStation());
+        btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 
     private void initStationMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Sendermenü anzeigen"));
-        mb.setGraphic(new ProgIcons().FX_ICON_TOOLBAR_MENU);
+        mb.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU);
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miPlay = new MenuItem("Sender abspielen");

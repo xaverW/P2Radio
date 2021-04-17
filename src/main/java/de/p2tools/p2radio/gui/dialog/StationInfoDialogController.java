@@ -32,10 +32,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 public class StationInfoDialogController extends PDialogExtra {
@@ -45,37 +42,51 @@ public class StationInfoDialogController extends PDialogExtra {
     private final Label[] lblCont = new Label[StationXml.MAX_ELEM];
 
     private final Button btnUpDown = new Button("");
+    private final Button btnNext = new Button("");
+    private final Button btnPrev = new Button("");
+    private final Button btnStart = new Button("");
+    private final Button btnStop = new Button("");
     private final Button btnOk = new Button("_Ok");
     private final ImageView ivNew = new ImageView();
 
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
-
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
 
     BooleanProperty urlProperty = ProgConfig.STATION_INFO_DIALOG_SHOW_URL;
     private Station station;
+    private final ProgData progData;
 
-    public StationInfoDialogController() {
-        super(ProgData.getInstance().primaryStage, null,
+    public StationInfoDialogController(ProgData progData) {
+        super(progData.primaryStage, null,
                 "Senderinfos", false, false, DECO.SMALL);
 
+        this.progData = progData;
         init(false);
     }
 
     public void close() {
-        System.out.println("close");
-        final StringProperty sp = ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ? ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL;
+//        System.out.println("close");
+        final StringProperty sp = ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ?
+                ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL;
         PGuiSize.getSizeWindow(sp, getStage());
         super.close();
     }
 
     public void showDialog() {
-        PGuiSize.setPos(ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ? ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL,
-                getStage());
+        PGuiSize.setPos(ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ?
+                ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL, getStage());
         getStage().show();
         setSize();
+    }
+
+    public void toggleShowInfo() {
+        if (getStage().isShowing()) {
+            close();
+        } else {
+            showStationInfo();
+        }
     }
 
     public void showStationInfo() {
@@ -90,7 +101,7 @@ public class StationInfoDialogController extends PDialogExtra {
     @Override
     public void make() {
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
-        getHboxLeft().getChildren().add(btnUpDown);
+        getHboxLeft().getChildren().addAll(btnUpDown, new HBox(), btnPrev, btnNext, new HBox(), btnStart, btnStop);
         addOkButton(btnOk);
         btnOk.setOnAction(a -> close());
 
@@ -104,6 +115,43 @@ public class StationInfoDialogController extends PDialogExtra {
                     new Tooltip("mehr Informationen zum Sender anzeigen"));
             btnUpDown.setGraphic(urlProperty.getValue() ? new ProgIcons().ICON_BUTTON_UP : new ProgIcons().ICON_BUTTON_DOWN);
         });
+
+        btnPrev.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
+        btnPrev.setOnAction(event -> {
+            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
+            if (panelStation) {
+                progData.stationGuiController.setPreviousStation();
+            } else {
+                progData.favouriteGuiController.setPreviousStation();
+            }
+        });
+
+        btnNext.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
+        btnNext.setOnAction(event -> {
+            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
+            if (panelStation) {
+                progData.stationGuiController.setNextStation();
+            } else {
+                progData.favouriteGuiController.setNextStation();
+            }
+        });
+
+        btnStart.setTooltip(new Tooltip("Sender abspielen"));
+        btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
+        btnStart.setOnAction(event -> {
+            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
+            if (panelStation) {
+                progData.stationGuiController.playStation();
+            } else {
+                progData.favouriteGuiController.playStation();
+            }
+        });
+
+        btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
+        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP_PLAY);
+        btnStop.setOnAction(event -> progData.startFactory.stopAll());
 
         initUrl();
         makeGridPane(false);
@@ -161,7 +209,8 @@ public class StationInfoDialogController extends PDialogExtra {
         final GridPane gridPane = new GridPane();
         getvBoxCont().getChildren().clear();
         getvBoxCont().getChildren().add(gridPane);
-        VBox.setVgrow(gridPane, Priority.SOMETIMES);
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
+//        gridPane.getRowConstraints().add(new RowConstraints());
 
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -173,7 +222,7 @@ public class StationInfoDialogController extends PDialogExtra {
         for (int i = 0; i < StationXml.MAX_ELEM; ++i) {
             textTitle[i] = new Text(StationXml.COLUMN_NAMES[i] + ":");
             lblCont[i] = new Label("");
-            lblCont[i].setWrapText(true);
+            lblCont[i].setWrapText(false);
             lblCont[i].maxWidthProperty().bind(getVBoxCompleteDialog().widthProperty().subtract(FREE)); //_______
         }
 
@@ -224,7 +273,7 @@ public class StationInfoDialogController extends PDialogExtra {
                 case StationXml.STATION_CODEC:
                     gridPane.add(textTitle[StationXml.STATION_CODEC], 0, row);
                     gridPane.add(lblCont[StationXml.STATION_CODEC], 1, row);
-                    gridPane.getRowConstraints().add(new RowConstraints());
+//                    gridPane.getRowConstraints().add(new RowConstraints());
                     lblCont[StationXml.STATION_CODEC].setOnContextMenuRequested(event ->
                             getMenu(lblCont[StationXml.STATION_CODEC].getText()).show(lblCont[StationXml.STATION_CODEC], event.getScreenX(), event.getScreenY()));
 
@@ -236,7 +285,7 @@ public class StationInfoDialogController extends PDialogExtra {
                 case StationXml.STATION_STATE:
                     gridPane.add(textTitle[StationXml.STATION_STATE], 0, row);
                     gridPane.add(lblCont[StationXml.STATION_STATE], 1, row);
-                    gridPane.getRowConstraints().add(new RowConstraints());
+//                    gridPane.getRowConstraints().add(new RowConstraints());
                     lblCont[StationXml.STATION_STATE].setOnContextMenuRequested(event ->
                             getMenu(lblCont[StationXml.STATION_STATE].getText()).show(lblCont[StationXml.STATION_STATE], event.getScreenX(), event.getScreenY()));
 

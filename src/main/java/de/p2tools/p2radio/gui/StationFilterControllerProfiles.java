@@ -73,7 +73,7 @@ public class StationFilterControllerProfiles extends VBox {
     private void initButton() {
         btnLoadFilter.setOnAction(a -> loadFilter());
         btnLoadFilter.disableProperty().bind(cboFilterProfiles.getSelectionModel().selectedItemProperty().isNull());
-        btnLoadFilter.setGraphic(new ProgIcons().FX_ICON_FILTER_STATION_LOAD);
+        btnLoadFilter.setGraphic(new ProgIcons().ICON_FILTER_STATION_LOAD);
         btnLoadFilter.setText("");
         btnLoadFilter.setTooltip(new Tooltip("Filterprofil wieder laden"));
 
@@ -84,12 +84,12 @@ public class StationFilterControllerProfiles extends VBox {
                 saveFilter();
             }
         });
-        btnSaveFilter.setGraphic(new ProgIcons().FX_ICON_FILTER_STATION_SAVE);
+        btnSaveFilter.setGraphic(new ProgIcons().ICON_FILTER_STATION_SAVE);
         btnSaveFilter.setText("");
         btnSaveFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als Filterprofil speichern"));
 
         btnNewFilter.setOnAction(a -> newFilter());
-        btnNewFilter.setGraphic(new ProgIcons().FX_ICON_FILTER_STATION_NEW);
+        btnNewFilter.setGraphic(new ProgIcons().ICON_FILTER_STATION_NEW);
         btnNewFilter.setText("");
         btnNewFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als neues Filterprofil anlegen"));
     }

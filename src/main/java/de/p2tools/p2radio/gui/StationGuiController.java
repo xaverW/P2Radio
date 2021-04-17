@@ -17,11 +17,11 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationTools;
 import de.p2tools.p2radio.controller.data.station.StationXml;
@@ -122,10 +122,6 @@ public class StationGuiController extends AnchorPane {
         });
     }
 
-    public void showStationInfo() {
-        progData.stationInfoDialogController.showStationInfo();
-    }
-
     public void playStation() {
         // Menü/Button Sender (URL) abspielen
         final Optional<Station> stationSelection = getSel();
@@ -206,6 +202,14 @@ public class StationGuiController extends AnchorPane {
         }
     }
 
+    public void setNextStation() {
+        PTableFactory.setNextStation(tableView);
+    }
+
+    public void setPreviousStation() {
+        PTableFactory.setPreviousStation(tableView);
+    }
+
     private void initListener() {
         progData.setDataList.listChangedProperty().addListener((observable, oldValue, newValue) -> {
             if (progData.setDataList.getSetDataListButton().size() > 1) {
@@ -246,60 +250,11 @@ public class StationGuiController extends AnchorPane {
     }
 
     private void setInfoTabPane() {
-        final SetDataList setDataList = progData.setDataList.getSetDataListButton();
-
-//        if (setDataList.size() <= 1) {
-        // dann brauchen wir den Tab mit den Button nicht
         if (splitPane.getItems().size() != 2 || splitPane.getItems().get(1) != stationGuiInfoController) {
             splitPane.getItems().clear();
             splitPane.getItems().addAll(scrollPane, stationGuiInfoController);
             SplitPane.setResizableWithParent(stationGuiInfoController, false);
         }
-        return;
-//        }
-
-        //Button wieder aufbauen
-//        tilePaneButton.getChildren().clear();
-//        setDataList.stream().forEach(setData -> {
-//            Button btn = new Button(setData.getVisibleName());
-//            btn.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
-//            btn.setMaxWidth(Double.MAX_VALUE);
-//            if (!setData.getColor().equals(SetData.RESET_COLOR)) {
-//                final String c = PColor.getCssColor(setData.getColor());
-//                final String css = "-fx-border-color: #" + c + "; " +
-//                        "-fx-border-radius: 3px; " +
-//                        "-fx-border-width: 2; ";
-//
-//                btn.setStyle(css);
-//            }
-//
-//            btn.setOnAction(a -> playStationUrlWithSet(setData));
-//            tilePaneButton.getChildren().add(btn);
-//        });
-//
-//
-//        if (splitPane.getItems().size() != 2 || splitPane.getItems().get(1) != infoTab) {
-//            splitPane.getItems().clear();
-//            splitPane.getItems().addAll(scrollPane, infoTab);
-//            SplitPane.setResizableWithParent(infoTab, false);
-//
-//            ScrollPane scrollPane = new ScrollPane();
-//            scrollPane.setFitToWidth(true);
-//            scrollPane.setFitToHeight(true);
-//            scrollPane.setPadding(new Insets(10));
-//            scrollPane.setContent(tilePaneButton);
-//
-//            Tab stationInfoTab = new Tab("Beschreibung");
-//            stationInfoTab.setClosable(false);
-//            stationInfoTab.setContent(stationGuiInfoController);
-//
-//            Tab setTab = new Tab("Startbutton");
-//            setTab.setClosable(false);
-//            setTab.setContent(scrollPane);
-//
-//            infoTab.getTabs().clear();
-//            infoTab.getTabs().addAll(stationInfoTab, setTab);
-//        }
     }
 
     private void initTable() {

@@ -181,12 +181,12 @@ public class P2RadioController extends StackPane {
 
         menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         menuButton.getStyleClass().add("btnFunctionWide");
-        menuButton.setGraphic(new ProgIcons().FX_ICON_TOOLBAR_MENU_TOP);
+        menuButton.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU_TOP);
         menuButton.getItems().addAll(miConfig, miLoadStationList, mHelp,
                 new SeparatorMenuItem(), miQuit);
 
         menuButton2.getStyleClass().add("btnFunctionWide");
-        menuButton2.setGraphic(new ProgIcons().FX_ICON_TOOLBAR_MENU_TOP);
+        menuButton2.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU_TOP);
         menuButton2.setVisible(false);
     }
 
