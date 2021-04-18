@@ -103,7 +103,7 @@ public class ProgSaveFactory {
                     jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_COUNT, station.arr[Station.STATION_CLICK_COUNT]);
                     jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_TREND, station.arr[Station.STATION_CLICK_TREND]);
                     jsonGenerator.writeStringField(StationFieldNamesWeb.URL, station.arr[Station.STATION_URL]);
-//                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL_RESOLVED, station.arr[Station.STATION_URL_RESOLVED]);
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL_RESOLVED, station.arr[Station.STATION_URL_RESOLVED]);
                     jsonGenerator.writeStringField(StationFieldNamesWeb.HOMEPAGE, station.arr[Station.STATION_WEBSITE]);
                     jsonGenerator.writeStringField(StationFieldNamesWeb.LAST_CHANGE_TIME, station.arr[Station.STATION_DATE]);
                     jsonGenerator.writeEndObject();

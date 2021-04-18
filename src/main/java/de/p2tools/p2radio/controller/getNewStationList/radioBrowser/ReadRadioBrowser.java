@@ -206,6 +206,12 @@ public class ReadRadioBrowser {
             if (jp.isExpectedStartObjectToken()) {
                 final Station station = new Station();
                 addValue(station, jp);
+
+                //etwa bei 1/3 der Sender
+                //if (station.arr[Station.STATION_URL].equals(station.arr[Station.STATION_URL_RESOLVED])) {
+                //  station.arr[Station.STATION_URL_RESOLVED] = "============";
+                //}
+
                 ++countAll;
                 station.init(); // damit wird auch das Datum! gesetzt
                 stationList.importStationOnlyWithNr(station);
@@ -230,8 +236,8 @@ public class ReadRadioBrowser {
             if (name == null || name.isEmpty() || value == null) {
                 continue;
             }
-
             value = value.trim();
+
             switch (name) {
                 case StationFieldNamesWeb.NAME:
                     station.arr[Station.STATION_NAME] = value;

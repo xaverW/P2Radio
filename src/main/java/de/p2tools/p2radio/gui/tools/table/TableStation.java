@@ -121,6 +121,10 @@ public class TableStation {
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
+//        final TableColumn<Station, String> urlrColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_URL_RESOLVED]);
+//        urlrColumn.setCellValueFactory(new PropertyValueFactory<>("urlResolved"));
+//        urlrColumn.getStyleClass().add("alignCenterLeft");
+
         nrColumn.setPrefWidth(50);
         nameColumn.setPrefWidth(80);
         genreColumn.setPrefWidth(180);
@@ -131,7 +135,7 @@ public class TableStation {
         return new TableColumn[]{
                 nrColumn, nameColumn, genreColumn, codecColumn, bitrateColumn, startColumn,
                 stateColumn, countryColumn, countryCodeColumn, languageColumn, votesColumn,
-                clickCountColumn, clickTrendColumn, dateColumn, websiteColumn, urlColumn
+                clickCountColumn, clickTrendColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/
         };
     }
 

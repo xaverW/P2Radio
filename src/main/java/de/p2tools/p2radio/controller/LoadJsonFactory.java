@@ -170,10 +170,11 @@ public class LoadJsonFactory {
                 break;
             }
 
-            String value = jp.getValueAsString().trim();
+            String value = jp.getValueAsString();
             if (name == null || name.isEmpty() || value == null) {
                 continue;
             }
+            value = value.trim();
 
             switch (name) {
                 case StationFieldNamesWeb.NAME:
@@ -212,9 +213,9 @@ public class LoadJsonFactory {
                 case StationFieldNamesWeb.URL:
                     station.arr[Station.STATION_URL] = value;
                     break;
-//                case StationFieldNamesWeb.URL_RESOLVED:
-//                    station.arr[Station.STATION_URL_RESOLVED] = value;
-//                    break;
+                case StationFieldNamesWeb.URL_RESOLVED:
+                    station.arr[Station.STATION_URL_RESOLVED] = value;
+                    break;
                 case StationFieldNamesWeb.HOMEPAGE:
                     station.arr[Station.STATION_WEBSITE] = value;
                     break;

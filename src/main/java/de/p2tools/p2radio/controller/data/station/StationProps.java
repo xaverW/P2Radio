@@ -167,11 +167,11 @@ public class StationProps extends StationXml {
 //    }
 
     public String getUrl() {
-        if (arr[STATION_URL_RESOLVED].isEmpty()) {
-            return arr[STATION_URL];
-        } else {
-            return arr[STATION_URL_RESOLVED];
-        }
+//        if (arr[STATION_URL_RESOLVED].isEmpty()) {
+        return arr[STATION_URL];
+//        } else {
+//            return arr[STATION_URL_RESOLVED];
+//        }
     }
 
     public String getUrlResolved() {
