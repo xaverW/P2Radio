@@ -60,6 +60,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
     private Favourite actFavourite;
     private int actSender = 0;
     private final ProgData progData;
+    private boolean stopGradeListener = false;
 
     public FavouriteEditDialogController(ProgData progData, ArrayList<Favourite> favouriteList) {
         super(progData.primaryStage, ProgConfig.FAVOURITE_DIALOG_EDIT_SIZE,
@@ -142,6 +143,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
         Favourite fNew = favouriteList.get(newPos);
         actFavourite.copyToMe(fNew);
         cboCollection.setValue(actFavourite.getCollectionName());
+        initGrade();
     }
 
     private void saveAct() {
@@ -224,21 +226,25 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-
             case FavouriteXml.FAVOURITE_GRADE:
                 lbl[i].setTextFill(Color.BLUE);
                 initGrade();
                 HBox hBox = new HBox(5);
                 for (int ii = 0; ii < FavouriteConstants.MAX_FAVOURITE_GRADE; ++ii) {
-                    cbxGrade[ii].selectedProperty().addListener((u, o, n) -> controlGrade());
+                    cbxGrade[ii].selectedProperty().addListener((u, o, n) -> {
+                        if (!stopGradeListener) {
+                            controlGrade();
+                        }
+                    });
                     hBox.getChildren().add(cbxGrade[ii]);
                 }
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(hBox, 1, row);
-
+                if (favouriteList.size() > 1) {
+                    gridPane.add(addAllButton(i), 5, row);
+                }
                 ++row;
                 break;
-
             case FavouriteXml.FAVOURITE_GENRE:
                 lblCont[i].textProperty().bind(actFavourite.genreProperty());
                 gridPane.add(lbl[i], 0, row);
@@ -259,7 +265,6 @@ public class FavouriteEditDialogController extends PDialogExtra {
 
             case FavouriteXml.FAVOURITE_OWN:
                 cbx[FavouriteXml.FAVOURITE_OWN].selectedProperty().bindBidirectional(actFavourite.ownProperty());
-//                cbx[FavouriteXml.FAVOURITE_OWN].setDisable(false);
                 gridPane.add(lbl[FavouriteXml.FAVOURITE_OWN], 2, row);
                 gridPane.add(cbx[FavouriteXml.FAVOURITE_OWN], 3, row);
 
@@ -268,19 +273,6 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 gridPane.add(lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT], 1, row);
                 ++row;
                 break;
-
-//            case FavouriteXml.FAVOURITE_OWN:
-//                cbx[i].selectedProperty().bindBidirectional(actFavourite.ownProperty());
-//                cbx[i].setDisable(false);
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(cbx[i], 1, row);
-//
-////                lblCont[FavouriteXml.FAVOURITE_GRADE].textProperty().bind(actFavourite.gradeProperty().asString());
-////                gridPane.add(lbl[FavouriteXml.FAVOURITE_GRADE], 2, row);
-////                gridPane.add(lblCont[FavouriteXml.FAVOURITE_GRADE], 3, row);
-//
-//                ++row;
-//                break;
 
             case FavouriteXml.FAVOURITE_BUTTON1:
             case FavouriteXml.FAVOURITE_BUTTON2:
@@ -308,31 +300,11 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-
-//            case FavouriteXml.FAVOURITE_VOTES:
-//                lblCont[i].textProperty().bind(actFavourite.votesProperty().asString());
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//                ++row;
-//                break;
-//            case FavouriteXml.FAVOURITE_CLICK_COUNT:
-//                lblCont[i].textProperty().bind(actFavourite.clickCountProperty().asString());
-//                gridPane.add(lbl[i], 0, row);
-//                gridPane.add(lblCont[i], 1, row);
-//
-//                lblCont[FavouriteXml.FAVOURITE_CLICK_TREND].textProperty().bind(actFavourite.clickTrendProperty().asString());
-//                gridPane.add(lbl[FavouriteXml.FAVOURITE_CLICK_TREND], 2, row);
-//                gridPane.add(lblCont[FavouriteXml.FAVOURITE_CLICK_TREND], 3, row);
-//                ++row;
-//                break;
-//
             case FavouriteXml.FAVOURITE_URL:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.urlProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.urlProperty());
-//                hyperlink.textProperty().addListener((ob, ol, ne) -> actFavourite.setUrl(hyperlink.getText()));
-//                actFavourite.urlProperty().addListener((ob, ol, ne) -> hyperlink.setUrl(actFavourite.getUrl()));
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(hyperlink, 1, row, 3, 1);
                 ++row;
@@ -342,8 +314,6 @@ public class FavouriteEditDialogController extends PDialogExtra {
                         ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.websiteProperty());
-//                hyperlink.textProperty().addListener((ob, ol, ne) -> actFavourite.setWebsite(hyperlink.getText()));
-//                actFavourite.websiteProperty().addListener((ob, ol, ne) -> hyperlink.setUrl(actFavourite.getWebsite()));
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(hyperlink, 1, row, 3, 1);
                 ++row;
@@ -363,11 +333,11 @@ public class FavouriteEditDialogController extends PDialogExtra {
     }
 
     private void initGrade() {
+        stopGradeListener = true;
         for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
-            if (actFavourite.getGrade() > i) {
-                cbxGrade[i].setSelected(true);
-            }
+            cbxGrade[i].setSelected(actFavourite.getGrade() > i);
         }
+        stopGradeListener = false;
     }
 
     private void controlGrade() {
@@ -391,6 +361,9 @@ public class FavouriteEditDialogController extends PDialogExtra {
                         break;
                     case FavouriteXml.FAVOURITE_DESCRIPTION:
                         f.setDescription(actFavourite.getDescription());
+                        break;
+                    case FavouriteXml.FAVOURITE_GRADE:
+                        f.setGrade(actFavourite.getGrade());
                         break;
                 }
             });
