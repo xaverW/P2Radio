@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
@@ -57,7 +58,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     private final AnchorPane tabStationInfo = new AnchorPane();
     private final TableView<Favourite> tableView = new TableView<>();
-    private final ComboBox<String> cboCollections = new ComboBox<>();
+    private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
     private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
     private final PToggleSwitch tglGenre = new PToggleSwitch("positiv bewertete Sender");
     private final Button btnReset = new Button();
@@ -308,7 +309,8 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initFilter() {
-        cboCollections.setItems(progData.collectionList.getNames());
+//        cboCollections.setItems(progData.collectionList.getNames());
+        cboCollections.setItems(progData.collectionList);
         cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionNameFilterProperty());
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());

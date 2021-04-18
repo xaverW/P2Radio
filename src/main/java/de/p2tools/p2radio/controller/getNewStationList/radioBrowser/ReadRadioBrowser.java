@@ -64,29 +64,29 @@ public class ReadRadioBrowser {
     public boolean readList(final StationList stationList) {
         boolean ret = false;
 
-//        if (ProgData.debug) {
-//            //ToDo
-//            //URL laden, vorerst!!!!!!!!!!!!!!!!
-//            //sonst: http://all.api.radio-browser.info/xml/stations
-//            //oder   http://all.api.radio-browser.info/json/stations
-//            String sourceFileUrl = "http://localhost:8080/stations";
-//            read(sourceFileUrl, stationList);
-//            if (!stationList.isEmpty()) {
-//                //dann hats geklappt
-//                ret = true;
-//            }
-//
-//        } else {
-        try {
-            String updateUrl = ProgConst.STATION_LIST_URL;
-            read(updateUrl, stationList);
+        if (ProgData.debug) {
+            //ToDo
+            //URL laden, vorerst!!!!!!!!!!!!!!!!
+            //sonst: http://all.api.radio-browser.info/xml/stations
+            //oder   http://all.api.radio-browser.info/json/stations
+            String sourceFileUrl = "http://localhost:8080/stations";
+            read(sourceFileUrl, stationList);
             if (!stationList.isEmpty()) {
                 //dann hats geklappt
                 ret = true;
             }
-        } catch (final Exception ex) {
-            PLog.errorLog(201020354, ex);
-        }
+
+        } else {
+            try {
+                String updateUrl = ProgConst.STATION_LIST_URL;
+                read(updateUrl, stationList);
+                if (!stationList.isEmpty()) {
+                    //dann hats geklappt
+                    ret = true;
+                }
+            } catch (final Exception ex) {
+                PLog.errorLog(201020354, ex);
+            }
 
 
 //        try {
@@ -109,7 +109,7 @@ public class ReadRadioBrowser {
 //        } catch (final Exception ex) {
 //            PLog.errorLog(984512067, ex);
 //        }
-//        }
+        }
 
         return ret;
     }

@@ -17,22 +17,23 @@
 
 package de.p2tools.p2radio.controller.data.favourite;
 
+import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.function.Predicate;
 
 public class FavouriteFilter {
 
-    private StringProperty collectionNameFilter = new SimpleStringProperty();
+    private ObjectProperty<CollectionData> collectionNameFilter = new SimpleObjectProperty<>();
     private BooleanProperty ownFilter = new SimpleBooleanProperty();
     private BooleanProperty gradeFilter = new SimpleBooleanProperty();
 
     public Predicate<Favourite> clearFilter() {
-        collectionNameFilter.set("");
+        collectionNameFilter.setValue(null);
         ownFilter.set(false);
         gradeFilter.set(false);
         return getPredicate();
@@ -41,9 +42,9 @@ public class FavouriteFilter {
     public Predicate<Favourite> getPredicate() {
         Predicate<Favourite> predicate = favourite -> true;
 
-        if (collectionNameFilter.get() != null && !collectionNameFilter.get().isEmpty() &&
-                !collectionNameFilter.get().contains(CollectionList.COLLECTION_ALL)) {
-            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionNameFilter.get()));
+        if (collectionNameFilter.get() != null && !collectionNameFilter.get().getName().isEmpty() &&
+                !collectionNameFilter.get().getName().contains(CollectionList.COLLECTION_ALL)) {
+            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionNameFilter.get().getName()));
         }
         if (ownFilter.get()) {
             predicate = predicate.and(favourite -> favourite.isOwn());
@@ -54,17 +55,17 @@ public class FavouriteFilter {
         return predicate;
     }
 
-    public String getCollectionNameFilter() {
-        return collectionNameFilter.get();
-    }
+//    public String getCollectionNameFilter() {
+//        return collectionNameFilter.get() != null ? collectionNameFilter.get().getName() : "";
+//    }
 
-    public StringProperty collectionNameFilterProperty() {
+    public ObjectProperty<CollectionData> collectionNameFilterProperty() {
         return collectionNameFilter;
     }
 
-    public void setCollectionNameFilter(String collectionNameFilter) {
-        this.collectionNameFilter.set(collectionNameFilter);
-    }
+//    public void setCollectionNameFilter(String collectionNameFilter) {
+//        this.collectionNameFilter.set(collectionNameFilter);
+//    }
 
     public boolean isOwnFilter() {
         return ownFilter.get();
