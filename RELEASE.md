@@ -2,6 +2,16 @@
 
 <br />
 
+**Release 1**
+
+* Tray: Das Programm kann ins Tray gelegt werden -> "Einstellungen" zum Einschalten des Tray
+* zuletzt gelaufener Sender wird beim Programmneustart wieder angezeigt
+* der Infodialog mit den Senderinfos wurde überarbeitet, Sender können darüber gestoppt und gestartet werden
+* das Neuladen der Senderliste wurde angepasst
+* ...
+
+<br />
+
 **Release 0**
 
 * erstes Release des Programms
