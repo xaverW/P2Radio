@@ -146,7 +146,6 @@ public class StationGuiTableContextMenu {
             return subMenuURL;
         }
 
-        final String uNormal = station.getUrl();
         MenuItem item;
         item = new MenuItem("Sender-URL kopieren");
         item.setOnAction(a -> PSystemUtils.copyToClipboard(station.getUrl()));

@@ -78,6 +78,7 @@ public class StationFilterFactory {
     }
 
     public static boolean checkUrl(Filter url, Station station) {
+        //todo evtl. noch urlResolved einfügen???
         if (!check(url, station.getWebsite())
                 && !check(url, station.getUrl())) {
             return false;

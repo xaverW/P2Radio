@@ -177,13 +177,11 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         PDuration.counterStart("Sender markieren");
         try {
             countDouble = 0;
-            this.stream().forEach((Station f) -> {
-
-                if (!urlHashSet.add(f.getUrl())) {
+            this.stream().forEach(station -> {
+                if (!urlHashSet.add(station.getUrl())) {
                     ++countDouble;
-                    f.setDoubleUrl(true);
+                    station.setDoubleUrl(true);
                 }
-
             });
 
         } catch (Exception ex) {

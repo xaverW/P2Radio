@@ -103,8 +103,8 @@ public class StationListFactory {
         PDuration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
         hashSet.addAll(progData.favouriteList.stream().map(Favourite::getUrl).collect(Collectors.toList()));
+        progData.stationList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
         progData.stationList.stream()
-                .peek(station -> station.setFavouriteUrl(false))
                 .filter(station -> hashSet.contains(station.getUrl()))
                 .forEach(station -> station.setFavouriteUrl(true));
         hashSet.clear();
