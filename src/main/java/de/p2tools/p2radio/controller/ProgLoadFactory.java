@@ -78,7 +78,7 @@ public class ProgLoadFactory {
             } else {
                 // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen
                 logList.add("Programmstart, gespeicherte Senderliste laden");
-                boolean loadOk = LoadJsonFactory.readList();
+                boolean loadOk = SenderLoadFactory.readList();
 
                 if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
                     //wenn die gespeicherte zu alt ist

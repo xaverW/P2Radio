@@ -45,31 +45,31 @@ public class StationTools {
         ProgData progData = ProgData.getInstance();
         ArrayList<Station> addList = new ArrayList<>();
 
-        for (final Station dateStation : list) {
+        for (final Station station : list) {
             // erst mal schauen obs den schon gibt
-            Favourite favourite = progData.favouriteList.getUrlStation(dateStation.arr[Station.STATION_URL]);
+            Favourite favourite = progData.favouriteList.getUrlStation(station.getUrl());
             if (favourite == null) {
-                addList.add(dateStation);
+                addList.add(station);
             } else {
                 // dann ist der Sender schon in der Liste
                 if (list.size() <= 1) {
                     PAlert.BUTTON answer = PAlert.showAlert_yes_no("Anlegen?", "Nochmal anlegen?",
                             "Sender existiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
-                                    dateStation.getCountry() + P2LibConst.LINE_SEPARATORx2 +
+                                    station.getCountry() + P2LibConst.LINE_SEPARATORx2 +
                                     "Nochmal anlegen?");
                     switch (answer) {
                         case NO:
                             // alles Abbrechen
                             return;
                         case YES:
-                            addList.add(dateStation);
+                            addList.add(station);
                             break;
                     }
 
                 } else {
                     PAlert.BUTTON answer = PAlert.showAlert_yes_no_cancel("Anlegen?", "Nochmal anlegen?",
                             "Sender existiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
-                                    dateStation.getCountry() + P2LibConst.LINE_SEPARATORx2 +
+                                    station.getCountry() + P2LibConst.LINE_SEPARATORx2 +
                                     "Nochmal anlegen (Ja / Nein)?" + P2LibConst.LINE_SEPARATOR +
                                     "Oder alles Abbrechen?");
                     switch (answer) {
@@ -79,7 +79,7 @@ public class StationTools {
                         case NO:
                             continue;
                         case YES:
-                            addList.add(dateStation);
+                            addList.add(station);
                             break;
                     }
                 }

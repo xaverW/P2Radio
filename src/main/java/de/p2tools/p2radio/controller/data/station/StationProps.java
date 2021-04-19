@@ -41,21 +41,21 @@ public class StationProps extends StationXml {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringExtra("name", StationFieldNames.STATION_NAME, arr, STATION_NAME));
-        list.add(new ConfigStringExtra("genre", StationFieldNames.STATION_GENRE, arr, STATION_GENRE));
-        list.add(new ConfigStringExtra("codec", StationFieldNames.STATION_CODEC, arr, STATION_CODEC));
-        list.add(new ConfigStringExtra("bitrate", StationFieldNames.STATION_BITRATE, arr, STATION_BITRATE));
-        list.add(new ConfigStringExtra("state", StationFieldNames.STATION_STATE, arr, STATION_STATE));
-        list.add(new ConfigStringExtra("country", StationFieldNames.STATION_COUNTRY, arr, STATION_COUNTRY));
-        list.add(new ConfigStringExtra("countryCode", StationFieldNames.STATION_COUNTRY_CODE, arr, STATION_COUNTRY_CODE));
-        list.add(new ConfigStringExtra("language", StationFieldNames.STATION_LANGUAGE, arr, STATION_LANGUAGE));
-        list.add(new ConfigStringExtra("votes", StationFieldNames.STATION_VOTES, arr, STATION_VOTES));
-        list.add(new ConfigStringExtra("clickCount", StationFieldNames.STATION_CLICK_COUNT, arr, STATION_CLICK_COUNT));
-        list.add(new ConfigStringExtra("trend", StationFieldNames.STATION_CLICK_TREND, arr, STATION_CLICK_TREND));
-        list.add(new ConfigStringExtra("url", StationFieldNames.STATION_URL, arr, STATION_URL));
-        list.add(new ConfigStringExtra("urlR", StationFieldNames.STATION_URL_RESOLVED, arr, STATION_URL_RESOLVED));
-        list.add(new ConfigStringExtra("website", StationFieldNames.STATION_WEBSITE, arr, STATION_WEBSITE));
-        list.add(new ConfigStringExtra("date", StationFieldNames.STATION_DATE, arr, STATION_DATE));
+        list.add(new ConfigStringExtra("name", Station.COLUMN_NAMES[STATION_NAME], arr, STATION_NAME));
+        list.add(new ConfigStringExtra("genre", Station.COLUMN_NAMES[STATION_GENRE], arr, STATION_GENRE));
+        list.add(new ConfigStringExtra("codec", Station.COLUMN_NAMES[STATION_CODEC], arr, STATION_CODEC));
+        list.add(new ConfigStringExtra("bitrate", Station.COLUMN_NAMES[STATION_BITRATE], arr, STATION_BITRATE));
+        list.add(new ConfigStringExtra("state", Station.COLUMN_NAMES[STATION_STATE], arr, STATION_STATE));
+        list.add(new ConfigStringExtra("country", Station.COLUMN_NAMES[STATION_COUNTRY], arr, STATION_COUNTRY));
+        list.add(new ConfigStringExtra("countryCode", Station.COLUMN_NAMES[STATION_COUNTRY_CODE], arr, STATION_COUNTRY_CODE));
+        list.add(new ConfigStringExtra("language", Station.COLUMN_NAMES[STATION_LANGUAGE], arr, STATION_LANGUAGE));
+        list.add(new ConfigStringExtra("votes", Station.COLUMN_NAMES[STATION_VOTES], arr, STATION_VOTES));
+        list.add(new ConfigStringExtra("clickCount", Station.COLUMN_NAMES[STATION_CLICK_COUNT], arr, STATION_CLICK_COUNT));
+        list.add(new ConfigStringExtra("trend", Station.COLUMN_NAMES[STATION_CLICK_TREND], arr, STATION_CLICK_TREND));
+        list.add(new ConfigStringExtra("url", Station.COLUMN_NAMES[STATION_URL], arr, STATION_URL));
+        list.add(new ConfigStringExtra("urlR", Station.COLUMN_NAMES[STATION_URL_RESOLVED], arr, STATION_URL_RESOLVED));
+        list.add(new ConfigStringExtra("website", Station.COLUMN_NAMES[STATION_WEBSITE], arr, STATION_WEBSITE));
+        list.add(new ConfigStringExtra("date", Station.COLUMN_NAMES[STATION_DATE], arr, STATION_DATE));
 
         return list.toArray(new Config[]{});
     }

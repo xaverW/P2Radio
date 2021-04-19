@@ -168,12 +168,12 @@ public class P2RadioController extends StackPane {
 
         // ProgInfoDialog
         if (ProgData.debug) {
-            final MenuItem miDebug = new MenuItem("Debugtools");
+            final MenuItem miDebug = new MenuItem("Debug: Debugtools");
             miDebug.setOnAction(event -> {
                 MTPTester mtpTester = new MTPTester(progData);
                 mtpTester.showDialog();
             });
-            final MenuItem miSave = new MenuItem("alles Speichern");
+            final MenuItem miSave = new MenuItem("Debug: Alles Speichern");
             miSave.setOnAction(a -> ProgSaveFactory.saveAll());
 
             mHelp.getItems().addAll(new SeparatorMenuItem(), miDebug, miSave);

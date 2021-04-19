@@ -217,7 +217,7 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
 
     public synchronized Station getSenderByUrl(final String url) {
         final Optional<Station> opt =
-                parallelStream().filter(f -> f.arr[StationXml.STATION_URL].equalsIgnoreCase(url)).findAny();
+                parallelStream().filter(station -> station.getUrl().equalsIgnoreCase(url)).findAny();
         return opt.orElse(null);
     }
 

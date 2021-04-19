@@ -28,7 +28,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.getNewStationList.radioBrowser.StationFieldNamesWeb;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.tukaani.xz.XZInputStream;
 
@@ -40,13 +39,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-public class LoadJsonFactory {
+public class SenderLoadFactory {
 
     private static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
     private static int countAll = 0;
 
     public static boolean readList() {
-        //Json laden ~500ms
         boolean ret = false;
 
         final String pathJson = ProgInfos.getStationFileJsonString();
@@ -177,49 +175,49 @@ public class LoadJsonFactory {
             value = value.trim();
 
             switch (name) {
-                case StationFieldNamesWeb.NAME:
+                case SenderSaveFactory.NAME:
                     station.arr[Station.STATION_NAME] = value;
                     break;
-                case StationFieldNamesWeb.GENRE:
+                case SenderSaveFactory.GENRE:
                     station.arr[Station.STATION_GENRE] = value;
                     break;
-                case StationFieldNamesWeb.CODEC:
+                case SenderSaveFactory.CODEC:
                     station.arr[Station.STATION_CODEC] = value;
                     break;
-                case StationFieldNamesWeb.BITRATE:
+                case SenderSaveFactory.BITRATE:
                     station.arr[Station.STATION_BITRATE] = value;
                     break;
-                case StationFieldNamesWeb.COUNTRY:
+                case SenderSaveFactory.COUNTRY:
                     station.arr[Station.STATION_COUNTRY] = value;
                     break;
-                case StationFieldNamesWeb.COUNTRY_CODE:
+                case SenderSaveFactory.COUNTRY_CODE:
                     station.arr[Station.STATION_COUNTRY_CODE] = value;
                     break;
-                case StationFieldNamesWeb.STATE:
+                case SenderSaveFactory.STATE:
                     station.arr[Station.STATION_STATE] = value;
                     break;
-                case StationFieldNamesWeb.LANGUAGE:
+                case SenderSaveFactory.LANGUAGE:
                     station.arr[Station.STATION_LANGUAGE] = value;
                     break;
-                case StationFieldNamesWeb.VOTES:
+                case SenderSaveFactory.VOTES:
                     station.arr[Station.STATION_VOTES] = value;
                     break;
-                case StationFieldNamesWeb.CLICK_COUNT:
+                case SenderSaveFactory.CLICK_COUNT:
                     station.arr[Station.STATION_CLICK_COUNT] = value;
                     break;
-                case StationFieldNamesWeb.CLICK_TREND:
+                case SenderSaveFactory.CLICK_TREND:
                     station.arr[Station.STATION_CLICK_TREND] = value;
                     break;
-                case StationFieldNamesWeb.URL:
+                case SenderSaveFactory.URL:
                     station.arr[Station.STATION_URL] = value;
                     break;
-                case StationFieldNamesWeb.URL_RESOLVED:
+                case SenderSaveFactory.URL_RESOLVED:
                     station.arr[Station.STATION_URL_RESOLVED] = value;
                     break;
-                case StationFieldNamesWeb.HOMEPAGE:
+                case SenderSaveFactory.HOMEPAGE:
                     station.arr[Station.STATION_WEBSITE] = value;
                     break;
-                case StationFieldNamesWeb.LAST_CHANGE_TIME:
+                case SenderSaveFactory.LAST_CHANGE_TIME:
                     //"2020-08-21 10:40:59"
                     try {
                         PDate pd = new PDate(sdf_date_time.parse(value));

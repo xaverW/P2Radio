@@ -19,9 +19,9 @@ package de.p2tools.p2radio.controller.getNewStationList;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.LoadJsonFactory;
 import de.p2tools.p2radio.controller.ProgLoadFactory;
-import de.p2tools.p2radio.controller.ProgSaveFactory;
+import de.p2tools.p2radio.controller.SenderLoadFactory;
+import de.p2tools.p2radio.controller.SenderSaveFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
@@ -157,7 +157,7 @@ public class LoadNewStationList {
             // dann die alte Liste wieder laden
             progData.stationList.clear();
             setStop(false);
-            LoadJsonFactory.readList();
+            SenderLoadFactory.readList();
 //            readRadioList.importStationListAuto(progData.stationList); //endlosschleife!!
             logList.add("");
 
@@ -173,12 +173,7 @@ public class LoadNewStationList {
             logList.add("Sender schreiben (" + progData.stationList.size() + " Sender) :");
             logList.add("   --> Start Schreiben nach: " + ProgInfos.getStationFileJsonString());
 
-            //und noch speichern :)
-//            PDuration.counterStart("ProgSaveFactory.saveStationList XML");
-//            ProgSaveFactory.saveStationListXml();//370ms
-//            PDuration.counterStop("ProgSaveFactory.saveStationList XML");
-
-            ProgSaveFactory.saveStationListJson();//90ms
+            SenderSaveFactory.saveStationListJson();
             logList.add("   --> geschrieben!");
             logList.add("");
         }

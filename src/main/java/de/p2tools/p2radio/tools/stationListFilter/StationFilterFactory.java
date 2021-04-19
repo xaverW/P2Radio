@@ -78,8 +78,8 @@ public class StationFilterFactory {
     }
 
     public static boolean checkUrl(Filter url, Station station) {
-        if (!check(url, station.arr[StationXml.STATION_WEBSITE])
-                && !check(url, station.arr[StationXml.STATION_URL])) {
+        if (!check(url, station.getWebsite())
+                && !check(url, station.getUrl())) {
             return false;
         }
         return true;

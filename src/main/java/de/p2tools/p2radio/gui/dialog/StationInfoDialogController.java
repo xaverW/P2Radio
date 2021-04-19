@@ -185,7 +185,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         lblCont[i].setText(station.getClickTrend() + "");
                         break;
                     case StationXml.STATION_URL:
-                        pHyperlinkUrl.setUrl(station.arr[StationXml.STATION_URL]);
+                        pHyperlinkUrl.setUrl(station.getUrl());
                         break;
                     case StationXml.STATION_WEBSITE:
                         pHyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);
@@ -298,7 +298,6 @@ public class StationInfoDialogController extends PDialogExtra {
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(ivNew, 1, row++, 3, 1);
                     break;
-
                 case StationXml.STATION_URL:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(pHyperlinkUrl, 1, row++, 3, 1);

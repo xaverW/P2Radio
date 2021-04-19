@@ -22,7 +22,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
 public class StartFactory {
@@ -100,7 +99,7 @@ public class StartFactory {
     }
 
     private synchronized void startUrlWithProgram(Station station, SetData setData) {
-        final String url = station.arr[StationXml.STATION_URL];
+        final String url = station.getUrl();
         if (!url.isEmpty()) {
             progData.startFactory.stopAll();
             ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
