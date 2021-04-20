@@ -220,6 +220,8 @@ public class TableStation {
                 Station station = getTableView().getItems().get(getIndex());
                 final boolean playing = station.getStart() != null;
                 final boolean error = station.getStart() != null ? station.getStart().getStartStatus().isStateError() : false;
+                final boolean fav = station.isFavouriteUrl();
+
                 final boolean set = progData.setDataList.size() > 1;
 
                 if (playing) {
@@ -289,13 +291,13 @@ public class TableStation {
                 hbox.getChildren().add(btnSave);
 
                 setGraphic(hbox);
-                setCellStyle(this, playing, error);
+                setCellStyle(this, playing, error, fav);
             }
         };
         return cell;
     };
 
-    private void setCellStyle(TableCell<Station, String> cell, boolean playing, boolean error) {
+    private void setCellStyle(TableCell<Station, String> cell, boolean playing, boolean error, boolean fav) {
         TableRow<Station> currentRow = cell.getTableRow();
         if (currentRow == null) {
             return;
@@ -305,6 +307,8 @@ public class TableStation {
             currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundSel());
         } else if (error) {
             currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundSel());
+        } else if (fav) {
+            currentRow.setStyle(ProgColorList.STATION_FAVOURITE.getCssBackgroundSel());
         } else {
             currentRow.setStyle("");
         }

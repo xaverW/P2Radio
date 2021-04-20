@@ -33,6 +33,10 @@ public class ProgColorList extends PColorList {
             Color.rgb(0, 0, 240),
             Color.rgb(0, 0, 240), "Tabelle Sender, neue");
 
+    public static final PColorData STATION_FAVOURITE = addNewKey("COLOR__IS_FAVOURITE",
+            Color.rgb(215, 245, 255),
+            Color.rgb(215, 245, 255), "Tabelle Sender, ist ein Favorit");
+
     public static final PColorData STATION_RUN = addNewKey("COLOR__FAVOURITE_RUN",
             Color.rgb(255, 245, 176),
             Color.rgb(174, 150, 85), "Tabelle Sender/Favoriten, läuft");
