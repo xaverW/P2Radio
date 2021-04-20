@@ -41,7 +41,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -71,6 +71,7 @@ public class FavouriteGuiController extends AnchorPane {
     private final FilteredList<Favourite> filteredFavourites;
     private final SortedList<Favourite> sortedFavourites;
 
+    private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
     DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
 
@@ -120,6 +121,7 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     public void isShown() {
+        tableView.requestFocus();
         setSelectedFavourite();
     }
 
@@ -276,11 +278,11 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     public void setNextStation() {
-        PTableFactory.setNextStation(tableView);
+        PTableFactory.selectNextRow(tableView);
     }
 
     public void setPreviousStation() {
-        PTableFactory.setPreviousStation(tableView);
+        PTableFactory.selectPreviousRow(tableView);
     }
 
     private void initListener() {
@@ -351,9 +353,7 @@ public class FavouriteGuiController extends AnchorPane {
         tableView.setEditable(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
         new Table().setTable(tableView, Table.TABLE.FAVOURITE);
-
         tableView.setItems(sortedFavourites);
         sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
 
@@ -362,7 +362,6 @@ public class FavouriteGuiController extends AnchorPane {
                 changeFavourite(false);
             }
         });
-
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<Favourite> optionalDownload = getSel(false);
@@ -376,7 +375,6 @@ public class FavouriteGuiController extends AnchorPane {
                 tableView.setContextMenu(contextMenu);
             }
         });
-
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> setSelectedFavourite());
         });
@@ -384,6 +382,12 @@ public class FavouriteGuiController extends AnchorPane {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);
+            }
+        });
+        tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            if (SPACE.match(event)) {
+                PTableFactory.scrollVisibleRange(tableView);
+                event.consume();
             }
         });
     }

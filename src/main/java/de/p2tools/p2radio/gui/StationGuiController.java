@@ -54,6 +54,7 @@ public class StationGuiController extends AnchorPane {
     private boolean bound = false;
     private final SortedList<Station> sortedList;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
+    private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
 
     DoubleProperty splitPaneProperty = ProgConfig.STATION_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.STATION_GUI_DIVIDER_ON;
@@ -83,6 +84,7 @@ public class StationGuiController extends AnchorPane {
     }
 
     public void isShown() {
+        tableView.requestFocus();
         setStation();
     }
 
@@ -202,11 +204,11 @@ public class StationGuiController extends AnchorPane {
     }
 
     public void setNextStation() {
-        PTableFactory.setNextStation(tableView);
+        PTableFactory.selectNextRow(tableView);
     }
 
     public void setPreviousStation() {
-        PTableFactory.setPreviousStation(tableView);
+        PTableFactory.selectPreviousRow(tableView);
     }
 
     private void initListener() {
@@ -289,6 +291,11 @@ public class StationGuiController extends AnchorPane {
         });
 
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            if (SPACE.match(event)) {
+                PTableFactory.scrollVisibleRange(tableView);
+                event.consume();
+            }
+
             if (STRG_A.match(event)) {
                 if (tableView.getItems().size() > 3_000) {
                     // bei sehr langen Listen dauert das seeeeeehr lange

@@ -26,6 +26,8 @@ import de.p2tools.p2radio.controller.ProgSaveFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
+import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
@@ -36,6 +38,7 @@ import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -188,6 +191,23 @@ public class P2RadioController extends StackPane {
         menuButton2.getStyleClass().add("btnFunctionWide");
         menuButton2.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU_TOP);
         menuButton2.setVisible(false);
+
+        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
+            @Override
+            public void finished(EventLoadRadioList event) {
+                if (stackPaneCont.getChildren().size() == 0) {
+                    return;
+                }
+
+                Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+                if (node != null && node == splitPaneStation) {
+                    progData.stationGuiController.isShown();
+                }
+                if (node != null && node == splitPaneFavourite) {
+                    progData.favouriteGuiController.isShown();
+                }
+            }
+        });
     }
 
     private void selPanelStation() {
