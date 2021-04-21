@@ -292,7 +292,11 @@ public class StationGuiController extends AnchorPane {
 
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (SPACE.match(event)) {
-                PTableFactory.scrollVisibleRange(tableView);
+                PTableFactory.scrollVisibleRangeDown(tableView);
+                event.consume();
+            }
+            if (PTableFactory.SPACE_SHIFT.match(event)) {
+                PTableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
 

@@ -41,7 +41,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -71,7 +72,6 @@ public class FavouriteGuiController extends AnchorPane {
     private final FilteredList<Favourite> filteredFavourites;
     private final SortedList<Favourite> sortedFavourites;
 
-    private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
     DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
 
@@ -385,8 +385,12 @@ public class FavouriteGuiController extends AnchorPane {
             }
         });
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (SPACE.match(event)) {
-                PTableFactory.scrollVisibleRange(tableView);
+            if (PTableFactory.SPACE.match(event)) {
+                PTableFactory.scrollVisibleRangeDown(tableView);
+                event.consume();
+            }
+            if (PTableFactory.SPACE_SHIFT.match(event)) {
+                PTableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
         });
