@@ -72,6 +72,12 @@ public class StartPlayingStation extends Thread {
                 if (runTime == Favourite.START_COUNTER_MIN_TIME && favourite != null) {
                     favourite.setClickCount(favourite.getClickCount() + 1);
                 }
+                if (runTime == Favourite.START_COUNTER_MIN_TIME && station != null && station.isFavouriteUrl()) {
+                    Favourite favourite = progData.favouriteList.parallelStream().filter(f -> f.getUrl().equals(station.getUrl())).findAny().orElse(null);
+                    if (favourite != null) {
+                        favourite.setClickCount(favourite.getClickCount() + 1);
+                    }
+                }
             }
         });
     }
