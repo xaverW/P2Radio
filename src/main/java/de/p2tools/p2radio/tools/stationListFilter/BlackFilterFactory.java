@@ -102,6 +102,17 @@ public class BlackFilterFactory {
         return true;
     }
 
+    public static boolean isBlackEmpty() {
+        //liefert, ob es keine "black" gibt
+        if (ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE.get() == 0 &&
+                ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE.get() == StationFilterFactory.FILTER_BITRATE_MAX &&
+                progData.blackDataList.isEmpty()) {
+            return true;
+        }
+
+        return false;
+    }
+
     private static synchronized boolean checkBlock(Station station) {
         // hier werden die Sender gegen die Blacklist geprüft
         if (station.getBitrateInt() != 0 && minBitrate > 0 &&

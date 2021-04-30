@@ -18,6 +18,9 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.gui.tools.Listener;
+import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
+import de.p2tools.p2radio.tools.stationListFilter.StationListFilter;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -66,19 +69,33 @@ public class StationFilterController extends FilterController {
         tglBlacklist.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnProperty());
         tglBlacklist.indeterminateProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnlyProperty());
 
-
-//        tglBlacklist.indeterminateProperty().addListener((v, o, n) -> {
-//            System.out.println("interminate: " + "" + tglBlacklist.isIndeterminate() + " selected: " + tglBlacklist.isSelected());
-//        });
-//        tglBlacklist.selectedProperty().addListener((v, o, n) -> {
-//            System.out.println("interminate: " + "" + tglBlacklist.isIndeterminate() + " selected: " + tglBlacklist.isSelected());
-//        });
-
         vBoxBlacklist = getVBoxBotton();
         HBox hBox = new HBox(10);
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
         vBoxBlacklist.getChildren().addAll(hBox);
+        Listener.addListener(new Listener(Listener.EREIGNIS_BLACKLIST_GEAENDERT, StationListFilter.class.getSimpleName()) {
+            @Override
+            public void pingFx() {
+                setBlack();
+            }
+        });
+        setBlack();
     }
 
+    private void setBlack() {
+        if (BlackFilterFactory.isBlackEmpty()) {
+            //gibt keine Black-Einträge, dann auch die toggle "ausschalten"
+            progData.storedFilters.getActFilterSettings().setBlacklistOn(false);
+            progData.storedFilters.getActFilterSettings().setBlacklistOnly(false);
+            //und dann auch nicht anzeigen
+            vBoxBlacklist.setVisible(false);
+            vBoxBlacklist.setManaged(false);
+
+        } else {
+            //anzeigen
+            vBoxBlacklist.setVisible(true);
+            vBoxBlacklist.setManaged(true);
+        }
+    }
 }

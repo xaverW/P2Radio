@@ -82,13 +82,12 @@ public final class StoredFilters {
 
         actFilterSettings.filterChangeProperty().removeListener(filterChangeListener);
         actFilterSettings.blacklistChangeProperty().removeListener(blacklistChangeListener);
-        boolean black = actFilterSettings.blacklistOnProperty().getValue();
-        boolean blackOnly = actFilterSettings.blacklistOnlyProperty().getValue();
 
+        boolean black = actFilterSettings.isBlacklistOn();
+        boolean blackOnly = actFilterSettings.isBlacklistOnly();
         SelectedFilterFactory.copyFilter(sf, actFilterSettings);
-
-        if (actFilterSettings.blacklistOnProperty().getValue() == black &&
-                actFilterSettings.blacklistOnlyProperty().getValue() == blackOnly) {
+        if (actFilterSettings.isBlacklistOn() == black &&
+                actFilterSettings.isBlacklistOnly() == blackOnly) {
             // Black hat sich nicht geändert
             setFilterChange();
 

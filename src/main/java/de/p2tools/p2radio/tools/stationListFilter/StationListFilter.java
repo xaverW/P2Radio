@@ -48,7 +48,10 @@ public class StationListFilter {
         Listener.addListener(new Listener(Listener.EREIGNIS_BLACKLIST_GEAENDERT, StationListFilter.class.getSimpleName()) {
             @Override
             public void pingFx() {
-                filterList();
+                if (!progData.loadNewStationList.getPropLoadStationList()) {
+                    //wird sonst eh gemacht
+                    filterList();
+                }
             }
         });
     }
