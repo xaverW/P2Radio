@@ -64,7 +64,7 @@ public class HelpText {
                     "Begriff \"Sport\" UND \"Fussball\" haben." +
                     P2LibConst.LINE_SEPARATOR +
                     P2LibConst.LINE_SEPARATOR +
-                    "In allen Feldern mit Texteingabe" +
+                    "In allen Feldern mit Texteingabe " +
                     "kann auch mit regulären Ausdrücken gesucht " +
                     "werden. Diese müssen mit \"#:\" eingeleitet werden. " +
                     "Auch bei den regulären Ausdrücken wird nicht zwischen " +
