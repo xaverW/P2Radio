@@ -83,13 +83,13 @@ public final class SelectedFilter extends SelectedFilterProps {
     public void initFilter() {
         clearFilter();
 
-        setStationNameVis(false);
+        setStationNameVis(true);
         setGenreVis(true);
-        setCodecVis(true);
+        setCodecVis(false);
         setCountryVis(false);
         setUrlVis(false);
 
-        setMinMaxBitVis(true);
+        setMinMaxBitVis(false);
         setOnlyVis(false);
 
         stationNameVisProperty().addListener(l -> reportFilterChange());

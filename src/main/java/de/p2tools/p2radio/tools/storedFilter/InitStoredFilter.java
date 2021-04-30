@@ -27,13 +27,13 @@ public class InitStoredFilter {
         //========================================================
         SelectedFilter sf = new SelectedFilter("alle Sender");
 
-        sf.setStationNameVis(false);
+        sf.setStationNameVis(true);
         sf.setGenreVis(true);
         sf.setUrlVis(false);
-        sf.setCodecVis(true);
+        sf.setCodecVis(false);
         sf.setCountryVis(false);
 
-        sf.setMinMaxBitVis(true);
+        sf.setMinMaxBitVis(false);
         sf.setMinBit(0);
         sf.setMaxBit(StationFilterFactory.FILTER_BITRATE_MAX);
 
