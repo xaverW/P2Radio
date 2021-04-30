@@ -172,7 +172,7 @@ public class HelpText {
             "fest zugeordnet werden (z.B. der Browser \"Firefox\").";
 
     public static final String RESET_DIALOG =
-            "==> Einstellungen zum Abspielen und Aufzeichnen zurücksetzen" +
+            "==> Einstellungen zum Abspielen zurücksetzen" +
 
                     P2LibConst.LINE_SEPARATORx2 +
                     "Damit werden alle Sets (auch eigene), die zum Abspielen der " +
