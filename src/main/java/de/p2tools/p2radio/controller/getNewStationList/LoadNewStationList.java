@@ -105,33 +105,32 @@ public class LoadNewStationList {
     }
 
     public void loadNewStationFromServer() {
-//        System.out.println("===============> loadNewStationFromServer");
-        progData.maskerPane.setButtonVisible(true);
-
-        if (!getPropLoadStationList()) {
+        if (getPropLoadStationList()) {
             // nicht doppelt starten
-            setPropLoadStationList(true);
-
-            PDuration.onlyPing("Radioliste laden: start");
-            final List<String> logList = new ArrayList<>();
-            logList.add("");
-            logList.add(PLog.LILNE1);
-            logList.add("Liste der Radios laden");
-            logList.add("");
-            logList.add("Alte Liste erstellt  am: " + ProgData.getInstance().stationList.getGenDate());
-            logList.add("           Anzahl Sender: " + progData.stationList.size());
-            logList.add("           Anzahl  Neue: " + progData.stationList.countNewStations());
-            logList.add(" ");
-
-            // Hash mit URLs füllen
-            fillHash(logList, progData.stationList);
-            progData.stationList.clear();
-            progData.stationListBlackFiltered.clear();
-            setStop(false);
-            readStations.loadNewStationList(progData.stationList);
-
-            PLog.addSysLog(logList);
+            return;
         }
+
+        setPropLoadStationList(true);
+        PDuration.onlyPing("Radioliste laden: start");
+        final List<String> logList = new ArrayList<>();
+        logList.add("");
+        logList.add(PLog.LILNE1);
+        logList.add("Liste der Radios laden");
+        logList.add("");
+        logList.add("Alte Liste erstellt  am: " + ProgData.getInstance().stationList.getGenDate());
+        logList.add("           Anzahl Sender: " + progData.stationList.size());
+        logList.add("           Anzahl  Neue: " + progData.stationList.countNewStations());
+        logList.add(" ");
+
+        // Hash mit URLs füllen
+        fillHash(logList, progData.stationList);
+        progData.maskerPane.setButtonVisible(true);
+        progData.stationList.clear();
+        progData.stationListBlackFiltered.clear();
+        setStop(false);
+        readStations.loadNewStationList(progData.stationList);
+
+        PLog.addSysLog(logList);
     }
 
     /**

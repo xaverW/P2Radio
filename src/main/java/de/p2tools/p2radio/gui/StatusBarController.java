@@ -82,7 +82,7 @@ public class StatusBarController extends AnchorPane {
         stackPane.setPadding(new Insets(2, 5, 2, 5));
         nonePane.toFront();
 
-        progData.eventNotifyLoadRadioList.listeners.add(EventListenerLoadRadioList.class, new EventListenerLoadRadioList() {
+        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
             @Override
             public void start(EventLoadRadioList event) {
                 stopTimer = true;

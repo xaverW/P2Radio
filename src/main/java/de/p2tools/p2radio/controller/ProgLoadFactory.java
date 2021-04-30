@@ -62,6 +62,7 @@ public class ProgLoadFactory {
         Thread th = new Thread(() -> {
             final ProgData progData = ProgData.getInstance();
             PDuration.onlyPing("Programmstart Senderliste laden: start");
+
             progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.START,
                     new EventLoadRadioList("", "gespeicherte Senderliste laden",
                             EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false));
@@ -79,9 +80,9 @@ public class ProgLoadFactory {
                 // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen
                 logList.add("Programmstart, gespeicherte Senderliste laden");
                 boolean loadOk = SenderLoadFactory.readList();
-
                 if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
                     //wenn die gespeicherte zu alt ist
+
                     progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.PROGRESS,
                             new EventLoadRadioList("", "Senderliste zu alt, neue Senderliste laden",
                                     EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
@@ -89,11 +90,16 @@ public class ProgLoadFactory {
                     logList.add("Senderliste zu alt, neue Senderliste laden");
                     logList.add(PLog.LILNE3);
                     progData.loadNewStationList.loadNewStationFromServer();
+
                 } else {
                     progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
                             new EventLoadRadioList("", "Senderliste verarbeiten",
                                     EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+
                     afterLoadingStationList(logList);
+                    logList.add("Liste der Radios geladen");
+
+                    progData.eventNotifyLoadRadioList.notifyFinishedOk();
                 }
             }
 
@@ -104,11 +110,9 @@ public class ProgLoadFactory {
                 Platform.runLater(() -> progData.favouriteGuiController.selUrl());
             }
 
-            logList.add("Liste der Radios geladen");
             logList.add(PLog.LILNE1);
             logList.add("");
             PLog.addSysLog(logList);
-            progData.eventNotifyLoadRadioList.notifyFinishedOk();
         });
 
         th.setName("loadStationProgStart");
@@ -119,7 +123,6 @@ public class ProgLoadFactory {
      * alles was nach einem Neuladen oder Einlesen einer gespeicherten Senderliste ansteht
      */
     public static void afterLoadingStationList(List<String> logList) {
-//        System.out.println("===============> afterLoadingStationList");
         final ProgData progData = ProgData.getInstance();
 
         logList.add("");
@@ -133,6 +136,7 @@ public class ProgLoadFactory {
         progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
                 new EventLoadRadioList("", "Sender markieren",
                         EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+
         logList.add("Sender markieren");
         final int count = progData.stationList.markStations();
         logList.add("Anzahl doppelte Sender: " + count);
@@ -154,6 +158,7 @@ public class ProgLoadFactory {
         progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
                 new EventLoadRadioList("", "Sender in Favoriten eingetragen",
                         EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+
         logList.add("Sender in Favoriten eingetragen");
         progData.favouriteList.addStationInList();
     }

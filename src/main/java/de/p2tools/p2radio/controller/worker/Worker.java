@@ -30,6 +30,7 @@ public class Worker {
         progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
             @Override
             public void start(EventLoadRadioList event) {
+                System.out.println("--start");
                 if (event.progress == EventListenerLoadRadioList.PROGRESS_INDETERMINATE) {
                     //ist dann die gespeicherte Senderliste
                     progData.maskerPane.setMaskerVisible(true, false);
@@ -41,17 +42,20 @@ public class Worker {
 
             @Override
             public void progress(EventLoadRadioList event) {
+                System.out.println("--progress");
                 progData.maskerPane.setMaskerProgress(event.progress, event.text);
             }
 
             @Override
             public void loaded(EventLoadRadioList event) {
+                System.out.println("--loaded");
                 progData.maskerPane.setMaskerVisible(true, false);
                 progData.maskerPane.setMaskerProgress(EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
             }
 
             @Override
             public void finished(EventLoadRadioList event) {
+                System.out.println("--finished");
                 progData.maskerPane.setMaskerVisible(false);
             }
         });

@@ -25,6 +25,7 @@ import java.util.EventListener;
 
 public class Listener implements EventListener {
 
+    //todo???
     static int count = 0;
 
     public static final int EREIGNIS_BLACKLIST_GEAENDERT = count++;

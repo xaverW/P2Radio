@@ -75,10 +75,10 @@ public class ReadStations {
 
         @Override
         public void run() {
-            loadListAutoThread(stationList);
+            runReadStationsThread(stationList);
         }
 
-        private boolean loadListAutoThread(StationList stationList) {
+        private boolean runReadStationsThread(StationList stationList) {
             boolean ret;
             this.stationList.clear();
             PLog.addSysLog("komplette Liste laden");
