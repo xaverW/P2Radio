@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
 import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteInfosFactory;
+import de.p2tools.p2radio.controller.worker.InfoFactory;
 import de.p2tools.p2radio.gui.tools.Listener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -116,12 +116,12 @@ public class StatusBarController extends AnchorPane {
             case STATION:
                 stationPane.toFront();
                 setInfoStation();
-                setTextForRightDisplay();
+                setRightText();
                 break;
             case FAVOURITE:
                 favouritePane.toFront();
                 setInfoFavourite();
-                setTextForRightDisplay();
+                setRightText();
                 break;
             case NONE:
             default:
@@ -132,14 +132,14 @@ public class StatusBarController extends AnchorPane {
 
 
     private void setInfoStation() {
-        lblLeftStation.setText(FavouriteInfosFactory.getStatusInfosStation());
+        lblLeftStation.setText(InfoFactory.getInfosStations());
     }
 
     private void setInfoFavourite() {
-        lblLeftFavourite.setText(FavouriteInfosFactory.getStatusInfosFavourite());
+        lblLeftFavourite.setText(InfoFactory.getInfosFavourites());
     }
 
-    private void setTextForRightDisplay() {
+    private void setRightText() {
         // Text rechts: alter/neuladenIn anzeigen
         String strText = "Senderliste geladen: ";
         strText += progData.stationList.getGenDate();

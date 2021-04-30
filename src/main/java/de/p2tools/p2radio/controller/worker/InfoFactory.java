@@ -15,23 +15,24 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.favourite;
+package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class FavouriteInfosFactory {
+public class InfoFactory {
 
     private static final String SEPARATOR = "  ||  ";
     private static final NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
     private static final ProgData progData = ProgData.getInstance();
 
-    private FavouriteInfosFactory() {
+    private InfoFactory() {
     }
 
-    public static synchronized String getStatusInfosStation() {
+    public static synchronized String getInfosStations() {
         String textLinks;
         final int sumStationList = progData.stationList.size();
         final int sumStationsShown = progData.stationGuiController.getStationCount();
@@ -70,7 +71,7 @@ public class FavouriteInfosFactory {
         return textLinks;
     }
 
-    public static String getStatusInfosFavourite() {
+    public static String getInfosFavourites() {
         String textLinks;
         String sumFavouriteListStr = numberFormat.format(progData.favouriteList.size());
         String sumFavouritesShownStr = numberFormat.format(progData.favouriteGuiController.getFavouritesShown());
@@ -97,11 +98,18 @@ public class FavouriteInfosFactory {
     }
 
     private static synchronized String getRunningInfos() {
-        String textLinks = ": ";
-        if (progData.favouriteInfos.getStarted() == 1) {
-            textLinks += "1 läuft";
+        String textLinks = " || ";
+        int running = 0;
+        running = progData.favouriteInfos.getStarted();
+        running += progData.stationInfos.getStarted();
+        if (running == 0) {
+            textLinks = "";
+
+        } else if (running == 1) {
+            textLinks += "1 Sender läuft";
+
         } else {
-            textLinks += progData.favouriteInfos.getStarted() + " laufen";
+            textLinks += running + " Sender laufen";
         }
 
         return textLinks;

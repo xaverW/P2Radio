@@ -22,8 +22,8 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteInfos;
 import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.gui.tools.Listener;
 import javafx.application.Platform;
 

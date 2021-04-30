@@ -15,26 +15,28 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.favourite;
+package de.p2tools.p2radio.controller.worker;
 
+import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.Listener;
 
-public class FavouriteInfos {
+public class StationInfos {
 
     private int amount = 0; //Gesamtanzahl
     private int notStarted = 0; //davon gestartet, alle, egal ob warten, laden oder fertig
     private int started = 0; //davon gestartet, alle, egal ob warten, laden oder fertig
 
     private final ProgData progData;
+    private boolean search = false;
 
-    public FavouriteInfos(ProgData progData) {
+    public StationInfos(ProgData progData) {
         this.progData = progData;
-        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, FavouriteInfos.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, StationInfos.class.getSimpleName()) {
             @Override
             public void ping() {
-                clean();
-                generateFavouriteInfos();
+                generateInfos();
             }
         });
     }
@@ -52,16 +54,25 @@ public class FavouriteInfos {
         return started;
     }
 
-    private synchronized void generateFavouriteInfos() {
+    private synchronized void generateInfos() {
+        search = !search;
+        if (!search) {
+            //nur alle 2 Sekunden suchen
+            return;
+        }
+
+        PDuration.counterStart("StationInfos.generateInfos");
         // generiert die Anzahl Favoriten
-        for (final Favourite favourite : progData.favouriteList) {
+        clean();
+        for (final Station station : progData.stationList) {
             ++amount;
-            if (favourite.getStart() != null) {
+            if (station.getStart() != null) {
                 ++started;
             } else {
                 ++notStarted;
             }
         }
+        PDuration.counterStop("StationInfos.generateInfos");
     }
 
     private synchronized void clean() {

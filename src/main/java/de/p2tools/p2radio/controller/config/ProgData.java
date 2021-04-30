@@ -26,11 +26,12 @@ import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteInfos;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.getNewStationList.LoadNewStationList;
+import de.p2tools.p2radio.controller.worker.FavouriteInfos;
+import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
 import de.p2tools.p2radio.gui.FavouriteGuiController;
 import de.p2tools.p2radio.gui.StationFilterControllerClearFilter;
@@ -80,6 +81,7 @@ public class ProgData {
     public Worker worker; // Liste aller Sender, Themen, ...
     public FilterWorker filterWorker; // Liste aller Sender, Themen, ...
     public FavouriteInfos favouriteInfos;
+    public StationInfos stationInfos;
     public StartFactory startFactory;
 
     // Programmdaten
@@ -111,6 +113,7 @@ public class ProgData {
         worker = new Worker(this);
         filterWorker = new FilterWorker(this);
         favouriteInfos = new FavouriteInfos(this);
+        stationInfos = new StationInfos(this);
         startFactory = new StartFactory(this);
         progTray = new ProgTray(this);
     }
