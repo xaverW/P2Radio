@@ -18,7 +18,6 @@
 package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
@@ -72,7 +71,6 @@ public class ProgTray {
         java.awt.MenuItem miStop = new java.awt.MenuItem("alle laufenden Sender stoppen");
         java.awt.MenuItem miInfo = new java.awt.MenuItem("Sender-Info-Dialog öffnen");
         java.awt.MenuItem miConfig = new java.awt.MenuItem("Einstellungen öffnen");
-        java.awt.MenuItem miLogfile = new java.awt.MenuItem("LogDatei öffnen");
         java.awt.MenuItem miTray = new java.awt.MenuItem("Tray-Icon ausblenden");
 
         java.awt.MenuItem miAbout = new java.awt.MenuItem("über dieses Programm");
@@ -87,7 +85,6 @@ public class ProgTray {
             progData.stationInfoDialogController.toggleShowInfo();
         }));
         miConfig.addActionListener(e -> Platform.runLater(() -> new ConfigDialogController()));
-        miLogfile.addActionListener((e -> Platform.runLater(() -> PLogger.openLogFile())));
         miTray.addActionListener((e -> Platform.runLater(() -> ProgConfig.SYSTEM_TRAY.set(false))));
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(progData)));
         miQuit.addActionListener(e -> Platform.runLater(() -> ProgQuitFactory.quit(true)));
@@ -96,7 +93,6 @@ public class ProgTray {
         popup.add(miStop);
         popup.add(miInfo);
         popup.add(miConfig);
-        popup.add(miLogfile);
         popup.add(miTray);
 
         popup.addSeparator();
