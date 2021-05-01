@@ -16,19 +16,24 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2Lib.guiTools.PGuiTools;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class FilterController extends AnchorPane {
 
 
-    private final VBox vBoxAll = new VBox(20);
+    private final VBox vBoxAll = new VBox();
+    private final VBox vBoxTop = new VBox(20);
+    private final VBox vBoxBottom = new VBox();
     private final ProgData progData;
 
     public FilterController() {
@@ -38,48 +43,45 @@ public class FilterController extends AnchorPane {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
-        getChildren().addAll(scrollPane);
+        Button button = new Button();
+        button.getStyleClass().add("close-button");
+        button.setOnAction(a -> ProgConfig.STATION_GUI_FILTER_DIVIDER_ON.setValue(false));
 
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("close-pane");
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.getChildren().addAll(button);
+        vBoxAll.getChildren().add(hBox);
+        initVBox();
+
+        scrollPane.setContent(vBoxAll);
         AnchorPane.setLeftAnchor(scrollPane, 0.0);
         AnchorPane.setBottomAnchor(scrollPane, 0.0);
         AnchorPane.setRightAnchor(scrollPane, 0.0);
         AnchorPane.setTopAnchor(scrollPane, 0.0);
-
-        scrollPane.setContent(vBoxAll);
+        getChildren().addAll(scrollPane);
     }
 
-    public VBox getVBoxAll() {
-        return vBoxAll;
+    public VBox getVBoxTop() {
+        return vBoxTop;
     }
 
-    public void addVgrowVboxAll() {
-        vBoxAll.getChildren().add(PGuiTools.getVBoxGrower());
+    public VBox getVBoxBottom() {
+        return vBoxBottom;
     }
 
-    public VBox getVBoxFilter(boolean vgrow) {
-        VBox vbFilter = new VBox();
-        vbFilter.setPadding(new Insets(15, 15, 15, 15));
-        vbFilter.setSpacing(20);
-        if (vgrow) {
-            VBox.setVgrow(vbFilter, Priority.ALWAYS);
-        }
+    private void initVBox() {
+        VBox.setVgrow(vBoxTop, Priority.ALWAYS);
 
-        vBoxAll.getChildren().addAll(vbFilter);
-        return vbFilter;
-    }
-
-    public VBox getVBoxBotton() {
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("extra-pane");
-        vBox.setPadding(new Insets(10));
-        vBox.setSpacing(20);
-        vBox.setMaxWidth(Double.MAX_VALUE);
+        vBoxBottom.getStyleClass().add("extra-pane");
+        vBoxBottom.setPadding(new Insets(10));
+        vBoxBottom.setSpacing(20);
+        vBoxBottom.setMaxWidth(Double.MAX_VALUE);
 
         Separator sp = new Separator();
         sp.setVisible(false);
         sp.setMinHeight(10);
 
-        vBoxAll.getChildren().addAll(sp, vBox);
-        return vBox;
+        vBoxAll.getChildren().addAll(vBoxTop, sp, vBoxBottom);
     }
 }

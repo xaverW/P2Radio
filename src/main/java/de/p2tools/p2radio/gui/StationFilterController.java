@@ -56,7 +56,7 @@ public class StationFilterController extends FilterController {
         sp.setMinHeight(0);
         sp.setPadding(new Insets(10));
 
-        vBoxFilter = getVBoxAll();
+        vBoxFilter = getVBoxTop();
         vBoxFilter.setSpacing(0);
         VBox.setVgrow(filter, Priority.ALWAYS);
 
@@ -69,7 +69,7 @@ public class StationFilterController extends FilterController {
         tglBlacklist.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnProperty());
         tglBlacklist.indeterminateProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnlyProperty());
 
-        vBoxBlacklist = getVBoxBotton();
+        vBoxBlacklist = getVBoxBottom();
         HBox hBox = new HBox(10);
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
