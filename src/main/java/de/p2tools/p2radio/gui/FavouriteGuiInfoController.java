@@ -22,12 +22,12 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -50,15 +50,28 @@ public class FavouriteGuiInfoController {
     }
 
     public void initInfo(AnchorPane anchorPane) {
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(gridPane);
-        scrollPane.setFitToWidth(true);
+        Button button = new Button();
+        button.getStyleClass().add("close-button");
+        button.setOnAction(a -> ProgConfig.FAVOURITE_GUI_DIVIDER_ON.setValue(false));
 
-        AnchorPane.setLeftAnchor(scrollPane, 10.0);
-        AnchorPane.setBottomAnchor(scrollPane, 10.0);
-        AnchorPane.setRightAnchor(scrollPane, 10.0);
-        AnchorPane.setTopAnchor(scrollPane, 10.0);
-        anchorPane.getChildren().add(scrollPane);
+        VBox vBox = new VBox(0);
+        vBox.getStyleClass().add("close-pane");
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.getChildren().addAll(button);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setContent(gridPane);
+
+        HBox hBoxCont = new HBox();
+        HBox.setHgrow(scrollPane, Priority.ALWAYS);
+        hBoxCont.getChildren().addAll(scrollPane, vBox);
+        AnchorPane.setLeftAnchor(hBoxCont, 0.0);
+        AnchorPane.setBottomAnchor(hBoxCont, 0.0);
+        AnchorPane.setRightAnchor(hBoxCont, 0.0);
+        AnchorPane.setTopAnchor(hBoxCont, 0.0);
+        anchorPane.getChildren().add(hBoxCont);
         anchorPane.setMinHeight(0);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));

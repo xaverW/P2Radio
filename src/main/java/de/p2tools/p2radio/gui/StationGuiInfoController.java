@@ -23,10 +23,10 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -47,11 +47,23 @@ public class StationGuiInfoController extends AnchorPane {
     }
 
     public void initInfo() {
-        AnchorPane.setLeftAnchor(gridPane, 10.0);
-        AnchorPane.setBottomAnchor(gridPane, 10.0);
-        AnchorPane.setRightAnchor(gridPane, 10.0);
-        AnchorPane.setTopAnchor(gridPane, 10.0);
-        getChildren().add(gridPane);
+        Button button = new Button();
+        button.getStyleClass().add("close-button");
+        button.setOnAction(a -> ProgConfig.STATION_GUI_DIVIDER_ON.setValue(false));
+
+        VBox vBox = new VBox(0);
+        vBox.getStyleClass().add("close-pane");
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.getChildren().addAll(button);
+
+        HBox hBoxCont = new HBox();
+        AnchorPane.setLeftAnchor(hBoxCont, 0.0);
+        AnchorPane.setBottomAnchor(hBoxCont, 0.0);
+        AnchorPane.setRightAnchor(hBoxCont, 0.0);
+        AnchorPane.setTopAnchor(hBoxCont, 0.0);
+        hBoxCont.getChildren().addAll(gridPane, vBox);
+        HBox.setHgrow(gridPane, Priority.ALWAYS);
+        getChildren().add(hBoxCont);
         setMinHeight(0);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
