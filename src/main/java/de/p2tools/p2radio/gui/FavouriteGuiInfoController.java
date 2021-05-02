@@ -18,20 +18,19 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class FavouriteGuiInfoController {
+public class FavouriteGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final Label lblWebsite = new Label("Website: ");
@@ -45,34 +44,13 @@ public class FavouriteGuiInfoController {
 
     private Favourite favourite = null;
 
-    public FavouriteGuiInfoController(AnchorPane anchorPane) {
-        initInfo(anchorPane);
+    public FavouriteGuiInfoController() {
+        super(ProgConfig.FAVOURITE_GUI_DIVIDER_ON);
+        initInfo();
     }
 
-    public void initInfo(AnchorPane anchorPane) {
-        Button button = new Button();
-        button.getStyleClass().add("close-button");
-        button.setOnAction(a -> ProgConfig.FAVOURITE_GUI_DIVIDER_ON.setValue(false));
-
-        VBox vBox = new VBox(0);
-        vBox.getStyleClass().add("close-pane");
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.getChildren().addAll(button);
-
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setContent(gridPane);
-
-        HBox hBoxCont = new HBox();
-        HBox.setHgrow(scrollPane, Priority.ALWAYS);
-        hBoxCont.getChildren().addAll(scrollPane, vBox);
-        AnchorPane.setLeftAnchor(hBoxCont, 0.0);
-        AnchorPane.setBottomAnchor(hBoxCont, 0.0);
-        AnchorPane.setRightAnchor(hBoxCont, 0.0);
-        AnchorPane.setTopAnchor(hBoxCont, 0.0);
-        anchorPane.getChildren().add(hBoxCont);
-        anchorPane.setMinHeight(0);
+    public void initInfo() {
+        getvBoxAll().getChildren().add(gridPane);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
         lblWebsite.setMinWidth(Region.USE_PREF_SIZE);

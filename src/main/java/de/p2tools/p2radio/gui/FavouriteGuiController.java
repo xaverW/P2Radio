@@ -57,7 +57,6 @@ public class FavouriteGuiController extends AnchorPane {
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private final AnchorPane tabStationInfo = new AnchorPane();
     private final TableView<Favourite> tableView = new TableView<>();
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
     private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
@@ -106,7 +105,7 @@ public class FavouriteGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        favouriteGuiInfoController = new FavouriteGuiInfoController(tabStationInfo);
+        favouriteGuiInfoController = new FavouriteGuiInfoController();
         filteredFavourites = new FilteredList<>(progData.favouriteList, p -> true);
         sortedFavourites = new SortedList<>(filteredFavourites);
 
@@ -304,7 +303,7 @@ public class FavouriteGuiController extends AnchorPane {
         } else {
             bound = true;
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, tabStationInfo);
+            splitPane.getItems().addAll(vBox, favouriteGuiInfoController);
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
             SplitPane.setResizableWithParent(vBox, true);
         }

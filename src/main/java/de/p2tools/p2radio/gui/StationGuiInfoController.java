@@ -18,19 +18,21 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class StationGuiInfoController extends AnchorPane {
+public class StationGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final Label lblWebsite = new Label("Website: ");
@@ -43,28 +45,13 @@ public class StationGuiInfoController extends AnchorPane {
     private Station station = null;
 
     public StationGuiInfoController() {
+        super(ProgConfig.STATION_GUI_DIVIDER_ON);
         initInfo();
     }
 
     public void initInfo() {
-        Button button = new Button();
-        button.getStyleClass().add("close-button");
-        button.setOnAction(a -> ProgConfig.STATION_GUI_DIVIDER_ON.setValue(false));
-
-        VBox vBox = new VBox(0);
-        vBox.getStyleClass().add("close-pane");
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.getChildren().addAll(button);
-
-        HBox hBoxCont = new HBox();
-        AnchorPane.setLeftAnchor(hBoxCont, 0.0);
-        AnchorPane.setBottomAnchor(hBoxCont, 0.0);
-        AnchorPane.setRightAnchor(hBoxCont, 0.0);
-        AnchorPane.setTopAnchor(hBoxCont, 0.0);
-        hBoxCont.getChildren().addAll(gridPane, vBox);
-        HBox.setHgrow(gridPane, Priority.ALWAYS);
-        getChildren().add(hBoxCont);
-        setMinHeight(0);
+        getvBoxAll().getChildren().addAll(gridPane);
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
         lblWebsite.setMinWidth(Region.USE_PREF_SIZE);
