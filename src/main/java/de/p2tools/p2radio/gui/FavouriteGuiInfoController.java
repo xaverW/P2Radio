@@ -45,12 +45,12 @@ public class FavouriteGuiInfoController extends PClosePaneH {
     private Favourite favourite = null;
 
     public FavouriteGuiInfoController() {
-        super(ProgConfig.FAVOURITE_GUI_DIVIDER_ON);
+        super(ProgConfig.FAVOURITE_GUI_DIVIDER_ON, true);
         initInfo();
     }
 
     public void initInfo() {
-        getvBoxAll().getChildren().add(gridPane);
+        getVBoxAll().getChildren().add(gridPane);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
         lblWebsite.setMinWidth(Region.USE_PREF_SIZE);

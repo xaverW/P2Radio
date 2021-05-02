@@ -45,12 +45,12 @@ public class StationGuiInfoController extends PClosePaneH {
     private Station station = null;
 
     public StationGuiInfoController() {
-        super(ProgConfig.STATION_GUI_DIVIDER_ON);
+        super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
         initInfo();
     }
 
     public void initInfo() {
-        getvBoxAll().getChildren().addAll(gridPane);
+        getVBoxAll().getChildren().addAll(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));

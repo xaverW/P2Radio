@@ -33,10 +33,10 @@ public class FilterController extends PClosePaneV {
     private final ProgData progData;
 
     public FilterController() {
-        super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON);
+        super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON, true);
         progData = ProgData.getInstance();
 
-        getvBoxAll().getChildren().add(vBoxAll);
+        getVBoxAll().getChildren().add(vBoxAll);
         initVBox();
     }
 
