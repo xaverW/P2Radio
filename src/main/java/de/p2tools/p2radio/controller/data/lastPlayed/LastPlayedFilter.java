@@ -15,41 +15,31 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.favourite;
+package de.p2tools.p2radio.controller.data.lastPlayed;
 
-import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-public class FavouriteFilter {
+public class LastPlayedFilter {
 
-    private ObjectProperty<CollectionData> collectionNameFilter = new SimpleObjectProperty<>();
-    private BooleanProperty ownFilter = new SimpleBooleanProperty();
     private BooleanProperty gradeFilter = new SimpleBooleanProperty();
     private StringProperty genreFilter = new SimpleStringProperty();
 
-    public Predicate<Favourite> clearFilter() {
-        collectionNameFilter.setValue(null);
-        ownFilter.set(false);
+    public Predicate<LastPlayed> clearFilter() {
         gradeFilter.set(false);
         genreFilter.set("");
         return getPredicate();
     }
 
-    public Predicate<Favourite> getPredicate() {
-        Predicate<Favourite> predicate = favourite -> true;
+    public Predicate<LastPlayed> getPredicate() {
+        Predicate<LastPlayed> predicate = favourite -> true;
 
-        if (collectionNameFilter.get() != null && !collectionNameFilter.get().getName().isEmpty() &&
-                !collectionNameFilter.get().getName().contains(CollectionList.COLLECTION_ALL)) {
-            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionNameFilter.get().getName()));
-        }
-        if (ownFilter.get()) {
-            predicate = predicate.and(favourite -> favourite.isOwn());
-        }
         if (gradeFilter.get()) {
             predicate = predicate.and(favourite -> favourite.getGrade() > 0);
         }
@@ -57,30 +47,6 @@ public class FavouriteFilter {
             predicate = predicate.and(favourite -> check(genreFilter.get(), favourite.getGenre()));
         }
         return predicate;
-    }
-
-//    public String getCollectionNameFilter() {
-//        return collectionNameFilter.get() != null ? collectionNameFilter.get().getName() : "";
-//    }
-
-    public ObjectProperty<CollectionData> collectionNameFilterProperty() {
-        return collectionNameFilter;
-    }
-
-//    public void setCollectionNameFilter(String collectionNameFilter) {
-//        this.collectionNameFilter.set(collectionNameFilter);
-//    }
-
-    public boolean isOwnFilter() {
-        return ownFilter.get();
-    }
-
-    public BooleanProperty ownFilterProperty() {
-        return ownFilter;
-    }
-
-    public void setOwnFilter(boolean ownFilter) {
-        this.ownFilter.set(ownFilter);
     }
 
     public boolean isGradeFilter() {
@@ -121,5 +87,4 @@ public class FavouriteFilter {
         // nix wars
         return false;
     }
-
 }

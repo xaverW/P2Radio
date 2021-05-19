@@ -26,7 +26,7 @@ import javafx.scene.control.TableView;
 
 public class Table {
     public static enum TABLE {
-        STATION, FAVOURITE
+        STATION, FAVOURITE, LAST_PLAYED
     }
 
     private static final String SORT_ASCENDING = "ASCENDING";
@@ -72,6 +72,14 @@ public class Table {
                 confVis = ProgConfig.FAVOURITE_GUI_TABLE_VIS;
                 confOrder = ProgConfig.FAVOURITE_GUI_TABLE_ORDER;
                 break;
+
+            case LAST_PLAYED:
+                confWidth = ProgConfig.LAST_PLAYED_GUI_TABLE_WIDTH;
+                confSort = ProgConfig.LAST_PLAYED_GUI_TABLE_SORT;
+                confUpDown = ProgConfig.LAST_PLAYED_GUI_TABLE_UP_DOWN;
+                confVis = ProgConfig.LAST_PLAYED_GUI_TABLE_VIS;
+                confOrder = ProgConfig.LAST_PLAYED_GUI_TABLE_ORDER;
+                break;
         }
     }
 
@@ -88,8 +96,12 @@ public class Table {
                 break;
 
             case FAVOURITE:
-            default:
                 tArray = new TableFavourite(ProgData.getInstance()).initFavouriteColumn(table);
+                break;
+
+            case LAST_PLAYED:
+            default:
+                tArray = new TableLastPlayed(ProgData.getInstance()).initLastPlayedColumn(table);
                 break;
         }
 
@@ -178,6 +190,10 @@ public class Table {
 
             case FAVOURITE:
                 resetFavourite();
+                break;
+
+            case LAST_PLAYED:
+                resetLastPlayed();
                 break;
         }
     }
@@ -328,6 +344,25 @@ public class Table {
     }
 
     private void resetFavourite() {
+        String[] visArray = new String[maxSpalten];
+        String set = "";
+
+        for (int i = 0; i < maxSpalten; ++i) {
+            visArray[i] = Boolean.TRUE.toString();
+        }
+
+        for (int i = 0; i < maxSpalten; ++i) {
+            set += visArray[i] + ",";
+        }
+
+        confWidth.setValue("");
+        confVis.setValue(set);
+        confSort.setValue("");
+        confUpDown.setValue("");
+        confOrder.setValue("");
+    }
+
+    private void resetLastPlayed() {
         String[] visArray = new String[maxSpalten];
         String set = "";
 

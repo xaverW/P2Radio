@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationXml;
 
@@ -30,6 +31,7 @@ public final class Start extends StartProps {
 
     private Station station = null;
     private Favourite favourite = null;
+    private LastPlayed lastPlayed = null;
     private SetData setData = null;
 
     public Start() {
@@ -54,6 +56,15 @@ public final class Start extends StartProps {
         this.favourite = favourite;
         setStationName(favourite.getStationName());
         setUrl(favourite.getUrl());
+
+        setSetData(setData);
+        StartProgramFactory.makeProgParameter(this);
+    }
+
+    public Start(SetData setData, LastPlayed lastPlayed) {
+        this.lastPlayed = lastPlayed;
+        setStationName(lastPlayed.getStationName());
+        setUrl(lastPlayed.getUrl());
 
         setSetData(setData);
         StartProgramFactory.makeProgParameter(this);

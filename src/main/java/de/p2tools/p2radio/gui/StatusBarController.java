@@ -29,7 +29,7 @@ import javafx.scene.layout.*;
 
 public class StatusBarController extends AnchorPane {
 
-    public enum StatusbarIndex {NONE, STATION, FAVOURITE}
+    public enum StatusbarIndex {NONE, STATION, FAVOURITE, LAST_PLAYED}
 
     private final StackPane stackPane = new StackPane();
     //Sender

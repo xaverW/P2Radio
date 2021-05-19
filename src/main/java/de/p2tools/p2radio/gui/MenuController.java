@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 public class MenuController extends ScrollPane {
 
     public enum StartupMode {
-        STATION, FAVOURITE
+        STATION, FAVOURITE, LAST_PLAYED
     }
 
     private final StartupMode startupMode;
@@ -53,7 +53,9 @@ public class MenuController extends ScrollPane {
             case FAVOURITE:
                 new FavouriteMenu(vb).init();
                 break;
+            case LAST_PLAYED:
+                new LastPlayedMenu(vb).init();
+                break;
         }
     }
-
 }

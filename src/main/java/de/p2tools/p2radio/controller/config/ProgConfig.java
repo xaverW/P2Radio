@@ -73,7 +73,7 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty SYSTEM_SMALL_ROW_TABLE_FAVOURITE = addBool("system-small-row-table-favourite", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
-    public static BooleanProperty SYSTEM_LAST_TAB_STATION = addBool("system-last-tab-station", Boolean.TRUE);
+    public static IntegerProperty SYSTEM_LAST_TAB_STATION = addInt("system-last-tab-station", 0);
     public static StringProperty SYSTEM_LAST_PLAYED = addStr("system-last-played", "");
 
     // Fenstereinstellungen
@@ -103,7 +103,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty STATION_GUI_TABLE_VIS = addStr("station-gui-table-vis");
     public static StringProperty STATION_GUI_TABLE_ORDER = addStr("station-gui-table-order");
 
-    // Gui Download
+    // Gui Favorite
     public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStr("favourite-dialog-edit-size", "800:800");
     public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStr("favourite-dialog-add-size", "800:800");
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStr("start-station-error-dialog-size", "");
@@ -115,6 +115,18 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty FAVOURITE_GUI_TABLE_VIS = addStr("favourite-gui-table-vis");
     public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStr("favourite-gui-table-order");
     public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBool("favourite-show-notification", Boolean.TRUE);
+
+    // Gui LastPlayed
+    public static StringProperty LAST_PLAYED_DIALOG_EDIT_SIZE = addStr("favourite-dialog-edit-size", "800:800");
+    public static StringProperty LAST_PLAYED_DIALOG_ADD_SIZE = addStr("favourite-dialog-add-size", "800:800");
+    public static DoubleProperty LAST_PLAYED_GUI_DIVIDER = addDouble("favourite-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
+    public static BooleanProperty LAST_PLAYED_GUI_DIVIDER_ON = addBool("favourite-gui-divider-on", Boolean.TRUE);
+    public static StringProperty LAST_PLAYED_GUI_TABLE_WIDTH = addStr("favourite-gui-table-width");
+    public static StringProperty LAST_PLAYED_GUI_TABLE_SORT = addStr("favourite-gui-table-sort");
+    public static StringProperty LAST_PLAYED_GUI_TABLE_UP_DOWN = addStr("favourite-gui-table-up-down");
+    public static StringProperty LAST_PLAYED_GUI_TABLE_VIS = addStr("favourite-gui-table-vis");
+    public static StringProperty LAST_PLAYED_GUI_TABLE_ORDER = addStr("favourite-gui-table-order");
+    public static BooleanProperty LAST_PLAYED_SHOW_NOTIFICATION = addBool("favourite-show-notification", Boolean.TRUE);
 
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
@@ -163,6 +175,7 @@ public class ProgConfig extends PDataProgConfig {
         configFile.addConfigs(ProgColorList.getConfigsData());
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().favouriteList);
+        configFile.addConfigs(ProgData.getInstance().lastPlayedList);
         configFile.addConfigs(ProgData.getInstance().storedFilters.getActFilterSettings());
         configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
         configFile.addConfigs(ProgData.getInstance().blackDataList);

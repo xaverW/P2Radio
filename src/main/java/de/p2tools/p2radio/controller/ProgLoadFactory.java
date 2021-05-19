@@ -103,11 +103,17 @@ public class ProgLoadFactory {
                 }
             }
 
-            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
-            if (panelStation) {
-                Platform.runLater(() -> progData.stationGuiController.selUrl());
-            } else {
-                Platform.runLater(() -> progData.favouriteGuiController.selUrl());
+            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                case 0:
+                    Platform.runLater(() -> progData.stationGuiController.selUrl());
+                    break;
+                case 1:
+                    Platform.runLater(() -> progData.favouriteGuiController.selUrl());
+                    break;
+                case 2:
+                default:
+                    Platform.runLater(() -> progData.lastPlayedGuiController.selUrl());
+                    break;
             }
 
             logList.add(PLog.LILNE1);
@@ -150,6 +156,7 @@ public class ProgLoadFactory {
         logList.add(PLog.LILNE3);
         logList.add("Favoriten markieren");
         StationListFactory.findAndMarkFavouriteStations(progData);
+        StationListFactory.findAndMarkLastPlayedStations(progData);
 
         logList.add(PLog.LILNE3);
         logList.add("Blacklist filtern");
@@ -161,12 +168,14 @@ public class ProgLoadFactory {
 
         logList.add("Sender in Favoriten eingetragen");
         progData.favouriteList.addStationInList();
+        progData.lastPlayedList.addStationInList();
     }
 
     private static void clearConfig() {
         ProgData progData = ProgData.getInstance();
         progData.setDataList.clear();
         progData.favouriteList.clear();
+        progData.lastPlayedList.clear();
         progData.blackDataList.clear();
     }
 

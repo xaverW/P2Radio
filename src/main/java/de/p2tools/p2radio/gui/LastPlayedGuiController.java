@@ -18,19 +18,16 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationListFactory;
-import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -51,30 +48,28 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class FavouriteGuiController extends AnchorPane {
+public class LastPlayedGuiController extends AnchorPane {
 
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private final TableView<Favourite> tableView = new TableView<>();
-    private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
-    private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
-    private final PToggleSwitch tglGrade = new PToggleSwitch("positiv bewertete Sender");
+    private final TableView<LastPlayed> tableView = new TableView<>();
+    private final ComboBox<String> cboGenre = new ComboBox<>();
     private final Button btnReset = new Button();
 
-    private FavouriteGuiInfoController favouriteGuiInfoController;
-    private FavouriteFilter favouriteFilter = new FavouriteFilter();
+    private LastPlayedGuiInfoController favouriteGuiInfoController;
+    private LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
 
     private final ProgData progData;
     private boolean bound = false;
-    private final FilteredList<Favourite> filteredFavourites;
-    private final SortedList<Favourite> sortedFavourites;
+    private final FilteredList<LastPlayed> filteredLastPlayedList;
+    private final SortedList<LastPlayed> sortedLastPlayedList;
 
-    DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
-    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
+    DoubleProperty splitPaneProperty = ProgConfig.LAST_PLAYED_GUI_DIVIDER;
+    BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
 
-    public FavouriteGuiController() {
+    public LastPlayedGuiController() {
         progData = ProgData.getInstance();
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
@@ -84,12 +79,10 @@ public class FavouriteGuiController extends AnchorPane {
         splitPane.setOrientation(Orientation.VERTICAL);
         getChildren().addAll(splitPane);
 
-        cboCollections.setMinWidth(150);
         HBox hb = new HBox(10);
         hb.setPadding(new Insets(5));
         hb.setAlignment(Pos.CENTER_LEFT);
-        hb.getChildren().addAll(new Label("meine Sammlungen: "), cboCollections, new Label("    "), tglOwn,
-                new Label("    "), tglGrade);
+        hb.getChildren().addAll(new Label("Genre"), cboGenre);
 
         HBox hBox = new HBox(10);
         hBox.setPadding(new Insets(5));
@@ -105,9 +98,9 @@ public class FavouriteGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        favouriteGuiInfoController = new FavouriteGuiInfoController();
-        filteredFavourites = new FilteredList<>(progData.favouriteList, p -> true);
-        sortedFavourites = new SortedList<>(filteredFavourites);
+        favouriteGuiInfoController = new LastPlayedGuiInfoController();
+        filteredLastPlayedList = new FilteredList<>(progData.lastPlayedList, p -> true);
+        sortedLastPlayedList = new SortedList<>(filteredLastPlayedList);
 
         setInfoPane();
         initFilter();
@@ -129,7 +122,7 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     public void copyUrl() {
-        final Optional<Favourite> favourite = getSel();
+        final Optional<LastPlayed> favourite = getSel();
         if (!favourite.isPresent()) {
             return;
         }
@@ -137,112 +130,78 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void setSelectedFavourite() {
-        Favourite favourite = tableView.getSelectionModel().getSelectedItem();
+        LastPlayed favourite = tableView.getSelectionModel().getSelectedItem();
         if (favourite != null) {
-            favouriteGuiInfoController.setFavourite(favourite);
+            favouriteGuiInfoController.setLastPlayed(favourite);
             Station station = progData.stationList.getSenderByUrl(favourite.getUrl());
             progData.stationInfoDialogController.setStation(station);
         } else {
-            favouriteGuiInfoController.setFavourite(null);
+            favouriteGuiInfoController.setLastPlayed(null);
         }
     }
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
-        final Optional<Favourite> favourite = getSel();
-        if (favourite.isPresent()) {
-            progData.startFactory.playFavourite(favourite.get());
+        final Optional<LastPlayed> lastPlayed = getSel();
+        if (lastPlayed.isPresent()) {
+            progData.startFactory.playLastPlayed(lastPlayed.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopFavourite(f));
+            progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopLastPlayed(lastPlayed));
 
         } else {
-            final Optional<Favourite> favourite = getSel();
-            if (favourite.isPresent()) {
-                progData.startFactory.stopFavourite(favourite.get());
+            final Optional<LastPlayed> lastPlayed = getSel();
+            if (lastPlayed.isPresent()) {
+                progData.startFactory.stopLastPlayed(lastPlayed.get());
             }
         }
     }
 
-    public void deleteFavourite(boolean all) {
+    public void deleteHistory(boolean all) {
         if (all) {
-            final ArrayList<Favourite> list = getSelList();
+            final ArrayList<LastPlayed> list = getSelList();
             if (list.isEmpty()) {
                 return;
             }
 
             final String text;
             if (list.size() == 1) {
-                text = "Soll der Favorit gelöscht werden?";
+                text = "Soll der Sender aus der History gelöscht werden?";
             } else {
-                text = "Sollen die Favoriten gelöscht werden?";
+                text = "Sollen die Sender aus der History gelöscht werden?";
             }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?", text)
-                    .equals(PAlert.BUTTON.YES)) {
-                progData.favouriteList.removeAll(list);
-                StationListFactory.findAndMarkFavouriteStations(progData);
+            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
+                    "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
+                progData.lastPlayedList.removeAll(list);
+//                StationListFactory.findAndMarkFavouriteStations(progData);
             }
 
         } else {
-            final Optional<Favourite> favourite = getSel();
+            final Optional<LastPlayed> favourite = getSel();
             if (favourite.isPresent()) {
-                deleteFavourite(favourite.get());
+                deleteHistory(favourite.get());
             }
         }
     }
 
-    public void deleteFavourite(Favourite favourite) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
-                "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            progData.favouriteList.remove(favourite);
-            StationListFactory.findAndMarkFavouriteStations(progData);
-        }
-    }
-
-    public void changeFavourite(boolean allSel) {
-        ArrayList<Favourite> list = new ArrayList<>();
-        ArrayList<Favourite> listCopy = new ArrayList<>();
-        if (allSel) {
-            list.addAll(getSelList());
-        } else {
-            final Optional<Favourite> favourite = getSel();
-            if (favourite.isPresent()) {
-                list.add(favourite.get());
-            }
-        }
-
-        if (list.isEmpty()) {
-            return;
-        }
-        list.stream().forEach(f -> {
-            Favourite favouriteCopy = f.getCopy();
-            listCopy.add(favouriteCopy);
-        });
-
-        FavouriteEditDialogController favouriteEditDialogController =
-                new FavouriteEditDialogController(progData, listCopy);
-
-        if (favouriteEditDialogController.isOk()) {
-            for (int i = 0; i < listCopy.size(); ++i) {
-                final Favourite f, fCopy;
-                f = list.get(i);
-                fCopy = listCopy.get(i);
-                f.copyToMe(fCopy);
-            }
-            progData.collectionList.updateNames();//könnte ja geändert sein
+    public void deleteHistory(LastPlayed favourite) {
+        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
+                "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
+            progData.lastPlayedList.remove(favourite);
+//            StationListFactory.findAndMarkFavouriteStations(progData);
         }
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.FAVOURITE);
+        new Table().saveTable(tableView, Table.TABLE.LAST_PLAYED);
     }
 
-    public ArrayList<Favourite> getSelList() {
-        final ArrayList<Favourite> ret = new ArrayList<>();
+    public ArrayList<LastPlayed> getSelList() {
+        final ArrayList<LastPlayed> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             PAlert.showInfoNoSelection();
@@ -250,11 +209,11 @@ public class FavouriteGuiController extends AnchorPane {
         return ret;
     }
 
-    public Optional<Favourite> getSel() {
+    public Optional<LastPlayed> getSel() {
         return getSel(true);
     }
 
-    public Optional<Favourite> getSel(boolean show) {
+    public Optional<LastPlayed> getSel(boolean show) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow >= 0) {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
@@ -268,7 +227,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream().filter(favourite -> favourite.getUrl().equals(url)).findFirst();
+        Optional<LastPlayed> optional = tableView.getItems().stream().filter(favourite -> favourite.getUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
             int sel = tableView.getSelectionModel().getSelectedIndex();
@@ -285,7 +244,7 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, LastPlayedGuiController.class.getSimpleName()) {
             @Override
             public void pingFx() {
                 tableView.refresh();
@@ -310,39 +269,23 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initFilter() {
-        cboCollections.setItems(progData.collectionList);
-        cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionNameFilterProperty());
-        cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//            if (n == null || n.isEmpty() || n.equals(CollectionList.COLLECTION_ALL)) {
-//                filteredFavourites.setPredicate(p -> true);
-//            } else {
-//                String name = n;
-//                filteredFavourites.setPredicate(favourite -> favourite.getCollectionName().equals(name));
-//            }
+        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
+        cboGenre.editableProperty().set(true);
+        cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        cboGenre.setVisibleRowCount(25);
+        cboGenre.valueProperty().bindBidirectional(lastPlayedFilter.genreFilterProperty());
+        cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != null && newValue != null) {
+                fN.checkPattern();
+                filteredLastPlayedList.setPredicate(lastPlayedFilter.getPredicate());
+            }
         });
-
-        tglOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
-        tglOwn.selectedProperty().bindBidirectional(favouriteFilter.ownFilterProperty());
-        tglOwn.selectedProperty().addListener((u, o, n) -> {
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//            if (tglOwn.isSelected()) {
-//                filteredFavourites.setPredicate(favourite -> favourite.isOwn());
-//            }
-        });
-
-        tglGrade.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
-        tglGrade.selectedProperty().bindBidirectional(favouriteFilter.gradeFilterProperty());
-        tglGrade.selectedProperty().addListener((u, o, n) -> {
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//            filteredFavourites.setPredicate(favourite -> favourite.getGrade() > 0);
-        });
+        cboGenre.setItems(progData.filterWorker.getAllGenreList());
 
         btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
         btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnReset.setOnAction(event -> {
-//            cboCollections.getSelectionModel().clearSelection();
-            filteredFavourites.setPredicate(favouriteFilter.clearFilter());
+            filteredLastPlayedList.setPredicate(lastPlayedFilter.clearFilter());
         });
     }
 
@@ -351,32 +294,28 @@ public class FavouriteGuiController extends AnchorPane {
         tableView.setEditable(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.FAVOURITE);
-        tableView.setItems(sortedFavourites);
-        sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
+        new Table().setTable(tableView, Table.TABLE.LAST_PLAYED);
+        tableView.setItems(sortedLastPlayedList);
+        sortedLastPlayedList.comparatorProperty().bind(tableView.comparatorProperty());
 
-        tableView.setOnMouseClicked(m -> {
-            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
-                changeFavourite(false);
-            }
-        });
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Favourite> optionalDownload = getSel(false);
-                Favourite favourite;
+                final Optional<LastPlayed> optionalDownload = getSel(false);
+                LastPlayed lastPlayed;
                 if (optionalDownload.isPresent()) {
-                    favourite = optionalDownload.get();
+                    lastPlayed = optionalDownload.get();
                 } else {
-                    favourite = null;
+                    lastPlayed = null;
                 }
-                ContextMenu contextMenu = new FavouriteGuiTableContextMenu(progData, this, tableView).getContextMenu(favourite);
+                ContextMenu contextMenu = new LastPlayedGuiTableContextMenu(progData, this, tableView).
+                        getContextMenu(lastPlayed);
                 tableView.setContextMenu(contextMenu);
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> setSelectedFavourite());
         });
-        tableView.getItems().addListener((ListChangeListener<Favourite>) c -> {
+        tableView.getItems().addListener((ListChangeListener<LastPlayed>) c -> {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);

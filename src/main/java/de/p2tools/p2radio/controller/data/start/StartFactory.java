@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
@@ -44,9 +45,16 @@ public class StartFactory {
         }
     }
 
+    public void stopLastPlayed(LastPlayed lastPlayed) {
+        if (lastPlayed.getStart() != null) {
+            lastPlayed.getStart().stopStart();
+        }
+    }
+
     public void stopAll() {
         stopAllStation();
         stopAllFavourite();
+        stopAllLastPlayed();
     }
 
     public void stopAllStation() {
@@ -55,6 +63,10 @@ public class StartFactory {
 
     public void stopAllFavourite() {
         progData.favouriteList.stream().forEach(favourite -> progData.startFactory.stopFavourite(favourite));
+    }
+
+    public void stopAllLastPlayed() {
+        progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopLastPlayed(lastPlayed));
     }
 
 
@@ -67,7 +79,6 @@ public class StartFactory {
         if (setData == null) {
             return;
         }
-
         // und starten
         startUrlWithProgram(station, setData);
     }
@@ -81,9 +92,21 @@ public class StartFactory {
         if (setData == null) {
             return;
         }
-
         // und starten
         startUrlWithProgram(favourite, setData);
+    }
+
+    public void playLastPlayed(LastPlayed lastPlayed) {
+        playLastPlayed(lastPlayed, null);
+    }
+
+    public void playLastPlayed(LastPlayed lastPlayed, SetData data) {
+        SetData setData = checkSetData(data);
+        if (setData == null) {
+            return;
+        }
+        // und starten
+        startUrlWithProgram(lastPlayed, setData);
     }
 
     private SetData checkSetData(SetData setData) {
@@ -101,6 +124,8 @@ public class StartFactory {
     private synchronized void startUrlWithProgram(Station station, SetData setData) {
         final String url = station.getUrl();
         if (!url.isEmpty()) {
+            progData.lastPlayedList.addStation(station);
+
             progData.startFactory.stopAll();
             ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
 
@@ -108,15 +133,15 @@ public class StartFactory {
             station.setStart(start);
             start.initStart();
 
-            StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
-            start.getStarter().setStartPlayingStation(startPlayingStation);
-            startPlayingStation.start();
+            startStart(start);
         }
     }
 
     private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
         final String url = favourite.getUrl();
         if (!url.isEmpty()) {
+            progData.lastPlayedList.addFavourite(favourite);
+
             progData.startFactory.stopAll();
             ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
 
@@ -124,9 +149,27 @@ public class StartFactory {
             favourite.setStart(start);
             start.initStart();
 
-            StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
-            start.getStarter().setStartPlayingStation(startPlayingStation);
-            startPlayingStation.start();
+            startStart(start);
         }
+    }
+
+    private synchronized void startUrlWithProgram(LastPlayed lastPlayed, SetData setData) {
+        final String url = lastPlayed.getUrl();
+        if (!url.isEmpty()) {
+            progData.startFactory.stopAll();
+            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
+
+            final Start start = new Start(setData, lastPlayed);
+            lastPlayed.setStart(start);
+            start.initStart();
+
+            startStart(start);
+        }
+    }
+
+    private synchronized void startStart(Start start) {
+        StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
+        start.getStarter().setStartPlayingStation(startPlayingStation);
+        startPlayingStation.start();
     }
 }

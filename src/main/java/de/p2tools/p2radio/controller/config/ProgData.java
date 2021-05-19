@@ -27,6 +27,7 @@ import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.getNewStationList.LoadNewStationList;
@@ -34,6 +35,7 @@ import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
 import de.p2tools.p2radio.gui.FavouriteGuiController;
+import de.p2tools.p2radio.gui.LastPlayedGuiController;
 import de.p2tools.p2radio.gui.StationFilterControllerClearFilter;
 import de.p2tools.p2radio.gui.StationGuiController;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
@@ -73,6 +75,7 @@ public class ProgData {
     public P2RadioController p2RadioController = null;
     public StationGuiController stationGuiController = null; // Tab mit den Sender
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
+    public LastPlayedGuiController lastPlayedGuiController = null; // Tab mit den Favoriten
     public StationInfoDialogController stationInfoDialogController = null;
     public StationFilterControllerClearFilter stationFilterControllerClearFilter = null;
     public final ProgTray progTray;
@@ -89,6 +92,7 @@ public class ProgData {
     public StationList stationListBlackFiltered; //Senderliste nach Blacklist, wie im TabSender angezeigt
 
     public FavouriteList favouriteList; //Sender die als "Favoriten" geladen werden sollen
+    public LastPlayedList lastPlayedList; //Sender die zuletzt gespielt wurden
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
     public SetDataList setDataList;
@@ -106,6 +110,7 @@ public class ProgData {
         setDataList = new SetDataList();
 
         favouriteList = new FavouriteList(this);
+        lastPlayedList = new LastPlayedList(this);
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);
         pEventFactory = new PEventFactory();

@@ -119,33 +119,48 @@ public class StationInfoDialogController extends PDialogExtra {
         btnPrev.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
         btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
         btnPrev.setOnAction(event -> {
-            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
-            if (panelStation) {
-                progData.stationGuiController.setPreviousStation();
-            } else {
-                progData.favouriteGuiController.setPreviousStation();
+            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                case 0:
+                    progData.stationGuiController.setPreviousStation();
+                    break;
+                case 1:
+                    progData.favouriteGuiController.setPreviousStation();
+                    break;
+                case 2:
+                default:
+                    progData.lastPlayedGuiController.setPreviousStation();
             }
         });
 
         btnNext.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
         btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
         btnNext.setOnAction(event -> {
-            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
-            if (panelStation) {
-                progData.stationGuiController.setNextStation();
-            } else {
-                progData.favouriteGuiController.setNextStation();
+            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                case 0:
+                    progData.stationGuiController.setNextStation();
+                    break;
+                case 1:
+                    progData.favouriteGuiController.setNextStation();
+                    break;
+                case 2:
+                default:
+                    progData.lastPlayedGuiController.setNextStation();
             }
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
         btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
         btnStart.setOnAction(event -> {
-            boolean panelStation = ProgConfig.SYSTEM_LAST_TAB_STATION.get();
-            if (panelStation) {
-                progData.stationGuiController.playStation();
-            } else {
-                progData.favouriteGuiController.playStation();
+            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                case 0:
+                    progData.stationGuiController.playStation();
+                    break;
+                case 1:
+                    progData.favouriteGuiController.playStation();
+                    break;
+                case 2:
+                default:
+                    progData.lastPlayedGuiController.playStation();
             }
         });
 
