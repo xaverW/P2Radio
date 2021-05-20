@@ -116,6 +116,10 @@ public final class Start extends StartProps {
         return favourite;
     }
 
+    public LastPlayed getLastPlayed() {
+        return lastPlayed;
+    }
+
     public SetData getSetData() {
         return setData;
     }

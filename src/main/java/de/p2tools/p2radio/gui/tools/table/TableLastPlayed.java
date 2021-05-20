@@ -129,16 +129,16 @@ public class TableLastPlayed {
     private void addRowFact(TableView<LastPlayed> table) {
         table.setRowFactory(tableview -> new TableRow<>() {
             @Override
-            public void updateItem(LastPlayed favourite, boolean empty) {
-                super.updateItem(favourite, empty);
+            public void updateItem(LastPlayed lastPlayed, boolean empty) {
+                super.updateItem(lastPlayed, empty);
 
-                if (favourite == null || empty) {
+                if (lastPlayed == null || empty) {
                     setStyle("");
 
                 } else {
-                    if (favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError()) {
+                    if (lastPlayed.getStart() != null && lastPlayed.getStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
-                        tooltip.setText(favourite.getStart().getStartStatus().getErrorMessage());
+                        tooltip.setText(lastPlayed.getStart().getStartStatus().getErrorMessage());
                         setTooltip(tooltip);
 
                     } else {
@@ -172,41 +172,6 @@ public class TableLastPlayed {
                 } else {
                     setGraphic(null);
                     setText(item + "");
-                }
-            }
-        };
-        return cell;
-    };
-    private Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryGrade
-            = (final TableColumn<LastPlayed, Integer> param) -> {
-
-        final TableCell<LastPlayed, Integer> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                if (item == 0) {
-                    setGraphic(null);
-                    setText(null);
-
-                } else {
-                    HBox hBox = new HBox(3);
-                    hBox.setAlignment(Pos.CENTER);
-                    for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
-                        if (item.longValue() > i) {
-                            Label l = new Label();
-                            l.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getUrl()));
-                            hBox.getChildren().add(l);
-                        }
-                    }
-                    setGraphic(hBox);
                 }
             }
         };
@@ -295,7 +260,7 @@ public class TableLastPlayed {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.setTooltip(new Tooltip("Favoriten löschen"));
+                btnDel.setTooltip(new Tooltip("History löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL));
                 btnDel.setOnAction(event -> {
                     progData.lastPlayedGuiController.deleteHistory(lastPlayed);

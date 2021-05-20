@@ -49,6 +49,7 @@ public class LastPlayedProps extends LastPlayedXml {
 
     private final PLocalDateProperty stationDate = new PLocalDateProperty();
 
+    private boolean favouriteUrl = false;
 
     @Override
     public Config[] getConfigsArr() {
@@ -289,6 +290,14 @@ public class LastPlayedProps extends LastPlayedXml {
 
     public void setStationDate(String date) {
         this.stationDate.setPLocalDate(date);
+    }
+
+    public boolean isFavouriteUrl() {
+        return favouriteUrl;
+    }
+
+    public void setFavouriteUrl(boolean favouriteUrl) {
+        this.favouriteUrl = favouriteUrl;
     }
 
     public int compareTo(LastPlayedProps arg0) {

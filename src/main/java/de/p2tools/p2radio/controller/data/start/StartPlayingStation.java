@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.gui.tools.Listener;
@@ -49,6 +50,7 @@ public class StartPlayingStation extends Thread {
     private final Start start;
     private Station station = null;
     private Favourite favourite = null;
+    private LastPlayed lastPlayed = null;
     private int runTime = 0;
 
     public StartPlayingStation(ProgData progData, Start start) {
@@ -56,12 +58,9 @@ public class StartPlayingStation extends Thread {
         this.progData = progData;
         this.start = start;
 
-        if (start.getStation() != null) {
-            station = start.getStation();
-        }
-        if (start.getFavourite() != null) {
-            favourite = start.getFavourite();
-        }
+        station = start.getStation();
+        favourite = start.getFavourite();
+        lastPlayed = start.getLastPlayed();
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
@@ -69,11 +68,23 @@ public class StartPlayingStation extends Thread {
             @Override
             public void ping() {
                 ++runTime;
-                if (runTime == Favourite.START_COUNTER_MIN_TIME && favourite != null) {
-                    favourite.setClickCount(favourite.getClickCount() + 1);
-                }
-                if (runTime == Favourite.START_COUNTER_MIN_TIME && station != null && station.isFavouriteUrl()) {
-                    Favourite favourite = progData.favouriteList.parallelStream().filter(f -> f.getUrl().equals(station.getUrl())).findAny().orElse(null);
+                if (runTime == Favourite.START_COUNTER_MIN_TIME) {
+                    if (station != null && station.isFavouriteUrl()) {
+                        Favourite favourite = progData.favouriteList.parallelStream()
+                                .filter(f -> f.getUrl().equals(station.getUrl())).findAny().orElse(null);
+                        if (favourite != null) {
+                            favourite.setClickCount(favourite.getClickCount() + 1);
+                        }
+                    }
+
+                    if (lastPlayed != null && lastPlayed.isFavouriteUrl()) {
+                        Favourite favourite = progData.favouriteList.parallelStream()
+                                .filter(f -> f.getUrl().equals(lastPlayed.getUrl())).findAny().orElse(null);
+                        if (favourite != null) {
+                            favourite.setClickCount(favourite.getClickCount() + 1);
+                        }
+                    }
+
                     if (favourite != null) {
                         favourite.setClickCount(favourite.getClickCount() + 1);
                     }
@@ -234,6 +245,8 @@ public class StartPlayingStation extends Thread {
             station.setStart(null);
         } else if (favourite != null) {
             favourite.setStart(null);
+        } else if (lastPlayed != null) {
+            lastPlayed.setStart(null);
         }
     }
 
@@ -276,6 +289,8 @@ public class StartPlayingStation extends Thread {
             ProgData.getInstance().stationGuiController.tableRefresh();
         } else if (favourite != null) {
             ProgData.getInstance().favouriteGuiController.tableRefresh();
+        } else if (lastPlayed != null) {
+            ProgData.getInstance().lastPlayedGuiController.tableRefresh();
         }
     }
 }

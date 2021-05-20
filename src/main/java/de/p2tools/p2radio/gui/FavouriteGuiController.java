@@ -314,34 +314,23 @@ public class FavouriteGuiController extends AnchorPane {
         cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionNameFilterProperty());
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//            if (n == null || n.isEmpty() || n.equals(CollectionList.COLLECTION_ALL)) {
-//                filteredFavourites.setPredicate(p -> true);
-//            } else {
-//                String name = n;
-//                filteredFavourites.setPredicate(favourite -> favourite.getCollectionName().equals(name));
-//            }
         });
 
         tglOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
         tglOwn.selectedProperty().bindBidirectional(favouriteFilter.ownFilterProperty());
         tglOwn.selectedProperty().addListener((u, o, n) -> {
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//            if (tglOwn.isSelected()) {
-//                filteredFavourites.setPredicate(favourite -> favourite.isOwn());
-//            }
         });
 
         tglGrade.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
         tglGrade.selectedProperty().bindBidirectional(favouriteFilter.gradeFilterProperty());
         tglGrade.selectedProperty().addListener((u, o, n) -> {
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//            filteredFavourites.setPredicate(favourite -> favourite.getGrade() > 0);
         });
 
         btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
         btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnReset.setOnAction(event -> {
-//            cboCollections.getSelectionModel().clearSelection();
             filteredFavourites.setPredicate(favouriteFilter.clearFilter());
         });
     }

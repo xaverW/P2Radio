@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
@@ -188,11 +189,11 @@ public class LastPlayedGuiController extends AnchorPane {
         }
     }
 
-    public void deleteHistory(LastPlayed favourite) {
+    public void deleteHistory(LastPlayed lastPlayed) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
                 "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            progData.lastPlayedList.remove(favourite);
-//            StationListFactory.findAndMarkFavouriteStations(progData);
+            progData.lastPlayedList.remove(lastPlayed);
+            StationListFactory.findAndMarkFavouriteStations(progData);
         }
     }
 

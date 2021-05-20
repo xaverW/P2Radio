@@ -156,7 +156,6 @@ public class ProgLoadFactory {
         logList.add(PLog.LILNE3);
         logList.add("Favoriten markieren");
         StationListFactory.findAndMarkFavouriteStations(progData);
-        StationListFactory.findAndMarkLastPlayedStations(progData);
 
         logList.add(PLog.LILNE3);
         logList.add("Blacklist filtern");

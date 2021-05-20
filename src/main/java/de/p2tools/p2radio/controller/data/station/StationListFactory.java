@@ -21,7 +21,6 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -104,23 +103,18 @@ public class StationListFactory {
         PDuration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
         hashSet.addAll(progData.favouriteList.stream().map(Favourite::getUrl).collect(Collectors.toList()));
+
         progData.stationList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
         progData.stationList.stream()
                 .filter(station -> hashSet.contains(station.getUrl()))
                 .forEach(station -> station.setFavouriteUrl(true));
+
+        progData.lastPlayedList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
+        progData.lastPlayedList.stream()
+                .filter(station -> hashSet.contains(station.getUrl()))
+                .forEach(lastPlayed -> lastPlayed.setFavouriteUrl(true));
+
         hashSet.clear();
         PDuration.counterStop("findAndMarkFavouriteStations");
-    }
-
-    public static void findAndMarkLastPlayedStations(ProgData progData) {
-        PDuration.counterStart("findAndMarkLastPlayedStations");
-        final HashSet<String> hashSet = new HashSet<>();
-        hashSet.addAll(progData.lastPlayedList.stream().map(LastPlayed::getUrl).collect(Collectors.toList()));
-        progData.stationList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
-        progData.stationList.stream()
-                .filter(station -> hashSet.contains(station.getUrl()))
-                .forEach(station -> station.setFavouriteUrl(true));
-        hashSet.clear();
-        PDuration.counterStop("findAndMarkLastPlayedStations");
     }
 }

@@ -27,10 +27,10 @@ import java.util.regex.Pattern;
 
 public class FavouriteFilter {
 
-    private ObjectProperty<CollectionData> collectionNameFilter = new SimpleObjectProperty<>();
-    private BooleanProperty ownFilter = new SimpleBooleanProperty();
-    private BooleanProperty gradeFilter = new SimpleBooleanProperty();
-    private StringProperty genreFilter = new SimpleStringProperty();
+    private ObjectProperty<CollectionData> collectionNameFilter = new SimpleObjectProperty<>(null);
+    private BooleanProperty ownFilter = new SimpleBooleanProperty(false);
+    private BooleanProperty gradeFilter = new SimpleBooleanProperty(false);
+    private StringProperty genreFilter = new SimpleStringProperty("");
 
     public Predicate<Favourite> clearFilter() {
         collectionNameFilter.setValue(null);
@@ -59,17 +59,9 @@ public class FavouriteFilter {
         return predicate;
     }
 
-//    public String getCollectionNameFilter() {
-//        return collectionNameFilter.get() != null ? collectionNameFilter.get().getName() : "";
-//    }
-
     public ObjectProperty<CollectionData> collectionNameFilterProperty() {
         return collectionNameFilter;
     }
-
-//    public void setCollectionNameFilter(String collectionNameFilter) {
-//        this.collectionNameFilter.set(collectionNameFilter);
-//    }
 
     public boolean isOwnFilter() {
         return ownFilter.get();
