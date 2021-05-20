@@ -33,7 +33,7 @@ public class StationGuiPack {
     static DoubleProperty doubleProperty;//sonst geht die Ref verloren
     static BooleanProperty boolDivOn;
     private final StationFilterController stationFilterController;
-    private final StationGuiController guiController;
+    private final StationGuiController stationGuiController;
     private boolean bound = false;
 
     public StationGuiPack() {
@@ -41,7 +41,8 @@ public class StationGuiPack {
         this.doubleProperty = ProgConfig.STATION_GUI_FILTER_DIVIDER;
         this.boolDivOn = ProgConfig.STATION_GUI_FILTER_DIVIDER_ON;
         stationFilterController = new StationFilterController();
-        guiController = new StationGuiController();
+        stationGuiController = new StationGuiController();
+        progData.stationGuiController = stationGuiController;
     }
 
     public void closeSplit() {
@@ -51,7 +52,7 @@ public class StationGuiPack {
     private void setSplit() {
         if (boolDivOn.getValue()) {
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(stationFilterController, guiController);
+            splitPane.getItems().addAll(stationFilterController, stationGuiController);
             bound = true;
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
         } else {
@@ -59,7 +60,7 @@ public class StationGuiPack {
                 splitPane.getDividers().get(0).positionProperty().unbindBidirectional(doubleProperty);
             }
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(guiController);
+            splitPane.getItems().addAll(stationGuiController);
         }
     }
 
@@ -67,9 +68,6 @@ public class StationGuiPack {
         // Menü
         final MenuController menuController = new MenuController(MenuController.StartupMode.STATION);
         menuController.setId("station-menu-pane");
-
-        // Gui
-        progData.stationGuiController = guiController;
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         SplitPane.setResizableWithParent(stationFilterController, Boolean.FALSE);

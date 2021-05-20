@@ -16,7 +16,10 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -25,24 +28,59 @@ import javafx.scene.layout.Region;
 public class LastPlayedGuiPack {
 
     ProgData progData;
+    private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
+
     private final LastPlayedGuiController lastPlayedGuiController;
+    private final LastPlayedFilterController lastPlayedFilterController;
+
+    static DoubleProperty doubleProperty;//sonst geht die Ref verloren
+    static BooleanProperty boolDivOn;
+    private boolean bound = false;
 
     public LastPlayedGuiPack() {
         progData = ProgData.getInstance();
+        this.doubleProperty = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER;
+        this.boolDivOn = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON;
+        lastPlayedFilterController = new LastPlayedFilterController();
         lastPlayedGuiController = new LastPlayedGuiController();
         progData.lastPlayedGuiController = lastPlayedGuiController;
+    }
+
+    public void closeSplit() {
+        boolDivOn.setValue(!boolDivOn.get());
+    }
+
+    private void setSplit() {
+        if (boolDivOn.getValue()) {
+            splitPane.getItems().clear();
+            splitPane.getItems().addAll(lastPlayedFilterController, lastPlayedGuiController);
+            bound = true;
+            splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
+        } else {
+            if (bound) {
+                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(doubleProperty);
+            }
+            splitPane.getItems().clear();
+            splitPane.getItems().addAll(lastPlayedGuiController);
+        }
     }
 
     public SplitPane pack() {
         final MenuController menuController = new MenuController(MenuController.StartupMode.LAST_PLAYED);
         menuController.setId("last-played-menu-pane");
 
+        splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        SplitPane.setResizableWithParent(lastPlayedFilterController, Boolean.FALSE);
+
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        HBox.setHgrow(lastPlayedGuiController, Priority.ALWAYS);
-        hBox.getChildren().addAll(lastPlayedGuiController, menuController);
+        HBox.setHgrow(splitPane, Priority.ALWAYS);
+        hBox.getChildren().addAll(splitPane, menuController);
+
+        boolDivOn.addListener((observable, oldValue, newValue) -> setSplit());
+        setSplit();
         return new SplitPane(hBox);
     }
 }

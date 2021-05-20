@@ -29,6 +29,7 @@ public class FavouriteMenu {
     final private VBox vBox;
     final private ProgData progData;
     BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
+    BooleanProperty boolFilterOn = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON;
 
     public FavouriteMenu(VBox vBox) {
         this.vBox = vBox;
@@ -107,9 +108,11 @@ public class FavouriteMenu {
         submenuFavourite.getItems().addAll(miFavouriteChange, miFavouriteDel, miStationInfo);
 
         mb.getItems().add(new SeparatorMenuItem());
+        final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
+        miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
         miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
-        mb.getItems().addAll(miShowInfo);
+        mb.getItems().addAll(miShowFilter, miShowInfo);
 
         vBox.getChildren().add(mb);
     }

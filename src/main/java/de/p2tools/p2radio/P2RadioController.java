@@ -109,19 +109,17 @@ public class P2RadioController extends StackPane {
             initButton();
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
-                    selPanelStation();
+                default:
+                    initPanelStation();
                     progData.stationGuiController.selUrl();
                     break;
                 case 1:
-                    selPanelFavourite();
+                    initPanelFavourite();
                     progData.favouriteGuiController.selUrl();
                     break;
                 case 2:
-                default:
-                    selPanelLastPlayed();
+                    initPanelLastPlayed();
                     progData.lastPlayedGuiController.selUrl();
-
-
             }
         } catch (Exception ex) {
             PLog.errorLog(597841023, ex);
@@ -137,7 +135,6 @@ public class P2RadioController extends StackPane {
         maskerPane.setButtonText("");
         btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP);
         btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
-
     }
 
     private void initButton() {
@@ -224,24 +221,26 @@ public class P2RadioController extends StackPane {
                     progData.favouriteGuiController.isShown();
                 }
                 if (node != null && node == splitPaneLastPlayed) {
-                    progData.favouriteGuiController.isShown();
+                    progData.lastPlayedGuiController.isShown();
                 }
             }
         });
     }
 
     private void selPanelStation() {
+        ProgConfig.SYSTEM_LAST_TAB_STATION.set(0);
         if (maskerPane.isVisible()) {
             return;
         }
-
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneStation)) {
             // dann ist der 2. Klick
             stationGuiPack.closeSplit();
             return;
         }
+        initPanelStation();
+    }
 
-        ProgConfig.SYSTEM_LAST_TAB_STATION.set(0);
+    private void initPanelStation() {
         setButtonStyle(btnStation);
         splitPaneStation.toFront();
         progData.stationGuiController.isShown();
@@ -249,11 +248,19 @@ public class P2RadioController extends StackPane {
     }
 
     private void selPanelFavourite() {
+        ProgConfig.SYSTEM_LAST_TAB_STATION.set(1);
         if (maskerPane.isVisible()) {
             return;
         }
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneFavourite)) {
+            // dann ist der 2. Klick
+            favouriteGuiPack.closeSplit();
+            return;
+        }
+        initPanelFavourite();
+    }
 
-        ProgConfig.SYSTEM_LAST_TAB_STATION.set(1);
+    private void initPanelFavourite() {
         setButtonStyle(btnFavourite);
         splitPaneFavourite.toFront();
         progData.favouriteGuiController.isShown();
@@ -261,11 +268,19 @@ public class P2RadioController extends StackPane {
     }
 
     private void selPanelLastPlayed() {
+        ProgConfig.SYSTEM_LAST_TAB_STATION.set(2);
         if (maskerPane.isVisible()) {
             return;
         }
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneLastPlayed)) {
+            // dann ist der 2. Klick
+            lastPlayedGuiPack.closeSplit();
+            return;
+        }
+        initPanelLastPlayed();
+    }
 
-        ProgConfig.SYSTEM_LAST_TAB_STATION.set(2);
+    private void initPanelLastPlayed() {
         setButtonStyle(btnLastPlayed);
         splitPaneLastPlayed.toFront();
         progData.lastPlayedGuiController.isShown();
@@ -297,7 +312,7 @@ public class P2RadioController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.FAVOURITE_GUI_DIVIDER_ON.setValue(!ProgConfig.FAVOURITE_GUI_DIVIDER_ON.get());
+                ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.setValue(!ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.get());
             }
         });
     }

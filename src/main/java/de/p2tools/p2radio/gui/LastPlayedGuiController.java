@@ -21,28 +21,23 @@ import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -54,12 +49,9 @@ public class LastPlayedGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-
     private final TableView<LastPlayed> tableView = new TableView<>();
-    private final ComboBox<String> cboGenre = new ComboBox<>();
-    private final Button btnReset = new Button();
 
-    private LastPlayedGuiInfoController favouriteGuiInfoController;
+    private LastPlayedGuiInfoController lastPlayedGuiInfoController;
     private LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
 
     private final ProgData progData;
@@ -80,18 +72,7 @@ public class LastPlayedGuiController extends AnchorPane {
         splitPane.setOrientation(Orientation.VERTICAL);
         getChildren().addAll(splitPane);
 
-        HBox hb = new HBox(10);
-        hb.setPadding(new Insets(5));
-        hb.setAlignment(Pos.CENTER_LEFT);
-        hb.getChildren().addAll(new Label("Genre"), cboGenre);
-
-        HBox hBox = new HBox(10);
-        hBox.setPadding(new Insets(5));
-        hBox.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(hb, Priority.ALWAYS);
-        hBox.getChildren().addAll(hb, btnReset);
-
-        vBox.getChildren().addAll(hBox, scrollPane);
+        vBox.getChildren().addAll(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         scrollPane.setFitToHeight(true);
@@ -99,12 +80,11 @@ public class LastPlayedGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        favouriteGuiInfoController = new LastPlayedGuiInfoController();
-        filteredLastPlayedList = new FilteredList<>(progData.lastPlayedList, p -> true);
+        lastPlayedGuiInfoController = new LastPlayedGuiInfoController();
+        filteredLastPlayedList = progData.filteredLastPlayedList;
         sortedLastPlayedList = new SortedList<>(filteredLastPlayedList);
 
         setInfoPane();
-        initFilter();
         initTable();
         initListener();
     }
@@ -133,11 +113,11 @@ public class LastPlayedGuiController extends AnchorPane {
     private void setSelectedFavourite() {
         LastPlayed favourite = tableView.getSelectionModel().getSelectedItem();
         if (favourite != null) {
-            favouriteGuiInfoController.setLastPlayed(favourite);
+            lastPlayedGuiInfoController.setLastPlayed(favourite);
             Station station = progData.stationList.getSenderByUrl(favourite.getUrl());
             progData.stationInfoDialogController.setStation(station);
         } else {
-            favouriteGuiInfoController.setLastPlayed(null);
+            lastPlayedGuiInfoController.setLastPlayed(null);
         }
     }
 
@@ -263,31 +243,10 @@ public class LastPlayedGuiController extends AnchorPane {
         } else {
             bound = true;
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, favouriteGuiInfoController);
+            splitPane.getItems().addAll(vBox, lastPlayedGuiInfoController);
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
             SplitPane.setResizableWithParent(vBox, true);
         }
-    }
-
-    private void initFilter() {
-        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
-        cboGenre.editableProperty().set(true);
-        cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        cboGenre.setVisibleRowCount(25);
-        cboGenre.valueProperty().bindBidirectional(lastPlayedFilter.genreFilterProperty());
-        cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != null && newValue != null) {
-                fN.checkPattern();
-                filteredLastPlayedList.setPredicate(lastPlayedFilter.getPredicate());
-            }
-        });
-        cboGenre.setItems(progData.filterWorker.getAllGenreList());
-
-        btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
-        btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
-        btnReset.setOnAction(event -> {
-            filteredLastPlayedList.setPredicate(lastPlayedFilter.clearFilter());
-        });
     }
 
     private void initTable() {

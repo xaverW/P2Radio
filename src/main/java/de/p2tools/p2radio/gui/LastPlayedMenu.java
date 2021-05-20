@@ -28,7 +28,8 @@ import javafx.scene.layout.VBox;
 public class LastPlayedMenu {
     final private VBox vBox;
     final private ProgData progData;
-    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
+    BooleanProperty boolFilterOn = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON;
+    BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
 
     public LastPlayedMenu(VBox vBox) {
         this.vBox = vBox;
@@ -69,37 +70,39 @@ public class LastPlayedMenu {
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
-        miFavouriteStart.setOnAction(a -> progData.favouriteGuiController.playStation());
+        miFavouriteStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
         PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> progData.favouriteGuiController.stopStation(false));
+        miFavouriteStop.setOnAction(a -> progData.lastPlayedGuiController.stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
-        miCopyUrl.setOnAction(a -> progData.favouriteGuiController.copyUrl());
+        miCopyUrl.setOnAction(a -> progData.lastPlayedGuiController.copyUrl());
 
         mb.getItems().addAll(miFavouriteStart, miFavouriteStop, miStopAll, miCopyUrl);
 
-        // Submenü "Favoriten"
+        // Submenü
         final MenuItem miFavouriteDel = new MenuItem("aus History löschen");
-        miFavouriteDel.setOnAction(a -> progData.favouriteGuiController.deleteFavourite(false));
+        miFavouriteDel.setOnAction(a -> progData.lastPlayedGuiController.deleteHistory(false));
 
-        MenuItem miStationInfo = new MenuItem("History-Information anzeigen");
-        miStationInfo.setOnAction(a -> ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.setValue(!ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.get()));
+//        MenuItem miStationInfo = new MenuItem("History-Information anzeigen");
+//        miStationInfo.setOnAction(a -> ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.setValue(!ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.get()));
 
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenu = new Menu("History");
         mb.getItems().addAll(submenu);
-        submenu.getItems().addAll(miFavouriteDel, miStationInfo);
+        submenu.getItems().addAll(miFavouriteDel/*, miStationInfo*/);
 
         mb.getItems().add(new SeparatorMenuItem());
+        final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
+        miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
         miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
-        mb.getItems().addAll(miShowInfo);
+        mb.getItems().addAll(miShowFilter, miShowInfo);
 
         vBox.getChildren().add(mb);
     }
