@@ -94,31 +94,16 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     }
 
     public synchronized boolean addFavourite(Favourite d) {
-        LastPlayed lastPlayed = new LastPlayed();
+        LastPlayed lastPlayed = new LastPlayed(d);
         lastPlayed.setNo(++no);
-        lastPlayed.setUrl(d.getUrl());
         return super.add(lastPlayed);
     }
 
     public synchronized boolean addStation(Station d) {
-        LastPlayed lastPlayed = new LastPlayed();
+        LastPlayed lastPlayed = new LastPlayed(d);
         lastPlayed.setNo(++no);
-        lastPlayed.setUrl(d.getUrl());
         return super.add(lastPlayed);
     }
-
-//    public void addFavourite(boolean own) {
-//        LastPlayed favourite = new LastPlayed();
-//        favourite.setOwn(own);
-//        favourite.setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
-//        FavouriteAddOwnDialogController favouriteEditDialogController =
-//                new FavouriteAddOwnDialogController(progData, favourite);
-//
-//        if (favouriteEditDialogController.isOk()) {
-//            this.add(favourite);
-//            progData.collectionList.updateNames();//könnte ja geändert sein
-//        }
-//    }
 
     public synchronized boolean remove(LastPlayed objects) {
         return super.remove(objects);

@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
@@ -260,10 +261,10 @@ public class TableLastPlayed {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.setTooltip(new Tooltip("History löschen"));
+                btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL));
                 btnDel.setOnAction(event -> {
-                    progData.lastPlayedGuiController.deleteHistory(lastPlayed);
+                    LastPlayedFactory.deleteHistory(lastPlayed);
                 });
 
                 if (small.get()) {

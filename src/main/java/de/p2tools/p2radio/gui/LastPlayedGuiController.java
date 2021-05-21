@@ -24,7 +24,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.application.Platform;
@@ -142,40 +141,48 @@ public class LastPlayedGuiController extends AnchorPane {
         }
     }
 
-    public void deleteHistory(boolean all) {
-        if (all) {
-            final ArrayList<LastPlayed> list = getSelList();
-            if (list.isEmpty()) {
-                return;
-            }
+//    public void deleteHistory(boolean all) {
+//        if (all) {
+//            final ArrayList<LastPlayed> list = getSelList();
+//            if (list.isEmpty()) {
+//                return;
+//            }
+//
+//            final String text;
+//            if (list.size() == 1) {
+//                text = "Soll der Sender aus der History gelöscht werden?";
+//            } else {
+//                text = "Sollen alle Sender aus der History gelöscht werden?";
+//            }
+//            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
+//                    "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
+//                progData.lastPlayedList.removeAll(list);
+//            }
+//
+//        } else {
+//            final Optional<LastPlayed> favourite = getSel();
+//            if (favourite.isPresent()) {
+//                deleteHistory(favourite.get());
+//            }
+//        }
+//    }
+//
+//    public void deleteCompleteHistory() {
+//        final String text;
+//        text = "Soll die gesamte History gelöscht werden?";
+//        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
+//                "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
+//            progData.lastPlayedList.clear();
+//        }
+//    }
 
-            final String text;
-            if (list.size() == 1) {
-                text = "Soll der Sender aus der History gelöscht werden?";
-            } else {
-                text = "Sollen die Sender aus der History gelöscht werden?";
-            }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
-                    "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
-                progData.lastPlayedList.removeAll(list);
-//                StationListFactory.findAndMarkFavouriteStations(progData);
-            }
-
-        } else {
-            final Optional<LastPlayed> favourite = getSel();
-            if (favourite.isPresent()) {
-                deleteHistory(favourite.get());
-            }
-        }
-    }
-
-    public void deleteHistory(LastPlayed lastPlayed) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
-                "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            progData.lastPlayedList.remove(lastPlayed);
-            StationListFactory.findAndMarkFavouriteStations(progData);
-        }
-    }
+//    public void deleteHistory(LastPlayed lastPlayed) {
+//        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
+//                "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
+//            progData.lastPlayedList.remove(lastPlayed);
+//            StationListFactory.findAndMarkFavouriteStations(progData);
+//        }
+//    }
 
     public void saveTable() {
         new Table().saveTable(tableView, Table.TABLE.LAST_PLAYED);

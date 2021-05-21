@@ -17,22 +17,27 @@
 package de.p2tools.p2radio.controller.data.lastPlayed;
 
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
 
 public final class LastPlayed extends LastPlayedProps {
 
-    public static final int START_COUNTER_MIN_TIME = 60;
     private Start start = null;
 
     public LastPlayed() {
     }
 
-    public LastPlayed(Station station, String collectionName) {
+    public LastPlayed(Station station) {
         setStation(station);
-//        setCollectionName(collectionName);
         setUrl(station.getUrl());
+    }
+
+    public LastPlayed(Favourite favourite) {
+        setFavourite(favourite);
+        setUrl(favourite.getUrl());
     }
 
     //==============================================
@@ -61,10 +66,29 @@ public final class LastPlayed extends LastPlayedProps {
         setCountry(station.getCountry());
         setCountryCode(station.getCountryCode());
         setLanguage(station.getLanguage());
-//        setClickCount(station.getClickCount());
         setWebsite(station.getWebsite());
         setUrl(station.getUrl());
-        setStationDate(station.getDate());
+        setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
+    }
+
+    public void setFavourite(Favourite favourite) {
+        if (favourite == null) {
+            // bei gespeicherten Sendern kann es den Sender nicht mehr geben
+            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+            return;
+        }
+
+        setStationNo(favourite.getNo());
+        setStationName(favourite.getStationName());
+        setGenre(favourite.getGenre());
+        setCodec(favourite.getCodec());
+        setBitrate(favourite.getBitrate());
+        setCountry(favourite.getCountry());
+        setCountryCode(favourite.getCountryCode());
+        setLanguage(favourite.getLanguage());
+        setWebsite(favourite.getWebsite());
+        setUrl(favourite.getUrl());
+        setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
     }
 
 

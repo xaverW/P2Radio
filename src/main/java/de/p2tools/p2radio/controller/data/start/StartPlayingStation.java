@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
@@ -68,7 +69,7 @@ public class StartPlayingStation extends Thread {
             @Override
             public void ping() {
                 ++runTime;
-                if (runTime == Favourite.START_COUNTER_MIN_TIME) {
+                if (runTime == ProgConst.START_COUNTER_MIN_TIME) {
                     if (station != null && station.isFavouriteUrl()) {
                         Favourite favourite = progData.favouriteList.parallelStream()
                                 .filter(f -> f.getUrl().equals(station.getUrl())).findAny().orElse(null);
@@ -87,6 +88,9 @@ public class StartPlayingStation extends Thread {
 
                     if (favourite != null) {
                         favourite.setClickCount(favourite.getClickCount() + 1);
+                    }
+                    if (lastPlayed != null) {
+                        lastPlayed.setClickCount(lastPlayed.getClickCount() + 1);
                     }
                 }
             }

@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -53,13 +54,13 @@ public class LastPlayedMenu {
         final ToolBarButton btStop = new ToolBarButton(vBox,
                 "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierte Favoriten löschen", "markierten Sender aus der History löschen", new ProgIcons().ICON_TOOLBAR_FAVOURITE_DEL);
+                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen", new ProgIcons().ICON_TOOLBAR_FAVOURITE_DEL);
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_STATION_INFO);
 
         btStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
-        btDel.setOnAction(a -> progData.lastPlayedGuiController.deleteHistory(true));
+        btDel.setOnAction(a -> LastPlayedFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 
@@ -86,16 +87,19 @@ public class LastPlayedMenu {
         mb.getItems().addAll(miFavouriteStart, miFavouriteStop, miStopAll, miCopyUrl);
 
         // Submenü
-        final MenuItem miFavouriteDel = new MenuItem("aus History löschen");
-        miFavouriteDel.setOnAction(a -> progData.lastPlayedGuiController.deleteHistory(false));
+        final MenuItem miLastPlayedDel = new MenuItem("Sender aus History löschen");
+        miLastPlayedDel.setOnAction(a -> LastPlayedFactory.deleteHistory(false));
 
-//        MenuItem miStationInfo = new MenuItem("History-Information anzeigen");
-//        miStationInfo.setOnAction(a -> ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.setValue(!ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.get()));
+        final MenuItem miLastPlayedDelSel = new MenuItem("alle markierten Sender aus History löschen");
+        miLastPlayedDelSel.setOnAction(a -> LastPlayedFactory.deleteHistory(true));
+
+        final MenuItem miLastPlayedDelAll = new MenuItem("gesamte History löschen");
+        miLastPlayedDelAll.setOnAction(a -> LastPlayedFactory.deleteCompleteHistory());
 
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenu = new Menu("History");
         mb.getItems().addAll(submenu);
-        submenu.getItems().addAll(miFavouriteDel/*, miStationInfo*/);
+        submenu.getItems().addAll(miLastPlayedDel, miLastPlayedDelSel, miLastPlayedDelAll);
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");

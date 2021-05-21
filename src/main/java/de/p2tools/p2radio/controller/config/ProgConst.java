@@ -23,6 +23,8 @@ public class ProgConst {
     public static final int MAX_USER_AGENT_SIZE = 100;
     public static final int SYSTEM_UPDATE_SATE = 0;
     public static final int LOAD_STATION_LIST_EVERY_DAYS = 7;
+    public static final int START_COUNTER_MIN_TIME = 30;
+
 
     // settings file
     public static final String CONFIG_FILE = "p2radio.xml";

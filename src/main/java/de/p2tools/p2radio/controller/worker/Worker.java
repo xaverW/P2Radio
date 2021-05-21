@@ -48,14 +48,14 @@ public class Worker {
 
             @Override
             public void loaded(EventLoadRadioList event) {
-                System.out.println("EventListenerLoadRadioList--loaded");
+//                System.out.println("EventListenerLoadRadioList--loaded");
                 progData.maskerPane.setMaskerVisible(true, false);
                 progData.maskerPane.setMaskerProgress(EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
             }
 
             @Override
             public void finished(EventLoadRadioList event) {
-                System.out.println("EventListenerLoadRadioList--finished");
+//                System.out.println("EventListenerLoadRadioList--finished");
                 progData.maskerPane.setMaskerVisible(false);
             }
         });

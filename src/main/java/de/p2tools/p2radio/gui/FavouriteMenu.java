@@ -21,15 +21,14 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 public class FavouriteMenu {
     final private VBox vBox;
     final private ProgData progData;
-    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
-    BooleanProperty boolFilterOn = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON;
+//    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
+//    BooleanProperty boolFilterOn = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON;
 
     public FavouriteMenu(VBox vBox) {
         this.vBox = vBox;
@@ -99,19 +98,16 @@ public class FavouriteMenu {
         final MenuItem miFavouriteDel = new MenuItem("Favoriten löschen");
         miFavouriteDel.setOnAction(a -> progData.favouriteGuiController.deleteFavourite(false));
 
-        MenuItem miStationInfo = new MenuItem("Favoriten-Information anzeigen");
-        miStationInfo.setOnAction(a -> ProgConfig.FAVOURITE_GUI_DIVIDER_ON.setValue(!ProgConfig.FAVOURITE_GUI_DIVIDER_ON.get()));
-
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenuFavourite = new Menu("Favoriten");
         mb.getItems().addAll(submenuFavourite);
-        submenuFavourite.getItems().addAll(miFavouriteChange, miFavouriteDel, miStationInfo);
+        submenuFavourite.getItems().addAll(miFavouriteChange, miFavouriteDel);
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
-        miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON);
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
-        miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
+        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.FAVOURITE_GUI_DIVIDER_ON);
         mb.getItems().addAll(miShowFilter, miShowInfo);
 
         vBox.getChildren().add(mb);
