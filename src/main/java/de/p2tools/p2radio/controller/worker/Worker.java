@@ -30,7 +30,7 @@ public class Worker {
         progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
             @Override
             public void start(EventLoadRadioList event) {
-                System.out.println("EventListenerLoadRadioList--start");
+//                System.out.println("EventListenerLoadRadioList--start");
                 if (event.progress == EventListenerLoadRadioList.PROGRESS_INDETERMINATE) {
                     //ist dann die gespeicherte Senderliste
                     progData.maskerPane.setMaskerVisible(true, false);

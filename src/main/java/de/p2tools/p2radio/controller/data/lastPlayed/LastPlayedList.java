@@ -29,6 +29,7 @@ import javafx.collections.FXCollections;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PDataList<LastPlayed> {
 
@@ -93,16 +94,40 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         return super.addAll(var1);
     }
 
-    public synchronized boolean addFavourite(Favourite d) {
-        LastPlayed lastPlayed = new LastPlayed(d);
-        lastPlayed.setNo(++no);
-        return super.add(lastPlayed);
+    public synchronized void addFavourite(Favourite favourite) {
+        if (!checkUrl(favourite.getUrl())) {
+            //dann gibts ihn noch nicht
+            LastPlayed lastPlayed = new LastPlayed(favourite);
+            this.add(0, lastPlayed);
+        }
+        reCount();
     }
 
-    public synchronized boolean addStation(Station d) {
-        LastPlayed lastPlayed = new LastPlayed(d);
-        lastPlayed.setNo(++no);
-        return super.add(lastPlayed);
+    public synchronized void addStation(Station station) {
+        if (!checkUrl(station.getUrl())) {
+            //dann gibts ihn noch nicht
+            LastPlayed lastPlayed = new LastPlayed(station);
+            this.add(0, lastPlayed);
+        }
+        reCount();
+    }
+
+    private boolean checkUrl(String url) {
+        boolean ret = false;
+        Optional<LastPlayed> opt = this.stream().filter(l -> l.getUrl().equals(url)).findFirst();
+        if (opt.isPresent()) {
+            ret = true;
+            LastPlayed lastPlayed = opt.get();
+            this.remove(lastPlayed);
+            this.add(0, lastPlayed);
+        }
+        return ret;
+    }
+
+    private void reCount() {
+        for (int i = 0; i < this.size(); ++i) {
+            this.get(i).setNo(i + 1);
+        }
     }
 
     public synchronized boolean remove(LastPlayed objects) {
@@ -117,9 +142,9 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     public synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Favoriten gesucht
         int ret = 0;
-        for (final LastPlayed favourite : this) {
-            if (favourite.getStart() != null &&
-                    (favourite.getStart().getStartStatus().isStarted() || favourite.getStart().getStartStatus().isStateStartedRun())) {
+        for (final LastPlayed lastPlayed : this) {
+            if (lastPlayed.getStart() != null &&
+                    (lastPlayed.getStart().getStartStatus().isStarted() || lastPlayed.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;
             }
         }

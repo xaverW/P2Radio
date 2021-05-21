@@ -32,12 +32,10 @@ public final class LastPlayed extends LastPlayedProps {
 
     public LastPlayed(Station station) {
         setStation(station);
-        setUrl(station.getUrl());
     }
 
     public LastPlayed(Favourite favourite) {
         setFavourite(favourite);
-        setUrl(favourite.getUrl());
     }
 
     //==============================================
