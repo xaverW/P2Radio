@@ -74,7 +74,7 @@ public class StationFilterController extends FilterController {
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
         vBoxBlacklist.getChildren().addAll(hBox);
-        Listener.addListener(new Listener(Listener.EREIGNIS_BLACKLIST_GEAENDERT, StationListFilter.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
             @Override
             public void pingFx() {
                 setBlack();

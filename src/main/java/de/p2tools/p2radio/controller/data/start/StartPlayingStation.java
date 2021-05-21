@@ -65,7 +65,7 @@ public class StartPlayingStation extends Thread {
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
-        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, FavouriteInfos.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
             @Override
             public void ping() {
                 ++runTime;

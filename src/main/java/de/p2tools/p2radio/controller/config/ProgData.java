@@ -152,11 +152,11 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        Listener.notify(Listener.EREIGNIS_TIMER, ProgData.class.getName());
+        Listener.notify(Listener.EVENT_TIMER, ProgData.class.getName());
     }
 
     private void doTimerWorkHalfSecond() {
-        Listener.notify(Listener.EREIGNIS_TIMER_HALF_SECOND, ProgData.class.getName());
+        Listener.notify(Listener.EVENT_TIMER_HALF_SECOND, ProgData.class.getName());
     }
 
     public synchronized static final ProgData getInstance(String dir) {

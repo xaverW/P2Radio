@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.Listener;
 
 public class StationInfos {
@@ -33,10 +32,13 @@ public class StationInfos {
 
     public StationInfos(ProgData progData) {
         this.progData = progData;
-        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, StationInfos.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_TIMER, StationInfos.class.getSimpleName()) {
             @Override
             public void ping() {
-                generateInfos();
+                if (!progData.loadNewStationList.getPropLoadStationList()) {
+                    //dann wird die Liste neu gebaut
+                    generateInfos();
+                }
             }
         });
     }
@@ -64,14 +66,14 @@ public class StationInfos {
         PDuration.counterStart("StationInfos.generateInfos");
         // generiert die Anzahl Favoriten
         clean();
-        for (final Station station : progData.stationList) {
+        progData.stationList.stream().forEach(station -> {
             ++amount;
             if (station.getStart() != null) {
                 ++started;
             } else {
                 ++notStarted;
             }
-        }
+        });
         PDuration.counterStop("StationInfos.generateInfos");
     }
 

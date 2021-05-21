@@ -24,14 +24,13 @@ import java.util.EventListener;
 
 
 public class Listener implements EventListener {
-
     //todo???
     static int count = 0;
 
-    public static final int EREIGNIS_BLACKLIST_GEAENDERT = count++;
-    public static final int EREIGNIS_TIMER = count++;
-    public static final int EREIGNIS_TIMER_HALF_SECOND = count++;
-    public static final int EREIGNIS_SETDATA_CHANGED = count++;
+    public static final int EVENT_BLACKLIST_CHANGED = count++;
+    public static final int EVENT_TIMER = count++;
+    public static final int EVENT_TIMER_HALF_SECOND = count++;
+    public static final int EVENT_SETDATA_CHANGED = count++;
 
     public int[] event = {-1};
     public String eventClass = "";
@@ -78,8 +77,6 @@ public class Listener implements EventListener {
                 }
 
             }
-
-
         });
 
     }

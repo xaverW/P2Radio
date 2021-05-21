@@ -33,7 +33,7 @@ public class FavouriteInfos {
 
     public FavouriteInfos(ProgData progData) {
         this.progData = progData;
-        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, FavouriteInfos.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
             @Override
             public void ping() {
                 generateFavouriteInfos();

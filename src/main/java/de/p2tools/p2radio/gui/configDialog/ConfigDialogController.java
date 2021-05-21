@@ -73,14 +73,14 @@ public class ConfigDialogController extends PDialogExtra {
             //sonst hat sich nichts geändert
             System.out.println("black geändert");
             progData.stationList.filterListWithBlacklist(true);
-            Listener.notify(Listener.EREIGNIS_BLACKLIST_GEAENDERT, ConfigDialogController.class.getSimpleName());
+            Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, ConfigDialogController.class.getSimpleName());
         }
 
         configPane.close();
         blackPane.close();
         setPane.close();
 
-        Listener.notify(Listener.EREIGNIS_SETDATA_CHANGED, ConfigDialogController.class.getSimpleName());
+        Listener.notify(Listener.EVENT_SETDATA_CHANGED, ConfigDialogController.class.getSimpleName());
         super.close();
     }
 

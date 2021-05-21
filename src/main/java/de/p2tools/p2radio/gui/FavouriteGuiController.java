@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
@@ -50,16 +49,13 @@ public class FavouriteGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-
     private final TableView<Favourite> tableView = new TableView<>();
-
-    private FavouriteGuiInfoController favouriteGuiInfoController;
-    private FavouriteFilter favouriteFilter = new FavouriteFilter();
 
     private final ProgData progData;
     private boolean bound = false;
     private final FilteredList<Favourite> filteredFavourites;
     private final SortedList<Favourite> sortedFavourites;
+    private FavouriteGuiInfoController favouriteGuiInfoController;
 
     DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
@@ -266,7 +262,7 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
             @Override
             public void pingFx() {
                 tableView.refresh();

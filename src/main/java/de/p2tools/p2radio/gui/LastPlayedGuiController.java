@@ -232,7 +232,7 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, LastPlayedGuiController.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, LastPlayedGuiController.class.getSimpleName()) {
             @Override
             public void pingFx() {
                 tableView.refresh();

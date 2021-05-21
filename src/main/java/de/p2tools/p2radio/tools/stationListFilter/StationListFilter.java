@@ -45,7 +45,7 @@ public class StationListFilter {
             }
         });
 
-        Listener.addListener(new Listener(Listener.EREIGNIS_BLACKLIST_GEAENDERT, StationListFilter.class.getSimpleName()) {
+        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
             @Override
             public void pingFx() {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
