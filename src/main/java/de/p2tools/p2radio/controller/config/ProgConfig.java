@@ -69,8 +69,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_LOG_DIR = addStr("system-log-dir", "");
     public static BooleanProperty SYSTEM_LOG_ON = addBool("system-log-on", Boolean.TRUE);
     public static BooleanProperty SYSTEM_LOAD_STATION_LIST_EVERY_DAYS = addBool("system-load-station-list-every-days", Boolean.TRUE);
-    public static BooleanProperty SYSTEM_SMALL_ROW_TABLE_STATION = addBool("system-small-row-table-station", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_SMALL_ROW_TABLE_FAVOURITE = addBool("system-small-row-table-favourite", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_SMALL_ROW_TABLE = addBool("system-small-row-table", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
     public static IntegerProperty SYSTEM_LAST_TAB_STATION = addInt("system-last-tab-station", 0);

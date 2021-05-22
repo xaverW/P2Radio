@@ -51,8 +51,8 @@ public class StartPane {
                 "Sender gefiltert werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "2) Die Ansicht der Sender und der Favoriten" + P2LibConst.LINE_SEPARATOR +
-                "wird hier umgeschaltet." +
+                "2) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
+                "der History wird hier umgeschaltet." +
 
                 P2LibConst.LINE_SEPARATORx2 +
                 "3) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
@@ -109,7 +109,40 @@ public class StartPane {
                 "geändert oder gelöscht (\"X\") werden.");
         hBox.getChildren().add(text);
 
-        TitledPane tpConfig = new TitledPane("Infos zum Sender-Filter", hBox);
+        TitledPane tpConfig = new TitledPane("Infos zu den Favoriten", hBox);
+        return tpConfig;
+    }
+
+    public TitledPane makeStart3() {
+
+        HBox hBox = new HBox();
+        hBox.setSpacing(25);
+        hBox.setPadding(new Insets(20));
+
+        ImageView iv = new ImageView();
+        Image im = getHelpScreen3();
+        iv.setSmooth(true);
+        iv.setImage(im);
+
+        hBox.getChildren().addAll(iv);
+
+        Label text = new Label("1) Damit können die Sender in" + P2LibConst.LINE_SEPARATOR +
+                "der History gefiltert werden." +
+                P2LibConst.LINE_SEPARATORx2 +
+
+                "2) In dem Menü kann die History" + P2LibConst.LINE_SEPARATOR +
+                "bearbeitet werden." +
+                P2LibConst.LINE_SEPARATORx2 +
+
+                "3) Damit werden die Sender" + P2LibConst.LINE_SEPARATOR +
+                "gestartet und gestoppt" +
+                P2LibConst.LINE_SEPARATORx2 +
+
+                "4) Hier können Sender aus der History" + P2LibConst.LINE_SEPARATOR +
+                "gelöscht werden.");
+        hBox.getChildren().add(text);
+
+        TitledPane tpConfig = new TitledPane("Infos zur History", hBox);
         return tpConfig;
     }
 
@@ -120,6 +153,11 @@ public class StartPane {
 
     private javafx.scene.image.Image getHelpScreen2() {
         final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-2.png";
+        return new Image(path, 600, 600, true, true);
+    }
+
+    private javafx.scene.image.Image getHelpScreen3() {
+        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-3.png";
         return new Image(path, 600, 600, true, true);
     }
 }

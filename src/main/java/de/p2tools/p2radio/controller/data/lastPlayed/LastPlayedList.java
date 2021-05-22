@@ -18,11 +18,10 @@ package de.p2tools.p2radio.controller.data.lastPlayed;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.Station;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -37,8 +36,6 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     private final ProgData progData;
     private final LastPlayedStartsFactory favouriteStartsFactory;
     private int no = 0;
-
-    private BooleanProperty favouriteChanged = new SimpleBooleanProperty(true);
 
     public LastPlayedList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -127,6 +124,10 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     private void reCount() {
         for (int i = 0; i < this.size(); ++i) {
             this.get(i).setNo(i + 1);
+        }
+        while (this.size() > ProgConst.MAX_LAST_PLAYED_LIST_SIZE) {
+            this.remove(this.size() - 1);
+            System.out.println("remove");
         }
     }
 

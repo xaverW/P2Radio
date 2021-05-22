@@ -62,13 +62,11 @@ public class ConfigPaneController extends PAccordionPane {
     StringProperty propUrl = ProgConfig.SYSTEM_PROG_OPEN_URL;
     BooleanProperty propLog = ProgConfig.SYSTEM_LOG_ON;
     StringProperty propLogDir = ProgConfig.SYSTEM_LOG_DIR;
-    BooleanProperty propSizeSender = ProgConfig.SYSTEM_SMALL_ROW_TABLE_STATION;
-    BooleanProperty propSizeFavourite = ProgConfig.SYSTEM_SMALL_ROW_TABLE_FAVOURITE;
+    BooleanProperty propSizeSender = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     BooleanProperty propLoadStationList = ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS;
     BooleanProperty propTray = ProgConfig.SYSTEM_TRAY;
 
-    private final PToggleSwitch tglSmallStation = new PToggleSwitch("In der Tabelle \"Sender\" nur kleine Button anzeigen:");
-    private final PToggleSwitch tglSmallFavourite = new PToggleSwitch("In der Tabelle \"Favoriten\" nur kleine Button anzeigen:");
+    private final PToggleSwitch tglSmallStation = new PToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
     private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Senderliste automatisch alle " +
             ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
     private final PToggleSwitch tglTray = new PToggleSwitch("Programm im System Tray anzeigen");
@@ -97,7 +95,6 @@ public class ConfigPaneController extends PAccordionPane {
         shortcutPane.close();
         stylePane.close();
         tglSmallStation.selectedProperty().unbindBidirectional(propSizeSender);
-        tglSmallFavourite.selectedProperty().unbindBidirectional(propSizeFavourite);
         tglTray.selectedProperty().unbindBidirectional(propTray);
         tglLoadStationList.selectedProperty().unbindBidirectional(propLoadStationList);
         txtUserAgent.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
@@ -134,7 +131,6 @@ public class ConfigPaneController extends PAccordionPane {
         result.add(tpConfig);
 
         tglSmallStation.selectedProperty().bindBidirectional(propSizeSender);
-        tglSmallFavourite.selectedProperty().bindBidirectional(propSizeFavourite);
         tglLoadStationList.selectedProperty().bindBidirectional(propLoadStationList);
         final Button btnHelpLoadStationList = PButton.helpButton(stage, "Liste der Sender aktualisieren",
                 HelpText.LOAD_STATION_LIST_EVERY_DAYS);
@@ -183,7 +179,6 @@ public class ConfigPaneController extends PAccordionPane {
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(tglSmallStation, 0, ++row, 2, 1);
         gridPane.add(btnHelpSize, 2, row);
-        gridPane.add(tglSmallFavourite, 0, ++row, 2, 1);
 
         tglTray.selectedProperty().bindBidirectional(propTray);
         final Button btnHelpTray = PButton.helpButton(stage, "Programm im System Tray anzeigen",

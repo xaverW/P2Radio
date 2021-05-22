@@ -141,7 +141,7 @@ public class HelpText {
     public static final String LOAD_STATION_LIST_EVERY_DAYS = "Ist die Liste der Sender älter als " + ProgConst.LOAD_STATION_LIST_EVERY_DAYS +
             " Tage, wird automatisch eine neue Liste geladen.";
 
-    public static final String SMALL_BUTTON = "In der Tabelle Sender und Favoriten können auch " +
+    public static final String SMALL_BUTTON = "In der Tabelle Sender Favoriten und History können auch " +
             "kleine Buttons angezeigt werden. Die Zeilenhöhe wird dadurch kleiner.";
 
     public static final String TRAY = "Im System Tray wird für das Programm ein Symbol angezeigt. Damit kann das " +

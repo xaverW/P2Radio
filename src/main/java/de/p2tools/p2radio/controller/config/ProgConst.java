@@ -24,7 +24,7 @@ public class ProgConst {
     public static final int SYSTEM_UPDATE_SATE = 0;
     public static final int LOAD_STATION_LIST_EVERY_DAYS = 7;
     public static final int START_COUNTER_MIN_TIME = 30;
-
+    public static final int MAX_LAST_PLAYED_LIST_SIZE = 50;
 
     // settings file
     public static final String CONFIG_FILE = "p2radio.xml";
@@ -66,10 +66,8 @@ public class ProgConst {
     public static final String ADRESSE_WEBSITE_VLC = "http://www.videolan.org";
 
     public static final double GUI_FILTER_DIVIDER_LOCATION = 0.3;
-
     public static final double GUI_STATION_DIVIDER_LOCATION = 0.7;
     public static final double GUI_FAVOURITE_DIVIDER_LOCATION = 0.7;
-
     public static final double CONFIG_DIALOG_SET_DIVIDER = 0.2;
 
     public static final int MIN_TABLE_HEIGHT = 200;

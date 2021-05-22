@@ -40,20 +40,18 @@ import javafx.util.Callback;
 public class TableLastPlayed {
 
     private final ProgData progData;
-    private final BooleanProperty geoMelden;
     private final BooleanProperty small;
 
     public TableLastPlayed(ProgData progData) {
         this.progData = progData;
-        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE_FAVOURITE;
+        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     }
 
     public TableColumn[] initLastPlayedColumn(TableView table) {
         table.getColumns().clear();
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE_FAVOURITE.addListener((observableValue, s, t1) -> table.refresh());
+        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observableValue, s, t1) -> table.refresh());
         ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 

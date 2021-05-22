@@ -41,22 +41,25 @@ public class StartDialogController extends PDialogExtra {
     private Button btnOk, btnCancel;
     private Button btnPrev, btnNext;
     private Button btnStart1 = new Button(STR_START_1), btnStart2 = new Button(STR_START_2),
-            btnConfig = new Button(STR_CONFIG);
+            btnStart3 = new Button(STR_START_3), btnConfig = new Button(STR_CONFIG);
 
     private static final String STR_START_1 = "Infos";
     private static final String STR_START_2 = "Infos";
+    private static final String STR_START_3 = "Infos";
     private static final String STR_CONFIG = "Einstellungen";
 
-    private enum State {START_1, START_2, CONFIG}
+    private enum State {START_1, START_2, START_3, CONFIG}
 
     private State aktState = State.START_1;
 
     private TitledPane tStart1;
     private TitledPane tStart2;
+    private TitledPane tStart3;
     private TitledPane tConfig;
 
     private StartPane startPane1;
     private StartPane startPane2;
+    private StartPane startPane3;
     private ConfigPane configPane;
 
     private final ProgData progData;
@@ -81,6 +84,7 @@ public class StartDialogController extends PDialogExtra {
         this.ok = ok;
         startPane1.close();
         startPane2.close();
+        startPane3.close();
         configPane.close();
         super.close();
     }
@@ -91,7 +95,7 @@ public class StartDialogController extends PDialogExtra {
 
     private void initTopButton() {
         getvBoxCont().getChildren().add(tilePane);
-        tilePane.getChildren().addAll(btnStart1, btnStart2, btnConfig);
+        tilePane.getChildren().addAll(btnStart1, btnStart2, btnStart3, btnConfig);
         tilePane.setAlignment(Pos.CENTER);
         tilePane.setPadding(new Insets(10, 10, 20, 10));
         tilePane.setHgap(10);
@@ -99,6 +103,7 @@ public class StartDialogController extends PDialogExtra {
 
         setButton(btnStart1, State.START_1);
         setButton(btnStart2, State.START_2);
+        setButton(btnStart3, State.START_3);
         setButton(btnConfig, State.CONFIG);
     }
 
@@ -128,13 +133,19 @@ public class StartDialogController extends PDialogExtra {
         tStart2.setMaxHeight(Double.MAX_VALUE);
         tStart2.setCollapsible(false);
 
+        //startPane 3
+        startPane3 = new StartPane(getStage());
+        tStart3 = startPane3.makeStart3();
+        tStart3.setMaxHeight(Double.MAX_VALUE);
+        tStart3.setCollapsible(false);
+
         //updatePane
         configPane = new ConfigPane(getStage());
         tConfig = configPane.makeStart();
         tConfig.setMaxHeight(Double.MAX_VALUE);
         tConfig.setCollapsible(false);
 
-        stackpane.getChildren().addAll(tStart1, tStart2, tConfig);
+        stackpane.getChildren().addAll(tStart1, tStart2, tStart3, tConfig);
     }
 
     private void initButton() {
@@ -154,6 +165,9 @@ public class StartDialogController extends PDialogExtra {
                     aktState = State.START_2;
                     break;
                 case START_2:
+                    aktState = State.START_3;
+                    break;
+                case START_3:
                     aktState = State.CONFIG;
                     break;
                 case CONFIG:
@@ -169,8 +183,11 @@ public class StartDialogController extends PDialogExtra {
                 case START_2:
                     aktState = State.START_1;
                     break;
-                case CONFIG:
+                case START_3:
                     aktState = State.START_2;
+                    break;
+                case CONFIG:
+                    aktState = State.START_3;
                     break;
             }
             selectActPane();
@@ -203,6 +220,12 @@ public class StartDialogController extends PDialogExtra {
                 tStart2.toFront();
                 setButtonStyle(btnStart2);
                 break;
+            case START_3:
+                btnPrev.setDisable(false);
+                btnNext.setDisable(false);
+                tStart3.toFront();
+                setButtonStyle(btnStart3);
+                break;
             case CONFIG:
                 btnPrev.setDisable(false);
                 btnNext.setDisable(true);
@@ -218,6 +241,7 @@ public class StartDialogController extends PDialogExtra {
     private void setButtonStyle(Button btnSel) {
         btnStart1.getStyleClass().retainAll("btnStartDialog");
         btnStart2.getStyleClass().retainAll("btnStartDialog");
+        btnStart3.getStyleClass().retainAll("btnStartDialog");
         btnConfig.getStyleClass().retainAll("btnStartDialog");
         btnSel.getStyleClass().add("btnStartDialogSel");
     }
@@ -225,6 +249,7 @@ public class StartDialogController extends PDialogExtra {
     private void initTooltip() {
         btnStart1.setTooltip(new Tooltip("Infos über das Programm"));
         btnStart2.setTooltip(new Tooltip("Infos über das Programm"));
+        btnStart3.setTooltip(new Tooltip("Infos über das Programm"));
         btnConfig.setTooltip(new Tooltip("Einstellungen des Programms?"));
 
         btnOk.setTooltip(new Tooltip("Programm mit den gewählten Einstellungen starten"));

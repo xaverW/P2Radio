@@ -46,14 +46,14 @@ public class TableFavourite {
     public TableFavourite(ProgData progData) {
         this.progData = progData;
         geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE_FAVOURITE;
+        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     }
 
     public TableColumn[] initFavouriteColumn(TableView table) {
         table.getColumns().clear();
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE_FAVOURITE.addListener((observableValue, s, t1) -> table.refresh());
+        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observableValue, s, t1) -> table.refresh());
         ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 

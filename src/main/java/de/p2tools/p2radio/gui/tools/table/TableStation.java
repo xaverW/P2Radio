@@ -44,14 +44,14 @@ public class TableStation {
     public TableStation(ProgData progData) {
         this.progData = progData;
         geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE_STATION;
+        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     }
 
     public TableColumn[] initStationColumn(TableView table) {
         table.getColumns().clear();
 
         // bei Farbänderung der Schriftfarbe klappt es damit besser: Table.refresh_table(table)
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE_STATION.addListener((observableValue, s, t1) -> table.refresh());
+        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observableValue, s, t1) -> table.refresh());
         ProgColorList.STATION_NEW.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
