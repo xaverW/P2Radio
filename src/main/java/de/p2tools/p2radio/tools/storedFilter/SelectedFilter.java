@@ -214,12 +214,12 @@ public final class SelectedFilter extends SelectedFilterProps {
         String filterUrl = selectedFilter.isUrlVis() ? selectedFilter.getUrl() : "";
         String filterSomewhere = selectedFilter.isSomewhereVis() ? selectedFilter.getSomewhere() : "";
 
-        fStationName = new Filter(filterStationName, false, true);
+        fStationName = new Filter(filterStationName, true);
         fGenre = new Filter(filterGenre, true);
         fCodec = new Filter(filterCodec, true);
         fCountry = new Filter(filterCountry, true);
         fUrl = new Filter(filterUrl, false); // gibt URLs mit ",", das also nicht trennen
-        fSomewhere = new Filter(filterSomewhere, false); // gibt URLs mit ",", das also nicht trennen
+        fSomewhere = new Filter(filterSomewhere, true);
 
         // Länge am Slider in Min
         final int minBitrate = selectedFilter.isMinMaxBitVis() ? selectedFilter.getMinBit() : 0;
