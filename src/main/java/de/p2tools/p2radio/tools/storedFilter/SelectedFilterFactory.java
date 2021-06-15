@@ -40,6 +40,8 @@ public class SelectedFilterFactory {
         sfTo.setStationName(sfFrom.getStationName());
         sfTo.setUrlVis(sfFrom.isUrlVis());
         sfTo.setUrl(sfFrom.getUrl());
+        sfTo.setSomewhereVis(sfFrom.isSomewhereVis());
+        sfTo.setSomewhere(sfFrom.getSomewhere());
 
         sfTo.setMinMaxBitVis(sfFrom.isMinMaxBitVis());
         sfTo.setMinBit(sfFrom.getMinBit());
@@ -94,6 +96,8 @@ public class SelectedFilterFactory {
         list.add("getStationName " + sf.getStationName());
         list.add("isUrlVis " + sf.isUrlVis());
         list.add("getUrl " + sf.getUrl());
+        list.add("isSomewhereVis " + sf.isSomewhereVis());
+        list.add("getSomewhere " + sf.getSomewhere());
 
         list.add("");
         list.add("isMinMaxBitVis " + sf.isMinMaxBitVis());

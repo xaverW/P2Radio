@@ -40,6 +40,9 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> {
     private final StringProperty country = new SimpleStringProperty();
     private final BooleanProperty urlVis = new SimpleBooleanProperty(false);
     private final StringProperty url = new SimpleStringProperty();
+    private final BooleanProperty somewhereVis = new SimpleBooleanProperty(false);
+    private final StringProperty somewhere = new SimpleStringProperty();
+
 
     private final BooleanProperty minMaxBitVis = new SimpleBooleanProperty(true);
     private final IntegerProperty minBit = new SimpleIntegerProperty(0);
@@ -54,10 +57,10 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> {
     private final BooleanProperty blacklistOnly = new SimpleBooleanProperty(false);
 
     public BooleanProperty[] sfBooleanPropArr = {codecVis, genreVis, countryVis, stationNameVis,
-            urlVis, minMaxBitVis,
+            urlVis, somewhereVis, minMaxBitVis,
             onlyVis, onlyNew, noFavourites, noDoubles, blacklistOn, blacklistOnly};
 
-    public StringProperty[] sfStringPropArr = {name, stationName, genre, codec, country, url};
+    public StringProperty[] sfStringPropArr = {name, stationName, genre, codec, country, url, somewhere};
     public IntegerProperty[] sfIntegerPropArr = {minBit, maxBit};
 
     @Override
@@ -84,6 +87,8 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> {
         list.add(new ConfigStringPropExtra("country", SelectedFilterFieldNames.COUNTRY, country));
         list.add(new ConfigBoolPropExtra("urlVis", SelectedFilterFieldNames.URL_VIS, urlVis));
         list.add(new ConfigStringPropExtra("url", SelectedFilterFieldNames.URL, url));
+        list.add(new ConfigBoolPropExtra("somewhereVis", SelectedFilterFieldNames.SOMEWHERE_VIS, somewhereVis));
+        list.add(new ConfigStringPropExtra("somewhere", SelectedFilterFieldNames.SOMEWHERE, somewhere));
 
         list.add(new ConfigBoolPropExtra("minMaxBitVis", SelectedFilterFieldNames.MIN_MAX_BIT_VIS, minMaxBitVis));
         list.add(new ConfigIntPropExtra("minBit", SelectedFilterFieldNames.MIN_BIT, minBit));
@@ -229,6 +234,30 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> {
 
     public void setUrl(String url) {
         this.url.set(url);
+    }
+
+    public boolean isSomewhereVis() {
+        return somewhereVis.get();
+    }
+
+    public BooleanProperty somewhereVisProperty() {
+        return somewhereVis;
+    }
+
+    public void setSomewhereVis(boolean somewhereVis) {
+        this.somewhereVis.set(somewhereVis);
+    }
+
+    public String getSomewhere() {
+        return somewhere.get();
+    }
+
+    public StringProperty somewhereProperty() {
+        return somewhere;
+    }
+
+    public void setSomewhere(String somewhere) {
+        this.somewhere.set(somewhere);
     }
 
     public boolean isMinMaxBitVis() {

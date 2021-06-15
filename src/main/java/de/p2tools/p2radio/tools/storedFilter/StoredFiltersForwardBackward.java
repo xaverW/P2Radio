@@ -32,7 +32,7 @@ public final class StoredFiltersForwardBackward {
     private final ProgData progData;
     private final BooleanProperty backward = new SimpleBooleanProperty(false);
     private final BooleanProperty forward = new SimpleBooleanProperty(false);
-    private boolean name = false, genre = false, url = false;
+    private boolean name = false, genre = false, url = false, somewhere = false;
     private boolean stopFilterChangeListener = false;
 
     // ist die Liste der zuletzt verwendeten Filter
@@ -161,6 +161,12 @@ public final class StoredFiltersForwardBackward {
             return;
         }
 
+        if (checkText(sfB.somewhereProperty(), sf.somewhereProperty(), sfB, sf, somewhere)) {
+            setFalse();
+            somewhere = true;
+            return;
+        }
+
         // dann wars kein Textfilter
 //        System.out.println("addBackward-addBackward");
         filterListBackward.add(sf);
@@ -170,6 +176,7 @@ public final class StoredFiltersForwardBackward {
         name = false;
         genre = false;
         url = false;
+        somewhere = false;
     }
 
     private boolean checkText(StringProperty old, StringProperty nnew, SelectedFilter oldSf, SelectedFilter newSf,

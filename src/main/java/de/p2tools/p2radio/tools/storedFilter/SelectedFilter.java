@@ -80,6 +80,11 @@ public final class SelectedFilter extends SelectedFilterProps {
         setUrlVis(true);
     }
 
+    public void setSomewhereAndVis(String set) {
+        setSomewhere(set);
+        setSomewhereVis(true);
+    }
+
     public void initFilter() {
         clearFilter();
 
@@ -106,6 +111,9 @@ public final class SelectedFilter extends SelectedFilterProps {
 
         urlVisProperty().addListener(l -> reportFilterChange());
         urlProperty().addListener(l -> reportFilterChange());
+
+        somewhereVisProperty().addListener(l -> reportFilterChange());
+        somewhereProperty().addListener(l -> reportFilterChange());
 
         minMaxBitVisProperty().addListener(l -> reportFilterChange());
         minBitProperty().addListener(l -> reportFilterChange());
@@ -140,6 +148,7 @@ public final class SelectedFilter extends SelectedFilterProps {
         setGenre("");
         setCountry("");
         setUrl("");
+        setSomewhere("");
 
         setMinBit(0);
         setMaxBit(StationFilterFactory.FILTER_BITRATE_MAX);
@@ -154,7 +163,8 @@ public final class SelectedFilter extends SelectedFilterProps {
                 getCodec().isEmpty() &&
                 getGenre().isEmpty() &&
                 getCountry().isEmpty() &&
-                getUrl().isEmpty();
+                getUrl().isEmpty() &&
+                getSomewhere().isEmpty();
     }
 
 
@@ -180,6 +190,10 @@ public final class SelectedFilter extends SelectedFilterProps {
             ret = true;
             setUrl("");
         }
+        if (!getSomewhere().isEmpty()) {
+            ret = true;
+            setSomewhere("");
+        }
         return ret;
     }
 
@@ -191,18 +205,21 @@ public final class SelectedFilter extends SelectedFilterProps {
         Filter fCodec;
         Filter fCountry;
         Filter fUrl;
+        Filter fSomewhere;
 
         String filterStationName = selectedFilter.isStationNameVis() ? selectedFilter.getStationName() : "";
         String filterGenre = selectedFilter.isGenreVis() ? selectedFilter.getGenre() : "";
         String filterCodec = selectedFilter.isCodecVis() ? selectedFilter.getCodec() : "";
         String filterCountry = selectedFilter.isCountryVis() ? selectedFilter.getCountry() : "";
         String filterUrl = selectedFilter.isUrlVis() ? selectedFilter.getUrl() : "";
+        String filterSomewhere = selectedFilter.isSomewhereVis() ? selectedFilter.getSomewhere() : "";
 
         fStationName = new Filter(filterStationName, false, true);
         fGenre = new Filter(filterGenre, true);
         fCodec = new Filter(filterCodec, true);
         fCountry = new Filter(filterCountry, true);
         fUrl = new Filter(filterUrl, false); // gibt URLs mit ",", das also nicht trennen
+        fSomewhere = new Filter(filterSomewhere, false); // gibt URLs mit ",", das also nicht trennen
 
         // Länge am Slider in Min
         final int minBitrate = selectedFilter.isMinMaxBitVis() ? selectedFilter.getMinBit() : 0;
@@ -258,6 +275,10 @@ public final class SelectedFilter extends SelectedFilterProps {
 
         if (!fUrl.empty) {
             predicate = predicate.and(station -> StationFilterFactory.checkUrl(fUrl, station));
+        }
+
+        if (!fSomewhere.empty) {
+            predicate = predicate.and(station -> StationFilterFactory.checkSomewhere(fSomewhere, station));
         }
 
         return predicate;

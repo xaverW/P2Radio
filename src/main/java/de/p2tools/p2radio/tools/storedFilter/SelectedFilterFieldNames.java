@@ -31,6 +31,8 @@ public class SelectedFilterFieldNames {
     public static final String STATION_NAME = "stationName";
     public static final String URL_VIS = "urlVis";
     public static final String URL = "url";
+    public static final String SOMEWHERE_VIS = "somewhereVis";
+    public static final String SOMEWHERE = "somewhere";
 
     public static final String MIN_MAX_BIT_VIS = "minMaxBitVis";
     public static final String MIN_BIT = "minBit";

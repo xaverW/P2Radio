@@ -86,6 +86,16 @@ public class StationFilterFactory {
         return true;
     }
 
+    public static boolean checkSomewhere(Filter somewhere, Station station) {
+        if (!check(somewhere, station.getName())
+                && !check(somewhere, station.getGenre())
+                && !check(somewhere, station.getWebsite())
+                && !check(somewhere, station.getUrl())) {
+            return false;
+        }
+        return true;
+    }
+
     public static boolean checkBitrateMin(int filterBitrate, long radioBitrate) {
         return filterBitrate == 0 || radioBitrate == 0 || radioBitrate >= filterBitrate;
     }

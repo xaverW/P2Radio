@@ -78,6 +78,11 @@ public class StationFilterEditDialog extends PDialogExtra {
         tglUrl.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().urlVisProperty());
         vbox.getChildren().add(tglUrl);
 
+        PToggleSwitch tglSomewhere = new PToggleSwitch("irgendwo");
+        tglSomewhere.setMaxWidth(Double.MAX_VALUE);
+        tglSomewhere.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().somewhereVisProperty());
+        vbox.getChildren().add(tglSomewhere);
+
         PToggleSwitch tglMinMax = new PToggleSwitch("Bitrate Min/Max");
         tglMinMax.setMaxWidth(Double.MAX_VALUE);
         tglMinMax.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().minMaxBitVisProperty());

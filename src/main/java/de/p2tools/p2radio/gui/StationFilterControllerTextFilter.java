@@ -38,6 +38,7 @@ public class StationFilterControllerTextFilter extends VBox {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final TextField txtStationName = new TextField();
     private final TextField txtUrl = new TextField();
+    private final TextField txtSomewhere = new TextField();
     private final ArrayList<MenuItemClass> codecMenuItemsList = new ArrayList<>();
     private final ProgData progData;
 
@@ -208,12 +209,16 @@ public class StationFilterControllerTextFilter extends VBox {
     private void initStringFilter() {
         txtStationName.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().stationNameProperty());
         txtUrl.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().urlProperty());
+        txtSomewhere.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().somewhereProperty());
 
         FilterCheckRegEx fN = new FilterCheckRegEx(txtStationName);
         txtStationName.textProperty().addListener((observable, oldValue, newValue) -> fN.checkPattern());
 
         FilterCheckRegEx fU = new FilterCheckRegEx(txtUrl);
         txtUrl.textProperty().addListener((observable, oldValue, newValue) -> fU.checkPattern());
+
+        FilterCheckRegEx fs = new FilterCheckRegEx(txtSomewhere);
+        txtSomewhere.textProperty().addListener((observable, oldValue, newValue) -> fs.checkPattern());
     }
 
     private void addFilter() {
@@ -224,6 +229,7 @@ public class StationFilterControllerTextFilter extends VBox {
         addCodec(vBox);
         addCountry(vBox);
         addTxt("URL", txtUrl, vBox, progData.storedFilters.getActFilterSettings().urlVisProperty());
+        addTxt("Irgendwo", txtSomewhere, vBox, progData.storedFilters.getActFilterSettings().somewhereVisProperty());
 
         Separator sp = new Separator();
         sp.getStyleClass().add("pseperator1");
@@ -235,8 +241,9 @@ public class StationFilterControllerTextFilter extends VBox {
                         .or(progData.storedFilters.getActFilterSettings().genreVisProperty()
                                 .or(progData.storedFilters.getActFilterSettings().codecVisProperty())
                                 .or(progData.storedFilters.getActFilterSettings().countryVisProperty()
-                                        .or(progData.storedFilters.getActFilterSettings().urlVisProperty())
-                                ))));
+                                        .or(progData.storedFilters.getActFilterSettings().urlVisProperty()
+                                                .or(progData.storedFilters.getActFilterSettings().somewhereVisProperty())
+                                        )))));
 
         vBox.managedProperty().bind(vBox.visibleProperty());
         sp.visibleProperty().bind(vBox.visibleProperty());
