@@ -19,6 +19,8 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.station.StationTools;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -52,7 +54,6 @@ public class LastPlayedGuiTableContextMenu {
         miStopAll.setOnAction(a -> lastPlayedGuiController.stopStation(true /* alle */));
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> lastPlayedGuiController.copyUrl());
-
         MenuItem miRemove = new MenuItem("Sender aus History löschen");
         miRemove.setOnAction(a -> LastPlayedFactory.deleteHistory(false));
 
@@ -61,12 +62,21 @@ public class LastPlayedGuiTableContextMenu {
         miStopAll.setDisable(lastPlayed == null);
         miCopyUrl.setDisable(lastPlayed == null);
         miRemove.setDisable(lastPlayed == null);
-
         contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miRemove);
+
+        if (lastPlayed != null) {
+            String stationUrl = lastPlayed.getUrl();
+            Station station = progData.stationList.getSenderByUrl(stationUrl);
+            if (station != null) {
+                MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
+                miAddFavourite.setOnAction(a -> StationTools.saveStation(station));
+                miAddFavourite.setDisable(lastPlayed == null);
+                contextMenu.getItems().addAll(miAddFavourite);
+            }
+        }
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.LAST_PLAYED));
-
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);
     }

@@ -202,6 +202,9 @@ public class TableLastPlayed {
                 final boolean error = lastPlayed.getStart() != null ? lastPlayed.getStart().getStartStatus().isStateError() : false;
                 final boolean set = progData.setDataList.size() > 1;
 
+                String stationUrl = lastPlayed.getUrl();
+                final boolean fav = progData.favouriteList.getUrlStation(stationUrl) != null;
+
                 if (playing) {
                     //dann stoppen
                     final Button btnPlay;
@@ -272,13 +275,13 @@ public class TableLastPlayed {
                 hbox.getChildren().add(btnDel);
 
                 setGraphic(hbox);
-                setCellStyle(this, playing, error);
+                setCellStyle(this, playing, error, fav);
             }
         };
         return cell;
     };
 
-    private void setCellStyle(TableCell<LastPlayed, Integer> cell, boolean playing, boolean error) {
+    private void setCellStyle(TableCell<LastPlayed, Integer> cell, boolean playing, boolean error, boolean fav) {
         TableRow<LastPlayed> currentRow = cell.getTableRow();
         if (currentRow == null) {
             return;
@@ -288,6 +291,8 @@ public class TableLastPlayed {
             currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundSel());
         } else if (error) {
             currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundSel());
+        } else if (fav) {
+            currentRow.setStyle(ProgColorList.STATION_FAVOURITE.getCssBackgroundSel());
         } else {
             currentRow.setStyle("");
         }

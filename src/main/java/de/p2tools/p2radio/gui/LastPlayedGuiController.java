@@ -298,5 +298,6 @@ public class LastPlayedGuiController extends AnchorPane {
                 event.consume();
             }
         });
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
     }
 }

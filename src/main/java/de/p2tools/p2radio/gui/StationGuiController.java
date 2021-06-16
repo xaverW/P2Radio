@@ -163,10 +163,6 @@ public class StationGuiController extends AnchorPane {
         new Table().saveTable(tableView, Table.TABLE.STATION);
     }
 
-    public void refreshTable() {
-        Table.refresh_table(tableView);
-    }
-
     public ArrayList<Station> getSelList() {
         final ArrayList<Station> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
@@ -312,6 +308,6 @@ public class StationGuiController extends AnchorPane {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setStation)
         );
-
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
     }
 }

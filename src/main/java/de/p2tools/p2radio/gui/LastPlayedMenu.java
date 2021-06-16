@@ -21,10 +21,15 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.station.StationTools;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+
+import java.util.Optional;
 
 public class LastPlayedMenu {
     final private VBox vBox;
@@ -95,6 +100,19 @@ public class LastPlayedMenu {
 
         final MenuItem miLastPlayedDelAll = new MenuItem("gesamte History löschen");
         miLastPlayedDelAll.setOnAction(a -> LastPlayedFactory.deleteCompleteHistory());
+
+        MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
+        miAddFavourite.setOnAction(a -> {
+            final Optional<LastPlayed> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+            if (lastPlayed.isPresent()) {
+                String stationUrl = lastPlayed.get().getUrl();
+                Station station = progData.stationList.getSenderByUrl(stationUrl);
+                if (station != null) {
+                    StationTools.saveStation(station);
+                }
+            }
+        });
+        mb.getItems().addAll(miAddFavourite);
 
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenu = new Menu("History");

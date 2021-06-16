@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PDataProgConfig;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
@@ -40,9 +41,14 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND = addInt("__system-parameter__download-errormsg-in-second_30__", 30);
     // ===========================================
 
-    // Configs zum Aktualisieren beim Programmupdate
-    public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-after-update-filter", 0);
 
+    // Configs der Programmversion
+    public static StringProperty SYSTEM_PROG_VERSION = addStr("system-prog-version");
+    public static StringProperty SYSTEM_PROG_BUILD_NO = addStr("system-prog-build-no");
+    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStr("system-prog-build-date");
+
+    // Configs zum Aktualisieren beim Programmupdate
+    public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);
 
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
@@ -174,6 +180,10 @@ public class ProgConfig extends PDataProgConfig {
     }
 
     public static void addConfigData(ConfigFile configFile) {
+        ProgConfig.SYSTEM_PROG_VERSION.set(ProgramTools.getProgVersion());
+        ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramTools.getBuild());
+        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramTools.getCompileDate());
+
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getConfigsData());
         configFile.addConfigs(ProgData.getInstance().setDataList);
