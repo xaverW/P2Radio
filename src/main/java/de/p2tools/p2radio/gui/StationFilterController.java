@@ -31,8 +31,7 @@ import javafx.scene.layout.VBox;
 
 public class StationFilterController extends FilterController {
 
-    private final VBox vBoxFilter;
-    private final VBox vBoxBlacklist;
+    private final VBox vBoxBottom;
     private final ProgData progData;
 
     private final PToggleSwitch tglBlacklist = new PToggleSwitch("Blacklist:");
@@ -46,21 +45,20 @@ public class StationFilterController extends FilterController {
         super();
         progData = ProgData.getInstance();
 
-        sender = new StationFilterControllerTextFilter();
+        sender = new StationFilterControllerTextFilter();//hat separator am ende??
         filter = new StationFilterControllerFilter();
         clearFilter = new StationFilterControllerClearFilter();
         profiles = new StationFilterControllerProfiles();
 
-        Separator sp = new Separator();
-        sp.getStyleClass().add("pseperator3");
-        sp.setMinHeight(0);
-        sp.setPadding(new Insets(10));
+        Separator sp1 = new Separator();
+        sp1.getStyleClass().add("pseperator3");
+        sp1.setPadding(new Insets(10));
 
-        vBoxFilter = getVBoxTop();
-        vBoxFilter.setSpacing(0);
-        VBox.setVgrow(filter, Priority.ALWAYS);
-
-        vBoxFilter.getChildren().addAll(sender, filter, clearFilter, sp, profiles);
+        final VBox vBoxTop = getVBoxTop();
+        vBoxTop.setSpacing(0);
+        HBox hBoxs = new HBox();
+        VBox.setVgrow(hBoxs, Priority.ALWAYS);
+        vBoxTop.getChildren().addAll(sender, filter, hBoxs, clearFilter, sp1, profiles);
 
         Label lblRight = new Label();
         tglBlacklist.setAllowIndeterminate(true);
@@ -69,11 +67,11 @@ public class StationFilterController extends FilterController {
         tglBlacklist.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnProperty());
         tglBlacklist.indeterminateProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnlyProperty());
 
-        vBoxBlacklist = getVBoxBottom();
+        vBoxBottom = getVBoxBottom();
         HBox hBox = new HBox(10);
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
-        vBoxBlacklist.getChildren().addAll(hBox);
+        vBoxBottom.getChildren().addAll(hBox);
         Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
             @Override
             public void pingFx() {
@@ -89,13 +87,13 @@ public class StationFilterController extends FilterController {
             progData.storedFilters.getActFilterSettings().setBlacklistOn(false);
             progData.storedFilters.getActFilterSettings().setBlacklistOnly(false);
             //und dann auch nicht anzeigen
-            vBoxBlacklist.setVisible(false);
-            vBoxBlacklist.setManaged(false);
+            vBoxBottom.setVisible(false);
+            vBoxBottom.setManaged(false);
 
         } else {
             //anzeigen
-            vBoxBlacklist.setVisible(true);
-            vBoxBlacklist.setManaged(true);
+            vBoxBottom.setVisible(true);
+            vBoxBottom.setManaged(true);
         }
     }
 }

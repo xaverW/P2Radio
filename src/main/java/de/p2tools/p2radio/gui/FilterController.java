@@ -18,7 +18,6 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.Priority;
@@ -30,11 +29,9 @@ public class FilterController extends PClosePaneV {
     private final VBox vBoxAll = new VBox();
     private final VBox vBoxTop = new VBox(20);
     private final VBox vBoxBottom = new VBox();
-    private final ProgData progData;
 
     public FilterController() {
         super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON, true);
-        progData = ProgData.getInstance();
 
         getVBoxAll().getChildren().add(vBoxAll);
         initVBox();
@@ -49,12 +46,15 @@ public class FilterController extends PClosePaneV {
     }
 
     private void initVBox() {
+        VBox.setVgrow(vBoxAll, Priority.ALWAYS);
+
+        vBoxTop.setMaxHeight(Double.MAX_VALUE);
         VBox.setVgrow(vBoxTop, Priority.ALWAYS);
 
         vBoxBottom.getStyleClass().add("extra-pane");
         vBoxBottom.setPadding(new Insets(10));
         vBoxBottom.setSpacing(20);
-        vBoxBottom.setMaxWidth(Double.MAX_VALUE);
+//        vBoxBottom.setMaxWidth(Double.MAX_VALUE);
 
         Separator sp = new Separator();
         sp.setVisible(false);

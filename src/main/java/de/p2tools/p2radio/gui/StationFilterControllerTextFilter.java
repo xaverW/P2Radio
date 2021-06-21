@@ -231,10 +231,10 @@ public class StationFilterControllerTextFilter extends VBox {
         addTxt("URL", txtUrl, vBox, progData.storedFilters.getActFilterSettings().urlVisProperty());
         addTxt("Irgendwo", txtSomewhere, vBox, progData.storedFilters.getActFilterSettings().somewhereVisProperty());
 
-        Separator sp = new Separator();
-        sp.getStyleClass().add("pseperator1");
-        sp.setMinHeight(10);
-        vBox.getChildren().add(sp);
+//        Separator sp = new Separator();
+//        sp.getStyleClass().add("pseperator1");
+//        sp.setMinHeight(10);
+//        vBox.getChildren().add(sp);
 
         vBox.visibleProperty().bind(
                 (progData.storedFilters.getActFilterSettings().stationNameVisProperty()
@@ -246,8 +246,8 @@ public class StationFilterControllerTextFilter extends VBox {
                                         )))));
 
         vBox.managedProperty().bind(vBox.visibleProperty());
-        sp.visibleProperty().bind(vBox.visibleProperty());
-        sp.managedProperty().bind(vBox.visibleProperty());
+//        sp.visibleProperty().bind(vBox.visibleProperty());
+//        sp.managedProperty().bind(vBox.visibleProperty());
         getChildren().add(vBox);
     }
 

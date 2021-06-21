@@ -2,6 +2,16 @@
 
 <br />
 
+**Release 2**
+
+* History: Zuletzt gespielte Sender werden angezeigt
+* Senderfilter erweitert
+* viele kleine Verbesserungen der Benutzbarkeit
+* ...
+
+<br />
+
+
 **Release 1**
 
 * Tray: Das Programm kann ins Tray gelegt werden -> "Einstellungen" zum Einschalten des Tray
