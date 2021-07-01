@@ -59,6 +59,7 @@ public class ProgIcons {
     //toolbar
     public final ImageView ICON_TOOLBAR_MENU = GetIcon.getImageView("toolbar-menu.png", 18, 15);
     public final ImageView ICON_TOOLBAR_MENU_TOP = GetIcon.getImageView("toolbar-menu-top.png", 32, 18);
+    public final ImageView ICON_TOOLBAR_SMALL_RADIO = GetIcon.getImageView("toolbar-menu-smallRadio-24.png", 24, 24);
     public final ImageView ICON_TOOLBAR_FAVOURITE_CHANGE = GetIcon.getImageView("toolbar-favourite-change.png", 32, 32);
     public final ImageView ICON_TOOLBAR_FAVOURITE_DEL = GetIcon.getImageView("toolbar-favourite-del.png", 32, 32);
     public final ImageView ICON_TOOLBAR_STATION_START = GetIcon.getImageView("toolbar-station-start.png", 32, 32);
