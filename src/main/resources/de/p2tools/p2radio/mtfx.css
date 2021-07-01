@@ -124,11 +124,10 @@
 .combo-box-icon {
 	-fx-background-image: url("/de/p2tools/p2radio/res/program/table-station-play.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-position: center;
+	-fx-background-position: 10%,center;
 	-fx-background-size: auto;
-	-fx-background-insets: 0, 0, 0, 0; /*1.0, 1.0, 1.0, 1.0;*/
+	-fx-background-insets: 1;
 
-	/*-fx-border-radius: 5px;*/
 	-fx-border-color: #3499ff;
-	-fx-border-width: 1px;
+	-fx-border-width: 2px;
 }

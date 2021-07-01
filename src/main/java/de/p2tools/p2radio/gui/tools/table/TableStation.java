@@ -245,6 +245,7 @@ public class TableStation {
                     //läuft nix, mehre Sets
                     final ComboBox<SetData> cboSet;
                     cboSet = new ComboBox();
+                    cboSet.setMinWidth(50);
                     cboSet.getStyleClass().add("combo-box-icon");
                     cboSet.getItems().addAll(progData.setDataList);
                     cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {

@@ -56,6 +56,9 @@ public class ProgramPane {
     public void setSetDate(SetData setData) {
         this.setData = setData;
         tableView.setItems(setData.getProgramList());
+        if (tableView.getItems().size() > 0) {
+            tableView.getSelectionModel().select(0);
+        }
     }
 
     public void close() {
