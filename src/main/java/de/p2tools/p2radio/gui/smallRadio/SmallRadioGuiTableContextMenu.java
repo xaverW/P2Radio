@@ -67,7 +67,7 @@ public class SmallRadioGuiTableContextMenu {
         contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miChange, miRemove);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
-        resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.FAVOURITE));
+        resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.SMALL_RADIO));
 
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);

@@ -79,6 +79,18 @@ public class FavouriteFilterController extends PClosePaneV {
         initFilter();
     }
 
+    //    public FavouriteFilter getFavouriteFilter() {
+//        return favouriteFilter;
+//    }
+//
+//    public void isShown() {
+//        progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+//    }
+//
+    public void resetFilter() {
+        favouriteFilter.clearFilter();
+    }
+
     private void initFilter() {
         cboCollections.setItems(progData.collectionList);
         cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionNameFilterProperty());

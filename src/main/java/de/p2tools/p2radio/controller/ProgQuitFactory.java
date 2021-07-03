@@ -42,6 +42,7 @@ public class ProgQuitFactory {
         // Tabelleneinstellungen merken
         ProgData.getInstance().stationGuiController.saveTable();
         ProgData.getInstance().favouriteGuiController.saveTable();
+        ProgData.getInstance().lastPlayedGuiController.saveTable();
     }
 
     /**

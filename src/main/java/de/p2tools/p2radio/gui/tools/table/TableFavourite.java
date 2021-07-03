@@ -259,7 +259,7 @@ public class TableFavourite {
                     //dann stoppen
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
+                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.stopFavourite(favourite);

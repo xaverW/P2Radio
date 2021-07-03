@@ -29,13 +29,13 @@ import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.geometry.Orientation;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -47,7 +47,6 @@ import java.util.Optional;
 
 public class SmallRadioGuiController extends AnchorPane {
 
-    private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableView<Favourite> tableView = new TableView<>();
@@ -58,18 +57,14 @@ public class SmallRadioGuiController extends AnchorPane {
     private final SortedList<Favourite> sortedFavourites;
     private FavouriteGuiInfoController favouriteGuiInfoController;
 
-    DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
-    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
-
     public SmallRadioGuiController() {
         progData = ProgData.getInstance();
 
-        AnchorPane.setLeftAnchor(splitPane, 0.0);
-        AnchorPane.setBottomAnchor(splitPane, 0.0);
-        AnchorPane.setRightAnchor(splitPane, 0.0);
-        AnchorPane.setTopAnchor(splitPane, 0.0);
-        splitPane.setOrientation(Orientation.VERTICAL);
-        getChildren().addAll(splitPane);
+        AnchorPane.setLeftAnchor(vBox, 0.0);
+        AnchorPane.setBottomAnchor(vBox, 0.0);
+        AnchorPane.setRightAnchor(vBox, 0.0);
+        AnchorPane.setTopAnchor(vBox, 0.0);
+        getChildren().addAll(vBox);
 
         vBox.getChildren().addAll(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -78,13 +73,11 @@ public class SmallRadioGuiController extends AnchorPane {
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         favouriteGuiInfoController = new FavouriteGuiInfoController();
         filteredFavourites = progData.filteredFavourites;
 
         sortedFavourites = new SortedList<>(filteredFavourites);
 
-        setInfoPane();
         initTable();
         initListener();
     }
@@ -216,7 +209,7 @@ public class SmallRadioGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.FAVOURITE);
+        new Table().saveTable(tableView, Table.TABLE.SMALL_RADIO);
     }
 
     public ArrayList<Favourite> getSelList() {
@@ -271,28 +264,12 @@ public class SmallRadioGuiController extends AnchorPane {
         });
     }
 
-    private void setInfoPane() {
-        if (!boolInfoOn.getValue()) {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(splitPaneProperty);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().add(vBox);
-        } else {
-            bound = true;
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, favouriteGuiInfoController);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
-            SplitPane.setResizableWithParent(vBox, true);
-        }
-    }
-
     private void initTable() {
         tableView.setTableMenuButtonVisible(true);
         tableView.setEditable(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.FAVOURITE);
+        new Table().setTable(tableView, Table.TABLE.SMALL_RADIO);
         tableView.setItems(sortedFavourites);
         sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
 

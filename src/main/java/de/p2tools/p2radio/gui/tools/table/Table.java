@@ -26,7 +26,7 @@ import javafx.scene.control.TableView;
 
 public class Table {
     public static enum TABLE {
-        STATION, FAVOURITE, LAST_PLAYED
+        STATION, FAVOURITE, SMALL_RADIO, LAST_PLAYED
     }
 
     private static final String SORT_ASCENDING = "ASCENDING";
@@ -73,6 +73,14 @@ public class Table {
                 confOrder = ProgConfig.FAVOURITE_GUI_TABLE_ORDER;
                 break;
 
+            case SMALL_RADIO:
+                confWidth = ProgConfig.SMALL_RADIO_TABLE_WIDTH;
+                confSort = ProgConfig.SMALL_RADIO_TABLE_SORT;
+                confUpDown = ProgConfig.SMALL_RADIO_TABLE_UP_DOWN;
+                confVis = ProgConfig.SMALL_RADIO_TABLE_VIS;
+                confOrder = ProgConfig.SMALL_RADIO_TABLE_ORDER;
+                break;
+
             case LAST_PLAYED:
                 confWidth = ProgConfig.LAST_PLAYED_GUI_TABLE_WIDTH;
                 confSort = ProgConfig.LAST_PLAYED_GUI_TABLE_SORT;
@@ -96,6 +104,7 @@ public class Table {
                 break;
 
             case FAVOURITE:
+            case SMALL_RADIO:
                 tArray = new TableFavourite(ProgData.getInstance()).initFavouriteColumn(table);
                 break;
 
@@ -189,6 +198,7 @@ public class Table {
                 break;
 
             case FAVOURITE:
+            case SMALL_RADIO:
                 resetFavourite();
                 break;
 

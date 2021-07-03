@@ -30,8 +30,6 @@ public class FavouriteGuiPack {
     ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
-    private final FavouriteGuiController favouriteGuiController;
-    private final FavouriteFilterController favouriteFilterController;
     static DoubleProperty doubleProperty;//sonst geht die Ref verloren
     static BooleanProperty boolDivOn;
     private boolean bound = false;
@@ -40,9 +38,8 @@ public class FavouriteGuiPack {
         progData = ProgData.getInstance();
         this.doubleProperty = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER;
         this.boolDivOn = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON;
-        favouriteFilterController = new FavouriteFilterController();
-        favouriteGuiController = new FavouriteGuiController();
-        progData.favouriteGuiController = favouriteGuiController;
+        progData.favouriteFilterController = new FavouriteFilterController();
+        progData.favouriteGuiController = new FavouriteGuiController();
     }
 
     public void closeSplit() {
@@ -52,7 +49,7 @@ public class FavouriteGuiPack {
     private void setSplit() {
         if (boolDivOn.getValue()) {
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(favouriteFilterController, favouriteGuiController);
+            splitPane.getItems().addAll(progData.favouriteFilterController, progData.favouriteGuiController);
             bound = true;
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
         } else {
@@ -60,7 +57,7 @@ public class FavouriteGuiPack {
                 splitPane.getDividers().get(0).positionProperty().unbindBidirectional(doubleProperty);
             }
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(favouriteGuiController);
+            splitPane.getItems().addAll(progData.favouriteGuiController);
         }
     }
 
@@ -69,7 +66,7 @@ public class FavouriteGuiPack {
         menuController.setId("favorite-menu-pane");
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(favouriteFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(progData.favouriteFilterController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
