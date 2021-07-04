@@ -38,6 +38,7 @@ import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
 import de.p2tools.p2radio.gui.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
+import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.tools.stationListFilter.StationListFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterWorker;
@@ -75,6 +76,7 @@ public class ProgData {
     public P2RadioController p2RadioController = null;
     public StationGuiController stationGuiController = null; // Tab mit den Sender
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
+    public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
     public FavouriteFilterController favouriteFilterController = null;
 
     public LastPlayedGuiController lastPlayedGuiController = null; // Tab mit den Favoriten

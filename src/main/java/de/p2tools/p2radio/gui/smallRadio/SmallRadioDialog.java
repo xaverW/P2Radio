@@ -88,8 +88,9 @@ public class SmallRadioDialog {
             hBoxBottom.getStyleClass().add("extra-pane");
             hBoxBottom.setPadding(new Insets(15, 15, 15, 15));
             hBoxBottom.setSpacing(20);
-            vBoxComplete.getChildren().addAll(vBoxCenter, hBoxBottom);
+
             VBox.setVgrow(vBoxCenter, Priority.ALWAYS);
+            vBoxComplete.getChildren().addAll(vBoxCenter, hBoxBottom);
 
             make();
             if (sizeConfiguration.get().isEmpty()) {
@@ -97,6 +98,7 @@ public class SmallRadioDialog {
             }
 
             showDialog();
+
         } catch (final Exception exc) {
             PLog.errorLog(858484821, exc);
         }
@@ -117,8 +119,7 @@ public class SmallRadioDialog {
         if (w > 0 && h > 0) {
             this.scene = new Scene(vBoxComplete, w, h);
         } else {
-            // für Win, damit die Dialoge nicht über den Bildschirm raus ragen
-            this.scene = new Scene(vBoxComplete, 800, 700);
+            this.scene = new Scene(vBoxComplete, 600, 250);
         }
     }
 
@@ -165,20 +166,12 @@ public class SmallRadioDialog {
         return stage.isShowing();
     }
 
-    public VBox getvBoxCenter() {
+    public VBox getVBoxCenter() {
         return vBoxCenter;
     }
 
-    public void setvBoxCenter(VBox vBoxCenter) {
-        this.vBoxCenter = vBoxCenter;
-    }
-
-    public HBox gethBoxBottom() {
+    public HBox getHBoxBottom() {
         return hBoxBottom;
-    }
-
-    public void sethBoxBottom(HBox hBoxBottom) {
-        this.hBoxBottom = hBoxBottom;
     }
 
     protected void make() {

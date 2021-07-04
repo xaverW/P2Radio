@@ -19,41 +19,34 @@ package de.p2tools.p2radio.gui.smallRadio;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class SmallRadioGuiPack extends SmallRadioDialog {
 
     ProgData progData;
-    private final HBox hBox = new HBox();
-    private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
     private final SmallRadioGuiController smallRadioGuiController;
-    private Button btnOk;
-    private FavouriteFilter favouriteFilter = new FavouriteFilter();
+    private final SmallRadioBottom smallRadioBottom;
 
 
     public SmallRadioGuiPack() {
-        super(null, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
+        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
 
         progData = ProgData.getInstance();
         smallRadioGuiController = new SmallRadioGuiController();
+        progData.smallRadioGuiController = smallRadioGuiController;
+        smallRadioBottom = new SmallRadioBottom(this, smallRadioGuiController);
         init();
     }
 
     @Override
     public void make() {
-        initBottom();
         pack();
     }
 
     public void close() {
+        progData.smallRadioGuiController = null;
         smallRadioGuiController.saveTable();
         Platform.runLater(() -> {
                     progData.primaryStage.show();
@@ -64,37 +57,8 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
         super.close();
     }
 
-    private void initBottom() {
-        btnOk = new Button("_Ok");
-        btnOk.setDisable(false);
-        btnOk.setOnAction(a -> {
-            close();
-        });
-
-        cboCollections.setMaxWidth(Double.MAX_VALUE);
-        cboCollections.setMinWidth(150);
-        cboCollections.setItems(progData.collectionList);
-        cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionNameFilterProperty());
-        cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-        });
-
-
-        HBox hBoxSpace = new HBox();
-        HBox.setHgrow(hBoxSpace, Priority.ALWAYS);
-
-        btnOk.getStyleClass().add("btnStartDialog");
-
-        gethBoxBottom().getChildren().addAll(new Label("Sammlung"), cboCollections, hBoxSpace, btnOk);
-    }
-
     private void pack() {
-        hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        hBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        HBox.setHgrow(smallRadioGuiController, Priority.ALWAYS);
-        hBox.getChildren().addAll(smallRadioGuiController);
-
-        getvBoxCenter().getChildren().add(hBox);
+        VBox.setVgrow(smallRadioGuiController, Priority.ALWAYS);
+        getVBoxCenter().getChildren().add(smallRadioGuiController);
     }
 }

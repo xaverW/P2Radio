@@ -38,16 +38,14 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class SmallRadioGuiController extends AnchorPane {
+public class SmallRadioGuiController extends VBox {
 
-    private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableView<Favourite> tableView = new TableView<>();
 
@@ -57,25 +55,18 @@ public class SmallRadioGuiController extends AnchorPane {
     private final SortedList<Favourite> sortedFavourites;
     private FavouriteGuiInfoController favouriteGuiInfoController;
 
+
     public SmallRadioGuiController() {
         progData = ProgData.getInstance();
-
-        AnchorPane.setLeftAnchor(vBox, 0.0);
-        AnchorPane.setBottomAnchor(vBox, 0.0);
-        AnchorPane.setRightAnchor(vBox, 0.0);
-        AnchorPane.setTopAnchor(vBox, 0.0);
-        getChildren().addAll(vBox);
-
-        vBox.getChildren().addAll(scrollPane);
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+        this.getChildren().addAll(scrollPane);
 
         favouriteGuiInfoController = new FavouriteGuiInfoController();
         filteredFavourites = progData.filteredFavourites;
-
         sortedFavourites = new SortedList<>(filteredFavourites);
 
         initTable();
@@ -152,8 +143,8 @@ public class SmallRadioGuiController extends AnchorPane {
             } else {
                 text = "Sollen die Favoriten gelöscht werden?";
             }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?", text)
-                    .equals(PAlert.BUTTON.YES)) {
+            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?",
+                    "Favoriten löschen?", text).equals(PAlert.BUTTON.YES)) {
                 progData.favouriteList.removeAll(list);
                 StationListFactory.findAndMarkFavouriteStations(progData);
             }
@@ -167,7 +158,8 @@ public class SmallRadioGuiController extends AnchorPane {
     }
 
     public void deleteFavourite(Favourite favourite) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
+        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?",
+                "Favoriten löschen?",
                 "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
             progData.favouriteList.remove(favourite);
             StationListFactory.findAndMarkFavouriteStations(progData);
@@ -239,7 +231,8 @@ public class SmallRadioGuiController extends AnchorPane {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream().filter(favourite -> favourite.getUrl().equals(url)).findFirst();
+        Optional<Favourite> optional = tableView.getItems().stream()
+                .filter(favourite -> favourite.getUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
             int sel = tableView.getSelectionModel().getSelectedIndex();
@@ -287,7 +280,8 @@ public class SmallRadioGuiController extends AnchorPane {
                 } else {
                     favourite = null;
                 }
-                ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData, this, tableView).getContextMenu(favourite);
+                ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData, this, tableView)
+                        .getContextMenu(favourite);
                 tableView.setContextMenu(contextMenu);
             }
         });
