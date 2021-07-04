@@ -54,9 +54,11 @@ public class SmallRadioGuiController extends VBox {
     private final FilteredList<Favourite> filteredFavourites;
     private final SortedList<Favourite> sortedFavourites;
     private FavouriteGuiInfoController favouriteGuiInfoController;
+    private SmallRadioGuiPack smallRadioGuiPack;
 
 
-    public SmallRadioGuiController() {
+    public SmallRadioGuiController(SmallRadioGuiPack smallRadioGuiPack) {
+        this.smallRadioGuiPack = smallRadioGuiPack;
         progData = ProgData.getInstance();
 
         scrollPane.setFitToHeight(true);
@@ -71,6 +73,10 @@ public class SmallRadioGuiController extends VBox {
 
         initTable();
         initListener();
+    }
+
+    public SmallRadioGuiPack getSmallRadioGuiPack() {
+        return smallRadioGuiPack;
     }
 
     public void tableRefresh() {

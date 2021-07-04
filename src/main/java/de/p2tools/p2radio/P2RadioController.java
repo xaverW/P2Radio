@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio;
 
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
@@ -245,11 +246,18 @@ public class P2RadioController extends StackPane {
             return;
         }
 
+        if (progData.favouriteList.isEmpty()) {
+            PAlert.showErrorAlert("keine Favoriten",
+                    "Es sind noch keine Favoriten angelegt. Diese müssen " +
+                            "zuerst angelegt werden!");
+            return;
+        }
+
         PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
         progData.primaryStage.close();
         new SmallRadioGuiPack();
     }
-    
+
     private void selPanelStation() {
         ProgConfig.SYSTEM_LAST_TAB_STATION.set(0);
         if (maskerPane.isVisible()) {

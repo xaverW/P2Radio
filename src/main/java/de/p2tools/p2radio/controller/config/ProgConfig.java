@@ -110,11 +110,11 @@ public class ProgConfig extends PDataProgConfig {
 
     //Gui SmallRadio
     public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size");
-    public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50.0,70.0,86.0,183.0,143.0,80.0,180.0,80.0,80.0,80.0,80.0,80.0,80.0,80.0,80.0,80.0");
+    public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50.0,70.0,226.0,97.0,98.0,80.0,214.0,80.0,80.0,80.0,91.0,80.0,80.0,80.0,80.0,80.0");
     public static StringProperty SMALL_RADIO_TABLE_SORT = addStr("small-radio-table-sort");
     public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");
     public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "false,false,true,true,true,false,true,false,false,false,true,false,false,false,false,false");
-    public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order");
+    public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "Nr,SenderNr,Sender,Sammlung,Bewertung,Starts,Genre,Codec,Bitrate,Eigener,,Land,Land,Sprache,Datum,URL");
 
     // Gui Favorite
     public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDouble("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);

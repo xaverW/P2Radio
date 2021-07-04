@@ -85,7 +85,9 @@ public class ProgTray {
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();
         }));
-        miConfig.addActionListener(e -> Platform.runLater(() -> new ConfigDialogController()));
+        miConfig.addActionListener(e -> Platform.runLater(() -> {
+            new ConfigDialogController();
+        }));
         miTray.addActionListener(e -> Platform.runLater(() -> {
             //vor dem Ausschalten des Tray GUI anzeigen!!
             max();
@@ -131,12 +133,30 @@ public class ProgTray {
     }
 
     private void max() {
+        if (progData.smallRadioGuiController != null) {
+            //dann den SmallRadio
+            if (!progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
+                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
+            }
+            return;
+        }
+
         if (!progData.primaryStage.isShowing()) {
             Platform.runLater(() -> progData.primaryStage.show());
         }
     }
 
     private void maxMin() {
+        if (progData.smallRadioGuiController != null) {
+            //dann den SmallRadio
+            if (progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
+                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().closeStage());
+            } else {
+                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
+            }
+            return;
+        }
+
         if (progData.primaryStage.isShowing()) {
             Platform.runLater(() -> progData.primaryStage.close());
         } else {

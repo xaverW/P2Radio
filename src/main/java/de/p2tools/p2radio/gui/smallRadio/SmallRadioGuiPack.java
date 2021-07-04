@@ -34,10 +34,12 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
 
         progData = ProgData.getInstance();
-        smallRadioGuiController = new SmallRadioGuiController();
+        smallRadioGuiController = new SmallRadioGuiController(this);
         progData.smallRadioGuiController = smallRadioGuiController;
         smallRadioBottom = new SmallRadioBottom(this, smallRadioGuiController);
         init();
+
+
     }
 
     @Override
@@ -52,6 +54,7 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
                     progData.primaryStage.show();
                     progData.primaryStage.getScene().getWindow().setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.getScene().getWindow().setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+                    PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
                 }
         );
         super.close();

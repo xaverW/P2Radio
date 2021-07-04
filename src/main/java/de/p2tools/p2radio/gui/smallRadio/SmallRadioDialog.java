@@ -27,6 +27,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -35,6 +36,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.nio.file.Path;
 
@@ -69,6 +71,8 @@ public class SmallRadioDialog {
 
             updateCss();
             stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setResizable(true);
             stage.setScene(scene);
             stage.setTitle(title);
 
@@ -88,6 +92,7 @@ public class SmallRadioDialog {
             hBoxBottom.getStyleClass().add("extra-pane");
             hBoxBottom.setPadding(new Insets(15, 15, 15, 15));
             hBoxBottom.setSpacing(20);
+            hBoxBottom.setAlignment(Pos.CENTER_LEFT);
 
             VBox.setVgrow(vBoxCenter, Priority.ALWAYS);
             vBoxComplete.getChildren().addAll(vBoxCenter, hBoxBottom);
@@ -98,7 +103,6 @@ public class SmallRadioDialog {
             }
 
             showDialog();
-
         } catch (final Exception exc) {
             PLog.errorLog(858484821, exc);
         }
@@ -119,7 +123,7 @@ public class SmallRadioDialog {
         if (w > 0 && h > 0) {
             this.scene = new Scene(vBoxComplete, w, h);
         } else {
-            this.scene = new Scene(vBoxComplete, 600, 250);
+            this.scene = new Scene(vBoxComplete, 750, 300);
         }
     }
 
@@ -172,6 +176,14 @@ public class SmallRadioDialog {
 
     public HBox getHBoxBottom() {
         return hBoxBottom;
+    }
+
+    public void showStage() {
+        stage.show();
+    }
+
+    public void closeStage() {
+        stage.close();
     }
 
     protected void make() {

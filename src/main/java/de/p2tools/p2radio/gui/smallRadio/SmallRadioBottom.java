@@ -52,6 +52,7 @@ public class SmallRadioBottom {
 
     private void initBottom() {
         btnOk = new Button("_Ok");
+        btnOk.getStyleClass().add("btnSmallRadio");
         btnOk.setDisable(false);
         btnOk.setOnAction(a -> {
             smallRadioGuiPack.close();
@@ -71,34 +72,38 @@ public class SmallRadioBottom {
         HBox hBoxSpace2 = new HBox();
         HBox.setHgrow(hBoxSpace2, Priority.ALWAYS);
 
-        btnOk.getStyleClass().add("btnStartDialog");
 
         HBox hBoxButton = new HBox(5);
         hBoxButton.getChildren().addAll(btnPrev, btnNext, btnStart, btnStop);
+
         smallRadioGuiPack.getHBoxBottom().getChildren().addAll(new Label("Sammlung"), cboCollections,
                 hBoxSpace1, hBoxButton, hBoxSpace2, btnOk);
     }
 
     private void initStartButton() {
         btnPrev.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnPrev.getStyleClass().add("btnSmallRadio");
         btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
         btnPrev.setOnAction(event -> {
             smallRadioGuiController.setPreviousStation();
         });
 
         btnNext.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnNext.getStyleClass().add("btnSmallRadio");
         btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
         btnNext.setOnAction(event -> {
             smallRadioGuiController.setNextStation();
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
+        btnStart.getStyleClass().add("btnSmallRadio");
         btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
         btnStart.setOnAction(event -> {
             smallRadioGuiController.playStation();
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
+        btnStop.getStyleClass().add("btnSmallRadio");
         btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP_PLAY);
         btnStop.setOnAction(event -> progData.startFactory.stopAll());
     }
