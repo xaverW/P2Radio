@@ -24,13 +24,13 @@ import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -72,6 +72,7 @@ public class SmallRadioDialog {
             updateCss();
             stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
+
             stage.setResizable(true);
             stage.setScene(scene);
             stage.setTitle(title);
@@ -79,12 +80,19 @@ public class SmallRadioDialog {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setOnCloseRequest(e -> {
                 e.consume();
-                close();
-            });
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    close();
+                if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
+                        ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
+                        ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
+                    QuitDialogController quitDialogController;
+                    quitDialogController = new QuitDialogController(stage);
+                    if (!quitDialogController.canTerminate()) {
+                        return;
+                    }
                 }
+
+                // dann beenden
+                close();
+                ProgQuitFactory.quit(stage, false);
             });
 
             GetIcon.addWindowP2Icon(stage);

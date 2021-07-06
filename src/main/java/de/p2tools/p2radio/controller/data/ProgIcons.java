@@ -54,12 +54,13 @@ public class ProgIcons {
     public static final Image IMAGE_TABLE_STATION_STOP_PLAY = GetIcon.getImage("table-station-stop-play.png", 14, 14);
     public static final Image IMAGE_TABLE_STATION_SAVE = GetIcon.getImage("table-station-save.png", 14, 14);
     public static final Image IMAGE_TABLE_FAVOURITE_DEL = GetIcon.getImage("table-favourite-del.png", 14, 14);
-    public static final Image IMAGE_TABLE_FAVOURITE_GRADE = GetIcon.getImage("table-favourite-grade.png", 14, 14);
+    public static final Image IMAGE_TABLE_FAVOURITE_GRADE = GetIcon.getImage("table-favourite-grade.png", 18, 18);
 
     //toolbar
     public final ImageView ICON_TOOLBAR_MENU = GetIcon.getImageView("toolbar-menu.png", 18, 15);
     public final ImageView ICON_TOOLBAR_MENU_TOP = GetIcon.getImageView("toolbar-menu-top.png", 32, 18);
-    public final ImageView ICON_TOOLBAR_SMALL_RADIO = GetIcon.getImageView("toolbar-menu-smallRadio-24.png", 24, 24);
+    public final ImageView ICON_TOOLBAR_SMALL_RADIO_24 = GetIcon.getImageView("toolbar-menu-smallRadio-24.png", 24, 24);
+    public final ImageView ICON_TOOLBAR_SMALL_RADIO_20 = GetIcon.getImageView("toolbar-menu-smallRadio-20.png", 20, 20);
     public final ImageView ICON_TOOLBAR_FAVOURITE_CHANGE = GetIcon.getImageView("toolbar-favourite-change.png", 32, 32);
     public final ImageView ICON_TOOLBAR_FAVOURITE_DEL = GetIcon.getImageView("toolbar-favourite-del.png", 32, 32);
     public final ImageView ICON_TOOLBAR_STATION_START = GetIcon.getImageView("toolbar-station-start.png", 32, 32);

@@ -20,10 +20,10 @@ package de.p2tools.p2radio.gui.dialog;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.BigButton;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 public class QuitDialogController extends PDialogExtra {
 
@@ -31,8 +31,10 @@ public class QuitDialogController extends PDialogExtra {
     private final PMaskerPane maskerPane = new PMaskerPane();
     private boolean canQuit = false;
 
-    public QuitDialogController() {
-        super(ProgData.getInstance().primaryStage, null, "Programm beenden", true, false);
+    public QuitDialogController(Stage stage) {
+        super(stage, null, "Programm beenden", true, false);
+
+        //        super(ProgData.getInstance().primaryStage.isShowing(), null, "Programm beenden", true, false);
         init(true);
     }
 

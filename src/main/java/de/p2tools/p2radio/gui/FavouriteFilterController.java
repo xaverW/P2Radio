@@ -89,6 +89,7 @@ public class FavouriteFilterController extends PClosePaneV {
 //
     public void resetFilter() {
         favouriteFilter.clearFilter();
+        progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
     }
 
     private void initFilter() {

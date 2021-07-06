@@ -35,7 +35,7 @@ public class SmallRadioBottom {
     private final Button btnPrev = new Button("");
     private final Button btnStart = new Button("");
     private final Button btnStop = new Button("");
-    private Button btnOk;
+    private Button btnRadio;
 
     private final SmallRadioGuiPack smallRadioGuiPack;
     private final SmallRadioGuiController smallRadioGuiController;
@@ -51,12 +51,12 @@ public class SmallRadioBottom {
     }
 
     private void initBottom() {
-        btnOk = new Button("_Ok");
-        btnOk.getStyleClass().add("btnSmallRadio");
-        btnOk.setDisable(false);
-        btnOk.setOnAction(a -> {
-            smallRadioGuiPack.close();
-        });
+        btnRadio = new Button("");
+        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
+        btnRadio.setOnAction(e -> smallRadioGuiPack.changeGui());
+        btnRadio.setMaxWidth(Double.MAX_VALUE);
+        btnRadio.getStyleClass().add("btnTab");
+        btnRadio.setGraphic(new ProgIcons().ICON_TOOLBAR_SMALL_RADIO_20);
 
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
@@ -65,6 +65,7 @@ public class SmallRadioBottom {
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
             progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
         });
+        progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
 
 
         HBox hBoxSpace1 = new HBox();
@@ -76,19 +77,20 @@ public class SmallRadioBottom {
         HBox hBoxButton = new HBox(5);
         hBoxButton.getChildren().addAll(btnPrev, btnNext, btnStart, btnStop);
 
-        smallRadioGuiPack.getHBoxBottom().getChildren().addAll(new Label("Sammlung"), cboCollections,
-                hBoxSpace1, hBoxButton, hBoxSpace2, btnOk);
+        smallRadioGuiPack.getHBoxBottom().getChildren().addAll(btnRadio,
+                hBoxSpace2, new Label("Sammlung:"), cboCollections,
+                hBoxSpace1, hBoxButton);
     }
 
     private void initStartButton() {
-        btnPrev.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
         btnPrev.getStyleClass().add("btnSmallRadio");
         btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
         btnPrev.setOnAction(event -> {
             smallRadioGuiController.setPreviousStation();
         });
 
-        btnNext.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnNext.setTooltip(new Tooltip("nächsten Sender auswählen"));
         btnNext.getStyleClass().add("btnSmallRadio");
         btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
         btnNext.setOnAction(event -> {

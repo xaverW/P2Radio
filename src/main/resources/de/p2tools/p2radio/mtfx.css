@@ -131,3 +131,57 @@
 	-fx-border-color: #3499ff;
 	-fx-border-width: 2px;
 }
+
+
+/*SmallRadio*/
+.btnSmallRadio{
+    -fx-font-weight: bold;
+    -fx-alignment: center ;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 10;
+}
+.btnSmallRadio:focused{
+    -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnSmallRadio:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnSmallRadio:focused:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1.4,1,1;
+}
+
+.cboSmallRadio{
+	-fx-background-image: url("/de/p2tools/p2radio/res/program/table-station-play.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: 20%,center;
+
+	-fx-background-size: auto;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 1,1,1;
+
+
+	-fx-border-color: #3499ff;
+	-fx-border-width: 2px;
+    -fx-border-radius: 30;
+}
+
+.cboSmallRadio:focused{
+    -fx-background-color: #78869a, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.cboSmallRadio:hover{
+    -fx-background-color: #78869a, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1,1,1;
+}
+.cboSmallRadio:focused:hover{
+    -fx-background-color: #78869a, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -2,1,1;
+}

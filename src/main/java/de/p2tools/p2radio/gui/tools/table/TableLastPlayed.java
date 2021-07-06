@@ -209,7 +209,8 @@ public class TableLastPlayed {
                     //dann stoppen
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
+                    btnPlay.getStyleClass().add("btnSmallRadio");
+                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.stopLastPlayed(lastPlayed);
@@ -227,7 +228,10 @@ public class TableLastPlayed {
                     //läuft nix, mehre Sets
                     final ComboBox<SetData> cboSet;
                     cboSet = new ComboBox();
-                    cboSet.getStyleClass().add("combo-box-icon");
+                    cboSet.setMinWidth(60);
+                    cboSet.getStyleClass().add("cboSmallRadio");
+                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
+//                    cboSet.getStyleClass().add("combo-box-icon");
                     cboSet.getItems().addAll(progData.setDataList);
                     cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
                         progData.startFactory.playLastPlayed(lastPlayed, ne);
@@ -245,6 +249,7 @@ public class TableLastPlayed {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
+                    btnPlay.getStyleClass().add("btnSmallRadio");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -262,6 +267,7 @@ public class TableLastPlayed {
 
                 final Button btnDel;
                 btnDel = new Button("");
+                btnDel.getStyleClass().add("btnSmallRadio");
                 btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL));
                 btnDel.setOnAction(event -> {

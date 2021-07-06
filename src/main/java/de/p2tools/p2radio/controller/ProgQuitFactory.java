@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class ProgQuitFactory {
 
@@ -38,7 +39,7 @@ public class ProgQuitFactory {
         PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
     }
 
-    private static void writeTabSettings() {
+    private static void writeTableSettings() {
         // Tabelleneinstellungen merken
         ProgData.getInstance().stationGuiController.saveTable();
         ProgData.getInstance().favouriteGuiController.saveTable();
@@ -50,26 +51,27 @@ public class ProgQuitFactory {
      *
      * @param showOptionTerminate show options dialog when stations are running
      */
-    public static void quit(boolean showOptionTerminate) {
-        if (quit_(showOptionTerminate)) {
-
-            // dann jetzt beenden -> Thüss
-            Platform.runLater(() -> {
+    public static void quit(Stage stage, boolean showOptionTerminate) {
+        Platform.runLater(() -> {
+            if (quit_(stage, showOptionTerminate)) {
+                // dann jetzt beenden -> Thüss
                 Platform.exit();
                 System.exit(0);
-            });
-
-        }
+            }
+        });
     }
 
-    private static boolean quit_(boolean showOptionTerminate) {
+    private static boolean quit_(Stage stage, boolean showOptionTerminate) {
         // erst mal prüfen ob noch Sender laufen
         //todo auch Sender aus Tab Sender
-        if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0) {
+        if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
+                ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
+                ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
+
             // und ob der Dialog angezeigt werden soll
             if (showOptionTerminate) {
                 QuitDialogController quitDialogController;
-                quitDialogController = new QuitDialogController();
+                quitDialogController = new QuitDialogController(stage);
                 if (!quitDialogController.canTerminate()) {
                     return false;
                 }
@@ -77,7 +79,7 @@ public class ProgQuitFactory {
         }
 
         // und dann Programm beenden
-        writeTabSettings();
+        writeTableSettings();
         stopAllStations();
         writeWindowSizes();
 

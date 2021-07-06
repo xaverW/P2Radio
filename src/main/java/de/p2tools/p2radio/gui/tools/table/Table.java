@@ -104,8 +104,10 @@ public class Table {
                 break;
 
             case FAVOURITE:
+                tArray = new TableFavourite(ProgData.getInstance(), false).initFavouriteColumn(table);
+                break;
             case SMALL_RADIO:
-                tArray = new TableFavourite(ProgData.getInstance()).initFavouriteColumn(table);
+                tArray = new TableFavourite(ProgData.getInstance(), true).initFavouriteColumn(table);
                 break;
 
             case LAST_PLAYED:

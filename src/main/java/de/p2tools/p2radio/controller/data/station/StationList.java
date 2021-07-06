@@ -258,4 +258,17 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
 
         PDuration.counterStop("Filter-Listen suchen");
     }
+
+    public synchronized int countStartedAndRunningFavourites() {
+        //es wird nach gestarteten und laufenden Stationen gesucht
+        int ret = 0;
+        for (final Station station : this) {
+            if (station.getStart() != null &&
+                    (station.getStart().getStartStatus().isStarted() || station.getStart().getStartStatus().isStateStartedRun())) {
+                ++ret;
+            }
+        }
+        return ret;
+    }
+
 }

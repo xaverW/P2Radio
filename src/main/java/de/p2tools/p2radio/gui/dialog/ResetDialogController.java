@@ -34,6 +34,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 public class ResetDialogController extends PDialogExtra {
 
@@ -104,7 +105,13 @@ public class ResetDialogController extends PDialogExtra {
                 // damit wird vor dem Beenden das Konfig-Verzeichnis umbenannt und so startet das
                 // Programm wie beim ersten Start
                 ProgData.reset = true;
-                ProgQuitFactory.quit(false);
+                Stage stage = null;
+                if (progData.smallRadioGuiController != null) {
+                    stage = progData.smallRadioGuiController.getSmallRadioGuiPack().getStage();
+                } else if (progData.primaryStage.isShowing()) {
+                    stage = progData.primaryStage;
+                }
+                ProgQuitFactory.quit(stage, false);
             }
         });
 

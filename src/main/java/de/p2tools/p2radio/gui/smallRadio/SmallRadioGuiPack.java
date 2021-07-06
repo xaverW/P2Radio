@@ -20,6 +20,8 @@ import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -27,41 +29,46 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
 
     ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
-    private final SmallRadioBottom smallRadioBottom;
 
 
     public SmallRadioGuiPack() {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
-
         progData = ProgData.getInstance();
+
+        ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
         smallRadioGuiController = new SmallRadioGuiController(this);
+        new SmallRadioBottom(this, smallRadioGuiController);
+
         progData.smallRadioGuiController = smallRadioGuiController;
-        smallRadioBottom = new SmallRadioBottom(this, smallRadioGuiController);
         init();
-
-
     }
 
     @Override
     public void make() {
-        pack();
+        VBox.setVgrow(smallRadioGuiController, Priority.ALWAYS);
+        getVBoxCenter().getChildren().add(smallRadioGuiController);
+        super.getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                changeGui();
+            }
+        });
+    }
+
+    public void changeGui() {
+        close();
+        ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
+        Platform.runLater(() -> {
+                    PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
+                    progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
+                    progData.primaryStage.setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+                    progData.primaryStage.show();
+                }
+        );
     }
 
     public void close() {
         progData.smallRadioGuiController = null;
         smallRadioGuiController.saveTable();
-        Platform.runLater(() -> {
-                    progData.primaryStage.show();
-                    progData.primaryStage.getScene().getWindow().setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.getScene().getWindow().setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-                    PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                }
-        );
         super.close();
-    }
-
-    private void pack() {
-        VBox.setVgrow(smallRadioGuiController, Priority.ALWAYS);
-        getVBoxCenter().getChildren().add(smallRadioGuiController);
     }
 }

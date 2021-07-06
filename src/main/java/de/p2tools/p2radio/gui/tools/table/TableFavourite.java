@@ -42,9 +42,11 @@ public class TableFavourite {
     private final ProgData progData;
     private final BooleanProperty geoMelden;
     private final BooleanProperty small;
+    private final boolean smallRadio;
 
-    public TableFavourite(ProgData progData) {
+    public TableFavourite(ProgData progData, boolean smallRadio) {
         this.progData = progData;
+        this.smallRadio = smallRadio;
         geoMelden = ProgConfig.SYSTEM_MARK_GEO;
         small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     }
@@ -259,6 +261,9 @@ public class TableFavourite {
                     //dann stoppen
                     final Button btnPlay;
                     btnPlay = new Button("");
+//                    if (smallRadio) {
+                    btnPlay.getStyleClass().add("btnSmallRadio");
+//                    }
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -277,7 +282,14 @@ public class TableFavourite {
                     //läuft nix, mehre Sets
                     final ComboBox<SetData> cboSet;
                     cboSet = new ComboBox();
-                    cboSet.getStyleClass().add("combo-box-icon");
+//                    if (smallRadio) {
+                    cboSet.setMinWidth(60);
+                    cboSet.getStyleClass().add("cboSmallRadio");
+                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
+//                    } else {
+//                        cboSet.setMinWidth(50);
+//                        cboSet.getStyleClass().add("combo-box-icon");
+//                    }
                     cboSet.getItems().addAll(progData.setDataList);
                     cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
                         progData.startFactory.playFavourite(favourite, ne);
@@ -295,6 +307,9 @@ public class TableFavourite {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
+//                    if (smallRadio) {
+                    btnPlay.getStyleClass().add("btnSmallRadio");
+//                    }
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -312,6 +327,9 @@ public class TableFavourite {
 
                 final Button btnDel;
                 btnDel = new Button("");
+                if (smallRadio) {
+                    btnDel.getStyleClass().add("btnSmallRadio");
+                }
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL));
                 btnDel.setOnAction(event -> {

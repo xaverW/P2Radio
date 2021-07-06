@@ -53,9 +53,7 @@ public class P2RadioController extends StackPane {
     Button btnStation = new Button("Sender");
     Button btnFavourite = new Button("Favoriten");
     Button btnLastPlayed = new Button("History");
-
     MenuButton menuButton = new MenuButton("");
-//    MenuButton menuButton2 = new MenuButton("");
 
     BorderPane borderPane = new BorderPane();
     StackPane stackPaneCont = new StackPane();
@@ -89,13 +87,9 @@ public class P2RadioController extends StackPane {
             TilePane tilePaneStationFavourite = new TilePane();
             tilePaneStationFavourite.setHgap(20);
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
-//            HBox hBox = new HBox();
-//            hBox.setAlignment(Pos.CENTER_LEFT);
-//            hBox.getChildren().add(btnSmallRadio);
-//            HBox.setHgrow(hBox, Priority.ALWAYS);
             tilePaneStationFavourite.getChildren().addAll(btnStation, btnFavourite, btnLastPlayed);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnSmallRadio, /*btnLoadStation,*/ tilePaneStationFavourite, menuButton);
+            hBoxTop.getChildren().addAll(btnSmallRadio, tilePaneStationFavourite, menuButton);
 
             // Center
             splitPaneStation = stationGuiPack.pack();
@@ -150,7 +144,7 @@ public class P2RadioController extends StackPane {
         btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
         btnSmallRadio.getStyleClass().add("btnTab");
-        btnSmallRadio.setGraphic(new ProgIcons().ICON_TOOLBAR_SMALL_RADIO);
+        btnSmallRadio.setGraphic(new ProgIcons().ICON_TOOLBAR_SMALL_RADIO_24);
 
         btnStation.setTooltip(new Tooltip("Sender anzeigen"));
         btnStation.setOnAction(e -> selPanelStation());
@@ -174,7 +168,7 @@ public class P2RadioController extends StackPane {
         miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());
 
         final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuitFactory.quit(true));
+        miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
         PShortcutWorker.addShortCut(miQuit, P2RadioShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("über dieses Programm");
@@ -215,10 +209,6 @@ public class P2RadioController extends StackPane {
         menuButton.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU_TOP);
         menuButton.getItems().addAll(miConfig, miLoadStationList, mHelp,
                 new SeparatorMenuItem(), miQuit);
-
-//        menuButton2.getStyleClass().add("btnFunctionWide");
-//        menuButton2.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU_TOP);
-//        menuButton2.setVisible(false);
 
         progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
             @Override

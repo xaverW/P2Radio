@@ -23,6 +23,7 @@ import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -95,7 +96,15 @@ public class ProgTray {
         }));
 
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(progData)));
-        miQuit.addActionListener(e -> Platform.runLater(() -> ProgQuitFactory.quit(true)));
+        miQuit.addActionListener(e -> Platform.runLater(() -> {
+            Stage stage = null;
+            if (progData.smallRadioGuiController != null) {
+                stage = progData.smallRadioGuiController.getSmallRadioGuiPack().getStage();
+            } else if (progData.primaryStage.isShowing()) {
+                stage = progData.primaryStage;
+            }
+            ProgQuitFactory.quit(stage, true);
+        }));
 
         popup.add(miMaxMin);
         popup.add(miStop);

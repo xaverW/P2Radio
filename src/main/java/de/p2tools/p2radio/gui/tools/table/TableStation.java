@@ -227,7 +227,8 @@ public class TableStation {
                 if (playing) {
                     //stoppen
                     final Button btnPlay = new Button("");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
+                    btnPlay.getStyleClass().add("btnSmallRadio");
+                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.stopStation(station);
@@ -245,8 +246,10 @@ public class TableStation {
                     //läuft nix, mehre Sets
                     final ComboBox<SetData> cboSet;
                     cboSet = new ComboBox();
-                    cboSet.setMinWidth(50);
-                    cboSet.getStyleClass().add("combo-box-icon");
+                    cboSet.setMinWidth(60);
+                    cboSet.getStyleClass().add("cboSmallRadio");
+                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
+//                    cboSet.getStyleClass().add("combo-box-icon");
                     cboSet.getItems().addAll(progData.setDataList);
                     cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
                         progData.startFactory.playStation(station, ne);
@@ -263,6 +266,8 @@ public class TableStation {
                 } else {
                     //starten
                     final Button btnPlay = new Button("");
+                    btnPlay.getStyleClass().add("btnSmallRadio");
+                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_PLAY));
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.playStation(station);
@@ -279,7 +284,8 @@ public class TableStation {
 
                 final Button btnSave;
                 btnSave = new Button("");
-                btnSave.setTooltip(new Tooltip("als Favoriten sichern"));
+                btnSave.getStyleClass().add("btnSmallRadio");
+                btnSave.setTooltip(new Tooltip("Sender als Favoriten sichern"));
                 btnSave.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_SAVE));
                 btnSave.setOnAction(event -> {
                     StationTools.saveStation(station);
