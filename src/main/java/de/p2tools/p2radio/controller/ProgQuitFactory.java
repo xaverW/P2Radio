@@ -51,40 +51,62 @@ public class ProgQuitFactory {
      *
      * @param showOptionTerminate show options dialog when stations are running
      */
-    public static void quit(Stage stage, boolean showOptionTerminate) {
-        Platform.runLater(() -> {
-            if (quit_(stage, showOptionTerminate)) {
-                // dann jetzt beenden -> Thüss
-                Platform.exit();
-                System.exit(0);
-            }
-        });
-    }
-
-    private static boolean quit_(Stage stage, boolean showOptionTerminate) {
-        // erst mal prüfen ob noch Sender laufen
-        //todo auch Sender aus Tab Sender
+    public static boolean quit(Stage stage, boolean showOptionTerminate) {
         if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
                 ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
                 ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
-
-            // und ob der Dialog angezeigt werden soll
             if (showOptionTerminate) {
+                //dann erst mal fragen
                 QuitDialogController quitDialogController;
                 quitDialogController = new QuitDialogController(stage);
                 if (!quitDialogController.canTerminate()) {
+                    //und nicht beenden
                     return false;
                 }
             }
         }
 
-        // und dann Programm beenden
+        //dann jetzt beenden
         writeTableSettings();
         stopAllStations();
         writeWindowSizes();
 
         ProgSaveFactory.saveProgConfig();
         LogMessage.endMsg();
+
+        // und dann Programm beenden
+        Platform.runLater(() -> {
+            // dann jetzt beenden -> Thüss
+            Platform.exit();
+            System.exit(0);
+        });
         return true;
     }
+
+//    private static boolean quit_(Stage stage, boolean showOptionTerminate) {
+//        // erst mal prüfen ob noch Sender laufen
+//        //todo auch Sender aus Tab Sender
+//        if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
+//                ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
+//                ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
+//
+//            // und ob der Dialog angezeigt werden soll
+//            if (showOptionTerminate) {
+//                QuitDialogController quitDialogController;
+//                quitDialogController = new QuitDialogController(stage);
+//                if (!quitDialogController.canTerminate()) {
+//                    return false;
+//                }
+//            }
+//        }
+//
+//        // und dann Programm beenden
+//        writeTableSettings();
+//        stopAllStations();
+//        writeWindowSizes();
+//
+//        ProgSaveFactory.saveProgConfig();
+//        LogMessage.endMsg();
+//        return true;
+//    }
 }

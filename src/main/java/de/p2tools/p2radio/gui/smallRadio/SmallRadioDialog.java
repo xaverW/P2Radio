@@ -24,9 +24,6 @@ import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -72,29 +69,10 @@ public class SmallRadioDialog {
             updateCss();
             stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
-
             stage.setResizable(true);
             stage.setScene(scene);
             stage.setTitle(title);
-
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setOnCloseRequest(e -> {
-                e.consume();
-                if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
-                        ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
-                        ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
-                    QuitDialogController quitDialogController;
-                    quitDialogController = new QuitDialogController(stage);
-                    if (!quitDialogController.canTerminate()) {
-                        return;
-                    }
-                }
-
-                // dann beenden
-                close();
-                ProgQuitFactory.quit(stage, false);
-            });
-
             GetIcon.addWindowP2Icon(stage);
 
             hBoxBottom.getStyleClass().add("extra-pane");
@@ -141,15 +119,11 @@ public class SmallRadioDialog {
     }
 
     public void close() {
-        //bei wiederkehrenden Dialogen: die pos/size merken
-        stageWidth = stage.getWidth();
-        stageHeight = stage.getHeight();
-
-        if (sizeConfiguration != null) {
-            PGuiSize.getSizeScene(sizeConfiguration, stage);
-        }
-        ProgData.getInstance().favouriteFilterController.resetFilter();
+        getSize();
         stage.close();
+    }
+
+    protected void getSize() {
     }
 
     public void showDialog() {

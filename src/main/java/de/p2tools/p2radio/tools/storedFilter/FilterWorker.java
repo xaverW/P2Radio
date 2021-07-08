@@ -61,7 +61,7 @@ public class FilterWorker {
 
         allGenreList.addAll("70s", "80s", "90s", "classic", "classic rock", "dance",
                 "deutschrock", "chillout", "disco", "electro", "electronic",
-                "hard rock", "house", "jazz", "oldies", "pop", "rock",
+                "hard rock", "metal", "house", "jazz", "oldies", "pop", "rock",
                 "swing", "techno", "trance");
     }
 

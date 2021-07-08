@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.guiTools.PGuiSize;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.application.Platform;
@@ -52,11 +53,20 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
                 changeGui();
             }
         });
+        super.getStage().setOnCloseRequest(e -> {
+            e.consume();
+            // dann beenden wenn nichts läuft oder trotzdem gewollt
+            if (ProgQuitFactory.quit(super.getStage(), true)) {
+                close();
+            }
+        });
     }
 
     public void changeGui() {
-        close();
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
+        progData.smallRadioGuiController = null;
+        close();
+
         Platform.runLater(() -> {
                     PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
                     progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
@@ -66,9 +76,11 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
         );
     }
 
-    public void close() {
-        progData.smallRadioGuiController = null;
+    protected void getSize() {
         smallRadioGuiController.saveTable();
-        super.close();
+        if (ProgConfig.SMALL_RADIO_SIZE != null) {
+            PGuiSize.getSizeScene(ProgConfig.SMALL_RADIO_SIZE, getStage());
+        }
+        progData.favouriteFilterController.resetFilter();
     }
 }

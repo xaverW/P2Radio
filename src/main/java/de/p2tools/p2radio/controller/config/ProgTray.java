@@ -142,15 +142,11 @@ public class ProgTray {
     }
 
     private void max() {
-        if (progData.smallRadioGuiController != null) {
-            //dann den SmallRadio
-            if (!progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
-                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
-            }
-            return;
-        }
+        if (progData.smallRadioGuiController != null &&
+                !progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
+            Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
 
-        if (!progData.primaryStage.isShowing()) {
+        } else if (!progData.primaryStage.isShowing()) {
             Platform.runLater(() -> progData.primaryStage.show());
         }
     }
@@ -163,13 +159,13 @@ public class ProgTray {
             } else {
                 Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
             }
-            return;
-        }
 
-        if (progData.primaryStage.isShowing()) {
-            Platform.runLater(() -> progData.primaryStage.close());
         } else {
-            Platform.runLater(() -> progData.primaryStage.show());
+            if (progData.primaryStage.isShowing()) {
+                Platform.runLater(() -> progData.primaryStage.close());
+            } else {
+                Platform.runLater(() -> progData.primaryStage.show());
+            }
         }
     }
 }

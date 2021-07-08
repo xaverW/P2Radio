@@ -291,11 +291,13 @@ public class StartPlayingStation extends Thread {
     private void refreshTable() {
         if (station != null) {
             ProgData.getInstance().stationGuiController.tableRefresh();
+
         } else if (favourite != null) {
             ProgData.getInstance().favouriteGuiController.tableRefresh();
             if (progData.smallRadioGuiController != null) {
-                ProgData.getInstance().smallRadioGuiController.tableRefresh();
+                progData.smallRadioGuiController.tableRefresh();
             }
+
         } else if (lastPlayed != null) {
             ProgData.getInstance().lastPlayedGuiController.tableRefresh();
         }
