@@ -55,16 +55,15 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
         });
         super.getStage().setOnCloseRequest(e -> {
             e.consume();
-            // dann beenden wenn nichts läuft oder trotzdem gewollt
-            if (ProgQuitFactory.quit(super.getStage(), true)) {
-                close();
-            }
+            getSize();
+            ProgQuitFactory.quit(super.getStage(), true);
         });
     }
 
     public void changeGui() {
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
         progData.smallRadioGuiController = null;
+        getSize();
         close();
 
         Platform.runLater(() -> {
@@ -78,9 +77,7 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
 
     protected void getSize() {
         smallRadioGuiController.saveTable();
-        if (ProgConfig.SMALL_RADIO_SIZE != null) {
-            PGuiSize.getSizeScene(ProgConfig.SMALL_RADIO_SIZE, getStage());
-        }
+        PGuiSize.getSizeScene(ProgConfig.SMALL_RADIO_SIZE, getStage());
         progData.favouriteFilterController.resetFilter();
     }
 }

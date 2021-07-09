@@ -29,23 +29,6 @@ public class ProgQuitFactory {
     private ProgQuitFactory() {
     }
 
-    private static void stopAllStations() {
-        //todo->station auch stoppen
-        ProgData.getInstance().startFactory.stopAll();
-    }
-
-    private static void writeWindowSizes() {
-        // Hauptfenster
-        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
-    }
-
-    private static void writeTableSettings() {
-        // Tabelleneinstellungen merken
-        ProgData.getInstance().stationGuiController.saveTable();
-        ProgData.getInstance().favouriteGuiController.saveTable();
-        ProgData.getInstance().lastPlayedGuiController.saveTable();
-    }
-
     /**
      * Quit the application
      *
@@ -67,9 +50,8 @@ public class ProgQuitFactory {
         }
 
         //dann jetzt beenden
-        writeTableSettings();
         stopAllStations();
-        writeWindowSizes();
+        writeTableWindowSettings();
 
         ProgSaveFactory.saveProgConfig();
         LogMessage.endMsg();
@@ -83,30 +65,17 @@ public class ProgQuitFactory {
         return true;
     }
 
-//    private static boolean quit_(Stage stage, boolean showOptionTerminate) {
-//        // erst mal prüfen ob noch Sender laufen
-//        //todo auch Sender aus Tab Sender
-//        if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
-//                ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
-//                ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
-//
-//            // und ob der Dialog angezeigt werden soll
-//            if (showOptionTerminate) {
-//                QuitDialogController quitDialogController;
-//                quitDialogController = new QuitDialogController(stage);
-//                if (!quitDialogController.canTerminate()) {
-//                    return false;
-//                }
-//            }
-//        }
-//
-//        // und dann Programm beenden
-//        writeTableSettings();
-//        stopAllStations();
-//        writeWindowSizes();
-//
-//        ProgSaveFactory.saveProgConfig();
-//        LogMessage.endMsg();
-//        return true;
-//    }
+    private static void stopAllStations() {
+        ProgData.getInstance().startFactory.stopAll();
+    }
+
+    private static void writeTableWindowSettings() {
+        // Tabelleneinstellungen merken
+        ProgData.getInstance().stationGuiController.saveTable();
+        ProgData.getInstance().favouriteGuiController.saveTable();
+        ProgData.getInstance().lastPlayedGuiController.saveTable();
+
+        // Hauptfenster
+        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
+    }
 }

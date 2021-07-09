@@ -119,12 +119,12 @@ public class SmallRadioDialog {
     }
 
     public void close() {
-        getSize();
+//        getSize();
         stage.close();
     }
 
-    protected void getSize() {
-    }
+//    protected void getSize() {
+//    }
 
     public void showDialog() {
         if (stageHeight > 0 && stageWidth > 0) {
