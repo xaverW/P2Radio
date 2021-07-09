@@ -18,12 +18,13 @@ package de.p2tools.p2radio.controller.data.lastPlayed;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
 
-public final class LastPlayed extends LastPlayedProps {
+public final class LastPlayed extends LastPlayedProps implements Playable {
 
     private Start start = null;
 
@@ -57,7 +58,7 @@ public final class LastPlayed extends LastPlayedProps {
         }
 
         setStationNo(station.getNo());
-        setStationName(station.getName());
+        setStationName(station.getStationName());
         setGenre(station.getGenre());
         setCodec(station.getCodec());
         setBitrate(station.getBitrateInt());
@@ -89,6 +90,17 @@ public final class LastPlayed extends LastPlayedProps {
         setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
     }
 
+    public boolean isStation() {
+        return false;
+    }
+
+    public boolean isFavourite() {
+        return false;
+    }
+
+    public boolean isLastPlayed() {
+        return true;
+    }
 
     public LastPlayed getCopy() {
         final LastPlayed ret = new LastPlayed();

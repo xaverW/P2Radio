@@ -87,7 +87,7 @@ public class StationGuiTableContextMenu {
         }
 
         final MenuItem miFilterStationName = new MenuItem("nach Sendername filtern");
-        miFilterStationName.setOnAction(event -> progData.storedFilters.getActFilterSettings().setNameAndVis(station.getName()));
+        miFilterStationName.setOnAction(event -> progData.storedFilters.getActFilterSettings().setNameAndVis(station.getStationName()));
 
         final MenuItem miFilterGenre = new MenuItem("nach Genre filtern");
         miFilterGenre.setOnAction(event -> progData.storedFilters.getActFilterSettings().setGenreAndVis(station.getGenre()));
@@ -129,11 +129,11 @@ public class StationGuiTableContextMenu {
         }
 
         final MenuItem miBlackChannel = new MenuItem("Sendername in die Blacklist einfügen");
-        miBlackChannel.setOnAction(event -> progData.blackDataList.addAndNotify(new BlackData(station.getName(), "")));
+        miBlackChannel.setOnAction(event -> progData.blackDataList.addAndNotify(new BlackData(station.getStationName(), "")));
         final MenuItem miBlackTheme = new MenuItem("Genre in die Blacklist einfügen");
         miBlackTheme.setOnAction(event -> progData.blackDataList.addAndNotify(new BlackData("", station.getGenre())));
         final MenuItem miBlackChannelTheme = new MenuItem("Sendername und Genre in die Blacklist einfügen");
-        miBlackChannelTheme.setOnAction(event -> progData.blackDataList.addAndNotify(new BlackData(station.getName(), station.getGenre())));
+        miBlackChannelTheme.setOnAction(event -> progData.blackDataList.addAndNotify(new BlackData(station.getStationName(), station.getGenre())));
 
         submenuBlacklist.getItems().addAll(miBlackChannel, miBlackTheme, miBlackChannelTheme);
         return submenuBlacklist;

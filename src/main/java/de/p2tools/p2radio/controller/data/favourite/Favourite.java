@@ -17,10 +17,11 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
 
-public final class Favourite extends FavouriteProps {
+public final class Favourite extends FavouriteProps implements Playable {
 
     private Start start = null;
 
@@ -52,7 +53,7 @@ public final class Favourite extends FavouriteProps {
         }
 
         setStationNo(station.getNo());
-        setStationName(station.getName());
+        setStationName(station.getStationName());
         setGenre(station.getGenre());
         setCodec(station.getCodec());
         setBitrate(station.getBitrateInt());
@@ -63,6 +64,18 @@ public final class Favourite extends FavouriteProps {
         setWebsite(station.getWebsite());
         setUrl(station.getUrl());
         setStationDate(station.getDate());
+    }
+
+    public boolean isStation() {
+        return false;
+    }
+
+    public boolean isFavourite() {
+        return true;
+    }
+
+    public boolean isLastPlayed() {
+        return false;
     }
 
 

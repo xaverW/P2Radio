@@ -19,9 +19,10 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.start.Start;
 
-public class Station extends StationProps {
+public class Station extends StationProps implements Playable {
 
     private Start start = null;
 
@@ -112,6 +113,18 @@ public class Station extends StationProps {
                 arr[STATION_DATE] = "";
             }
         }
+    }
+
+    public boolean isStation() {
+        return true;
+    }
+
+    public boolean isFavourite() {
+        return false;
+    }
+
+    public boolean isLastPlayed() {
+        return false;
     }
 
     public Station getCopy() {

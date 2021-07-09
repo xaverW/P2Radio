@@ -122,7 +122,7 @@ public class StationProps extends StationXml {
         return no;
     }
 
-    public String getName() {
+    public String getStationName() {
         return arr[STATION_NAME];
     }
 

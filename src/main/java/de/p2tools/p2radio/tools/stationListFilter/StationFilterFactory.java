@@ -41,11 +41,11 @@ public class StationFilterFactory {
     public static boolean checkSenderName(Filter senderName, Station station) {
         if (senderName.exact) {
             // da ist keine Form optimal?? aber so passt es zur Sortierung der Themenliste
-            if (!senderName.filter.equalsIgnoreCase(station.getName())) {
+            if (!senderName.filter.equalsIgnoreCase(station.getStationName())) {
                 return false;
             }
         } else {
-            if (!check(senderName, station.getName())) {
+            if (!check(senderName, station.getStationName())) {
                 return false;
             }
         }
@@ -87,7 +87,7 @@ public class StationFilterFactory {
     }
 
     public static boolean checkSomewhere(Filter somewhere, Station station) {
-        if (!check(somewhere, station.getName())
+        if (!check(somewhere, station.getStationName())
                 && !check(somewhere, station.getGenre())
                 && !check(somewhere, station.getWebsite())
                 && !check(somewhere, station.getUrl())) {

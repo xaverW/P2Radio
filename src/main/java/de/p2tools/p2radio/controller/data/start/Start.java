@@ -17,58 +17,53 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
-import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 
 public final class Start extends StartProps {
 
     private final StartStatus startStatus = new StartStatus();
     private Starter starter = new Starter(this);
 
-    private Station station = null;
-    private Favourite favourite = null;
-    private LastPlayed lastPlayed = null;
+    private Playable playable = null;
     private SetData setData = null;
 
     public Start() {
     }
 
-    public Start(SetData setData, Station station) {
-        if (station == null) {
+    public Start(SetData setData, Playable playable) {
+        if (playable == null) {
             // bei gespeicherten Favoriten kann es den Sender nicht mehr geben
             setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
         }
 
-        this.station = station;
-        setStationNo(station.getNo());
-        setStationName(station.arr[StationXml.STATION_NAME]);
-        setUrl(station.getUrl());
+        this.playable = playable;
+        setStationNo(playable.getNo());
+        setStationName(playable.getStationName());
+        setUrl(playable.getUrl());
 
         setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
     }
 
-    public Start(SetData setData, Favourite favourite) {
-        this.favourite = favourite;
-        setStationName(favourite.getStationName());
-        setUrl(favourite.getUrl());
+//    public Start(SetData setData, Favourite favourite) {
+//        this.playable = favourite;
+//        setStationName(favourite.getStationName());
+//        setUrl(favourite.getUrl());
+//
+//        setSetData(setData);
+//        StartProgramFactory.makeProgParameter(this);
+//    }
 
-        setSetData(setData);
-        StartProgramFactory.makeProgParameter(this);
-    }
-
-    public Start(SetData setData, LastPlayed lastPlayed) {
-        this.lastPlayed = lastPlayed;
-        setStationName(lastPlayed.getStationName());
-        setUrl(lastPlayed.getUrl());
-
-        setSetData(setData);
-        StartProgramFactory.makeProgParameter(this);
-    }
+//    public Start(SetData setData, LastPlayed lastPlayed) {
+//        this.playable = lastPlayed;
+//        setStationName(lastPlayed.getStationName());
+//        setUrl(lastPlayed.getUrl());
+//
+//        setSetData(setData);
+//        StartProgramFactory.makeProgParameter(this);
+//    }
 
     public StartStatus getStartStatus() {
         return startStatus;
@@ -101,24 +96,24 @@ public final class Start extends StartProps {
     //==============================================
 
     public String getStationUrl() {
-        if (station != null) {
-            return station.getUrl();
+        if (playable != null) {
+            return playable.getUrl();
         } else {
             return getUrl();
         }
     }
 
-    public Station getStation() {
-        return station;
+    public Playable getPlayable() {
+        return playable;
     }
 
-    public Favourite getFavourite() {
-        return favourite;
-    }
-
-    public LastPlayed getLastPlayed() {
-        return lastPlayed;
-    }
+//    public Favourite getFavourite() {
+//        return favourite;
+//    }
+//
+//    public LastPlayed getLastPlayed() {
+//        return lastPlayed;
+//    }
 
     public SetData getSetData() {
         return setData;
@@ -132,7 +127,7 @@ public final class Start extends StartProps {
     public Start getCopy() {
         final Start ret = new Start();
         ret.starter = starter;
-        ret.station = station;
+        ret.playable = playable;
         ret.setData = setData;
 
         Config[] configs = getConfigsArr();
@@ -145,7 +140,7 @@ public final class Start extends StartProps {
 
     public void copyToMe(Start start) {
         starter = start.starter;
-        station = start.station;
+        playable = start.playable;
         setData = start.setData;
 
         Config[] configs = start.getConfigsArr();

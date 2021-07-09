@@ -76,7 +76,7 @@ public class StartStationErrorDialogController extends PDialogExtra {
         initCont();
 
         lblStationTitle.setStyle("-fx-font-weight: bold;");
-        lblStationTitle.setText(start.getStation().getName());
+        lblStationTitle.setText(start.getPlayable().getStationName());
 
         lblUrl.setText(start.getUrl());
 
