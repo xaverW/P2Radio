@@ -37,7 +37,6 @@ public class StationListUrlsFactory {
             // add all round robin servers one by one to select them separately
             InetAddress[] list = InetAddress.getAllByName("all.api.radio-browser.info");
             for (InetAddress item : list) {
-//                //todo
 //                String url = item.getHostName();
 //                url = item.getCanonicalHostName();
 //                if (!url.startsWith("https://")) {

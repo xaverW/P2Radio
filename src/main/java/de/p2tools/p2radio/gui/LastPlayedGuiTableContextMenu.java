@@ -65,7 +65,7 @@ public class LastPlayedGuiTableContextMenu {
         contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miRemove);
 
         if (lastPlayed != null) {
-            String stationUrl = lastPlayed.getUrl();
+            String stationUrl = lastPlayed.getStationUrl();
             Station station = progData.stationList.getSenderByUrl(stationUrl);
             if (station != null) {
                 MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");

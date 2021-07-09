@@ -41,7 +41,6 @@ public class ProgLoadFactory {
         PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
         boolean found;
         if ((found = loadProgConfig()) == false) {
-            //todo? teils geladene Reste entfernen
             PLog.sysLog("-> konnte nicht geladen werden!");
             clearConfig();
         } else {

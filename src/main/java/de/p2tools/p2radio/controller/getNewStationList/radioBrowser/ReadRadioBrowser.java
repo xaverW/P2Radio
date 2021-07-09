@@ -64,51 +64,28 @@ public class ReadRadioBrowser {
     public boolean readList(final StationList stationList) {
         boolean ret = false;
 
-        if (ProgData.debug) {
-            //ToDo
-            //URL laden, vorerst!!!!!!!!!!!!!!!!
-            //sonst: http://all.api.radio-browser.info/xml/stations
-            //oder   http://all.api.radio-browser.info/json/stations
-            String sourceFileUrl = "http://localhost:8080/stations";
-            read(sourceFileUrl, stationList);
+//        if (ProgData.debug) {
+//            //URL laden, vorerst!!!!!!!!!!!!!!!!
+//            //sonst: http://all.api.radio-browser.info/xml/stations
+//            //oder   http://all.api.radio-browser.info/json/stations
+//            String sourceFileUrl = "http://localhost:8080/stations";
+//            read(sourceFileUrl, stationList);
+//            if (!stationList.isEmpty()) {
+//                //dann hats geklappt
+//                ret = true;
+//            }
+//
+//        } else {
+
+        try {
+            String updateUrl = ProgConst.STATION_LIST_URL;
+            read(updateUrl, stationList);
             if (!stationList.isEmpty()) {
                 //dann hats geklappt
                 ret = true;
             }
-
-        } else {
-            try {
-                String updateUrl = ProgConst.STATION_LIST_URL;
-                read(updateUrl, stationList);
-                if (!stationList.isEmpty()) {
-                    //dann hats geklappt
-                    ret = true;
-                }
-            } catch (final Exception ex) {
-                PLog.errorLog(201020354, ex);
-            }
-
-
-//        try {
-//            final ArrayList<String> usedUrls = new ArrayList<>();
-//            String updateUrl;
-//            final int maxRetries = 3; // 3x probieren, eine Liste zu laden
-//            updateUrl = StationListUrlsFactory.getRandRadioListUrl(usedUrls);
-//            if (updateUrl.isEmpty()) {
-//                return false;
-//            }
-//            for (int i = 0; i < maxRetries; ++i) {
-//                read(updateUrl, stationList);
-//                updateUrl = StationListUrlsFactory.getRandRadioListUrl(usedUrls);
-//                if (!stationList.isEmpty()) {
-//                    //dann hats geklappt
-//                    ret = true;
-//                    break;
-//                }
-//            }
-//        } catch (final Exception ex) {
-//            PLog.errorLog(984512067, ex);
-//        }
+        } catch (final Exception ex) {
+            PLog.errorLog(201020354, ex);
         }
 
         return ret;

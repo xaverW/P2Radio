@@ -185,7 +185,7 @@ public class LoadNewStationList {
     private void findAndMarkNewStations(List<String> logList, StationList stationList) {
         stationList.stream() //genauso schnell wie "parallel": ~90ms
                 .peek(station -> station.setNewStation(false))
-                .filter(station -> !hashSet.contains(station.getUrl()))
+                .filter(station -> !hashSet.contains(station.getStationUrl()))
                 .forEach(station -> station.setNewStation(true));
 
         cleanHash(logList, stationList);
@@ -195,7 +195,7 @@ public class LoadNewStationList {
         logList.add(PLog.LILNE3);
         logList.add("Hash füllen, Größe vorher: " + hashSet.size());
 
-        hashSet.addAll(stationList.stream().map(Station::getUrl).collect(Collectors.toList()));
+        hashSet.addAll(stationList.stream().map(Station::getStationUrl).collect(Collectors.toList()));
         logList.add("                  nachher: " + hashSet.size());
         logList.add(PLog.LILNE3);
     }
@@ -204,7 +204,7 @@ public class LoadNewStationList {
         logList.add(PLog.LILNE3);
         logList.add("Hash bereinigen, Größe vorher: " + hashSet.size());
 
-        stationList.stream().forEach(station -> hashSet.remove(station.getUrl()));
+        stationList.stream().forEach(station -> hashSet.remove(station.getStationUrl()));
         logList.add("                      nachher: " + hashSet.size());
         logList.add(PLog.LILNE3);
     }

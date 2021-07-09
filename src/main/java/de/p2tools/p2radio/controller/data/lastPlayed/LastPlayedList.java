@@ -92,7 +92,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     }
 
     public synchronized void addFavourite(Favourite favourite) {
-        if (!checkUrl(favourite.getUrl())) {
+        if (!checkUrl(favourite.getStationUrl())) {
             //dann gibts ihn noch nicht
             LastPlayed lastPlayed = new LastPlayed(favourite);
             this.add(0, lastPlayed);
@@ -101,7 +101,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     }
 
     public synchronized void addStation(Station station) {
-        if (!checkUrl(station.getUrl())) {
+        if (!checkUrl(station.getStationUrl())) {
             //dann gibts ihn noch nicht
             LastPlayed lastPlayed = new LastPlayed(station);
             this.add(0, lastPlayed);
@@ -111,7 +111,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
 
     private boolean checkUrl(String url) {
         boolean ret = false;
-        Optional<LastPlayed> opt = this.stream().filter(l -> l.getUrl().equals(url)).findFirst();
+        Optional<LastPlayed> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
         if (opt.isPresent()) {
             ret = true;
             LastPlayed lastPlayed = opt.get();
@@ -156,20 +156,20 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
         // den Sender wieder eintragen
         PDuration.counterStart("FavouriteList.addSenderInList");
-        int counter = 50; //todo das dauert sonst viel zu lang
+        int counter = 50;
         for (LastPlayed favourite : this) {
             --counter;
             if (counter < 0) {
                 break;
             }
-            favourite.setStation(progData.stationList.getSenderByUrl(favourite.getUrl()));
+            favourite.setStation(progData.stationList.getSenderByUrl(favourite.getStationUrl()));
         }
         PDuration.counterStop("FavouriteList.addSenderInList");
     }
 
     public synchronized LastPlayed getUrlStation(String urlStation) {
         for (final LastPlayed dataFavourite : this) {
-            if (dataFavourite.getUrl().equals(urlStation)) {
+            if (dataFavourite.getStationUrl().equals(urlStation)) {
                 return dataFavourite;
             }
         }

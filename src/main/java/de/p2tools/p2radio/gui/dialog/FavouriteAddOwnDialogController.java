@@ -81,7 +81,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
 
     private void initButton() {
         btnOk.setOnAction(event -> {
-            if (favourite.getUrl().isEmpty()) {
+            if (favourite.getStationUrl().isEmpty()) {
                 PAlert.showErrorAlert("Sender-URL", "Es muss wenigstens eine URL für den " +
                         "Sender angeben werden.");
                 return;
@@ -187,7 +187,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
                 ++row;
                 break;
             case FavouriteXml.FAVOURITE_URL:
-                txt[i].textProperty().bindBidirectional(favourite.urlProperty());
+                txt[i].textProperty().bindBidirectional(favourite.stationUrlProperty());
 
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row, 3, 1);

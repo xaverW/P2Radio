@@ -31,7 +31,7 @@ public final class Favourite extends FavouriteProps implements Playable {
     public Favourite(Station station, String collectionName) {
         setStation(station);
         setCollectionName(collectionName);
-        setUrl(station.getUrl());
+        setStationUrl(station.getStationUrl());
     }
 
     //==============================================
@@ -62,7 +62,7 @@ public final class Favourite extends FavouriteProps implements Playable {
         setLanguage(station.getLanguage());
 //        setClickCount(station.getClickCount());
         setWebsite(station.getWebsite());
-        setUrl(station.getUrl());
+        setStationUrl(station.getStationUrl());
         setStationDate(station.getDate());
     }
 

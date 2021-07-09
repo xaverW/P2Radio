@@ -101,7 +101,7 @@ public class SenderLoadFactory {
     }
 
     private static InputStream selectDecompressor(String source, InputStream in) throws Exception {
-        //vorerst mal drin lassen todo
+        //vorerst mal drin lassen
         if (source.endsWith(ProgConst.FORMAT_XZ)) {
             in = new XZInputStream(in);
         } else if (source.endsWith(ProgConst.FORMAT_ZIP)) {

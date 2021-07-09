@@ -42,7 +42,7 @@ public class FavouriteProps extends FavouriteXml {
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
 
-    private final StringProperty url = new SimpleStringProperty("");
+    private final StringProperty stationUrl = new SimpleStringProperty("");
     private final StringProperty website = new SimpleStringProperty("");
 
     private final PLocalDateProperty stationDate = new PLocalDateProperty();
@@ -67,7 +67,7 @@ public class FavouriteProps extends FavouriteXml {
         list.add(new ConfigStringPropExtra("language", FavouriteFieldNames.FAVOURITE_COUNTRY, language));
         list.add(new ConfigStringPropExtra("description", FavouriteFieldNames.FAVOURITE_DESCRIPTION, description));
 
-        list.add(new ConfigStringPropExtra("url", FavouriteFieldNames.FAVOURITE_URL, url));
+        list.add(new ConfigStringPropExtra("url", FavouriteFieldNames.FAVOURITE_URL, stationUrl));
         list.add(new ConfigStringPropExtra("website", FavouriteFieldNames.FAVOURITE_URL, website));
         list.add(new ConfigLocalDatePropExtra("stationDate", FavouriteFieldNames.FAVOURITE_DATE, stationDate));
 
@@ -249,16 +249,16 @@ public class FavouriteProps extends FavouriteXml {
         this.description.set(description);
     }
 
-    public String getUrl() {
-        return url.get();
+    public String getStationUrl() {
+        return stationUrl.get();
     }
 
-    public StringProperty urlProperty() {
-        return url;
+    public StringProperty stationUrlProperty() {
+        return stationUrl;
     }
 
-    public void setUrl(String url) {
-        this.url.set(url);
+    public void setStationUrl(String stationUrl) {
+        this.stationUrl.set(stationUrl);
     }
 
     public String getWebsite() {
@@ -272,7 +272,7 @@ public class FavouriteProps extends FavouriteXml {
     public void setWebsite(String website) {
         this.website.set(website);
     }
-    
+
     public PLocalDate getStationDate() {
         return stationDate.get();
     }
@@ -292,7 +292,7 @@ public class FavouriteProps extends FavouriteXml {
     public int compareTo(FavouriteProps arg0) {
         int ret;
         if ((ret = Data.sorter.compare(getStationName(), arg0.getStationName())) == 0) {
-            return getUrl().compareTo(arg0.getUrl());
+            return getStationUrl().compareTo(arg0.getStationUrl());
         }
         return ret;
     }

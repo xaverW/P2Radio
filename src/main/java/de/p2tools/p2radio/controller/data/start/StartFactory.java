@@ -122,7 +122,7 @@ public class StartFactory {
     }
 
     private synchronized void startUrlWithProgram(Station station, SetData setData) {
-        final String url = station.getUrl();
+        final String url = station.getStationUrl();
         if (!url.isEmpty()) {
             progData.lastPlayedList.addStation(station);
 
@@ -138,7 +138,7 @@ public class StartFactory {
     }
 
     private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
-        final String url = favourite.getUrl();
+        final String url = favourite.getStationUrl();
         if (!url.isEmpty()) {
             progData.lastPlayedList.addFavourite(favourite);
 
@@ -154,7 +154,7 @@ public class StartFactory {
     }
 
     private synchronized void startUrlWithProgram(LastPlayed lastPlayed, SetData setData) {
-        final String url = lastPlayed.getUrl();
+        final String url = lastPlayed.getStationUrl();
         if (!url.isEmpty()) {
             progData.startFactory.stopAll();
             ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);

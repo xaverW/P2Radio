@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.PIndex;
 
@@ -53,9 +54,8 @@ public class SetData extends SetDataProps {
         //ist nur ein Programm in der Liste wird dieses genommen
         ProgramData ret = null;
         if (programList.isEmpty()) {
-            // todo bei vielen Sendern beim Start kommt das für jeden Sender
-//            new MTAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
-//                    "Es ist kein Programm zum Download eingerichtet");
+            new PAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
+                    "Es ist kein Programm zum Abspielen der Sender");
         } else if (programList.size() == 1) {
             ret = programList.get(0);
         } else {

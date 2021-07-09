@@ -29,7 +29,7 @@ public interface Playable {
 
     public int getNo();
 
-    public String getUrl();
+    public String getStationUrl();
 
     public void setClickCount(int clickCount);
 

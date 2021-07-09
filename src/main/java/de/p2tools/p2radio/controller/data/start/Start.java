@@ -33,37 +33,14 @@ public final class Start extends StartProps {
     }
 
     public Start(SetData setData, Playable playable) {
-        if (playable == null) {
-            // bei gespeicherten Favoriten kann es den Sender nicht mehr geben
-            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
-        }
-
         this.playable = playable;
         setStationNo(playable.getNo());
         setStationName(playable.getStationName());
-        setUrl(playable.getUrl());
+        setUrl(playable.getStationUrl());
 
         setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
     }
-
-//    public Start(SetData setData, Favourite favourite) {
-//        this.playable = favourite;
-//        setStationName(favourite.getStationName());
-//        setUrl(favourite.getUrl());
-//
-//        setSetData(setData);
-//        StartProgramFactory.makeProgParameter(this);
-//    }
-
-//    public Start(SetData setData, LastPlayed lastPlayed) {
-//        this.playable = lastPlayed;
-//        setStationName(lastPlayed.getStationName());
-//        setUrl(lastPlayed.getUrl());
-//
-//        setSetData(setData);
-//        StartProgramFactory.makeProgParameter(this);
-//    }
 
     public StartStatus getStartStatus() {
         return startStatus;
@@ -96,24 +73,12 @@ public final class Start extends StartProps {
     //==============================================
 
     public String getStationUrl() {
-        if (playable != null) {
-            return playable.getUrl();
-        } else {
-            return getUrl();
-        }
+        return playable.getStationUrl();
     }
 
     public Playable getPlayable() {
         return playable;
     }
-
-//    public Favourite getFavourite() {
-//        return favourite;
-//    }
-//
-//    public LastPlayed getLastPlayed() {
-//        return lastPlayed;
-//    }
 
     public SetData getSetData() {
         return setData;

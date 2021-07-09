@@ -95,7 +95,7 @@ public class FavouriteGuiInfoController extends PClosePaneH {
 
         lblTitle.setText(favourite.getStationName() + "  -  " + favourite.getCountry());
         hyperlinkWebsite.setUrl(favourite.getWebsite());
-        hyperlinkUrl.setUrl(favourite.getUrl());
+        hyperlinkUrl.setUrl(favourite.getStationUrl());
         taDescription.textProperty().bindBidirectional(favourite.descriptionProperty());
     }
 }

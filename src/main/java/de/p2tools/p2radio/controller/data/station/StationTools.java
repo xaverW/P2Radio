@@ -47,7 +47,7 @@ public class StationTools {
 
         for (final Station station : list) {
             // erst mal schauen obs den schon gibt
-            Favourite favourite = progData.favouriteList.getUrlStation(station.getUrl());
+            Favourite favourite = progData.favouriteList.getUrlStation(station.getStationUrl());
             if (favourite == null) {
                 addList.add(station);
             } else {

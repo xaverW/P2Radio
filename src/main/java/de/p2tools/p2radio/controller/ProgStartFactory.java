@@ -59,7 +59,6 @@ public class ProgStartFactory {
                 System.exit(0);
             }
 
-            //todo das ist noch nicht ganz klar ob dahin
             Platform.runLater(() -> {
                 PDuration.onlyPing("Erster Start: PSet");
                 // kann ein Dialog aufgehen

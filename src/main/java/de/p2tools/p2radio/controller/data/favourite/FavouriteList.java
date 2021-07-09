@@ -134,20 +134,20 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
         // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
         // den Sender wieder eintragen
         PDuration.counterStart("FavouriteList.addSenderInList");
-        int counter = 50; //todo das dauert sonst viel zu lang
+        int counter = 50;
         for (Favourite favourite : this) {
             --counter;
             if (counter < 0) {
                 break;
             }
-            favourite.setStation(progData.stationList.getSenderByUrl(favourite.getUrl()));
+            favourite.setStation(progData.stationList.getSenderByUrl(favourite.getStationUrl()));
         }
         PDuration.counterStop("FavouriteList.addSenderInList");
     }
 
     public synchronized Favourite getUrlStation(String urlStation) {
         for (final Favourite dataFavourite : this) {
-            if (dataFavourite.getUrl().equals(urlStation)) {
+            if (dataFavourite.getStationUrl().equals(urlStation)) {
                 return dataFavourite;
             }
         }

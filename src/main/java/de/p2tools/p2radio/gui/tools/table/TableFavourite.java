@@ -127,7 +127,7 @@ public class TableFavourite {
         datumColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Favourite, String> urlColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_URL]);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
         nrColumn.setPrefWidth(50);

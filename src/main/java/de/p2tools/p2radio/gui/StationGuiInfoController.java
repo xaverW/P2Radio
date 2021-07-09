@@ -84,6 +84,6 @@ public class StationGuiInfoController extends PClosePaneH {
 
         lblTitle.setText(station.arr[StationXml.STATION_NAME] + "  -  " + station.arr[StationXml.STATION_COUNTRY]);
         hyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);
-        hyperlinkUrl.setUrl(station.getUrl());
+        hyperlinkUrl.setUrl(station.getStationUrl());
     }
 }

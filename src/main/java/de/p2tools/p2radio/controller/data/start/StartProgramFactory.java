@@ -29,7 +29,7 @@ public class StartProgramFactory {
         try {
             final ProgramData programData = start.getSetData().getProgForUrl(start.getUrl());
             if (programData == null) {
-                return false; //todo ist das gut da wenn kein Set???
+                return false;
             }
 
             start.setProgram(programData.getName());

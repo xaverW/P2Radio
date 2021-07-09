@@ -33,8 +33,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MTStartErrorWindow extends Application {
-    // toDo für weitere Startfehlermeldungen vorbereiten -> nach P2Tools
-
     private Stage primaryStage;
     private final String url = "https://www.p2tools.de/p2radio/manual/start.html";
 

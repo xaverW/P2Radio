@@ -61,7 +61,7 @@ public class TableStation {
         nrColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Station, String> nameColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_NAME]);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         nameColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Station, String> genreColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_GENRE]);
@@ -118,7 +118,7 @@ public class TableStation {
         websiteColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Station, String> urlColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_URL]);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
 //        final TableColumn<Station, String> urlrColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_URL_RESOLVED]);

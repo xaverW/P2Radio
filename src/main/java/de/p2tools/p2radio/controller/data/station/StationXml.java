@@ -99,5 +99,4 @@ public class StationXml extends PDataSample<Station> {
         }
         return ret;
     }
-
 }

@@ -301,10 +301,10 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 ++row;
                 break;
             case FavouriteXml.FAVOURITE_URL:
-                hyperlink = new PHyperlink(this.getStage(), actFavourite.urlProperty().getValueSafe(),
+                hyperlink = new PHyperlink(this.getStage(), actFavourite.stationUrlProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
                 hyperlink.setChangeable();
-                hyperlink.textProperty().bindBidirectional(actFavourite.urlProperty());
+                hyperlink.textProperty().bindBidirectional(actFavourite.stationUrlProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(hyperlink, 1, row, 3, 1);
                 ++row;

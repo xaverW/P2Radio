@@ -105,7 +105,7 @@ public class LastPlayedMenu {
         miAddFavourite.setOnAction(a -> {
             final Optional<LastPlayed> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
             if (lastPlayed.isPresent()) {
-                String stationUrl = lastPlayed.get().getUrl();
+                String stationUrl = lastPlayed.get().getStationUrl();
                 Station station = progData.stationList.getSenderByUrl(stationUrl);
                 if (station != null) {
                     StationTools.saveStation(station);

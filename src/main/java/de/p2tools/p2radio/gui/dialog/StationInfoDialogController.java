@@ -200,7 +200,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         lblCont[i].setText(station.getClickTrend() + "");
                         break;
                     case StationXml.STATION_URL:
-                        pHyperlinkUrl.setUrl(station.getUrl());
+                        pHyperlinkUrl.setUrl(station.getStationUrl());
                         break;
                     case StationXml.STATION_WEBSITE:
                         pHyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);

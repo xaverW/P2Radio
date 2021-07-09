@@ -66,7 +66,7 @@ public final class LastPlayed extends LastPlayedProps implements Playable {
         setCountryCode(station.getCountryCode());
         setLanguage(station.getLanguage());
         setWebsite(station.getWebsite());
-        setUrl(station.getUrl());
+        setStationUrl(station.getStationUrl());
         setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
     }
 
@@ -86,7 +86,7 @@ public final class LastPlayed extends LastPlayedProps implements Playable {
         setCountryCode(favourite.getCountryCode());
         setLanguage(favourite.getLanguage());
         setWebsite(favourite.getWebsite());
-        setUrl(favourite.getUrl());
+        setStationUrl(favourite.getStationUrl());
         setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
     }
 

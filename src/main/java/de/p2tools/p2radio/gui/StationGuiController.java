@@ -191,7 +191,7 @@ public class StationGuiController extends AnchorPane {
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
         Optional<Station> optional = tableView.getItems().stream().
-                filter(station -> station.getUrl().equals(url)).findFirst();
+                filter(station -> station.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
             int sel = tableView.getSelectionModel().getSelectedIndex();

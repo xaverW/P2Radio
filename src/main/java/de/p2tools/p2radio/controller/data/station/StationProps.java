@@ -64,6 +64,22 @@ public class StationProps extends StationXml {
     public String getTag() {
         return TAG;
     }
+    
+    public boolean isNewStation() {
+        return newStation;
+    }
+
+    public void setNewStation(final boolean newStation) {
+        this.newStation = newStation;
+    }
+
+    public boolean isBlackBlocked() {
+        return blackBlocked;
+    }
+
+    public void setBlackBlocked(boolean blackBlocked) {
+        this.blackBlocked = blackBlocked;
+    }
 
     public int getBitrateInt() {
         return bitrateInt;
@@ -97,7 +113,6 @@ public class StationProps extends StationXml {
         this.clickTrend = clickTrend;
     }
 
-
     public boolean isFavouriteUrl() {
         return favouriteUrl;
     }
@@ -114,6 +129,9 @@ public class StationProps extends StationXml {
         this.doubleUrl = doubleUrl;
     }
 
+    public PLocalDate getDate() {
+        return stationDate;
+    }
 
     //=========================================================
     //die RadioFelder
@@ -166,9 +184,20 @@ public class StationProps extends StationXml {
 //        return arr[STATION_CLICK_TREND];
 //    }
 
-    public String getUrl() {
-//        if (arr[STATION_URL_RESOLVED].isEmpty()) {
+    public String getStationUrl() {
         return arr[STATION_URL];
+
+//        if (!arr[STATION_URL].isEmpty()
+//                && !arr[STATION_URL_RESOLVED].isEmpty()
+//                && !arr[STATION_URL].equals(arr[STATION_URL_RESOLVED])) {
+//            return "--> " + arr[STATION_URL] + " - " + arr[STATION_URL_RESOLVED];
+//
+//        } else {
+//            return arr[STATION_URL];
+//        }
+
+//        if (arr[STATION_URL_RESOLVED].isEmpty()) {
+//            return arr[STATION_URL];
 //        } else {
 //            return arr[STATION_URL_RESOLVED];
 //        }
@@ -180,28 +209,5 @@ public class StationProps extends StationXml {
 
     public String getWebsite() {
         return arr[STATION_WEBSITE];
-    }
-
-
-    public PLocalDate getDate() {
-        return stationDate;
-    }
-
-    //===================================================================
-
-    public boolean isNewStation() {
-        return newStation;
-    }
-
-    public void setNewStation(final boolean newStation) {
-        this.newStation = newStation;
-    }
-
-    public boolean isBlackBlocked() {
-        return blackBlocked;
-    }
-
-    public void setBlackBlocked(boolean blackBlocked) {
-        this.blackBlocked = blackBlocked;
     }
 }

@@ -102,16 +102,16 @@ public class StationListFactory {
     public static void findAndMarkFavouriteStations(ProgData progData) {
         PDuration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
-        hashSet.addAll(progData.favouriteList.stream().map(Favourite::getUrl).collect(Collectors.toList()));
+        hashSet.addAll(progData.favouriteList.stream().map(Favourite::getStationUrl).collect(Collectors.toList()));
 
         progData.stationList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
         progData.stationList.stream()
-                .filter(station -> hashSet.contains(station.getUrl()))
+                .filter(station -> hashSet.contains(station.getStationUrl()))
                 .forEach(station -> station.setFavouriteUrl(true));
 
         progData.lastPlayedList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
         progData.lastPlayedList.stream()
-                .filter(station -> hashSet.contains(station.getUrl()))
+                .filter(station -> hashSet.contains(station.getStationUrl()))
                 .forEach(lastPlayed -> lastPlayed.setFavouriteUrl(true));
 
         hashSet.clear();

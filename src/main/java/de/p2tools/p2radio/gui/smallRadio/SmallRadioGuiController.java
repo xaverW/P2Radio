@@ -97,7 +97,7 @@ public class SmallRadioGuiController extends VBox {
         if (!favourite.isPresent()) {
             return;
         }
-        PSystemUtils.copyToClipboard(favourite.get().getUrl());
+        PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
     }
 
     public FilteredList<Favourite> getFilteredList() {
@@ -108,7 +108,7 @@ public class SmallRadioGuiController extends VBox {
         Favourite favourite = tableView.getSelectionModel().getSelectedItem();
         if (favourite != null) {
             favouriteGuiInfoController.setFavourite(favourite);
-            Station station = progData.stationList.getSenderByUrl(favourite.getUrl());
+            Station station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
             progData.stationInfoDialogController.setStation(station);
         } else {
             favouriteGuiInfoController.setFavourite(null);
@@ -238,7 +238,7 @@ public class SmallRadioGuiController extends VBox {
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
         Optional<Favourite> optional = tableView.getItems().stream()
-                .filter(favourite -> favourite.getUrl().equals(url)).findFirst();
+                .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
             int sel = tableView.getSelectionModel().getSelectedIndex();

@@ -171,14 +171,12 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         // läuft direkt nach dem Laden der Senderliste!
         // doppelte Sender (URL), Geo, InFuture markieren
 
-        final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
-
-        // todo exception parallel?? Unterschied ~10ms (bei Gesamt: 110ms)
         PDuration.counterStart("Sender markieren");
+        final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
         try {
             countDouble = 0;
             this.stream().forEach(station -> {
-                if (!urlHashSet.add(station.getUrl())) {
+                if (!urlHashSet.add(station.getStationUrl())) {
                     ++countDouble;
                     station.setDoubleUrl(true);
                 }
@@ -187,9 +185,9 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         } catch (Exception ex) {
             PLog.errorLog(951024789, ex);
         }
+        urlHashSet.clear();
         PDuration.counterStop("Sender markieren");
 
-        urlHashSet.clear();
         return countDouble;
     }
 
@@ -215,7 +213,7 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
 
     public synchronized Station getSenderByUrl(final String url) {
         final Optional<Station> opt =
-                parallelStream().filter(station -> station.getUrl().equalsIgnoreCase(url)).findAny();
+                parallelStream().filter(station -> station.getStationUrl().equalsIgnoreCase(url)).findAny();
         return opt.orElse(null);
     }
 

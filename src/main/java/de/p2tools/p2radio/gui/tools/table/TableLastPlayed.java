@@ -107,7 +107,7 @@ public class TableLastPlayed {
         datumColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<LastPlayed, String> urlColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_URL]);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
         nrColumn.setPrefWidth(50);
@@ -202,7 +202,7 @@ public class TableLastPlayed {
                 final boolean error = lastPlayed.getStart() != null ? lastPlayed.getStart().getStartStatus().isStateError() : false;
                 final boolean set = progData.setDataList.size() > 1;
 
-                String stationUrl = lastPlayed.getUrl();
+                String stationUrl = lastPlayed.getStationUrl();
                 final boolean fav = progData.favouriteList.getUrlStation(stationUrl) != null;
 
                 if (playing) {

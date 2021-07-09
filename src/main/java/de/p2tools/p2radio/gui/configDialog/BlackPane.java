@@ -195,8 +195,7 @@ public class BlackPane {
             Table.refresh_table(tableView);
         });
 
-
-        // toDo -> vielleicht den ganzen Dialog sperren??
+        
         EventListenerLoadRadioList listener = new EventListenerLoadRadioList() {
             @Override
             public void start(EventLoadRadioList event) {

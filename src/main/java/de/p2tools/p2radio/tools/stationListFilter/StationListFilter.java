@@ -80,7 +80,7 @@ public class StationListFilter {
                         }
                     });
                 } catch (Exception ex) {
-                    ex.printStackTrace(); //todo???
+                    ex.printStackTrace();
                 }
             });
 

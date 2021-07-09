@@ -95,7 +95,7 @@ public class LastPlayedGuiInfoController extends PClosePaneH {
 
         lblTitle.setText(lastPlayed.getStationName() + "  -  " + lastPlayed.getCountry());
         hyperlinkWebsite.setUrl(lastPlayed.getWebsite());
-        hyperlinkUrl.setUrl(lastPlayed.getUrl());
+        hyperlinkUrl.setUrl(lastPlayed.getStationUrl());
         taDescription.textProperty().bindBidirectional(lastPlayed.descriptionProperty());
     }
 }
