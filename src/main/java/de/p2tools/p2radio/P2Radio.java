@@ -27,6 +27,7 @@ import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiPack;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -105,7 +106,7 @@ public class P2Radio extends Application {
 
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && !progData.favouriteList.isEmpty()) {
                 //dann gleich mit smallRadio starten
-                new SmallRadioGuiPack();
+                Platform.runLater(() -> new SmallRadioGuiPack());
             } else {
                 primaryStage.show();
             }
