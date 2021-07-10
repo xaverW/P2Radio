@@ -51,28 +51,32 @@ public class StartPane {
                 "Sender gefiltert werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "2) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
+                "2) Hier kann eine verkleinerte Ansicht," + P2LibConst.LINE_SEPARATOR +
+                "mit den Favoriten eingestellt werden." +
+
+                P2LibConst.LINE_SEPARATORx2 +
+                "3) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
                 "der History wird hier umgeschaltet." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "3) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
+                "4) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
                 "die Programmeinstellungen." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "4) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
+                "5) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
                 "Spalten in der Tabelle" + P2LibConst.LINE_SEPARATOR +
                 "ein- und ausgeblendet werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "5) In dem Menü können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+                "6) In dem Menü können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
                 "und verarbeitet werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "6) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+                "7) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
                 "und gestoppt werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "7) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
+                "8) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
                 "den Favoriten hinzugefügt werden.");
 
         hBox.getChildren().addAll(iv, text);
