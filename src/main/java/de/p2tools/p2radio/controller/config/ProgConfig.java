@@ -54,13 +54,24 @@ public class ProgConfig extends PDataProgConfig {
 
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH = addBool("system-update-search", true); // ob beim Start nach Updates gesucht werden soll
-    public static IntegerProperty SYSTEM_UPDATE_INFO_NR_SHOWN = addInt("system-update-info-nr-shown"); // zuletzt angezeigte Info
-    public static IntegerProperty SYSTEM_UPDATE_VERSION_SHOWN = addInt("system-update-version-shown"); // zuletzt angezeigte Version
-    public static BooleanProperty SYSTEM_UPDATE_BETA_SEARCH = addBool("system-update-beta-search", false);
-    public static IntegerProperty SYSTEM_UPDATE_BETA_VERSION_SHOWN = addInt("system-update-beta-version-shown"); // zuletzt angezeigtes Update mit versionNo
-    public static IntegerProperty SYSTEM_UPDATE_BETA_BUILD_NO_SHOWN = addInt("system-update-beta-build-nr-shown"); // zuletzt angezeigtes Update mit buildNo
+    //    public static BooleanProperty SYSTEM_UPDATE_SEARCH = addBool("system-update-search", true); // ob beim Start nach Updates gesucht werden soll
+//    public static IntegerProperty SYSTEM_UPDATE_INFO_NR_SHOWN = addInt("system-update-info-nr-shown"); // zuletzt angezeigte Info
+//    public static IntegerProperty SYSTEM_UPDATE_VERSION_SHOWN = addInt("system-update-version-shown"); // zuletzt angezeigte Version
+//    public static BooleanProperty SYSTEM_UPDATE_BETA_SEARCH = addBool("system-update-beta-search", false);
+//    public static IntegerProperty SYSTEM_UPDATE_BETA_VERSION_SHOWN = addInt("system-update-beta-version-shown"); // zuletzt angezeigtes Update mit versionNo
+//    public static IntegerProperty SYSTEM_UPDATE_BETA_BUILD_NO_SHOWN = addInt("system-update-beta-build-nr-shown"); // zuletzt angezeigtes Update mit buildNo
     public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStr("system-update-progset-version");
+
+    //    public static BooleanProperty SYSTEM_UPDATE_SEARCH_INFOS = addBool("system-update-search-infos", true); //Infos suchen
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBool("system-update-search-act", true); //Infos und Programm
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBool("system-update-search-beta", false); //beta suchen
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBool("system-update-search-daily", false); //daily suchen
+
+    public static StringProperty SYSTEM_UPDATE_LAST_INFO = addStr("system-update-last-info");
+    public static StringProperty SYSTEM_UPDATE_LAST_ACT = addStr("system-update-last-act");
+    public static StringProperty SYSTEM_UPDATE_LAST_BETA = addStr("system-update-last-beta");
+    public static StringProperty SYSTEM_UPDATE_LAST_DAILY = addStr("system-update-last-daily");
+
 
     // ConfigDialog, Dialog nach Start immer gleich öffnen
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_TAB = new SimpleIntegerProperty(0);

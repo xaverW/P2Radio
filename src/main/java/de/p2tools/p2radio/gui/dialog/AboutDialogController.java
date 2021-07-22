@@ -73,7 +73,7 @@ public class AboutDialogController extends PDialogExtra {
 
     public void make3() {
         btnOk.setOnAction(a -> close());
-        btnCheck.setOnAction(a -> new SearchProgramUpdate(this.getStage(), progData).searchNewVersionInfos());
+        btnCheck.setOnAction(a -> new SearchProgramUpdate(this.getStage(), progData).searchNewProgramVersion(true));
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -143,10 +143,10 @@ public class AboutDialogController extends PDialogExtra {
         gridPane.add(text, c, ++row, 2, 1);
 
 
-        PHyperlink hyperlinkWeb = new PHyperlink(ProgConst.ADRESSE_WEBSITE,
+        PHyperlink hyperlinkWeb = new PHyperlink(ProgConst.URL_WEBSITE,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
 
-        PHyperlink hyperlinkHelp = new PHyperlink(ProgConst.ADRESSE_WEBSITE_HELP,
+        PHyperlink hyperlinkHelp = new PHyperlink(ProgConst.URL_WEBSITE_HELP,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
 
         text = new Text("Website:");

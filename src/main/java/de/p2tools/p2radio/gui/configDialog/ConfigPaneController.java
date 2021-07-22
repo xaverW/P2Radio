@@ -52,13 +52,15 @@ public class ConfigPaneController extends PAccordionPane {
 
     private final PToggleSwitch tglSearch = new PToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
     private final PToggleSwitch tglSearchBeta = new PToggleSwitch("auch nach neuen Vorabversionen suchen");
+    private final CheckBox chkDaily = new CheckBox("Zwischenschritte (Dailys) mit einbeziehen");
     private final Button btnNow = new Button("_Jetzt suchen");
     private Button btnHelpBeta;
 
     BooleanProperty logfileChanged = new SimpleBooleanProperty(false);
 
-    BooleanProperty propUpdateSearch = ProgConfig.SYSTEM_UPDATE_SEARCH;
-    BooleanProperty propUpdateBetaSearch = ProgConfig.SYSTEM_UPDATE_BETA_SEARCH;
+    BooleanProperty propUpdateSearch = ProgConfig.SYSTEM_UPDATE_SEARCH_ACT;
+    BooleanProperty propUpdateBetaSearch = ProgConfig.SYSTEM_UPDATE_SEARCH_BETA;
+    BooleanProperty propUpdateDailySearch = ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY;
     StringProperty propUrl = ProgConfig.SYSTEM_PROG_OPEN_URL;
     BooleanProperty propLog = ProgConfig.SYSTEM_LOG_ON;
     StringProperty propLogDir = ProgConfig.SYSTEM_LOG_DIR;
@@ -103,6 +105,7 @@ public class ConfigPaneController extends PAccordionPane {
         txtFileManagerWeb.textProperty().unbindBidirectional(propUrl);
         tglSearch.selectedProperty().unbindBidirectional(propUpdateSearch);
         tglSearchBeta.selectedProperty().unbindBidirectional(propUpdateBetaSearch);
+        chkDaily.selectedProperty().unbindBidirectional(propUpdateDailySearch);
     }
 
     public Collection<TitledPane> createPanes() {
@@ -328,6 +331,7 @@ public class ConfigPaneController extends PAccordionPane {
                         "Das Programm wird aber nicht ungefragt ersetzt.");
 
         tglSearchBeta.selectedProperty().bindBidirectional(propUpdateBetaSearch);
+        chkDaily.selectedProperty().bindBidirectional(propUpdateDailySearch);
         btnHelpBeta = PButton.helpButton(stage, "Vorabversionen suchen",
                 "Beim Programmstart wird geprüft, ob es eine neue Vorabversion des Programms gibt. " +
                         P2LibConst.LINE_SEPARATORx2 +
@@ -340,11 +344,12 @@ public class ConfigPaneController extends PAccordionPane {
                         "Das Programm wird aber nicht ungefragt ersetzt.");
 
         //jetzt suchen
-        btnNow.setOnAction(event -> new SearchProgramUpdate(stage, progData).searchNewVersionInfos());
+        btnNow.setOnAction(event -> new SearchProgramUpdate(stage, progData).searchNewProgramVersion(true));
         checkBeta();
         tglSearch.selectedProperty().addListener((ob, ol, ne) -> checkBeta());
+        tglSearchBeta.selectedProperty().addListener((ob, ol, ne) -> checkBeta());
 
-        PHyperlink hyperlink = new PHyperlink(ProgConst.ADRESSE_WEBSITE,
+        PHyperlink hyperlink = new PHyperlink(ProgConst.URL_WEBSITE,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
         HBox hBoxHyper = new HBox();
         hBoxHyper.setAlignment(Pos.CENTER_LEFT);
@@ -358,6 +363,8 @@ public class ConfigPaneController extends PAccordionPane {
 
         gridPane.add(tglSearchBeta, 0, ++row);
         gridPane.add(btnHelpBeta, 1, row);
+        gridPane.add(chkDaily, 0, ++row, 2, 1);
+        GridPane.setHalignment(chkDaily, HPos.RIGHT);
 
         gridPane.add(btnNow, 0, ++row);
 
@@ -371,13 +378,9 @@ public class ConfigPaneController extends PAccordionPane {
     }
 
     private void checkBeta() {
-        if (tglSearch.isSelected()) {
-            tglSearchBeta.setDisable(false);
-            btnHelpBeta.setDisable(false);
-        } else {
-            tglSearchBeta.setDisable(true);
-            tglSearchBeta.setSelected(false);
-            btnHelpBeta.setDisable(true);
-        }
+        tglSearchBeta.setDisable(!tglSearch.isSelected());
+        btnHelpBeta.setDisable(!tglSearch.isSelected());
+
+        chkDaily.setDisable(!tglSearchBeta.isSelected() || tglSearchBeta.isDisabled());
     }
 }

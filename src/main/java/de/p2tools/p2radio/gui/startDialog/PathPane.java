@@ -108,7 +108,7 @@ public class PathPane {
             txtPlayer.setText(SetFactory.getTemplatePathVlc());
         });
         hyperlink = new PHyperlink(stage,
-                ProgConst.ADRESSE_WEBSITE_VLC,
+                ProgConst.URL_WEBSITE_VLC,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
 
         text.setStyle("-fx-font-weight: bold");

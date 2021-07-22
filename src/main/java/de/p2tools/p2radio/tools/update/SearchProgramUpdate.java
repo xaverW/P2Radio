@@ -16,71 +16,55 @@
 
 package de.p2tools.p2radio.tools.update;
 
-import de.p2tools.p2Lib.checkForUpdates.SearchProgUpdate;
-import de.p2tools.p2Lib.checkForUpdates.UpdateSearchData;
-import de.p2tools.p2Lib.tools.ProgramTools;
-import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2Lib.checkForActInfos.FoundAll;
+import de.p2tools.p2Lib.checkForActInfos.FoundSearchData;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import java.util.Date;
-
 import static java.lang.Thread.sleep;
 
 public class SearchProgramUpdate {
 
     private final ProgData progData;
-    private final Stage stage;
     private static final String TITLE_TEXT_PROGRAM_VERSION_IS_UPTODATE = "Programmversion ist aktuell";
     private static final String TITLE_TEXT_PROGRAMMUPDATE_EXISTS = "Ein Programmupdate ist verfügbar";
     private String title = "";
 
     public SearchProgramUpdate(ProgData progData) {
         this.progData = progData;
-        this.stage = progData.primaryStage;
     }
 
     public SearchProgramUpdate(Stage stage, ProgData progData) {
         this.progData = progData;
-        this.stage = stage;
     }
 
     /**
      * @return
      */
-    public boolean searchNewProgramVersion() {
-        //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version
-        boolean ret;
-        ProgConfig.SYSTEM_UPDATE_DATE.setValue(PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+    public void searchNewProgramVersion(boolean showAllways) {
+        FoundSearchData foundSearchData = new FoundSearchData(
+                progData.primaryStage,
 
-        if (!ProgConfig.SYSTEM_UPDATE_SEARCH.get()) {
-            //dann ist es nicht gewünscht
-            return false;
-        }
+                ProgConfig.SYSTEM_UPDATE_SEARCH_ACT,
+                ProgConfig.SYSTEM_UPDATE_SEARCH_BETA,
+                ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY,
 
-        UpdateSearchData updateSearchData = new UpdateSearchData(ProgConst.ADRESSE_P2_RADIO_VERSION,
-                ProgramTools.getProgVersionInt(), ProgramTools.getBuildInt(),
-                ProgConfig.SYSTEM_UPDATE_VERSION_SHOWN,
-                null,
-                ProgConfig.SYSTEM_UPDATE_INFO_NR_SHOWN,
-                ProgConfig.SYSTEM_UPDATE_SEARCH);
+                ProgConfig.SYSTEM_UPDATE_LAST_INFO,
+                ProgConfig.SYSTEM_UPDATE_LAST_ACT,
+                ProgConfig.SYSTEM_UPDATE_LAST_BETA,
+                ProgConfig.SYSTEM_UPDATE_LAST_DAILY,
 
-        UpdateSearchData updateSearchDataBeta = null;
-        if (ProgConfig.SYSTEM_UPDATE_BETA_SEARCH.get()) {
-            updateSearchDataBeta = new UpdateSearchData(ProgConst.ADRESSE_P2_RADIO_BETA_VERSION,
-                    ProgramTools.getProgVersionInt(), ProgramTools.getBuildInt(),
-                    ProgConfig.SYSTEM_UPDATE_BETA_VERSION_SHOWN,
-                    ProgConfig.SYSTEM_UPDATE_BETA_BUILD_NO_SHOWN,
-                    null,
-                    ProgConfig.SYSTEM_UPDATE_BETA_SEARCH);
-        }
+                ProgConst.URL_WEBSITE,
+                ProgConst.URL_WEBSITE_DOWNLOAD,
+                ProgConst.PROGRAM_NAME,
+                ProgConfig.SYSTEM_PROG_VERSION.getValue()
+        );
 
-        ret = new SearchProgUpdate(stage).checkAllUpdates(updateSearchData, updateSearchDataBeta, false);
-        setTitleInfo(ret);
-        return ret;
+        FoundAll.foundAll(foundSearchData, showAllways);
+        setTitleInfo(foundSearchData.foundNewVersionProperty().getValue());
     }
 
     private void setTitleInfo(boolean newVersion) {
@@ -108,31 +92,4 @@ public class SearchProgramUpdate {
     private void setOrgTitle() {
         progData.primaryStage.setTitle(title);
     }
-
-    /**
-     * @return
-     */
-    public boolean searchNewVersionInfos() {
-        //prüft auf neue Version und zeigts immer an, auch (wenn gewünscht) BETA-Version
-
-        UpdateSearchData updateSearchData = new UpdateSearchData(ProgConst.ADRESSE_P2_RADIO_VERSION,
-                ProgramTools.getProgVersionInt(), ProgramTools.getBuildInt(),
-                null,
-                null,
-                null,
-                null);
-
-        UpdateSearchData updateSearchDataBeta = null;
-        if (ProgConfig.SYSTEM_UPDATE_BETA_SEARCH.get()) {
-            updateSearchDataBeta = new UpdateSearchData(ProgConst.ADRESSE_P2_RADIO_BETA_VERSION,
-                    ProgramTools.getProgVersionInt(), ProgramTools.getBuildInt(),
-                    null,
-                    null,
-                    null,
-                    null);
-        }
-
-        return new SearchProgUpdate(stage).checkAllUpdates(updateSearchData, updateSearchDataBeta, true);
-    }
-
 }

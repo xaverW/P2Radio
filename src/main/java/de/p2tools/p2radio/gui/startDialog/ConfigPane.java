@@ -43,7 +43,7 @@ import java.io.File;
 public class ConfigPane {
     private final Stage stage;
     private final PToggleSwitch tglSearch = new PToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
-    BooleanProperty updateProp = ProgConfig.SYSTEM_UPDATE_SEARCH;
+    BooleanProperty updateProp = ProgConfig.SYSTEM_UPDATE_SEARCH_ACT;
     StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
     private final GridPane gridPane = new GridPane();
     private final TextField txtPlayer = new TextField();
@@ -94,7 +94,7 @@ public class ConfigPane {
         text.setStyle("-fx-font-weight: bold");
 
         PHyperlink hyperlink = new PHyperlink(stage,
-                ProgConst.ADRESSE_WEBSITE_VLC,
+                ProgConst.URL_WEBSITE_VLC,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
 
         final Button btnFind = new Button("suchen");

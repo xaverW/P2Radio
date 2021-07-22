@@ -111,21 +111,21 @@ public class ProgStartFactory {
         // Prüfen obs ein Programmupdate gibt
         PDuration.onlyPing("checkProgUpdate");
 
-        if (ProgConfig.SYSTEM_UPDATE_SEARCH.get() &&
+        if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
                 !updateCheckTodayDone()) {
             // nach Updates suchen
-            runUpdateCheck(progData);
+            runUpdateCheck(progData, false);
 
         } else if (ProgData.debug) {
             // damits bei jedem Start gemacht wird
             PLog.sysLog("DEBUG: Update-Check");
-            runUpdateCheck(progData);
+            runUpdateCheck(progData, true);
 
         } else {
             // will der User nicht --oder-- wurde heute schon gemacht
             List list = new ArrayList(5);
             list.add("Kein Update-Check:");
-            if (!ProgConfig.SYSTEM_UPDATE_SEARCH.get()) {
+            if (!ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get()) {
                 list.add("  der User will nicht");
             }
             if (updateCheckTodayDone()) {
@@ -139,9 +139,12 @@ public class ProgStartFactory {
         return ProgConfig.SYSTEM_UPDATE_DATE.get().equals(PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
     }
 
-    private static void runUpdateCheck(ProgData progData) {
+    private static void runUpdateCheck(ProgData progData, boolean showAlways) {
+        //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version, ..
+        ProgConfig.SYSTEM_UPDATE_DATE.setValue(PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+
         Thread th = new Thread(() -> {
-            new SearchProgramUpdate(progData).searchNewProgramVersion();
+            new SearchProgramUpdate(progData).searchNewProgramVersion(showAlways);
         });
         th.setName("checkProgUpdate");
         th.start();

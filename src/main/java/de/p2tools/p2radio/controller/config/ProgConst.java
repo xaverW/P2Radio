@@ -52,18 +52,19 @@ public class ProgConst {
 
 
     // Website
-    public static final String ADRESSE_WEBSITE = "https://www.p2tools.de/";
-    public static final String ADRESSE_WEBSITE_HELP = "https://www.p2tools.de/p2radio/manual/";
+    public static final String URL_WEBSITE = "https://www.p2tools.de/";
+    public static final String URL_WEBSITE_DOWNLOAD = "https://www.p2tools.de/p2radio/download.html";
+    public static final String URL_WEBSITE_HELP = "https://www.p2tools.de/p2radio/manual/";
 
-    public static final String ADRESSE_P2_RADIO_VERSION = "https://www.p2tools.de/extra/p2radio-info.xml";
-    public static final String ADRESSE_P2_RADIO_BETA_VERSION = "https://www.p2tools.de/extra/p2radio-beta-info.xml";
+    public static final String URL_P2_RADIO_VERSION = "https://www.p2tools.de/extra/p2radio-info.xml";
+    public static final String URL_P2_RADIO_BETA_VERSION = "https://www.p2tools.de/extra/p2radio-beta-info.xml";
 
     // die URL der Sets, nicht mehr mit jeder Programmversion hochzählen, nur noch wenn notwendig
     public static final String URL_WEB_CONFIG_DIRECTORY = "https://www.p2tools.de/extra/p2radio/v-1/";
     public static final String URL_WEB_PROGRAM_SETS = URL_WEB_CONFIG_DIRECTORY + "pset-templates.xml";
 
     // ProgrammUrls
-    public static final String ADRESSE_WEBSITE_VLC = "http://www.videolan.org";
+    public static final String URL_WEBSITE_VLC = "http://www.videolan.org";
 
     public static final double GUI_FILTER_DIVIDER_LOCATION = 0.3;
     public static final double GUI_STATION_DIVIDER_LOCATION = 0.7;
