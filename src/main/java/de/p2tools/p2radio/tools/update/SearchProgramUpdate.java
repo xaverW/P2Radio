@@ -32,12 +32,15 @@ public class SearchProgramUpdate {
     private static final String TITLE_TEXT_PROGRAM_VERSION_IS_UPTODATE = "Programmversion ist aktuell";
     private static final String TITLE_TEXT_PROGRAMMUPDATE_EXISTS = "Ein Programmupdate ist verfügbar";
     private String title = "";
+    private Stage stage;
 
     public SearchProgramUpdate(ProgData progData) {
+        this.stage = progData.primaryStage;
         this.progData = progData;
     }
 
     public SearchProgramUpdate(Stage stage, ProgData progData) {
+        this.stage = stage;
         this.progData = progData;
     }
 
@@ -45,8 +48,20 @@ public class SearchProgramUpdate {
      * @return
      */
     public void searchNewProgramVersion(boolean showAllways) {
+        final String SEARCH_URL;
+        final String SEARCH_URL_DOWNLOAD;
+        if (ProgData.debug) {
+            SEARCH_URL = "http://p2.localhost:8080";
+            SEARCH_URL_DOWNLOAD = "http://p2.localhost:8080/download/";
+        } else {
+            SEARCH_URL = "https://www.p2tools.de";
+            SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
+        }
+
         FoundSearchData foundSearchData = new FoundSearchData(
-                progData.primaryStage,
+                stage,
+                SEARCH_URL,
+                SEARCH_URL_DOWNLOAD,
 
                 ProgConfig.SYSTEM_UPDATE_SEARCH_ACT,
                 ProgConfig.SYSTEM_UPDATE_SEARCH_BETA,
@@ -60,25 +75,31 @@ public class SearchProgramUpdate {
                 ProgConst.URL_WEBSITE,
                 ProgConst.URL_WEBSITE_DOWNLOAD,
                 ProgConst.PROGRAM_NAME,
-                ProgConfig.SYSTEM_PROG_VERSION.getValue()
+                ProgConfig.SYSTEM_PROG_VERSION.getValue(),
+                ProgConfig.SYSTEM_PROG_BUILD_DATE.getValue(),
+                showAllways
         );
 
-        FoundAll.foundAll(foundSearchData, showAllways);
+
+        FoundAll.foundAll(foundSearchData);
         setTitleInfo(foundSearchData.foundNewVersionProperty().getValue());
     }
 
     private void setTitleInfo(boolean newVersion) {
-        title = progData.primaryStage.getTitle();
-        if (newVersion) {
-            Platform.runLater(() -> setUpdateTitle());
-        } else {
-            Platform.runLater(() -> setNoUpdateTitle());
-        }
-        try {
-            sleep(10_000);
-        } catch (Exception ignore) {
-        }
-        Platform.runLater(() -> setOrgTitle());
+        new Thread(() -> {
+            //so bremst es nicht!!
+            title = progData.primaryStage.getTitle();
+            if (newVersion) {
+                Platform.runLater(() -> setUpdateTitle());
+            } else {
+                Platform.runLater(() -> setNoUpdateTitle());
+            }
+            try {
+                sleep(10_000);
+            } catch (Exception ignore) {
+            }
+            Platform.runLater(() -> setOrgTitle());
+        }).start();
     }
 
     private void setUpdateTitle() {
