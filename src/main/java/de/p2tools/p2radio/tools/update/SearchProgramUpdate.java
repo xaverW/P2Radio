@@ -29,20 +29,20 @@ import static java.lang.Thread.sleep;
 
 public class SearchProgramUpdate {
 
-    private final ProgData progData;
     private static final String TITLE_TEXT_PROGRAM_VERSION_IS_UPTODATE = "Programmversion ist aktuell";
     private static final String TITLE_TEXT_PROGRAMMUPDATE_EXISTS = "Ein Programmupdate ist verfügbar";
-    private String title = "";
+    private final ProgData progData;
     private Stage stage;
+    private String title = "";
 
     public SearchProgramUpdate(ProgData progData) {
-        this.stage = progData.primaryStage;
         this.progData = progData;
+        this.stage = progData.primaryStage;
     }
 
-    public SearchProgramUpdate(Stage stage, ProgData progData) {
-        this.stage = stage;
+    public SearchProgramUpdate(ProgData progData, Stage stage) {
         this.progData = progData;
+        this.stage = stage;
     }
 
     /**
