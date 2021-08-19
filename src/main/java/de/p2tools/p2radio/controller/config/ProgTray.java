@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.config;
 
+import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
@@ -36,7 +37,6 @@ public class ProgTray {
     private BooleanProperty propTray = ProgConfig.SYSTEM_TRAY;
     private SystemTray systemTray = null;
 
-
     public ProgTray(ProgData progData) {
         this.progData = progData;
         propTray.addListener((observableValue, aBoolean, t1) -> {
@@ -48,8 +48,8 @@ public class ProgTray {
         });
         if (propTray.get()) {
             setTray();
-        } else {
-            removeTray();
+//        } else {
+//            removeTray();
         }
     }
 
@@ -60,14 +60,36 @@ public class ProgTray {
         }
     }
 
-    public void setTray() {
+    private void setTray() {
         if (!SystemTray.isSupported()) {
             return;
         }
 
         systemTray = SystemTray.getSystemTray();
-        PopupMenu popup = new PopupMenu();
+        String resource = "/de/p2tools/p2radio/res/P2_24.png";
+        URL res = getClass().getResource(resource);
+        Image image = Toolkit.getDefaultToolkit().getImage(res);
 
+        TrayIcon trayicon = new TrayIcon(image, "P2Radio");
+        addMenu(trayicon);
+        trayicon.setImageAutoSize(true);
+        trayicon.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    maxMin();
+                }
+            }
+        });
+
+        try {
+            systemTray.add(trayicon);
+        } catch (AWTException exception) {
+            PLog.errorLog(945120364, exception.getMessage());
+        }
+    }
+
+    private void addMenu(TrayIcon trayicon) {
         java.awt.MenuItem miMaxMin = new java.awt.MenuItem("Programm maximieren/minimieren");
         java.awt.MenuItem miStop = new java.awt.MenuItem("alle laufenden Sender stoppen");
         java.awt.MenuItem miInfo = new java.awt.MenuItem("Sender-Info-Dialog öffnen");
@@ -91,8 +113,7 @@ public class ProgTray {
         }));
         miTray.addActionListener(e -> Platform.runLater(() -> {
             //vor dem Ausschalten des Tray GUI anzeigen!!
-            max();
-            ProgConfig.SYSTEM_TRAY.setValue(false);
+            closeTray();
         }));
 
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(progData)));
@@ -106,65 +127,56 @@ public class ProgTray {
             ProgQuitFactory.quit(stage, true);
         }));
 
-        popup.add(miMaxMin);
-        popup.add(miStop);
-        popup.add(miInfo);
-        popup.add(miConfig);
-        popup.add(miTray);
+        PopupMenu popupMenu = new PopupMenu();
+        popupMenu.add(miMaxMin);
+        popupMenu.add(miStop);
+        popupMenu.add(miInfo);
+        popupMenu.add(miConfig);
+        popupMenu.add(miTray);
 
-        popup.addSeparator();
-        popup.add(miAbout);
-        popup.addSeparator();
-        popup.add(miQuit);
+        popupMenu.addSeparator();
+        popupMenu.add(miAbout);
+        popupMenu.addSeparator();
+        popupMenu.add(miQuit);
 
-        String resource = "/de/p2tools/p2radio/res/P2_24.png";
-        URL res = getClass().getResource(resource);
-        Image image = Toolkit.getDefaultToolkit().getImage(res);
-
-        TrayIcon trayicon = new TrayIcon(image, "P2Radio", popup);
-        trayicon.setImageAutoSize(true);
-//        trayicon.setToolTip(null);
-//        trayicon.setToolTip("tooltip");
-        trayicon.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    maxMin();
-                }
-            }
-        });
-
-        try {
-            systemTray.add(trayicon);
-        } catch (AWTException exception) {
-            PLog.errorLog(945120364, exception.getMessage());
-        }
+        trayicon.setPopupMenu(popupMenu);
     }
 
-    private void max() {
-        if (progData.smallRadioGuiController != null &&
-                !progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
-            Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
-
-        } else if (!progData.primaryStage.isShowing()) {
-            Platform.runLater(() -> progData.primaryStage.show());
+    private void closeTray() {
+        if (progData.smallRadioGuiController != null) {
+            PGuiSize.showSave(progData.smallRadioGuiController.getSmallRadioGuiPack().getStage());
+        } else {
+            PGuiSize.showSave(progData.primaryStage);
         }
+
+//        if (progData.smallRadioGuiController != null &&
+//                !progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
+//            Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().show());
+//
+//        } else if (!progData.primaryStage.isShowing()) {
+//            Platform.runLater(() -> progData.primaryStage.show());
+//        }
+        ProgConfig.SYSTEM_TRAY.setValue(false);
     }
 
     private void maxMin() {
         if (progData.smallRadioGuiController != null) {
             //dann den SmallRadio
             if (progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().isShowing()) {
-                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().closeStage());
+                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().close());
+
             } else {
-                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().showStage());
+                PGuiSize.showSave(progData.smallRadioGuiController.getSmallRadioGuiPack().getStage());
+//                Platform.runLater(() -> progData.smallRadioGuiController.getSmallRadioGuiPack().getStage().show());
             }
 
         } else {
             if (progData.primaryStage.isShowing()) {
                 Platform.runLater(() -> progData.primaryStage.close());
+
             } else {
-                Platform.runLater(() -> progData.primaryStage.show());
+                PGuiSize.showSave(progData.primaryStage);
+//                Platform.runLater(() -> progData.primaryStage.show());
             }
         }
     }

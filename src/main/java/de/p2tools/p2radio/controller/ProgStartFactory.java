@@ -142,11 +142,6 @@ public class ProgStartFactory {
     private static void runUpdateCheck(ProgData progData, boolean showAlways) {
         //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version, ..
         ProgConfig.SYSTEM_UPDATE_DATE.setValue(PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
-
-        Thread th = new Thread(() -> {
-            new SearchProgramUpdate(progData).searchNewProgramVersion(showAlways);
-        });
-        th.setName("checkProgUpdate");
-        th.start();
+        new SearchProgramUpdate(progData).searchNewProgramVersion(showAlways);
     }
 }

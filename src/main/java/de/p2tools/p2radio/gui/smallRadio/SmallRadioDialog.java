@@ -156,13 +156,13 @@ public class SmallRadioDialog {
         return hBoxBottom;
     }
 
-    public void showStage() {
-        stage.show();
-    }
-
-    public void closeStage() {
-        stage.close();
-    }
+//    public void showStage() {
+//        stage.show();
+//    }
+//
+//    public void closeStage() {
+//        stage.close();
+//    }
 
     protected void make() {
     }

@@ -84,25 +84,24 @@ public class SearchProgramUpdate {
                 showAllways
         );
 
-        FoundAll.foundAll(foundSearchData);
-        setTitleInfo(foundSearchData.foundNewVersionProperty().getValue());
+        new Thread(() -> {
+            FoundAll.foundAll(foundSearchData);
+            setTitleInfo(foundSearchData.foundNewVersionProperty().getValue());
+        }).start();
     }
 
     private void setTitleInfo(boolean newVersion) {
-        new Thread(() -> {
-            //so bremst es nicht!!
-            title = progData.primaryStage.getTitle();
-            if (newVersion) {
-                Platform.runLater(() -> setUpdateTitle());
-            } else {
-                Platform.runLater(() -> setNoUpdateTitle());
-            }
-            try {
-                sleep(10_000);
-            } catch (Exception ignore) {
-            }
-            Platform.runLater(() -> setOrgTitle());
-        }).start();
+        title = progData.primaryStage.getTitle();
+        if (newVersion) {
+            Platform.runLater(() -> setUpdateTitle());
+        } else {
+            Platform.runLater(() -> setNoUpdateTitle());
+        }
+        try {
+            sleep(10_000);
+        } catch (Exception ignore) {
+        }
+        Platform.runLater(() -> setOrgTitle());
     }
 
     private void setUpdateTitle() {
