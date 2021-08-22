@@ -63,7 +63,7 @@ public class BlackListPaneController extends PAccordionPane {
     }
 
     public Collection<TitledPane> createPanes() {
-        Collection<TitledPane> result = new ArrayList<TitledPane>();
+        Collection<TitledPane> result = new ArrayList<>();
         makeBlack(result);
         blackPane = new BlackPane(stage, blackChanged);
         blackPane.makeBlackTable(result);

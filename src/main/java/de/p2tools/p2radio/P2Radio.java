@@ -67,6 +67,7 @@ public class P2Radio extends Application {
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }
 
+
     private void initRootLayout() {
         try {
             addThemeCss(); // damit es für die 2 schon mal stimmt
@@ -99,7 +100,6 @@ public class P2Radio extends Application {
                 e.consume();
                 ProgQuitFactory.quit(primaryStage, true);
             });
-
             if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage)) {
                 primaryStage.centerOnScreen();
             }

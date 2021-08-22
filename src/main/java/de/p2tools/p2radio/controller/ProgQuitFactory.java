@@ -58,7 +58,7 @@ public class ProgQuitFactory {
 
         // und dann Programm beenden
         Platform.runLater(() -> {
-            // dann jetzt beenden -> Thüss
+            // dann jetzt beenden -> Tschüss
             Platform.exit();
             System.exit(0);
         });

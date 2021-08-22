@@ -48,8 +48,7 @@ public class ProgLoadFactory {
             UpdateConfig.update(); // falls es ein Programmupdate gab, Configs anpassen
             PLog.sysLog("-> wurde gelesen!");
         }
-
-        initP2Lib();
+//        initP2Lib();
         return found;
     }
 
@@ -179,23 +178,21 @@ public class ProgLoadFactory {
 
     private static boolean loadProgConfig() {
         final Path path = ProgInfos.getSettingsFile();
-        PLog.sysLog("Programmstart und ProgConfig laden von: " + path.toString());
+        PLog.sysLog("Programmstart und ProgConfig laden von: " + path);
+
         ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
-
         ProgConfig.addConfigData(configFile);
-
         ReadConfigFile readConfigFile = new ReadConfigFile();
         readConfigFile.addConfigFile(configFile);
 
-        boolean ret = readConfigFile.readConfigFile();
-        return ret;
+        return readConfigFile.readConfigFile();
     }
 
-    private static void initP2Lib() {
-        P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, ProgInfos.getUserAgent(),
-                ProgData.debug, ProgData.duration);
-        P2LibInit.addCssFile(ProgConst.CSS_FILE);
-    }
+//    private static void initP2Li1b() {
+//        P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, ProgInfos.getUserAgent(),
+//                ProgData.debug, ProgData.duration);
+//        P2LibInit.addCssFile(ProgConst.CSS_FILE);
+//    }
 
     private static void initAfterLoad() {
         ProgData.getInstance().blackDataList.sortIncCounter(false);

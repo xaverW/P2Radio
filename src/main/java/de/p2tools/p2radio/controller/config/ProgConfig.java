@@ -42,7 +42,7 @@ public class ProgConfig extends PDataProgConfig {
     // ===========================================
 
 
-    // Configs der Programmversion
+    // Configs der Programmversion, nur damit sie (zur Update-Suche) im Config-File stehen
     public static StringProperty SYSTEM_PROG_VERSION = addStr("system-prog-version");
     public static StringProperty SYSTEM_PROG_BUILD_NO = addStr("system-prog-build-no");
     public static StringProperty SYSTEM_PROG_BUILD_DATE = addStr("system-prog-build-date");//z.B.: 27.07.2021
@@ -50,19 +50,10 @@ public class ProgConfig extends PDataProgConfig {
     // Configs zum Aktualisieren beim Programmupdate
     public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);
 
-    public static BooleanProperty SYSTEM_SMALL_RADIO = addBool("system-small-radio", false);
-
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
-    //    public static BooleanProperty SYSTEM_UPDATE_SEARCH = addBool("system-update-search", true); // ob beim Start nach Updates gesucht werden soll
-//    public static IntegerProperty SYSTEM_UPDATE_INFO_NR_SHOWN = addInt("system-update-info-nr-shown"); // zuletzt angezeigte Info
-//    public static IntegerProperty SYSTEM_UPDATE_VERSION_SHOWN = addInt("system-update-version-shown"); // zuletzt angezeigte Version
-//    public static BooleanProperty SYSTEM_UPDATE_BETA_SEARCH = addBool("system-update-beta-search", false);
-//    public static IntegerProperty SYSTEM_UPDATE_BETA_VERSION_SHOWN = addInt("system-update-beta-version-shown"); // zuletzt angezeigtes Update mit versionNo
-//    public static IntegerProperty SYSTEM_UPDATE_BETA_BUILD_NO_SHOWN = addInt("system-update-beta-build-nr-shown"); // zuletzt angezeigtes Update mit buildNo
     public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStr("system-update-progset-version");
 
-    //    public static BooleanProperty SYSTEM_UPDATE_SEARCH_INFOS = addBool("system-update-search-infos", true); //Infos suchen
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBool("system-update-search-act", true); //Infos und Programm
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBool("system-update-search-beta", false); //beta suchen
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBool("system-update-search-daily", false); //daily suchen
@@ -79,6 +70,7 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
 
     // Configs
+    public static BooleanProperty SYSTEM_SMALL_RADIO = addBool("system-small-radio", false);
     public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.TRUE);
     public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
@@ -201,6 +193,7 @@ public class ProgConfig extends PDataProgConfig {
     }
 
     public static void addConfigData(ConfigFile configFile) {
+        // Configs der Programmversion, nur damit sie (zur Update-Suche) im Config-File stehen
         ProgConfig.SYSTEM_PROG_VERSION.set(ProgramTools.getProgVersion());
         ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramTools.getBuild());
         ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramTools.getCompileDate());

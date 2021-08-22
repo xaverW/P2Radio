@@ -18,6 +18,7 @@ package de.p2tools.p2radio.tools.update;
 
 import de.p2tools.p2Lib.checkForActInfos.FoundAll;
 import de.p2tools.p2Lib.checkForActInfos.FoundSearchData;
+import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -59,7 +60,7 @@ public class SearchProgramUpdate {
             SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
         }
 
-        final PDate pd = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.getValue());
+        final PDate pd = new PDate(ProgramTools.getCompileDate());
         String buildDate = pd.get_yyyy_MM_dd();
 
         FoundSearchData foundSearchData = new FoundSearchData(
@@ -79,7 +80,7 @@ public class SearchProgramUpdate {
                 ProgConst.URL_WEBSITE,
                 ProgConst.URL_WEBSITE_DOWNLOAD,
                 ProgConst.PROGRAM_NAME,
-                ProgConfig.SYSTEM_PROG_VERSION.getValue(),
+                ProgramTools.getProgVersion(),
                 buildDate,
                 showAllways
         );
