@@ -21,15 +21,20 @@ import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
+import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,7 +43,7 @@ import javafx.stage.StageStyle;
 import java.nio.file.Path;
 
 
-public class SmallRadioDialog {
+public class SmallRadioDialog extends StackPane {
     private Scene scene = null;
     private Stage stage = null;
     private VBox vBoxComplete = new VBox(0);
@@ -49,10 +54,13 @@ public class SmallRadioDialog {
     private final String title;
     private final Stage ownerForCenteringDialog;
 
+    private PMaskerPane maskerPane = new PMaskerPane();
     private double stageWidth = 0;
     private double stageHeight = 0;
+    private final ProgData progData;
 
-    SmallRadioDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title) {
+    SmallRadioDialog(ProgData progData, Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title) {
+        this.progData = progData;
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.title = title;
@@ -82,8 +90,11 @@ public class SmallRadioDialog {
 
             VBox.setVgrow(vBoxCenter, Priority.ALWAYS);
             vBoxComplete.getChildren().addAll(vBoxCenter, hBoxBottom);
+            this.getChildren().addAll(vBoxComplete, maskerPane);
 
             make();
+            initMaskerPane();
+
             if (sizeConfiguration.get().isEmpty()) {
                 scene.getWindow().sizeToScene();
             }
@@ -92,6 +103,10 @@ public class SmallRadioDialog {
         } catch (final Exception exc) {
             PLog.errorLog(858484821, exc);
         }
+    }
+
+    public PMaskerPane getMaskerPane() {
+        return maskerPane;
     }
 
     private void updateCss() {
@@ -103,13 +118,24 @@ public class SmallRadioDialog {
         }
     }
 
+    private void initMaskerPane() {
+        StackPane.setAlignment(maskerPane, Pos.CENTER);
+//        progData.maskerPane = maskerPane;
+        maskerPane.setPadding(new Insets(4, 1, 1, 1));
+        maskerPane.toFront();
+        Button btnStop = maskerPane.getButton();
+        maskerPane.setButtonText("");
+        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP);
+        btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
+    }
+
     private void createNewScene() {
         int w = PGuiSize.getWidth(sizeConfiguration);
         int h = PGuiSize.getHeight(sizeConfiguration);
         if (w > 0 && h > 0) {
-            this.scene = new Scene(vBoxComplete, w, h);
+            this.scene = new Scene(this, w, h);
         } else {
-            this.scene = new Scene(vBoxComplete, 750, 300);
+            this.scene = new Scene(this, 750, 300);
         }
     }
 

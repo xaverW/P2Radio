@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.guiTools.PGuiSize;
+import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -28,13 +29,12 @@ import javafx.scene.layout.VBox;
 
 public class SmallRadioGuiPack extends SmallRadioDialog {
 
-    ProgData progData;
+    private final ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
 
-
-    public SmallRadioGuiPack() {
-        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
-        progData = ProgData.getInstance();
+    public SmallRadioGuiPack(ProgData progData) {
+        super(progData, progData.primaryStage, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
+        this.progData = progData;
 
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
         smallRadioGuiController = new SmallRadioGuiController(this);
@@ -73,6 +73,10 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
                     progData.primaryStage.show();
                 }
         );
+    }
+
+    public PMaskerPane getMaskerPane() {
+        return super.getMaskerPane();
     }
 
     protected void getSize() {

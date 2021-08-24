@@ -245,7 +245,7 @@ public class P2RadioController extends StackPane {
 
         PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
         progData.primaryStage.close();
-        new SmallRadioGuiPack();
+        new SmallRadioGuiPack(progData);
     }
 
     private void selPanelStation() {

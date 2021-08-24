@@ -106,7 +106,7 @@ public class P2Radio extends Application {
 
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && !progData.favouriteList.isEmpty()) {
                 //dann gleich mit smallRadio starten
-                Platform.runLater(() -> new SmallRadioGuiPack());
+                Platform.runLater(() -> new SmallRadioGuiPack(progData));
             } else {
                 primaryStage.show();
             }

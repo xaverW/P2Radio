@@ -33,30 +33,38 @@ public class Worker {
 //                System.out.println("EventListenerLoadRadioList--start");
                 if (event.progress == EventListenerLoadRadioList.PROGRESS_INDETERMINATE) {
                     //ist dann die gespeicherte Senderliste
-                    progData.maskerPane.setMaskerVisible(true, false);
+//                    progData.maskerPane.setMaskerVisible(true, false);
+                    PMaskerFactory.setMaskerVisible(progData, true, false);
+
                 } else {
-                    progData.maskerPane.setMaskerVisible(true, true);
+//                    progData.maskerPane.setMaskerVisible(true, true);
+                    PMaskerFactory.setMaskerVisible(progData, true, true);
                 }
-                progData.maskerPane.setMaskerProgress(event.progress, event.text);
+//                progData.maskerPane.setMaskerProgress(event.progress, event.text);
+                PMaskerFactory.setMaskerProgress(progData, event.progress, event.text);
             }
 
             @Override
             public void progress(EventLoadRadioList event) {
 //                System.out.println("--progress");
-                progData.maskerPane.setMaskerProgress(event.progress, event.text);
+//                progData.maskerPane.setMaskerProgress(event.progress, event.text);
+                PMaskerFactory.setMaskerProgress(progData, event.progress, event.text);
             }
 
             @Override
             public void loaded(EventLoadRadioList event) {
 //                System.out.println("EventListenerLoadRadioList--loaded");
-                progData.maskerPane.setMaskerVisible(true, false);
-                progData.maskerPane.setMaskerProgress(EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
+//                progData.maskerPane.setMaskerVisible(true, false);
+                PMaskerFactory.setMaskerVisible(progData, true, false);
+//                progData.maskerPane.setMaskerProgress(EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
+                PMaskerFactory.setMaskerProgress(progData, EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
             }
 
             @Override
             public void finished(EventLoadRadioList event) {
 //                System.out.println("EventListenerLoadRadioList--finished");
-                progData.maskerPane.setMaskerVisible(false);
+//                progData.maskerPane.setMaskerVisible(false);
+                PMaskerFactory.setMaskerVisible(progData, false);
             }
         });
     }

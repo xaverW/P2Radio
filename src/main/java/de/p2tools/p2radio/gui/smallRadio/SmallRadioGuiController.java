@@ -18,6 +18,7 @@ package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
+import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -73,6 +74,10 @@ public class SmallRadioGuiController extends VBox {
 
         initTable();
         initListener();
+    }
+
+    public PMaskerPane getMaskerPane() {
+        return smallRadioGuiPack.getMaskerPane();
     }
 
     public SmallRadioGuiPack getSmallRadioGuiPack() {

@@ -30,6 +30,7 @@ import de.p2tools.p2radio.controller.config.pEvent.EventNotifyLoadRadioList;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
+import de.p2tools.p2radio.controller.worker.PMaskerFactory;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -124,7 +125,12 @@ public class LoadNewStationList {
 
         // Hash mit URLs füllen
         fillHash(logList, progData.stationList);
-        progData.maskerPane.setButtonVisible(true);
+//        progData.maskerPane.setButtonVisible(true);
+        PMaskerFactory.setMaskerButtonVisible(progData, true);
+
+        if (progData.smallRadioGuiController != null) {
+            progData.smallRadioGuiController.getMaskerPane().setButtonVisible(true);
+        }
         progData.stationList.clear();
         progData.stationListBlackFiltered.clear();
         setStop(false);
