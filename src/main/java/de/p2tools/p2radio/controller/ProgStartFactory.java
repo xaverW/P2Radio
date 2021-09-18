@@ -104,7 +104,11 @@ public class ProgStartFactory {
     }
 
     private static void setTitle(ProgData progData) {
-        progData.primaryStage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion());
+        if (ProgData.debug) {
+            progData.primaryStage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion() + " / DEBUG");
+        } else {
+            progData.primaryStage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion());
+        }
     }
 
     private static void checkProgUpdate(ProgData progData) {
