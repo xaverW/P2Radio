@@ -33,7 +33,7 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
     private final SmallRadioGuiController smallRadioGuiController;
 
     public SmallRadioGuiPack(ProgData progData) {
-        super(progData, progData.primaryStage, ProgConfig.SMALL_RADIO_SIZE, "Radiobrowser");
+        super(progData, progData.primaryStage, ProgConfig.SMALL_RADIO_SIZE);
         this.progData = progData;
 
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);

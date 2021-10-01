@@ -30,6 +30,7 @@ import de.p2tools.p2radio.gui.startDialog.StartDialogController;
 import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,7 +85,7 @@ public class ProgStartFactory {
     public static void workAfterGui(ProgData progData, boolean firstProgramStart) {
         GetIcon.addWindowP2Icon(progData.primaryStage);
         startMsg();
-        setTitle(progData);
+        setTitle(progData.primaryStage);
 
         progData.startTimer();
         checkProgUpdate(progData);
@@ -103,11 +104,11 @@ public class ProgStartFactory {
         LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 
-    private static void setTitle(ProgData progData) {
+    public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            progData.primaryStage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion() + " / DEBUG");
         } else {
-            progData.primaryStage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion());
         }
     }
 

@@ -27,13 +27,13 @@ import java.util.regex.Pattern;
 
 public class FavouriteFilter {
 
-    private ObjectProperty<CollectionData> collectionNameFilter = new SimpleObjectProperty<>(null);
+    private ObjectProperty<CollectionData> collectionDataFilter = new SimpleObjectProperty<>(null);
     private BooleanProperty ownFilter = new SimpleBooleanProperty(false);
     private BooleanProperty gradeFilter = new SimpleBooleanProperty(false);
     private StringProperty genreFilter = new SimpleStringProperty("");
 
     public Predicate<Favourite> clearFilter() {
-        collectionNameFilter.setValue(null);
+        collectionDataFilter.setValue(null);
         ownFilter.set(false);
         gradeFilter.set(false);
         genreFilter.set("");
@@ -43,9 +43,9 @@ public class FavouriteFilter {
     public Predicate<Favourite> getPredicate() {
         Predicate<Favourite> predicate = favourite -> true;
 
-        if (collectionNameFilter.get() != null && !collectionNameFilter.get().getName().isEmpty() &&
-                !collectionNameFilter.get().getName().contains(CollectionList.COLLECTION_ALL)) {
-            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionNameFilter.get().getName()));
+        if (collectionDataFilter.get() != null && !collectionDataFilter.get().getName().isEmpty() &&
+                !collectionDataFilter.get().getName().contains(CollectionList.COLLECTION_ALL)) {
+            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionDataFilter.get().getName()));
         }
         if (ownFilter.get()) {
             predicate = predicate.and(favourite -> favourite.isOwn());
@@ -59,8 +59,8 @@ public class FavouriteFilter {
         return predicate;
     }
 
-    public ObjectProperty<CollectionData> collectionNameFilterProperty() {
-        return collectionNameFilter;
+    public ObjectProperty<CollectionData> collectionDataFilterProperty() {
+        return collectionDataFilter;
     }
 
     public boolean isOwnFilter() {

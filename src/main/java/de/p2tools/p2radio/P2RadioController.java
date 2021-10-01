@@ -40,6 +40,7 @@ import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiPack;
+import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -188,8 +189,11 @@ public class P2RadioController extends StackPane {
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
         miReset.setOnAction(event -> new ResetDialogController(progData));
 
+        final MenuItem miSearchUpdate = new MenuItem("Gibts ein Update?");
+        miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData, progData.primaryStage).searchNewProgramVersion(true));
+
         final Menu mHelp = new Menu("Hilfe");
-        mHelp.getItems().addAll(miUrlHelp, miLog, miReset, new SeparatorMenuItem(), miAbout);
+        mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
 
         // ProgInfoDialog
         if (ProgData.debug) {

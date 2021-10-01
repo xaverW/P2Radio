@@ -25,6 +25,7 @@ import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.ProgStartFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import javafx.beans.property.StringProperty;
@@ -51,7 +52,6 @@ public class SmallRadioDialog extends StackPane {
     private HBox hBoxBottom = new HBox(0);
 
     private final StringProperty sizeConfiguration;
-    private final String title;
     private final Stage ownerForCenteringDialog;
 
     private PMaskerPane maskerPane = new PMaskerPane();
@@ -59,11 +59,10 @@ public class SmallRadioDialog extends StackPane {
     private double stageHeight = 0;
     private final ProgData progData;
 
-    SmallRadioDialog(ProgData progData, Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title) {
+    SmallRadioDialog(ProgData progData, Stage ownerForCenteringDialog, StringProperty sizeConfiguration) {
         this.progData = progData;
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
-        this.title = title;
     }
 
 
@@ -79,8 +78,8 @@ public class SmallRadioDialog extends StackPane {
             stage.initStyle(StageStyle.DECORATED);
             stage.setResizable(true);
             stage.setScene(scene);
-            stage.setTitle(title);
             stage.initModality(Modality.APPLICATION_MODAL);
+            ProgStartFactory.setTitle(stage);
             GetIcon.addWindowP2Icon(stage);
 
             hBoxBottom.getStyleClass().add("extra-pane");

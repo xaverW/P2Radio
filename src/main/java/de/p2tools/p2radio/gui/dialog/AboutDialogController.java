@@ -32,6 +32,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -149,6 +150,9 @@ public class AboutDialogController extends PDialogExtra {
         PHyperlink hyperlinkHelp = new PHyperlink(ProgConst.URL_WEBSITE_HELP,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
 
+        PHyperlink hyperlinkDonate = new PHyperlink(ProgConst.URL_WEBSITE_DONATE,
+                ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+
         text = new Text("Website:");
         text.setFont(new Font(15));
         text.setFill(GRAY);
@@ -160,6 +164,14 @@ public class AboutDialogController extends PDialogExtra {
         text.setFill(GRAY);
         gridPane.add(text, c, ++row);
         gridPane.add(hyperlinkHelp, c + 1, row);
+
+        text = new Text("Spende:");
+        text.setFont(new Font(15));
+        text.setFill(GRAY);
+        gridPane.add(text, c, ++row);
+        gridPane.add(hyperlinkDonate, c + 1, row);
+
+        gridPane.add(new Label(""), c, ++row);
 
         text = new Text("Senderliste:");
         text.setFont(new Font(15));

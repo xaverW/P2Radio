@@ -55,6 +55,7 @@ public class ProgConst {
     public static final String URL_WEBSITE = "https://www.p2tools.de/";
     public static final String URL_WEBSITE_DOWNLOAD = "https://www.p2tools.de/p2radio/download.html";
     public static final String URL_WEBSITE_HELP = "https://www.p2tools.de/p2radio/manual/";
+    public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate.html";
 
     public static final String URL_P2_RADIO_VERSION = "https://www.p2tools.de/extra/p2radio-info.xml";
     public static final String URL_P2_RADIO_BETA_VERSION = "https://www.p2tools.de/extra/p2radio-beta-info.xml";
