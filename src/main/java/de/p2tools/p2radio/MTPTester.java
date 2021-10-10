@@ -20,7 +20,6 @@ package de.p2tools.p2radio;
 import de.p2tools.p2Lib.dialogs.ProgInfoDialog;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.tools.download.DownloadFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.starter.MTNotification;
@@ -105,13 +104,13 @@ public class MTPTester {
             btnDownload.setMaxWidth(Double.MAX_VALUE);
             btnDownload.setOnAction(a -> {
 
-                if (DownloadFactory.downloadFile(progInfoDialog.getStage(),
-                        "http://p2.localhost:8080/extra/beta/MTPlayer-8-42__2020.02.22.zip",
-                        "MTPlayer-8-42__20200222.zip")) {
-                    System.out.println("Download OK");
-                } else {
-                    System.out.println("Download NOT OK");
-                }
+//                if (DownloadFactory.downloadFile(progInfoDialog.getStage(),
+//                        "http://p2.localhost:8080/extra/beta/MTPlayer-8-42__2020.02.22.zip",
+//                        "MTPlayer-8-42__20200222.zip")) {
+//                    System.out.println("Download OK");
+//                } else {
+//                    System.out.println("Download NOT OK");
+//                }
             });
 
             int row = 0;

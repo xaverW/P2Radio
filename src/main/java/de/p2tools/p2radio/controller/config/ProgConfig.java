@@ -47,6 +47,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_PROG_VERSION = addStr("system-prog-version");
     public static StringProperty SYSTEM_PROG_BUILD_NO = addStr("system-prog-build-no");
     public static StringProperty SYSTEM_PROG_BUILD_DATE = addStr("system-prog-build-date");//z.B.: 27.07.2021
+    public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStr("system-download-dir-new-version", "");
 
     // Configs zum Aktualisieren beim Programmupdate
     public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);

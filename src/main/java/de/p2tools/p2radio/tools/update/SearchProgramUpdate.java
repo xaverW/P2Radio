@@ -83,6 +83,7 @@ public class SearchProgramUpdate {
                 ProgramTools.getProgVersion(),
                 ProgramTools.getBuild(),
                 buildDate,
+                ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAllways
         );
 
