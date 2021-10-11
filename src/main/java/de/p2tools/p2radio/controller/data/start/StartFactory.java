@@ -25,6 +25,8 @@ import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
+import java.util.Random;
+
 public class StartFactory {
     ProgData progData;
 
@@ -69,10 +71,19 @@ public class StartFactory {
         progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopLastPlayed(lastPlayed));
     }
 
+    public Station playRandomStation() {
+        Random r = new Random();
+        Station station = progData.stationList.get(r.nextInt(progData.stationList.size()));
+        if (station != null) {
+            playStation(station);
+        }
+        return station;
+    }
 
     public void playStation(Station station) {
         playStation(station, null);
     }
+
 
     public void playStation(Station station, SetData data) {
         SetData setData = checkSetData(data);

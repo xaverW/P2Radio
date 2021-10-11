@@ -39,6 +39,7 @@ import javafx.scene.layout.TilePane;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 
 public class StationGuiController extends AnchorPane {
 
@@ -157,6 +158,17 @@ public class StationGuiController extends AnchorPane {
     public void saveStation() {
         final ArrayList<Station> list = getSelList();
         StationTools.saveStation(list);
+    }
+
+    public void playRandomStation() {
+        Random r = new Random();
+        Station station = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
+        tableView.getSelectionModel().clearSelection();
+        if (station != null) {
+            progData.startFactory.playStation(station);
+            tableView.getSelectionModel().select(station);
+            tableView.scrollTo(station);
+        }
     }
 
     public void saveTable() {

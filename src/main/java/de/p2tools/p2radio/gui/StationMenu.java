@@ -52,11 +52,13 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btPlay = new ToolBarButton(vBox,
-                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
+                "Markierten Sender abspielen", "Markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
+                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
         final ToolBarButton btSave = new ToolBarButton(vBox,
-                "markierte Sender als Favoriten speichern", "markierte Sender als Favoriten speichern", new ProgIcons().ICON_TOOLBAR_STATION_REC);
+                "Markierte Sender als Favoriten speichern", "Markierte Sender als Favoriten speichern", new ProgIcons().ICON_TOOLBAR_STATION_REC);
+        final ToolBarButton btRandom = new ToolBarButton(vBox,
+                "Einen Sender per Zufall starten", "Einen Sender per Zufall starten", new ProgIcons().ICON_TOOLBAR_STATION_RANDOM);
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_STATION_INFO);
 
@@ -68,6 +70,7 @@ public class StationMenu {
         btPlay.setOnAction(a -> progData.stationGuiController.playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
         btSave.setOnAction(a -> progData.stationGuiController.saveStation());
+        btRandom.setOnAction(a -> progData.stationGuiController.playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 

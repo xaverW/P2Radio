@@ -66,6 +66,7 @@ public class ProgIcons {
     public final ImageView ICON_TOOLBAR_STATION_START = GetIcon.getImageView("toolbar-station-start.png", 32, 32);
     public final ImageView ICON_TOOLBAR_STATION_STOP = GetIcon.getImageView("toolbar-station-stop.png", 32, 32);
     public final ImageView ICON_TOOLBAR_STATION_REC = GetIcon.getImageView("toolbar-station-rec.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_STATION_RANDOM = GetIcon.getImageView("toolbar-station-random.png", 32, 32);
     public final ImageView ICON_TOOLBAR_STATION_INFO = GetIcon.getImageView("toolbar-info.png", 32, 32);
 
 }
