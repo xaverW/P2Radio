@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -33,6 +34,7 @@ public class SmallRadioBottom {
 
     ProgData progData;
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
+    private final Button btnClear = new Button("");
     private final Button btnRandom = new Button("");
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
@@ -83,18 +85,28 @@ public class SmallRadioBottom {
         HBox.setHgrow(hBoxSpace2, Priority.ALWAYS);
 
 
-        HBox hBoxButton = new HBox(5);
-        Separator sp = new Separator(Orientation.VERTICAL);
-        sp.setPadding(new Insets(0, 10, 0, 10));
+        HBox hBoxCollect = new HBox(5);
+        hBoxCollect.setAlignment(Pos.CENTER_LEFT);
+        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), cboCollections, btnClear);
 
+        HBox hBoxButton = new HBox(5);
+        hBoxButton.setAlignment(Pos.CENTER_RIGHT);
+        Separator sp = new Separator(Orientation.VERTICAL);
+        sp.setPadding(new Insets(0, 5, 0, 5));
         hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnStop);
 
         smallRadioGuiPack.getHBoxBottom().getChildren().addAll(btnRadio,
-                hBoxSpace2, new Label("Sammlung:"), cboCollections,
-                hBoxSpace1, hBoxButton);
+                hBoxSpace2, hBoxCollect, hBoxSpace1, hBoxButton);
     }
 
     private void initStartButton() {
+        btnClear.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
+        btnClear.getStyleClass().add("btnSmallRadio");
+        btnClear.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
+        btnClear.setOnAction(event -> {
+            cboCollections.getSelectionModel().select(0);
+        });
+
         btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallRadio");
         btnRandom.setGraphic(new ProgIcons().ICON_BUTTON_RANDOM);
