@@ -23,10 +23,9 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -34,6 +33,7 @@ public class SmallRadioBottom {
 
     ProgData progData;
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
+    private final Button btnRandom = new Button("");
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
     private final Button btnStart = new Button("");
@@ -84,7 +84,10 @@ public class SmallRadioBottom {
 
 
         HBox hBoxButton = new HBox(5);
-        hBoxButton.getChildren().addAll(btnPrev, btnNext, btnStart, btnStop);
+        Separator sp = new Separator(Orientation.VERTICAL);
+        sp.setPadding(new Insets(0, 10, 0, 10));
+
+        hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnStop);
 
         smallRadioGuiPack.getHBoxBottom().getChildren().addAll(btnRadio,
                 hBoxSpace2, new Label("Sammlung:"), cboCollections,
@@ -92,6 +95,13 @@ public class SmallRadioBottom {
     }
 
     private void initStartButton() {
+        btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
+        btnRandom.getStyleClass().add("btnSmallRadio");
+        btnRandom.setGraphic(new ProgIcons().ICON_BUTTON_RANDOM);
+        btnRandom.setOnAction(event -> {
+            smallRadioGuiController.playRandomStation();
+        });
+
         btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
         btnPrev.getStyleClass().add("btnSmallRadio");
         btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);

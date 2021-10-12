@@ -44,6 +44,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 
 public class SmallRadioGuiController extends VBox {
 
@@ -257,6 +258,17 @@ public class SmallRadioGuiController extends VBox {
 
     public void setPreviousStation() {
         PTableFactory.selectPreviousRow(tableView);
+    }
+
+    public void playRandomStation() {
+        Random r = new Random();
+        Favourite favourite = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
+        tableView.getSelectionModel().clearSelection();
+        if (favourite != null) {
+            progData.startFactory.playFavourite(favourite);
+            tableView.getSelectionModel().select(favourite);
+            tableView.scrollTo(favourite);
+        }
     }
 
     private void initListener() {
