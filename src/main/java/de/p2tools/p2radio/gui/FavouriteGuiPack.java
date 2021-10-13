@@ -33,12 +33,13 @@ public class FavouriteGuiPack {
     static DoubleProperty doubleProperty;//sonst geht die Ref verloren
     static BooleanProperty boolDivOn;
     private boolean bound = false;
+    private FavouriteFilterController favouriteFilterController;
 
     public FavouriteGuiPack() {
         progData = ProgData.getInstance();
         this.doubleProperty = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER;
         this.boolDivOn = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON;
-        progData.favouriteFilterController = new FavouriteFilterController();
+        favouriteFilterController = new FavouriteFilterController();
         progData.favouriteGuiController = new FavouriteGuiController();
     }
 
@@ -49,7 +50,7 @@ public class FavouriteGuiPack {
     private void setSplit() {
         if (boolDivOn.getValue()) {
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(progData.favouriteFilterController, progData.favouriteGuiController);
+            splitPane.getItems().addAll(favouriteFilterController, progData.favouriteGuiController);
             bound = true;
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
         } else {
@@ -66,7 +67,7 @@ public class FavouriteGuiPack {
         menuController.setId("favorite-menu-pane");
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(progData.favouriteFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(favouriteFilterController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);

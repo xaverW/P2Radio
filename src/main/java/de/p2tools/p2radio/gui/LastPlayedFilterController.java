@@ -20,7 +20,6 @@ import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
@@ -38,13 +37,13 @@ public class LastPlayedFilterController extends PClosePaneV {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final Button btnReset = new Button();
 
-    private LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
-    private FavouriteFilter favouriteFilter = new FavouriteFilter();
+    private LastPlayedFilter lastPlayedFilter;
 
     public LastPlayedFilterController() {
         super(ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON, true);
         progData = ProgData.getInstance();
-
+        lastPlayedFilter = progData.lastPlayedFilter;
+        
         vBoxFilter = getVBoxAll();
         vBoxFilter.setPadding(new Insets(10));
         vBoxFilter.setSpacing(10);

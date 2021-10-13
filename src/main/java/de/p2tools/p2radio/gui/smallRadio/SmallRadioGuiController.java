@@ -53,8 +53,6 @@ public class SmallRadioGuiController extends VBox {
 
     private final ProgData progData;
     private boolean bound = false;
-    private final FilteredList<Favourite> filteredFavourites;
-    private final SortedList<Favourite> sortedFavourites;
     private FavouriteGuiInfoController favouriteGuiInfoController;
     private SmallRadioGuiPack smallRadioGuiPack;
 
@@ -70,8 +68,6 @@ public class SmallRadioGuiController extends VBox {
         this.getChildren().addAll(scrollPane);
 
         favouriteGuiInfoController = new FavouriteGuiInfoController();
-        filteredFavourites = progData.filteredFavourites;
-        sortedFavourites = new SortedList<>(filteredFavourites);
 
         initTable();
         initListener();
@@ -104,10 +100,6 @@ public class SmallRadioGuiController extends VBox {
             return;
         }
         PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
-    }
-
-    public FilteredList<Favourite> getFilteredList() {
-        return filteredFavourites;
     }
 
     private void setSelectedFavourite() {
@@ -286,6 +278,9 @@ public class SmallRadioGuiController extends VBox {
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         new Table().setTable(tableView, Table.TABLE.SMALL_RADIO);
+
+        FilteredList<Favourite> filteredFavourites = smallRadioGuiPack.getFiltertFavourite();
+        SortedList<Favourite> sortedFavourites = new SortedList<>(filteredFavourites);
         tableView.setItems(sortedFavourites);
         sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
 

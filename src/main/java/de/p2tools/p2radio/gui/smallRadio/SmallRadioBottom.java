@@ -45,7 +45,7 @@ public class SmallRadioBottom {
     private final SmallRadioGuiPack smallRadioGuiPack;
     private final SmallRadioGuiController smallRadioGuiController;
     private FavouriteFilter favouriteFilter = new FavouriteFilter();
-    StringProperty selectedCollection = ProgConfig.SMALL_RADIO_SELECTED_COLLECTION;
+    StringProperty selectedCollectionName = ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME;
 
 
     public SmallRadioBottom(SmallRadioGuiPack smallRadioGuiPack, SmallRadioGuiController smallRadioGuiController) {
@@ -67,16 +67,21 @@ public class SmallRadioBottom {
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
         cboCollections.setItems(progData.collectionList);
-        cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionDataFilterProperty());
-        cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-            selectedCollection.setValue(favouriteFilter.collectionDataFilterProperty().getValue().getName());
-            PDebugLog.sysLog(selectedCollection.getValueSafe());
 
+        CollectionData collectionData = progData.collectionList.getByName(selectedCollectionName.getValueSafe());
+        favouriteFilter.setCollectionData(collectionData);
+        smallRadioGuiPack.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
+
+        cboCollections.getSelectionModel().select(collectionData);
+        cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
+            if (n == null) {
+                return;
+            }
+            selectedCollectionName.setValue(n.getName());
+            favouriteFilter.setCollectionData(n);
+            smallRadioGuiPack.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
+            PDebugLog.sysLog(selectedCollectionName.getValueSafe());
         });
-        CollectionData collectionData = new CollectionData(selectedCollection.getValueSafe());
-        favouriteFilter.collectionDataFilterProperty().setValue(collectionData);
-//        progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
 
 
         HBox hBoxSpace1 = new HBox();

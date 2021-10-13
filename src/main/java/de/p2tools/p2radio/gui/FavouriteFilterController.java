@@ -22,8 +22,10 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
+import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -42,11 +44,14 @@ public class FavouriteFilterController extends PClosePaneV {
     private final PToggleSwitch tglGrade = new PToggleSwitch("positiv bewertete Sender");
     private final Button btnReset = new Button();
 
-    private FavouriteFilter favouriteFilter = new FavouriteFilter();
+    private final FavouriteFilter favouriteFilter;
+    private final FilteredList<Favourite> filteredFavourites;
 
     public FavouriteFilterController() {
         super(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON, true);
         progData = ProgData.getInstance();
+        favouriteFilter = progData.favouriteFilter;
+        filteredFavourites = progData.filteredFavourites;
 
         vBoxFilter = getVBoxAll();
         vBoxFilter.setPadding(new Insets(10));
@@ -79,24 +84,26 @@ public class FavouriteFilterController extends PClosePaneV {
         initFilter();
     }
 
-    //    public FavouriteFilter getFavouriteFilter() {
-//        return favouriteFilter;
+//    public FilteredList<Favourite> getFilteredFavourites() {
+//        return filteredFavourites;
 //    }
 //
-//    public void isShown() {
-//        progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+//    public void resetFilter() {
+//        favouriteFilter.clearFilter();
+//        filteredFavourites.setPredicate(favouriteFilter.getPredicate());
 //    }
-//
-    public void resetFilter() {
-        favouriteFilter.clearFilter();
-        progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-    }
 
     private void initFilter() {
         cboCollections.setItems(progData.collectionList);
-        cboCollections.valueProperty().bindBidirectional(favouriteFilter.collectionDataFilterProperty());
+        cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
+        filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            if (n == null) {
+                return;
+            }
+            favouriteFilter.setCollectionData(n);
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
         });
 
         FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
@@ -107,7 +114,7 @@ public class FavouriteFilterController extends PClosePaneV {
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
                 fN.checkPattern();
-                progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+                filteredFavourites.setPredicate(favouriteFilter.getPredicate());
             }
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
@@ -115,19 +122,21 @@ public class FavouriteFilterController extends PClosePaneV {
         tglOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
         tglOwn.selectedProperty().bindBidirectional(favouriteFilter.ownFilterProperty());
         tglOwn.selectedProperty().addListener((u, o, n) -> {
-            progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
         });
 
         tglGrade.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
         tglGrade.selectedProperty().bindBidirectional(favouriteFilter.gradeFilterProperty());
         tglGrade.selectedProperty().addListener((u, o, n) -> {
-            progData.filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
         });
 
         btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
         btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnReset.setOnAction(event -> {
-            progData.filteredFavourites.setPredicate(favouriteFilter.clearFilter());
+            favouriteFilter.clearFilter();
+            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
         });
     }
 }

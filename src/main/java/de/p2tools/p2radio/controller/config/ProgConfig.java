@@ -122,7 +122,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");
     public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "false,false,true,true,true,false,true,false,false,false,true,false,false,false,false,false");
     public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "Nr,SenderNr,Sender,Sammlung,Bewertung,Starts,Genre,Codec,Bitrate,Eigener,,Land,Land,Sprache,Datum,URL");
-    public static StringProperty SMALL_RADIO_SELECTED_COLLECTION = addStr("small-radio-selected-collection", CollectionList.COLLECTION_ALL);
+    public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStr("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
 
     // Gui Favorite
     public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDouble("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
@@ -209,6 +209,8 @@ public class ProgConfig extends PDataProgConfig {
         configFile.addConfigs(ProgData.getInstance().storedFilters.getActFilterSettings());
         configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
         configFile.addConfigs(ProgData.getInstance().blackDataList);
+        configFile.addConfigs(ProgData.getInstance().favouriteFilter);
+        configFile.addConfigs(ProgData.getInstance().lastPlayedFilter);
     }
 
     public static void getConfigLog(ArrayList<String> list) {

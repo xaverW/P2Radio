@@ -31,7 +31,6 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
-import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -53,7 +52,6 @@ public class FavouriteGuiController extends AnchorPane {
 
     private final ProgData progData;
     private boolean bound = false;
-    private final FilteredList<Favourite> filteredFavourites;
     private final SortedList<Favourite> sortedFavourites;
     private FavouriteGuiInfoController favouriteGuiInfoController;
 
@@ -79,9 +77,7 @@ public class FavouriteGuiController extends AnchorPane {
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         favouriteGuiInfoController = new FavouriteGuiInfoController();
-        filteredFavourites = progData.filteredFavourites;
-
-        sortedFavourites = new SortedList<>(filteredFavourites);
+        sortedFavourites = new SortedList<>(progData.filteredFavourites);
 
         setInfoPane();
         initTable();
@@ -107,10 +103,6 @@ public class FavouriteGuiController extends AnchorPane {
             return;
         }
         PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
-    }
-
-    public FilteredList<Favourite> getFilteredList() {
-        return filteredFavourites;
     }
 
     private void setSelectedFavourite() {

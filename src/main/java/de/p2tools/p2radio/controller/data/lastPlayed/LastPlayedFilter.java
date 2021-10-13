@@ -17,19 +17,36 @@
 
 package de.p2tools.p2radio.controller.data.lastPlayed;
 
+import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-public class LastPlayedFilter {
+public class LastPlayedFilter extends LastPlayedFilterXml {
 
     private BooleanProperty gradeFilter = new SimpleBooleanProperty();
     private StringProperty genreFilter = new SimpleStringProperty();
+
+    @Override
+    public Config[] getConfigsArr() {
+        ArrayList<Config> list = new ArrayList<>();
+        list.add(new ConfigBoolPropExtra("Grade", COLUMN_NAMES[LAST_PLAYED_FILTER_GRADE], gradeFilter));
+        list.add(new ConfigStringPropExtra("Genre", COLUMN_NAMES[LAST_PLAYED_FILTER_GENRE], genreFilter));
+        return list.toArray(new Config[]{});
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
 
     public Predicate<LastPlayed> clearFilter() {
         gradeFilter.set(false);

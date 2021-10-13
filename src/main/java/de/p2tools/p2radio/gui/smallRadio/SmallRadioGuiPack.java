@@ -21,7 +21,9 @@ import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import javafx.application.Platform;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -31,10 +33,13 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
 
     private final ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
+    private FilteredList<Favourite> filteredFavourites;
+
 
     public SmallRadioGuiPack(ProgData progData) {
         super(progData, progData.primaryStage, ProgConfig.SMALL_RADIO_SIZE);
         this.progData = progData;
+        filteredFavourites = new FilteredList<>(progData.favouriteList, p -> true);
 
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
         smallRadioGuiController = new SmallRadioGuiController(this);
@@ -60,6 +65,10 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
         });
     }
 
+    public FilteredList<Favourite> getFiltertFavourite() {
+        return filteredFavourites;
+    }
+
     public void changeGui() {
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
         progData.smallRadioGuiController = null;
@@ -82,6 +91,5 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
     protected void getSize() {
         smallRadioGuiController.saveTable();
         PGuiSize.getSizeScene(ProgConfig.SMALL_RADIO_SIZE, getStage());
-        progData.favouriteFilterController.resetFilter();
     }
 }

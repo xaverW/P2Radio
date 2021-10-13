@@ -70,6 +70,18 @@ public class CollectionList extends SimpleListProperty<CollectionData> implement
         return super.add(b);
     }
 
+    public CollectionData getByName(String name) {
+        if (name == null || name.isEmpty()) {
+            return get(0);
+        }
+        for (CollectionData cd : this) {
+            if (cd.getName().equals(name)) {
+                return cd;
+            }
+        }
+        return get(0);
+    }
+
     public boolean searchName(String name) {
         if (name == null || name.isEmpty()) {
             return true;

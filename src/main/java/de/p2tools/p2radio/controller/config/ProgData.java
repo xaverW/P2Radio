@@ -27,8 +27,10 @@ import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationList;
@@ -36,7 +38,10 @@ import de.p2tools.p2radio.controller.getNewStationList.LoadNewStationList;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
-import de.p2tools.p2radio.gui.*;
+import de.p2tools.p2radio.gui.FavouriteGuiController;
+import de.p2tools.p2radio.gui.LastPlayedGuiController;
+import de.p2tools.p2radio.gui.StationFilterControllerClearFilter;
+import de.p2tools.p2radio.gui.StationGuiController;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
 import de.p2tools.p2radio.gui.tools.Listener;
@@ -77,7 +82,7 @@ public class ProgData {
     public StationGuiController stationGuiController = null; // Tab mit den Sender
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
     public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
-    public FavouriteFilterController favouriteFilterController = null;
+//    public FavouriteFilterController favouriteFilterController = null;
 
     public LastPlayedGuiController lastPlayedGuiController = null; // Tab mit den Favoriten
     public StationInfoDialogController stationInfoDialogController = null;
@@ -97,9 +102,11 @@ public class ProgData {
 
     public FavouriteList favouriteList; //Sender die als "Favoriten" geladen werden sollen
     public FilteredList<Favourite> filteredFavourites;
+    public FavouriteFilter favouriteFilter;
 
     public LastPlayedList lastPlayedList; //Sender die zuletzt gespielt wurden
     public FilteredList<LastPlayed> filteredLastPlayedList;
+    public LastPlayedFilter lastPlayedFilter;
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
@@ -119,8 +126,11 @@ public class ProgData {
 
         favouriteList = new FavouriteList(this);
         filteredFavourites = new FilteredList<>(favouriteList, p -> true);
+        favouriteFilter = new FavouriteFilter();
+
         lastPlayedList = new LastPlayedList(this);
         filteredLastPlayedList = new FilteredList<>(lastPlayedList, p -> true);
+        lastPlayedFilter = new LastPlayedFilter();
 
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);
