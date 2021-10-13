@@ -23,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class FilterWorker {
 
@@ -77,6 +78,9 @@ public class FilterWorker {
         // alle Sender laden
         allCodecsList.setAll(Arrays.asList(progData.stationList.codecs));
         allCountryList.setAll(Arrays.asList(progData.stationList.countries));
+        Collections.sort(allCodecsList);
+        Collections.sort(allCountryList);
+
     }
 
     public ObservableList<String> getAllCodecsList() {
