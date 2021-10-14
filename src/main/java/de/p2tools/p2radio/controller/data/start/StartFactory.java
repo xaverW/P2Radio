@@ -54,16 +54,16 @@ public class StartFactory {
     }
 
     public void stopAll() {
-        stopAllStation();
-        stopAllFavourite();
+        stopAllStations();
+        stopAllFavourites();
         stopAllLastPlayed();
     }
 
-    public void stopAllStation() {
+    public void stopAllStations() {
         progData.stationList.stream().forEach(station -> progData.startFactory.stopStation(station));
     }
 
-    public void stopAllFavourite() {
+    public void stopAllFavourites() {
         progData.favouriteList.stream().forEach(favourite -> progData.startFactory.stopFavourite(favourite));
     }
 
