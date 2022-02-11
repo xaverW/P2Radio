@@ -356,9 +356,9 @@ public class TableFavourite {
         }
 
         if (playing) {
-            currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundSel());
+            currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundAndSel());
         } else if (error) {
-            currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundSel());
+            currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundAndSel());
         } else {
             currentRow.setStyle("");
         }

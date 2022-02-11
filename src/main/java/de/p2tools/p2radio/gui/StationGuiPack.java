@@ -22,6 +22,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
@@ -64,7 +65,7 @@ public class StationGuiPack {
         }
     }
 
-    public SplitPane pack() {
+    public Pane pack() {
         // Menü
         final MenuController menuController = new MenuController(MenuController.StartupMode.STATION);
         menuController.setId("station-menu-pane");
@@ -80,6 +81,6 @@ public class StationGuiPack {
 
         boolDivOn.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
-        return new SplitPane(hBox);
+        return hBox;
     }
 }

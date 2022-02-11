@@ -294,11 +294,11 @@ public class TableLastPlayed {
         }
 
         if (playing) {
-            currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundSel());
+            currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundAndSel());
         } else if (error) {
-            currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundSel());
+            currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundAndSel());
         } else if (fav) {
-            currentRow.setStyle(ProgColorList.STATION_FAVOURITE.getCssBackgroundSel());
+            currentRow.setStyle(ProgColorList.STATION_FAVOURITE.getCssBackgroundAndSel());
         } else {
             currentRow.setStyle("");
         }

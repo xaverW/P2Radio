@@ -22,6 +22,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
@@ -66,7 +67,7 @@ public class LastPlayedGuiPack {
         }
     }
 
-    public SplitPane pack() {
+    public Pane pack() {
         final MenuController menuController = new MenuController(MenuController.StartupMode.LAST_PLAYED);
         menuController.setId("last-played-menu-pane");
 
@@ -81,6 +82,6 @@ public class LastPlayedGuiPack {
 
         boolDivOn.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
-        return new SplitPane(hBox);
+        return hBox;
     }
 }

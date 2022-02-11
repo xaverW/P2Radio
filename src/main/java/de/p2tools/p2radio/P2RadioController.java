@@ -62,9 +62,9 @@ public class P2RadioController extends StackPane {
     private PMaskerPane maskerPane = new PMaskerPane();
     private StatusBarController statusBarController;
 
-    private SplitPane splitPaneStation;
-    private SplitPane splitPaneFavourite;
-    private SplitPane splitPaneLastPlayed;
+    private Pane paneStation;
+    private Pane paneFavourite;
+    private Pane paneLastPlayed;
 
     private final ProgData progData;
 
@@ -93,10 +93,10 @@ public class P2RadioController extends StackPane {
             hBoxTop.getChildren().addAll(btnSmallRadio, tilePaneStationFavourite, menuButton);
 
             // Center
-            splitPaneStation = stationGuiPack.pack();
-            splitPaneFavourite = favouriteGuiPack.pack();
-            splitPaneLastPlayed = lastPlayedGuiPack.pack();
-            stackPaneCont.getChildren().addAll(splitPaneStation, splitPaneFavourite, splitPaneLastPlayed);
+            paneStation = stationGuiPack.pack();
+            paneFavourite = favouriteGuiPack.pack();
+            paneLastPlayed = lastPlayedGuiPack.pack();
+            stackPaneCont.getChildren().addAll(paneStation, paneFavourite, paneLastPlayed);
 
             // Statusbar
             statusBarController = new StatusBarController(progData);
@@ -222,13 +222,13 @@ public class P2RadioController extends StackPane {
                 }
 
                 Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                if (node != null && node == splitPaneStation) {
+                if (node != null && node == paneStation) {
                     progData.stationGuiController.isShown();
                 }
-                if (node != null && node == splitPaneFavourite) {
+                if (node != null && node == paneFavourite) {
                     progData.favouriteGuiController.isShown();
                 }
-                if (node != null && node == splitPaneLastPlayed) {
+                if (node != null && node == paneLastPlayed) {
                     progData.lastPlayedGuiController.isShown();
                 }
             }
@@ -257,7 +257,7 @@ public class P2RadioController extends StackPane {
         if (maskerPane.isVisible()) {
             return;
         }
-        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneStation)) {
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneStation)) {
             // dann ist der 2. Klick
             stationGuiPack.closeSplit();
             return;
@@ -267,7 +267,7 @@ public class P2RadioController extends StackPane {
 
     private void initPanelStation() {
         setButtonStyle(btnStation);
-        splitPaneStation.toFront();
+        paneStation.toFront();
         progData.stationGuiController.isShown();
         statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.STATION);
     }
@@ -277,7 +277,7 @@ public class P2RadioController extends StackPane {
         if (maskerPane.isVisible()) {
             return;
         }
-        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneFavourite)) {
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneFavourite)) {
             // dann ist der 2. Klick
             favouriteGuiPack.closeSplit();
             return;
@@ -287,7 +287,7 @@ public class P2RadioController extends StackPane {
 
     private void initPanelFavourite() {
         setButtonStyle(btnFavourite);
-        splitPaneFavourite.toFront();
+        paneFavourite.toFront();
         progData.favouriteGuiController.isShown();
         statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.FAVOURITE);
     }
@@ -297,7 +297,7 @@ public class P2RadioController extends StackPane {
         if (maskerPane.isVisible()) {
             return;
         }
-        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneLastPlayed)) {
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneLastPlayed)) {
             // dann ist der 2. Klick
             lastPlayedGuiPack.closeSplit();
             return;
@@ -307,7 +307,7 @@ public class P2RadioController extends StackPane {
 
     private void initPanelLastPlayed() {
         setButtonStyle(btnLastPlayed);
-        splitPaneLastPlayed.toFront();
+        paneLastPlayed.toFront();
         progData.lastPlayedGuiController.isShown();
         statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.LAST_PLAYED);
     }
@@ -315,7 +315,7 @@ public class P2RadioController extends StackPane {
     private void infoPane() {
         btnStation.setOnMouseClicked(mouseEvent -> {
             if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneStation)) {
+                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneStation)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -324,7 +324,7 @@ public class P2RadioController extends StackPane {
         });
         btnFavourite.setOnMouseClicked(mouseEvent -> {
             if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneFavourite)) {
+                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneFavourite)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -333,7 +333,7 @@ public class P2RadioController extends StackPane {
         });
         btnLastPlayed.setOnMouseClicked(mouseEvent -> {
             if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(splitPaneLastPlayed)) {
+                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneLastPlayed)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {

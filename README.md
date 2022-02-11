@@ -13,7 +13,7 @@ Das Programm nutzt den Ordner ".p2Radio" unter Linux und den versteckten Ordner 
 java -jar P2Radio.jar ORDNER
 ```
 
-Weitere Infos über das Programm können auf der Website nachgelsesen werden.
+Weitere Infos über das Programm können auf der Website nachgelesen werden.
 
 https://www.p2tools.de/p2radio/
 
