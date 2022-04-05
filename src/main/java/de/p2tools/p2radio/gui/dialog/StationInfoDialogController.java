@@ -70,7 +70,7 @@ public class StationInfoDialogController extends PDialogExtra {
 //        System.out.println("close");
         final StringProperty sp = ProgConfig.STATION_INFO_DIALOG_SHOW_URL.get() ?
                 ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL;
-        PGuiSize.getSizeWindow(sp, getStage());
+        PGuiSize.getSizeStage(sp, getStage());
         super.close();
     }
 

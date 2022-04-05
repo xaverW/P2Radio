@@ -45,6 +45,7 @@ import de.p2tools.p2radio.gui.StationGuiController;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
 import de.p2tools.p2radio.gui.tools.Listener;
+import de.p2tools.p2radio.gui.tools.ProgTray;
 import de.p2tools.p2radio.tools.stationListFilter.StationListFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterWorker;
 import de.p2tools.p2radio.tools.storedFilter.StoredFilters;
@@ -144,9 +145,14 @@ public class ProgData {
         progTray = new ProgTray(this);
     }
 
+    public void initProgData() {
+        startTimer();
+        progTray.initProgTray();
+    }
+
     boolean oneSecond = false;
 
-    public void startTimer() {
+    private void startTimer() {
         // extra starten, damit er im Einrichtungsdialog nicht dazwischen funkt
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> {
             oneSecond = !oneSecond;

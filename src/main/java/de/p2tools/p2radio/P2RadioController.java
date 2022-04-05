@@ -17,7 +17,6 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -163,7 +162,7 @@ public class P2RadioController extends StackPane {
 
         // Menü
         final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
-        miConfig.setOnAction(e -> new ConfigDialogController());
+        miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
 
         final MenuItem miLoadStationList = new MenuItem("neue Senderliste laden");
         miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());
@@ -173,7 +172,7 @@ public class P2RadioController extends StackPane {
         PShortcutWorker.addShortCut(miQuit, P2RadioShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("über dieses Programm");
-        miAbout.setOnAction(event -> new AboutDialogController(progData));
+        miAbout.setOnAction(event -> AboutDialogController.getInstanceAndShow());
 
         final MenuItem miLog = new MenuItem("Logdatei öffnen");
         miLog.setOnAction(event -> {
@@ -247,7 +246,7 @@ public class P2RadioController extends StackPane {
             return;
         }
 
-        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
+//        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
         progData.primaryStage.close();
         new SmallRadioGuiPack(progData);
     }

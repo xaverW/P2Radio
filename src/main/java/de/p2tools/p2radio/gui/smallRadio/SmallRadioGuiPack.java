@@ -90,6 +90,6 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
 
     protected void getSize() {
         smallRadioGuiController.saveTable();
-        PGuiSize.getSizeScene(ProgConfig.SMALL_RADIO_SIZE, getStage());
+        PGuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
     }
 }

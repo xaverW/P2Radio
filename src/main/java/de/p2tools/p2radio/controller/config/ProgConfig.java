@@ -73,7 +73,9 @@ public class ProgConfig extends PDataProgConfig {
 
     // Configs
     public static BooleanProperty SYSTEM_SMALL_RADIO = addBool("system-small-radio", false);
-    public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBool("system-tray-own-icon", Boolean.FALSE);
+    public static StringProperty SYSTEM_TRAY_ICON_PATH = addStr("system-tray-icon", ""); //ein eigenes Tray-Icon
     public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
     public static BooleanProperty SYSTEM_MARK_GEO = addBool("system-mark-geo", Boolean.TRUE);

@@ -155,11 +155,7 @@ public class SmallRadioDialog extends StackPane {
         }
 
         if (!PGuiSize.setPos(sizeConfiguration, stage)) {
-            if (ownerForCenteringDialog == null) {
-                PDialogFactory.setInCenterOfScreen(stage);
-            } else {
-                PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
-            }
+            PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
         }
 
         stage.showAndWait();

@@ -21,7 +21,8 @@ public class HelpTextPset {
     public static final String PSET_STANDARD = "Das Standardset wird zum Abspielen der Sender " +
             "verwendet. Es können auch weitere Sets angelegt werden. Beim Start kann man dann auswählen, " +
             "mit welchem Set der Sender abgespielt werden soll. " +
-            "Ist nur ein Set angelegt, ist es immer das Standardset.";
+            "Ist nur ein Set angelegt, ist es immer das Standardset." +
+            "\n";
 
     public static final String HELP_PSET = "\n" +
             "Ein Set ist ein Satz von Hilfsprogrammen, an welches eine URL eines Senders übergeben wird. " +

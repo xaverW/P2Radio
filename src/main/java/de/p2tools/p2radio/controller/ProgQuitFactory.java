@@ -16,9 +16,7 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.log.LogMessage;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
@@ -76,6 +74,6 @@ public class ProgQuitFactory {
         ProgData.getInstance().lastPlayedGuiController.saveTable();
 
         // Hauptfenster
-        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
+//        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
     }
 }

@@ -87,7 +87,7 @@ public class ProgStartFactory {
         startMsg();
         setTitle(progData.primaryStage);
 
-        progData.startTimer();
+        progData.initProgData();
         checkProgUpdate(progData);
     }
 

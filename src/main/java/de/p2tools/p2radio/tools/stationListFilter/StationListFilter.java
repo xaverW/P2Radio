@@ -73,7 +73,7 @@ public class StationListFilter {
                     Platform.runLater(() -> {
                         PDuration.counterStart("StationListFilter.filterList");
                         progData.stationListBlackFiltered.filteredListSetPred(progData.storedFilters.getActFilterSettings().getPredicate());
-                        PDuration.counterStopAndLog("StationListFilter.filterList");
+                        PDuration.counterStop("StationListFilter.filterList");
                         search.set(false);
                         if (research.get()) {
                             filterList();
