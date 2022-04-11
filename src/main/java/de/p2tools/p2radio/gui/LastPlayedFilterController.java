@@ -35,7 +35,7 @@ public class LastPlayedFilterController extends PClosePaneV {
     private final ProgData progData;
 
     private final ComboBox<String> cboGenre = new ComboBox<>();
-    private final Button btnReset = new Button();
+    private final Button btnClearFilter = new Button();
 
     private LastPlayedFilter lastPlayedFilter;
 
@@ -43,7 +43,7 @@ public class LastPlayedFilterController extends PClosePaneV {
         super(ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON, true);
         progData = ProgData.getInstance();
         lastPlayedFilter = progData.lastPlayedFilter;
-        
+
         vBoxFilter = getVBoxAll();
         vBoxFilter.setPadding(new Insets(10));
         vBoxFilter.setSpacing(10);
@@ -63,7 +63,7 @@ public class LastPlayedFilterController extends PClosePaneV {
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.getChildren().add(btnReset);
+        hBox.getChildren().add(btnClearFilter);
         vBoxFilter.getChildren().addAll(new Label("    "), sp, hBox);
         initFilter();
     }
@@ -82,9 +82,9 @@ public class LastPlayedFilterController extends PClosePaneV {
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
 
-        btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
-        btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
-        btnReset.setOnAction(event -> {
+        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
+        btnClearFilter.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
+        btnClearFilter.setOnAction(event -> {
             progData.filteredLastPlayedList.setPredicate(lastPlayedFilter.clearFilter());
         });
     }

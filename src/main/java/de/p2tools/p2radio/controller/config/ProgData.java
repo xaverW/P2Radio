@@ -83,7 +83,6 @@ public class ProgData {
     public StationGuiController stationGuiController = null; // Tab mit den Sender
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
     public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
-//    public FavouriteFilterController favouriteFilterController = null;
 
     public LastPlayedGuiController lastPlayedGuiController = null; // Tab mit den Favoriten
     public StationInfoDialogController stationInfoDialogController = null;
@@ -100,6 +99,7 @@ public class ProgData {
     // Programmdaten
     public StationList stationList; //ist die komplette Senderliste
     public StationList stationListBlackFiltered; //Senderliste nach Blacklist, wie im TabSender angezeigt
+    public StationList stationListOwn; //Senderliste der eigenen Sender
 
     public FavouriteList favouriteList; //Sender die als "Favoriten" geladen werden sollen
     public FilteredList<Favourite> filteredFavourites;

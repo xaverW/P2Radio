@@ -26,6 +26,8 @@ public class ProgIcons {
     public final Image ICON_DIALOG_EIN_SW = GetIcon.getImage(ProgConfig.SYSTEM_DARK_THEME.get() ? "dialog-ein.png" : "dialog-ein-sw.png");
     public final Image IMAGE_ACHTUNG_64 = GetIcon.getImage("achtung_64.png");
 
+    public final ImageView ICON_BUTTON_CLEAR_FILTER = GetIcon.getImageView("button-clear-filter.png", 25, 20);
+    //    public final ImageView ICON_BUTTON_SMALL_CLEAR_FILTER = GetIcon.getImageView("button-clear-filter.png", 16, 14);
     public final ImageView ICON_BUTTON_RESET = GetIcon.getImageView("button-reset.png", 14, 14);
     public final ImageView ICON_BUTTON_EDIT_FILTER = GetIcon.getImageView("button-edit-filter.png", 16, 16);
     public final ImageView ICON_BUTTON_BACKWARD = GetIcon.getImageView("button-backward.png", 16, 16);

@@ -34,7 +34,7 @@ public class SmallRadioBottom {
 
     ProgData progData;
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
-    private final Button btnClear = new Button("");
+    private final Button btnClearFilter = new Button("");
     private final Button btnRandom = new Button("");
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
@@ -92,7 +92,7 @@ public class SmallRadioBottom {
 
         HBox hBoxCollect = new HBox(5);
         hBoxCollect.setAlignment(Pos.CENTER_LEFT);
-        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), cboCollections, btnClear);
+        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), cboCollections, btnClearFilter);
 
         HBox hBoxButton = new HBox(5);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
@@ -105,10 +105,10 @@ public class SmallRadioBottom {
     }
 
     private void initStartButton() {
-        btnClear.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
-        btnClear.getStyleClass().add("btnSmallRadio");
-        btnClear.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
-        btnClear.setOnAction(event -> {
+        btnClearFilter.setTooltip(new Tooltip("Auswahl löschen"));
+        btnClearFilter.getStyleClass().add("btnSmallRadio");
+        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
+        btnClearFilter.setOnAction(event -> {
             cboCollections.getSelectionModel().select(0);
         });
 

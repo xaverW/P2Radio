@@ -42,7 +42,7 @@ public class FavouriteFilterController extends PClosePaneV {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
     private final PToggleSwitch tglGrade = new PToggleSwitch("positiv bewertete Sender");
-    private final Button btnReset = new Button();
+    private final Button btnClearFilter = new Button();
 
     private final FavouriteFilter favouriteFilter;
     private final FilteredList<Favourite> filteredFavourites;
@@ -79,7 +79,7 @@ public class FavouriteFilterController extends PClosePaneV {
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.getChildren().add(btnReset);
+        hBox.getChildren().add(btnClearFilter);
         vBoxFilter.getChildren().addAll(new Label("    "), sp, hBox);
         initFilter();
     }
@@ -131,9 +131,9 @@ public class FavouriteFilterController extends PClosePaneV {
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());
         });
 
-        btnReset.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
-        btnReset.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
-        btnReset.setOnAction(event -> {
+        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
+        btnClearFilter.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
+        btnClearFilter.setOnAction(event -> {
             favouriteFilter.clearFilter();
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());
             cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
