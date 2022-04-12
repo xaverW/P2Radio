@@ -18,6 +18,7 @@ package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class ProgQuitFactory {
      * @param showOptionTerminate show options dialog when stations are running
      */
     public static boolean quit(Stage stage, boolean showOptionTerminate) {
-        if (ProgData.getInstance().favouriteList.countStartedAndRunningFavourites() > 0 ||
+        if (FavouriteFactory.countStartedAndRunningFavourites() > 0 ||
                 ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
                 ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
             if (showOptionTerminate) {

@@ -99,7 +99,6 @@ public class ProgData {
     // Programmdaten
     public StationList stationList; //ist die komplette Senderliste
     public StationList stationListBlackFiltered; //Senderliste nach Blacklist, wie im TabSender angezeigt
-    public StationList stationListOwn; //Senderliste der eigenen Sender
 
     public FavouriteList favouriteList; //Sender die als "Favoriten" geladen werden sollen
     public FilteredList<Favourite> filteredFavourites;

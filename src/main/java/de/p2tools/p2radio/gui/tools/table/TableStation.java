@@ -23,7 +23,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationTools;
+import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
@@ -282,20 +282,20 @@ public class TableStation {
                     hbox.getChildren().add(btnPlay);
                 }
 
-                final Button btnSave;
-                btnSave = new Button("");
-                btnSave.getStyleClass().add("btnSmallRadio");
-                btnSave.setTooltip(new Tooltip("Sender als Favoriten sichern"));
-                btnSave.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_SAVE));
-                btnSave.setOnAction(event -> {
-                    StationTools.saveStation(station);
+                final Button btnFavorite;
+                btnFavorite = new Button("");
+                btnFavorite.getStyleClass().add("btnSmallRadio");
+                btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
+                btnFavorite.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_SAVE));
+                btnFavorite.setOnAction(event -> {
+                    StationFactory.favouriteStation(station);
                 });
 
                 if (small.get()) {
-                    btnSave.setMaxHeight(18);
-                    btnSave.setMinHeight(18);
+                    btnFavorite.setMaxHeight(18);
+                    btnFavorite.setMinHeight(18);
                 }
-                hbox.getChildren().add(btnSave);
+                hbox.getChildren().add(btnFavorite);
 
                 setGraphic(hbox);
                 setCellStyle(this, playing, error, fav);

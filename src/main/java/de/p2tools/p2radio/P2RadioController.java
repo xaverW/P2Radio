@@ -164,14 +164,14 @@ public class P2RadioController extends StackPane {
         final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
         miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
 
-        final MenuItem miLoadStationList = new MenuItem("neue Senderliste laden");
+        final MenuItem miLoadStationList = new MenuItem("Neue Senderliste laden");
         miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());
 
         final MenuItem miQuit = new MenuItem("Beenden");
         miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
         PShortcutWorker.addShortCut(miQuit, P2RadioShortCuts.SHORTCUT_QUIT_PROGRAM);
 
-        final MenuItem miAbout = new MenuItem("über dieses Programm");
+        final MenuItem miAbout = new MenuItem("Über dieses Programm");
         miAbout.setOnAction(event -> AboutDialogController.getInstanceAndShow());
 
         final MenuItem miLog = new MenuItem("Logdatei öffnen");

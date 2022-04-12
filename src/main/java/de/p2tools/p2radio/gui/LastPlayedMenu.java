@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationTools;
+import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -82,7 +82,7 @@ public class LastPlayedMenu {
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
         miFavouriteStop.setOnAction(a -> progData.lastPlayedGuiController.stopStation(false));
 
-        final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
+        final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
@@ -95,10 +95,10 @@ public class LastPlayedMenu {
         final MenuItem miLastPlayedDel = new MenuItem("Sender aus History löschen");
         miLastPlayedDel.setOnAction(a -> LastPlayedFactory.deleteHistory(false));
 
-        final MenuItem miLastPlayedDelSel = new MenuItem("alle markierten Sender aus History löschen");
+        final MenuItem miLastPlayedDelSel = new MenuItem("Ale markierten Sender aus History löschen");
         miLastPlayedDelSel.setOnAction(a -> LastPlayedFactory.deleteHistory(true));
 
-        final MenuItem miLastPlayedDelAll = new MenuItem("gesamte History löschen");
+        final MenuItem miLastPlayedDelAll = new MenuItem("Gesamte History löschen");
         miLastPlayedDelAll.setOnAction(a -> LastPlayedFactory.deleteCompleteHistory());
 
         MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
@@ -108,7 +108,7 @@ public class LastPlayedMenu {
                 String stationUrl = lastPlayed.get().getStationUrl();
                 Station station = progData.stationList.getSenderByUrl(stationUrl);
                 if (station != null) {
-                    StationTools.saveStation(station);
+                    StationFactory.favouriteStation(station);
                 }
             }
         });

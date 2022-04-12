@@ -32,12 +32,12 @@ public class FavouriteStartsFactory {
     }
 
     /**
-     * Return a List of all loading but not yet finished stations.
+     * Return a List of running stations.
      *
      * @param source Use QUELLE_XXX constants
      * @return A list with all station objects.
      */
-    synchronized List<Favourite> getListOfStartsNotFinished(String source) {
+    synchronized List<Favourite> getListOfRunningStations(String source) {
         final List<Favourite> activeFavourites = new ArrayList<>();
 
         activeFavourites.addAll(favouriteList.stream()

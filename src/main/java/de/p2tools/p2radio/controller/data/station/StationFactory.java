@@ -25,19 +25,20 @@ import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 
 import java.util.ArrayList;
 
-public class StationTools {
+public class StationFactory {
 
-    public static void playStation(Station station, SetData psetData) {
-        ProgData.getInstance().startFactory.playStation(station);
+    public static void favouriteStationList() {
+        final ArrayList<Station> list = ProgData.getInstance().stationGuiController.getSelList();
+        StationFactory.favouriteStation(list);
     }
 
-    public static void saveStation(Station station) {
+    public static void favouriteStation(Station station) {
         ArrayList<Station> list = new ArrayList<>();
         list.add(station);
-        saveStation(list);
+        favouriteStation(list);
     }
 
-    public static void saveStation(ArrayList<Station> list) {
+    private static void favouriteStation(ArrayList<Station> list) {
         if (list.isEmpty()) {
             return;
         }
@@ -102,5 +103,9 @@ public class StationTools {
                 progData.stationListBlackFiltered.triggerFilter();
             }
         }
+    }
+
+    public static void playStation(Station station, SetData psetData) {
+        ProgData.getInstance().startFactory.playStation(station);
     }
 }

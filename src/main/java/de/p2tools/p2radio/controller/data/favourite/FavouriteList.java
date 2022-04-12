@@ -17,10 +17,8 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -96,19 +94,6 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
         return super.addAll(var1);
     }
 
-    public void addFavourite(boolean own) {
-        Favourite favourite = new Favourite();
-        favourite.setOwn(own);
-        favourite.setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
-        FavouriteAddOwnDialogController favouriteEditDialogController =
-                new FavouriteAddOwnDialogController(progData, favourite);
-
-        if (favouriteEditDialogController.isOk()) {
-            this.add(favourite);
-            progData.collectionList.updateNames();//könnte ja geändert sein
-        }
-    }
-
     public synchronized boolean remove(Favourite objects) {
         return super.remove(objects);
     }
@@ -116,18 +101,6 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     @Override
     public synchronized boolean removeAll(Collection<?> objects) {
         return super.removeAll(objects);
-    }
-
-    public synchronized int countStartedAndRunningFavourites() {
-        //es wird nach gestarteten und laufenden Favoriten gesucht
-        int ret = 0;
-        for (final Favourite favourite : this) {
-            if (favourite.getStart() != null &&
-                    (favourite.getStart().getStartStatus().isStarted() || favourite.getStart().getStartStatus().isStateStartedRun())) {
-                ++ret;
-            }
-        }
-        return ret;
     }
 
     public synchronized void addStationInList() {
@@ -155,6 +128,6 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     }
 
     public synchronized List<Favourite> getListOfStartsNotFinished(String source) {
-        return favouriteStartsFactory.getListOfStartsNotFinished(source);
+        return favouriteStartsFactory.getListOfRunningStations(source);
     }
 }

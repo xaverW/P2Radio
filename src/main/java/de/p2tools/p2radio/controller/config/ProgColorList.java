@@ -45,6 +45,9 @@ public class ProgColorList extends PColorList {
             Color.rgb(255, 233, 233),
             Color.rgb(163, 82, 82), "Tabelle Sender/Favoriten, fehlerhaft");
 
+    public static final PColorData FAVOURITE_ADD_DIALOG_NAME_URL_ERROR = addNewKey("FAVOURITE_ADD_DIALOG_NAME_URL_ERROR",
+            Color.rgb(255, 233, 233), Color.rgb(200, 183, 183), "Favorit hat keinen Namen oder keine URL");
+
     public static void setColorTheme() {
         final boolean dark = ProgConfig.SYSTEM_DARK_THEME.get();
         for (int i = 0; i < getColorList().size(); ++i) {

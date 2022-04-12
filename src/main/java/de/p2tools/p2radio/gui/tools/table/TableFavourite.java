@@ -26,6 +26,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
@@ -333,7 +334,7 @@ public class TableFavourite {
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL));
                 btnDel.setOnAction(event -> {
-                    progData.favouriteGuiController.deleteFavourite(favourite);
+                    FavouriteFactory.deleteFavourite(favourite);
                 });
 
                 if (small.get()) {

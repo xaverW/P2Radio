@@ -60,7 +60,6 @@ public final class Favourite extends FavouriteProps implements Playable {
         setCountry(station.getCountry());
         setCountryCode(station.getCountryCode());
         setLanguage(station.getLanguage());
-//        setClickCount(station.getClickCount());
         setWebsite(station.getWebsite());
         setStationUrl(station.getStationUrl());
         setStationDate(station.getDate());

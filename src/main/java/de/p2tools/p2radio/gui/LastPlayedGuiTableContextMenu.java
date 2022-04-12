@@ -20,7 +20,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationTools;
+import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -69,7 +69,7 @@ public class LastPlayedGuiTableContextMenu {
             Station station = progData.stationList.getSenderByUrl(stationUrl);
             if (station != null) {
                 MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
-                miAddFavourite.setOnAction(a -> StationTools.saveStation(station));
+                miAddFavourite.setOnAction(a -> StationFactory.favouriteStation(station));
                 miAddFavourite.setDisable(lastPlayed == null);
                 contextMenu.getItems().addAll(miAddFavourite);
             }

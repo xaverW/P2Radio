@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.ReadConfigFile;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -45,7 +44,7 @@ public class ProgLoadFactory {
             clearConfig();
         } else {
             initAfterLoad();
-            UpdateConfig.update(); // falls es ein Programmupdate gab, Configs anpassen
+            UpdateConfig.update(); //falls es ein Programmupdate gab, Configs anpassen
             PLog.sysLog("-> wurde gelesen!");
         }
 //        initP2Lib();
@@ -80,7 +79,6 @@ public class ProgLoadFactory {
                 boolean loadOk = SenderLoadFactory.readList();
                 if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
                     //wenn die gespeicherte zu alt ist
-
                     progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.PROGRESS,
                             new EventLoadRadioList("", "Senderliste zu alt, neue Senderliste laden",
                                     EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));

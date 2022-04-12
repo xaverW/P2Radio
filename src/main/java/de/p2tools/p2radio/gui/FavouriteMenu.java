@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
@@ -48,20 +49,20 @@ public class FavouriteMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
+                "Markierten Sender abspielen", "Markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
+                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
         final ToolBarButton btChange = new ToolBarButton(vBox,
-                "markierte Favoriten ändern", "markierte Favoriten ändern", new ProgIcons().ICON_TOOLBAR_FAVOURITE_CHANGE);
+                "Markierte Favoriten ändern", "Markierte Favoriten ändern", new ProgIcons().ICON_TOOLBAR_FAVOURITE_CHANGE);
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierte Favoriten löschen", "markierte Favoriten löschen", new ProgIcons().ICON_TOOLBAR_FAVOURITE_DEL);
+                "Markierte Favoriten löschen", "Markierte Favoriten löschen", new ProgIcons().ICON_TOOLBAR_FAVOURITE_DEL);
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_STATION_INFO);
 
         btStart.setOnAction(a -> progData.favouriteGuiController.playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
-        btChange.setOnAction(a -> progData.favouriteGuiController.changeFavourite(true));
-        btDel.setOnAction(a -> progData.favouriteGuiController.deleteFavourite(true));
+        btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
+        btDel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 
@@ -78,25 +79,25 @@ public class FavouriteMenu {
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
         miFavouriteStop.setOnAction(a -> progData.favouriteGuiController.stopStation(false));
 
-        final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
+        final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.favouriteGuiController.copyUrl());
 
-        final MenuItem miFavouriteOwn = new MenuItem("eigenen Sender als Favoriten anlegen");
-        miFavouriteOwn.setOnAction(a -> progData.favouriteList.addFavourite(true));
+        final MenuItem miFavouriteOwn = new MenuItem("Eigenen Sender als Favoriten anlegen");
+        miFavouriteOwn.setOnAction(a -> FavouriteFactory.addFavourite(true));
 
         mb.getItems().addAll(miFavouriteStart, miFavouriteStop, miStopAll, miCopyUrl, miFavouriteOwn);
 
         // Submenü "Favoriten"
         final MenuItem miFavouriteChange = new MenuItem("Favoriten ändern");
-        miFavouriteChange.setOnAction(a -> progData.favouriteGuiController.changeFavourite(true));
+        miFavouriteChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
         PShortcutWorker.addShortCut(miFavouriteChange, P2RadioShortCuts.SHORTCUT_FAVOURITE_CHANGE);
 
         final MenuItem miFavouriteDel = new MenuItem("Favoriten löschen");
-        miFavouriteDel.setOnAction(a -> progData.favouriteGuiController.deleteFavourite(false));
+        miFavouriteDel.setOnAction(a -> FavouriteFactory.deleteFavourite(false));
 
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenuFavourite = new Menu("Favoriten");

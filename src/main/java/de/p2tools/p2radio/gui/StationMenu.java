@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -55,7 +56,7 @@ public class StationMenu {
                 "Markierten Sender abspielen", "Markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
                 "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
-        final ToolBarButton btSave = new ToolBarButton(vBox,
+        final ToolBarButton btFavourite = new ToolBarButton(vBox,
                 "Markierte Sender als Favoriten speichern", "Markierte Sender als Favoriten speichern", new ProgIcons().ICON_TOOLBAR_STATION_REC);
         final ToolBarButton btRandom = new ToolBarButton(vBox,
                 "Einen Sender per Zufall starten", "Einen Sender per Zufall starten", new ProgIcons().ICON_TOOLBAR_STATION_RANDOM);
@@ -69,7 +70,7 @@ public class StationMenu {
 
         btPlay.setOnAction(a -> progData.stationGuiController.playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
-        btSave.setOnAction(a -> progData.stationGuiController.saveStation());
+        btFavourite.setOnAction(a -> StationFactory.favouriteStationList());
         btRandom.setOnAction(a -> progData.stationGuiController.playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -92,7 +93,7 @@ public class StationMenu {
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
-        miSave.setOnAction(e -> progData.stationGuiController.saveStation());
+        miSave.setOnAction(e -> StationFactory.favouriteStationList());
         PShortcutWorker.addShortCut(miSave, P2RadioShortCuts.SHORTCUT_SAVE_STATION);
 
         mb.getItems().addAll(miPlay, miStop, miStopAll, miSave);

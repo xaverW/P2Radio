@@ -23,7 +23,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationTools;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -155,10 +154,6 @@ public class StationGuiController extends AnchorPane {
         progData.startFactory.playStation(sel.get(), psetData);
     }
 
-    public void saveStation() {
-        final ArrayList<Station> list = getSelList();
-        StationTools.saveStation(list);
-    }
 
     public void playRandomStation() {
         Random r = new Random();

@@ -16,16 +16,18 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteXml;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.converter.NumberStringConverter;
@@ -80,12 +82,13 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     }
 
     private void initButton() {
+        btnOk.disableProperty().bind(favourite.stationUrlProperty().isEmpty().or(favourite.stationNameProperty().isEmpty()));
         btnOk.setOnAction(event -> {
-            if (favourite.getStationUrl().isEmpty()) {
-                PAlert.showErrorAlert("Sender-URL", "Es muss wenigstens eine URL für den " +
-                        "Sender angeben werden.");
-                return;
-            }
+//            if (favourite.getStationUrl().isEmpty()) {
+//                PAlert.showErrorAlert("Sender-URL", "Es muss wenigstens eine URL für den " +
+//                        "Sender angeben werden.");
+//                return;
+//            }
 
             saveAct();
             ok = true;
@@ -120,6 +123,10 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
             txt[i].setEditable(true);
             txt[i].setMaxWidth(Double.MAX_VALUE);
             txt[i].setPrefWidth(Control.USE_COMPUTED_SIZE);
+            final int ii = i;
+            txt[i].setOnContextMenuRequested(event ->
+                    getMenu(txt[ii].getText()).show(txt[ii], event.getScreenX(), event.getScreenY()));
+
 
             cbx[i] = new CheckBox();
             cbx[i].setDisable(true);
@@ -142,6 +149,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
                 // bis hier nicht anzeigen
                 break;
             case FavouriteXml.FAVOURITE_STATION:
+                addCheck(txt[i]);
                 txt[i].textProperty().bindBidirectional(favourite.stationNameProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row, 3, 1);
@@ -187,6 +195,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
                 ++row;
                 break;
             case FavouriteXml.FAVOURITE_URL:
+                addCheck(txt[i]);
                 txt[i].textProperty().bindBidirectional(favourite.stationUrlProperty());
 
                 gridPane.add(lbl[i], 0, row);
@@ -205,5 +214,34 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
             lbl[i].setTextFill(Color.BLUE);
         }
         return row;
+    }
+
+    private ContextMenu getMenu(String str) {
+        final ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem menuItem = new MenuItem("kopieren");
+        menuItem.setOnAction(a -> {
+            final Clipboard clipboard = Clipboard.getSystemClipboard();
+            final ClipboardContent content = new ClipboardContent();
+            content.putString(str);
+            clipboard.setContent(content);
+        });
+        contextMenu.getItems().addAll(menuItem);
+        return contextMenu;
+    }
+
+    private void addCheck(TextField txtF) {
+        txtF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (txtF.getText().isEmpty()) {
+                txtF.setStyle(ProgColorList.FAVOURITE_ADD_DIALOG_NAME_URL_ERROR.getCssBackground());
+            } else {
+                txtF.setStyle("");
+            }
+        });
+        if (txtF.getText().isEmpty()) {
+            txtF.setStyle(ProgColorList.FAVOURITE_ADD_DIALOG_NAME_URL_ERROR.getCssBackground());
+        } else {
+            txtF.setStyle("");
+        }
     }
 }

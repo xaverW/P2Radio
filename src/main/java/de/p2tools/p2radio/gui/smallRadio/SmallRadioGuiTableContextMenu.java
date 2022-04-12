@@ -18,6 +18,7 @@ package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -55,7 +56,7 @@ public class SmallRadioGuiTableContextMenu {
         MenuItem miChange = new MenuItem("Favorit ändern");
         miChange.setOnAction(a -> smallRadioGuiController.changeFavourite(false));
         MenuItem miRemove = new MenuItem("Favoriten löschen");
-        miRemove.setOnAction(a -> progData.favouriteGuiController.deleteFavourite(false));
+        miRemove.setOnAction(a -> FavouriteFactory.deleteFavourite(false));
 
         miStart.setDisable(favourite == null);
         miStop.setDisable(favourite == null);
