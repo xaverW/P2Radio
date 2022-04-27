@@ -78,22 +78,19 @@ public class P2Radio extends Application {
                     PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
 
+            ProgColorList.setColorTheme();
+            addThemeCss(); //und jetzt noch für die neue Scene
+
             ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
                 ProgColorList.setColorTheme();
                 addThemeCss();
+                ProgConfig.SYSTEM_THEME_CHANGED.setValue(!ProgConfig.SYSTEM_THEME_CHANGED.get());
             });
-            ProgColorList.setColorTheme();
-            addThemeCss(); //und jetzt noch für die neue Scene
 
             if (ProgConfig.SYSTEM_STYLE.get()) {
                 P2LibInit.setStyleFile(ProgInfos.getStyleFile().toString());
                 IoReadWriteStyle.readStyle(ProgInfos.getStyleFile(), scene);
             }
-
-            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
-                addThemeCss();
-                ProgConfig.SYSTEM_THEME_CHANGED.setValue(!ProgConfig.SYSTEM_THEME_CHANGED.get());
-            });
 
             primaryStage.setScene(scene);
             primaryStage.setOnCloseRequest(e -> {
