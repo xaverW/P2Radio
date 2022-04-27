@@ -109,7 +109,7 @@ public class ProgramPane {
                 Platform.runLater(this::setActProgramData));
 
         Button btnDel = new Button("");
-        btnDel.setGraphic(new ProgIcons().ICON_BUTTON_REMOVE);
+        btnDel.setGraphic(ProgIcons.Icons.ICON_BUTTON_REMOVE.getImageView());
         btnDel.setOnAction(event -> {
             final ObservableList<ProgramData> sels = tableView.getSelectionModel().getSelectedItems();
 
@@ -122,7 +122,7 @@ public class ProgramPane {
         });
 
         Button btnNew = new Button("");
-        btnNew.setGraphic(new ProgIcons().ICON_BUTTON_ADD);
+        btnNew.setGraphic(ProgIcons.Icons.ICON_BUTTON_ADD.getImageView());
         btnNew.setOnAction(event -> {
             ProgramData progData = new ProgramData();
             setData.getProgramList().add(progData);
@@ -133,7 +133,7 @@ public class ProgramPane {
         });
 
         Button btnUp = new Button("");
-        btnUp.setGraphic(new ProgIcons().ICON_BUTTON_MOVE_UP);
+        btnUp.setGraphic(ProgIcons.Icons.ICON_BUTTON_MOVE_UP.getImageView());
         btnUp.setOnAction(event -> {
             int sel = getSelectedLine();
             if (sel >= 0) {
@@ -144,7 +144,7 @@ public class ProgramPane {
         });
 
         Button btnDown = new Button("");
-        btnDown.setGraphic(new ProgIcons().ICON_BUTTON_MOVE_DOWN);
+        btnDown.setGraphic(ProgIcons.Icons.ICON_BUTTON_MOVE_DOWN.getImageView());
         btnDown.setOnAction(event -> {
             int sel = getSelectedLine();
             if (sel >= 0) {
@@ -169,7 +169,7 @@ public class ProgramPane {
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtProgPath));
-        btnFile.setGraphic(new ProgIcons().ICON_BUTTON_FILE_OPEN);
+        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
 
         int row = 0;

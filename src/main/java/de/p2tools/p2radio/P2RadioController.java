@@ -135,7 +135,7 @@ public class P2RadioController extends StackPane {
         maskerPane.toFront();
         Button btnStop = maskerPane.getButton();
         maskerPane.setButtonText("");
-        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP);
+        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
         btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
     }
 
@@ -144,7 +144,7 @@ public class P2RadioController extends StackPane {
         btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
         btnSmallRadio.getStyleClass().add("btnTab");
-        btnSmallRadio.setGraphic(new ProgIcons().ICON_TOOLBAR_SMALL_RADIO_24);
+        btnSmallRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
 
         btnStation.setTooltip(new Tooltip("Sender anzeigen"));
         btnStation.setOnAction(e -> selPanelStation());
@@ -182,7 +182,7 @@ public class P2RadioController extends StackPane {
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
             POpen.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         });
 
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
@@ -209,7 +209,7 @@ public class P2RadioController extends StackPane {
 
         menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         menuButton.getStyleClass().add("btnFunctionWide");
-        menuButton.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU_TOP);
+        menuButton.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
         menuButton.getItems().addAll(miConfig, miLoadStationList, mHelp,
                 new SeparatorMenuItem(), miQuit);
 

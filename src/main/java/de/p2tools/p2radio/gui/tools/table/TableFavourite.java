@@ -34,7 +34,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -222,7 +221,7 @@ public class TableFavourite {
                     for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
                         if (item.longValue() > i) {
                             Label l = new Label();
-                            l.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getUrl()));
+                            l.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_GRADE.getImageView());
                             hBox.getChildren().add(l);
                         }
                     }
@@ -266,7 +265,7 @@ public class TableFavourite {
                     btnPlay.getStyleClass().add("btnSmallRadio");
 //                    }
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY));
+                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.stopFavourite(favourite);
                         getTableView().getSelectionModel().clearSelection();
@@ -312,7 +311,7 @@ public class TableFavourite {
                     btnPlay.getStyleClass().add("btnSmallRadio");
 //                    }
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_PLAY));
+                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.playFavourite(favourite);
                         getTableView().getSelectionModel().clearSelection();
@@ -332,7 +331,7 @@ public class TableFavourite {
                     btnDel.getStyleClass().add("btnSmallRadio");
                 }
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
-                btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL));
+                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     FavouriteFactory.deleteFavourite(favourite);
                 });

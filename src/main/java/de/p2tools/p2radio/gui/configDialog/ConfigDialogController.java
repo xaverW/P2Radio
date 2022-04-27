@@ -85,7 +85,6 @@ public class ConfigDialogController extends PDialogExtra {
     public void close() {
         if (blackChanged.get()) {
             //sonst hat sich nichts geändert
-            System.out.println("black geändert");
             progData.stationList.filterListWithBlacklist(true);
             Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, ConfigDialogController.class.getSimpleName());
         }

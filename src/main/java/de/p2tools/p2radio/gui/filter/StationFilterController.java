@@ -14,9 +14,10 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui;
+package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
@@ -42,7 +43,7 @@ public class StationFilterController extends FilterController {
     StationFilterControllerProfiles profiles;
 
     public StationFilterController() {
-        super();
+        super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
 
         sender = new StationFilterControllerTextFilter();//hat separator am ende??
@@ -50,15 +51,15 @@ public class StationFilterController extends FilterController {
         clearFilter = new StationFilterControllerClearFilter();
         profiles = new StationFilterControllerProfiles();
 
-        Separator sp1 = new Separator();
-        sp1.getStyleClass().add("pseperator3");
-        sp1.setPadding(new Insets(10));
+        Separator sp = new Separator();
+        sp.getStyleClass().add("pseperator3");
+        sp.setMinHeight(0);
+        sp.setPadding(new Insets(0, 15, 0, 15));
 
-        final VBox vBoxTop = getVBoxTop();
+        final VBox vBoxTop = getVBoxAll();
         vBoxTop.setSpacing(0);
-        HBox hBoxs = new HBox();
-        VBox.setVgrow(hBoxs, Priority.ALWAYS);
-        vBoxTop.getChildren().addAll(sender, filter, hBoxs, clearFilter, sp1, profiles);
+        VBox.setVgrow(clearFilter, Priority.ALWAYS);
+        vBoxTop.getChildren().addAll(sender, filter, clearFilter, sp, profiles);
 
         Label lblRight = new Label();
         tglBlacklist.setAllowIndeterminate(true);
@@ -68,7 +69,7 @@ public class StationFilterController extends FilterController {
         tglBlacklist.indeterminateProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnlyProperty());
 
         vBoxBottom = getVBoxBottom();
-        HBox hBox = new HBox(10);
+        HBox hBox = new HBox(5);
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
         vBoxBottom.getChildren().addAll(hBox);

@@ -149,7 +149,7 @@ public class BlackPane {
 
 
         Button btnDel = new Button("");
-        btnDel.setGraphic(new ProgIcons().ICON_BUTTON_REMOVE);
+        btnDel.setGraphic(ProgIcons.Icons.ICON_BUTTON_REMOVE.getImageView());
         btnDel.setOnAction(event -> {
             blackChanged.set(true);
             final ObservableList<BlackData> selected = tableView.getSelectionModel().getSelectedItems();
@@ -163,7 +163,7 @@ public class BlackPane {
         });
 
         Button btnNew = new Button("");
-        btnNew.setGraphic(new ProgIcons().ICON_BUTTON_ADD);
+        btnNew.setGraphic(ProgIcons.Icons.ICON_BUTTON_ADD.getImageView());
         btnNew.setOnAction(event -> {
             blackChanged.set(true);
             BlackData blackData = new BlackData();
@@ -195,7 +195,7 @@ public class BlackPane {
             Table.refresh_table(tableView);
         });
 
-        
+
         EventListenerLoadRadioList listener = new EventListenerLoadRadioList() {
             @Override
             public void start(EventLoadRadioList event) {

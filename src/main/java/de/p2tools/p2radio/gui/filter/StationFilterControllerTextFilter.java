@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui;
+package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
@@ -46,8 +46,8 @@ public class StationFilterControllerTextFilter extends VBox {
         super();
         progData = ProgData.getInstance();
 
-        setPadding(new Insets(10));
-        setSpacing(20);
+        setPadding(new Insets(10, 15, 5, 15));
+        setSpacing(FilterController.FILTER_SPACING_TEXTFILTER);
 
         initCodecFilter();
         initCountryFilter();
@@ -231,11 +231,6 @@ public class StationFilterControllerTextFilter extends VBox {
         addTxt("URL", txtUrl, vBox, progData.storedFilters.getActFilterSettings().urlVisProperty());
         addTxt("Irgendwo", txtSomewhere, vBox, progData.storedFilters.getActFilterSettings().somewhereVisProperty());
 
-//        Separator sp = new Separator();
-//        sp.getStyleClass().add("pseperator1");
-//        sp.setMinHeight(10);
-//        vBox.getChildren().add(sp);
-
         vBox.visibleProperty().bind(
                 (progData.storedFilters.getActFilterSettings().stationNameVisProperty()
                         .or(progData.storedFilters.getActFilterSettings().genreVisProperty()
@@ -246,8 +241,6 @@ public class StationFilterControllerTextFilter extends VBox {
                                         )))));
 
         vBox.managedProperty().bind(vBox.visibleProperty());
-//        sp.visibleProperty().bind(vBox.visibleProperty());
-//        sp.managedProperty().bind(vBox.visibleProperty());
         getChildren().add(vBox);
     }
 

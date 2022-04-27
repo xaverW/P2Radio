@@ -50,9 +50,9 @@ public class StationInfoDialogController extends PDialogExtra {
     private final ImageView ivNew = new ImageView();
 
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
     BooleanProperty urlProperty = ProgConfig.STATION_INFO_DIALOG_SHOW_URL;
     private Station station;
@@ -107,17 +107,17 @@ public class StationInfoDialogController extends PDialogExtra {
 
         btnUpDown.setTooltip(urlProperty.getValue() ? new Tooltip("weniger Informationen zum Sender anzeigen") :
                 new Tooltip("mehr Informationen zum Sender anzeigen"));
-        btnUpDown.setGraphic(urlProperty.getValue() ? new ProgIcons().ICON_BUTTON_UP : new ProgIcons().ICON_BUTTON_DOWN);
+        btnUpDown.setGraphic(urlProperty.getValue() ? ProgIcons.Icons.ICON_BUTTON_UP.getImageView() : ProgIcons.Icons.ICON_BUTTON_DOWN.getImageView());
         btnUpDown.setOnAction(event -> {
             urlProperty.setValue(!urlProperty.getValue());
             makeGridPane(true);
             btnUpDown.setTooltip(urlProperty.getValue() ? new Tooltip("weniger Informationen zum Sender anzeigen") :
                     new Tooltip("mehr Informationen zum Sender anzeigen"));
-            btnUpDown.setGraphic(urlProperty.getValue() ? new ProgIcons().ICON_BUTTON_UP : new ProgIcons().ICON_BUTTON_DOWN);
+            btnUpDown.setGraphic(urlProperty.getValue() ? ProgIcons.Icons.ICON_BUTTON_UP.getImageView() : ProgIcons.Icons.ICON_BUTTON_DOWN.getImageView());
         });
 
         btnPrev.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
-        btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
+        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
@@ -133,7 +133,7 @@ public class StationInfoDialogController extends PDialogExtra {
         });
 
         btnNext.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
-        btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
+        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
@@ -149,7 +149,7 @@ public class StationInfoDialogController extends PDialogExtra {
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
-        btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
+        btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
@@ -165,7 +165,7 @@ public class StationInfoDialogController extends PDialogExtra {
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
-        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP_PLAY);
+        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> progData.startFactory.stopAll());
 
         initUrl();
@@ -207,7 +207,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationXml.STATION_NEW:
                         if (station.isNewStation()) {
-                            ivNew.setImage(new ProgIcons().ICON_DIALOG_EIN_SW);
+                            ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_EIN_SW.getImage());
                         } else {
                             ivNew.setImage(null);
                         }

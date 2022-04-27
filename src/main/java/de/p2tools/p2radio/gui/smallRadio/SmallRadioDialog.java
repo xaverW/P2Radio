@@ -124,7 +124,7 @@ public class SmallRadioDialog extends StackPane {
         maskerPane.toFront();
         Button btnStop = maskerPane.getButton();
         maskerPane.setButtonText("");
-        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP);
+        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
         btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
     }
 

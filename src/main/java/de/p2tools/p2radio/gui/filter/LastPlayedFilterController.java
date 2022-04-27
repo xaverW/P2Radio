@@ -14,39 +14,37 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui;
+package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
+import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class LastPlayedFilterController extends PClosePaneV {
+public class LastPlayedFilterController extends FilterController {
 
     private final VBox vBoxFilter;
     private final ProgData progData;
 
     private final ComboBox<String> cboGenre = new ComboBox<>();
-    private final Button btnClearFilter = new Button();
+    private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
 
     private LastPlayedFilter lastPlayedFilter;
 
     public LastPlayedFilterController() {
-        super(ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON, true);
+        super(ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON);
+        vBoxFilter = getVBoxFilter(true);
         progData = ProgData.getInstance();
-        lastPlayedFilter = progData.lastPlayedFilter;
 
-        vBoxFilter = getVBoxAll();
-        vBoxFilter.setPadding(new Insets(10));
-        vBoxFilter.setSpacing(10);
+        lastPlayedFilter = progData.lastPlayedFilter;
 
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         cboGenre.setMinWidth(150);
@@ -56,15 +54,12 @@ public class LastPlayedFilterController extends PClosePaneV {
 
         vBoxFilter.getChildren().addAll(vBoxColl);
 
-        Separator sp = new Separator();
-        sp.getStyleClass().add("pseperator1");
-        sp.setMinHeight(0);
-        sp.setPadding(new Insets(10));
-
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(10, 0, 0, 0));
         hBox.getChildren().add(btnClearFilter);
-        vBoxFilter.getChildren().addAll(new Label("    "), sp, hBox);
+        vBoxFilter.getChildren().addAll(hBox);
+
         initFilter();
     }
 
@@ -82,8 +77,6 @@ public class LastPlayedFilterController extends PClosePaneV {
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
 
-        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
-        btnClearFilter.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnClearFilter.setOnAction(event -> {
             progData.filteredLastPlayedList.setPredicate(lastPlayedFilter.clearFilter());
         });

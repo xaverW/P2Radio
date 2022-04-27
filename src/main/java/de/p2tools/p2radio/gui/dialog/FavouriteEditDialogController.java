@@ -302,7 +302,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 break;
             case FavouriteXml.FAVOURITE_URL:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.stationUrlProperty().getValueSafe(),
-                        ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+                        ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.stationUrlProperty());
                 gridPane.add(lbl[i], 0, row);
@@ -311,7 +311,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 break;
             case FavouriteXml.FAVOURITE_WEBSITE:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.websiteProperty().getValueSafe(),
-                        ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+                        ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.websiteProperty());
                 gridPane.add(lbl[i], 0, row);

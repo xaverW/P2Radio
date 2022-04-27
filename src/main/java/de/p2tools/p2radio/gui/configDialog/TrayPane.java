@@ -73,7 +73,7 @@ public class TrayPane {
                 txtPath.setText(s);
             }
         });
-        btnFile.setGraphic(new ProgIcons().ICON_BUTTON_FILE_OPEN);
+        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
         txtPath.textProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY_ICON_PATH);

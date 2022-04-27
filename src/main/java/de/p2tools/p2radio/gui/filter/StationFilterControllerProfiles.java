@@ -14,12 +14,15 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui;
+package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.guiTools.PButton;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
 import de.p2tools.p2radio.tools.storedFilter.SelectedFilter;
 import de.p2tools.p2radio.tools.storedFilter.SelectedFilterFactory;
@@ -50,8 +53,8 @@ public class StationFilterControllerProfiles extends VBox {
         super();
         progData = ProgData.getInstance();
 
-        setPadding(new Insets(10));
-        setSpacing(20);
+        setPadding(new Insets(10, 15, 5, 15));
+        setSpacing(FilterController.FILTER_SPACING_PROFIlE);
 
         initButton();
         filterProfiles();
@@ -73,7 +76,7 @@ public class StationFilterControllerProfiles extends VBox {
     private void initButton() {
         btnLoadFilter.setOnAction(a -> loadFilter());
         btnLoadFilter.disableProperty().bind(cboFilterProfiles.getSelectionModel().selectedItemProperty().isNull());
-        btnLoadFilter.setGraphic(new ProgIcons().ICON_FILTER_STATION_LOAD);
+        btnLoadFilter.setGraphic(ProgIcons.Icons.ICON_FILTER_STATION_LOAD.getImageView());
         btnLoadFilter.setText("");
         btnLoadFilter.setTooltip(new Tooltip("Filterprofil wieder laden"));
 
@@ -84,12 +87,12 @@ public class StationFilterControllerProfiles extends VBox {
                 saveFilter();
             }
         });
-        btnSaveFilter.setGraphic(new ProgIcons().ICON_FILTER_STATION_SAVE);
+        btnSaveFilter.setGraphic(ProgIcons.Icons.ICON_FILTER_STATION_SAVE.getImageView());
         btnSaveFilter.setText("");
         btnSaveFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als Filterprofil speichern"));
 
         btnNewFilter.setOnAction(a -> newFilter());
-        btnNewFilter.setGraphic(new ProgIcons().ICON_FILTER_STATION_NEW);
+        btnNewFilter.setGraphic(ProgIcons.Icons.ICON_FILTER_STATION_NEW.getImageView());
         btnNewFilter.setText("");
         btnNewFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als neues Filterprofil anlegen"));
     }
@@ -140,7 +143,7 @@ public class StationFilterControllerProfiles extends VBox {
         final MenuItem miReset = new MenuItem("alle Filterprofile wieder herstellen");
         miReset.setOnAction(e -> resetFilter());
 
-        mbFilterTools.setGraphic(new ProgIcons().ICON_BUTTON_MENU);
+        mbFilterTools.setGraphic(ProgIcons.Icons.ICON_BUTTON_MENU.getImageView());
         mbFilterTools.getItems().addAll(miLoad, miRename, miDel, miDelAll, miSave, miNew, /*miAbo,*/ new SeparatorMenuItem(), miReset);
         mbFilterTools.setTooltip(new Tooltip("Gespeicherte Filterprofile bearbeiten"));
 
@@ -166,20 +169,14 @@ public class StationFilterControllerProfiles extends VBox {
         getChildren().add(hBox);
 
         cboFilterProfiles.setMaxWidth(Double.MAX_VALUE);
-//        final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
-
-        hBox = new HBox(10);
-        HBox.setHgrow(cboFilterProfiles, Priority.ALWAYS);
-        hBox.getChildren().addAll(cboFilterProfiles, mbFilterTools);
-
-
-        VBox vBox = new VBox(3);
-        vBox.getChildren().addAll(new Label("Filterprofile:"), hBox);
+        VBox vBox = new VBox(2);
+        vBox.getChildren().addAll(new Label("Filterprofile:"), cboFilterProfiles);
         getChildren().add(vBox);
 
-//        hBox = new HBox(10);
-//        hBox.getChildren().addAll(mbFilterTools, PGuiTools.getHBoxGrower(), btnHelp);
-//        getChildren().add(hBox);
+        final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
+        hBox = new HBox(10);
+        hBox.getChildren().addAll(mbFilterTools, PGuiTools.getHBoxGrower(), btnHelp);
+        getChildren().add(hBox);
     }
 
     private void loadFilter() {

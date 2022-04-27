@@ -31,7 +31,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -126,9 +125,9 @@ public class TableStation {
 //        urlrColumn.getStyleClass().add("alignCenterLeft");
 
         nrColumn.setPrefWidth(50);
-        nameColumn.setPrefWidth(80);
-        genreColumn.setPrefWidth(180);
-        codecColumn.setPrefWidth(230);
+        nameColumn.setPrefWidth(150);
+        genreColumn.setPrefWidth(150);
+        codecColumn.setPrefWidth(80);
 
         addRowFact(table);
 
@@ -229,7 +228,7 @@ public class TableStation {
                     final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().add("btnSmallRadio");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY));
+                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.stopStation(station);
                         getTableView().getSelectionModel().clearSelection();
@@ -268,7 +267,7 @@ public class TableStation {
                     final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().add("btnSmallRadio");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_PLAY));
+                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         progData.startFactory.playStation(station);
                         getTableView().getSelectionModel().clearSelection();
@@ -286,7 +285,7 @@ public class TableStation {
                 btnFavorite = new Button("");
                 btnFavorite.getStyleClass().add("btnSmallRadio");
                 btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
-                btnFavorite.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_STATION_SAVE));
+                btnFavorite.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_SAVE.getImageView());
                 btnFavorite.setOnAction(event -> {
                     StationFactory.favouriteStation(station);
                 });

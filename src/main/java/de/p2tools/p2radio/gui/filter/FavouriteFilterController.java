@@ -14,13 +14,12 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui;
+package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
+import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
@@ -28,12 +27,14 @@ import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class FavouriteFilterController extends PClosePaneV {
+public class FavouriteFilterController extends FilterController {
 
     private final VBox vBoxFilter;
     private final ProgData progData;
@@ -42,20 +43,18 @@ public class FavouriteFilterController extends PClosePaneV {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
     private final PToggleSwitch tglGrade = new PToggleSwitch("positiv bewertete Sender");
-    private final Button btnClearFilter = new Button();
+    private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
 
     private final FavouriteFilter favouriteFilter;
     private final FilteredList<Favourite> filteredFavourites;
 
     public FavouriteFilterController() {
-        super(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON, true);
+        super(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
+        vBoxFilter = getVBoxFilter(true);
+
         favouriteFilter = progData.favouriteFilter;
         filteredFavourites = progData.filteredFavourites;
-
-        vBoxFilter = getVBoxAll();
-        vBoxFilter.setPadding(new Insets(10));
-        vBoxFilter.setSpacing(10);
 
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
@@ -72,26 +71,14 @@ public class FavouriteFilterController extends PClosePaneV {
         vBoxFilter.getChildren().addAll(vBoxColl, vBoxGenre,
                 new Label("    "), tglGrade, tglOwn);
 
-        Separator sp = new Separator();
-        sp.getStyleClass().add("pseperator1");
-        sp.setMinHeight(0);
-        sp.setPadding(new Insets(10));
-
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(10, 0, 0, 0));
         hBox.getChildren().add(btnClearFilter);
-        vBoxFilter.getChildren().addAll(new Label("    "), sp, hBox);
+        vBoxFilter.getChildren().addAll(hBox);
+
         initFilter();
     }
-
-//    public FilteredList<Favourite> getFilteredFavourites() {
-//        return filteredFavourites;
-//    }
-//
-//    public void resetFilter() {
-//        favouriteFilter.clearFilter();
-//        filteredFavourites.setPredicate(favouriteFilter.getPredicate());
-//    }
 
     private void initFilter() {
         cboCollections.setItems(progData.collectionList);
@@ -131,8 +118,6 @@ public class FavouriteFilterController extends PClosePaneV {
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());
         });
 
-        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
-        btnClearFilter.setTooltip(new Tooltip("Wieder alle Favoriten anzeigen"));
         btnClearFilter.setOnAction(event -> {
             favouriteFilter.clearFilter();
             filteredFavourites.setPredicate(favouriteFilter.getPredicate());

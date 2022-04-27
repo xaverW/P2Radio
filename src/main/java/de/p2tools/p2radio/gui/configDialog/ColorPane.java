@@ -26,7 +26,6 @@ import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -43,7 +42,7 @@ import java.util.Collection;
 
 public class ColorPane {
     private final Stage stage;
-    BooleanProperty propDarkTheme = ProgConfig.SYSTEM_DARK_THEME;
+    //    BooleanProperty propDarkTheme = ProgConfig.SYSTEM_DARK_THEME;
     private final PToggleSwitch tglDarkTheme = new PToggleSwitch("Dunkles Erscheinungsbild der Programmoberfläche");
 
     public ColorPane(Stage stage) {
@@ -61,7 +60,7 @@ public class ColorPane {
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(0, 0, 10, 0));
 
-        tglDarkTheme.selectedProperty().bindBidirectional(propDarkTheme);
+        tglDarkTheme.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
         final Button btnHelpTheme = PButton.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
                 HelpText.DARK_THEME);
 
@@ -92,7 +91,7 @@ public class ColorPane {
     }
 
     public void close() {
-        tglDarkTheme.selectedProperty().unbindBidirectional(propDarkTheme);
+        tglDarkTheme.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
     }
 
     private void initTableColor(TableView<PColorData> tableView) {

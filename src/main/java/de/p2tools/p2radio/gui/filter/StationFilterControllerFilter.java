@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui;
+package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
 import de.p2tools.p2Lib.guiTools.pRange.PRangeBox;
@@ -41,8 +41,8 @@ public class StationFilterControllerFilter extends VBox {
         super();
         progData = ProgData.getInstance();
 
-        setPadding(new Insets(10));
-        setSpacing(20);
+        setPadding(new Insets(10, 15, 5, 15));
+        setSpacing(FilterController.FILTER_SPACING_FILTER);
 
         addSlider();
         addCheckFilter();

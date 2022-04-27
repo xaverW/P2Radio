@@ -49,19 +49,22 @@ public class FavouriteMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Markierten Sender abspielen", "Markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
+                "Markierten Sender abspielen", "Markierten Sender abspielen", ProgIcons.Icons.ICON_TOOLBAR_STATION_START.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
-        final ToolBarButton btChange = new ToolBarButton(vBox,
-                "Markierte Favoriten ändern", "Markierte Favoriten ändern", new ProgIcons().ICON_TOOLBAR_FAVOURITE_CHANGE);
+                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", ProgIcons.Icons.ICON_TOOLBAR_STATION_STOP.getImageView());
+        final ToolBarButton btNew = new ToolBarButton(vBox,
+                "Eigenen Sender als Favoriten anlegen", "Eigenen Sender als Favoriten anlegen", ProgIcons.Icons.ICON_TOOLBAR_FAVOURITE_NEW.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierte Favoriten löschen", "Markierte Favoriten löschen", new ProgIcons().ICON_TOOLBAR_FAVOURITE_DEL);
+                "Markierte Favoriten löschen", "Markierte Favoriten löschen", ProgIcons.Icons.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
+        final ToolBarButton btChange = new ToolBarButton(vBox,
+                "Markierte Favoriten ändern", "Markierte Favoriten ändern", ProgIcons.Icons.ICON_TOOLBAR_FAVOURITE_CHANGE.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_STATION_INFO);
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.favouriteGuiController.playStation());
-        btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        btStop.setOnAction(a -> progData.startFactory.stopAll());
         btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
+        btNew.setOnAction(a -> FavouriteFactory.addFavourite(true));
         btDel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -69,7 +72,7 @@ public class FavouriteMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Favoriten-Menü anzeigen"));
-        mb.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU);
+        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");

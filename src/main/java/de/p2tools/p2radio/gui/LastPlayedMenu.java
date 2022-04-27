@@ -55,13 +55,13 @@ public class LastPlayedMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierten Sender abspielen", "markierten Sender abspielen", new ProgIcons().ICON_TOOLBAR_STATION_START);
+                "markierten Sender abspielen", "markierten Sender abspielen", ProgIcons.Icons.ICON_TOOLBAR_STATION_START.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", new ProgIcons().ICON_TOOLBAR_STATION_STOP);
+                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", ProgIcons.Icons.ICON_TOOLBAR_STATION_STOP.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen", new ProgIcons().ICON_TOOLBAR_FAVOURITE_DEL);
+                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen", ProgIcons.Icons.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_STATION_INFO);
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
@@ -72,7 +72,7 @@ public class LastPlayedMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("History-Menü anzeigen"));
-        mb.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU);
+        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
