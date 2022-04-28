@@ -92,8 +92,7 @@ public class ProgConfig extends PDataProgConfig {
 
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
-    public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "600:800");
-    public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO_SMALL = addStr("system-size-dialog-station-info-small", "600:300");
+    public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "500:500");
 
     // Einstellungen Senderliste
     public static StringProperty SYSTEM_PATH_VLC = addStr("path-vlc", SetFactory.getTemplatePathVlc());
@@ -166,6 +165,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStr("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
 
     //SenderInfoDialog
+//    public static StringProperty STATION_INFO_DIALOG = addStr("station-info-dialog");
     public static BooleanProperty STATION_INFO_DIALOG_SHOW_URL = addBool("station-info-dialog-show-url", Boolean.TRUE);
 
     //Filter Sender

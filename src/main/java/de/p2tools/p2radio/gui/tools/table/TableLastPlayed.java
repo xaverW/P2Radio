@@ -228,7 +228,7 @@ public class TableLastPlayed {
                     final ComboBox<SetData> cboSet;
                     cboSet = new ComboBox();
                     cboSet.setMinWidth(60);
-                    cboSet.getStyleClass().add("cboSmallRadio");
+                    cboSet.getStyleClass().add("cboTableMoreSets");
                     cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
 //                    cboSet.getStyleClass().add("combo-box-icon");
                     cboSet.getItems().addAll(progData.setDataList);

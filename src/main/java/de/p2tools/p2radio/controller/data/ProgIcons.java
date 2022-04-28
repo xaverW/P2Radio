@@ -72,7 +72,11 @@ public class ProgIcons {
         ICON_TOOLBAR_STATION_RANDOM("toolbar-station-random.png", 32, 32),
         ICON_TOOLBAR_STATION_INFO("toolbar-info.png", 32, 32),
 
-        ICON_DIALOG_EIN_SW("dialog-ein-sw.png", "dialog-ein.png"),
+        //ICON_DIALOG_EIN("dialog-ein-sw.png", "dialog-ein.png"),
+        //ICON_DIALOG_AUS("dialog-aus-sw.png", "dialog-aus.png"),
+        ICON_DIALOG_EIN("dialog-ein-sw.png"),
+        ICON_DIALOG_AUS("dialog-aus-sw.png"),
+
         IMAGE_ACHTUNG_64("achtung_64.png");
 
         private String fileName;

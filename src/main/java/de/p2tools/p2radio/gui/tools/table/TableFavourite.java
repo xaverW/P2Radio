@@ -284,7 +284,7 @@ public class TableFavourite {
                     cboSet = new ComboBox();
 //                    if (smallRadio) {
                     cboSet.setMinWidth(60);
-                    cboSet.getStyleClass().add("cboSmallRadio");
+                    cboSet.getStyleClass().add("cboTableMoreSets");
                     cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
 //                    } else {
 //                        cboSet.setMinWidth(50);
