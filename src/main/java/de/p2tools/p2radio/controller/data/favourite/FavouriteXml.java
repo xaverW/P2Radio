@@ -60,7 +60,7 @@ public class FavouriteXml extends PDataSample<Favourite> {
             "",
             "",
             "Land",
-            "Land",
+            "Länderkürzel",
             "Sprache",
             "Beschreibung",
             "Datum",

@@ -60,7 +60,7 @@ public class LastPlayedXml extends PDataSample<LastPlayed> {
             "",
             "",
             "Land",
-            "Land",
+            "Länderkürzel",
             "Sprache",
             "Beschreibung",
             "Datum",
