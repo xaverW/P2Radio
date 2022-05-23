@@ -2,6 +2,16 @@
 
 <br />
 
+**Release 5**
+
+* GUI: Es gab einige Änderungen/Anpassungen
+* Intern wurde einiges angepasst
+* Menü: Einige Anpassungen
+* ...
+
+<br />
+
+
 **Release 4**
 
 * Tray: Das Programm kann ins Tray gelegt werden -> In den Einstellungen kann das Tray eingeschaltet werden

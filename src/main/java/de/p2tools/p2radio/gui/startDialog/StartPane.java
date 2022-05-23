@@ -77,7 +77,11 @@ public class StartPane {
 
                 P2LibConst.LINE_SEPARATORx2 +
                 "8) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
-                "den Favoriten hinzugefügt werden.");
+                "den Favoriten hinzugefügt werden." +
+
+                P2LibConst.LINE_SEPARATORx2 +
+                "9) Hier kann ein zufälliger Sender" + P2LibConst.LINE_SEPARATOR +
+                "zum Abspielen ausgewählt werden.");
 
         hBox.getChildren().addAll(iv, text);
         TitledPane tpConfig = new TitledPane("Infos zur Programmoberfläche", hBox);
@@ -109,7 +113,11 @@ public class StartPane {
                 "gestartet und gestoppt" +
                 P2LibConst.LINE_SEPARATORx2 +
 
-                "4) Hier können die Favoriten" + P2LibConst.LINE_SEPARATOR +
+                "4) Damit kann ein eigener Sender zu" + P2LibConst.LINE_SEPARATOR +
+                "den Favoriten hinzugefügt werden." +
+                P2LibConst.LINE_SEPARATORx2 +
+
+                "5) Hier können die Favoriten" + P2LibConst.LINE_SEPARATOR +
                 "geändert oder gelöscht (\"X\") werden.");
         hBox.getChildren().add(text);
 
