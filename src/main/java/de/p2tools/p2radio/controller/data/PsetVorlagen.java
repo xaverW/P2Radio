@@ -164,7 +164,6 @@ public class PsetVorlagen {
             while (parser.hasNext()) {
                 event = parser.next();
                 if (event == XMLStreamConstants.START_ELEMENT) {
-//                    System.out.println(parser.getLocalName());
                     switch (parser.getLocalName()) {
                         case SetData.TAG:
                             psetData = new SetData();

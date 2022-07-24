@@ -145,7 +145,6 @@ public class LoadNewStationList {
      * @param event
      */
     private void afterImportNewStationListFromServer(EventLoadRadioList event) {
-//        System.out.println("===============> afterImportNewStationListFromServer");
         final List<String> logList = new ArrayList<>();
         logList.add(PLog.LILNE3);
 

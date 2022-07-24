@@ -46,41 +46,33 @@ public final class StoredFiltersForwardBackward {
         progData.storedFilters.getActFilterSettings().filterChangeProperty().addListener((observable, oldValue, newValue) -> {
             // wenn der User den Filter ändert
             if (stopFilterChangeListener) {
-//                System.out.println("StoredFiltersForwardBackward-stopFilterChangeListener");
                 return;
             }
 
-//            System.out.println("StoredFiltersForwardBackward");
             addBackward();
             filterListForward.clear();
         });
         progData.storedFilters.getActFilterSettings().blacklistChangeProperty().addListener((observable, oldValue, newValue) -> {
             // wenn der User die Blackl. ein-/ausschaltet
             if (stopFilterChangeListener) {
-//                System.out.println("blacklistChangeListener-stopFilterChangeListener");
                 return;
             }
 
-//            System.out.println("blacklistChangeListener");
             filterListForward.clear();
         });
 
         addBackward();
         filterListBackward.addListener((ListChangeListener<SelectedFilter>) c -> {
             if (filterListBackward.size() > 1) {
-//                System.out.println("backward.setValue(true)");
                 backward.setValue(true);
             } else {
-//                System.out.println("backward.setValue(false)");
                 backward.setValue(false);
             }
         });
         filterListForward.addListener((ListChangeListener<SelectedFilter>) c -> {
             if (filterListForward.size() > 0) {
-//                System.out.println("forward.setValue(true)");
                 forward.setValue(true);
             } else {
-//                System.out.println("forward.setValue(false)");
                 forward.setValue(false);
             }
         });
@@ -97,11 +89,9 @@ public final class StoredFiltersForwardBackward {
     public void goBackward() {
         if (filterListBackward.size() <= 1) {
             // dann gibts noch keine oder ist nur die aktuelle Einstellung drin
-//            System.out.println("goBackward-size");
             return;
         }
 
-//        System.out.println("goBackward");
         SelectedFilter sf = filterListBackward.remove(filterListBackward.size() - 1); // ist die aktuelle Einstellung
         filterListForward.add(sf);
         sf = filterListBackward.remove(filterListBackward.size() - 1); // ist die davor
@@ -111,17 +101,14 @@ public final class StoredFiltersForwardBackward {
     public void goForward() {
         if (filterListForward.isEmpty()) {
             // dann gibts keine
-//            System.out.println("goForward-isEmpty");
             return;
         }
 
-//        System.out.println("goForward");
         final SelectedFilter sf = filterListForward.remove(filterListForward.size() - 1);
         setActFilterSettings(sf);
     }
 
     private void setActFilterSettings(SelectedFilter sf) {
-//        System.out.println("setActFilterSettings");
         stopFilterChangeListener = true;
         progData.storedFilters.setActFilterSettings(sf);
         addBackward();
@@ -129,7 +116,6 @@ public final class StoredFiltersForwardBackward {
     }
 
     private void addBackward() {
-//        System.out.println("addBackward");
         final SelectedFilter sf = new SelectedFilter();
         SelectedFilterFactory.copyFilter(progData.storedFilters.getActFilterSettings(), sf);
         if (filterListBackward.isEmpty()) {
@@ -168,7 +154,6 @@ public final class StoredFiltersForwardBackward {
         }
 
         // dann wars kein Textfilter
-//        System.out.println("addBackward-addBackward");
         filterListBackward.add(sf);
     }
 

@@ -19,6 +19,9 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
@@ -136,7 +139,7 @@ public class FavouriteGuiController extends AnchorPane {
         }
     }
 
-  
+
     public void saveTable() {
         new Table().saveTable(tableView, Table.TABLE.FAVOURITE);
     }
@@ -189,6 +192,12 @@ public class FavouriteGuiController extends AnchorPane {
             @Override
             public void pingFx() {
                 tableView.refresh();
+            }
+        });
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
+            @Override
+            public void ping(RunEvent runEvent) {
+                Table.refresh_table(tableView);
             }
         });
     }

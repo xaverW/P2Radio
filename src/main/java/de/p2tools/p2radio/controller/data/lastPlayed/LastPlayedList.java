@@ -127,7 +127,6 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         }
         while (this.size() > ProgConst.MAX_LAST_PLAYED_LIST_SIZE) {
             this.remove(this.size() - 1);
-            System.out.println("remove");
         }
     }
 

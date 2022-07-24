@@ -20,42 +20,50 @@ package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2Lib.configFile.pConfData.PColorData;
 import de.p2tools.p2Lib.configFile.pConfData.PColorList;
-import de.p2tools.p2Lib.configFile.pData.PData;
 import javafx.scene.paint.Color;
 
 public class ProgColorList extends PColorList {
 
-    private ProgColorList() {
-        super();
-    }
-
-    public static final PColorData STATION_NEW = addNewKey("COLOR__STATION_NEW",
+    public static final PColorData STATION_NEW_BG = addNewKey("COLOR__STATION_NEW_BG",
             Color.rgb(0, 0, 240),
-            Color.rgb(0, 0, 240), "Tabelle Sender, neue");
+            Color.rgb(0, 0, 240), "Neue Sender, Tabellenzeile");
+    public static final PColorData STATION_NEW = addNewKey("COLOR__STATION_NEW",
+            Color.rgb(0, 0, 0),
+            Color.rgb(0, 0, 0),
+            false, "Neue Sender, Schriftfarbe");
 
-    public static final PColorData STATION_FAVOURITE = addNewKey("COLOR__IS_FAVOURITE",
+    public static final PColorData STATION_FAVOURITE_BG = addNewKey("COLOR__IS_FAVOURITE_BG",
             Color.rgb(224, 238, 255),
-            Color.rgb(224, 238, 255), "Tabelle Sender, ist ein Favorit");
+            Color.rgb(224, 238, 255), "Sender ist ein Favorit, Tabellenzeile");
+    public static final PColorData STATION_FAVOURITE = addNewKey("COLOR__IS_FAVOURITE",
+            Color.rgb(0, 0, 0),
+            Color.rgb(0, 0, 0),
+            false, "Sender ist ein Favorit, Schriftfarbe");
 
-    public static final PColorData STATION_RUN = addNewKey("COLOR__FAVOURITE_RUN",
+    public static final PColorData STATION_RUN_BG = addNewKey("COLOR__FAVOURITE_RUN_BG",
             Color.rgb(255, 245, 176),
-            Color.rgb(174, 150, 85), "Tabelle Sender/Favoriten, läuft");
+            Color.rgb(174, 150, 85), "Sender läuft, Tabellenzeile");
+    public static final PColorData STATION_RUN = addNewKey("COLOR__FAVOURITE_RUN",
+            Color.rgb(0, 0, 0),
+            Color.rgb(0, 0, 0),
+            false, "Sender läuft, Schriftfarbe");
 
-    public static final PColorData STATION_ERROR = addNewKey("COLOR__FAVOURITE_ERROR",
+    public static final PColorData STATION_ERROR_BG = addNewKey("COLOR__FAVOURITE_ERROR_BG",
             Color.rgb(255, 233, 233),
-            Color.rgb(163, 82, 82), "Tabelle Sender/Favoriten, fehlerhaft");
+            Color.rgb(163, 82, 82), "Sender ist fehlerhaft, Tabellenzeile");
+    public static final PColorData STATION_ERROR = addNewKey("COLOR__FAVOURITE_ERROR",
+            Color.rgb(0, 0, 0),
+            Color.rgb(0, 0, 0),
+            false, "Sender ist fehlerhaft, Schriftfarbe");
 
-    public static final PColorData FAVOURITE_ADD_DIALOG_NAME_URL_ERROR = addNewKey("FAVOURITE_ADD_DIALOG_NAME_URL_ERROR",
-            Color.rgb(255, 233, 233), Color.rgb(200, 183, 183), "Favorit hat keinen Namen oder keine URL");
+    public synchronized static PColorList getInstance() {
+        return PColorList.getInst();
+    }
 
     public static void setColorTheme() {
         final boolean dark = ProgConfig.SYSTEM_DARK_THEME.get();
-        for (int i = 0; i < getColorList().size(); ++i) {
-            getColorList().get(i).setColorTheme(dark);
+        for (int i = 0; i < getInstance().size(); ++i) {
+            getInstance().get(i).setColorTheme(dark);
         }
-    }
-
-    public static PData getConfigsData() {
-        return PColorList.getPData();
     }
 }

@@ -49,12 +49,6 @@ public class TableStation {
     public TableColumn[] initStationColumn(TableView table) {
         table.getColumns().clear();
 
-        // bei Farbänderung der Schriftfarbe klappt es damit besser: Table.refresh_table(table)
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observableValue, s, t1) -> table.refresh());
-        ProgColorList.STATION_NEW.colorProperty().addListener((a, b, c) -> table.refresh());
-        ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
-        ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
-
         final TableColumn<Station, Integer> nrColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_NO]);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.getStyleClass().add("alignCenterLeft");
@@ -146,19 +140,77 @@ public class TableStation {
 
                 if (station == null || empty) {
                     setStyle("");
-                } else {
-                    if (station.isNewStation()) {
-                        // neue Sender
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle(ProgColorList.STATION_NEW.getCssFont());
-                        }
 
-                    } else if (station.getStart() != null && station.getStart().getStartStatus().isStateError()) {
+                } else {
+                    final boolean playing = station.getStart() != null;
+                    final boolean error = station.getStart() != null ? station.getStart().getStartStatus().isStateError() : false;
+                    final boolean fav = station.isFavouriteUrl();
+
+                    if (station.getStart() != null && station.getStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(station.getStart().getStartStatus().getErrorMessage());
                         setTooltip(tooltip);
+                    }
+
+                    if (error) {
+                        if (ProgColorList.STATION_ERROR_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_ERROR.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
+                            }
+                        } else {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle("");
+                            }
+                        }
+
+                    } else if (playing) {
+                        if (ProgColorList.STATION_RUN_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_RUN.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
+                            }
+                        } else {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle("");
+                            }
+                        }
+
+                    } else if (station.isNewStation()) {
+                        // neue Sender
+                        if (ProgColorList.STATION_NEW_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_NEW_BG.getCssFont());
+                        }
+                        if (ProgColorList.STATION_NEW.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_NEW.getCssFont());
+                            }
+                        } else {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle("");
+                            }
+                        }
+
+                    } else if (fav) {
+                        if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_FAVOURITE.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
+                            }
+                        } else {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle("");
+                            }
+                        }
 
                     } else {
+                        setStyle("");
                         for (int i = 0; i < getChildren().size(); i++) {
                             getChildren().get(i).setStyle("");
                         }
@@ -297,26 +349,8 @@ public class TableStation {
                 hbox.getChildren().add(btnFavorite);
 
                 setGraphic(hbox);
-                setCellStyle(this, playing, error, fav);
             }
         };
         return cell;
     };
-
-    private void setCellStyle(TableCell<Station, String> cell, boolean playing, boolean error, boolean fav) {
-        TableRow<Station> currentRow = cell.getTableRow();
-        if (currentRow == null) {
-            return;
-        }
-
-        if (playing) {
-            currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundAndSel());
-        } else if (error) {
-            currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundAndSel());
-        } else if (fav) {
-            currentRow.setStyle(ProgColorList.STATION_FAVOURITE.getCssBackgroundAndSel());
-        } else {
-            currentRow.setStyle("");
-        }
-    }
 }

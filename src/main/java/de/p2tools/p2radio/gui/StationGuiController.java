@@ -18,7 +18,10 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -52,7 +55,6 @@ public class StationGuiController extends AnchorPane {
 
     private final ProgData progData;
     private boolean bound = false;
-    private final SortedList<Station> sortedList;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
 
@@ -61,10 +63,6 @@ public class StationGuiController extends AnchorPane {
 
     public StationGuiController() {
         progData = ProgData.getInstance();
-        sortedList = progData.stationListBlackFiltered.getSortedList();
-        sortedList.addListener((ListChangeListener<Station>) c -> {
-            selectStation();
-        });
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -156,13 +154,12 @@ public class StationGuiController extends AnchorPane {
 
 
     public void playRandomStation() {
-        Random r = new Random();
-        Station station = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
-        tableView.getSelectionModel().clearSelection();
+        int rInt = new Random().nextInt(tableView.getItems().size());
+        Station station = tableView.getItems().get(rInt);
         if (station != null) {
-            progData.startFactory.playStation(station);
             tableView.getSelectionModel().select(station);
             tableView.scrollTo(station);
+            progData.startFactory.playStation(station);
         }
     }
 
@@ -215,11 +212,23 @@ public class StationGuiController extends AnchorPane {
     }
 
     private void initListener() {
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
+        SortedList<Station> sortedList = progData.stationListBlackFiltered.getSortedList();
+        sortedList.addListener((ListChangeListener<Station>) c -> {
+            selectStation();
+        });
         progData.setDataList.listChangedProperty().addListener((observable, oldValue, newValue) -> {
             if (progData.setDataList.getSetDataListButton().size() > 1) {
                 boolInfoOn.set(true);
             }
             setInfoPane();
+        });
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
+            @Override
+            public void ping(RunEvent runEvent) {
+//                tableView.refresh();
+                Table.refresh_table(tableView);
+            }
         });
     }
 
@@ -263,13 +272,12 @@ public class StationGuiController extends AnchorPane {
 
     private void initTable() {
         tableView.setTableMenuButtonVisible(true);
-
         tableView.setEditable(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
         new Table().setTable(tableView, Table.TABLE.STATION);
 
+        SortedList<Station> sortedList = progData.stationListBlackFiltered.getSortedList();
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
 
@@ -315,6 +323,5 @@ public class StationGuiController extends AnchorPane {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setStation)
         );
-        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
     }
 }

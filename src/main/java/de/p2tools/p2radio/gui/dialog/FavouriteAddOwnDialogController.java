@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
+import de.p2tools.p2Lib.configFile.pConfData.PColorData;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
@@ -33,6 +33,10 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.NumberStringConverter;
 
 public class FavouriteAddOwnDialogController extends PDialogExtra {
+
+    private static final PColorData FAVOURITE_ADD_DIALOG_NAME_URL_ERROR =
+            new PColorData("", Color.rgb(255, 233, 233),
+                    Color.rgb(200, 183, 183));
 
     private Button btnOk = new Button("_Ok");
     private Button btnCancel = new Button("_Abbrechen");
@@ -233,13 +237,13 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     private void addCheck(TextField txtF) {
         txtF.textProperty().addListener((observable, oldValue, newValue) -> {
             if (txtF.getText().isEmpty()) {
-                txtF.setStyle(ProgColorList.FAVOURITE_ADD_DIALOG_NAME_URL_ERROR.getCssBackground());
+                txtF.setStyle(FAVOURITE_ADD_DIALOG_NAME_URL_ERROR.getCssBackground());
             } else {
                 txtF.setStyle("");
             }
         });
         if (txtF.getText().isEmpty()) {
-            txtF.setStyle(ProgColorList.FAVOURITE_ADD_DIALOG_NAME_URL_ERROR.getCssBackground());
+            txtF.setStyle(FAVOURITE_ADD_DIALOG_NAME_URL_ERROR.getCssBackground());
         } else {
             txtF.setStyle("");
         }

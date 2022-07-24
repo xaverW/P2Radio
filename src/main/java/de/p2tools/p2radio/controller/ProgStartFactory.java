@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.icon.GetIcon;
+import de.p2tools.p2Lib.icons.GetIcon;
 import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;

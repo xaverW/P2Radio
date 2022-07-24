@@ -55,9 +55,6 @@ public class TableFavourite {
         table.getColumns().clear();
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observableValue, s, t1) -> table.refresh());
-        ProgColorList.STATION_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
-        ProgColorList.STATION_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
         final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_NO]);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -81,7 +78,6 @@ public class TableFavourite {
         final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GRADE]);
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
         gradeColumn.setCellFactory(cellFactoryGrade);
-//        gradeColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CLICK_COUNT]);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
@@ -99,7 +95,6 @@ public class TableFavourite {
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
         bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
-
 
         final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_OWN]);
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
@@ -159,8 +154,40 @@ public class TableFavourite {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(favourite.getStart().getStartStatus().getErrorMessage());
                         setTooltip(tooltip);
+                    }
+
+                    final boolean playing = favourite.getStart() != null;
+                    final boolean error = favourite.getStart() != null ? favourite.getStart().getStartStatus().isStateError() : false;
+                    if (error) {
+                        if (ProgColorList.STATION_ERROR_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_ERROR.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
+                            }
+                        } else {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle("");
+                            }
+                        }
+                    } else if (playing) {
+                        if (ProgColorList.STATION_RUN_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_RUN.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
+                            }
+                        } else {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle("");
+                            }
+                        }
+
 
                     } else {
+                        setStyle("");
                         for (int i = 0; i < getChildren().size(); i++) {
                             getChildren().get(i).setStyle("");
                         }
@@ -261,9 +288,7 @@ public class TableFavourite {
                     //dann stoppen
                     final Button btnPlay;
                     btnPlay = new Button("");
-//                    if (smallRadio) {
                     btnPlay.getStyleClass().add("btnSmallRadio");
-//                    }
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -282,14 +307,9 @@ public class TableFavourite {
                     //läuft nix, mehre Sets
                     final ComboBox<SetData> cboSet;
                     cboSet = new ComboBox();
-//                    if (smallRadio) {
                     cboSet.setMinWidth(60);
                     cboSet.getStyleClass().add("cboTableMoreSets");
                     cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
-//                    } else {
-//                        cboSet.setMinWidth(50);
-//                        cboSet.getStyleClass().add("combo-box-icon");
-//                    }
                     cboSet.getItems().addAll(progData.setDataList);
                     cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
                         progData.startFactory.playFavourite(favourite, ne);
@@ -307,9 +327,7 @@ public class TableFavourite {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
-//                    if (smallRadio) {
                     btnPlay.getStyleClass().add("btnSmallRadio");
-//                    }
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -341,28 +359,11 @@ public class TableFavourite {
                     btnDel.setMaxHeight(18);
                 }
                 hbox.getChildren().add(btnDel);
-
                 setGraphic(hbox);
-                setCellStyle(this, playing, error);
             }
         };
         return cell;
     };
-
-    private void setCellStyle(TableCell<Favourite, Integer> cell, boolean playing, boolean error) {
-        TableRow<Favourite> currentRow = cell.getTableRow();
-        if (currentRow == null) {
-            return;
-        }
-
-        if (playing) {
-            currentRow.setStyle(ProgColorList.STATION_RUN.getCssBackgroundAndSel());
-        } else if (error) {
-            currentRow.setStyle(ProgColorList.STATION_ERROR.getCssBackgroundAndSel());
-        } else {
-            currentRow.setStyle("");
-        }
-    }
 
     private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryNo
             = (final TableColumn<Favourite, Integer> param) -> {

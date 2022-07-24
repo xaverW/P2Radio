@@ -19,6 +19,7 @@ package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.PEventHandler;
 import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.config.pEvent.EventNotifyLoadRadioList;
 import de.p2tools.p2radio.controller.config.pEvent.PEventFactory;
@@ -111,8 +112,11 @@ public class ProgData {
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
     public SetDataList setDataList;
+    public PEventHandler pEventHandler;
 
     private ProgData() {
+        pEventHandler = new PEventHandler();
+
         pShortcut = new P2RadioShortCuts();
         eventNotifyLoadRadioList = new EventNotifyLoadRadioList();
         loadNewStationList = new LoadNewStationList(this);

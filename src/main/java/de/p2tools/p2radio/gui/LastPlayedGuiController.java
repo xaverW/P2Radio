@@ -19,6 +19,9 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
@@ -30,7 +33,6 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
-import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -55,8 +57,6 @@ public class LastPlayedGuiController extends AnchorPane {
 
     private final ProgData progData;
     private boolean bound = false;
-    private final FilteredList<LastPlayed> filteredLastPlayedList;
-    private final SortedList<LastPlayed> sortedLastPlayedList;
 
     DoubleProperty splitPaneProperty = ProgConfig.LAST_PLAYED_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
@@ -80,8 +80,6 @@ public class LastPlayedGuiController extends AnchorPane {
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         lastPlayedGuiInfoController = new LastPlayedGuiInfoController();
-        filteredLastPlayedList = progData.filteredLastPlayedList;
-        sortedLastPlayedList = new SortedList<>(filteredLastPlayedList);
 
         setInfoPane();
         initTable();
@@ -141,49 +139,6 @@ public class LastPlayedGuiController extends AnchorPane {
         }
     }
 
-//    public void deleteHistory(boolean all) {
-//        if (all) {
-//            final ArrayList<LastPlayed> list = getSelList();
-//            if (list.isEmpty()) {
-//                return;
-//            }
-//
-//            final String text;
-//            if (list.size() == 1) {
-//                text = "Soll der Sender aus der History gelöscht werden?";
-//            } else {
-//                text = "Sollen alle Sender aus der History gelöscht werden?";
-//            }
-//            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
-//                    "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
-//                progData.lastPlayedList.removeAll(list);
-//            }
-//
-//        } else {
-//            final Optional<LastPlayed> favourite = getSel();
-//            if (favourite.isPresent()) {
-//                deleteHistory(favourite.get());
-//            }
-//        }
-//    }
-//
-//    public void deleteCompleteHistory() {
-//        final String text;
-//        text = "Soll die gesamte History gelöscht werden?";
-//        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
-//                "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
-//            progData.lastPlayedList.clear();
-//        }
-//    }
-
-//    public void deleteHistory(LastPlayed lastPlayed) {
-//        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
-//                "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-//            progData.lastPlayedList.remove(lastPlayed);
-//            StationListFactory.findAndMarkFavouriteStations(progData);
-//        }
-//    }
-
     public void saveTable() {
         new Table().saveTable(tableView, Table.TABLE.LAST_PLAYED);
     }
@@ -232,10 +187,17 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     private void initListener() {
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
         Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, LastPlayedGuiController.class.getSimpleName()) {
             @Override
             public void pingFx() {
                 tableView.refresh();
+            }
+        });
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
+            @Override
+            public void ping(RunEvent runEvent) {
+                Table.refresh_table(tableView);
             }
         });
     }
@@ -262,8 +224,11 @@ public class LastPlayedGuiController extends AnchorPane {
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         new Table().setTable(tableView, Table.TABLE.LAST_PLAYED);
+
+        SortedList<LastPlayed> sortedLastPlayedList = new SortedList<>(progData.filteredLastPlayedList);
         tableView.setItems(sortedLastPlayedList);
         sortedLastPlayedList.comparatorProperty().bind(tableView.comparatorProperty());
+        Platform.runLater(() -> Table.refresh_table(tableView));
 
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
@@ -298,6 +263,5 @@ public class LastPlayedGuiController extends AnchorPane {
                 event.consume();
             }
         });
-        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
     }
 }

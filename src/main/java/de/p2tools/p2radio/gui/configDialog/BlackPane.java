@@ -28,7 +28,6 @@ import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterCountHitsFactory;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -182,7 +181,7 @@ public class BlackPane {
                 "sortiert werden."));
         btnSortList.setOnAction(a -> {
             ProgData.getInstance().blackDataList.sortIncCounter(true);
-            Table.refresh_table(tableView);
+            tableView.refresh();
         });
 
 
@@ -192,7 +191,7 @@ public class BlackPane {
                 "wieviele Sender damit geblockt werden."));
         btnCountHits.setOnAction(a -> {
             BlackFilterCountHitsFactory.countHits(true);
-            Table.refresh_table(tableView);
+            tableView.refresh();
         });
 
 
