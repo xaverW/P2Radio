@@ -114,10 +114,6 @@ public class TableStation {
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
-//        final TableColumn<Station, String> urlrColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_URL_RESOLVED]);
-//        urlrColumn.setCellValueFactory(new PropertyValueFactory<>("urlResolved"));
-//        urlrColumn.getStyleClass().add("alignCenterLeft");
-
         nrColumn.setPrefWidth(50);
         nameColumn.setPrefWidth(150);
         genreColumn.setPrefWidth(150);
@@ -138,10 +134,12 @@ public class TableStation {
             public void updateItem(Station station, boolean empty) {
                 super.updateItem(station, empty);
 
-                if (station == null || empty) {
-                    setStyle("");
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
 
-                } else {
+                if (station != null && !empty) {
                     final boolean playing = station.getStart() != null;
                     final boolean error = station.getStart() != null ? station.getStart().getStartStatus().isStateError() : false;
                     final boolean fav = station.isFavouriteUrl();
@@ -160,10 +158,6 @@ public class TableStation {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
                         }
 
                     } else if (playing) {
@@ -174,24 +168,18 @@ public class TableStation {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
                         }
 
                     } else if (station.isNewStation()) {
                         // neue Sender
+                        System.out.println("new");
                         if (ProgColorList.STATION_NEW_BG.isUse()) {
-                            setStyle(ProgColorList.STATION_NEW_BG.getCssFont());
+                            System.out.println("use-new");
+                            setStyle(ProgColorList.STATION_NEW_BG.getCssBackgroundAndSel());
                         }
                         if (ProgColorList.STATION_NEW.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_NEW.getCssFont());
-                            }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
                             }
                         }
 
@@ -203,16 +191,6 @@ public class TableStation {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
-                        }
-
-                    } else {
-                        setStyle("");
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle("");
                         }
                     }
                 }

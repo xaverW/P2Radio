@@ -25,12 +25,13 @@ import javafx.scene.paint.Color;
 public class ProgColorList extends PColorList {
 
     public static final PColorData STATION_NEW_BG = addNewKey("COLOR__STATION_NEW_BG",
-            Color.rgb(0, 0, 240),
-            Color.rgb(0, 0, 240), "Neue Sender, Tabellenzeile");
+            Color.rgb(255, 255, 255),
+            Color.rgb(255, 255, 255),
+            false, "Neuer Sender, Tabellenzeile");
     public static final PColorData STATION_NEW = addNewKey("COLOR__STATION_NEW",
-            Color.rgb(0, 0, 0),
-            Color.rgb(0, 0, 0),
-            false, "Neue Sender, Schriftfarbe");
+            Color.rgb(0, 0, 240),
+            Color.rgb(0, 0, 240),
+            true, "Neuer Sender, Schriftfarbe");
 
     public static final PColorData STATION_FAVOURITE_BG = addNewKey("COLOR__IS_FAVOURITE_BG",
             Color.rgb(224, 238, 255),

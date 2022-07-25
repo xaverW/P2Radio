@@ -124,10 +124,12 @@ public class TableLastPlayed {
             public void updateItem(LastPlayed lastPlayed, boolean empty) {
                 super.updateItem(lastPlayed, empty);
 
-                if (lastPlayed == null || empty) {
-                    setStyle("");
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
 
-                } else {
+                if (lastPlayed != null && !empty) {
                     if (lastPlayed.getStart() != null && lastPlayed.getStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(lastPlayed.getStart().getStartStatus().getErrorMessage());
@@ -146,10 +148,6 @@ public class TableLastPlayed {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
                         }
 
                     } else if (playing) {
@@ -159,10 +157,6 @@ public class TableLastPlayed {
                         if (ProgColorList.STATION_RUN.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
-                            }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
                             }
                         }
 
@@ -175,16 +169,6 @@ public class TableLastPlayed {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
-                        }
-
-                    } else {
-                        setStyle("");
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle("");
                         }
                     }
                 }

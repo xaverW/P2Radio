@@ -146,10 +146,12 @@ public class TableFavourite {
             public void updateItem(Favourite favourite, boolean empty) {
                 super.updateItem(favourite, empty);
 
-                if (favourite == null || empty) {
-                    setStyle("");
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
 
-                } else {
+                if (favourite != null && !empty) {
                     if (favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(favourite.getStart().getStartStatus().getErrorMessage());
@@ -166,10 +168,6 @@ public class TableFavourite {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
                         }
                     } else if (playing) {
                         if (ProgColorList.STATION_RUN_BG.isUse()) {
@@ -179,17 +177,6 @@ public class TableFavourite {
                             for (int i = 0; i < getChildren().size(); i++) {
                                 getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
                             }
-                        } else {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle("");
-                            }
-                        }
-
-
-                    } else {
-                        setStyle("");
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle("");
                         }
                     }
                 }

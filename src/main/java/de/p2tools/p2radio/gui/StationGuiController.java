@@ -226,7 +226,6 @@ public class StationGuiController extends AnchorPane {
         progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
             @Override
             public void ping(RunEvent runEvent) {
-//                tableView.refresh();
                 Table.refresh_table(tableView);
             }
         });
