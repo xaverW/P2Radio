@@ -16,7 +16,9 @@
 
 package de.p2tools.p2radio.controller.config.pEvent;
 
-public class EventLoadRadioList {
+import java.util.EventObject;
+
+public class EventLoadRadioList extends EventObject {
 
     public String senderUrl = "";
     public String text;
@@ -25,7 +27,9 @@ public class EventLoadRadioList {
     public boolean error;
     public int countFoundStations;
 
-    public EventLoadRadioList(String senderUrl, String text, double max, double progress, int countFoundStations, boolean error) {
+    public EventLoadRadioList(Object source,
+                              String senderUrl, String text, double max, double progress, int countFoundStations, boolean error) {
+        super(source);
         this.senderUrl = senderUrl;
         this.text = text;
         this.max = max;
@@ -34,7 +38,9 @@ public class EventLoadRadioList {
         this.error = error;
     }
 
-    public EventLoadRadioList(String senderUrl, String text, double progress, int countFoundStations, boolean error) {
+    public EventLoadRadioList(Object source,
+                              String senderUrl, String text, double progress, int countFoundStations, boolean error) {
+        super(source);
         this.senderUrl = senderUrl;
         this.text = text;
         max = 0;
@@ -43,7 +49,10 @@ public class EventLoadRadioList {
         this.error = error;
     }
 
-    public static EventLoadRadioList getEmptyEvent() {
-        return new EventLoadRadioList("", "", 0, 0, false);
+    public static EventLoadRadioList getEmptyEvent(Object source) {
+        return new EventLoadRadioList(source,
+                "", "", 0, 0, false);
     }
+
+
 }

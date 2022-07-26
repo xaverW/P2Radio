@@ -61,7 +61,8 @@ public class ProgLoadFactory {
             PDuration.onlyPing("Programmstart Senderliste laden: start");
 
             progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.START,
-                    new EventLoadRadioList("", "gespeicherte Senderliste laden",
+                    new EventLoadRadioList(ProgLoadFactory.class,
+                            "", "gespeicherte Senderliste laden",
                             EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false));
 
             final List<String> logList = new ArrayList<>();
@@ -80,7 +81,8 @@ public class ProgLoadFactory {
                 if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
                     //wenn die gespeicherte zu alt ist
                     progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.PROGRESS,
-                            new EventLoadRadioList("", "Senderliste zu alt, neue Senderliste laden",
+                            new EventLoadRadioList(ProgLoadFactory.class,
+                                    "", "Senderliste zu alt, neue Senderliste laden",
                                     EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
                     logList.add("Senderliste zu alt, neue Senderliste laden");
@@ -89,7 +91,8 @@ public class ProgLoadFactory {
 
                 } else {
                     progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-                            new EventLoadRadioList("", "Senderliste verarbeiten",
+                            new EventLoadRadioList(ProgLoadFactory.class,
+                                    "", "Senderliste verarbeiten",
                                     EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
                     afterLoadingStationList(logList);
@@ -136,7 +139,8 @@ public class ProgLoadFactory {
         logList.add("");
 
         progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-                new EventLoadRadioList("", "Sender markieren",
+                new EventLoadRadioList(ProgLoadFactory.class,
+                        "", "Sender markieren",
                         EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
         logList.add("Sender markieren");
@@ -146,7 +150,8 @@ public class ProgLoadFactory {
         progData.stationList.loadFilterLists();
 
         progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-                new EventLoadRadioList("", "Blacklist filtern",
+                new EventLoadRadioList(ProgLoadFactory.class,
+                        "", "Blacklist filtern",
                         EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
         logList.add(PLog.LILNE3);
@@ -158,7 +163,8 @@ public class ProgLoadFactory {
         progData.stationList.filterListWithBlacklist(true);
 
         progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-                new EventLoadRadioList("", "Sender in Favoriten eingetragen",
+                new EventLoadRadioList(ProgLoadFactory.class,
+                        "", "Sender in Favoriten eingetragen",
                         EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
         logList.add("Sender in Favoriten eingetragen");
@@ -185,12 +191,6 @@ public class ProgLoadFactory {
 
         return readConfigFile.readConfigFile();
     }
-
-//    private static void initP2Li1b() {
-//        P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, ProgInfos.getUserAgent(),
-//                ProgData.debug, ProgData.duration);
-//        P2LibInit.addCssFile(ProgConst.CSS_FILE);
-//    }
 
     private static void initAfterLoad() {
         ProgData.getInstance().blackDataList.sortIncCounter(false);

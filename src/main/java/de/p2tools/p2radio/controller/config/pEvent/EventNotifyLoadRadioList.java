@@ -36,7 +36,8 @@ public class EventNotifyLoadRadioList {
     }
 
     public void notifyFinishedOk() {
-        notifyEvent(EventNotifyLoadRadioList.NOTIFY.FINISHED, EventLoadRadioList.getEmptyEvent());
+        notifyEvent(EventNotifyLoadRadioList.NOTIFY.FINISHED,
+                EventLoadRadioList.getEmptyEvent(EventListenerLoadRadioList.class));
     }
 
     public void notifyEvent(NOTIFY notify, EventLoadRadioList event) {

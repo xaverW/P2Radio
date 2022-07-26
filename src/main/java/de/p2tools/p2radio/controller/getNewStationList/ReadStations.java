@@ -98,7 +98,8 @@ public class ReadStations {
 
     private synchronized void reportFinished(boolean ok) {
         for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-            l.finished(new EventLoadRadioList("", "", 0, 0, !ok));
+            l.finished(new EventLoadRadioList(this.getClass(),
+                    "", "", 0, 0, !ok));
         }
     }
 }

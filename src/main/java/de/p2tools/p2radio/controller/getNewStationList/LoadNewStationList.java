@@ -68,7 +68,8 @@ public class LoadNewStationList {
             public synchronized void finished(EventLoadRadioList event) {
                 // Laden ist durch
                 progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-                        new EventLoadRadioList("", "Sender verarbeiten",
+                        new EventLoadRadioList(this.getClass(),
+                                "", "Sender verarbeiten",
                                 EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
                 PLog.addSysLog("Liste der Radios geladen");

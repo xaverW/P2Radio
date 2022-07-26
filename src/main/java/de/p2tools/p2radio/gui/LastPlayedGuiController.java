@@ -19,8 +19,8 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.events.Event;
 import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -194,9 +194,9 @@ public class LastPlayedGuiController extends AnchorPane {
                 tableView.refresh();
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
+        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(RunEvent runEvent) {
+            public void ping(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });

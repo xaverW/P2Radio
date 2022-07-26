@@ -17,13 +17,8 @@
 
 package de.p2tools.p2radio.controller.config;
 
-import de.p2tools.p2Lib.tools.events.Event;
-
 public class Events {
 
     public static int COLORS_CHANGED = 0;
-
-    public static Event event(int i) {
-        return new Event(i, "");
-    }
+    public static int LOAD_RADIO_LIST = 1;
 }

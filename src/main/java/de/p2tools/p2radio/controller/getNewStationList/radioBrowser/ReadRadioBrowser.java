@@ -274,7 +274,8 @@ public class ReadRadioBrowser {
     private void notifyStart(String url) {
         progress = 0;
         for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-            l.start(new EventLoadRadioList(url, "Senderliste downloaden", 0, 0, false));
+            l.start(new EventLoadRadioList(this.getClass(),
+                    url, "Senderliste downloaden", 0, 0, false));
         }
     }
 
@@ -284,13 +285,15 @@ public class ReadRadioBrowser {
             progress = EventListenerLoadRadioList.PROGRESS_MAX;
         }
         for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-            l.progress(new EventLoadRadioList(url, "Senderliste downloaden", progress, 0, false));
+            l.progress(new EventLoadRadioList(this.getClass(),
+                    url, "Senderliste downloaden", progress, 0, false));
         }
     }
 
     private void notifyFinished(String url) {
         for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-            l.finished(new EventLoadRadioList(url, "Senderliste geladen", progress, 0, false));
+            l.finished(new EventLoadRadioList(this.getClass(),
+                    url, "Senderliste geladen", progress, 0, false));
         }
     }
 }
