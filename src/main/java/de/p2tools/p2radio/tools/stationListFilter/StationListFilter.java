@@ -28,6 +28,8 @@ import javafx.application.Platform;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class StationListFilter {
+    private static final AtomicBoolean search = new AtomicBoolean(false);
+    private static final AtomicBoolean research = new AtomicBoolean(false);
     private final ProgData progData;
 
     /**
@@ -40,7 +42,7 @@ public class StationListFilter {
 
         progData.storedFilters.filterChangeProperty().addListener((observable, oldValue, newValue) -> filter()); // Senderfilter (User) haben sich geändert
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
@@ -59,7 +61,7 @@ public class StationListFilter {
 //        });
 
         progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //wird sonst eh gemacht
                     filterList();
@@ -81,9 +83,6 @@ public class StationListFilter {
     private void filter() {
         Platform.runLater(() -> filterList());
     }
-
-    private static final AtomicBoolean search = new AtomicBoolean(false);
-    private static final AtomicBoolean research = new AtomicBoolean(false);
 
     private void filterList() {
         // ist etwas "umständlich", scheint aber am flüssigsten zu laufen

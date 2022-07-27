@@ -269,7 +269,7 @@ public class ReadRadioBrowser {
 
     private void notifyStart(String url) {
         progress = 0;
-        ProgData.getInstance().pEventHandler.notifyListenerGui(
+        ProgData.getInstance().pEventHandler.notifyListener(
                 new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
                         url, "Senderliste downloaden", 0, false));
 
@@ -284,7 +284,7 @@ public class ReadRadioBrowser {
         if (progress > RunEventRadio.PROGRESS_MAX) {
             progress = RunEventRadio.PROGRESS_MAX;
         }
-        ProgData.getInstance().pEventHandler.notifyListenerGui(
+        ProgData.getInstance().pEventHandler.notifyListener(
                 new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
                         url, "Senderliste downloaden", progress, false));
 //        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
@@ -294,7 +294,7 @@ public class ReadRadioBrowser {
     }
 
     private void notifyFinished(String url) {
-        ProgData.getInstance().pEventHandler.notifyListenerGui(
+        ProgData.getInstance().pEventHandler.notifyListener(
                 new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
                         url, "Senderliste geladen", progress, false));
 //        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {

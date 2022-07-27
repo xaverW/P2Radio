@@ -36,18 +36,15 @@ import javafx.scene.layout.VBox;
 
 public class ConfigDialogController extends PDialogExtra {
     private static ConfigDialogController instance;
-
-    private TabPane tabPane = new TabPane();
-    private Button btnOk = new Button("_Ok");
-    private BooleanProperty blackChanged = new SimpleBooleanProperty(false);
-
-    IntegerProperty propSelectedTab = ProgConfig.SYSTEM_CONFIG_DIALOG_TAB;
     private final ProgData progData;
-
+    IntegerProperty propSelectedTab = ProgConfig.SYSTEM_CONFIG_DIALOG_TAB;
     ConfigPaneController configPane;
     //    StationPaneController stationPane;
     BlackListPaneController blackPane;
     SetPaneController setPane;
+    private final TabPane tabPane = new TabPane();
+    private final Button btnOk = new Button("_Ok");
+    private final BooleanProperty blackChanged = new SimpleBooleanProperty(false);
 
     private ConfigDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
@@ -87,7 +84,7 @@ public class ConfigDialogController extends PDialogExtra {
         if (blackChanged.get()) {
             //sonst hat sich nichts geändert
             progData.stationList.filterListWithBlacklist(true);
-            progData.pEventHandler.notifyListenerGui(new Event(Events.BLACKLIST_CHANGED));
+            progData.pEventHandler.notifyListener(new Event(Events.BLACKLIST_CHANGED));
 //            Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, ConfigDialogController.class.getSimpleName());
         }
 
@@ -95,7 +92,7 @@ public class ConfigDialogController extends PDialogExtra {
         blackPane.close();
         setPane.close();
 
-        progData.pEventHandler.notifyListenerGui(new Event(Events.SETDATA_CHANGED));
+        progData.pEventHandler.notifyListener(new Event(Events.SETDATA_CHANGED));
 //        Listener.notify(Listener.EVENT_SETDATA_CHANGED, ConfigDialogController.class.getSimpleName());
         super.close();
     }

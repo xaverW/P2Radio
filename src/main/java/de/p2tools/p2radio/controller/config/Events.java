@@ -26,6 +26,4 @@ public class Events {
     public static int BLACKLIST_CHANGED = ++count;
     public static int TIMER = ++count;
     public static int SETDATA_CHANGED = ++count;
-
-
 }

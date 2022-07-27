@@ -31,9 +31,8 @@ import java.util.Comparator;
 public class BlackDataList extends SimpleListProperty<BlackData> implements PDataList<BlackData> {
 
     public static final String TAG = "BlackDataList";
-
-    private int nr = 0;
     private final ProgData progData;
+    private int nr = 0;
 
     public BlackDataList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -88,7 +87,7 @@ public class BlackDataList extends SimpleListProperty<BlackData> implements PDat
 
     public synchronized void filterListAndNotifyListeners() {
         progData.stationList.filterListWithBlacklist(true);
-        progData.pEventHandler.notifyListenerGui(new Event(Events.BLACKLIST_CHANGED));
+        progData.pEventHandler.notifyListener(new Event(Events.BLACKLIST_CHANGED));
 //        Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, BlackDataList.class.getSimpleName());
     }
 

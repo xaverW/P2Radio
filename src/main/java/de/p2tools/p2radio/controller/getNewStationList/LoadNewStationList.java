@@ -44,18 +44,18 @@ import java.util.stream.Collectors;
 
 public class LoadNewStationList {
 
+    private static final AtomicBoolean stop = new AtomicBoolean(false); //damit kann das Laden gestoppt werden
     private final ProgData progData;
     private final ReadStations readStations;
     private final HashSet<String> hashSet = new HashSet<>();
-    private BooleanProperty propLoadStationList = new SimpleBooleanProperty(false);
-    private static final AtomicBoolean stop = new AtomicBoolean(false); //damit kann das Laden gestoppt werden
+    private final BooleanProperty propLoadStationList = new SimpleBooleanProperty(false);
 
     public LoadNewStationList(ProgData progData) {
         this.progData = progData;
         readStations = new ReadStations();
 
         progData.pEventHandler.addListener(new PListener(Events.READ_STATION) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
@@ -88,7 +88,7 @@ public class LoadNewStationList {
                         PDuration.onlyPing("Sender nachbearbeiten: Ende");
 
                         // alles fertig ans Prog melden
-                        ProgData.getInstance().pEventHandler.notifyListenerGui(
+                        ProgData.getInstance().pEventHandler.notifyListener(
                                 new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
                                         runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
                     }
@@ -151,20 +151,20 @@ public class LoadNewStationList {
         return propLoadStationList.get();
     }
 
-    public BooleanProperty propLoadStationListProperty() {
-        return propLoadStationList;
-    }
-
     public void setPropLoadStationList(boolean propLoadStationList) {
         this.propLoadStationList.set(propLoadStationList);
     }
 
-    public synchronized void setStop(boolean set) {
-        stop.set(set);
+    public BooleanProperty propLoadStationListProperty() {
+        return propLoadStationList;
     }
 
     public synchronized boolean isStop() {
         return stop.get();
+    }
+
+    public synchronized void setStop(boolean set) {
+        stop.set(set);
     }
 
     public void loadNewStationFromServer() {

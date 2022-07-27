@@ -30,18 +30,13 @@ public class Worker {
         this.progData = progData;
 
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
-                        if (runE.getProgress() == RunEventRadio.PROGRESS_INDETERMINATE) {
-                            //ist dann die gespeicherte Senderliste
-                            PMaskerFactory.setMaskerVisible(progData, true, false);
-
-                        } else {
-                            PMaskerFactory.setMaskerVisible(progData, true, true);
-                        }
+                        //ist dann die gespeicherte Senderliste
+                        PMaskerFactory.setMaskerVisible(progData, true, runE.getProgress() != RunEventRadio.PROGRESS_INDETERMINATE);
                         PMaskerFactory.setMaskerProgress(progData, runE.getProgress(), runE.getText());
                     }
 

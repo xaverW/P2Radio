@@ -54,9 +54,9 @@ public class SmallRadioGuiController extends VBox {
     private final TableView<Favourite> tableView = new TableView<>();
 
     private final ProgData progData;
-    private boolean bound = false;
-    private FavouriteGuiInfoController favouriteGuiInfoController;
-    private SmallRadioGuiPack smallRadioGuiPack;
+    private final boolean bound = false;
+    private final FavouriteGuiInfoController favouriteGuiInfoController;
+    private final SmallRadioGuiPack smallRadioGuiPack;
 
 
     public SmallRadioGuiController(SmallRadioGuiPack smallRadioGuiPack) {
@@ -267,7 +267,7 @@ public class SmallRadioGuiController extends VBox {
 
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 tableView.refresh();
             }
         });
@@ -279,7 +279,7 @@ public class SmallRadioGuiController extends VBox {
 //        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(Event runEvent) {
+            public void pingGui(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });

@@ -63,6 +63,18 @@ public class ReadStations {
         th.start();
     }
 
+    private synchronized void reportFinished(boolean ok) {
+        ProgData.getInstance().pEventHandler.notifyListener(
+                new RunEventRadio(Events.READ_STATION, RunEventRadio.NOTIFY.FINISHED,
+                        "", "", 0, !ok));
+
+//        for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
+//            l.finished(
+//                    new EventLoadRadioList(this.getClass(),
+//                            "", "", 0, !ok));
+//        }
+    }
+
     private class ReadStationsThread implements Runnable {
         private final StationList stationList;
 
@@ -91,17 +103,5 @@ public class ReadStations {
             reportFinished(ret);
             return ret;
         }
-    }
-
-    private synchronized void reportFinished(boolean ok) {
-        ProgData.getInstance().pEventHandler.notifyListenerGui(
-                new RunEventRadio(Events.READ_STATION, RunEventRadio.NOTIFY.FINISHED,
-                        "", "", 0, !ok));
-
-//        for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-//            l.finished(
-//                    new EventLoadRadioList(this.getClass(),
-//                            "", "", 0, !ok));
-//        }
     }
 }

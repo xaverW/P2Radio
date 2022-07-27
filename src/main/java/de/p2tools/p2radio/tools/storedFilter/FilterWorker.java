@@ -29,18 +29,17 @@ import java.util.Collections;
 
 public class FilterWorker {
 
-    private ObservableList<String> allCodecsList = FXCollections.observableArrayList("");
-    private ObservableList<String> allCountryList = FXCollections.observableArrayList("");
-    private ObservableList<String> allGenreList = FXCollections.observableArrayList("");
-
     final SelectedFilter sfTemp = new SelectedFilter();
     private final ProgData progData;
+    private final ObservableList<String> allCodecsList = FXCollections.observableArrayList("");
+    private final ObservableList<String> allCountryList = FXCollections.observableArrayList("");
+    private final ObservableList<String> allGenreList = FXCollections.observableArrayList("");
 
     public FilterWorker(ProgData progData) {
         this.progData = progData;
 
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 

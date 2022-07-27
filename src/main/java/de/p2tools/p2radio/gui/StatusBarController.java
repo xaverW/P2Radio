@@ -30,25 +30,20 @@ import javafx.scene.layout.*;
 
 public class StatusBarController extends AnchorPane {
 
-    public enum StatusbarIndex {NONE, STATION, FAVOURITE, LAST_PLAYED}
-
     private final StackPane stackPane = new StackPane();
     //Sender
     private final Label lblLeftStation = new Label();
     private final Label lblRightStation = new Label();
     //Favoriten
     private final Label lblLeftFavourite = new Label();
-
     private final Label lblRightFavourite = new Label();
     private final Pane nonePane;
     private final Pane stationPane;
     private final Pane favouritePane;
-    private StatusbarIndex statusbarIndex = StatusbarIndex.NONE;
-    private boolean loadList = false;
-
     private final ProgData progData;
+    private StatusbarIndex statusbarIndex = StatusbarIndex.NONE;
+    private final boolean loadList = false;
     private boolean stopTimer = false;
-
     public StatusBarController(ProgData progData) {
         this.progData = progData;
 
@@ -76,7 +71,6 @@ public class StatusBarController extends AnchorPane {
         hBox.setStyle("-fx-background-color: -fx-background ;");
         return hBox;
     }
-
 
     private void make() {
         stackPane.getChildren().addAll(nonePane, stationPane, favouritePane);
@@ -114,7 +108,7 @@ public class StatusBarController extends AnchorPane {
 //        });
 
         progData.pEventHandler.addListener(new PListener(Events.TIMER) {
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     try {
                         if (!stopTimer) {
@@ -162,7 +156,6 @@ public class StatusBarController extends AnchorPane {
         }
     }
 
-
     private void setInfoStation() {
         lblLeftStation.setText(InfoFactory.getInfosStations());
     }
@@ -189,4 +182,6 @@ public class StatusBarController extends AnchorPane {
         lblRightStation.setText(strText);
         lblRightFavourite.setText(strText);
     }
+
+    public enum StatusbarIndex {NONE, STATION, FAVOURITE, LAST_PLAYED}
 }

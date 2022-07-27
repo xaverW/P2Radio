@@ -50,16 +50,14 @@ public class StationGuiController extends AnchorPane {
 
     private final TabPane infoTab = new TabPane();
     private final TilePane tilePaneButton = new TilePane();
-    private StationGuiInfoController stationGuiInfoController;
     private final TableView<Station> tableView = new TableView<>();
-
     private final ProgData progData;
-    private boolean bound = false;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
-
     DoubleProperty splitPaneProperty = ProgConfig.STATION_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.STATION_GUI_DIVIDER_ON;
+    private StationGuiInfoController stationGuiInfoController;
+    private boolean bound = false;
 
     public StationGuiController() {
         progData = ProgData.getInstance();
@@ -225,7 +223,7 @@ public class StationGuiController extends AnchorPane {
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(Event runEvent) {
+            public void pingGui(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });

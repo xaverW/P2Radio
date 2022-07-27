@@ -46,27 +46,22 @@ import javafx.scene.layout.*;
 
 public class P2RadioController extends StackPane {
 
+    private final ProgData progData;
+    private final PMaskerPane maskerPane = new PMaskerPane();
     Button btnSmallRadio = new Button("");
     Button btnStation = new Button("Sender");
     Button btnFavourite = new Button("Favoriten");
     Button btnLastPlayed = new Button("History");
     MenuButton menuButton = new MenuButton("");
-
     BorderPane borderPane = new BorderPane();
     StackPane stackPaneCont = new StackPane();
-
-    private PMaskerPane maskerPane = new PMaskerPane();
-    private StatusBarController statusBarController;
-
-    private Pane paneStation;
-    private Pane paneFavourite;
-    private Pane paneLastPlayed;
-
-    private final ProgData progData;
-
     StationGuiPack stationGuiPack = new StationGuiPack();
     FavouriteGuiPack favouriteGuiPack = new FavouriteGuiPack();
     LastPlayedGuiPack lastPlayedGuiPack = new LastPlayedGuiPack();
+    private StatusBarController statusBarController;
+    private Pane paneStation;
+    private Pane paneFavourite;
+    private Pane paneLastPlayed;
 
     public P2RadioController() {
         progData = ProgData.getInstance();
@@ -198,31 +193,34 @@ public class P2RadioController extends StackPane {
                 new SeparatorMenuItem(), miQuit);
 
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public void ping(RunEventRadio event) {
-                if (event.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                    if (stackPaneCont.getChildren().size() == 0) {
-                        return;
-                    }
+            public <T extends Event> void pingGui(T event) {
+                if (event.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) event;
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        if (stackPaneCont.getChildren().size() == 0) {
+                            return;
+                        }
 
-                    Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                    if (node != null && node == paneStation) {
-                        progData.stationGuiController.isShown();
-                    }
-                    if (node != null && node == paneFavourite) {
-                        progData.favouriteGuiController.isShown();
-                    }
-                    if (node != null && node == paneLastPlayed) {
-                        progData.lastPlayedGuiController.isShown();
+                        Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+                        if (node != null && node == paneStation) {
+                            progData.stationGuiController.isShown();
+                        }
+                        if (node != null && node == paneFavourite) {
+                            progData.favouriteGuiController.isShown();
+                        }
+                        if (node != null && node == paneLastPlayed) {
+                            progData.lastPlayedGuiController.isShown();
+                        }
                     }
                 }
             }
         });
 
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
-                    
+
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
                         if (stackPaneCont.getChildren().size() == 0) {
                             return;

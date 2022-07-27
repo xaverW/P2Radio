@@ -57,22 +57,19 @@ import javafx.util.Duration;
 
 public class ProgData {
 
-    private static ProgData instance;
-
     // flags
     public static boolean debug = false; // Debugmodus
     public static boolean duration = false; // Duration ausgeben
     public static boolean reset = false; // Programm auf Starteinstellungen zurücksetzen
-
     // Infos
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
-
+    private static ProgData instance;
+    public final ProgTray progTray;
     // zentrale Klassen
     public LoadNewStationList loadNewStationList; // erledigt das laden und updaten der Radioliste
     public P2RadioShortCuts pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
-
     // Gui
     public Stage primaryStage = null;
     public PMaskerPane maskerPane = null;
@@ -80,12 +77,9 @@ public class ProgData {
     public StationGuiController stationGuiController = null; // Tab mit den Sender
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
     public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
-
     public LastPlayedGuiController lastPlayedGuiController = null; // Tab mit den Favoriten
     public StationInfoDialogController stationInfoDialogController = null;
     public StationFilterControllerClearFilter stationFilterControllerClearFilter = null;
-    public final ProgTray progTray;
-
     // Worker
     public Worker worker; // Liste aller Sender, Themen, ...
     public FilterWorker filterWorker; // Liste aller Sender, Themen, ...
@@ -109,6 +103,7 @@ public class ProgData {
     public BlackDataList blackDataList;
     public SetDataList setDataList;
     public PEventHandler pEventHandler;
+    boolean oneSecond = false;
 
     private ProgData() {
         pEventHandler = new PEventHandler();
@@ -143,12 +138,21 @@ public class ProgData {
         progTray = new ProgTray(this);
     }
 
+    public synchronized static final ProgData getInstance(String dir) {
+        if (!dir.isEmpty()) {
+            configDir = dir;
+        }
+        return getInstance();
+    }
+
+    public synchronized static final ProgData getInstance() {
+        return instance == null ? instance = new ProgData() : instance;
+    }
+
     public void initProgData() {
         startTimer();
         progTray.initProgTray();
     }
-
-    boolean oneSecond = false;
 
     private void startTimer() {
         // extra starten, damit er im Einrichtungsdialog nicht dazwischen funkt
@@ -165,18 +169,7 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        pEventHandler.notifyListenerGui(new Event(Events.TIMER));
+        pEventHandler.notifyListener(new Event(Events.TIMER));
 //        Listener.notify(Listener.EVENT_TIMER, ProgData.class.getName());
-    }
-
-    public synchronized static final ProgData getInstance(String dir) {
-        if (!dir.isEmpty()) {
-            configDir = dir;
-        }
-        return getInstance();
-    }
-
-    public synchronized static final ProgData getInstance() {
-        return instance == null ? instance = new ProgData() : instance;
     }
 }

@@ -50,15 +50,12 @@ public class LastPlayedGuiController extends AnchorPane {
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableView<LastPlayed> tableView = new TableView<>();
-
-    private LastPlayedGuiInfoController lastPlayedGuiInfoController;
-    private LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
-
     private final ProgData progData;
-    private boolean bound = false;
-
+    private final LastPlayedGuiInfoController lastPlayedGuiInfoController;
+    private final LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
     DoubleProperty splitPaneProperty = ProgConfig.LAST_PLAYED_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
+    private boolean bound = false;
 
     public LastPlayedGuiController() {
         progData = ProgData.getInstance();
@@ -188,7 +185,7 @@ public class LastPlayedGuiController extends AnchorPane {
     private void initListener() {
         progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 tableView.refresh();
             }
         });
@@ -201,7 +198,7 @@ public class LastPlayedGuiController extends AnchorPane {
 //        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(Event runEvent) {
+            public void pingGui(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });

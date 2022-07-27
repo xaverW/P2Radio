@@ -26,12 +26,11 @@ import de.p2tools.p2radio.controller.data.favourite.Favourite;
 
 public class FavouriteInfos {
 
+    private final ProgData progData;
     private int amount = 0; //Gesamtanzahl
     private int notStarted = 0; //davon gestartet, alle, egal ob warten, laden oder fertig
     private int started = 0; //davon gestartet, alle, egal ob warten, laden oder fertig
     private boolean search = false;
-
-    private final ProgData progData;
 
     public FavouriteInfos(ProgData progData) {
         this.progData = progData;

@@ -76,7 +76,7 @@ public class StationFilterController extends FilterController {
         vBoxBottom.getChildren().addAll(hBox);
 
         progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 setBlack();
             }
         });

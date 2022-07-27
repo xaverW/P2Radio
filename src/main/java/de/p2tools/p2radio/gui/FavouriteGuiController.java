@@ -52,12 +52,11 @@ public class FavouriteGuiController extends AnchorPane {
     private final TableView<Favourite> tableView = new TableView<>();
 
     private final ProgData progData;
-    private boolean bound = false;
     private final SortedList<Favourite> sortedFavourites;
-    private FavouriteGuiInfoController favouriteGuiInfoController;
-
+    private final FavouriteGuiInfoController favouriteGuiInfoController;
     DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
+    private boolean bound = false;
 
     public FavouriteGuiController() {
         progData = ProgData.getInstance();
@@ -188,7 +187,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 tableView.refresh();
             }
         });
@@ -200,7 +199,7 @@ public class FavouriteGuiController extends AnchorPane {
 //        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(Event event) {
+            public void pingGui(Event event) {
                 Table.refresh_table(tableView);
             }
         });
