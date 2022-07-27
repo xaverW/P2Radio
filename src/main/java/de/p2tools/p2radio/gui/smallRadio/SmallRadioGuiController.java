@@ -30,7 +30,6 @@ import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
-import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -267,12 +266,17 @@ public class SmallRadioGuiController extends VBox {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, SmallRadioGuiController.class.getSimpleName()) {
-            @Override
-            public void pingFx() {
+        progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
+            public void ping(Event event) {
                 tableView.refresh();
             }
         });
+//        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, SmallRadioGuiController.class.getSimpleName()) {
+//            @Override
+//            public void pingFx() {
+//                tableView.refresh();
+//            }
+//        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
             public void ping(Event runEvent) {

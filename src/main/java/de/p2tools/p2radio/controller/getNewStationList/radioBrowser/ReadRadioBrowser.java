@@ -22,11 +22,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
@@ -54,9 +50,9 @@ public class ReadRadioBrowser {
     private double progress = 0;
     private int countAll = 0;
 
-    public void addAdListener(EventListenerLoadRadioList listener) {
-        listeners.add(EventListenerLoadRadioList.class, listener);
-    }
+//    public void addAdListener(EventListenerLoadRadioList listener) {
+//        listeners.add(EventListenerLoadRadioList.class, listener);
+//    }
 
     /*
     Hier wird die Liste tatsächlich geladen (von Datei/URL)
@@ -273,27 +269,37 @@ public class ReadRadioBrowser {
 
     private void notifyStart(String url) {
         progress = 0;
-        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-            l.start(new EventLoadRadioList(this.getClass(),
-                    url, "Senderliste downloaden", 0, 0, false));
-        }
+        ProgData.getInstance().pEventHandler.notifyListenerGui(
+                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+                        url, "Senderliste downloaden", 0, false));
+
+//        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
+//            l.start(new EventLoadRadioList(this.getClass(),
+//                    url, "Senderliste downloaden", 0, false));
+//        }
     }
 
     private void notifyProgress(String url, double iProgress) {
         progress = iProgress;
-        if (progress > EventListenerLoadRadioList.PROGRESS_MAX) {
-            progress = EventListenerLoadRadioList.PROGRESS_MAX;
+        if (progress > RunEventRadio.PROGRESS_MAX) {
+            progress = RunEventRadio.PROGRESS_MAX;
         }
-        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-            l.progress(new EventLoadRadioList(this.getClass(),
-                    url, "Senderliste downloaden", progress, 0, false));
-        }
+        ProgData.getInstance().pEventHandler.notifyListenerGui(
+                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+                        url, "Senderliste downloaden", progress, false));
+//        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
+//            l.progress(new EventLoadRadioList(this.getClass(),
+//                    url, "Senderliste downloaden", progress, false));
+//        }
     }
 
     private void notifyFinished(String url) {
-        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-            l.finished(new EventLoadRadioList(this.getClass(),
-                    url, "Senderliste geladen", progress, 0, false));
-        }
+        ProgData.getInstance().pEventHandler.notifyListenerGui(
+                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
+                        url, "Senderliste geladen", progress, false));
+//        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
+//            l.finished(new EventLoadRadioList(this.getClass(),
+//                    url, "Senderliste geladen", progress, false));
+//        }
     }
 }

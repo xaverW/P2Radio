@@ -17,11 +17,12 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
-import de.p2tools.p2radio.tools.stationListFilter.StationListFilter;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -73,12 +74,18 @@ public class StationFilterController extends FilterController {
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
         vBoxBottom.getChildren().addAll(hBox);
-        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
-            @Override
-            public void pingFx() {
+
+        progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
+            public void ping(Event event) {
                 setBlack();
             }
         });
+//        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
+//            @Override
+//            public void pingFx() {
+//                setBlack();
+//            }
+//        });
         setBlack();
     }
 

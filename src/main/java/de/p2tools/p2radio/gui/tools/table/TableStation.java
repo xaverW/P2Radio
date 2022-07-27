@@ -172,9 +172,7 @@ public class TableStation {
 
                     } else if (station.isNewStation()) {
                         // neue Sender
-                        System.out.println("new");
                         if (ProgColorList.STATION_NEW_BG.isUse()) {
-                            System.out.println("use-new");
                             setStyle(ProgColorList.STATION_NEW_BG.getCssBackgroundAndSel());
                         }
                         if (ProgColorList.STATION_NEW.isUse()) {

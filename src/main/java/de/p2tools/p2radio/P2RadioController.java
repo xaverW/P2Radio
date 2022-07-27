@@ -19,16 +19,13 @@ package de.p2tools.p2radio;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
-import de.p2tools.p2radio.controller.ProgSaveFactory;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
@@ -194,44 +191,77 @@ public class P2RadioController extends StackPane {
         final Menu mHelp = new Menu("Hilfe");
         mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
 
-        // ProgInfoDialog
-        if (ProgData.debug) {
-            final MenuItem miDebug = new MenuItem("Debug: Debugtools");
-            miDebug.setOnAction(event -> {
-                MTPTester mtpTester = new MTPTester(progData);
-                mtpTester.showDialog();
-            });
-            final MenuItem miSave = new MenuItem("Debug: Alles Speichern");
-            miSave.setOnAction(a -> ProgSaveFactory.saveAll());
-
-            mHelp.getItems().addAll(new SeparatorMenuItem(), miDebug, miSave);
-        }
-
         menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         menuButton.getStyleClass().add("btnFunctionWide");
         menuButton.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
         menuButton.getItems().addAll(miConfig, miLoadStationList, mHelp,
                 new SeparatorMenuItem(), miQuit);
 
-        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-            @Override
-            public void finished(EventLoadRadioList event) {
-                if (stackPaneCont.getChildren().size() == 0) {
-                    return;
-                }
+        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
+            public void ping(RunEventRadio event) {
+                if (event.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                    if (stackPaneCont.getChildren().size() == 0) {
+                        return;
+                    }
 
-                Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                if (node != null && node == paneStation) {
-                    progData.stationGuiController.isShown();
-                }
-                if (node != null && node == paneFavourite) {
-                    progData.favouriteGuiController.isShown();
-                }
-                if (node != null && node == paneLastPlayed) {
-                    progData.lastPlayedGuiController.isShown();
+                    Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+                    if (node != null && node == paneStation) {
+                        progData.stationGuiController.isShown();
+                    }
+                    if (node != null && node == paneFavourite) {
+                        progData.favouriteGuiController.isShown();
+                    }
+                    if (node != null && node == paneLastPlayed) {
+                        progData.lastPlayedGuiController.isShown();
+                    }
                 }
             }
         });
+
+        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
+            public <T extends Event> void ping(T runEvent) {
+                if (runEvent.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) runEvent;
+                    
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        if (stackPaneCont.getChildren().size() == 0) {
+                            return;
+                        }
+
+                        Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+                        if (node != null && node == paneStation) {
+                            progData.stationGuiController.isShown();
+                        }
+                        if (node != null && node == paneFavourite) {
+                            progData.favouriteGuiController.isShown();
+                        }
+                        if (node != null && node == paneLastPlayed) {
+                            progData.lastPlayedGuiController.isShown();
+                        }
+                    }
+                }
+            }
+        });
+
+//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
+//            @Override
+//            public void finished(EventLoadRadioList event) {
+//                if (stackPaneCont.getChildren().size() == 0) {
+//                    return;
+//                }
+//
+//                Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+//                if (node != null && node == paneStation) {
+//                    progData.stationGuiController.isShown();
+//                }
+//                if (node != null && node == paneFavourite) {
+//                    progData.favouriteGuiController.isShown();
+//                }
+//                if (node != null && node == paneLastPlayed) {
+//                    progData.lastPlayedGuiController.isShown();
+//                }
+//            }
+//        });
     }
 
     private void selPanelSmallRadio() {

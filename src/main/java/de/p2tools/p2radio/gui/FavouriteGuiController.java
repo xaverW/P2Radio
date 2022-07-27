@@ -27,7 +27,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -188,12 +187,17 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
-            @Override
-            public void pingFx() {
+        progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
+            public void ping(Event event) {
                 tableView.refresh();
             }
         });
+//        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
+//            @Override
+//            public void pingFx() {
+//                tableView.refresh();
+//            }
+//        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
             public void ping(Event event) {

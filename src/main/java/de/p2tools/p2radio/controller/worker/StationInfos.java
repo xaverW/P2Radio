@@ -18,8 +18,10 @@
 package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.tools.Listener;
 
 public class StationInfos {
 
@@ -32,15 +34,24 @@ public class StationInfos {
 
     public StationInfos(ProgData progData) {
         this.progData = progData;
-        Listener.addListener(new Listener(Listener.EVENT_TIMER, StationInfos.class.getSimpleName()) {
-            @Override
-            public void ping() {
+
+        progData.pEventHandler.addListener(new PListener(Events.TIMER) {
+            public void ping(Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //dann wird die Liste neu gebaut
                     generateInfos();
                 }
             }
         });
+//        Listener.addListener(new Listener(Listener.EVENT_TIMER, StationInfos.class.getSimpleName()) {
+//            @Override
+//            public void ping() {
+//                if (!progData.loadNewStationList.getPropLoadStationList()) {
+//                    //dann wird die Liste neu gebaut
+//                    generateInfos();
+//                }
+//            }
+//        });
     }
 
 

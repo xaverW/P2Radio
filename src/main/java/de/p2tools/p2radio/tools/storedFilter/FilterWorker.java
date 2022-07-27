@@ -16,9 +16,11 @@
 
 package de.p2tools.p2radio.tools.storedFilter;
 
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -37,28 +39,47 @@ public class FilterWorker {
     public FilterWorker(ProgData progData) {
         this.progData = progData;
 
-        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-            @Override
-            public void start(EventLoadRadioList event) {
-                // the station combo will be resetted, therefore save the filter
-                saveFilter();
-            }
+        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
+            public <T extends Event> void ping(T runEvent) {
+                if (runEvent.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) runEvent;
 
-            @Override
-            public void progress(EventLoadRadioList event) {
-            }
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
+                        // the station combo will be resetted, therefore save the filter
+                        saveFilter();
+                    }
 
-            @Override
-            public void loaded(EventLoadRadioList event) {
-            }
-
-            @Override
-            public void finished(EventLoadRadioList event) {
-                createFilterLists();
-                // activate the saved filter
-                resetFilter();
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        createFilterLists();
+                        // activate the saved filter
+                        resetFilter();
+                    }
+                }
             }
         });
+
+//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
+//            @Override
+//            public void start(EventLoadRadioList event) {
+//                // the station combo will be resetted, therefore save the filter
+//                saveFilter();
+//            }
+//
+//            @Override
+//            public void progress(EventLoadRadioList event) {
+//            }
+//
+//            @Override
+//            public void loaded(EventLoadRadioList event) {
+//            }
+//
+//            @Override
+//            public void finished(EventLoadRadioList event) {
+//                createFilterLists();
+//                // activate the saved filter
+//                resetFilter();
+//            }
+//        });
 
         allGenreList.addAll("70s", "80s", "90s", "classic", "classic rock", "dance",
                 "deutschrock", "chillout", "disco", "electro", "electronic",

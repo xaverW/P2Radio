@@ -17,8 +17,9 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterCountHitsFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -87,7 +88,8 @@ public class BlackDataList extends SimpleListProperty<BlackData> implements PDat
 
     public synchronized void filterListAndNotifyListeners() {
         progData.stationList.filterListWithBlacklist(true);
-        Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, BlackDataList.class.getSimpleName());
+        progData.pEventHandler.notifyListenerGui(new Event(Events.BLACKLIST_CHANGED));
+//        Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, BlackDataList.class.getSimpleName());
     }
 
     public synchronized void clearCounter() {

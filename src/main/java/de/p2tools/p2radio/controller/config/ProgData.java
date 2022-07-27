@@ -19,10 +19,9 @@ package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.Event;
 import de.p2tools.p2Lib.tools.events.PEventHandler;
 import de.p2tools.p2radio.P2RadioController;
-import de.p2tools.p2radio.controller.config.pEvent.EventNotifyLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.PEventFactory;
 import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
@@ -45,7 +44,6 @@ import de.p2tools.p2radio.gui.StationGuiController;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.filter.StationFilterControllerClearFilter;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
-import de.p2tools.p2radio.gui.tools.Listener;
 import de.p2tools.p2radio.gui.tools.ProgTray;
 import de.p2tools.p2radio.tools.stationListFilter.StationListFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterWorker;
@@ -70,12 +68,10 @@ public class ProgData {
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
 
     // zentrale Klassen
-    public EventNotifyLoadRadioList eventNotifyLoadRadioList;
     public LoadNewStationList loadNewStationList; // erledigt das laden und updaten der Radioliste
     public P2RadioShortCuts pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
-    public PEventFactory pEventFactory;
 
     // Gui
     public Stage primaryStage = null;
@@ -118,7 +114,7 @@ public class ProgData {
         pEventHandler = new PEventHandler();
 
         pShortcut = new P2RadioShortCuts();
-        eventNotifyLoadRadioList = new EventNotifyLoadRadioList();
+//        eventNotifyLoadRadioList = new EventNotifyLoadRadioList();
         loadNewStationList = new LoadNewStationList(this);
         storedFilters = new StoredFilters(this);
         storedFilters.init();
@@ -138,7 +134,6 @@ public class ProgData {
 
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);
-        pEventFactory = new PEventFactory();
 
         worker = new Worker(this);
         filterWorker = new FilterWorker(this);
@@ -162,8 +157,6 @@ public class ProgData {
             if (oneSecond) {
                 doTimerWorkOneSecond();
             }
-            doTimerWorkHalfSecond();
-
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.setDelay(Duration.seconds(5));
@@ -172,11 +165,8 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        Listener.notify(Listener.EVENT_TIMER, ProgData.class.getName());
-    }
-
-    private void doTimerWorkHalfSecond() {
-        Listener.notify(Listener.EVENT_TIMER_HALF_SECOND, ProgData.class.getName());
+        pEventHandler.notifyListenerGui(new Event(Events.TIMER));
+//        Listener.notify(Listener.EVENT_TIMER, ProgData.class.getName());
     }
 
     public synchronized static final ProgData getInstance(String dir) {

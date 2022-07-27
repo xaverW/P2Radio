@@ -16,15 +16,17 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.Playable;
-import de.p2tools.p2radio.controller.worker.FavouriteInfos;
-import de.p2tools.p2radio.gui.tools.Listener;
 import javafx.application.Platform;
 
 import java.awt.*;
@@ -59,15 +61,24 @@ public class StartPlayingStation extends Thread {
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
-        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
-            @Override
-            public void ping() {
+        progData.pEventHandler.addListener(new PListener(Events.TIMER) {
+            public void ping(Event event) {
                 ++runTime;
                 if (runTime == ProgConst.START_COUNTER_MIN_TIME && playable != null) {
                     playable.setClickCount(playable.getClickCount() + 1);
                 }
             }
         });
+
+//        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
+//            @Override
+//            public void ping() {
+//                ++runTime;
+//                if (runTime == ProgConst.START_COUNTER_MIN_TIME && playable != null) {
+//                    playable.setClickCount(playable.getClickCount() + 1);
+//                }
+//            }
+//        });
     }
 
     void stopThread() {

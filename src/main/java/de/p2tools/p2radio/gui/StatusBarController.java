@@ -16,12 +16,13 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.worker.InfoFactory;
-import de.p2tools.p2radio.gui.tools.Listener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -82,31 +83,62 @@ public class StatusBarController extends AnchorPane {
         stackPane.setPadding(new Insets(2, 5, 2, 5));
         nonePane.toFront();
 
-        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-            @Override
-            public void start(EventLoadRadioList event) {
-                stopTimer = true;
-            }
+        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
+            public <T extends Event> void ping(T runEvent) {
+                if (runEvent.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) runEvent;
 
-            @Override
-            public void finished(EventLoadRadioList event) {
-                stopTimer = false;
-                setStatusbarIndex(statusbarIndex);
-            }
-        });
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
+                        stopTimer = true;
+                    }
 
-        Listener.addListener(new Listener(Listener.EVENT_TIMER, StatusBarController.class.getSimpleName()) {
-            @Override
-            public void pingFx() {
-                try {
-                    if (!stopTimer) {
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        stopTimer = false;
                         setStatusbarIndex(statusbarIndex);
                     }
-                } catch (final Exception ex) {
-                    PLog.errorLog(936251087, ex);
                 }
             }
         });
+
+//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
+//            @Override
+//            public void start(EventLoadRadioList event) {
+//                stopTimer = true;
+//            }
+//
+//            @Override
+//            public void finished(EventLoadRadioList event) {
+//                stopTimer = false;
+//                setStatusbarIndex(statusbarIndex);
+//            }
+//        });
+
+        progData.pEventHandler.addListener(new PListener(Events.TIMER) {
+            public void ping(Event event) {
+                if (!progData.loadNewStationList.getPropLoadStationList()) {
+                    try {
+                        if (!stopTimer) {
+                            setStatusbarIndex(statusbarIndex);
+                        }
+                    } catch (final Exception ex) {
+                        PLog.errorLog(936251087, ex);
+                    }
+                }
+            }
+        });
+
+//        Listener.addListener(new Listener(Listener.EVENT_TIMER, StatusBarController.class.getSimpleName()) {
+//            @Override
+//            public void pingFx() {
+//                try {
+//                    if (!stopTimer) {
+//                        setStatusbarIndex(statusbarIndex);
+//                    }
+//                } catch (final Exception ex) {
+//                    PLog.errorLog(936251087, ex);
+//                }
+//            }
+//        });
     }
 
     public void setStatusbarIndex(StatusbarIndex statusbarIndex) {

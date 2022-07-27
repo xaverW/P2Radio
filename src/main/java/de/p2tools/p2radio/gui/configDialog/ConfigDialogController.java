@@ -17,11 +17,12 @@
 package de.p2tools.p2radio.gui.configDialog;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2Lib.tools.events.Event;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.configDialog.setData.SetPaneController;
-import de.p2tools.p2radio.gui.tools.Listener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -86,14 +87,16 @@ public class ConfigDialogController extends PDialogExtra {
         if (blackChanged.get()) {
             //sonst hat sich nichts geändert
             progData.stationList.filterListWithBlacklist(true);
-            Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, ConfigDialogController.class.getSimpleName());
+            progData.pEventHandler.notifyListenerGui(new Event(Events.BLACKLIST_CHANGED));
+//            Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, ConfigDialogController.class.getSimpleName());
         }
 
         configPane.close();
         blackPane.close();
         setPane.close();
 
-        Listener.notify(Listener.EVENT_SETDATA_CHANGED, ConfigDialogController.class.getSimpleName());
+        progData.pEventHandler.notifyListenerGui(new Event(Events.SETDATA_CHANGED));
+//        Listener.notify(Listener.EVENT_SETDATA_CHANGED, ConfigDialogController.class.getSimpleName());
         super.close();
     }
 

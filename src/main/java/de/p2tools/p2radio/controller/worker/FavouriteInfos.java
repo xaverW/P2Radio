@@ -18,9 +18,11 @@
 package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.gui.tools.Listener;
 
 public class FavouriteInfos {
 
@@ -33,14 +35,19 @@ public class FavouriteInfos {
 
     public FavouriteInfos(ProgData progData) {
         this.progData = progData;
-        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
-            @Override
-            public void ping() {
+        progData.pEventHandler.addListener(new PListener(Events.TIMER) {
+            public void ping(Event event) {
                 generateFavouriteInfos();
             }
         });
-    }
 
+//        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
+//            @Override
+//            public void ping() {
+//                generateFavouriteInfos();
+//            }
+//        });
+    }
 
     public synchronized int getAmount() {
         return amount;

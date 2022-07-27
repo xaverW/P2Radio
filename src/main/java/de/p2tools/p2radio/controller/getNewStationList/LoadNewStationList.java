@@ -18,15 +18,16 @@ package de.p2tools.p2radio.controller.getNewStationList;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.ProgLoadFactory;
 import de.p2tools.p2radio.controller.SenderLoadFactory;
 import de.p2tools.p2radio.controller.SenderSaveFactory;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventNotifyLoadRadioList;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
@@ -52,38 +53,98 @@ public class LoadNewStationList {
     public LoadNewStationList(ProgData progData) {
         this.progData = progData;
         readStations = new ReadStations();
-        readStations.addAdListener(new EventListenerLoadRadioList() {
-            @Override
-            public synchronized void start(EventLoadRadioList event) {
-                //Start ans Prog melden
-                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.START, event);
-            }
 
-            @Override
-            public synchronized void progress(EventLoadRadioList event) {
-                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.PROGRESS, event);
-            }
+        progData.pEventHandler.addListener(new PListener(Events.READ_STATION) {
+            public <T extends Event> void ping(T runEvent) {
+                if (runEvent.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) runEvent;
 
-            @Override
-            public synchronized void finished(EventLoadRadioList event) {
-                // Laden ist durch
-                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-                        new EventLoadRadioList(this.getClass(),
-                                "", "Sender verarbeiten",
-                                EventListenerLoadRadioList.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
+                        //Start ans Prog melden
+//                        ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+//                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
+                    }
 
-                PLog.addSysLog("Liste der Radios geladen");
-                PLog.sysLog(PLog.LILNE1);
-                PLog.addSysLog("");
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.PROGRESS)) {
+//                        ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+//                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
+                    }
 
-                PDuration.onlyPing("Sender geladen: Nachbearbeiten");
-                afterImportNewStationListFromServer(event);
-                PDuration.onlyPing("Sender nachbearbeiten: Ende");
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        // Laden ist durch
+//                        ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
+//                                        "", "Sender verarbeiten",
+//                                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
-                // alles fertig ans Prog melden
-                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.FINISHED, event);
+                        PLog.addSysLog("Liste der Radios geladen");
+                        PLog.sysLog(PLog.LILNE1);
+                        PLog.addSysLog("");
+
+                        PDuration.onlyPing("Sender geladen: Nachbearbeiten");
+                        afterImportNewStationListFromServer(runE);
+                        PDuration.onlyPing("Sender nachbearbeiten: Ende");
+
+                        // alles fertig ans Prog melden
+                        ProgData.getInstance().pEventHandler.notifyListenerGui(
+                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
+                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
+                    }
+                }
             }
         });
+
+//        readStations.addAdListener(new EventListenerLoadRadioList() {
+//            @Override
+//            public synchronized void start(EventLoadRadioList event) {
+//                //Start ans Prog melden
+//                ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+//                                event.senderUrl, event.text, event.progress, event.error));
+//
+////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.START, event);
+//            }
+//
+//            @Override
+//            public synchronized void progress(EventLoadRadioList event) {
+//                ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+//                                event.senderUrl, event.text, event.progress, event.error));
+//
+////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.PROGRESS, event);
+//            }
+//
+//            @Override
+//            public synchronized void finished(EventLoadRadioList event) {
+//                // Laden ist durch
+//                ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
+//                                "", "Sender verarbeiten",
+//                                EventListenerLoadRadioList.PROGRESS_INDETERMINATE, false/* Fehler */));
+//
+////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
+////                        new EventLoadRadioList(this.getClass(),
+////                                "", "Sender verarbeiten",
+////                                EventListenerLoadRadioList.PROGRESS_INDETERMINATE, false/* Fehler */));
+//
+//                PLog.addSysLog("Liste der Radios geladen");
+//                PLog.sysLog(PLog.LILNE1);
+//                PLog.addSysLog("");
+//
+//                PDuration.onlyPing("Sender geladen: Nachbearbeiten");
+//                afterImportNewStationListFromServer(event);
+//                PDuration.onlyPing("Sender nachbearbeiten: Ende");
+//
+//                // alles fertig ans Prog melden
+//                ProgData.getInstance().pEventHandler.notifyListenerGui(
+//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
+//                                event.senderUrl, event.text, event.progress, event.error));
+//
+////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.FINISHED, event);
+//            }
+//        });
     }
 
     public boolean getPropLoadStationList() {
@@ -126,7 +187,6 @@ public class LoadNewStationList {
 
         // Hash mit URLs füllen
         fillHash(logList, progData.stationList);
-//        progData.maskerPane.setButtonVisible(true);
         PMaskerFactory.setMaskerButtonVisible(progData, true);
 
         if (progData.smallRadioGuiController != null) {
@@ -145,11 +205,11 @@ public class LoadNewStationList {
      *
      * @param event
      */
-    private void afterImportNewStationListFromServer(EventLoadRadioList event) {
+    private void afterImportNewStationListFromServer(RunEventRadio event) {
         final List<String> logList = new ArrayList<>();
         logList.add(PLog.LILNE3);
 
-        if (event.error) {
+        if (event.isError()) {
             // Laden war fehlerhaft
             logList.add("");
             logList.add("Senderliste laden war fehlerhaft, alte Liste wird wieder geladen");
@@ -163,7 +223,6 @@ public class LoadNewStationList {
             progData.stationList.clear();
             setStop(false);
             SenderLoadFactory.readList();
-//            readRadioList.importStationListAuto(progData.stationList); //endlosschleife!!
             logList.add("");
 
         } else {

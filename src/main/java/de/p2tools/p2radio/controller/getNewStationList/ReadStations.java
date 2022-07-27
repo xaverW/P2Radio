@@ -17,47 +17,44 @@
 package de.p2tools.p2radio.controller.getNewStationList;
 
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.getNewStationList.radioBrowser.ReadRadioBrowser;
 
-import javax.swing.event.EventListenerList;
-
 public class ReadStations {
     //bis jetzt nur einer: RadioBrowser
-
-    private final EventListenerList eventListenerList;
+//    private final EventListenerList eventListenerList;
     private final ReadRadioBrowser readRadioBrowser;
 
     public ReadStations() {
-        eventListenerList = new EventListenerList();
+//        eventListenerList = new EventListenerList();
         readRadioBrowser = new ReadRadioBrowser();
-        readRadioBrowser.addAdListener(new EventListenerLoadRadioList() {
-            @Override
-            public synchronized void start(EventLoadRadioList event) {
-                for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-                    l.start(event);
-                }
-            }
-
-            @Override
-            public synchronized void progress(EventLoadRadioList event) {
-                for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-                    l.progress(event);
-                }
-            }
-
-            @Override
-            public synchronized void finished(EventLoadRadioList event) {
-            }
-        });
+//        readRadioBrowser.addAdListener(new EventListenerLoadRadioList() {
+//            @Override
+//            public synchronized void start(EventLoadRadioList event) {
+//                for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
+//                    l.start(event);
+//                }
+//            }
+//
+//            @Override
+//            public synchronized void progress(EventLoadRadioList event) {
+//                for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
+//                    l.progress(event);
+//                }
+//            }
+//
+//            @Override
+//            public synchronized void finished(EventLoadRadioList event) {
+//            }
+//        });
     }
-
-    public void addAdListener(EventListenerLoadRadioList listener) {
-        eventListenerList.add(EventListenerLoadRadioList.class, listener);
-    }
+//
+//    public void addAdListener(EventListenerLoadRadioList listener) {
+//        eventListenerList.add(EventListenerLoadRadioList.class, listener);
+//    }
 
     public void loadNewStationList(StationList stationList) {
         // Senderliste importieren, URL automatisch wählen
@@ -97,9 +94,14 @@ public class ReadStations {
     }
 
     private synchronized void reportFinished(boolean ok) {
-        for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-            l.finished(new EventLoadRadioList(this.getClass(),
-                    "", "", 0, 0, !ok));
-        }
+        ProgData.getInstance().pEventHandler.notifyListenerGui(
+                new RunEventRadio(Events.READ_STATION, RunEventRadio.NOTIFY.FINISHED,
+                        "", "", 0, !ok));
+
+//        for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
+//            l.finished(
+//                    new EventLoadRadioList(this.getClass(),
+//                            "", "", 0, !ok));
+//        }
     }
 }

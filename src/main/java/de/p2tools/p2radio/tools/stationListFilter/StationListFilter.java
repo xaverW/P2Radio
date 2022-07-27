@@ -18,10 +18,11 @@
 package de.p2tools.p2radio.tools.stationListFilter;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
-import de.p2tools.p2radio.gui.tools.Listener;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import javafx.application.Platform;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -38,22 +39,43 @@ public class StationListFilter {
         this.progData = progData;
 
         progData.storedFilters.filterChangeProperty().addListener((observable, oldValue, newValue) -> filter()); // Senderfilter (User) haben sich geändert
-        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-            @Override
-            public void finished(EventLoadRadioList event) {
-                filterList();
+        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
+            public <T extends Event> void ping(T runEvent) {
+                if (runEvent.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) runEvent;
+
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        filterList();
+                    }
+                }
             }
         });
 
-        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
-            @Override
-            public void pingFx() {
+//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
+//            @Override
+//            public void finished(EventLoadRadioList event) {
+//                filterList();
+//            }
+//        });
+
+        progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
+            public void ping(Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //wird sonst eh gemacht
                     filterList();
                 }
             }
         });
+
+//        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
+//            @Override
+//            public void pingFx() {
+//                if (!progData.loadNewStationList.getPropLoadStationList()) {
+//                    //wird sonst eh gemacht
+//                    filterList();
+//                }
+//            }
+//        });
     }
 
     private void filter() {

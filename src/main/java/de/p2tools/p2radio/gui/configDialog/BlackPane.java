@@ -20,11 +20,9 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.pEvent.EventListenerLoadRadioList;
-import de.p2tools.p2radio.controller.config.pEvent.EventLoadRadioList;
+import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -60,7 +58,7 @@ public class BlackPane {
     private final RadioButton rbWhite = new RadioButton();
 
     BooleanProperty propWhite = ProgConfig.SYSTEM_BLACKLIST_IS_WHITELIST;
-    EventListenerLoadRadioList listener;
+    PListener listener;
 
     private final BooleanProperty blackChanged;
     private final Stage stage;
@@ -85,7 +83,8 @@ public class BlackPane {
 
     public void close() {
         rbWhite.selectedProperty().unbindBidirectional(propWhite);
-        ProgData.getInstance().eventNotifyLoadRadioList.removeListenerLoadStationList(listener);
+        ProgData.getInstance().pEventHandler.removeListener(listener);
+//        ProgData.getInstance().eventNotifyLoadRadioList.removeListenerLoadStationList(listener);
     }
 
     private void makeConfig(VBox vBox) {
@@ -194,21 +193,39 @@ public class BlackPane {
             tableView.refresh();
         });
 
+        listener = new PListener(Events.LOAD_RADIO_LIST) {
+            public <T extends Event> void ping(T runEvent) {
+                if (runEvent.getClass().equals(RunEventRadio.class)) {
+                    RunEventRadio runE = (RunEventRadio) runEvent;
 
-        EventListenerLoadRadioList listener = new EventListenerLoadRadioList() {
-            @Override
-            public void start(EventLoadRadioList event) {
-                btnSortList.setDisable(true);
-                btnCountHits.setDisable(true);
-            }
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
+                        btnSortList.setDisable(true);
+                        btnCountHits.setDisable(true);
+                    }
 
-            @Override
-            public void finished(EventLoadRadioList event) {
-                btnSortList.setDisable(false);
-                btnCountHits.setDisable(false);
+                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                        btnSortList.setDisable(false);
+                        btnCountHits.setDisable(false);
+                    }
+                }
             }
         };
-        ProgData.getInstance().eventNotifyLoadRadioList.addListenerLoadStationList(listener);
+        ProgData.getInstance().pEventHandler.addListener(listener);
+
+//        EventListenerLoadRadioList listener = new EventListenerLoadRadioList() {
+//            @Override
+//            public void start(EventLoadRadioList event) {
+//                btnSortList.setDisable(true);
+//                btnCountHits.setDisable(true);
+//            }
+//
+//            @Override
+//            public void finished(EventLoadRadioList event) {
+//                btnSortList.setDisable(false);
+//                btnCountHits.setDisable(false);
+//            }
+//        };
+//        ProgData.getInstance().eventNotifyLoadRadioList.addListenerLoadStationList(listener);
 
 
         HBox hBoxCount = new HBox(10);
