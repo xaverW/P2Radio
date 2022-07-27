@@ -25,36 +25,11 @@ import de.p2tools.p2radio.controller.getNewStationList.radioBrowser.ReadRadioBro
 
 public class ReadStations {
     //bis jetzt nur einer: RadioBrowser
-//    private final EventListenerList eventListenerList;
     private final ReadRadioBrowser readRadioBrowser;
 
     public ReadStations() {
-//        eventListenerList = new EventListenerList();
         readRadioBrowser = new ReadRadioBrowser();
-//        readRadioBrowser.addAdListener(new EventListenerLoadRadioList() {
-//            @Override
-//            public synchronized void start(EventLoadRadioList event) {
-//                for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-//                    l.start(event);
-//                }
-//            }
-//
-//            @Override
-//            public synchronized void progress(EventLoadRadioList event) {
-//                for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-//                    l.progress(event);
-//                }
-//            }
-//
-//            @Override
-//            public synchronized void finished(EventLoadRadioList event) {
-//            }
-//        });
     }
-//
-//    public void addAdListener(EventListenerLoadRadioList listener) {
-//        eventListenerList.add(EventListenerLoadRadioList.class, listener);
-//    }
 
     public void loadNewStationList(StationList stationList) {
         // Senderliste importieren, URL automatisch wählen
@@ -65,14 +40,8 @@ public class ReadStations {
 
     private synchronized void reportFinished(boolean ok) {
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.READ_STATION, RunEventRadio.NOTIFY.FINISHED,
-                        "", "", 0, !ok));
-
-//        for (final EventListenerLoadRadioList l : eventListenerList.getListeners(EventListenerLoadRadioList.class)) {
-//            l.finished(
-//                    new EventLoadRadioList(this.getClass(),
-//                            "", "", 0, !ok));
-//        }
+                new RunEventRadio(Events.READ_STATIONS, RunEventRadio.NOTIFY.FINISHED,
+                        "", "Senderliste geladen", 0, !ok));
     }
 
     private class ReadStationsThread implements Runnable {

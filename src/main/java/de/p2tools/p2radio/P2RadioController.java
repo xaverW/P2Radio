@@ -215,51 +215,6 @@ public class P2RadioController extends StackPane {
                 }
             }
         });
-
-        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void pingGui(T runEvent) {
-                if (runEvent.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) runEvent;
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        if (stackPaneCont.getChildren().size() == 0) {
-                            return;
-                        }
-
-                        Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                        if (node != null && node == paneStation) {
-                            progData.stationGuiController.isShown();
-                        }
-                        if (node != null && node == paneFavourite) {
-                            progData.favouriteGuiController.isShown();
-                        }
-                        if (node != null && node == paneLastPlayed) {
-                            progData.lastPlayedGuiController.isShown();
-                        }
-                    }
-                }
-            }
-        });
-
-//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-//            @Override
-//            public void finished(EventLoadRadioList event) {
-//                if (stackPaneCont.getChildren().size() == 0) {
-//                    return;
-//                }
-//
-//                Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-//                if (node != null && node == paneStation) {
-//                    progData.stationGuiController.isShown();
-//                }
-//                if (node != null && node == paneFavourite) {
-//                    progData.favouriteGuiController.isShown();
-//                }
-//                if (node != null && node == paneLastPlayed) {
-//                    progData.lastPlayedGuiController.isShown();
-//                }
-//            }
-//        });
     }
 
     private void selPanelSmallRadio() {

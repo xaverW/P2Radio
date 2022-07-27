@@ -54,31 +54,31 @@ public class LoadNewStationList {
         this.progData = progData;
         readStations = new ReadStations();
 
-        progData.pEventHandler.addListener(new PListener(Events.READ_STATION) {
+        progData.pEventHandler.addListener(new PListener(Events.READ_STATIONS) {
             public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
                         //Start ans Prog melden
-//                        ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
-//                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
+                        ProgData.getInstance().pEventHandler.notifyListener(
+                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
                     }
 
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.PROGRESS)) {
-//                        ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
-//                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
+                        ProgData.getInstance().pEventHandler.notifyListener(
+                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+                                        runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
                     }
 
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
                         // Laden ist durch
-//                        ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-//                                        "", "Sender verarbeiten",
-//                                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
-
+                        ProgData.getInstance().pEventHandler.notifyListener(
+                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
+                                        "", "Sender verarbeiten",
+                                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
+//
                         PLog.addSysLog("Liste der Radios geladen");
                         PLog.sysLog(PLog.LILNE1);
                         PLog.addSysLog("");
@@ -95,56 +95,6 @@ public class LoadNewStationList {
                 }
             }
         });
-
-//        readStations.addAdListener(new EventListenerLoadRadioList() {
-//            @Override
-//            public synchronized void start(EventLoadRadioList event) {
-//                //Start ans Prog melden
-//                ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
-//                                event.senderUrl, event.text, event.progress, event.error));
-//
-////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.START, event);
-//            }
-//
-//            @Override
-//            public synchronized void progress(EventLoadRadioList event) {
-//                ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
-//                                event.senderUrl, event.text, event.progress, event.error));
-//
-////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.PROGRESS, event);
-//            }
-//
-//            @Override
-//            public synchronized void finished(EventLoadRadioList event) {
-//                // Laden ist durch
-//                ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-//                                "", "Sender verarbeiten",
-//                                EventListenerLoadRadioList.PROGRESS_INDETERMINATE, false/* Fehler */));
-//
-////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.LOADED,
-////                        new EventLoadRadioList(this.getClass(),
-////                                "", "Sender verarbeiten",
-////                                EventListenerLoadRadioList.PROGRESS_INDETERMINATE, false/* Fehler */));
-//
-//                PLog.addSysLog("Liste der Radios geladen");
-//                PLog.sysLog(PLog.LILNE1);
-//                PLog.addSysLog("");
-//
-//                PDuration.onlyPing("Sender geladen: Nachbearbeiten");
-//                afterImportNewStationListFromServer(event);
-//                PDuration.onlyPing("Sender nachbearbeiten: Ende");
-//
-//                // alles fertig ans Prog melden
-//                ProgData.getInstance().pEventHandler.notifyListenerGui(
-//                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
-//                                event.senderUrl, event.text, event.progress, event.error));
-//
-////                progData.eventNotifyLoadRadioList.notifyEvent(EventNotifyLoadRadioList.NOTIFY.FINISHED, event);
-//            }
-//        });
     }
 
     public boolean getPropLoadStationList() {

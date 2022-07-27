@@ -18,12 +18,11 @@
 package de.p2tools.p2radio.controller.config;
 
 public class Events {
-
     private static int count = 0;
-    public static int COLORS_CHANGED = count;
-    public static int LOAD_RADIO_LIST = ++count;
-    public static int READ_STATION = ++count;
-    public static int BLACKLIST_CHANGED = ++count;
     public static int TIMER = ++count;
+    public static int COLORS_CHANGED = count;
+    public static int READ_STATIONS = ++count;
+    public static int LOAD_RADIO_LIST = ++count;
+    public static int BLACKLIST_CHANGED = ++count;
     public static int SETDATA_CHANGED = ++count;
 }

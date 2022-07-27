@@ -34,7 +34,6 @@ import okhttp3.ResponseBody;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.tukaani.xz.XZInputStream;
 
-import javax.swing.event.EventListenerList;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -46,33 +45,14 @@ import java.util.zip.ZipInputStream;
 public class ReadRadioBrowser {
 
     static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
-    private final EventListenerList listeners = new EventListenerList();
     private double progress = 0;
     private int countAll = 0;
-
-//    public void addAdListener(EventListenerLoadRadioList listener) {
-//        listeners.add(EventListenerLoadRadioList.class, listener);
-//    }
 
     /*
     Hier wird die Liste tatsächlich geladen (von Datei/URL)
      */
     public boolean readList(final StationList stationList) {
         boolean ret = false;
-
-//        if (ProgData.debug) {
-//            //URL laden, vorerst!!!!!!!!!!!!!!!!
-//            //sonst: http://all.api.radio-browser.info/xml/stations
-//            //oder   http://all.api.radio-browser.info/json/stations
-//            String sourceFileUrl = "http://localhost:8080/stations";
-//            read(sourceFileUrl, stationList);
-//            if (!stationList.isEmpty()) {
-//                //dann hats geklappt
-//                ret = true;
-//            }
-//
-//        } else {
-
         try {
             String updateUrl = ProgConst.STATION_LIST_URL;
             read(updateUrl, stationList);
@@ -119,7 +99,6 @@ public class ReadRadioBrowser {
         logList.add("");
         PLog.addSysLog(logList);
 
-        notifyFinished(url);
         PDuration.counterStop("ReadRadioBrowser.read()");
     }
 
@@ -179,7 +158,6 @@ public class ReadRadioBrowser {
             if (jp.isExpectedStartObjectToken()) {
                 final Station station = new Station();
                 addValue(station, jp);
-
                 //etwa bei 1/3 der Sender
                 //if (station.arr[Station.STATION_URL].equals(station.arr[Station.STATION_URL_RESOLVED])) {
                 //  station.arr[Station.STATION_URL_RESOLVED] = "============";
@@ -270,13 +248,8 @@ public class ReadRadioBrowser {
     private void notifyStart(String url) {
         progress = 0;
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+                new RunEventRadio(Events.READ_STATIONS, RunEventRadio.NOTIFY.START,
                         url, "Senderliste downloaden", 0, false));
-
-//        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-//            l.start(new EventLoadRadioList(this.getClass(),
-//                    url, "Senderliste downloaden", 0, false));
-//        }
     }
 
     private void notifyProgress(String url, double iProgress) {
@@ -285,21 +258,7 @@ public class ReadRadioBrowser {
             progress = RunEventRadio.PROGRESS_MAX;
         }
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+                new RunEventRadio(Events.READ_STATIONS, RunEventRadio.NOTIFY.PROGRESS,
                         url, "Senderliste downloaden", progress, false));
-//        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-//            l.progress(new EventLoadRadioList(this.getClass(),
-//                    url, "Senderliste downloaden", progress, false));
-//        }
-    }
-
-    private void notifyFinished(String url) {
-        ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
-                        url, "Senderliste geladen", progress, false));
-//        for (final EventListenerLoadRadioList l : listeners.getListeners(EventListenerLoadRadioList.class)) {
-//            l.finished(new EventLoadRadioList(this.getClass(),
-//                    url, "Senderliste geladen", progress, false));
-//        }
     }
 }

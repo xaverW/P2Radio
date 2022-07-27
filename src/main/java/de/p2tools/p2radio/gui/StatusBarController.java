@@ -41,9 +41,10 @@ public class StatusBarController extends AnchorPane {
     private final Pane stationPane;
     private final Pane favouritePane;
     private final ProgData progData;
-    private StatusbarIndex statusbarIndex = StatusbarIndex.NONE;
     private final boolean loadList = false;
+    private StatusbarIndex statusbarIndex = StatusbarIndex.NONE;
     private boolean stopTimer = false;
+
     public StatusBarController(ProgData progData) {
         this.progData = progData;
 
@@ -78,7 +79,7 @@ public class StatusBarController extends AnchorPane {
         nonePane.toFront();
 
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
@@ -94,19 +95,6 @@ public class StatusBarController extends AnchorPane {
             }
         });
 
-//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-//            @Override
-//            public void start(EventLoadRadioList event) {
-//                stopTimer = true;
-//            }
-//
-//            @Override
-//            public void finished(EventLoadRadioList event) {
-//                stopTimer = false;
-//                setStatusbarIndex(statusbarIndex);
-//            }
-//        });
-
         progData.pEventHandler.addListener(new PListener(Events.TIMER) {
             public void pingGui(Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
@@ -120,19 +108,6 @@ public class StatusBarController extends AnchorPane {
                 }
             }
         });
-
-//        Listener.addListener(new Listener(Listener.EVENT_TIMER, StatusBarController.class.getSimpleName()) {
-//            @Override
-//            public void pingFx() {
-//                try {
-//                    if (!stopTimer) {
-//                        setStatusbarIndex(statusbarIndex);
-//                    }
-//                } catch (final Exception ex) {
-//                    PLog.errorLog(936251087, ex);
-//                }
-//            }
-//        });
     }
 
     public void setStatusbarIndex(StatusbarIndex statusbarIndex) {
