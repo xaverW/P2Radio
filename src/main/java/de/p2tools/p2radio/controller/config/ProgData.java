@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PEventHandler;
 import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.data.BlackDataList;
@@ -169,7 +169,7 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        pEventHandler.notifyListener(new Event(Events.TIMER));
+        pEventHandler.notifyListener(new PEvent(Events.TIMER));
 //        Listener.notify(Listener.EVENT_TIMER, ProgData.class.getName());
     }
 }

@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
@@ -223,8 +223,8 @@ public class StationGuiController extends AnchorPane {
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void pingGui(Event runEvent) {
-                Table.refresh_table(tableView);
+            public void pingGui(PEvent runEvent) {
+                PTableFactory.refreshTable(tableView);
             }
         });
     }

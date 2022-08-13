@@ -25,10 +25,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class Table {
-    public static enum TABLE {
-        STATION, FAVOURITE, SMALL_RADIO, LAST_PLAYED
-    }
-
     private static final String SORT_ASCENDING = "ASCENDING";
     private static final String SORT_DESCENDING = "DESCENDING";
     private String width = "";
@@ -36,23 +32,14 @@ public class Table {
     private String upDown = "";
     private String vis = "";
     private String order = "";
-
     private int maxSpalten;
     private double[] breite;
     private boolean[] visAr;
-
     private StringProperty confWidth; //Spaltenbreite
     private StringProperty confSort; //"Sortieren"  der Tabelle nach Spalte
     private StringProperty confUpDown; //Sortierung UP oder Down
     private StringProperty confVis; //Spalte ist sichtbar
     private StringProperty confOrder; //"Reihenfolge" der Spalten
-
-    public static void refresh_table(TableView table) {
-        for (int i = 0; i < table.getColumns().size(); i++) {
-            ((TableColumn) (table.getColumns().get(i))).setVisible(false);
-            ((TableColumn) (table.getColumns().get(i))).setVisible(true);
-        }
-    }
 
     private void initConf(TABLE eTable) {
         switch (eTable) {
@@ -162,7 +149,7 @@ public class Table {
 
         table.getColumns().stream().forEach(c -> {
             width += c.getWidth() + ",";
-            vis += String.valueOf(c.isVisible()) + ",";
+            vis += c.isVisible() + ",";
         });
 
         table.getSortOrder().stream().forEach(so -> {
@@ -209,7 +196,6 @@ public class Table {
                 break;
         }
     }
-
 
     public void setTable(TableView ta, TABLE eTable) {
         // Tabelle setzen
@@ -303,11 +289,8 @@ public class Table {
 
     private boolean readArr(String s, String[] arr) {
         arr = s.split(",");
-        if (maxSpalten != arr.length) {
-            // dann hat sich die Anzahl der Spalten der Tabelle geändert: Versionswechsel
-            return false;
-        }
-        return true;
+        // dann hat sich die Anzahl der Spalten der Tabelle geändert: Versionswechsel
+        return maxSpalten == arr.length;
     }
 
     private int countString(String s) {
@@ -391,5 +374,9 @@ public class Table {
         confSort.setValue("");
         confUpDown.setValue("");
         confOrder.setValue("");
+    }
+
+    public enum TABLE {
+        STATION, FAVOURITE, SMALL_RADIO, LAST_PLAYED
     }
 }

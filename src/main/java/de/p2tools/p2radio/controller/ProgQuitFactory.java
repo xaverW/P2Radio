@@ -73,8 +73,5 @@ public class ProgQuitFactory {
         ProgData.getInstance().stationGuiController.saveTable();
         ProgData.getInstance().favouriteGuiController.saveTable();
         ProgData.getInstance().lastPlayedGuiController.saveTable();
-
-        // Hauptfenster
-//        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
     }
 }

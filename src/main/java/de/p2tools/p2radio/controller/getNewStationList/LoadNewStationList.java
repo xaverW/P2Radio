@@ -18,7 +18,7 @@ package de.p2tools.p2radio.controller.getNewStationList;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.ProgLoadFactory;
@@ -55,7 +55,7 @@ public class LoadNewStationList {
         readStations = new ReadStations();
 
         progData.pEventHandler.addListener(new PListener(Events.READ_STATIONS) {
-            public <T extends Event> void pingGui(T runEvent) {
+            public <T extends PEvent> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 

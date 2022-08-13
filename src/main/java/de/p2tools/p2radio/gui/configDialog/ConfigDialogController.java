@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.configDialog;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -83,14 +83,14 @@ public class ConfigDialogController extends PDialogExtra {
         if (blackChanged.get()) {
             //sonst hat sich nichts geändert
             progData.stationList.filterListWithBlacklist(true);
-            progData.pEventHandler.notifyListener(new Event(Events.BLACKLIST_CHANGED));
+            progData.pEventHandler.notifyListener(new PEvent(Events.BLACKLIST_CHANGED));
         }
 
         configPane.close();
         blackPane.close();
         setPane.close();
 
-        progData.pEventHandler.notifyListener(new Event(Events.SETDATA_CHANGED));
+        progData.pEventHandler.notifyListener(new PEvent(Events.SETDATA_CHANGED));
         super.close();
     }
 

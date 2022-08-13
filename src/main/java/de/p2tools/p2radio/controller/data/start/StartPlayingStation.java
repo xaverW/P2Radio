@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
-import de.p2tools.p2Lib.tools.events.Event;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
@@ -38,17 +37,15 @@ import java.util.ArrayList;
 public class StartPlayingStation extends Thread {
 
     private final ProgData progData;
-    private String exMessage = "";
-
     private final int stat_start = 0;
     private final int stat_running = 1;
     private final int stat_restart = 3;
     private final int stat_finished_ok = 10; //ab hier ist schluss
     private final int stat_finished_error = 11;
     private final int stat_end = 99;
-
-    private boolean stop = false;
     private final Start start;
+    private String exMessage = "";
+    private boolean stop = false;
     private Playable playable = null;
     private int runTime = 0;
 

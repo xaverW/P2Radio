@@ -18,25 +18,24 @@
 package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 
 public class StationInfos {
 
+    private final ProgData progData;
     private int amount = 0; //Gesamtanzahl
     private int notStarted = 0; //davon gestartet, alle, egal ob warten, laden oder fertig
     private int started = 0; //davon gestartet, alle, egal ob warten, laden oder fertig
-
-    private final ProgData progData;
     private boolean search = false;
 
     public StationInfos(ProgData progData) {
         this.progData = progData;
 
         progData.pEventHandler.addListener(new PListener(Events.TIMER) {
-            public void ping(Event event) {
+            public void ping(PEvent event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //dann wird die Liste neu gebaut
                     generateInfos();

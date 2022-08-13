@@ -17,22 +17,20 @@
 
 package de.p2tools.p2radio.controller.config;
 
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 
-public class RunEventRadio extends Event {
+public class RunEventRadio extends PEvent {
 
     public static final double PROGRESS_MIN = 0.0;
     public static final double PROGRESS_MAX = 1.0;
     public static final double PROGRESS_INDETERMINATE = -1.0;
 
     // meldet eine Änderung
-    private double progress;
+    private final double progress;
     private int max;
     private String url = "";
     private boolean error = false;
-    private NOTIFY notify;
-
-    public enum NOTIFY {START, PROGRESS, LOADED, FINISHED}
+    private final NOTIFY notify;
 
     public RunEventRadio(int eventNo, NOTIFY notify,
                          String url, String text,
@@ -65,4 +63,6 @@ public class RunEventRadio extends Event {
     public boolean isError() {
         return error;
     }
+
+    public enum NOTIFY {START, PROGRESS, LOADED, FINISHED}
 }

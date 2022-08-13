@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.BlackData;
@@ -52,16 +52,13 @@ public class BlackPane {
     private final PToggleSwitch tgName = new PToggleSwitch("exakt:");
     private final TextField genre = new TextField();
     private final PToggleSwitch tgGenre = new PToggleSwitch("exakt:");
-    private BlackData blackData = null;
-
     private final RadioButton rbBlack = new RadioButton();
     private final RadioButton rbWhite = new RadioButton();
-
-    BooleanProperty propWhite = ProgConfig.SYSTEM_BLACKLIST_IS_WHITELIST;
-    PListener listener;
-
     private final BooleanProperty blackChanged;
     private final Stage stage;
+    BooleanProperty propWhite = ProgConfig.SYSTEM_BLACKLIST_IS_WHITELIST;
+    PListener listener;
+    private BlackData blackData = null;
 
     public BlackPane(Stage stage, BooleanProperty blackChanged) {
         this.stage = stage;
@@ -194,7 +191,7 @@ public class BlackPane {
         });
 
         listener = new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void ping(T runEvent) {
+            public <T extends PEvent> void ping(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 

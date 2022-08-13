@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -267,7 +267,7 @@ public class SmallRadioGuiController extends VBox {
 
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void pingGui(Event event) {
+            public void pingGui(PEvent event) {
                 tableView.refresh();
             }
         });
@@ -279,8 +279,8 @@ public class SmallRadioGuiController extends VBox {
 //        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void pingGui(Event runEvent) {
-                Table.refresh_table(tableView);
+            public void pingGui(PEvent runEvent) {
+                PTableFactory.refreshTable(tableView);
             }
         });
     }
@@ -296,7 +296,7 @@ public class SmallRadioGuiController extends VBox {
         SortedList<Favourite> sortedFavourites = new SortedList<>(filteredFavourites);
         tableView.setItems(sortedFavourites);
         sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
-        Platform.runLater(() -> Table.refresh_table(tableView));
+        Platform.runLater(() -> PTableFactory.refreshTable(tableView));
 
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {

@@ -18,7 +18,7 @@
 package de.p2tools.p2radio.tools.stationListFilter;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -42,7 +42,7 @@ public class StationListFilter {
 
         progData.storedFilters.filterChangeProperty().addListener((observable, oldValue, newValue) -> filter()); // Senderfilter (User) haben sich geändert
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends Event> void pingGui(T runEvent) {
+            public <T extends PEvent> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
@@ -61,7 +61,7 @@ public class StationListFilter {
 //        });
 
         progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
-            public void pingGui(Event event) {
+            public void pingGui(PEvent event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //wird sonst eh gemacht
                     filterList();
