@@ -21,19 +21,18 @@ import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
-import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableLastPlayed;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TableView;
 
 public class LastPlayedGuiTableContextMenu {
 
     private final ProgData progData;
     private final LastPlayedGuiController lastPlayedGuiController;
-    private final TableView tableView;
+    private final TableLastPlayed tableView;
 
-    public LastPlayedGuiTableContextMenu(ProgData progData, LastPlayedGuiController lastPlayedGuiController, TableView tableView) {
+    public LastPlayedGuiTableContextMenu(ProgData progData, LastPlayedGuiController lastPlayedGuiController, TableLastPlayed tableView) {
         this.progData = progData;
         this.lastPlayedGuiController = lastPlayedGuiController;
         this.tableView = tableView;
@@ -76,7 +75,7 @@ public class LastPlayedGuiTableContextMenu {
         }
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
-        resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.LAST_PLAYED));
+        resetTable.setOnAction(a -> tableView.resetTable());
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);
     }

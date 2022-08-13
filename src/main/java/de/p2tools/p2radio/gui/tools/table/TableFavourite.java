@@ -37,154 +37,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class TableFavourite {
+public class TableFavourite extends PTable<Favourite> {
 
     private final ProgData progData;
     private final BooleanProperty geoMelden;
     private final BooleanProperty small;
     private final boolean smallRadio;
-
-    public TableFavourite(ProgData progData, boolean smallRadio) {
-        this.progData = progData;
-        this.smallRadio = smallRadio;
-        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
-    }
-
-    public TableColumn[] initFavouriteColumn(TableView table) {
-        table.getColumns().clear();
-
-        final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-
-        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_NO]);
-        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        nrColumn.setCellFactory(cellFactoryNo);
-        nrColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION_NO]);
-        senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
-        senderNoColumn.setCellFactory(cellFactorySenderNo);
-        senderNoColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, String> senderColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION]);
-        senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
-        senderColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, String> collectionColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COLLECTION]);
-        collectionColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
-        collectionColumn.getStyleClass().add("alignCenterLeft");
-        collectionColumn.setComparator(sorter);
-
-        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GRADE]);
-        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
-        gradeColumn.setCellFactory(cellFactoryGrade);
-
-        final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CLICK_COUNT]);
-        clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
-        clickCountColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, String> genreColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GENRE]);
-        genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        genreColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CODEC]);
-        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
-        codecColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_BITRATE]);
-        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
-        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
-
-        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_OWN]);
-        ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
-        ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
-        ownColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, Integer> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(cellFactoryButton);
-        startColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY]);
-        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-        countryColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, PDate> countryCodeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY_CODE]);
-        countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
-        countryCodeColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, String> languageColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_LANGUAGE]);
-        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
-        languageColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<Favourite, PDate> datumColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_DATE]);
-        datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
-        datumColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<Favourite, String> urlColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_URL]);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
-        urlColumn.getStyleClass().add("alignCenterLeft");
-
-        nrColumn.setPrefWidth(50);
-        senderNoColumn.setPrefWidth(70);
-        senderColumn.setPrefWidth(80);
-        genreColumn.setPrefWidth(180);
-
-        addRowFact(table);
-
-        return new TableColumn[]{
-                nrColumn, senderNoColumn,
-                senderColumn, collectionColumn, gradeColumn, clickCountColumn, genreColumn,
-                codecColumn, bitrateColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
-                datumColumn, urlColumn
-        };
-    }
-
-    private void addRowFact(TableView<Favourite> table) {
-        table.setRowFactory(tableview -> new TableRow<>() {
-            @Override
-            public void updateItem(Favourite favourite, boolean empty) {
-                super.updateItem(favourite, empty);
-
-                setStyle("");
-                for (int i = 0; i < getChildren().size(); i++) {
-                    getChildren().get(i).setStyle("");
-                }
-
-                if (favourite != null && !empty) {
-                    if (favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError()) {
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(favourite.getStart().getStartStatus().getErrorMessage());
-                        setTooltip(tooltip);
-                    }
-
-                    final boolean playing = favourite.getStart() != null;
-                    final boolean error = favourite.getStart() != null ? favourite.getStart().getStartStatus().isStateError() : false;
-                    if (error) {
-                        if (ProgColorList.STATION_ERROR_BG.isUse()) {
-                            setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
-                        }
-                        if (ProgColorList.STATION_ERROR.isUse()) {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
-                            }
-                        }
-                    } else if (playing) {
-                        if (ProgColorList.STATION_RUN_BG.isUse()) {
-                            setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
-                        }
-                        if (ProgColorList.STATION_RUN.isUse()) {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryBitrate
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryBitrate
             = (final TableColumn<Favourite, Integer> param) -> {
 
         final TableCell<Favourite, Integer> cell = new TableCell<>() {
@@ -210,7 +69,7 @@ public class TableFavourite {
         };
         return cell;
     };
-    private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryGrade
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryGrade
             = (final TableColumn<Favourite, Integer> param) -> {
 
         final TableCell<Favourite, Integer> cell = new TableCell<>() {
@@ -245,8 +104,7 @@ public class TableFavourite {
         };
         return cell;
     };
-
-    private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
             = (final TableColumn<Favourite, Integer> param) -> {
 
         final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
@@ -268,7 +126,7 @@ public class TableFavourite {
 
                 Favourite favourite = getTableView().getItems().get(getIndex());
                 final boolean playing = favourite.getStart() != null;
-                final boolean error = favourite.getStart() != null ? favourite.getStart().getStartStatus().isStateError() : false;
+                final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
                 final boolean set = progData.setDataList.size() > 1;
 
                 if (playing) {
@@ -351,8 +209,7 @@ public class TableFavourite {
         };
         return cell;
     };
-
-    private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryNo
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryNo
             = (final TableColumn<Favourite, Integer> param) -> {
 
         final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
@@ -378,8 +235,7 @@ public class TableFavourite {
         };
         return cell;
     };
-
-    private Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactorySenderNo
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactorySenderNo
             = (final TableColumn<Favourite, Integer> param) -> {
 
         final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
@@ -405,4 +261,160 @@ public class TableFavourite {
         };
         return cell;
     };
+
+    public TableFavourite(Table.TABLE_ENUM table_enum, ProgData progData, boolean smallRadio) {
+        super(table_enum);
+        this.table_enum = table_enum;
+        this.progData = progData;
+        this.smallRadio = smallRadio;
+
+        initFileRunnerColumn();
+        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
+        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
+    }
+
+    public Table.TABLE_ENUM getETable() {
+        return table_enum;
+    }
+
+    public void resetTable() {
+        initFileRunnerColumn();
+        Table.resetTable(this);
+    }
+
+    private void initFileRunnerColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
+
+        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_NO]);
+        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
+        nrColumn.setCellFactory(cellFactoryNo);
+        nrColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION_NO]);
+        senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
+        senderNoColumn.setCellFactory(cellFactorySenderNo);
+        senderNoColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, String> senderColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION]);
+        senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
+        senderColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, String> collectionColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COLLECTION]);
+        collectionColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
+        collectionColumn.getStyleClass().add("alignCenterLeft");
+        collectionColumn.setComparator(sorter);
+
+        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GRADE]);
+        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        gradeColumn.setCellFactory(cellFactoryGrade);
+
+        final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CLICK_COUNT]);
+        clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
+        clickCountColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, String> genreColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GENRE]);
+        genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        genreColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CODEC]);
+        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
+        codecColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_BITRATE]);
+        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
+        bitrateColumn.setCellFactory(cellFactoryBitrate);
+        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
+
+        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_OWN]);
+        ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
+        ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
+        ownColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, Integer> startColumn = new TableColumn<>("");
+        startColumn.setCellFactory(cellFactoryButton);
+        startColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY]);
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        countryColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, PDate> countryCodeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY_CODE]);
+        countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
+        countryCodeColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, String> languageColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_LANGUAGE]);
+        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+        languageColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Favourite, PDate> datumColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_DATE]);
+        datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
+        datumColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Favourite, String> urlColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_URL]);
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
+        urlColumn.getStyleClass().add("alignCenterLeft");
+
+        nrColumn.setPrefWidth(50);
+        senderNoColumn.setPrefWidth(70);
+        senderColumn.setPrefWidth(80);
+        genreColumn.setPrefWidth(180);
+
+        addRowFact();
+        getColumns().addAll(
+                nrColumn, senderNoColumn,
+                senderColumn, collectionColumn, gradeColumn, clickCountColumn, genreColumn,
+                codecColumn, bitrateColumn, ownColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
+                datumColumn, urlColumn);
+    }
+
+    private void addRowFact() {
+        setRowFactory(tableview -> new TableRow<>() {
+            @Override
+            public void updateItem(Favourite favourite, boolean empty) {
+                super.updateItem(favourite, empty);
+
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
+
+                if (favourite != null && !empty) {
+                    if (favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError()) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(favourite.getStart().getStartStatus().getErrorMessage());
+                        setTooltip(tooltip);
+                    }
+
+                    final boolean playing = favourite.getStart() != null;
+                    final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
+                    if (error) {
+                        if (ProgColorList.STATION_ERROR_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_ERROR.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
+                            }
+                        }
+                    } else if (playing) {
+                        if (ProgColorList.STATION_RUN_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_RUN.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 }

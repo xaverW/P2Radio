@@ -19,19 +19,18 @@ package de.p2tools.p2radio.gui.smallRadio;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableFavourite;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TableView;
 
 public class SmallRadioGuiTableContextMenu {
 
     private final ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
-    private final TableView tableView;
+    private final TableFavourite tableView;
 
-    public SmallRadioGuiTableContextMenu(ProgData progData, SmallRadioGuiController smallRadioGuiController, TableView tableView) {
+    public SmallRadioGuiTableContextMenu(ProgData progData, SmallRadioGuiController smallRadioGuiController, TableFavourite tableView) {
         this.progData = progData;
         this.smallRadioGuiController = smallRadioGuiController;
         this.tableView = tableView;
@@ -68,7 +67,7 @@ public class SmallRadioGuiTableContextMenu {
         contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miChange, miRemove);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
-        resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.SMALL_RADIO));
+        resetTable.setOnAction(a -> tableView.resetTable());
 
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);

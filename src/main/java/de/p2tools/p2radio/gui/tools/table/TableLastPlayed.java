@@ -35,148 +35,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class TableLastPlayed {
+public class TableLastPlayed extends PTable<LastPlayed> {
 
     private final ProgData progData;
     private final BooleanProperty small;
-
-    public TableLastPlayed(ProgData progData) {
-        this.progData = progData;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
-    }
-
-    public TableColumn[] initLastPlayedColumn(TableView table) {
-        table.getColumns().clear();
-
-        final TableColumn<LastPlayed, Integer> nrColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_NO]);
-        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        nrColumn.setCellFactory(cellFactoryNo);
-        nrColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<LastPlayed, Integer> senderNoColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_STATION_NO]);
-        senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
-        senderNoColumn.setCellFactory(cellFactorySenderNo);
-        senderNoColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<LastPlayed, String> senderColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_STATION]);
-        senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
-        senderColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<LastPlayed, Integer> clickCountColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_CLICK_COUNT]);
-        clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
-        clickCountColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<LastPlayed, String> genreColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_GENRE]);
-        genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        genreColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<LastPlayed, PDate> codecColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_CODEC]);
-        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
-        codecColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<LastPlayed, Integer> bitrateColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_BITRATE]);
-        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
-        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
-
-        final TableColumn<LastPlayed, Integer> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(cellFactoryButton);
-        startColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<LastPlayed, PDate> countryColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_COUNTRY]);
-        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-        countryColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<LastPlayed, PDate> countryCodeColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_COUNTRY_CODE]);
-        countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
-        countryCodeColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<LastPlayed, String> languageColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_LANGUAGE]);
-        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
-        languageColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<LastPlayed, PDate> datumColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_DATE]);
-        datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
-        datumColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<LastPlayed, String> urlColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_URL]);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
-        urlColumn.getStyleClass().add("alignCenterLeft");
-
-        nrColumn.setPrefWidth(50);
-        senderNoColumn.setPrefWidth(70);
-        senderColumn.setPrefWidth(80);
-        genreColumn.setPrefWidth(180);
-
-        addRowFact(table);
-
-        return new TableColumn[]{
-                nrColumn, senderNoColumn,
-                senderColumn, clickCountColumn, genreColumn,
-                codecColumn, bitrateColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
-                datumColumn, urlColumn
-        };
-    }
-
-    private void addRowFact(TableView<LastPlayed> table) {
-        table.setRowFactory(tableview -> new TableRow<>() {
-            @Override
-            public void updateItem(LastPlayed lastPlayed, boolean empty) {
-                super.updateItem(lastPlayed, empty);
-
-                setStyle("");
-                for (int i = 0; i < getChildren().size(); i++) {
-                    getChildren().get(i).setStyle("");
-                }
-
-                if (lastPlayed != null && !empty) {
-                    if (lastPlayed.getStart() != null && lastPlayed.getStart().getStartStatus().isStateError()) {
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(lastPlayed.getStart().getStartStatus().getErrorMessage());
-                        setTooltip(tooltip);
-                    }
-
-                    final boolean fav = progData.favouriteList.getUrlStation(lastPlayed.getStationUrl()) != null;
-                    final boolean playing = lastPlayed.getStart() != null;
-                    final boolean error = lastPlayed.getStart() != null ? lastPlayed.getStart().getStartStatus().isStateError() : false;
-
-                    if (error) {
-                        if (ProgColorList.STATION_ERROR_BG.isUse()) {
-                            setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
-                        }
-                        if (ProgColorList.STATION_ERROR.isUse()) {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
-                            }
-                        }
-
-                    } else if (playing) {
-                        if (ProgColorList.STATION_RUN_BG.isUse()) {
-                            setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
-                        }
-                        if (ProgColorList.STATION_RUN.isUse()) {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
-                            }
-                        }
-
-                    } else if (fav) {
-                        if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
-                            setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackgroundAndSel());
-                        }
-                        if (ProgColorList.STATION_FAVOURITE.isUse()) {
-                            System.out.println("isUse");
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    private Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryBitrate
+    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryBitrate
             = (final TableColumn<LastPlayed, Integer> param) -> {
 
         final TableCell<LastPlayed, Integer> cell = new TableCell<>() {
@@ -202,8 +65,7 @@ public class TableLastPlayed {
         };
         return cell;
     };
-
-    private Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryButton
+    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryButton
             = (final TableColumn<LastPlayed, Integer> param) -> {
 
         final TableCell<LastPlayed, Integer> cell = new TableCell<>() {
@@ -305,8 +167,7 @@ public class TableLastPlayed {
         };
         return cell;
     };
-
-    private Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryNo
+    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryNo
             = (final TableColumn<LastPlayed, Integer> param) -> {
 
         final TableCell<LastPlayed, Integer> cell = new TableCell<LastPlayed, Integer>() {
@@ -332,8 +193,7 @@ public class TableLastPlayed {
         };
         return cell;
     };
-
-    private Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactorySenderNo
+    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactorySenderNo
             = (final TableColumn<LastPlayed, Integer> param) -> {
 
         final TableCell<LastPlayed, Integer> cell = new TableCell<LastPlayed, Integer>() {
@@ -359,4 +219,156 @@ public class TableLastPlayed {
         };
         return cell;
     };
+
+    public TableLastPlayed(Table.TABLE_ENUM table_enum, ProgData progData) {
+        super(table_enum);
+        this.table_enum = table_enum;
+        this.progData = progData;
+
+        initFileRunnerColumn();
+        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
+    }
+
+    public Table.TABLE_ENUM getETable() {
+        return table_enum;
+    }
+
+    public void resetTable() {
+        initFileRunnerColumn();
+        Table.resetTable(this);
+    }
+
+    private void initFileRunnerColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        final TableColumn<LastPlayed, Integer> nrColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_NO]);
+        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
+        nrColumn.setCellFactory(cellFactoryNo);
+        nrColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<LastPlayed, Integer> senderNoColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_STATION_NO]);
+        senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
+        senderNoColumn.setCellFactory(cellFactorySenderNo);
+        senderNoColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<LastPlayed, String> senderColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_STATION]);
+        senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
+        senderColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<LastPlayed, Integer> clickCountColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_CLICK_COUNT]);
+        clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
+        clickCountColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<LastPlayed, String> genreColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_GENRE]);
+        genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        genreColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<LastPlayed, PDate> codecColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_CODEC]);
+        codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
+        codecColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<LastPlayed, Integer> bitrateColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_BITRATE]);
+        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
+        bitrateColumn.setCellFactory(cellFactoryBitrate);
+        bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
+
+        final TableColumn<LastPlayed, Integer> startColumn = new TableColumn<>("");
+        startColumn.setCellFactory(cellFactoryButton);
+        startColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<LastPlayed, PDate> countryColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_COUNTRY]);
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        countryColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<LastPlayed, PDate> countryCodeColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_COUNTRY_CODE]);
+        countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
+        countryCodeColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<LastPlayed, String> languageColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_LANGUAGE]);
+        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+        languageColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<LastPlayed, PDate> datumColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_DATE]);
+        datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
+        datumColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<LastPlayed, String> urlColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_URL]);
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
+        urlColumn.getStyleClass().add("alignCenterLeft");
+
+        nrColumn.setPrefWidth(50);
+        senderNoColumn.setPrefWidth(70);
+        senderColumn.setPrefWidth(80);
+        genreColumn.setPrefWidth(180);
+
+        addRowFact();
+        getColumns().addAll(
+                nrColumn, senderNoColumn,
+                senderColumn, clickCountColumn, genreColumn,
+                codecColumn, bitrateColumn, startColumn, countryColumn, countryCodeColumn, languageColumn,
+                datumColumn, urlColumn);
+    }
+
+    private void addRowFact() {
+        setRowFactory(tableview -> new TableRow<>() {
+            @Override
+            public void updateItem(LastPlayed lastPlayed, boolean empty) {
+                super.updateItem(lastPlayed, empty);
+
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
+
+                if (lastPlayed != null && !empty) {
+                    if (lastPlayed.getStart() != null && lastPlayed.getStart().getStartStatus().isStateError()) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(lastPlayed.getStart().getStartStatus().getErrorMessage());
+                        setTooltip(tooltip);
+                    }
+
+                    final boolean fav = progData.favouriteList.getUrlStation(lastPlayed.getStationUrl()) != null;
+                    final boolean playing = lastPlayed.getStart() != null;
+                    final boolean error = lastPlayed.getStart() != null && lastPlayed.getStart().getStartStatus().isStateError();
+
+                    if (error) {
+                        if (ProgColorList.STATION_ERROR_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_ERROR.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
+                            }
+                        }
+
+                    } else if (playing) {
+                        if (ProgColorList.STATION_RUN_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_RUN.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
+                            }
+                        }
+
+                    } else if (fav) {
+                        if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
+                            setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.STATION_FAVOURITE.isUse()) {
+                            System.out.println("isUse");
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 }

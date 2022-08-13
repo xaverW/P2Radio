@@ -28,13 +28,16 @@ import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableFavourite;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +52,7 @@ public class FavouriteGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableView<Favourite> tableView = new TableView<>();
+    private final TableFavourite tableView;
 
     private final ProgData progData;
     private final SortedList<Favourite> sortedFavourites;
@@ -60,6 +63,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     public FavouriteGuiController() {
         progData = ProgData.getInstance();
+        tableView = new TableFavourite(Table.TABLE_ENUM.FAVOURITE, progData, false);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -139,7 +143,7 @@ public class FavouriteGuiController extends AnchorPane {
 
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.FAVOURITE);
+        new Table().saveTable(tableView, Table.TABLE_ENUM.FAVOURITE);
     }
 
     public ArrayList<Favourite> getSelList() {
@@ -222,11 +226,8 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.FAVOURITE);
+        Table.setTable(tableView);
+
         tableView.setItems(sortedFavourites);
         sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
 

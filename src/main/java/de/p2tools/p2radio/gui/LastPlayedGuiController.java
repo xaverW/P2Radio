@@ -28,13 +28,16 @@ import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableLastPlayed;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +52,7 @@ public class LastPlayedGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableView<LastPlayed> tableView = new TableView<>();
+    private final TableLastPlayed tableView;
     private final ProgData progData;
     private final LastPlayedGuiInfoController lastPlayedGuiInfoController;
     private final LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
@@ -59,6 +62,7 @@ public class LastPlayedGuiController extends AnchorPane {
 
     public LastPlayedGuiController() {
         progData = ProgData.getInstance();
+        tableView = new TableLastPlayed(Table.TABLE_ENUM.LAST_PLAYED, progData);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -136,7 +140,7 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.LAST_PLAYED);
+        Table.saveTable(tableView, Table.TABLE_ENUM.LAST_PLAYED);
     }
 
     public ArrayList<LastPlayed> getSelList() {
@@ -221,11 +225,7 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.LAST_PLAYED);
+        Table.setTable(tableView);
 
         SortedList<LastPlayed> sortedLastPlayedList = new SortedList<>(progData.filteredLastPlayedList);
         tableView.setItems(sortedLastPlayedList);

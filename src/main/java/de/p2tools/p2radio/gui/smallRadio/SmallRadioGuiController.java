@@ -31,14 +31,13 @@ import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableFavourite;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Priority;
@@ -51,7 +50,7 @@ import java.util.Random;
 public class SmallRadioGuiController extends VBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableView<Favourite> tableView = new TableView<>();
+    private final TableFavourite tableView;
 
     private final ProgData progData;
     private final boolean bound = false;
@@ -62,6 +61,7 @@ public class SmallRadioGuiController extends VBox {
     public SmallRadioGuiController(SmallRadioGuiPack smallRadioGuiPack) {
         this.smallRadioGuiPack = smallRadioGuiPack;
         progData = ProgData.getInstance();
+        tableView = new TableFavourite(Table.TABLE_ENUM.SMALL_RADIO, progData, true);
 
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
@@ -207,7 +207,7 @@ public class SmallRadioGuiController extends VBox {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.SMALL_RADIO);
+        Table.saveTable(tableView, Table.TABLE_ENUM.SMALL_RADIO);
     }
 
     public ArrayList<Favourite> getSelList() {
@@ -286,11 +286,7 @@ public class SmallRadioGuiController extends VBox {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.SMALL_RADIO);
+        Table.setTable(tableView);
 
         FilteredList<Favourite> filteredFavourites = smallRadioGuiPack.getFiltertFavourite();
         SortedList<Favourite> sortedFavourites = new SortedList<>(filteredFavourites);

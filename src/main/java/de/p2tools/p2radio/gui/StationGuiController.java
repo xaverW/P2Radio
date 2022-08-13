@@ -27,6 +27,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -34,7 +35,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
@@ -50,7 +54,7 @@ public class StationGuiController extends AnchorPane {
 
     private final TabPane infoTab = new TabPane();
     private final TilePane tilePaneButton = new TilePane();
-    private final TableView<Station> tableView = new TableView<>();
+    private final TableStation tableView;
     private final ProgData progData;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
@@ -61,6 +65,7 @@ public class StationGuiController extends AnchorPane {
 
     public StationGuiController() {
         progData = ProgData.getInstance();
+        tableView = new TableStation(Table.TABLE_ENUM.STATION, progData);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -162,7 +167,7 @@ public class StationGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.STATION);
+        new Table().saveTable(tableView, Table.TABLE_ENUM.STATION);
     }
 
     public ArrayList<Station> getSelList() {
@@ -268,11 +273,8 @@ public class StationGuiController extends AnchorPane {
     }
 
     private void initTable() {
+        new Table().setTable(tableView);
         tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.STATION);
 
         SortedList<Station> sortedList = progData.stationListBlackFiltered.getSortedList();
         tableView.setItems(sortedList);
