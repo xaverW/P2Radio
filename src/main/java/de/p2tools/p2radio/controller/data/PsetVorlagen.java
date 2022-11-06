@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -54,7 +54,7 @@ public class PsetVorlagen {
     public static final String[] PGR_COLUMN_NAMES = {PGR_NAME, PGR_DESCRIPTION, PGR_VERSION, PGR_BS, PGR_URL, PGR_INFO};
     private final static int TIMEOUT = 10000;
 
-    private LinkedList<String[]> liste = new LinkedList<>();
+    private final LinkedList<String[]> liste = new LinkedList<>();
 
     public SetDataList getStandarset(boolean replaceMuster) {
         SetDataList setDataList = null;
@@ -62,7 +62,7 @@ public class PsetVorlagen {
 
         if (loadListOfSets()) {
             for (final String[] ar : liste) {
-                if (ar[PGR_NAME_NR].equalsIgnoreCase("Standardset " + ProgramTools.getOsString())) {
+                if (ar[PGR_NAME_NR].equalsIgnoreCase("Standardset " + ProgramToolsFactory.getOsString())) {
                     template = ar;
                     break;
                 }
@@ -81,7 +81,7 @@ public class PsetVorlagen {
             // dann nehmen wir halt die im jar-File
             // liefert das Standard Programmset für das entsprechende BS
             InputStreamReader inReader;
-            switch (ProgramTools.getOs()) {
+            switch (ProgramToolsFactory.getOs()) {
                 case LINUX:
                     inReader = new GetFile().getPsetTamplateLinux();
                     break;

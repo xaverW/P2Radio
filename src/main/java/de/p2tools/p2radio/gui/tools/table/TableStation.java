@@ -21,7 +21,6 @@ import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.controller.data.station.StationXml;
@@ -31,6 +30,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -91,8 +91,6 @@ public class TableStation extends PTable<Station> {
                 final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
                 final boolean fav = station.isFavouriteUrl();
 
-                final boolean set = progData.setDataList.size() > 1;
-
                 if (playing) {
                     //stoppen
                     final Button btnPlay = new Button("");
@@ -111,26 +109,26 @@ public class TableStation extends PTable<Station> {
                     }
                     hbox.getChildren().add(btnPlay);
 
-                } else if (set) {
-                    //läuft nix, mehre Sets
-                    final ComboBox<SetData> cboSet;
-                    cboSet = new ComboBox();
-                    cboSet.setMinWidth(60);
-                    cboSet.getStyleClass().add("cboTableMoreSets");
-                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
-//                    cboSet.getStyleClass().add("combo-box-icon");
-                    cboSet.getItems().addAll(progData.setDataList);
-                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
-                        progData.startFactory.playStation(station, ne);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (small.get()) {
-                        cboSet.setMinHeight(18);
-                        cboSet.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(cboSet);
+//                } else if (set) {
+//                    //läuft nix, mehre Sets
+//                    final ComboBox<SetData> cboSet;
+//                    cboSet = new ComboBox();
+//                    cboSet.setMinWidth(60);
+//                    cboSet.getStyleClass().add("cboTableMoreSets");
+//                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
+////                    cboSet.getStyleClass().add("combo-box-icon");
+//                    cboSet.getItems().addAll(progData.setDataList);
+//                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
+//                        progData.startFactory.playStation(station, ne);
+//                        getTableView().getSelectionModel().clearSelection();
+//                        getTableView().getSelectionModel().select(getIndex());
+//                    });
+//
+//                    if (small.get()) {
+//                        cboSet.setMinHeight(18);
+//                        cboSet.setMaxHeight(18);
+//                    }
+//                    hbox.getChildren().add(cboSet);
 
                 } else {
                     //starten
@@ -282,6 +280,12 @@ public class TableStation extends PTable<Station> {
             @Override
             public void updateItem(Station station, boolean empty) {
                 super.updateItem(station, empty);
+
+                setOnMouseClicked(event -> {
+                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                        getSelectionModel().clearSelection();
+                    }
+                });
 
                 setStyle("");
                 for (int i = 0; i < getChildren().size(); i++) {

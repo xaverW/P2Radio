@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.LogMessage;
@@ -106,9 +106,9 @@ public class ProgStartFactory {
 
     public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
         }
     }
 

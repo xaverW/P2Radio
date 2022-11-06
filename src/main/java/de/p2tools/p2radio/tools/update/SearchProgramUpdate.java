@@ -18,7 +18,7 @@ package de.p2tools.p2radio.tools.update;
 
 import de.p2tools.p2Lib.checkForActInfos.FoundAll;
 import de.p2tools.p2Lib.checkForActInfos.FoundSearchData;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -33,7 +33,7 @@ public class SearchProgramUpdate {
     private static final String TITLE_TEXT_PROGRAM_VERSION_IS_UPTODATE = "Programmversion ist aktuell";
     private static final String TITLE_TEXT_PROGRAMMUPDATE_EXISTS = "Ein Programmupdate ist verfügbar";
     private final ProgData progData;
-    private Stage stage;
+    private final Stage stage;
     private String title = "";
 
     public SearchProgramUpdate(ProgData progData) {
@@ -60,7 +60,7 @@ public class SearchProgramUpdate {
             SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
         }
 
-        final PDate pd = new PDate(ProgramTools.getCompileDate());
+        final PDate pd = new PDate(ProgramToolsFactory.getCompileDate());
         String buildDate = pd.get_yyyy_MM_dd();
 
         FoundSearchData foundSearchData = new FoundSearchData(
@@ -80,8 +80,8 @@ public class SearchProgramUpdate {
                 ProgConst.URL_WEBSITE,
                 ProgConst.URL_WEBSITE_DOWNLOAD,
                 ProgConst.PROGRAM_NAME,
-                ProgramTools.getProgVersion(),
-                ProgramTools.getBuild(),
+                ProgramToolsFactory.getProgVersion(),
+                ProgramToolsFactory.getBuild(),
                 buildDate,
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAllways

@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
@@ -81,9 +82,23 @@ public class StationMenu {
         mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
-        final MenuItem miPlay = new MenuItem("Sender abspielen");
-        miPlay.setOnAction(a -> progData.stationGuiController.playStation());
-        PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
+        final boolean moreSets = progData.setDataList.size() > 1;
+        if (moreSets) {
+            Menu miStartWithSet = new Menu("Sender abspielen, Programm auswählen");
+            for (SetData set : progData.setDataList) {
+                MenuItem miStart = new MenuItem(set.getVisibleName());
+                miStart.setOnAction(a -> progData.stationGuiController.playStationWithSet(set));
+                miStartWithSet.getItems().add(miStart);
+            }
+            mb.getItems().addAll(miStartWithSet);
+
+        } else {
+            final MenuItem miPlay = new MenuItem("Sender abspielen");
+            miPlay.setOnAction(a -> progData.stationGuiController.playStation());
+            PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
+            mb.getItems().addAll(miPlay);
+        }
+
 
         final MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> progData.stationGuiController.stopStation(false));
@@ -96,7 +111,7 @@ public class StationMenu {
         miSave.setOnAction(e -> StationFactory.favouriteStationList());
         PShortcutWorker.addShortCut(miSave, P2RadioShortCuts.SHORTCUT_SAVE_STATION);
 
-        mb.getItems().addAll(miPlay, miStop, miStopAll, miSave);
+        mb.getItems().addAll(miStop, miStopAll, miSave);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);

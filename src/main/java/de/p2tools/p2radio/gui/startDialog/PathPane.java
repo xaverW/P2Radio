@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -40,26 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathPane {
-    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
-    private GridPane gridPane = new GridPane();
-    private int row = 0;
     private final Stage stage;
-
-    private class UnBind {
-        private TextField txt;
-        private StringProperty property;
-
-        UnBind(TextField txt, StringProperty property) {
-            this.txt = txt;
-            this.property = property;
-        }
-
-        void unbind() {
-            txt.textProperty().unbindBidirectional(property);
-        }
-    }
-
-    private List<UnBind> unbindList = new ArrayList<>();
+    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
+    private final GridPane gridPane = new GridPane();
+    private int row = 0;
+    private final List<UnBind> unbindList = new ArrayList<>();
 
     public PathPane(Stage stage) {
         this.stage = stage;
@@ -79,7 +64,7 @@ public class PathPane {
         btnEmpty.setVisible(false);
         gridPane.add(btnEmpty, 2, row);
 
-        switch (ProgramTools.getOs()) {
+        switch (ProgramToolsFactory.getOs()) {
             case WIN32:
             case WIN64:
                 // da wird nur der VLC gebraucht, der Rest wird mitgeliefert
@@ -144,5 +129,19 @@ public class PathPane {
         gridPane.add(btnFind, 2, row);
         gridPane.add(btnHelp, 3, row);
         gridPane.add(hBox, 0, ++row, 3, 1);
+    }
+
+    private class UnBind {
+        private final TextField txt;
+        private final StringProperty property;
+
+        UnBind(TextField txt, StringProperty property) {
+            this.txt = txt;
+            this.property = property;
+        }
+
+        void unbind() {
+            txt.textProperty().unbindBidirectional(property);
+        }
     }
 }
