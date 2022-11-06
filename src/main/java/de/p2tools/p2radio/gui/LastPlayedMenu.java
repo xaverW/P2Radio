@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
@@ -75,9 +76,32 @@ public class LastPlayedMenu {
         mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
-        final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
-        miFavouriteStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
-        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
+        final boolean moreSets = progData.setDataList.size() > 1;
+        if (moreSets) {
+            Menu miStartWithSet = new Menu("Sender abspielen, Programm auswählen");
+            for (SetData set : progData.setDataList) {
+                MenuItem miStart = new MenuItem(set.getVisibleName());
+                miStart.setOnAction(a -> {
+                    final Optional<LastPlayed> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+                    if (lastPlayed.isPresent()) {
+                        progData.startFactory.playLastPlayed(lastPlayed.get(), set);
+                    }
+                });
+                miStartWithSet.getItems().add(miStart);
+            }
+            mb.getItems().addAll(miStartWithSet);
+
+        } else {
+            final MenuItem miPlay = new MenuItem("Sender abspielen");
+            miPlay.setOnAction(a -> progData.lastPlayedGuiController.playStation());
+            PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
+            mb.getItems().addAll(miPlay);
+        }
+
+//
+//        final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
+//        miFavouriteStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
+//        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
         miFavouriteStop.setOnAction(a -> progData.lastPlayedGuiController.stopStation(false));
@@ -89,7 +113,7 @@ public class LastPlayedMenu {
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.lastPlayedGuiController.copyUrl());
 
-        mb.getItems().addAll(miFavouriteStart, miFavouriteStop, miStopAll, miCopyUrl);
+        mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl);
 
         // Submenü
         final MenuItem miLastPlayedDel = new MenuItem("Sender aus History löschen");

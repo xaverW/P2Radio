@@ -17,14 +17,18 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.TableLastPlayed;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+
+import java.util.Optional;
 
 public class LastPlayedGuiTableContextMenu {
 
@@ -47,6 +51,15 @@ public class LastPlayedGuiTableContextMenu {
     private void getMenu(ContextMenu contextMenu, LastPlayed lastPlayed) {
         MenuItem miStart = new MenuItem("Sender starten");
         miStart.setOnAction(a -> lastPlayedGuiController.playStation());
+        miStart.setDisable(lastPlayed == null);
+        contextMenu.getItems().addAll(miStart);
+
+        Menu mStartStation = startStationWithSet(lastPlayed); // Sender mit Set starten
+        if (mStartStation != null) {
+            mStartStation.setDisable(lastPlayed == null);
+            contextMenu.getItems().add(mStartStation);
+        }
+
         MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> lastPlayedGuiController.stopStation(false));
         MenuItem miStopAll = new MenuItem("alle Sender stoppen");
@@ -56,12 +69,11 @@ public class LastPlayedGuiTableContextMenu {
         MenuItem miRemove = new MenuItem("Sender aus History löschen");
         miRemove.setOnAction(a -> LastPlayedFactory.deleteHistory(false));
 
-        miStart.setDisable(lastPlayed == null);
         miStop.setDisable(lastPlayed == null);
         miStopAll.setDisable(lastPlayed == null);
         miCopyUrl.setDisable(lastPlayed == null);
         miRemove.setDisable(lastPlayed == null);
-        contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miRemove);
+        contextMenu.getItems().addAll(miStop, miStopAll, miCopyUrl, miRemove);
 
         if (lastPlayed != null) {
             String stationUrl = lastPlayed.getStationUrl();
@@ -78,5 +90,32 @@ public class LastPlayedGuiTableContextMenu {
         resetTable.setOnAction(a -> tableView.resetTable());
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);
+    }
+
+    private Menu startStationWithSet(LastPlayed station) {
+        final SetDataList list = progData.setDataList.getSetDataListButton();
+        if (!list.isEmpty()) {
+            Menu submenuSet = new Menu("Sender mit Set abspielen");
+
+            if (station == null) {
+                submenuSet.setDisable(true);
+                return submenuSet;
+            }
+
+            list.stream().forEach(setData -> {
+                final MenuItem item = new MenuItem(setData.getVisibleName());
+                item.setOnAction(event -> {
+                    final Optional<LastPlayed> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+                    if (lastPlayed.isPresent()) {
+                        progData.startFactory.playLastPlayed(lastPlayed.get(), setData);
+                    }
+                });
+                submenuSet.getItems().add(item);
+            });
+
+            return submenuSet;
+        }
+
+        return null;
     }
 }

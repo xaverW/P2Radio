@@ -330,19 +330,19 @@ public class P2RadioController extends StackPane {
         btnLastPlayed.getStyleClass().clear();
 
         if (btnSel.equals(btnStation)) {
-            btnStation.getStyleClass().add("btnTabEasy-sel");
+            btnStation.getStyleClass().add("btnTabTop-sel");
         } else {
-            btnStation.getStyleClass().add("btnTabEasy");
+            btnStation.getStyleClass().add("btnTabTop");
         }
         if (btnSel.equals(btnFavourite)) {
-            btnFavourite.getStyleClass().add("btnTabEasy-sel");
+            btnFavourite.getStyleClass().add("btnTabTop-sel");
         } else {
-            btnFavourite.getStyleClass().add("btnTabEasy");
+            btnFavourite.getStyleClass().add("btnTabTop");
         }
         if (btnSel.equals(btnLastPlayed)) {
-            btnLastPlayed.getStyleClass().add("btnTabEasy-sel");
+            btnLastPlayed.getStyleClass().add("btnTabTop-sel");
         } else {
-            btnLastPlayed.getStyleClass().add("btnTabEasy");
+            btnLastPlayed.getStyleClass().add("btnTabTop");
         }
     }
 }

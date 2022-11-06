@@ -23,7 +23,6 @@ import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
@@ -128,7 +127,7 @@ public class TableFavourite extends PTable<Favourite> {
                 Favourite favourite = getTableView().getItems().get(getIndex());
                 final boolean playing = favourite.getStart() != null;
                 final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
-                final boolean set = progData.setDataList.size() > 1;
+//                final boolean set = progData.setDataList.size() > 1;
 
                 if (playing) {
                     //dann stoppen
@@ -149,25 +148,25 @@ public class TableFavourite extends PTable<Favourite> {
                     }
                     hbox.getChildren().add(btnPlay);
 
-                } else if (set) {
-                    //läuft nix, mehre Sets
-                    final ComboBox<SetData> cboSet;
-                    cboSet = new ComboBox();
-                    cboSet.setMinWidth(60);
-                    cboSet.getStyleClass().add("cboTableMoreSets");
-                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
-                    cboSet.getItems().addAll(progData.setDataList);
-                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
-                        progData.startFactory.playFavourite(favourite, ne);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (small.get()) {
-                        cboSet.setMinHeight(18);
-                        cboSet.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(cboSet);
+//                } else if (set) {
+//                    //läuft nix, mehre Sets
+//                    final ComboBox<SetData> cboSet;
+//                    cboSet = new ComboBox();
+//                    cboSet.setMinWidth(60);
+//                    cboSet.getStyleClass().add("cboTableMoreSets");
+//                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
+//                    cboSet.getItems().addAll(progData.setDataList);
+//                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
+//                        progData.startFactory.playFavourite(favourite, ne);
+//                        getTableView().getSelectionModel().clearSelection();
+//                        getTableView().getSelectionModel().select(getIndex());
+//                    });
+//
+//                    if (small.get()) {
+//                        cboSet.setMinHeight(18);
+//                        cboSet.setMaxHeight(18);
+//                    }
+//                    hbox.getChildren().add(cboSet);
 
                 } else {
                     //starten, nur ein Set

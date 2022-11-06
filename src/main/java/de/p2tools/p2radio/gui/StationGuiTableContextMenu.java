@@ -50,21 +50,23 @@ public class StationGuiTableContextMenu {
         // Start/Save
         MenuItem miStart = new MenuItem("Sender abspielen");
         miStart.setOnAction(a -> stationGuiController.playStation());
+        miStart.setDisable(station == null);
+        contextMenu.getItems().addAll(miStart);
+
+        Menu mStartStation = startStationWithSet(station); // Sender mit Set starten
+        if (mStartStation != null) {
+            contextMenu.getItems().add(mStartStation);
+            mStartStation.setDisable(station == null);
+        }
+
         MenuItem miSave = new MenuItem("Sender speichern");
         miSave.setOnAction(a -> StationFactory.favouriteStationList());
-        contextMenu.getItems().addAll(miStart, miSave);
-
-        miStart.setDisable(station == null);
+        contextMenu.getItems().addAll(miSave);
         miSave.setDisable(station == null);
 
         Menu mFilter = addFilter(station);// Filter
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(mFilter);
-
-        Menu mStartStation = startStationWithSet(station); // Sender mit Set starten
-        if (mStartStation != null) {
-            contextMenu.getItems().add(mStartStation);
-        }
 
         Menu mBlacklist = addBlacklist(station);// Blacklist
         Menu mCopyUrl = copyUrl(station);// URL kopieren
