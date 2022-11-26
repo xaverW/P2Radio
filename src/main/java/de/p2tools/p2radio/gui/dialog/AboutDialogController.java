@@ -24,27 +24,13 @@ import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 
 public class AboutDialogController extends AboutDialog {
-    private static AboutDialogController instance;
 
-    private AboutDialogController(ProgData progData) {
+    public AboutDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConst.PROGRAM_NAME, ProgConst.URL_WEBSITE, ProgConst.URL_WEBSITE_HELP,
                 "/de/p2tools/p2radio/res/P2.png", ProgConfig.SYSTEM_PROG_OPEN_URL,
                 ProgConfig.SYSTEM_DARK_THEME.getValue(),
                 new String[]{"Filmliste:", "Einstellungen:"},
                 new String[]{ProgInfos.getStationFileJsonString(), ProgInfos.getSettingsFile().toAbsolutePath().toString()}, false);
-    }
-
-    public synchronized static final AboutDialogController getInstanceAndShow() {
-        if (instance == null) {
-            instance = new AboutDialogController(ProgData.getInstance());
-        }
-
-        if (!instance.isShowing()) {
-            instance.showDialog();
-        }
-        instance.getStage().toFront();
-
-        return instance;
     }
 
     @Override

@@ -17,30 +17,25 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.PLogger;
-import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
-import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
+import de.p2tools.p2radio.controller.config.Events;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.LastPlayedGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.gui.StatusBarController;
-import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
-import de.p2tools.p2radio.gui.dialog.AboutDialogController;
-import de.p2tools.p2radio.gui.dialog.ResetDialogController;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiPack;
-import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
@@ -52,7 +47,6 @@ public class P2RadioController extends StackPane {
     Button btnStation = new Button("Sender");
     Button btnFavourite = new Button("Favoriten");
     Button btnLastPlayed = new Button("History");
-    MenuButton menuButton = new MenuButton("");
     BorderPane borderPane = new BorderPane();
     StackPane stackPaneCont = new StackPane();
     StationGuiPack stationGuiPack = new StationGuiPack();
@@ -81,7 +75,7 @@ public class P2RadioController extends StackPane {
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
             tilePaneStationFavourite.getChildren().addAll(btnStation, btnFavourite, btnLastPlayed);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnSmallRadio, tilePaneStationFavourite, menuButton);
+            hBoxTop.getChildren().addAll(btnSmallRadio, tilePaneStationFavourite, new ProgMenu());
 
             // Center
             paneStation = stationGuiPack.pack();
@@ -151,46 +145,6 @@ public class P2RadioController extends StackPane {
         btnLastPlayed.setMaxWidth(Double.MAX_VALUE);
 
         infoPane();
-
-        // Menü
-        final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
-        miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
-
-        final MenuItem miLoadStationList = new MenuItem("Neue Senderliste laden");
-        miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());
-
-        final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
-        PShortcutWorker.addShortCut(miQuit, P2RadioShortCuts.SHORTCUT_QUIT_PROGRAM);
-
-        final MenuItem miAbout = new MenuItem("Über dieses Programm");
-        miAbout.setOnAction(event -> AboutDialogController.getInstanceAndShow());
-
-        final MenuItem miLog = new MenuItem("Logdatei öffnen");
-        miLog.setOnAction(event -> {
-            PLogger.openLogFile();
-        });
-
-        final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
-        miUrlHelp.setOnAction(event -> {
-            POpen.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
-        });
-
-        final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
-        miReset.setOnAction(event -> new ResetDialogController(progData));
-
-        final MenuItem miSearchUpdate = new MenuItem("Gibts ein Update?");
-        miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData, progData.primaryStage).searchNewProgramVersion(true));
-
-        final Menu mHelp = new Menu("Hilfe");
-        mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
-
-        menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
-        menuButton.getStyleClass().add("btnFunctionWide");
-        menuButton.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
-        menuButton.getItems().addAll(miConfig, miLoadStationList, mHelp,
-                new SeparatorMenuItem(), miQuit);
 
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
             public <T extends PEvent> void pingGui(T event) {

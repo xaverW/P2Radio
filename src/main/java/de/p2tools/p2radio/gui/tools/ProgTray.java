@@ -141,7 +141,7 @@ public class ProgTray {
             closeTray();
         }));
 
-        miAbout.addActionListener(e -> Platform.runLater(() -> AboutDialogController.getInstanceAndShow()));
+        miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(ProgData.getInstance()).showDialog()));
         miQuit.addActionListener(e -> Platform.runLater(() -> {
             Stage stage = null;
             if (progData.smallRadioGuiController != null) {
