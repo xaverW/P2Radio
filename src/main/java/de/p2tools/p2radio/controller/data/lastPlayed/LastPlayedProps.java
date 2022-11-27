@@ -32,7 +32,6 @@ public class LastPlayedProps extends LastPlayedXml {
     private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
 
     private final StringProperty stationName = new SimpleStringProperty("");
-    //    private final StringProperty collectionName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
     private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
@@ -57,7 +56,6 @@ public class LastPlayedProps extends LastPlayedXml {
         list.add(new ConfigIntPropExtra("no", FavouriteFieldNames.FAVOURITE_NO, no));
         list.add(new ConfigIntPropExtra("stationNo", FavouriteFieldNames.FAVOURITE_STATION_NO, stationNo));
         list.add(new ConfigStringPropExtra("station", FavouriteFieldNames.FAVOURITE_STATION, stationName));
-//        list.add(new ConfigStringPropExtra("collection", FavouriteFieldNames.FAVOURITE_COLLECTION, collectionName));
         list.add(new ConfigStringPropExtra("genre", FavouriteFieldNames.FAVOURITE_GENRE, genre));
         list.add(new ConfigStringPropExtra("codec", FavouriteFieldNames.FAVOURITE_GENRE, codec));
         list.add(new ConfigIntPropExtra("bitrate", FavouriteFieldNames.FAVOURITE_BITRATE, bitrate));
@@ -118,18 +116,6 @@ public class LastPlayedProps extends LastPlayedXml {
     public StringProperty stationNameProperty() {
         return stationName;
     }
-
-//    public String getCollectionName() {
-//        return collectionName.get();
-//    }
-//
-//    public StringProperty collectionNameProperty() {
-//        return collectionName;
-//    }
-//
-//    public void setCollectionName(String collectionName) {
-//        this.collectionName.set(collectionName);
-//    }
 
     public String getGenre() {
         return genre.get();
