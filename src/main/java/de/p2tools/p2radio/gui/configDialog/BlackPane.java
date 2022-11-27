@@ -81,7 +81,6 @@ public class BlackPane {
     public void close() {
         rbWhite.selectedProperty().unbindBidirectional(propWhite);
         ProgData.getInstance().pEventHandler.removeListener(listener);
-//        ProgData.getInstance().eventNotifyLoadRadioList.removeListenerLoadStationList(listener);
     }
 
     private void makeConfig(VBox vBox) {
@@ -208,22 +207,6 @@ public class BlackPane {
             }
         };
         ProgData.getInstance().pEventHandler.addListener(listener);
-
-//        EventListenerLoadRadioList listener = new EventListenerLoadRadioList() {
-//            @Override
-//            public void start(EventLoadRadioList event) {
-//                btnSortList.setDisable(true);
-//                btnCountHits.setDisable(true);
-//            }
-//
-//            @Override
-//            public void finished(EventLoadRadioList event) {
-//                btnSortList.setDisable(false);
-//                btnCountHits.setDisable(false);
-//            }
-//        };
-//        ProgData.getInstance().eventNotifyLoadRadioList.addListenerLoadStationList(listener);
-
 
         HBox hBoxCount = new HBox(10);
         hBoxCount.setAlignment(Pos.CENTER_RIGHT);

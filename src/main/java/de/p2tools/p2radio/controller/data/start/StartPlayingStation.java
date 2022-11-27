@@ -19,6 +19,7 @@ package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
@@ -44,38 +45,27 @@ public class StartPlayingStation extends Thread {
     private final int stat_finished_error = 11;
     private final int stat_end = 99;
     private final Start start;
+    private final Playable playable;
     private String exMessage = "";
     private boolean stop = false;
-    private Playable playable = null;
     private int runTime = 0;
 
     public StartPlayingStation(ProgData progData, Start start) {
         super();
         this.progData = progData;
         this.start = start;
-
         playable = start.getPlayable();
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
         progData.pEventHandler.addListener(new PListener(Events.TIMER) {
-            public void ping(Event event) {
+            public void ping(PEvent event) {
                 ++runTime;
                 if (runTime == ProgConst.START_COUNTER_MIN_TIME && playable != null) {
-                    playable.setClickCount(playable.getClickCount() + 1);
+                    StartProgramFactory.setClickCount(playable);
                 }
             }
         });
-
-//        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
-//            @Override
-//            public void ping() {
-//                ++runTime;
-//                if (runTime == ProgConst.START_COUNTER_MIN_TIME && playable != null) {
-//                    playable.setClickCount(playable.getClickCount() + 1);
-//                }
-//            }
-//        });
     }
 
     void stopThread() {

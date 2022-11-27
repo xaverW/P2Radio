@@ -170,6 +170,5 @@ public class ProgData {
 
     private void doTimerWorkOneSecond() {
         pEventHandler.notifyListener(new PEvent(Events.TIMER));
-//        Listener.notify(Listener.EVENT_TIMER, ProgData.class.getName());
     }
 }

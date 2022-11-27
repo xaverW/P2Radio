@@ -17,12 +17,44 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.ProgramData;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 
 
 public class StartProgramFactory {
 
     private StartProgramFactory() {
+    }
+
+    public static void setClickCount(Playable playable) {
+        int clickCount = 0;
+        //größten ClickCount suchen
+        for (Favourite favourite : ProgData.getInstance().favouriteList) {
+            if (favourite.getStationUrl().equals(playable.getStationUrl()) && favourite.getClickCount() > clickCount) {
+                clickCount = favourite.getClickCount();
+            }
+        }
+        for (LastPlayed lastPlayed : ProgData.getInstance().lastPlayedList) {
+            if (lastPlayed.getStationUrl().equals(playable.getStationUrl()) && lastPlayed.getClickCount() > clickCount) {
+                clickCount = lastPlayed.getClickCount();
+            }
+        }
+
+        //dann erhöhen und setzen
+        ++clickCount;
+        for (Favourite favourite : ProgData.getInstance().favouriteList) {
+            if (favourite.getStationUrl().equals(playable.getStationUrl())) {
+                favourite.setClickCount(clickCount);
+            }
+        }
+        for (LastPlayed lastPlayed : ProgData.getInstance().lastPlayedList) {
+            if (lastPlayed.getStationUrl().equals(playable.getStationUrl())) {
+                lastPlayed.setClickCount(clickCount);
+            }
+        }
     }
 
     public static boolean makeProgParameter(Start start) {

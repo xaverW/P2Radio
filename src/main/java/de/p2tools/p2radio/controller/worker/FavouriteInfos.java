@@ -39,13 +39,6 @@ public class FavouriteInfos {
                 generateFavouriteInfos();
             }
         });
-
-//        Listener.addListener(new Listener(Listener.EVENT_TIMER, FavouriteInfos.class.getSimpleName()) {
-//            @Override
-//            public void ping() {
-//                generateFavouriteInfos();
-//            }
-//        });
     }
 
     public synchronized int getAmount() {

@@ -87,36 +87,36 @@ public class LastPlayedProps extends LastPlayedXml {
         return no.get();
     }
 
-    public IntegerProperty noProperty() {
-        return no;
-    }
-
     public void setNo(int no) {
         this.no.set(no);
+    }
+
+    public IntegerProperty noProperty() {
+        return no;
     }
 
     public int getStationNo() {
         return stationNo.get();
     }
 
-    public IntegerProperty stationNoProperty() {
-        return stationNo;
-    }
-
     public void setStationNo(int stationNo) {
         this.stationNo.set(stationNo);
+    }
+
+    public IntegerProperty stationNoProperty() {
+        return stationNo;
     }
 
     public String getStationName() {
         return stationName.get();
     }
 
-    public StringProperty stationNameProperty() {
-        return stationName;
-    }
-
     public void setStationName(String stationName) {
         this.stationName.set(stationName);
+    }
+
+    public StringProperty stationNameProperty() {
+        return stationName;
     }
 
 //    public String getCollectionName() {
@@ -135,153 +135,148 @@ public class LastPlayedProps extends LastPlayedXml {
         return genre.get();
     }
 
-    public StringProperty genreProperty() {
-        return genre;
-    }
-
     public void setGenre(String genre) {
         this.genre.set(genre);
     }
 
+    public StringProperty genreProperty() {
+        return genre;
+    }
 
     public String getCodec() {
         return codec.get();
-    }
-
-    public StringProperty codecProperty() {
-        return codec;
     }
 
     public void setCodec(String codec) {
         this.codec.set(codec);
     }
 
-    public int getBitrate() {
-        return bitrate.get();
+    public StringProperty codecProperty() {
+        return codec;
     }
 
-    public IntegerProperty bitrateProperty() {
-        return bitrate;
+    public int getBitrate() {
+        return bitrate.get();
     }
 
     public void setBitrate(int bitrate) {
         this.bitrate.set(bitrate);
     }
 
-    public int getGrade() {
-        return grade.get();
+    public IntegerProperty bitrateProperty() {
+        return bitrate;
     }
 
-    public IntegerProperty gradeProperty() {
-        return grade;
+    public int getGrade() {
+        return grade.get();
     }
 
     public void setGrade(int grade) {
         this.grade.set(grade);
     }
 
-    public boolean isOwn() {
-        return own.get();
+    public IntegerProperty gradeProperty() {
+        return grade;
     }
 
-    public BooleanProperty ownProperty() {
-        return own;
+    public boolean isOwn() {
+        return own.get();
     }
 
     public void setOwn(boolean own) {
         this.own.set(own);
     }
 
-    public int getClickCount() {
-        return clickCount.get();
+    public BooleanProperty ownProperty() {
+        return own;
     }
 
-    public IntegerProperty clickCountProperty() {
-        return clickCount;
+    public int getClickCount() {
+        return clickCount.get();
     }
 
     public void setClickCount(int clickCount) {
         this.clickCount.set(clickCount);
     }
 
-    public String getCountry() {
-        return country.get();
+    public IntegerProperty clickCountProperty() {
+        return clickCount;
     }
 
-    public StringProperty countryProperty() {
-        return country;
+    public String getCountry() {
+        return country.get();
     }
 
     public void setCountry(String country) {
         this.country.set(country);
     }
 
-    public String getCountryCode() {
-        return countryCode.get();
+    public StringProperty countryProperty() {
+        return country;
     }
 
-    public StringProperty countryCodeProperty() {
-        return countryCode;
+    public String getCountryCode() {
+        return countryCode.get();
     }
 
     public void setCountryCode(String countryCode) {
         this.countryCode.set(countryCode);
     }
 
-    public String getLanguage() {
-        return language.get();
+    public StringProperty countryCodeProperty() {
+        return countryCode;
     }
 
-    public StringProperty languageProperty() {
-        return language;
+    public String getLanguage() {
+        return language.get();
     }
 
     public void setLanguage(String language) {
         this.language.set(language);
     }
 
-    public String getDescription() {
-        return description.get();
+    public StringProperty languageProperty() {
+        return language;
     }
 
-    public StringProperty descriptionProperty() {
-        return description;
+    public String getDescription() {
+        return description.get();
     }
 
     public void setDescription(String description) {
         this.description.set(description);
     }
 
-    public String getStationUrl() {
-        return stationUrl.get();
+    public StringProperty descriptionProperty() {
+        return description;
     }
 
-    public StringProperty stationUrlProperty() {
-        return stationUrl;
+    public String getStationUrl() {
+        return stationUrl.get();
     }
 
     public void setStationUrl(String stationUrl) {
         this.stationUrl.set(stationUrl);
     }
 
-    public String getWebsite() {
-        return website.get();
+    public StringProperty stationUrlProperty() {
+        return stationUrl;
     }
 
-    public StringProperty websiteProperty() {
-        return website;
+    public String getWebsite() {
+        return website.get();
     }
 
     public void setWebsite(String website) {
         this.website.set(website);
     }
 
-    public PLocalDate getStationDate() {
-        return stationDate.get();
+    public StringProperty websiteProperty() {
+        return website;
     }
 
-    public PLocalDateProperty stationDateProperty() {
-        return stationDate;
+    public PLocalDate getStationDate() {
+        return stationDate.get();
     }
 
     public void setStationDate(PLocalDate stationDate) {
@@ -290,6 +285,10 @@ public class LastPlayedProps extends LastPlayedXml {
 
     public void setStationDate(String date) {
         this.stationDate.setPLocalDate(date);
+    }
+
+    public PLocalDateProperty stationDateProperty() {
+        return stationDate;
     }
 
     public boolean isFavouriteUrl() {
