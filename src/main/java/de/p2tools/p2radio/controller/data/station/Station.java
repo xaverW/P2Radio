@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.data.Playable;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.start.Start;
 
 public class Station extends StationProps implements Playable {
@@ -41,6 +41,41 @@ public class Station extends StationProps implements Playable {
 
     public void setStart(Start start) {
         this.start = start;
+    }
+
+    @Override
+    public boolean getFavouriteUrl() {
+        return false;
+    }
+
+    @Override
+    public int getStationNo() {
+        return 0;
+    }
+
+    @Override
+    public String getCollectionName() {
+        return null;
+    }
+
+    @Override
+    public int getGrade() {
+        return 0;
+    }
+
+    @Override
+    public boolean getOwn() {
+        return false;
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
+    public PLocalDate getStationDate() {
+        return null;
     }
 
     private void preserveMemory() {

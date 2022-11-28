@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigIntPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFieldNames;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -36,24 +36,21 @@ public class StartProps extends PDataSample<Start> {
     private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
     private final StringProperty stationName = new SimpleStringProperty("");
     private final StringProperty url = new SimpleStringProperty("");
-
-
-    @Override
-    public Config[] getConfigsArr() {
-        ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", FavouriteFieldNames.FAVOURITE_NO, no));
-        list.add(new ConfigIntPropExtra("stationNo", FavouriteFieldNames.FAVOURITE_STATION_NO, stationNo));
-        list.add(new ConfigStringPropExtra("station", FavouriteFieldNames.FAVOURITE_STATION, stationName));
-        list.add(new ConfigStringPropExtra("url", FavouriteFieldNames.FAVOURITE_URL, url));
-
-        return list.toArray(new Config[]{});
-    }
-
     private final StringProperty setDataId = new SimpleStringProperty("");
     private final StringProperty program = new SimpleStringProperty("");
     private final StringProperty programCall = new SimpleStringProperty("");
     private final StringProperty programCallArray = new SimpleStringProperty("");
 
+    @Override
+    public Config[] getConfigsArr() {
+        ArrayList<Config> list = new ArrayList<>();
+        list.add(new ConfigIntPropExtra("no", PlayableXml.STATION_PROP_NO, no));
+        list.add(new ConfigIntPropExtra("stationNo", PlayableXml.STATION_PROP_STATION_NO, stationNo));
+        list.add(new ConfigStringPropExtra("station", PlayableXml.STATION_PROP_STATION_NAME, stationName));
+        list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, url));
+
+        return list.toArray(new Config[]{});
+    }
 
     @Override
     public String getTag() {
@@ -65,96 +62,96 @@ public class StartProps extends PDataSample<Start> {
         return no.get();
     }
 
-    public IntegerProperty noProperty() {
-        return no;
-    }
-
     public void setNo(int no) {
         this.no.set(no);
+    }
+
+    public IntegerProperty noProperty() {
+        return no;
     }
 
     public int getStationNo() {
         return stationNo.get();
     }
 
-    public IntegerProperty stationNoProperty() {
-        return stationNo;
-    }
-
     public void setStationNo(int stationNo) {
         this.stationNo.set(stationNo);
+    }
+
+    public IntegerProperty stationNoProperty() {
+        return stationNo;
     }
 
     public String getStationName() {
         return stationName.get();
     }
 
-    public StringProperty stationNameProperty() {
-        return stationName;
-    }
-
     public void setStationName(String stationName) {
         this.stationName.set(stationName);
+    }
+
+    public StringProperty stationNameProperty() {
+        return stationName;
     }
 
     public String getUrl() {
         return url.get();
     }
 
-    public StringProperty urlProperty() {
-        return url;
-    }
-
     public void setUrl(String url) {
         this.url.set(url);
+    }
+
+    public StringProperty urlProperty() {
+        return url;
     }
 
     public String getSetDataId() {
         return setDataId.get();
     }
 
-    public StringProperty setDataIdProperty() {
-        return setDataId;
-    }
-
     public void setSetDataId(String setDataId) {
         this.setDataId.set(setDataId);
+    }
+
+    public StringProperty setDataIdProperty() {
+        return setDataId;
     }
 
     public String getProgram() {
         return program.get();
     }
 
-    public StringProperty programProperty() {
-        return program;
-    }
-
     public void setProgram(String program) {
         this.program.set(program);
+    }
+
+    public StringProperty programProperty() {
+        return program;
     }
 
     public String getProgramCall() {
         return programCall.get();
     }
 
-    public StringProperty programCallProperty() {
-        return programCall;
-    }
-
     public void setProgramCall(String programCall) {
         this.programCall.set(programCall);
+    }
+
+    public StringProperty programCallProperty() {
+        return programCall;
     }
 
     public String getProgramCallArray() {
         return programCallArray.get();
     }
 
-    public StringProperty programCallArrayProperty() {
-        return programCallArray;
-    }
-
     public void setProgramCallArray(String programCallArray) {
         this.programCallArray.set(programCallArray);
+    }
+
+    public StringProperty programCallArrayProperty() {
+        return programCallArray;
     }
 
     public int compareTo(StartProps arg0) {

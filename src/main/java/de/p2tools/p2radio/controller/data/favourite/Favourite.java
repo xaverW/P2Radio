@@ -17,12 +17,14 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2radio.controller.data.Playable;
+import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.playable.PlayableProperty;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
 
-public final class Favourite extends FavouriteProps implements Playable {
+public final class Favourite extends PlayableProperty implements Playable {
 
+    public static final String TAG = "Favourite";
     private Start start = null;
 
     public Favourite() {
@@ -45,6 +47,20 @@ public final class Favourite extends FavouriteProps implements Playable {
         this.start = start;
     }
 
+    @Override
+    public int getBitrateInt() {
+        return 0;
+    }
+
+    @Override
+    public boolean getOwn() {
+        return false;
+    }
+
+    public boolean isStation() {
+        return false;
+    }
+
     public void setStation(Station station) {
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
@@ -56,17 +72,13 @@ public final class Favourite extends FavouriteProps implements Playable {
         setStationName(station.getStationName());
         setGenre(station.getGenre());
         setCodec(station.getCodec());
-        setBitrate(station.getBitrateInt());
+        setBitrate(station.getBitrate());
         setCountry(station.getCountry());
         setCountryCode(station.getCountryCode());
         setLanguage(station.getLanguage());
         setWebsite(station.getWebsite());
         setStationUrl(station.getStationUrl());
         setStationDate(station.getDate());
-    }
-
-    public boolean isStation() {
-        return false;
     }
 
     public boolean isFavourite() {

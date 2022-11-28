@@ -14,27 +14,26 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.lastPlayed;
+package de.p2tools.p2radio.controller.data.playable;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFieldNames;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class LastPlayedProps extends LastPlayedXml {
+public class PlayableProperty extends PlayableXml {
 
     private final IntegerProperty no = new SimpleIntegerProperty(FavouriteConstants.FAVOURITE_NUMBER_NOT_STARTED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
 
     private final StringProperty stationName = new SimpleStringProperty("");
+    private final StringProperty collectionName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
-    private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
+    private final StringProperty bitrate = new SimpleStringProperty("0");
     private final IntegerProperty grade = new SimpleIntegerProperty(0);
     private final BooleanProperty own = new SimpleBooleanProperty(false);
     private final IntegerProperty clickCount = new SimpleIntegerProperty();
@@ -46,33 +45,41 @@ public class LastPlayedProps extends LastPlayedXml {
     private final StringProperty stationUrl = new SimpleStringProperty("");
     private final StringProperty website = new SimpleStringProperty("");
 
-    private final PLocalDateProperty stationDate = new PLocalDateProperty();
+    private final PLocalDate stationDate = new PLocalDate();
 
-    private boolean favouriteUrl = false;
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", FavouriteFieldNames.FAVOURITE_NO, no));
-        list.add(new ConfigIntPropExtra("stationNo", FavouriteFieldNames.FAVOURITE_STATION_NO, stationNo));
-        list.add(new ConfigStringPropExtra("station", FavouriteFieldNames.FAVOURITE_STATION, stationName));
-        list.add(new ConfigStringPropExtra("genre", FavouriteFieldNames.FAVOURITE_GENRE, genre));
-        list.add(new ConfigStringPropExtra("codec", FavouriteFieldNames.FAVOURITE_GENRE, codec));
-        list.add(new ConfigIntPropExtra("bitrate", FavouriteFieldNames.FAVOURITE_BITRATE, bitrate));
-        list.add(new ConfigIntPropExtra("grade", FavouriteFieldNames.FAVOURITE_GRADE, grade));
-        list.add(new ConfigBoolPropExtra("own", FavouriteFieldNames.FAVOURITE_OWN, own));
-        list.add(new ConfigIntPropExtra("clickCount", FavouriteFieldNames.FAVOURITE_STATE, clickCount));
+        list.add(new ConfigIntPropExtra("no", PlayableXml.STATION_PROP_NO, no));
+        list.add(new ConfigIntPropExtra("stationNo", PlayableXml.STATION_PROP_STATION_NO, stationNo));
+        list.add(new ConfigStringPropExtra("station", PlayableXml.STATION_PROP_STATION_NAME, stationName));
+        list.add(new ConfigStringPropExtra("collection", PlayableXml.STATION_PROP_COLLECTION, collectionName));
+        list.add(new ConfigStringPropExtra("genre", PlayableXml.STATION_PROP_GENRE, genre));
+        list.add(new ConfigStringPropExtra("codec", PlayableXml.STATION_PROP_CODEC, codec));
+        list.add(new ConfigStringPropExtra("bitrate", PlayableXml.STATION_PROP_BITRATE, bitrate));
+        list.add(new ConfigIntPropExtra("grade", PlayableXml.STATION_PROP_GRADE, grade));
+        list.add(new ConfigBoolPropExtra("own", PlayableXml.STATION_PROP_OWN, own));
+        list.add(new ConfigIntPropExtra("clickCount", PlayableXml.STATION_PROP_CLICK_COUNT, clickCount));
 
-        list.add(new ConfigStringPropExtra("country", FavouriteFieldNames.FAVOURITE_COUNTRY, country));
-        list.add(new ConfigStringPropExtra("countryCode", FavouriteFieldNames.FAVOURITE_COUNTRY, countryCode));
-        list.add(new ConfigStringPropExtra("language", FavouriteFieldNames.FAVOURITE_COUNTRY, language));
-        list.add(new ConfigStringPropExtra("description", FavouriteFieldNames.FAVOURITE_DESCRIPTION, description));
+        list.add(new ConfigStringPropExtra("country", PlayableXml.STATION_PROP_COUNTRY, country));
+        list.add(new ConfigStringPropExtra("countryCode", PlayableXml.STATION_PROP_COUNTRY_CODE, countryCode));
+        list.add(new ConfigStringPropExtra("language", PlayableXml.STATION_PROP_LANGUAGE, language));
+        list.add(new ConfigStringPropExtra("description", PlayableXml.STATION_PROP_DESCRIPTION, description));
 
-        list.add(new ConfigStringPropExtra("url", FavouriteFieldNames.FAVOURITE_URL, stationUrl));
-        list.add(new ConfigStringPropExtra("website", FavouriteFieldNames.FAVOURITE_URL, website));
-        list.add(new ConfigLocalDatePropExtra("stationDate", FavouriteFieldNames.FAVOURITE_DATE, stationDate));
+        list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, stationUrl));
+        list.add(new ConfigStringPropExtra("website", PlayableXml.STATION_PROP_WEBSITE, website));
+        list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
 
         return list.toArray(new Config[]{});
+    }
+
+    public boolean getFavouriteUrl() {
+        return false;
+    }
+
+    public void setFavouriteUrl(boolean set) {
+
     }
 
     @Override
@@ -117,6 +124,18 @@ public class LastPlayedProps extends LastPlayedXml {
         return stationName;
     }
 
+    public String getCollectionName() {
+        return collectionName.get();
+    }
+
+    public void setCollectionName(String collectionName) {
+        this.collectionName.set(collectionName);
+    }
+
+    public StringProperty collectionNameProperty() {
+        return collectionName;
+    }
+
     public String getGenre() {
         return genre.get();
     }
@@ -141,15 +160,15 @@ public class LastPlayedProps extends LastPlayedXml {
         return codec;
     }
 
-    public int getBitrate() {
+    public String getBitrate() {
         return bitrate.get();
     }
 
-    public void setBitrate(int bitrate) {
+    public void setBitrate(String bitrate) {
         this.bitrate.set(bitrate);
     }
 
-    public IntegerProperty bitrateProperty() {
+    public StringProperty bitrateProperty() {
         return bitrate;
     }
 
@@ -262,30 +281,18 @@ public class LastPlayedProps extends LastPlayedXml {
     }
 
     public PLocalDate getStationDate() {
-        return stationDate.get();
+        return stationDate;
     }
 
     public void setStationDate(PLocalDate stationDate) {
-        this.stationDate.setValue(stationDate);
+        this.stationDate.setPLocalDate(stationDate);
     }
 
     public void setStationDate(String date) {
         this.stationDate.setPLocalDate(date);
     }
 
-    public PLocalDateProperty stationDateProperty() {
-        return stationDate;
-    }
-
-    public boolean isFavouriteUrl() {
-        return favouriteUrl;
-    }
-
-    public void setFavouriteUrl(boolean favouriteUrl) {
-        this.favouriteUrl = favouriteUrl;
-    }
-
-    public int compareTo(LastPlayedProps arg0) {
+    public int compareTo(PlayableProperty arg0) {
         int ret;
         if ((ret = Data.sorter.compare(getStationName(), arg0.getStationName())) == 0) {
             return getStationUrl().compareTo(arg0.getStationUrl());

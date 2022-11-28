@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -26,7 +27,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteXml;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -292,47 +293,47 @@ public class TableFavourite extends PTable<Favourite> {
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
 
-        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_NO]);
+        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.setCellFactory(cellFactoryNo);
         nrColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION_NO]);
+        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
         senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
         senderNoColumn.setCellFactory(cellFactorySenderNo);
         senderNoColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, String> senderColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_STATION]);
+        final TableColumn<Favourite, String> senderColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NAME);
         senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         senderColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, String> collectionColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COLLECTION]);
+        final TableColumn<Favourite, String> collectionColumn = new TableColumn<>(PlayableXml.STATION_PROP_COLLECTION);
         collectionColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
         collectionColumn.getStyleClass().add("alignCenterLeft");
         collectionColumn.setComparator(sorter);
 
-        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GRADE]);
+        final TableColumn<Favourite, Integer> gradeColumn = new TableColumn<>(PlayableXml.STATION_PROP_GRADE);
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
         gradeColumn.setCellFactory(cellFactoryGrade);
 
-        final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CLICK_COUNT]);
+        final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_COUNT);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
         clickCountColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, String> genreColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_GENRE]);
+        final TableColumn<Favourite, String> genreColumn = new TableColumn<>(PlayableXml.STATION_PROP_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_CODEC]);
+        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>(PlayableXml.STATION_PROP_CODEC);
         codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
         codecColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_BITRATE]);
+        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>(PlayableXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
+//        bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_OWN]);
+        final TableColumn<Favourite, Integer> ownColumn = new TableColumn<>(PlayableXml.STATION_PROP_OWN);
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
         ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
         ownColumn.getStyleClass().add("alignCenter");
@@ -341,23 +342,23 @@ public class TableFavourite extends PTable<Favourite> {
         startColumn.setCellFactory(cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY]);
+        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, PDate> countryCodeColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_COUNTRY_CODE]);
+        final TableColumn<Favourite, PDate> countryCodeColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY_CODE);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, String> languageColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_LANGUAGE]);
+        final TableColumn<Favourite, String> languageColumn = new TableColumn<>(PlayableXml.STATION_PROP_LANGUAGE);
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Favourite, PDate> datumColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_DATE]);
+        final TableColumn<Favourite, PLocalDate> datumColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
         datumColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Favourite, String> urlColumn = new TableColumn<>(FavouriteXml.COLUMN_NAMES[FavouriteXml.FAVOURITE_URL]);
+        final TableColumn<Favourite, String> urlColumn = new TableColumn<>(PlayableXml.STATION_PROP_URL);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 

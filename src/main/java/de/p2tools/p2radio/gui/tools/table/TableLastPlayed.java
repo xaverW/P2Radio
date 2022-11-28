@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -24,7 +25,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedXml;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -225,58 +226,58 @@ public class TableLastPlayed extends PTable<LastPlayed> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-        final TableColumn<LastPlayed, Integer> nrColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_NO]);
+        final TableColumn<LastPlayed, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.setCellFactory(cellFactoryNo);
         nrColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, Integer> senderNoColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_STATION_NO]);
+        final TableColumn<LastPlayed, Integer> senderNoColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
         senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
         senderNoColumn.setCellFactory(cellFactorySenderNo);
         senderNoColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, String> senderColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_STATION]);
+        final TableColumn<LastPlayed, String> senderColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NAME);
         senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         senderColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, Integer> clickCountColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_CLICK_COUNT]);
+        final TableColumn<LastPlayed, Integer> clickCountColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_COUNT);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
         clickCountColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, String> genreColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_GENRE]);
+        final TableColumn<LastPlayed, String> genreColumn = new TableColumn<>(PlayableXml.STATION_PROP_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, PDate> codecColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_CODEC]);
+        final TableColumn<LastPlayed, PDate> codecColumn = new TableColumn<>(PlayableXml.STATION_PROP_CODEC);
         codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
         codecColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, Integer> bitrateColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_BITRATE]);
+        final TableColumn<LastPlayed, Integer> bitrateColumn = new TableColumn<>(PlayableXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
+//        bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<LastPlayed, Integer> startColumn = new TableColumn<>("");
         startColumn.setCellFactory(cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, PDate> countryColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_COUNTRY]);
+        final TableColumn<LastPlayed, PDate> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, PDate> countryCodeColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_COUNTRY_CODE]);
+        final TableColumn<LastPlayed, String> countryCodeColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY_CODE);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, String> languageColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_LANGUAGE]);
+        final TableColumn<LastPlayed, String> languageColumn = new TableColumn<>(PlayableXml.STATION_PROP_LANGUAGE);
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, PDate> datumColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_DATE]);
+        final TableColumn<LastPlayed, PLocalDate> datumColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
         datumColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, String> urlColumn = new TableColumn<>(LastPlayedXml.COLUMN_NAMES[LastPlayedXml.FAVOURITE_URL]);
+        final TableColumn<LastPlayed, String> urlColumn = new TableColumn<>(PlayableXml.STATION_PROP_URL);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 

@@ -26,7 +26,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,9 +64,9 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         }
     }
 
-    public void sort() {
-        Collections.sort(this);
-    }
+//    public void sort() {
+//        Collections.sort(this);
+//    }
 
     @Override
     public synchronized boolean add(LastPlayed d) {

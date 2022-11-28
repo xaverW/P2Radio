@@ -18,14 +18,16 @@ package de.p2tools.p2radio.controller.data.lastPlayed;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.playable.PlayableProperty;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
 
-public final class LastPlayed extends LastPlayedProps implements Playable {
+public final class LastPlayed extends PlayableProperty implements Playable {
 
+    public static final String TAG = "Favourite";
     private Start start = null;
 
     public LastPlayed() {
@@ -50,6 +52,26 @@ public final class LastPlayed extends LastPlayedProps implements Playable {
         this.start = start;
     }
 
+
+    @Override
+    public String getCollectionName() {
+        return null;
+    }
+
+    @Override
+    public int getBitrateInt() {
+        return 0;
+    }
+
+    @Override
+    public boolean getOwn() {
+        return false;
+    }
+
+    public boolean isStation() {
+        return false;
+    }
+
     public void setStation(Station station) {
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
@@ -61,13 +83,17 @@ public final class LastPlayed extends LastPlayedProps implements Playable {
         setStationName(station.getStationName());
         setGenre(station.getGenre());
         setCodec(station.getCodec());
-        setBitrate(station.getBitrateInt());
+        setBitrate(station.getBitrate());
         setCountry(station.getCountry());
         setCountryCode(station.getCountryCode());
         setLanguage(station.getLanguage());
         setWebsite(station.getWebsite());
         setStationUrl(station.getStationUrl());
         setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
+    }
+
+    public boolean isFavourite() {
+        return false;
     }
 
     public void setFavourite(Favourite favourite) {
@@ -88,14 +114,6 @@ public final class LastPlayed extends LastPlayedProps implements Playable {
         setWebsite(favourite.getWebsite());
         setStationUrl(favourite.getStationUrl());
         setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
-    }
-
-    public boolean isStation() {
-        return false;
-    }
-
-    public boolean isFavourite() {
-        return false;
     }
 
     public boolean isLastPlayed() {

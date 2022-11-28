@@ -64,7 +64,7 @@ public class StationProps extends StationXml {
     public String getTag() {
         return TAG;
     }
-    
+
     public boolean isNewStation() {
         return newStation;
     }
@@ -133,12 +133,12 @@ public class StationProps extends StationXml {
         return stationDate;
     }
 
-    //=========================================================
-    //die RadioFelder
-
     public int getNo() {
         return no;
     }
+
+    //=========================================================
+    //die RadioFelder
 
     public String getStationName() {
         return arr[STATION_NAME];
@@ -154,6 +154,14 @@ public class StationProps extends StationXml {
 
     public String getBitrate() {
         return arr[STATION_BITRATE];
+    }
+
+    public void setBitrate(String bitrate) {
+        try {
+            this.bitrateInt = Integer.parseInt(bitrate);
+        } catch (Exception ex) {
+            this.bitrateInt = 0;
+        }
     }
 
     public String getState() {

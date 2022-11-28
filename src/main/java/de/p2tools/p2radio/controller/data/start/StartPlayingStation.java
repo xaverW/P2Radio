@@ -26,7 +26,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.Playable;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import javafx.application.Platform;
 
 import java.awt.*;

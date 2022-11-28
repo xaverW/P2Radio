@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteXml;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -37,15 +37,11 @@ import java.util.ArrayList;
 
 public class FavouriteEditDialogController extends PDialogExtra {
 
-    private Button btnOk = new Button("_Ok");
-    private Button btnCancel = new Button("_Abbrechen");
-
-    private boolean ok = false;
     private final GridPane gridPane = new GridPane();
-    private final Label[] lbl = new Label[FavouriteXml.MAX_ELEM];
-    private final Label[] lblCont = new Label[FavouriteXml.MAX_ELEM];
-    private final CheckBox[] cbx = new CheckBox[FavouriteXml.MAX_ELEM];
-    private final TextField[] txt = new TextField[FavouriteXml.MAX_ELEM];
+    private final Label[] lbl = new Label[PlayableXml.MAX_ELEM];
+    private final Label[] lblCont = new Label[PlayableXml.MAX_ELEM];
+    private final CheckBox[] cbx = new CheckBox[PlayableXml.MAX_ELEM];
+    private final TextField[] txt = new TextField[PlayableXml.MAX_ELEM];
     private final ComboBox<String> cboCollection = new ComboBox<>();
     private final TextArea taDescription = new TextArea();
     private final Button btnPrev = new Button("<");
@@ -53,13 +49,14 @@ public class FavouriteEditDialogController extends PDialogExtra {
     private final Label lblSum = new Label("");
     private final VBox vBoxAllFavourites = new VBox();
     private final CheckBox[] cbxGrade = new CheckBox[FavouriteConstants.MAX_FAVOURITE_GRADE];
-
-    private ArrayList<Favourite> favouriteList;
-
     private final HBox hBoxTop = new HBox();
+    private final ProgData progData;
+    private final Button btnOk = new Button("_Ok");
+    private final Button btnCancel = new Button("_Abbrechen");
+    private final ArrayList<Favourite> favouriteList;
+    private boolean ok = false;
     private Favourite actFavourite;
     private int actSender = 0;
-    private final ProgData progData;
     private boolean stopGradeListener = false;
 
     public FavouriteEditDialogController(ProgData progData, ArrayList<Favourite> favouriteList) {
@@ -178,8 +175,8 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        for (int i = 0; i < FavouriteXml.MAX_ELEM; ++i) {
-            lbl[i] = new Label(FavouriteXml.COLUMN_NAMES[i] + ":");
+        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
+            lbl[i] = new Label(PlayableXml.COLUMN_NAMES[i] + ":");
             lbl[i].setPadding(new Insets(2, 0, 2, 0));
             lblCont[i] = new Label("");
 
@@ -194,7 +191,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
         for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
             cbxGrade[i] = new CheckBox();
         }
-        for (int i = 0; i < FavouriteXml.MAX_ELEM; ++i) {
+        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
             row = setGrid(i, row);
         }
     }
@@ -202,22 +199,22 @@ public class FavouriteEditDialogController extends PDialogExtra {
     private int setGrid(int i, int row) {
         PHyperlink hyperlink;
         switch (i) {
-            case FavouriteXml.FAVOURITE_NO:
+            case PlayableXml.STATION_PROP_NO_INT:
                 // bis hier nicht anzeigen
                 break;
-            case FavouriteXml.FAVOURITE_STATION_NO:
+            case PlayableXml.STATION_PROP_STATION_NO_INT:
                 lblCont[i].textProperty().bind(actFavourite.stationNoProperty().asString());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_STATION:
+            case PlayableXml.STATION_PROP_STATION_NAME_INT:
                 lblCont[i].textProperty().bind(actFavourite.stationNameProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row, 3, 1);
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_COLLECTION:
+            case PlayableXml.STATION_PROP_COLLECTION_INT:
                 lblCont[i].textProperty().bind(actFavourite.collectionNameProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(cboCollection, 1, row, 3, 1);
@@ -226,7 +223,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_GRADE:
+            case PlayableXml.STATION_PROP_GRADE_INT:
                 lbl[i].setTextFill(Color.BLUE);
                 initGrade();
                 HBox hBox = new HBox(5);
@@ -245,52 +242,52 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_GENRE:
+            case PlayableXml.STATION_PROP_GENRE_INT:
                 lblCont[i].textProperty().bind(actFavourite.genreProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row, 3, 1);
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_CODEC:
+            case PlayableXml.STATION_PROP_CODEC_INT:
                 lblCont[i].textProperty().bind(actFavourite.codecProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
 
-                lblCont[FavouriteXml.FAVOURITE_BITRATE].textProperty().bind(actFavourite.bitrateProperty().asString());
-                gridPane.add(lbl[FavouriteXml.FAVOURITE_BITRATE], 2, row);
-                gridPane.add(lblCont[FavouriteXml.FAVOURITE_BITRATE], 3, row);
+                lblCont[PlayableXml.STATION_PROP_BITRATE_INT].textProperty().bind(actFavourite.bitrateProperty());
+                gridPane.add(lbl[PlayableXml.STATION_PROP_BITRATE_INT], 2, row);
+                gridPane.add(lblCont[PlayableXml.STATION_PROP_BITRATE_INT], 3, row);
 
                 ++row;
                 break;
 
-            case FavouriteXml.FAVOURITE_OWN:
-                cbx[FavouriteXml.FAVOURITE_OWN].selectedProperty().bindBidirectional(actFavourite.ownProperty());
-                gridPane.add(lbl[FavouriteXml.FAVOURITE_OWN], 2, row);
-                gridPane.add(cbx[FavouriteXml.FAVOURITE_OWN], 3, row);
+            case PlayableXml.STATION_PROP_OWN_INT:
+                cbx[PlayableXml.STATION_PROP_OWN_INT].selectedProperty().bindBidirectional(actFavourite.ownProperty());
+                gridPane.add(lbl[PlayableXml.STATION_PROP_OWN_INT], 2, row);
+                gridPane.add(cbx[PlayableXml.STATION_PROP_OWN_INT], 3, row);
 
-                lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT].textProperty().bind(actFavourite.clickCountProperty().asString());
-                gridPane.add(lbl[FavouriteXml.FAVOURITE_CLICK_COUNT], 0, row);
-                gridPane.add(lblCont[FavouriteXml.FAVOURITE_CLICK_COUNT], 1, row);
+                lblCont[PlayableXml.STATION_PROP_CLICK_COUNT_INT].textProperty().bind(actFavourite.clickCountProperty().asString());
+                gridPane.add(lbl[PlayableXml.STATION_PROP_CLICK_COUNT_INT], 0, row);
+                gridPane.add(lblCont[PlayableXml.STATION_PROP_CLICK_COUNT_INT], 1, row);
                 ++row;
                 break;
 
-            case FavouriteXml.FAVOURITE_BUTTON1:
-            case FavouriteXml.FAVOURITE_BUTTON2:
+            case PlayableXml.STATION_PROP_BUTTON1_INT:
+            case PlayableXml.STATION_PROP_BUTTON2_INT:
                 break;
 
-            case FavouriteXml.FAVOURITE_COUNTRY:
+            case PlayableXml.STATION_PROP_COUNTRY_INT:
                 final String text = actFavourite.getCountry() + ", " + actFavourite.getCountryCode();
                 lblCont[i].textProperty().bind(actFavourite.countryProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
 
-                lblCont[FavouriteXml.FAVOURITE_LANGUAGE].textProperty().bind(actFavourite.languageProperty());
-                gridPane.add(lbl[FavouriteXml.FAVOURITE_LANGUAGE], 2, row);
-                gridPane.add(lblCont[FavouriteXml.FAVOURITE_LANGUAGE], 3, row);
+                lblCont[PlayableXml.STATION_PROP_LANGUAGE_INT].textProperty().bind(actFavourite.languageProperty());
+                gridPane.add(lbl[PlayableXml.STATION_PROP_LANGUAGE_INT], 2, row);
+                gridPane.add(lblCont[PlayableXml.STATION_PROP_LANGUAGE_INT], 3, row);
                 ++row;
                 break;
 
-            case FavouriteXml.FAVOURITE_DESCRIPTION:
+            case PlayableXml.STATION_PROP_DESCRIPTION_INT:
                 lbl[i].setTextFill(Color.BLUE);
                 taDescription.textProperty().bindBidirectional(actFavourite.descriptionProperty());
                 gridPane.add(lbl[i], 0, row);
@@ -300,7 +297,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_URL:
+            case PlayableXml.STATION_PROP_URL_INT:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.stationUrlProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
                 hyperlink.setChangeable();
@@ -309,7 +306,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 gridPane.add(hyperlink, 1, row, 3, 1);
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_WEBSITE:
+            case PlayableXml.STATION_PROP_WEBSITE_INT:
                 hyperlink = new PHyperlink(this.getStage(), actFavourite.websiteProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
                 hyperlink.setChangeable();
@@ -318,15 +315,16 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 gridPane.add(hyperlink, 1, row, 3, 1);
                 ++row;
                 break;
-            case FavouriteXml.FAVOURITE_DATE:
-                lblCont[i].textProperty().bind(actFavourite.stationDateProperty().asString());
+            case PlayableXml.STATION_PROP_DATE_INT:
+//                lblCont[i].textProperty().bind(actFavourite.stationDateProperty().getPDate());
+                lblCont[i].setText(actFavourite.getStationDate().toString());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
                 ++row;
                 break;
         }
 
-        if (i == FavouriteXml.FAVOURITE_COLLECTION || txt[i].isEditable() || !cbx[i].isDisabled()) {
+        if (i == PlayableXml.STATION_PROP_COLLECTION_INT || txt[i].isEditable() || !cbx[i].isDisabled()) {
             lbl[i].setTextFill(Color.BLUE);
         }
         return row;
@@ -356,13 +354,13 @@ public class FavouriteEditDialogController extends PDialogExtra {
             saveAct();
             favouriteList.stream().forEach(f -> {
                 switch (i) {
-                    case FavouriteXml.FAVOURITE_COLLECTION:
+                    case PlayableXml.STATION_PROP_COLLECTION_INT:
                         f.setCollectionName(actFavourite.getCollectionName());
                         break;
-                    case FavouriteXml.FAVOURITE_DESCRIPTION:
+                    case PlayableXml.STATION_PROP_DESCRIPTION_INT:
                         f.setDescription(actFavourite.getDescription());
                         break;
-                    case FavouriteXml.FAVOURITE_GRADE:
+                    case PlayableXml.STATION_PROP_GRADE_INT:
                         f.setGrade(actFavourite.getGrade());
                         break;
                 }

@@ -17,9 +17,9 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2radio.controller.data.Playable;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 
 public final class Start extends StartProps {
 

@@ -21,9 +21,9 @@ import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -198,23 +198,23 @@ public class TableStation extends PTable<Station> {
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
 
-        final TableColumn<Station, Integer> nrColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_NO]);
+        final TableColumn<Station, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> nameColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_NAME]);
+        final TableColumn<Station, String> nameColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NAME);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         nameColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> genreColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_GENRE]);
+        final TableColumn<Station, String> genreColumn = new TableColumn<>(PlayableXml.STATION_PROP_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> codecColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_CODEC]);
+        final TableColumn<Station, String> codecColumn = new TableColumn<>(PlayableXml.STATION_PROP_CODEC);
         codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
         codecColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, Integer> bitrateColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_BITRATE]);
+        final TableColumn<Station, Integer> bitrateColumn = new TableColumn<>(PlayableXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
         bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
@@ -223,43 +223,43 @@ public class TableStation extends PTable<Station> {
         startColumn.setCellFactory(cellFactoryStart);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, String> stateColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_STATE]);
+        final TableColumn<Station, String> stateColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATE);
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
         stateColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> countryColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_COUNTRY]);
+        final TableColumn<Station, String> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> countryCodeColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_COUNTRY_CODE]);
+        final TableColumn<Station, String> countryCodeColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY_CODE);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, String> languageColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_LANGUAGE]);
+        final TableColumn<Station, String> languageColumn = new TableColumn<>(PlayableXml.STATION_PROP_LANGUAGE);
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, Integer> votesColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_VOTES]);
+        final TableColumn<Station, Integer> votesColumn = new TableColumn<>(PlayableXml.STATION_PROP_VOTES);
         votesColumn.setCellValueFactory(new PropertyValueFactory<>("votes"));
         votesColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, Integer> clickCountColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_CLICK_COUNT]);
+        final TableColumn<Station, Integer> clickCountColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_COUNT);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
         clickCountColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, Boolean> clickTrendColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_CLICK_TREND]);
+        final TableColumn<Station, Boolean> clickTrendColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_TREND);
         clickTrendColumn.setCellValueFactory(new PropertyValueFactory<>("clickTrend"));
         clickTrendColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, PDate> dateColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_DATE]);
+        final TableColumn<Station, PDate> dateColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         dateColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Station, String> websiteColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_WEBSITE]);
+        final TableColumn<Station, String> websiteColumn = new TableColumn<>(PlayableXml.STATION_PROP_WEBSITE);
         websiteColumn.setCellValueFactory(new PropertyValueFactory<>("website"));
         websiteColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Station, String> urlColumn = new TableColumn<>(StationXml.COLUMN_NAMES[StationXml.STATION_URL]);
+        final TableColumn<Station, String> urlColumn = new TableColumn<>(PlayableXml.STATION_PROP_URL);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
