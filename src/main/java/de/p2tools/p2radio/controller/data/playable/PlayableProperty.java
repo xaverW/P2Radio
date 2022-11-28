@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.controller.data.playable;
 
 import de.p2tools.p2Lib.configFile.config.*;
+import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.tools.Data;
@@ -24,11 +25,10 @@ import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class PlayableProperty extends PlayableXml {
+public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     private final IntegerProperty no = new SimpleIntegerProperty(FavouriteConstants.FAVOURITE_NUMBER_NOT_STARTED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
-
     private final StringProperty stationName = new SimpleStringProperty("");
     private final StringProperty collectionName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
@@ -41,12 +41,9 @@ public class PlayableProperty extends PlayableXml {
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-
     private final StringProperty stationUrl = new SimpleStringProperty("");
     private final StringProperty website = new SimpleStringProperty("");
-
     private final PLocalDate stationDate = new PLocalDate();
-
 
     @Override
     public Config[] getConfigsArr() {
@@ -81,12 +78,6 @@ public class PlayableProperty extends PlayableXml {
     public void setFavouriteUrl(boolean set) {
 
     }
-
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
 
     public int getNo() {
         return no.get();

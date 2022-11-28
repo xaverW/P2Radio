@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.data.start.Start;
 
 public interface Playable {
+
     boolean station = false, favourite = false, lastPlayed = false;
 
     Start getStart();
@@ -29,6 +30,12 @@ public interface Playable {
     boolean getFavouriteUrl();
 
     void setFavouriteUrl(boolean set);
+
+    boolean isStation();
+
+    boolean isFavourite();
+
+    boolean isLastPlayed();
 
     //====================================
     int getNo();
@@ -68,12 +75,6 @@ public interface Playable {
     String getWebsite();
 
     PLocalDate getStationDate();
-
-    boolean isStation();
-
-    boolean isFavourite();
-
-    boolean isLastPlayed();
 
     Playable getCopy();
 }

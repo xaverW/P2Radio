@@ -25,9 +25,9 @@ import de.p2tools.p2radio.controller.data.playable.PlayableProperty;
 import de.p2tools.p2radio.controller.data.start.Start;
 import de.p2tools.p2radio.controller.data.station.Station;
 
-public final class LastPlayed extends PlayableProperty implements Playable {
+public final class LastPlayed extends PlayableProperty<LastPlayed> implements Playable {
 
-    public static final String TAG = "Favourite";
+    public static final String TAG = "LastPlayed";
     private Start start = null;
 
     public LastPlayed() {
@@ -39,6 +39,11 @@ public final class LastPlayed extends PlayableProperty implements Playable {
 
     public LastPlayed(Favourite favourite) {
         setFavourite(favourite);
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
     }
 
     //==============================================

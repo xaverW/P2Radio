@@ -36,6 +36,11 @@ public final class Favourite extends PlayableProperty implements Playable {
         setStationUrl(station.getStationUrl());
     }
 
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
     //==============================================
     // Get/Set
     //==============================================

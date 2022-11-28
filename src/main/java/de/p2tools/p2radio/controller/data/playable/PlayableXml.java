@@ -17,10 +17,7 @@
 package de.p2tools.p2radio.controller.data.playable;
 
 
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-
-public class PlayableXml extends PDataSample<Favourite> {
+public class PlayableXml {
     public static final String TAG = "STATION_PROPERTY";
 
     public static final int STATION_PROP_NO_INT = 0;

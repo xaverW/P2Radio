@@ -117,12 +117,13 @@ public class ProgStartFactory {
         PDuration.onlyPing("checkProgUpdate");
 
 
-        if (ProgData.debug) {
+/*        if (ProgData.debug) {
             // damits bei jedem Start gemacht wird
             PLog.sysLog("DEBUG: Update-Check");
             runUpdateCheck(progData, true);
 
-        } else if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
+        } else*/
+        if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
                 !updateCheckTodayDone()) {
             // nach Updates suchen
             runUpdateCheck(progData, false);
