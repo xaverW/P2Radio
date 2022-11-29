@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -29,10 +30,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StationListFactory {
-    private static Map<Character, Integer> counterMap = new HashMap<>(25);
+    final static String regEx1 = "[\\n\\r]";
+    final static String regEx2 = "[\\p{Cc}&&[^\\t\\n\\r]]";
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+    private static final Map<Character, Integer> counterMap = new HashMap<>(25);
+
 
     private StationListFactory() {
     }
@@ -45,11 +49,11 @@ public class StationListFactory {
         StationList stationList = ProgData.getInstance().stationList;
         stationList.stream().forEach(station -> {
 
-            station.arr[Station.STATION_COUNTRY] = clean_1(station.getCountry(), true);
-            station.arr[Station.STATION_GENRE] = clean_1(station.getGenre(), true);
+            station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = clean_1(station.getCountry(), true);
+            station.arr[PlayableXml.STATION_PROP_GENRE_INT] = clean_1(station.getGenre(), true);
 
-            station.arr[Station.STATION_COUNTRY] = clean_2(station.getCountry());
-            station.arr[Station.STATION_GENRE] = clean_2(station.getGenre());
+            station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = clean_2(station.getCountry());
+            station.arr[PlayableXml.STATION_PROP_GENRE_INT] = clean_2(station.getGenre());
 
             // U+3000 (12288)	　	Trenn- (Leer-) Zeichen	Whitespace	IDEOGRAPHIC SPACE	Ideographisches Leerzeichen
             // das hat die Probleme gemacht, Sender: Weltbilder
@@ -63,10 +67,6 @@ public class StationListFactory {
         }
         PDuration.counterStop("cleanFaultyCharacter");
     }
-
-
-    final static String regEx1 = "[\\n\\r]";
-    final static String regEx2 = "[\\p{Cc}&&[^\\t\\n\\r]]";
 
     public static String cleanUnicode(String ret) {
         return clean_1(ret, true);

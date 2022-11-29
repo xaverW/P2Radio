@@ -21,8 +21,8 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -82,8 +82,8 @@ public class StationGuiInfoController extends PClosePaneH {
             return;
         }
 
-        lblTitle.setText(station.arr[StationXml.STATION_NAME] + "  -  " + station.arr[StationXml.STATION_COUNTRY]);
-        hyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);
+        lblTitle.setText(station.arr[PlayableXml.STATION_PROP_STATION_NAME_INT] + "  -  " + station.arr[PlayableXml.STATION_PROP_COUNTRY_INT]);
+        hyperlinkWebsite.setUrl(station.arr[PlayableXml.STATION_PROP_WEBSITE_INT]);
         hyperlinkUrl.setUrl(station.getStationUrl());
     }
 }

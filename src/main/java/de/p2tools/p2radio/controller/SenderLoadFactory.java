@@ -26,6 +26,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -176,54 +177,54 @@ public class SenderLoadFactory {
 
             switch (name) {
                 case SenderSaveFactory.NAME:
-                    station.arr[Station.STATION_NAME] = value;
+                    station.arr[PlayableXml.STATION_PROP_STATION_NAME_INT] = value;
                     break;
                 case SenderSaveFactory.GENRE:
-                    station.arr[Station.STATION_GENRE] = value;
+                    station.arr[PlayableXml.STATION_PROP_GENRE_INT] = value;
                     break;
                 case SenderSaveFactory.CODEC:
-                    station.arr[Station.STATION_CODEC] = value;
+                    station.arr[PlayableXml.STATION_PROP_CODEC_INT] = value;
                     break;
                 case SenderSaveFactory.BITRATE:
-                    station.arr[Station.STATION_BITRATE] = value;
+                    station.arr[PlayableXml.STATION_PROP_BITRATE_INT] = value;
                     break;
                 case SenderSaveFactory.COUNTRY:
-                    station.arr[Station.STATION_COUNTRY] = value;
+                    station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = value;
                     break;
                 case SenderSaveFactory.COUNTRY_CODE:
-                    station.arr[Station.STATION_COUNTRY_CODE] = value;
+                    station.arr[PlayableXml.STATION_PROP_COUNTRY_CODE_INT] = value;
                     break;
                 case SenderSaveFactory.STATE:
-                    station.arr[Station.STATION_STATE] = value;
+                    station.arr[PlayableXml.STATION_PROP_STATE_INT] = value;
                     break;
                 case SenderSaveFactory.LANGUAGE:
-                    station.arr[Station.STATION_LANGUAGE] = value;
+                    station.arr[PlayableXml.STATION_PROP_LANGUAGE_INT] = value;
                     break;
                 case SenderSaveFactory.VOTES:
-                    station.arr[Station.STATION_VOTES] = value;
+                    station.arr[PlayableXml.STATION_PROP_VOTES_INT] = value;
                     break;
                 case SenderSaveFactory.CLICK_COUNT:
-                    station.arr[Station.STATION_CLICK_COUNT] = value;
+                    station.arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = value;
                     break;
                 case SenderSaveFactory.CLICK_TREND:
-                    station.arr[Station.STATION_CLICK_TREND] = value;
+                    station.arr[PlayableXml.STATION_PROP_CLICK_TREND_INT] = value;
                     break;
                 case SenderSaveFactory.URL:
-                    station.arr[Station.STATION_URL] = value;
+                    station.arr[PlayableXml.STATION_PROP_URL_INT] = value;
                     break;
                 case SenderSaveFactory.URL_RESOLVED:
-                    station.arr[Station.STATION_URL_RESOLVED] = value;
+                    station.arr[PlayableXml.STATION_PROP_URL_RESOLVED_INT] = value;
                     break;
                 case SenderSaveFactory.HOMEPAGE:
-                    station.arr[Station.STATION_WEBSITE] = value;
+                    station.arr[PlayableXml.STATION_PROP_WEBSITE_INT] = value;
                     break;
                 case SenderSaveFactory.LAST_CHANGE_TIME:
                     //"2020-08-21 10:40:59"
                     try {
                         PDate pd = new PDate(sdf_date_time.parse(value));
-                        station.arr[Station.STATION_DATE] = pd.get_dd_MM_yyyy();
+                        station.arr[PlayableXml.STATION_PROP_DATE_INT] = pd.get_dd_MM_yyyy();
                     } catch (Exception ex) {
-                        station.arr[Station.STATION_DATE] = value;
+                        station.arr[PlayableXml.STATION_PROP_DATE_INT] = value;
                     }
                     break;
             }

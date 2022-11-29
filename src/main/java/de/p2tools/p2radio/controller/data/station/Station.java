@@ -17,9 +17,9 @@
 package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.start.Start;
 
 public class Station extends StationProps implements Playable {
@@ -54,8 +54,18 @@ public class Station extends StationProps implements Playable {
     }
 
     @Override
+    public void setStationNo(int no) {
+
+    }
+
+    @Override
     public String getCollectionName() {
         return null;
+    }
+
+    @Override
+    public int getBitrateInt() {
+        return 0;
     }
 
     @Override
@@ -73,79 +83,74 @@ public class Station extends StationProps implements Playable {
         return null;
     }
 
-    @Override
-    public PLocalDate getStationDate() {
-        return null;
-    }
-
     private void preserveMemory() {
         // Speicher sparen
-        arr[STATION_DATE] = arr[STATION_DATE].intern();
-        arr[STATION_LANGUAGE] = arr[STATION_LANGUAGE].intern();
+        arr[PlayableXml.STATION_PROP_DATE_INT] = arr[PlayableXml.STATION_PROP_DATE_INT].intern();
+        arr[PlayableXml.STATION_PROP_LANGUAGE_INT] = arr[PlayableXml.STATION_PROP_LANGUAGE_INT].intern();
     }
 
     private void setIntValues() {
         //STATION_BITRATE
         try {
-            if (!arr[STATION_BITRATE].isEmpty()) {
-                setBitrateInt(Integer.parseInt(arr[STATION_BITRATE]));
+            if (!arr[PlayableXml.STATION_PROP_BITRATE_INT].isEmpty()) {
+                setBitrateInt(Integer.parseInt(arr[PlayableXml.STATION_PROP_BITRATE_INT]));
             } else {
                 setBitrateInt(0);
             }
         } catch (final Exception ex) {
             setBitrateInt(0);
-            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_BITRATE]);
+            PLog.errorLog(468912049, "Bitrate: " + arr[PlayableXml.STATION_PROP_BITRATE_INT]);
         }
 
         //STATION_VOTES
         try {
-            if (!arr[STATION_VOTES].isEmpty()) {
-                setVotes(Integer.parseInt(arr[STATION_VOTES]));
+            if (!arr[PlayableXml.STATION_PROP_VOTES_INT].isEmpty()) {
+                setVotes(Integer.parseInt(arr[PlayableXml.STATION_PROP_VOTES_INT]));
             } else {
                 setVotes(0);
             }
         } catch (final Exception ex) {
             setVotes(0);
-            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_VOTES]);
+            PLog.errorLog(468912049, "Bitrate: " + arr[PlayableXml.STATION_PROP_VOTES_INT]);
         }
 
         //STATION_CLICK_COUNT
         try {
-            if (!arr[STATION_CLICK_COUNT].isEmpty()) {
-                setClickCount(Integer.parseInt(arr[STATION_CLICK_COUNT]));
+            if (!arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT].isEmpty()) {
+                setClickCount(Integer.parseInt(arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT]));
             } else {
                 setClickCount(0);
             }
         } catch (final Exception ex) {
             setClickCount(0);
-            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_CLICK_COUNT]);
+            PLog.errorLog(468912049, "Bitrate: " + arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT]);
         }
 
         //STATION_CLICK_TREND
         try {
-            if (!arr[STATION_CLICK_TREND].isEmpty()) {
-                setClickTrend(Integer.parseInt(arr[STATION_CLICK_TREND]));
+            if (!arr[PlayableXml.STATION_PROP_CLICK_TREND_INT].isEmpty()) {
+                setClickTrend(Integer.parseInt(arr[PlayableXml.STATION_PROP_CLICK_TREND_INT]));
             } else {
                 setClickTrend(0);
             }
         } catch (final Exception ex) {
             setClickTrend(0);
-            PLog.errorLog(468912049, "Bitrate: " + arr[STATION_CLICK_TREND]);
+            PLog.errorLog(468912049, "Bitrate: " + arr[PlayableXml.STATION_PROP_CLICK_TREND_INT]);
         }
     }
 
     private void setDate() {
-        stationDate.setPLocalDateNow();
-        if (!arr[STATION_DATE].isEmpty()) {
+        getStationDate().setPLocalDateNow();
+        if (!arr[PlayableXml.STATION_PROP_DATE_INT].isEmpty()) {
             // nur dann gibts ein Datum
             try {
-                PDate pd = new PDate(sdf_date.parse(arr[STATION_DATE]));
-                stationDate.setPLocalDate(pd);
+                PDate pd = new PDate(sdf_date.parse(arr[PlayableXml.STATION_PROP_DATE_INT]));
+                setStationDate(pd.getPlocalDate());
 
             } catch (final Exception ex) {
-                PLog.errorLog(854121547, ex, new String[]{"Datum: " + arr[STATION_DATE]});
-                stationDate = new PLocalDate();
-                arr[STATION_DATE] = "";
+                PLog.errorLog(854121547, ex, new String[]{"Datum: " + arr[PlayableXml.STATION_PROP_DATE_INT]});
+                getStationDate().setPLocalDateNow();
+                arr[PlayableXml.STATION_PROP_DATE_INT] = "";
             }
         }
     }
@@ -162,11 +167,4 @@ public class Station extends StationProps implements Playable {
         return false;
     }
 
-    public Station getCopy() {
-        final Station ret = new Station();
-        System.arraycopy(arr, 0, ret.arr, 0, arr.length);
-        ret.no = no;
-        ret.init(); //Datum und int-Werte setzen
-        return ret;
-    }
 }

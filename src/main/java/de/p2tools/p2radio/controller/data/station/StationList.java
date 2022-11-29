@@ -37,24 +37,22 @@ import java.util.function.Predicate;
 @SuppressWarnings("serial")
 public class StationList extends SimpleListProperty<Station> implements PDataListMeta<Station> {
 
-    {
-        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-    }
-
     public static final String TAG = "StationList";
-
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
-
+    //    public String[] genres = {""};
+    private final StationListMeta meta = new StationListMeta();
     public int nr = 1;
     public String[] codecs = {""};
     public String[] countries = {""};
-    //    public String[] genres = {""};
-    private StationListMeta meta = new StationListMeta();
-
+    int countDouble = 0;
     private FilteredList<Station> filteredList = null;
     private SortedList<Station> sortedList = null;
+
+    {
+        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+    }
 
     public StationList() {
         super(FXCollections.observableArrayList());
@@ -74,7 +72,6 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     public Station getNewItem() {
         return new Station();
     }
-
 
     @Override
     public void addNewItem(Object obj) {
@@ -98,11 +95,7 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     }
 
     public boolean isTooOld() {
-        if (getAge() > ProgConst.LOAD_STATION_LIST_EVERY_DAYS) {
-            return true;
-        } else {
-            return false;
-        }
+        return getAge() > ProgConst.LOAD_STATION_LIST_EVERY_DAYS;
     }
 
     public void triggerFilter() {
@@ -161,11 +154,9 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     public synchronized boolean importStationOnlyWithNr(Station station) {
         // hier nur beim Laden aus einer fertigen Senderliste mit der GUI
         // die Sender sind schon sortiert, nur die Nummer muss noch ergänzt werden
-        station.no = nr++;
+        station.setStationNo(nr++);
         return super.add(station);
     }
-
-    int countDouble = 0;
 
     public synchronized int markStations() {
         // läuft direkt nach dem Laden der Senderliste!
@@ -207,7 +198,7 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         // und jetzt noch die Nummerierung in Ordnung bringen
         int i = 1;
         for (final Station station : this) {
-            station.no = i++;
+            station.setStationNo(i++);
         }
     }
 

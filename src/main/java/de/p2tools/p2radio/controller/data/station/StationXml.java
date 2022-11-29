@@ -16,13 +16,44 @@
 
 package de.p2tools.p2radio.controller.data.station;
 
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import org.apache.commons.lang3.time.FastDateFormat;
+public class StationXml {
 
-public class StationXml extends PDataSample<Station> {
-
-    static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
-    static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
+//    {"changeuuid":"610cafba-71d8-40fc-bf68-1456ec973b9d",
+//    "stationuuid":"941ef6f1-0699-4821-95b1-2b678e3ff62e",
+//    "serveruuid":null,
+//    "name":"\tBest FM",
+//    "url":"http://stream.bestfm.sk/128.mp3",
+//    "url_resolved":"http://stream.bestfm.sk/128.mp3",
+//    "homepage":"http://bestfm.sk/",
+//    "favicon":"",
+//    "tags":"",
+//    "country":"Slovakia",
+//    "countrycode":"SK",
+//    "iso_3166_2":null,
+//    "state":"",
+//    "language":"",
+//    "languagecodes":"",
+//    "votes":2,
+//    "lastchangetime":"2022-11-01 08:42:32",
+//    "lastchangetime_iso8601":"2022-11-01T08:42:32Z",
+//    "codec":"MP3",
+//    "bitrate":128,
+//    "hls":0,
+//    "lastcheckok":1,
+//    "lastchecktime":"2022-11-29 10:56:00",
+//    "lastchecktime_iso8601":"2022-11-29T10:56:00Z",
+//    "lastcheckoktime":"2022-11-29 10:56:00",
+//    "lastcheckoktime_iso8601":"2022-11-29T10:56:00Z",
+//    "lastlocalchecktime":"",
+//    "lastlocalchecktime_iso8601":null,
+//    "clicktimestamp":"2022-11-29 13:21:28",
+//    "clicktimestamp_iso8601":"2022-11-29T13:21:28Z",
+//    "clickcount":38,
+//    "clicktrend":-3,
+//    "ssl_error":0,
+//    "geo_lat":null,
+//    "geo_long":null,
+//    "has_extended_info":false}
 
     public static final String TAG = "Station";
     public static final String TAG_JSON_LIST = "X";
@@ -90,13 +121,4 @@ public class StationXml extends PDataSample<Station> {
             "",
             ""
     }; // ist einen Tick schneller, hoffentlich :)
-
-    @Override
-    public int compareTo(Station arg0) {
-        int ret;
-        if ((ret = sorter.compare(arr[STATION_NAME], arg0.arr[STATION_NAME])) == 0) {
-            return sorter.compare(arr[STATION_GENRE], arg0.arr[STATION_GENRE]);
-        }
-        return ret;
-    }
 }

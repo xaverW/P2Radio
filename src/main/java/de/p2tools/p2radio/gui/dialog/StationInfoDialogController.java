@@ -22,8 +22,8 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -38,8 +38,8 @@ import javafx.scene.text.Text;
 public class StationInfoDialogController extends PDialogExtra {
 
     private final int FREE = 220;
-    private final Text[] textTitle = new Text[StationXml.MAX_ELEM];
-    private final Label[] lblCont = new Label[StationXml.MAX_ELEM];
+    private final Text[] textTitle = new Text[PlayableXml.MAX_ELEM];
+    private final Label[] lblCont = new Label[PlayableXml.MAX_ELEM];
 
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
@@ -52,9 +52,8 @@ public class StationInfoDialogController extends PDialogExtra {
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
-
-    private Station station;
     private final ProgData progData;
+    private Station station;
 
     public StationInfoDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO,
@@ -145,7 +144,7 @@ public class StationInfoDialogController extends PDialogExtra {
     }
 
     private void setStation() {
-        for (int i = 0; i < StationXml.MAX_ELEM; ++i) {
+        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
             if (station == null) {
                 lblCont[i].setText("");
                 ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_AUS.getImage());
@@ -153,31 +152,31 @@ public class StationInfoDialogController extends PDialogExtra {
                 pHyperlinkWebsite.setUrl("");
             } else {
                 switch (i) {
-                    case StationXml.STATION_NO:
+                    case PlayableXml.STATION_PROP_NO_INT:
                         lblCont[i].setText(station.getNo() + "");
                         break;
-                    case StationXml.STATION_COUNTRY:
+                    case PlayableXml.STATION_PROP_COUNTRY_INT:
                         lblCont[i].setText(station.getCountry() + " - " + station.getCountryCode());
                         break;
-                    case StationXml.STATION_BITRATE:
+                    case PlayableXml.STATION_PROP_BITRATE_INT:
                         lblCont[i].setText(station.getBitrateInt() + "");
                         break;
-                    case StationXml.STATION_VOTES:
+                    case PlayableXml.STATION_PROP_VOTES_INT:
                         lblCont[i].setText(station.getVotes() + "");
                         break;
-                    case StationXml.STATION_CLICK_COUNT:
+                    case PlayableXml.STATION_PROP_CLICK_COUNT_INT:
                         lblCont[i].setText(station.getClickCount() + "");
                         break;
-                    case StationXml.STATION_CLICK_TREND:
+                    case PlayableXml.STATION_PROP_CLICK_TREND_INT:
                         lblCont[i].setText(station.getClickTrend() + "");
                         break;
-                    case StationXml.STATION_URL:
+                    case PlayableXml.STATION_PROP_URL_INT:
                         pHyperlinkUrl.setUrl(station.getStationUrl());
                         break;
-                    case StationXml.STATION_WEBSITE:
-                        pHyperlinkWebsite.setUrl(station.arr[StationXml.STATION_WEBSITE]);
+                    case PlayableXml.STATION_PROP_WEBSITE_INT:
+                        pHyperlinkWebsite.setUrl(station.arr[PlayableXml.STATION_PROP_WEBSITE_INT]);
                         break;
-                    case StationXml.STATION_NEW:
+                    case PlayableXml.STATION_PROP_STATION_NEW_INT:
                         if (station.isNewStation()) {
                             ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
                         } else {
@@ -205,8 +204,8 @@ public class StationInfoDialogController extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
-        for (int i = 0; i < StationXml.MAX_ELEM; ++i) {
-            textTitle[i] = new Text(StationXml.COLUMN_NAMES[i] + ":");
+        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
+            textTitle[i] = new Text(PlayableXml.COLUMN_NAMES[i] + ":");
             lblCont[i] = new Label("");
             lblCont[i].setWrapText(false);
             lblCont[i].maxWidthProperty().bind(getVBoxCompleteDialog().widthProperty().subtract(FREE)); //_______
@@ -219,73 +218,73 @@ public class StationInfoDialogController extends PDialogExtra {
 
     private void makeGridPaneBig(GridPane gridPane) {
         int row = 0;
-        for (int i = 0; i < StationXml.MAX_ELEM; ++i) {
+        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
             switch (i) {
-                case StationXml.STATION_PLAY:
-                case StationXml.STATION_RECORD:
-                case StationXml.STATION_URL_RESOLVED:
-                case StationXml.STATION_BITRATE:
-                case StationXml.STATION_COUNTRY:
-                case StationXml.STATION_COUNTRY_CODE:
-                case StationXml.STATION_STATE:
-                case StationXml.STATION_CLICK_COUNT:
-                case StationXml.STATION_DATE:
+                case PlayableXml.STATION_PROP_BUTTON1_INT:
+                case PlayableXml.STATION_PROP_BUTTON2_INT:
+                case PlayableXml.STATION_PROP_URL_RESOLVED_INT:
+                case PlayableXml.STATION_PROP_BITRATE_INT:
+                case PlayableXml.STATION_PROP_COUNTRY_INT:
+                case PlayableXml.STATION_PROP_COUNTRY_CODE_INT:
+                case PlayableXml.STATION_PROP_STATE_INT:
+                case PlayableXml.STATION_PROP_CLICK_COUNT_INT:
+                case PlayableXml.STATION_PROP_DATE_INT:
                     // bis hier nicht anzeigen
                     break;
 
-                case StationXml.STATION_NEW:
+                case PlayableXml.STATION_PROP_STATION_NEW_INT:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(ivNew, 1, row++, 3, 1);
                     break;
-                case StationXml.STATION_CODEC:
-                    gridPane.add(textTitle[StationXml.STATION_CODEC], 0, row);
-                    gridPane.add(lblCont[StationXml.STATION_CODEC], 1, row);
-                    lblCont[StationXml.STATION_CODEC].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_CODEC].getText()).show(lblCont[StationXml.STATION_CODEC], event.getScreenX(), event.getScreenY()));
+                case PlayableXml.STATION_PROP_CODEC_INT:
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_CODEC_INT], 0, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_CODEC_INT], 1, row);
+                    lblCont[PlayableXml.STATION_PROP_CODEC_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_CODEC_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_CODEC_INT], event.getScreenX(), event.getScreenY()));
 
-                    gridPane.add(textTitle[StationXml.STATION_BITRATE], 2, row);
-                    gridPane.add(lblCont[StationXml.STATION_BITRATE], 3, row++);
-                    lblCont[StationXml.STATION_BITRATE].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_BITRATE].getText()).show(lblCont[StationXml.STATION_BITRATE], event.getScreenX(), event.getScreenY()));
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_BITRATE_INT], 2, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_BITRATE_INT], 3, row++);
+                    lblCont[PlayableXml.STATION_PROP_BITRATE_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_BITRATE_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_BITRATE_INT], event.getScreenX(), event.getScreenY()));
                     break;
-                case StationXml.STATION_LANGUAGE:
-                    gridPane.add(textTitle[StationXml.STATION_LANGUAGE], 0, row);
-                    gridPane.add(lblCont[StationXml.STATION_LANGUAGE], 1, row);
-                    lblCont[StationXml.STATION_LANGUAGE].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_LANGUAGE].getText()).show(lblCont[StationXml.STATION_LANGUAGE], event.getScreenX(), event.getScreenY()));
+                case PlayableXml.STATION_PROP_LANGUAGE_INT:
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_LANGUAGE_INT], 0, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_LANGUAGE_INT], 1, row);
+                    lblCont[PlayableXml.STATION_PROP_LANGUAGE_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_LANGUAGE_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_LANGUAGE_INT], event.getScreenX(), event.getScreenY()));
 
-                    gridPane.add(textTitle[StationXml.STATION_COUNTRY], 2, row);
-                    gridPane.add(lblCont[StationXml.STATION_COUNTRY], 3, row++);
-                    lblCont[StationXml.STATION_COUNTRY].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_COUNTRY].getText()).show(lblCont[StationXml.STATION_COUNTRY], event.getScreenX(), event.getScreenY()));
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_COUNTRY_INT], 2, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_COUNTRY_INT], 3, row++);
+                    lblCont[PlayableXml.STATION_PROP_COUNTRY_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_COUNTRY_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_COUNTRY_INT], event.getScreenX(), event.getScreenY()));
                     break;
-                case StationXml.STATION_VOTES:
-                    gridPane.add(textTitle[StationXml.STATION_VOTES], 0, row);
-                    gridPane.add(lblCont[StationXml.STATION_VOTES], 1, row);
-                    lblCont[StationXml.STATION_VOTES].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_VOTES].getText()).show(lblCont[StationXml.STATION_VOTES], event.getScreenX(), event.getScreenY()));
+                case PlayableXml.STATION_PROP_VOTES_INT:
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_VOTES_INT], 0, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_VOTES_INT], 1, row);
+                    lblCont[PlayableXml.STATION_PROP_VOTES_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_VOTES_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_VOTES_INT], event.getScreenX(), event.getScreenY()));
 
-                    gridPane.add(textTitle[StationXml.STATION_CLICK_COUNT], 2, row);
-                    gridPane.add(lblCont[StationXml.STATION_CLICK_COUNT], 3, row++);
-                    lblCont[StationXml.STATION_CLICK_COUNT].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_CLICK_COUNT].getText()).show(lblCont[StationXml.STATION_CLICK_COUNT], event.getScreenX(), event.getScreenY()));
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_CLICK_COUNT_INT], 2, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_CLICK_COUNT_INT], 3, row++);
+                    lblCont[PlayableXml.STATION_PROP_CLICK_COUNT_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_CLICK_COUNT_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_CLICK_COUNT_INT], event.getScreenX(), event.getScreenY()));
                     break;
-                case StationXml.STATION_CLICK_TREND:
-                    gridPane.add(textTitle[StationXml.STATION_CLICK_TREND], 0, row);
-                    gridPane.add(lblCont[StationXml.STATION_CLICK_TREND], 1, row);
-                    lblCont[StationXml.STATION_CLICK_TREND].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_CLICK_TREND].getText()).show(lblCont[StationXml.STATION_CLICK_TREND], event.getScreenX(), event.getScreenY()));
+                case PlayableXml.STATION_PROP_CLICK_TREND_INT:
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_CLICK_TREND_INT], 0, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_CLICK_TREND_INT], 1, row);
+                    lblCont[PlayableXml.STATION_PROP_CLICK_TREND_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_CLICK_TREND_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_CLICK_TREND_INT], event.getScreenX(), event.getScreenY()));
 
-                    gridPane.add(textTitle[StationXml.STATION_DATE], 2, row);
-                    gridPane.add(lblCont[StationXml.STATION_DATE], 3, row++);
-                    lblCont[StationXml.STATION_DATE].setOnContextMenuRequested(event ->
-                            getMenu(lblCont[StationXml.STATION_DATE].getText()).show(lblCont[StationXml.STATION_DATE], event.getScreenX(), event.getScreenY()));
+                    gridPane.add(textTitle[PlayableXml.STATION_PROP_DATE_INT], 2, row);
+                    gridPane.add(lblCont[PlayableXml.STATION_PROP_DATE_INT], 3, row++);
+                    lblCont[PlayableXml.STATION_PROP_DATE_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[PlayableXml.STATION_PROP_DATE_INT].getText()).show(lblCont[PlayableXml.STATION_PROP_DATE_INT], event.getScreenX(), event.getScreenY()));
                     break;
-                case StationXml.STATION_URL:
+                case PlayableXml.STATION_PROP_URL_INT:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(pHyperlinkUrl, 1, row++, 3, 1);
                     break;
-                case StationXml.STATION_WEBSITE:
+                case PlayableXml.STATION_PROP_WEBSITE_INT:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(pHyperlinkWebsite, 1, row++, 3, 1);
                     break;

@@ -62,38 +62,15 @@ public final class Favourite extends PlayableProperty implements Playable {
         return false;
     }
 
-    public boolean isStation() {
+    @Override
+    public boolean isBlackBlocked() {
         return false;
     }
 
-    public void setStation(Station station) {
-        if (station == null) {
-            // bei gespeicherten Sendern kann es den Sender nicht mehr geben
-            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
-            return;
-        }
+    @Override
+    public void setBlackBlocked(boolean set) {
 
-        setStationNo(station.getNo());
-        setStationName(station.getStationName());
-        setGenre(station.getGenre());
-        setCodec(station.getCodec());
-        setBitrate(station.getBitrate());
-        setCountry(station.getCountry());
-        setCountryCode(station.getCountryCode());
-        setLanguage(station.getLanguage());
-        setWebsite(station.getWebsite());
-        setStationUrl(station.getStationUrl());
-        setStationDate(station.getDate());
     }
-
-    public boolean isFavourite() {
-        return true;
-    }
-
-    public boolean isLastPlayed() {
-        return false;
-    }
-
 
     public Favourite getCopy() {
         final Favourite ret = new Favourite();
@@ -116,4 +93,38 @@ public final class Favourite extends PlayableProperty implements Playable {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
     }
+
+    public boolean isStation() {
+        return false;
+    }
+
+    public void setStation(Station station) {
+        if (station == null) {
+            // bei gespeicherten Sendern kann es den Sender nicht mehr geben
+            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+            return;
+        }
+
+        setStationNo(station.getNo());
+        setStationName(station.getStationName());
+        setGenre(station.getGenre());
+        setCodec(station.getCodec());
+        setBitrate(station.getBitrate());
+        setCountry(station.getCountry());
+        setCountryCode(station.getCountryCode());
+        setLanguage(station.getLanguage());
+        setWebsite(station.getWebsite());
+        setStationUrl(station.getStationUrl());
+        setStationDate(station.getStationDate());
+    }
+
+    public boolean isFavourite() {
+        return true;
+    }
+
+    public boolean isLastPlayed() {
+        return false;
+    }
+
+
 }

@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.data.start.Start;
 public interface Playable {
 
     boolean station = false, favourite = false, lastPlayed = false;
+    boolean blackBlocked = false;
 
     Start getStart();
 
@@ -37,10 +38,16 @@ public interface Playable {
 
     boolean isLastPlayed();
 
+    boolean isBlackBlocked();
+
+    void setBlackBlocked(boolean set);
+
     //====================================
     int getNo();
 
     int getStationNo();
+
+    void setStationNo(int no);
 
     String getStationName();
 
@@ -75,6 +82,10 @@ public interface Playable {
     String getWebsite();
 
     PLocalDate getStationDate();
+
+    void setStationDate(PLocalDate stationDate);
+
+    void setStationDate(String date);
 
     Playable getCopy();
 }

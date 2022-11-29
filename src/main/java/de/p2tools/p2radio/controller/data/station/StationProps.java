@@ -17,15 +17,21 @@
 package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.configFile.config.ConfigLocalDateExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringExtra;
+import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.ArrayList;
 
-public class StationProps extends StationXml {
+public class StationProps extends PDataSample<Station> {
 
     public static final String TAG = "Station";
-
+    static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+    static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
+    public final String[] arr = new String[PlayableXml.MAX_ELEM];
     public int no;
     public PLocalDate stationDate = new PLocalDate();
     private int bitrateInt = 0;
@@ -41,22 +47,22 @@ public class StationProps extends StationXml {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringExtra("name", Station.COLUMN_NAMES[STATION_NAME], arr, STATION_NAME));
-        list.add(new ConfigStringExtra("genre", Station.COLUMN_NAMES[STATION_GENRE], arr, STATION_GENRE));
-        list.add(new ConfigStringExtra("codec", Station.COLUMN_NAMES[STATION_CODEC], arr, STATION_CODEC));
-        list.add(new ConfigStringExtra("bitrate", Station.COLUMN_NAMES[STATION_BITRATE], arr, STATION_BITRATE));
-        list.add(new ConfigStringExtra("state", Station.COLUMN_NAMES[STATION_STATE], arr, STATION_STATE));
-        list.add(new ConfigStringExtra("country", Station.COLUMN_NAMES[STATION_COUNTRY], arr, STATION_COUNTRY));
-        list.add(new ConfigStringExtra("countryCode", Station.COLUMN_NAMES[STATION_COUNTRY_CODE], arr, STATION_COUNTRY_CODE));
-        list.add(new ConfigStringExtra("language", Station.COLUMN_NAMES[STATION_LANGUAGE], arr, STATION_LANGUAGE));
-        list.add(new ConfigStringExtra("votes", Station.COLUMN_NAMES[STATION_VOTES], arr, STATION_VOTES));
-        list.add(new ConfigStringExtra("clickCount", Station.COLUMN_NAMES[STATION_CLICK_COUNT], arr, STATION_CLICK_COUNT));
-        list.add(new ConfigStringExtra("trend", Station.COLUMN_NAMES[STATION_CLICK_TREND], arr, STATION_CLICK_TREND));
-        list.add(new ConfigStringExtra("url", Station.COLUMN_NAMES[STATION_URL], arr, STATION_URL));
-        list.add(new ConfigStringExtra("urlR", Station.COLUMN_NAMES[STATION_URL_RESOLVED], arr, STATION_URL_RESOLVED));
-        list.add(new ConfigStringExtra("website", Station.COLUMN_NAMES[STATION_WEBSITE], arr, STATION_WEBSITE));
-        list.add(new ConfigStringExtra("date", Station.COLUMN_NAMES[STATION_DATE], arr, STATION_DATE));
-
+        list.add(new ConfigStringExtra("name", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_STATION_NAME_INT], arr, PlayableXml.STATION_PROP_STATION_NAME_INT));
+        list.add(new ConfigStringExtra("genre", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_GENRE_INT], arr, PlayableXml.STATION_PROP_GENRE_INT));
+        list.add(new ConfigStringExtra("codec", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_CODEC_INT], arr, PlayableXml.STATION_PROP_CODEC_INT));
+        list.add(new ConfigStringExtra("bitrate", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_BITRATE_INT], arr, PlayableXml.STATION_PROP_BITRATE_INT));
+        list.add(new ConfigStringExtra("state", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_STATE_INT], arr, PlayableXml.STATION_PROP_STATE_INT));
+        list.add(new ConfigStringExtra("country", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_COUNTRY_INT], arr, PlayableXml.STATION_PROP_COUNTRY_INT));
+        list.add(new ConfigStringExtra("countryCode", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_COUNTRY_CODE_INT], arr, PlayableXml.STATION_PROP_COUNTRY_CODE_INT));
+        list.add(new ConfigStringExtra("language", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_LANGUAGE_INT], arr, PlayableXml.STATION_PROP_LANGUAGE_INT));
+        list.add(new ConfigStringExtra("votes", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_VOTES_INT], arr, PlayableXml.STATION_PROP_VOTES_INT));
+        list.add(new ConfigStringExtra("clickCount", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_CLICK_COUNT_INT], arr, PlayableXml.STATION_PROP_CLICK_COUNT_INT));
+        list.add(new ConfigStringExtra("trend", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_CLICK_TREND_INT], arr, PlayableXml.STATION_PROP_CLICK_TREND_INT));
+        list.add(new ConfigStringExtra("url", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_URL_INT], arr, PlayableXml.STATION_PROP_URL_INT));
+        list.add(new ConfigStringExtra("urlR", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_URL_RESOLVED_INT], arr, PlayableXml.STATION_PROP_URL_RESOLVED_INT));
+        list.add(new ConfigStringExtra("website", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_WEBSITE_INT], arr, PlayableXml.STATION_PROP_WEBSITE_INT));
+        list.add(new ConfigStringExtra("date", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_DATE_INT], arr, PlayableXml.STATION_PROP_DATE_INT));
+        list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
         return list.toArray(new Config[]{});
     }
 
@@ -64,6 +70,7 @@ public class StationProps extends StationXml {
     public String getTag() {
         return TAG;
     }
+
 
     public boolean isNewStation() {
         return newStation;
@@ -77,8 +84,8 @@ public class StationProps extends StationXml {
         return blackBlocked;
     }
 
-    public void setBlackBlocked(boolean blackBlocked) {
-        this.blackBlocked = blackBlocked;
+    public void setBlackBlocked(boolean set) {
+        blackBlocked = set;
     }
 
     public int getBitrateInt() {
@@ -129,31 +136,27 @@ public class StationProps extends StationXml {
         this.doubleUrl = doubleUrl;
     }
 
-    public PLocalDate getDate() {
-        return stationDate;
-    }
-
     public int getNo() {
         return no;
+    }
+
+    public String getStationName() {
+        return arr[PlayableXml.STATION_PROP_STATION_NAME_INT];
     }
 
     //=========================================================
     //die RadioFelder
 
-    public String getStationName() {
-        return arr[STATION_NAME];
-    }
-
     public String getGenre() {
-        return arr[STATION_GENRE];
+        return arr[PlayableXml.STATION_PROP_GENRE_INT];
     }
 
     public String getCodec() {
-        return arr[STATION_CODEC];
+        return arr[PlayableXml.STATION_PROP_CODEC_INT];
     }
 
     public String getBitrate() {
-        return arr[STATION_BITRATE];
+        return arr[PlayableXml.STATION_PROP_BITRATE_INT];
     }
 
     public void setBitrate(String bitrate) {
@@ -165,35 +168,23 @@ public class StationProps extends StationXml {
     }
 
     public String getState() {
-        return arr[STATION_STATE];
+        return arr[PlayableXml.STATION_PROP_STATE_INT];
     }
 
     public String getCountry() {
-        return arr[STATION_COUNTRY];
+        return arr[PlayableXml.STATION_PROP_COUNTRY_INT];
     }
 
     public String getCountryCode() {
-        return arr[STATION_COUNTRY_CODE];
+        return arr[PlayableXml.STATION_PROP_COUNTRY_CODE_INT];
     }
 
     public String getLanguage() {
-        return arr[STATION_LANGUAGE];
+        return arr[PlayableXml.STATION_PROP_LANGUAGE_INT];
     }
 
-//    public String getVotes() {
-//        return arr[STATION_VOTES];
-//    }
-//
-//    public String getClickCount() {
-//        return arr[STATION_CLICK_COUNT];
-//    }
-//
-//    public String getClickTrend() {
-//        return arr[STATION_CLICK_TREND];
-//    }
-
     public String getStationUrl() {
-        return arr[STATION_URL];
+        return arr[PlayableXml.STATION_PROP_URL_INT];
 
 //        if (!arr[STATION_URL].isEmpty()
 //                && !arr[STATION_URL_RESOLVED].isEmpty()
@@ -211,11 +202,52 @@ public class StationProps extends StationXml {
 //        }
     }
 
+//    public String getVotes() {
+//        return arr[STATION_VOTES];
+//    }
+//
+//    public String getClickCount() {
+//        return arr[STATION_CLICK_COUNT];
+//    }
+//
+//    public String getClickTrend() {
+//        return arr[STATION_CLICK_TREND];
+//    }
+
     public String getUrlResolved() {
-        return arr[STATION_URL_RESOLVED];
+        return arr[PlayableXml.STATION_PROP_URL_RESOLVED_INT];
     }
 
     public String getWebsite() {
-        return arr[STATION_WEBSITE];
+        return arr[PlayableXml.STATION_PROP_WEBSITE_INT];
+    }
+
+    public PLocalDate getStationDate() {
+        return stationDate;
+    }
+
+    public void setStationDate(PLocalDate stationDate) {
+        this.stationDate.setPLocalDate(stationDate);
+    }
+
+    public void setStationDate(String date) {
+        this.stationDate.setPLocalDate(date);
+    }
+
+
+    public Station getCopy() {
+        final Station ret = new Station();
+        System.arraycopy(arr, 0, ret.arr, 0, arr.length);
+        ret.init(); //Datum und int-Werte setzen
+        return ret;
+    }
+
+    @Override
+    public int compareTo(Station arg0) {
+        int ret;
+        if ((ret = sorter.compare(arr[PlayableXml.STATION_PROP_STATION_NAME_INT], arg0.arr[PlayableXml.STATION_PROP_STATION_NAME_INT])) == 0) {
+            return sorter.compare(arr[PlayableXml.STATION_PROP_GENRE_INT], arg0.arr[PlayableXml.STATION_PROP_GENRE_INT]);
+        }
+        return ret;
     }
 }

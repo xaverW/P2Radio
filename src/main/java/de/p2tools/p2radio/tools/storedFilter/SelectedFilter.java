@@ -225,9 +225,9 @@ public final class SelectedFilter extends SelectedFilterProps {
         final int minBitrate = selectedFilter.isMinMaxBitVis() ? selectedFilter.getMinBit() : 0;
         final int maxBitrate = selectedFilter.isMinMaxBitVis() ? selectedFilter.getMaxBit() : StationFilterFactory.FILTER_BITRATE_MAX;
 
-        final boolean onlyNew = selectedFilter.isOnlyVis() ? selectedFilter.isOnlyNew() : false;
-        final boolean noFavourite = selectedFilter.isOnlyVis() ? selectedFilter.isNoFavourites() : false;
-        final boolean noDouble = selectedFilter.isOnlyVis() ? selectedFilter.isNoDoubles() : false;
+        final boolean onlyNew = selectedFilter.isOnlyVis() && selectedFilter.isOnlyNew();
+        final boolean noFavourite = selectedFilter.isOnlyVis() && selectedFilter.isNoFavourites();
+        final boolean noDouble = selectedFilter.isOnlyVis() && selectedFilter.isNoDoubles();
         final boolean onlyBlack = selectedFilter.isBlacklistOnly();
 
 
@@ -238,7 +238,7 @@ public final class SelectedFilter extends SelectedFilterProps {
         }
 
         if (noFavourite) {
-            predicate = predicate.and(station -> !station.isFavouriteUrl());
+            predicate = predicate.and(station -> !station.isFavourite());
         }
 
         if (noDouble) {

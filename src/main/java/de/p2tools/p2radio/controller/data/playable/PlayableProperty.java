@@ -29,19 +29,24 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     private final IntegerProperty no = new SimpleIntegerProperty(FavouriteConstants.FAVOURITE_NUMBER_NOT_STARTED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+    private final BooleanProperty newStation = new SimpleBooleanProperty(false);
     private final StringProperty stationName = new SimpleStringProperty("");
     private final StringProperty collectionName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
     private final StringProperty bitrate = new SimpleStringProperty("0");
+    private final IntegerProperty bitrateInt = new SimpleIntegerProperty(0);
+    private final IntegerProperty votes = new SimpleIntegerProperty(0);
     private final IntegerProperty grade = new SimpleIntegerProperty(0);
     private final BooleanProperty own = new SimpleBooleanProperty(false);
     private final IntegerProperty clickCount = new SimpleIntegerProperty();
+    private final IntegerProperty clickTrend = new SimpleIntegerProperty();
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty stationUrl = new SimpleStringProperty("");
+    private final BooleanProperty doubleUrl = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private final PLocalDate stationDate = new PLocalDate();
 
@@ -50,14 +55,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         ArrayList<Config> list = new ArrayList<>();
         list.add(new ConfigIntPropExtra("no", PlayableXml.STATION_PROP_NO, no));
         list.add(new ConfigIntPropExtra("stationNo", PlayableXml.STATION_PROP_STATION_NO, stationNo));
+        list.add(new ConfigBoolPropExtra("newStation", PlayableXml.STATION_PROP_STATION_NEW, newStation));
         list.add(new ConfigStringPropExtra("station", PlayableXml.STATION_PROP_STATION_NAME, stationName));
         list.add(new ConfigStringPropExtra("collection", PlayableXml.STATION_PROP_COLLECTION, collectionName));
         list.add(new ConfigStringPropExtra("genre", PlayableXml.STATION_PROP_GENRE, genre));
         list.add(new ConfigStringPropExtra("codec", PlayableXml.STATION_PROP_CODEC, codec));
         list.add(new ConfigStringPropExtra("bitrate", PlayableXml.STATION_PROP_BITRATE, bitrate));
+        list.add(new ConfigIntPropExtra("bitrateInt", PlayableXml.STATION_PROP_BITRATE, bitrateInt));
+        list.add(new ConfigIntPropExtra("votes", PlayableXml.STATION_PROP_VOTES, votes));
         list.add(new ConfigIntPropExtra("grade", PlayableXml.STATION_PROP_GRADE, grade));
         list.add(new ConfigBoolPropExtra("own", PlayableXml.STATION_PROP_OWN, own));
         list.add(new ConfigIntPropExtra("clickCount", PlayableXml.STATION_PROP_CLICK_COUNT, clickCount));
+        list.add(new ConfigIntPropExtra("clickTrend", PlayableXml.STATION_PROP_CLICK_TREND, clickTrend));
 
         list.add(new ConfigStringPropExtra("country", PlayableXml.STATION_PROP_COUNTRY, country));
         list.add(new ConfigStringPropExtra("countryCode", PlayableXml.STATION_PROP_COUNTRY_CODE, countryCode));
@@ -65,6 +74,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new ConfigStringPropExtra("description", PlayableXml.STATION_PROP_DESCRIPTION, description));
 
         list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, stationUrl));
+        list.add(new ConfigBoolPropExtra("doubleUrl", PlayableXml.STATION_PROP_URL, doubleUrl));
         list.add(new ConfigStringPropExtra("website", PlayableXml.STATION_PROP_WEBSITE, website));
         list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
 
@@ -101,6 +111,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public IntegerProperty stationNoProperty() {
         return stationNo;
+    }
+
+    public boolean isNewStation() {
+        return newStation.get();
+    }
+
+    public void setNewStation(boolean newStation) {
+        this.newStation.set(newStation);
+    }
+
+    public BooleanProperty newStationProperty() {
+        return newStation;
     }
 
     public String getStationName() {
@@ -163,6 +185,30 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         return bitrate;
     }
 
+    public int getBitrateInt() {
+        return bitrateInt.get();
+    }
+
+    public void setBitrateInt(int bitrateInt) {
+        this.bitrateInt.set(bitrateInt);
+    }
+
+    public IntegerProperty bitrateIntProperty() {
+        return bitrateInt;
+    }
+
+    public int getVotes() {
+        return votes.get();
+    }
+
+    public void setVotes(int votes) {
+        this.votes.set(votes);
+    }
+
+    public IntegerProperty votesProperty() {
+        return votes;
+    }
+
     public int getGrade() {
         return grade.get();
     }
@@ -197,6 +243,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public IntegerProperty clickCountProperty() {
         return clickCount;
+    }
+
+    public int getClickTrend() {
+        return clickTrend.get();
+    }
+
+    public void setClickTrend(int clickTrend) {
+        this.clickTrend.set(clickTrend);
+    }
+
+    public IntegerProperty clickTrendProperty() {
+        return clickTrend;
     }
 
     public String getCountry() {
@@ -257,6 +315,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public StringProperty stationUrlProperty() {
         return stationUrl;
+    }
+
+    public boolean isDoubleUrl() {
+        return doubleUrl.get();
+    }
+
+    public void setDoubleUrl(boolean doubleUrl) {
+        this.doubleUrl.set(doubleUrl);
+    }
+
+    public BooleanProperty doubleUrlProperty() {
+        return doubleUrl;
     }
 
     public String getWebsite() {

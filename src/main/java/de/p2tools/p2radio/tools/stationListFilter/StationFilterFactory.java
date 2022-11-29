@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.tools.stationListFilter;
 
+import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationXml;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 
 import java.util.regex.Pattern;
@@ -31,7 +31,7 @@ public class StationFilterFactory {
         // nur ein Suchbegriff muss passen
         for (final String s : sender.filterArr) {
             // dann jeden Suchbegriff checken
-            if (s.equalsIgnoreCase(station.arr[StationXml.STATION_CODEC])) {
+            if (s.equalsIgnoreCase(station.arr[PlayableXml.STATION_PROP_CODEC_INT])) {
                 return true;
             }
         }
@@ -41,36 +41,26 @@ public class StationFilterFactory {
     public static boolean checkSenderName(Filter senderName, Station station) {
         if (senderName.exact) {
             // da ist keine Form optimal?? aber so passt es zur Sortierung der Themenliste
-            if (!senderName.filter.equalsIgnoreCase(station.getStationName())) {
-                return false;
-            }
+            return senderName.filter.equalsIgnoreCase(station.getStationName());
         } else {
-            if (!check(senderName, station.getStationName())) {
-                return false;
-            }
+            return check(senderName, station.getStationName());
         }
-        return true;
     }
 
     public static boolean checkGenre(Filter filter, Station station) {
         // nur ein Suchbegriff muss passen
         if (filter.exact) {
-            if (!filter.filter.equalsIgnoreCase(station.getGenre())) {
-                return false;
-            }
+            return filter.filter.equalsIgnoreCase(station.getGenre());
         } else {
-            if (!check(filter, station.getGenre())) {
-                return false;
-            }
+            return check(filter, station.getGenre());
         }
-        return true;
     }
 
     public static boolean checkCountry(Filter sender, Station station) {
         // nur ein Suchbegriff muss passen
         for (final String s : sender.filterArr) {
             // dann jeden Suchbegriff checken
-            if (s.equalsIgnoreCase(station.arr[StationXml.STATION_COUNTRY])) {
+            if (s.equalsIgnoreCase(station.arr[PlayableXml.STATION_PROP_COUNTRY_INT])) {
                 return true;
             }
         }
@@ -78,21 +68,15 @@ public class StationFilterFactory {
     }
 
     public static boolean checkUrl(Filter url, Station station) {
-        if (!check(url, station.getWebsite())
-                && !check(url, station.getStationUrl())) {
-            return false;
-        }
-        return true;
+        return check(url, station.getWebsite())
+                || check(url, station.getStationUrl());
     }
 
     public static boolean checkSomewhere(Filter somewhere, Station station) {
-        if (!check(somewhere, station.getStationName())
-                && !check(somewhere, station.getGenre())
-                && !check(somewhere, station.getWebsite())
-                && !check(somewhere, station.getStationUrl())) {
-            return false;
-        }
-        return true;
+        return check(somewhere, station.getStationName())
+                || check(somewhere, station.getGenre())
+                || check(somewhere, station.getWebsite())
+                || check(somewhere, station.getStationUrl());
     }
 
     public static boolean checkBitrateMin(int filterBitrate, long radioBitrate) {
@@ -139,12 +123,9 @@ public class StationFilterFactory {
             // dann ists eine RegEx
             return (pattern.matcher(im).matches());
         }
-        if (im.toLowerCase().contains(filter)) {
-            // wenn einer passt, dann ists gut
-            return true;
-        }
+        // wenn einer passt, dann ists gut
+        return im.toLowerCase().contains(filter);
 
         // nix wars
-        return false;
     }
 }

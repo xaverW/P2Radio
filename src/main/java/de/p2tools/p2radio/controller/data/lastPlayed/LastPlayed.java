@@ -73,6 +73,38 @@ public final class LastPlayed extends PlayableProperty<LastPlayed> implements Pl
         return false;
     }
 
+    @Override
+    public boolean isBlackBlocked() {
+        return false;
+    }
+
+    @Override
+    public void setBlackBlocked(boolean set) {
+
+    }
+
+    public LastPlayed getCopy() {
+        final LastPlayed ret = new LastPlayed();
+        ret.start = start;
+
+        Config[] configs = getConfigsArr();
+        Config[] configsCopy = ret.getConfigsArr();
+        for (int i = 0; i < configs.length; ++i) {
+            configsCopy[i].setActValue(configs[i].getActValueString());
+        }
+        return ret;
+    }
+
+    public void copyToMe(LastPlayed favourite) {
+        start = favourite.start;
+
+        Config[] configs = favourite.getConfigsArr();
+        Config[] configsCopy = getConfigsArr();
+        for (int i = 0; i < configs.length; ++i) {
+            configsCopy[i].setActValue(configs[i].getActValueString());
+        }
+    }
+
     public boolean isStation() {
         return false;
     }
@@ -125,25 +157,4 @@ public final class LastPlayed extends PlayableProperty<LastPlayed> implements Pl
         return true;
     }
 
-    public LastPlayed getCopy() {
-        final LastPlayed ret = new LastPlayed();
-        ret.start = start;
-
-        Config[] configs = getConfigsArr();
-        Config[] configsCopy = ret.getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            configsCopy[i].setActValue(configs[i].getActValueString());
-        }
-        return ret;
-    }
-
-    public void copyToMe(LastPlayed favourite) {
-        start = favourite.start;
-
-        Config[] configs = favourite.getConfigsArr();
-        Config[] configsCopy = getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            configsCopy[i].setActValue(configs[i].getActValueString());
-        }
-    }
 }

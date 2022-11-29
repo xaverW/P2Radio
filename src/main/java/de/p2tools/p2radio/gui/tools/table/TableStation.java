@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -89,7 +89,7 @@ public class TableStation extends PTable<Station> {
                 Station station = getTableView().getItems().get(getIndex());
                 final boolean playing = station.getStart() != null;
                 final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
-                final boolean fav = station.isFavouriteUrl();
+                final boolean fav = station.isFavourite();
 
                 if (playing) {
                     //stoppen
@@ -251,8 +251,8 @@ public class TableStation extends PTable<Station> {
         clickTrendColumn.setCellValueFactory(new PropertyValueFactory<>("clickTrend"));
         clickTrendColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<Station, PDate> dateColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        final TableColumn<Station, PLocalDate> dateColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
         dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Station, String> websiteColumn = new TableColumn<>(PlayableXml.STATION_PROP_WEBSITE);
@@ -295,7 +295,7 @@ public class TableStation extends PTable<Station> {
                 if (station != null && !empty) {
                     final boolean playing = station.getStart() != null;
                     final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
-                    final boolean fav = station.isFavouriteUrl();
+                    final boolean fav = station.isFavourite();
 
                     if (station.getStart() != null && station.getStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
