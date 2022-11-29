@@ -52,26 +52,6 @@ public final class Favourite extends PlayableProperty implements Playable {
         this.start = start;
     }
 
-    @Override
-    public int getBitrateInt() {
-        return 0;
-    }
-
-    @Override
-    public boolean getOwn() {
-        return false;
-    }
-
-    @Override
-    public boolean isBlackBlocked() {
-        return false;
-    }
-
-    @Override
-    public void setBlackBlocked(boolean set) {
-
-    }
-
     public Favourite getCopy() {
         final Favourite ret = new Favourite();
         ret.start = start;
@@ -125,6 +105,5 @@ public final class Favourite extends PlayableProperty implements Playable {
     public boolean isLastPlayed() {
         return false;
     }
-
-
+    
 }

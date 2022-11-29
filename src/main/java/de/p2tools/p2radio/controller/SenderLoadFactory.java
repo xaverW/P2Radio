@@ -186,7 +186,8 @@ public class SenderLoadFactory {
                     station.arr[PlayableXml.STATION_PROP_CODEC_INT] = value;
                     break;
                 case SenderSaveFactory.BITRATE:
-                    station.arr[PlayableXml.STATION_PROP_BITRATE_INT] = value;
+                    station.setBitrate(value);
+//                    station.arr[PlayableXml.STATION_PROP_BITRATE_INT] = value;
                     break;
                 case SenderSaveFactory.COUNTRY:
                     station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = value;
@@ -201,13 +202,16 @@ public class SenderLoadFactory {
                     station.arr[PlayableXml.STATION_PROP_LANGUAGE_INT] = value;
                     break;
                 case SenderSaveFactory.VOTES:
-                    station.arr[PlayableXml.STATION_PROP_VOTES_INT] = value;
+                    station.setVotes(value);
+//                    station.arr[PlayableXml.STATION_PROP_VOTES_INT] = value;
                     break;
                 case SenderSaveFactory.CLICK_COUNT:
-                    station.arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = value;
+                    station.setClickCount(value);
+//                    station.arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = value;
                     break;
                 case SenderSaveFactory.CLICK_TREND:
-                    station.arr[PlayableXml.STATION_PROP_CLICK_TREND_INT] = value;
+                    station.setClickTrend(value);
+//                    station.arr[PlayableXml.STATION_PROP_CLICK_TREND_INT] = value;
                     break;
                 case SenderSaveFactory.URL:
                     station.arr[PlayableXml.STATION_PROP_URL_INT] = value;

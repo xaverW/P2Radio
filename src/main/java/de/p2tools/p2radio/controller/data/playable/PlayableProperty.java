@@ -47,6 +47,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty stationUrl = new SimpleStringProperty("");
     private final BooleanProperty doubleUrl = new SimpleBooleanProperty(false);
+    private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private final PLocalDate stationDate = new PLocalDate();
 
@@ -75,6 +76,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
         list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, stationUrl));
         list.add(new ConfigBoolPropExtra("doubleUrl", PlayableXml.STATION_PROP_URL, doubleUrl));
+        list.add(new ConfigBoolPropExtra("blackBlocked", PlayableXml.STATION_PROP_URL, blackBlocked));
         list.add(new ConfigStringPropExtra("website", PlayableXml.STATION_PROP_WEBSITE, website));
         list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
 
@@ -327,6 +329,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public BooleanProperty doubleUrlProperty() {
         return doubleUrl;
+    }
+
+    public boolean isBlackBlocked() {
+        return blackBlocked.get();
+    }
+
+    public void setBlackBlocked(boolean blackBlocked) {
+        this.blackBlocked.set(blackBlocked);
+    }
+
+    public BooleanProperty blackBlockedProperty() {
+        return blackBlocked;
     }
 
     public String getWebsite() {

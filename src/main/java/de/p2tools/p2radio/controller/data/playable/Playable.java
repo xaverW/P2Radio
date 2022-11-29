@@ -63,7 +63,9 @@ public interface Playable {
 
     int getGrade();
 
-    boolean getOwn();
+    boolean isOwn();
+
+    void setOwn(boolean own);
 
     int getClickCount();
 

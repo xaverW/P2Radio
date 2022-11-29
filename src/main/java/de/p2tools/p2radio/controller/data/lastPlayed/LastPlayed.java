@@ -57,32 +57,6 @@ public final class LastPlayed extends PlayableProperty<LastPlayed> implements Pl
         this.start = start;
     }
 
-
-    @Override
-    public String getCollectionName() {
-        return null;
-    }
-
-    @Override
-    public int getBitrateInt() {
-        return 0;
-    }
-
-    @Override
-    public boolean getOwn() {
-        return false;
-    }
-
-    @Override
-    public boolean isBlackBlocked() {
-        return false;
-    }
-
-    @Override
-    public void setBlackBlocked(boolean set) {
-
-    }
-
     public LastPlayed getCopy() {
         final LastPlayed ret = new LastPlayed();
         ret.start = start;
