@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
+    public static final String TAG = "Favourite";
+
     private final IntegerProperty no = new SimpleIntegerProperty(FavouriteConstants.FAVOURITE_NUMBER_NOT_STARTED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
@@ -365,6 +367,11 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public void setStationDate(String date) {
         this.stationDate.setPLocalDate(date);
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
     }
 
     public int compareTo(PlayableProperty arg0) {

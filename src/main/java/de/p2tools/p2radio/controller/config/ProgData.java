@@ -29,7 +29,6 @@ import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -96,7 +95,7 @@ public class ProgData {
     public FavouriteFilter favouriteFilter;
 
     public LastPlayedList lastPlayedList; //Sender die zuletzt gespielt wurden
-    public FilteredList<LastPlayed> filteredLastPlayedList;
+    public FilteredList<Favourite> filteredLastPlayedList;
     public LastPlayedFilter lastPlayedFilter;
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen

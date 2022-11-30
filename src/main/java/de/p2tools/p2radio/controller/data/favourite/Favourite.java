@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.playable.PlayableProperty;
 import de.p2tools.p2radio.controller.data.start.Start;
@@ -24,7 +25,6 @@ import de.p2tools.p2radio.controller.data.station.Station;
 
 public final class Favourite extends PlayableProperty implements Playable {
 
-    public static final String TAG = "Favourite";
     private Start start = null;
 
     public Favourite() {
@@ -34,11 +34,6 @@ public final class Favourite extends PlayableProperty implements Playable {
         setStation(station);
         setCollectionName(collectionName);
         setStationUrl(station.getStationUrl());
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
     }
 
     //==============================================
@@ -102,8 +97,28 @@ public final class Favourite extends PlayableProperty implements Playable {
         return true;
     }
 
+    public void setFavourite(Favourite favourite) {
+        if (favourite == null) {
+            // bei gespeicherten Sendern kann es den Sender nicht mehr geben
+            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+            return;
+        }
+
+        setStationNo(favourite.getNo());
+        setStationName(favourite.getStationName());
+        setGenre(favourite.getGenre());
+        setCodec(favourite.getCodec());
+        setBitrate(favourite.getBitrate());
+        setCountry(favourite.getCountry());
+        setCountryCode(favourite.getCountryCode());
+        setLanguage(favourite.getLanguage());
+        setWebsite(favourite.getWebsite());
+        setStationUrl(favourite.getStationUrl());
+        setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
+    }
+
     public boolean isLastPlayed() {
         return false;
     }
-    
+
 }

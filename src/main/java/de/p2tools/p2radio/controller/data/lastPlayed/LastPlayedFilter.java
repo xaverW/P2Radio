@@ -20,6 +20,7 @@ package de.p2tools.p2radio.controller.data.lastPlayed;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -32,8 +33,20 @@ import java.util.regex.Pattern;
 
 public class LastPlayedFilter extends LastPlayedFilterXml {
 
-    private BooleanProperty gradeFilter = new SimpleBooleanProperty();
-    private StringProperty genreFilter = new SimpleStringProperty();
+    private final BooleanProperty gradeFilter = new SimpleBooleanProperty();
+    private final StringProperty genreFilter = new SimpleStringProperty();
+
+    private static boolean check(String filter, String im) {
+        if (Filter.isPattern(filter)) {
+            Pattern pattern = Filter.makePattern(filter);
+            // dann ists eine RegEx
+            return (pattern.matcher(im).matches());
+        }
+        // wenn einer passt, dann ists gut
+        return im.toLowerCase().contains(filter);
+
+        // nix wars
+    }
 
     @Override
     public Config[] getConfigsArr() {
@@ -48,14 +61,14 @@ public class LastPlayedFilter extends LastPlayedFilterXml {
         return TAG;
     }
 
-    public Predicate<LastPlayed> clearFilter() {
+    public Predicate<Favourite> clearFilter() {
         gradeFilter.set(false);
         genreFilter.set("");
         return getPredicate();
     }
 
-    public Predicate<LastPlayed> getPredicate() {
-        Predicate<LastPlayed> predicate = favourite -> true;
+    public Predicate<Favourite> getPredicate() {
+        Predicate<Favourite> predicate = favourite -> true;
 
         if (gradeFilter.get()) {
             predicate = predicate.and(favourite -> favourite.getGrade() > 0);
@@ -70,38 +83,23 @@ public class LastPlayedFilter extends LastPlayedFilterXml {
         return gradeFilter.get();
     }
 
-    public BooleanProperty gradeFilterProperty() {
-        return gradeFilter;
-    }
-
     public void setGradeFilter(boolean gradeFilter) {
         this.gradeFilter.set(gradeFilter);
+    }
+
+    public BooleanProperty gradeFilterProperty() {
+        return gradeFilter;
     }
 
     public String getGenreFilter() {
         return genreFilter.get();
     }
 
-    public StringProperty genreFilterProperty() {
-        return genreFilter;
-    }
-
     public void setGenreFilter(String genreFilter) {
         this.genreFilter.set(genreFilter);
     }
 
-    private static boolean check(String filter, String im) {
-        if (Filter.isPattern(filter)) {
-            Pattern pattern = Filter.makePattern(filter);
-            // dann ists eine RegEx
-            return (pattern.matcher(im).matches());
-        }
-        if (im.toLowerCase().contains(filter)) {
-            // wenn einer passt, dann ists gut
-            return true;
-        }
-
-        // nix wars
-        return false;
+    public StringProperty genreFilterProperty() {
+        return genreFilter;
     }
 }

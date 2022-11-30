@@ -20,7 +20,6 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgramData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.playable.Playable;
 
 
@@ -37,7 +36,7 @@ public class StartProgramFactory {
                 clickCount = favourite.getClickCount();
             }
         }
-        for (LastPlayed lastPlayed : ProgData.getInstance().lastPlayedList) {
+        for (Favourite lastPlayed : ProgData.getInstance().lastPlayedList) {
             if (lastPlayed.getStationUrl().equals(playable.getStationUrl()) && lastPlayed.getClickCount() > clickCount) {
                 clickCount = lastPlayed.getClickCount();
             }
@@ -50,7 +49,7 @@ public class StartProgramFactory {
                 favourite.setClickCount(clickCount);
             }
         }
-        for (LastPlayed lastPlayed : ProgData.getInstance().lastPlayedList) {
+        for (Favourite lastPlayed : ProgData.getInstance().lastPlayedList) {
             if (lastPlayed.getStationUrl().equals(playable.getStationUrl())) {
                 lastPlayed.setClickCount(clickCount);
             }

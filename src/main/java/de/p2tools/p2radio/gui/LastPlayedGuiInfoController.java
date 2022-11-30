@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -42,7 +42,7 @@ public class LastPlayedGuiInfoController extends PClosePaneH {
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
-    private LastPlayed lastPlayed = null;
+    private Favourite lastPlayed = null;
 
     public LastPlayedGuiInfoController() {
         super(ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON, true);
@@ -79,7 +79,7 @@ public class LastPlayedGuiInfoController extends PClosePaneH {
         gridPane.add(taDescription, 1, row);
     }
 
-    public void setLastPlayed(LastPlayed lastPlayed) {
+    public void setLastPlayed(Favourite lastPlayed) {
         if (this.lastPlayed != null) {
             taDescription.textProperty().unbindBidirectional(this.lastPlayed.descriptionProperty());
         }

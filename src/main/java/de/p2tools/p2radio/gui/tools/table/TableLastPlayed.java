@@ -22,8 +22,8 @@ import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import javafx.beans.property.BooleanProperty;
@@ -36,14 +36,14 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class TableLastPlayed extends PTable<LastPlayed> {
+public class TableLastPlayed extends PTable<Favourite> {
 
     private final ProgData progData;
     private final BooleanProperty small;
-    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryBitrate
-            = (final TableColumn<LastPlayed, Integer> param) -> {
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryBitrate
+            = (final TableColumn<Favourite, Integer> param) -> {
 
-        final TableCell<LastPlayed, Integer> cell = new TableCell<>() {
+        final TableCell<Favourite, Integer> cell = new TableCell<>() {
 
             @Override
             public void updateItem(Integer item, boolean empty) {
@@ -66,10 +66,10 @@ public class TableLastPlayed extends PTable<LastPlayed> {
         };
         return cell;
     };
-    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryButton
-            = (final TableColumn<LastPlayed, Integer> param) -> {
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
+            = (final TableColumn<Favourite, Integer> param) -> {
 
-        final TableCell<LastPlayed, Integer> cell = new TableCell<>() {
+        final TableCell<Favourite, Integer> cell = new TableCell<>() {
 
             @Override
             public void updateItem(Integer item, boolean empty) {
@@ -86,7 +86,7 @@ public class TableLastPlayed extends PTable<LastPlayed> {
                 hbox.setAlignment(Pos.CENTER);
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                LastPlayed lastPlayed = getTableView().getItems().get(getIndex());
+                Favourite lastPlayed = getTableView().getItems().get(getIndex());
                 final boolean playing = lastPlayed.getStart() != null;
 
                 if (playing) {
@@ -147,10 +147,10 @@ public class TableLastPlayed extends PTable<LastPlayed> {
         };
         return cell;
     };
-    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactoryNo
-            = (final TableColumn<LastPlayed, Integer> param) -> {
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryNo
+            = (final TableColumn<Favourite, Integer> param) -> {
 
-        final TableCell<LastPlayed, Integer> cell = new TableCell<LastPlayed, Integer>() {
+        final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
 
             @Override
             public void updateItem(Integer item, boolean empty) {
@@ -173,10 +173,10 @@ public class TableLastPlayed extends PTable<LastPlayed> {
         };
         return cell;
     };
-    private final Callback<TableColumn<LastPlayed, Integer>, TableCell<LastPlayed, Integer>> cellFactorySenderNo
-            = (final TableColumn<LastPlayed, Integer> param) -> {
+    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactorySenderNo
+            = (final TableColumn<Favourite, Integer> param) -> {
 
-        final TableCell<LastPlayed, Integer> cell = new TableCell<LastPlayed, Integer>() {
+        final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
 
             @Override
             public void updateItem(Integer item, boolean empty) {
@@ -226,58 +226,58 @@ public class TableLastPlayed extends PTable<LastPlayed> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-        final TableColumn<LastPlayed, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_NO);
+        final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.setCellFactory(cellFactoryNo);
         nrColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, Integer> senderNoColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
+        final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
         senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
         senderNoColumn.setCellFactory(cellFactorySenderNo);
         senderNoColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, String> senderColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NAME);
+        final TableColumn<Favourite, String> senderColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NAME);
         senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         senderColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, Integer> clickCountColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_COUNT);
+        final TableColumn<Favourite, Integer> clickCountColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_COUNT);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
         clickCountColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, String> genreColumn = new TableColumn<>(PlayableXml.STATION_PROP_GENRE);
+        final TableColumn<Favourite, String> genreColumn = new TableColumn<>(PlayableXml.STATION_PROP_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, PDate> codecColumn = new TableColumn<>(PlayableXml.STATION_PROP_CODEC);
+        final TableColumn<Favourite, PDate> codecColumn = new TableColumn<>(PlayableXml.STATION_PROP_CODEC);
         codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
         codecColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, Integer> bitrateColumn = new TableColumn<>(PlayableXml.STATION_PROP_BITRATE);
+        final TableColumn<Favourite, Integer> bitrateColumn = new TableColumn<>(PlayableXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
 //        bitrateColumn.setCellFactory(cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
-        final TableColumn<LastPlayed, Integer> startColumn = new TableColumn<>("");
+        final TableColumn<Favourite, Integer> startColumn = new TableColumn<>("");
         startColumn.setCellFactory(cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, PDate> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
+        final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, String> countryCodeColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY_CODE);
+        final TableColumn<Favourite, String> countryCodeColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY_CODE);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, String> languageColumn = new TableColumn<>(PlayableXml.STATION_PROP_LANGUAGE);
+        final TableColumn<Favourite, String> languageColumn = new TableColumn<>(PlayableXml.STATION_PROP_LANGUAGE);
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<LastPlayed, PLocalDate> datumColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
+        final TableColumn<Favourite, PLocalDate> datumColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
         datumColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<LastPlayed, String> urlColumn = new TableColumn<>(PlayableXml.STATION_PROP_URL);
+        final TableColumn<Favourite, String> urlColumn = new TableColumn<>(PlayableXml.STATION_PROP_URL);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
@@ -297,7 +297,7 @@ public class TableLastPlayed extends PTable<LastPlayed> {
     private void addRowFact() {
         setRowFactory(tableview -> new TableRow<>() {
             @Override
-            public void updateItem(LastPlayed lastPlayed, boolean empty) {
+            public void updateItem(Favourite lastPlayed, boolean empty) {
                 super.updateItem(lastPlayed, empty);
 
                 setOnMouseClicked(event -> {

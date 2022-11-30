@@ -19,6 +19,7 @@ package de.p2tools.p2radio.controller.data.lastPlayed;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class LastPlayedFactory {
 
     public static void deleteHistory(boolean all) {
         if (all) {
-            final ArrayList<LastPlayed> list = ProgData.getInstance().lastPlayedGuiController.getSelList();
+            final ArrayList<Favourite> list = ProgData.getInstance().lastPlayedGuiController.getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -48,14 +49,14 @@ public class LastPlayedFactory {
             }
 
         } else {
-            final Optional<LastPlayed> favourite = ProgData.getInstance().lastPlayedGuiController.getSel();
+            final Optional<Favourite> favourite = ProgData.getInstance().lastPlayedGuiController.getSel();
             if (favourite.isPresent()) {
                 deleteHistory(favourite.get());
             }
         }
     }
 
-    public static void deleteHistory(LastPlayed lastPlayed) {
+    public static void deleteHistory(Favourite lastPlayed) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
                 "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
             ProgData.getInstance().lastPlayedList.remove(lastPlayed);

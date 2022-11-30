@@ -21,7 +21,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
@@ -47,7 +46,7 @@ public class StartFactory {
         }
     }
 
-    public void stopLastPlayed(LastPlayed lastPlayed) {
+    public void stopLastPlayed(Favourite lastPlayed) {
         if (lastPlayed.getStart() != null) {
             lastPlayed.getStart().stopStart();
         }
@@ -107,11 +106,11 @@ public class StartFactory {
         startUrlWithProgram(favourite, setData);
     }
 
-    public void playLastPlayed(LastPlayed lastPlayed) {
+    public void playLastPlayed(Favourite lastPlayed) {
         playLastPlayed(lastPlayed, null);
     }
 
-    public void playLastPlayed(LastPlayed lastPlayed, SetData data) {
+    public void playLastPlayed(Favourite lastPlayed, SetData data) {
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;
@@ -151,6 +150,7 @@ public class StartFactory {
     private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
         final String url = favourite.getStationUrl();
         if (!url.isEmpty()) {
+            //todo wenn lastPlayed dann brauchts das eigenlich nicht
             progData.lastPlayedList.addFavourite(favourite);
 
             progData.startFactory.stopAll();
@@ -158,20 +158,6 @@ public class StartFactory {
 
             final Start start = new Start(setData, favourite);
             favourite.setStart(start);
-            start.initStart();
-
-            startStart(start);
-        }
-    }
-
-    private synchronized void startUrlWithProgram(LastPlayed lastPlayed, SetData setData) {
-        final String url = lastPlayed.getStationUrl();
-        if (!url.isEmpty()) {
-            progData.startFactory.stopAll();
-            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
-
-            final Start start = new Start(setData, lastPlayed);
-            lastPlayed.setStart(start);
             start.initStart();
 
             startStart(start);

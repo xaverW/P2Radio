@@ -22,7 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayed;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
@@ -82,7 +82,7 @@ public class LastPlayedMenu {
             for (SetData set : progData.setDataList) {
                 MenuItem miStart = new MenuItem(set.getVisibleName());
                 miStart.setOnAction(a -> {
-                    final Optional<LastPlayed> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+                    final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
                     if (lastPlayed.isPresent()) {
                         progData.startFactory.playLastPlayed(lastPlayed.get(), set);
                     }
@@ -127,7 +127,7 @@ public class LastPlayedMenu {
 
         MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
         miAddFavourite.setOnAction(a -> {
-            final Optional<LastPlayed> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+            final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
             if (lastPlayed.isPresent()) {
                 String stationUrl = lastPlayed.get().getStationUrl();
                 Station station = progData.stationList.getSenderByUrl(stationUrl);

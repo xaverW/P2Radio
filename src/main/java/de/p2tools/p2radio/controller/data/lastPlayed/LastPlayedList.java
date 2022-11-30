@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PDataList<LastPlayed> {
+public class LastPlayedList extends SimpleListProperty<Favourite> implements PDataList<Favourite> {
 
     public static final String TAG = "LastPlayedList";
     private final ProgData progData;
@@ -54,14 +54,14 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     }
 
     @Override
-    public LastPlayed getNewItem() {
-        return new LastPlayed();
+    public Favourite getNewItem() {
+        return new Favourite();
     }
 
     @Override
     public void addNewItem(Object obj) {
-        if (obj.getClass().equals(LastPlayed.class)) {
-            add((LastPlayed) obj);
+        if (obj.getClass().equals(Favourite.class)) {
+            add((Favourite) obj);
         }
     }
 
@@ -70,13 +70,13 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     }
 
     @Override
-    public synchronized boolean add(LastPlayed d) {
+    public synchronized boolean add(Favourite d) {
         d.setNo(++no);
         return super.add(d);
     }
 
     @Override
-    public synchronized boolean addAll(Collection<? extends LastPlayed> elements) {
+    public synchronized boolean addAll(Collection<? extends Favourite> elements) {
         elements.stream().forEach(f -> {
             f.setNo(++no);
         });
@@ -84,8 +84,8 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     }
 
     @Override
-    public boolean addAll(LastPlayed... var1) {
-        for (LastPlayed f : var1) {
+    public boolean addAll(Favourite... var1) {
+        for (Favourite f : var1) {
             f.setNo(++no);
         }
         return super.addAll(var1);
@@ -94,7 +94,8 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     public synchronized void addFavourite(Favourite favourite) {
         if (!checkUrl(favourite.getStationUrl())) {
             //dann gibts ihn noch nicht
-            LastPlayed lastPlayed = new LastPlayed(favourite);
+            Favourite lastPlayed = new Favourite();
+            lastPlayed.setFavourite(favourite);
             this.add(0, lastPlayed);
         }
         reCount();
@@ -103,7 +104,8 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     public synchronized void addStation(Station station) {
         if (!checkUrl(station.getStationUrl())) {
             //dann gibts ihn noch nicht
-            LastPlayed lastPlayed = new LastPlayed(station);
+            Favourite lastPlayed = new Favourite();
+            lastPlayed.setStation(station);
             this.add(0, lastPlayed);
         }
         reCount();
@@ -111,10 +113,10 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
 
     private boolean checkUrl(String url) {
         boolean ret = false;
-        Optional<LastPlayed> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
+        Optional<Favourite> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
         if (opt.isPresent()) {
             ret = true;
-            LastPlayed lastPlayed = opt.get();
+            Favourite lastPlayed = opt.get();
             this.remove(lastPlayed);
             this.add(0, lastPlayed);
         }
@@ -130,7 +132,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         }
     }
 
-    public synchronized boolean remove(LastPlayed objects) {
+    public synchronized boolean remove(Favourite objects) {
         return super.remove(objects);
     }
 
@@ -142,7 +144,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
     public synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Favoriten gesucht
         int ret = 0;
-        for (final LastPlayed lastPlayed : this) {
+        for (final Favourite lastPlayed : this) {
             if (lastPlayed.getStart() != null &&
                     (lastPlayed.getStart().getStartStatus().isStarted() || lastPlayed.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;
@@ -156,7 +158,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         // den Sender wieder eintragen
         PDuration.counterStart("FavouriteList.addSenderInList");
         int counter = 50;
-        for (LastPlayed favourite : this) {
+        for (Favourite favourite : this) {
             --counter;
             if (counter < 0) {
                 break;
@@ -166,8 +168,8 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         PDuration.counterStop("FavouriteList.addSenderInList");
     }
 
-    public synchronized LastPlayed getUrlStation(String urlStation) {
-        for (final LastPlayed dataFavourite : this) {
+    public synchronized Favourite getUrlStation(String urlStation) {
+        for (final Favourite dataFavourite : this) {
             if (dataFavourite.getStationUrl().equals(urlStation)) {
                 return dataFavourite;
             }
@@ -175,7 +177,7 @@ public class LastPlayedList extends SimpleListProperty<LastPlayed> implements PD
         return null;
     }
 
-    public synchronized List<LastPlayed> getListOfStartsNotFinished(String source) {
+    public synchronized List<Favourite> getListOfStartsNotFinished(String source) {
         return favouriteStartsFactory.getListOfStartsNotFinished(source);
     }
 }
