@@ -32,7 +32,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -299,13 +298,6 @@ public class TableLastPlayed extends PTable<Favourite> {
             @Override
             public void updateItem(Favourite lastPlayed, boolean empty) {
                 super.updateItem(lastPlayed, empty);
-
-                setOnMouseClicked(event -> {
-                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                        getSelectionModel().clearSelection();
-                    }
-                });
-
                 setStyle("");
                 for (int i = 0; i < getChildren().size(); i++) {
                     getChildren().get(i).setStyle("");

@@ -34,7 +34,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -128,7 +127,6 @@ public class TableFavourite extends PTable<Favourite> {
                 Favourite favourite = getTableView().getItems().get(getIndex());
                 final boolean playing = favourite.getStart() != null;
                 final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
-//                final boolean set = progData.setDataList.size() > 1;
 
                 if (playing) {
                     //dann stoppen
@@ -148,26 +146,6 @@ public class TableFavourite extends PTable<Favourite> {
                         btnPlay.setMaxHeight(18);
                     }
                     hbox.getChildren().add(btnPlay);
-
-//                } else if (set) {
-//                    //läuft nix, mehre Sets
-//                    final ComboBox<SetData> cboSet;
-//                    cboSet = new ComboBox();
-//                    cboSet.setMinWidth(60);
-//                    cboSet.getStyleClass().add("cboTableMoreSets");
-//                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
-//                    cboSet.getItems().addAll(progData.setDataList);
-//                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
-//                        progData.startFactory.playFavourite(favourite, ne);
-//                        getTableView().getSelectionModel().clearSelection();
-//                        getTableView().getSelectionModel().select(getIndex());
-//                    });
-//
-//                    if (small.get()) {
-//                        cboSet.setMinHeight(18);
-//                        cboSet.setMaxHeight(18);
-//                    }
-//                    hbox.getChildren().add(cboSet);
 
                 } else {
                     //starten, nur ein Set
@@ -380,13 +358,6 @@ public class TableFavourite extends PTable<Favourite> {
             @Override
             public void updateItem(Favourite favourite, boolean empty) {
                 super.updateItem(favourite, empty);
-
-                setOnMouseClicked(event -> {
-                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                        getSelectionModel().clearSelection();
-                    }
-                });
-
                 setStyle("");
                 for (int i = 0; i < getChildren().size(); i++) {
                     getChildren().get(i).setStyle("");
