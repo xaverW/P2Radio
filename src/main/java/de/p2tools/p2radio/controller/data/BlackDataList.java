@@ -118,5 +118,4 @@ public class BlackDataList extends SimpleListProperty<BlackData> implements PDat
             blackData.setNo(++i);
         }
     }
-
 }

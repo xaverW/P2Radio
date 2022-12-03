@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.smallRadio;
 
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2Lib.tools.log.PDebugLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -24,31 +25,29 @@ import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
-public class SmallRadioBottom {
+public class SmallRadioGuiBottom extends HBox {
 
-    ProgData progData;
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
     private final Button btnClearFilter = new Button("");
     private final Button btnRandom = new Button("");
-    private final Button btnNext = new Button("");
-    private final Button btnPrev = new Button("");
     private final Button btnStart = new Button("");
     private final Button btnStop = new Button("");
-    private Button btnRadio;
-
+    private final RadioButton rbSender = new RadioButton("Sender");
+    private final RadioButton rbFavourite = new RadioButton("Favoriten");
+    private final RadioButton rbLastPlayed = new RadioButton("History");
     private final SmallRadioGuiPack smallRadioGuiPack;
     private final SmallRadioGuiController smallRadioGuiController;
-    private FavouriteFilter favouriteFilter = new FavouriteFilter();
+    private final FavouriteFilter favouriteFilter = new FavouriteFilter();
+    Button btnRadio = new Button();
+    ProgData progData;
     StringProperty selectedCollectionName = ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME;
 
-
-    public SmallRadioBottom(SmallRadioGuiPack smallRadioGuiPack, SmallRadioGuiController smallRadioGuiController) {
+    public SmallRadioGuiBottom(SmallRadioGuiPack smallRadioGuiPack, SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
         this.smallRadioGuiPack = smallRadioGuiPack;
         this.smallRadioGuiController = smallRadioGuiController;
@@ -57,12 +56,13 @@ public class SmallRadioBottom {
     }
 
     private void initBottom() {
-        btnRadio = new Button("");
-        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> smallRadioGuiPack.changeGui());
-        btnRadio.setMaxWidth(Double.MAX_VALUE);
-        btnRadio.getStyleClass().add("btnTab");
-        btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
+        setPadding(new Insets(5, 10, 5, 10));
+
+        //Collection
+        ToggleGroup tg = new ToggleGroup();
+        rbSender.setToggleGroup(tg);
+        rbFavourite.setToggleGroup(tg);
+        rbLastPlayed.setToggleGroup(tg);
 
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
@@ -83,28 +83,31 @@ public class SmallRadioBottom {
             PDebugLog.sysLog(selectedCollectionName.getValueSafe());
         });
 
+        HBox hBoxRb = new HBox(5);
+        hBoxRb.getChildren().addAll(rbSender, rbFavourite, rbLastPlayed);
+        VBox vbColl = new VBox(5);
+        vbColl.getChildren().addAll(hBoxRb, cboCollections);
 
-        HBox hBoxSpace1 = new HBox();
-        HBox.setHgrow(hBoxSpace1, Priority.ALWAYS);
-        HBox hBoxSpace2 = new HBox();
-        HBox.setHgrow(hBoxSpace2, Priority.ALWAYS);
+        HBox hBoxCollect = new HBox(15);
+        hBoxCollect.setAlignment(Pos.CENTER);
+        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), vbColl, btnClearFilter);
 
-
-        HBox hBoxCollect = new HBox(5);
-        hBoxCollect.setAlignment(Pos.CENTER_LEFT);
-        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), cboCollections, btnClearFilter);
 
         HBox hBoxButton = new HBox(5);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
-        Separator sp = new Separator(Orientation.VERTICAL);
-        sp.setPadding(new Insets(0, 5, 0, 5));
-        hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnStop);
+        hBoxButton.getChildren().addAll(btnStart, btnStop, PGuiTools.getHDistance(20), btnRandom);
 
-        smallRadioGuiPack.getHBoxBottom().getChildren().addAll(btnRadio,
-                hBoxSpace2, hBoxCollect, hBoxSpace1, hBoxButton);
+        setAlignment(Pos.CENTER);
+        getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(), hBoxCollect, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initStartButton() {
+        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
+        btnRadio.setOnAction(e -> smallRadioGuiPack.changeGui());
+        btnRadio.setMaxWidth(Double.MAX_VALUE);
+        btnRadio.getStyleClass().add("btnTab");
+        btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
+
         btnClearFilter.setTooltip(new Tooltip("Auswahl löschen"));
         btnClearFilter.getStyleClass().add("btnSmallRadio");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_RESET.getImageView());
@@ -117,20 +120,6 @@ public class SmallRadioBottom {
         btnRandom.setGraphic(ProgIcons.Icons.ICON_BUTTON_RANDOM.getImageView());
         btnRandom.setOnAction(event -> {
             smallRadioGuiController.playRandomStation();
-        });
-
-        btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
-        btnPrev.getStyleClass().add("btnSmallRadio");
-        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
-        btnPrev.setOnAction(event -> {
-            smallRadioGuiController.setPreviousStation();
-        });
-
-        btnNext.setTooltip(new Tooltip("nächsten Sender auswählen"));
-        btnNext.getStyleClass().add("btnSmallRadio");
-        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
-        btnNext.setOnAction(event -> {
-            smallRadioGuiController.setNextStation();
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));

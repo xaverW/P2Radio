@@ -24,17 +24,14 @@ import javafx.beans.value.ChangeListener;
 public final class StoredFilters {
 
     private final ProgData progData;
-    private StoredFiltersForwardBackward storedFiltersForwardBackward = null; // gespeicherte Filterprofile
-
     private final BooleanProperty filterChange = new SimpleBooleanProperty(true);
     private final ChangeListener<Boolean> filterChangeListener;
     private final ChangeListener<Boolean> blacklistChangeListener;
-
-    // ist der aktuell angezeigte Filter
-    private SelectedFilter actFilterSettings = new SelectedFilter("aktuelle Einstellung"); //ist der "aktuelle" Filter, Name dient nur der Info im Config-File
-
     // ist die Liste der gespeicherten Filter
     private final SelectedFilterList filterList = new SelectedFilterList();
+    private StoredFiltersForwardBackward storedFiltersForwardBackward = null; // gespeicherte Filterprofile
+    // ist der aktuell angezeigte Filter
+    private final SelectedFilter actFilterSettings = new SelectedFilter("aktuelle Einstellung"); //ist der "aktuelle" Filter, Name dient nur der Info im Config-File
 
     public StoredFilters(ProgData progData) {
         this.progData = progData;
@@ -45,11 +42,11 @@ public final class StoredFilters {
         blacklistChangeListener = (observable, oldValue, newValue) -> {
             setBlacklistChange();
         };
-        actFilterSettings.filterChangeProperty().addListener(filterChangeListener); // wenn der User den Filter ändert
-        actFilterSettings.blacklistChangeProperty().addListener(blacklistChangeListener); // wenn der User die Blackl. ein-/ausschaltet
     }
 
     public void init() {
+        actFilterSettings.filterChangeProperty().addListener(filterChangeListener); // wenn der User den Filter ändert
+        actFilterSettings.blacklistChangeProperty().addListener(blacklistChangeListener); // wenn der User die Blackl. ein-/ausschaltet
         storedFiltersForwardBackward = new StoredFiltersForwardBackward(progData);
     }
 

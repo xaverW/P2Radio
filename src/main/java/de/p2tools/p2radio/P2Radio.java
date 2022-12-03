@@ -33,10 +33,14 @@ import javafx.stage.Stage;
 
 public class P2Radio extends Application {
 
-    private Stage primaryStage;
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     protected ProgData progData;
     Scene scene = null;
+    private Stage primaryStage;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() throws Exception {
@@ -53,7 +57,7 @@ public class P2Radio extends Application {
         initP2lib();
         firstProgramStart = ProgStartFactory.workBeforeGui(progData);
         initRootLayout();
-        ProgStartFactory.workAfterGui(progData, firstProgramStart);
+        ProgStartFactory.workAfterGui(progData);
         ProgLoadFactory.loadStationProgStart(firstProgramStart);
 
         PDuration.onlyPing("Gui steht!");
@@ -66,7 +70,6 @@ public class P2Radio extends Application {
         P2LibInit.addCssFile(P2LibConst.CSS_GUI);
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }
-
 
     private void initRootLayout() {
         try {
@@ -128,9 +131,5 @@ public class P2Radio extends Application {
             P2LibInit.removeCssFile(ProgConst.CSS_FILE_DARK_THEME);
         }
         P2LibInit.addP2LibCssToScene(scene);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

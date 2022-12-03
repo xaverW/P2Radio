@@ -39,7 +39,9 @@ public class StationListFilter {
      */
     public StationListFilter(ProgData progData) {
         this.progData = progData;
+    }
 
+    public void init() {
         progData.storedFilters.filterChangeProperty().addListener((observable, oldValue, newValue) -> filter()); // Senderfilter (User) haben sich geändert
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
             public <T extends PEvent> void pingGui(T runEvent) {
@@ -52,14 +54,6 @@ public class StationListFilter {
                 }
             }
         });
-
-//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-//            @Override
-//            public void finished(EventLoadRadioList event) {
-//                filterList();
-//            }
-//        });
-
         progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
             public void pingGui(PEvent event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
@@ -68,16 +62,6 @@ public class StationListFilter {
                 }
             }
         });
-
-//        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
-//            @Override
-//            public void pingFx() {
-//                if (!progData.loadNewStationList.getPropLoadStationList()) {
-//                    //wird sonst eh gemacht
-//                    filterList();
-//                }
-//            }
-//        });
     }
 
     private void filter() {

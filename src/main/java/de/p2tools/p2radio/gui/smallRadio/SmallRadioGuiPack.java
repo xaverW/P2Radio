@@ -18,7 +18,6 @@ package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
@@ -32,36 +31,27 @@ import javafx.scene.layout.VBox;
 public class SmallRadioGuiPack extends SmallRadioDialog {
 
     private final ProgData progData;
-    private final SmallRadioGuiController smallRadioGuiController;
-    private FilteredList<Favourite> filteredFavourites;
-
+    private final FilteredList<Favourite> filteredFavourites;
 
     public SmallRadioGuiPack(ProgData progData) {
-        super(progData, progData.primaryStage, ProgConfig.SMALL_RADIO_SIZE);
+        super();
         this.progData = progData;
         filteredFavourites = new FilteredList<>(progData.favouriteList, p -> true);
-
+        progData.smallRadioGuiController = new SmallRadioGuiController(this);
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
-        smallRadioGuiController = new SmallRadioGuiController(this);
-        new SmallRadioBottom(this, smallRadioGuiController);
-
-        progData.smallRadioGuiController = smallRadioGuiController;
-        init();
     }
 
     @Override
     public void make() {
-        VBox.setVgrow(smallRadioGuiController, Priority.ALWAYS);
-        getVBoxCenter().getChildren().add(smallRadioGuiController);
-        super.getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+        VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
+        getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
                 changeGui();
             }
         });
-        super.getStage().setOnCloseRequest(e -> {
+        getStage().setOnCloseRequest(e -> {
             e.consume();
-            getSize();
-            ProgQuitFactory.quit(super.getStage(), true);
+            close();
         });
     }
 
@@ -71,9 +61,9 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
 
     public void changeGui() {
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
-        progData.smallRadioGuiController = null;
         getSize();
         close();
+        progData.smallRadioGuiController = null;
 
         Platform.runLater(() -> {
                     PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
@@ -89,7 +79,7 @@ public class SmallRadioGuiPack extends SmallRadioDialog {
     }
 
     protected void getSize() {
-        smallRadioGuiController.saveTable();
+        progData.smallRadioGuiController.saveTable();
         PGuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
     }
 }

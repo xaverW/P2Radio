@@ -16,175 +16,32 @@
 
 package de.p2tools.p2radio.gui.smallRadio;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.P2LibInit;
-import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
-import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
-import de.p2tools.p2Lib.guiTools.PGuiSize;
-import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.PException;
-import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.ProgStartFactory;
+import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
-import javafx.beans.property.StringProperty;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.nio.file.Path;
 
+public class SmallRadioDialog extends PDialogOnly {
+    private double xOffset = 0;
+    private double yOffset = 0;
 
-public class SmallRadioDialog extends StackPane {
-    private Scene scene = null;
-    private Stage stage = null;
-    private VBox vBoxComplete = new VBox(0);
-    private VBox vBoxCenter = new VBox(10);
-    private HBox hBoxBottom = new HBox(0);
+    SmallRadioDialog() {
+        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
+                "Radio", false, false, true);
+        init(false);
 
-    private final StringProperty sizeConfiguration;
-    private final Stage ownerForCenteringDialog;
+        getStage().getScene().setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        getStage().getScene().setOnMouseDragged(event -> {
+            getStage().setX(event.getScreenX() - xOffset);
+            getStage().setY(event.getScreenY() - yOffset);
+        });
+        getStage().initStyle(StageStyle.TRANSPARENT);
+        getVBoxCompleteDialog().getStyleClass().add("smallRadio");
 
-    private PMaskerPane maskerPane = new PMaskerPane();
-    private double stageWidth = 0;
-    private double stageHeight = 0;
-    private final ProgData progData;
-
-    SmallRadioDialog(ProgData progData, Stage ownerForCenteringDialog, StringProperty sizeConfiguration) {
-        this.progData = progData;
-        this.ownerForCenteringDialog = ownerForCenteringDialog;
-        this.sizeConfiguration = sizeConfiguration;
-    }
-
-
-    void init() {
-        try {
-            createNewScene();
-            if (scene == null) {
-                PException.throwPException(912012458, "no scene");
-            }
-
-            updateCss();
-            stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setResizable(true);
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            ProgStartFactory.setTitle(stage);
-            GetIcon.addWindowP2Icon(stage);
-
-            hBoxBottom.getStyleClass().add("extra-pane");
-            hBoxBottom.setPadding(new Insets(15, 15, 15, 15));
-            hBoxBottom.setSpacing(20);
-            hBoxBottom.setAlignment(Pos.CENTER_LEFT);
-
-            VBox.setVgrow(vBoxCenter, Priority.ALWAYS);
-            vBoxComplete.getChildren().addAll(vBoxCenter, hBoxBottom);
-            this.getChildren().addAll(vBoxComplete, maskerPane);
-
-            make();
-            initMaskerPane();
-
-            if (sizeConfiguration.get().isEmpty()) {
-                scene.getWindow().sizeToScene();
-            }
-
-            showDialog();
-        } catch (final Exception exc) {
-            PLog.errorLog(858484821, exc);
-        }
-    }
-
-    public PMaskerPane getMaskerPane() {
-        return maskerPane;
-    }
-
-    private void updateCss() {
-        P2LibInit.addP2LibCssToScene(scene);
-
-        if (P2LibConst.styleFile != null && !P2LibConst.styleFile.isEmpty() && scene != null) {
-            final Path path = Path.of(P2LibConst.styleFile);
-            IoReadWriteStyle.readStyle(path, scene);
-        }
-    }
-
-    private void initMaskerPane() {
-        StackPane.setAlignment(maskerPane, Pos.CENTER);
-//        progData.maskerPane = maskerPane;
-        maskerPane.setPadding(new Insets(4, 1, 1, 1));
-        maskerPane.toFront();
-        Button btnStop = maskerPane.getButton();
-        maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
-        btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
-    }
-
-    private void createNewScene() {
-        int w = PGuiSize.getWidth(sizeConfiguration);
-        int h = PGuiSize.getHeight(sizeConfiguration);
-        if (w > 0 && h > 0) {
-            this.scene = new Scene(this, w, h);
-        } else {
-            this.scene = new Scene(this, 750, 300);
-        }
-    }
-
-    public void hide() {
-        // close/hide are the same
-        close();
-    }
-
-    public void close() {
-        stage.close();
-    }
-
-    public void showDialog() {
-        if (stageHeight > 0 && stageWidth > 0) {
-            //bei wiederkehrenden Dialogen die pos/size setzen
-            stage.setHeight(stageHeight);
-            stage.setWidth(stageWidth);
-        }
-
-        if (!PGuiSize.setPos(sizeConfiguration, stage)) {
-            PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
-        }
-
-        stage.showAndWait();
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public boolean isShowing() {
-        return stage.isShowing();
-    }
-
-    public VBox getVBoxCenter() {
-        return vBoxCenter;
-    }
-
-    public HBox getHBoxBottom() {
-        return hBoxBottom;
-    }
-
-//    public void showStage() {
-//        stage.show();
-//    }
-//
-//    public void closeStage() {
-//        stage.close();
-//    }
-
-    protected void make() {
+        super.showDialog();
     }
 }

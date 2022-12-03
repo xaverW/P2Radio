@@ -108,10 +108,8 @@ public class ProgData {
         pEventHandler = new PEventHandler();
 
         pShortcut = new P2RadioShortCuts();
-//        eventNotifyLoadRadioList = new EventNotifyLoadRadioList();
         loadNewStationList = new LoadNewStationList(this);
         storedFilters = new StoredFilters(this);
-        storedFilters.init();
         stationList = new StationList();
         stationListBlackFiltered = new StationList();
 
@@ -135,6 +133,7 @@ public class ProgData {
         stationInfos = new StationInfos(this);
         startFactory = new StartFactory(this);
         progTray = new ProgTray(this);
+        init();
     }
 
     public synchronized static final ProgData getInstance(String dir) {
@@ -146,6 +145,11 @@ public class ProgData {
 
     public synchronized static final ProgData getInstance() {
         return instance == null ? instance = new ProgData() : instance;
+    }
+
+    private void init() {
+        storedFilters.init();
+        stationListFilter.init();
     }
 
     public void initProgData() {

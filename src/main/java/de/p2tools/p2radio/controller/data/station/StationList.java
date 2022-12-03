@@ -235,16 +235,6 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         stream().forEach((radio) -> hashSet.add(radio.getCountry()));
         countries = hashSet.toArray(new String[hashSet.size()]);
 
-        //Genres, sinnlos, gibt zu viel Unsinn darin
-//        hashSet.add(""); //der erste ist ""
-//        stream().forEach((radio) -> {
-//            String[] genreArr = radio.getGenre().split(",");
-//            for (String s : genreArr) {
-//                hashSet.add(s);
-//            }
-//        });
-//        genres = hashSet.toArray(new String[hashSet.size()]);
-
         PDuration.counterStop("Filter-Listen suchen");
     }
 

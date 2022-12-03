@@ -17,14 +17,17 @@
 package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
@@ -36,9 +39,15 @@ import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -46,31 +55,76 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
-public class SmallRadioGuiController {
+public class SmallRadioGuiCenter extends HBox {
 
-    final SmallRadioGuiCenter smallRadioGuiCenter;
-    final SmallRadioGuiBottom smallRadioGuiBottom;
+    private final ScrollPane scrollPane = new ScrollPane();
     private final TableFavourite tableView;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
     private final SmallRadioGuiPack smallRadioGuiPack;
+    private final Button btnPrev = new Button();
+    private final Button btnNext = new Button();
+    private final Button btnClose = new Button();
+    private final Button btnRadio = new Button();
 
-    public SmallRadioGuiController(SmallRadioGuiPack smallRadioGuiPack) {
+
+    public SmallRadioGuiCenter(SmallRadioGuiPack smallRadioGuiPack) {
         this.smallRadioGuiPack = smallRadioGuiPack;
         progData = ProgData.getInstance();
-        smallRadioGuiCenter = new SmallRadioGuiCenter(smallRadioGuiPack);
-        smallRadioGuiBottom = new SmallRadioGuiBottom(smallRadioGuiPack, this);
-
         tableView = new TableFavourite(Table.TABLE_ENUM.SMALL_RADIO, progData, true);
 
         make();
         favouriteGuiInfoController = new FavouriteGuiInfoController();
-//        initListener();
+
+        initTable();
+        initListener();
     }
 
     private void make() {
-        smallRadioGuiPack.getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiCenter, smallRadioGuiBottom);
-        VBox.setVgrow(smallRadioGuiCenter, Priority.ALWAYS);
+        setSpacing(5);
+        setPadding(new Insets(10, 10, 0, 10));
+        setAlignment(Pos.CENTER);
+
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(tableView);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
+        VBox vBoxLeft = new VBox();
+        vBoxLeft.setAlignment(Pos.CENTER);
+        VBox vBoxRight = new VBox();
+        vBoxRight.setAlignment(Pos.CENTER);
+        vBoxLeft.getChildren().addAll(btnRadio, PGuiTools.getVBoxGrower(), btnPrev, PGuiTools.getVBoxGrower());
+        vBoxRight.getChildren().addAll(btnClose, PGuiTools.getVBoxGrower(), btnNext, PGuiTools.getVBoxGrower());
+//        vBoxLeft.getChildren().addAll(btnPrev);
+//        vBoxRight.getChildren().addAll(btnNext);
+        getChildren().addAll(vBoxLeft, scrollPane, vBoxRight);
+
+        btnClose.setTooltip(new Tooltip("Programm beenden"));
+        btnClose.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
+        btnClose.setMaxWidth(Double.MAX_VALUE);
+        btnClose.getStyleClass().add("btnTab");
+        btnClose.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
+
+        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
+        btnRadio.setOnAction(e -> smallRadioGuiPack.changeGui());
+        btnRadio.setMaxWidth(Double.MAX_VALUE);
+        btnRadio.getStyleClass().add("btnTab");
+        btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
+
+        btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
+        btnPrev.getStyleClass().add("btnSmallRadio");
+        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
+        btnPrev.setOnAction(event -> {
+            setPreviousStation();
+        });
+
+        btnNext.setTooltip(new Tooltip("nächsten Sender auswählen"));
+        btnNext.getStyleClass().add("btnSmallRadio");
+        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
+        btnNext.setOnAction(event -> {
+            setNextStation();
+        });
     }
 
     public PMaskerPane getMaskerPane() {
@@ -300,7 +354,7 @@ public class SmallRadioGuiController {
                 } else {
                     favourite = null;
                 }
-                ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData, this, tableView)
+                ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData, progData.smallRadioGuiController, tableView)
                         .getContextMenu(favourite);
                 tableView.setContextMenu(contextMenu);
             }

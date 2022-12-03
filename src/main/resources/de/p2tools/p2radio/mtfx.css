@@ -175,7 +175,14 @@
 }
 
 
+
 /*SmallRadio*/
+.smallRadio{
+    -fx-background-color: #297fcf, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: 0, 10, 15;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
 .btnSmallRadio{
     -fx-font-weight: bold;
     -fx-alignment: center ;

@@ -72,7 +72,12 @@ public class ProgStartFactory {
             });
 
             InitStoredFilter.initFilter();
+
+        } else {
+            //dann hat das Laden geklappt :)
+            ProgData.getInstance().blackDataList.sortIncCounter(false);
         }
+
         return firstProgramStart;
     }
 
@@ -82,7 +87,7 @@ public class ProgStartFactory {
      *
      * @param firstProgramStart
      */
-    public static void workAfterGui(ProgData progData, boolean firstProgramStart) {
+    public static void workAfterGui(ProgData progData) {
         GetIcon.addWindowP2Icon(progData.primaryStage);
         startMsg();
         setTitle(progData.primaryStage);
@@ -115,14 +120,6 @@ public class ProgStartFactory {
     private static void checkProgUpdate(ProgData progData) {
         // Prüfen obs ein Programmupdate gibt
         PDuration.onlyPing("checkProgUpdate");
-
-
-/*        if (ProgData.debug) {
-            // damits bei jedem Start gemacht wird
-            PLog.sysLog("DEBUG: Update-Check");
-            runUpdateCheck(progData, true);
-
-        } else*/
         if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
                 !updateCheckTodayDone()) {
             // nach Updates suchen
