@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.data;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartRuntimeExec;
 
@@ -92,19 +91,7 @@ public class SetFactory {
         if (pSet == null) {
             return false;
         }
-//        for (final SetData ps : pSet) {
-//            if (!ps.getAdOn().isEmpty() && !addOnZip(ps.getAdOn())) {
-//                // und Tschüss
-//                return false;
-//            }
-//        }
-
-        if (ProgData.getInstance().setDataList.addSetData(pSet)) {
-            ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
-            return true;
-        } else {
-            return false;
-        }
+        return ProgData.getInstance().setDataList.addSetData(pSet);
     }
 
     public static boolean testPrefix(String str, String uurl, boolean prefix) {

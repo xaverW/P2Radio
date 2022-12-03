@@ -27,13 +27,10 @@ import java.util.Collection;
 @SuppressWarnings("serial")
 public class SetDataListWorker extends SimpleListProperty<SetData> implements PDataList<SetData> {
     // Liste aller Programmsets
-
     public static final String PATTERN_PATH_VLC = "PFAD_VLC";
     public static final String TAG = "SetDataList";
-    public static final String PATTERN_PATH_SCRIPT = "PFAD_SCRIPT";
-    public String version = "";
 
-    private BooleanProperty listChanged = new SimpleBooleanProperty(true);
+    private final BooleanProperty listChanged = new SimpleBooleanProperty(true);
 
     public SetDataListWorker() {
         super(FXCollections.observableArrayList());

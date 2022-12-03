@@ -18,19 +18,12 @@ package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.net.PUrlTools;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.tools.file.GetFile;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
 
@@ -57,99 +50,23 @@ public class PsetVorlagen {
     private final LinkedList<String[]> liste = new LinkedList<>();
 
     public SetDataList getStandarset(boolean replaceMuster) {
-        SetDataList setDataList = null;
-        String[] template = null;
-
-        if (loadListOfSets()) {
-            for (final String[] ar : liste) {
-                if (ar[PGR_NAME_NR].equalsIgnoreCase("Standardset " + ProgramToolsFactory.getOsString())) {
-                    template = ar;
-                    break;
-                }
-            }
-            if (template != null) {
-                if (!template[PGR_URL_NR].isEmpty()) {
-                    setDataList = importPsetFile(template[PsetVorlagen.PGR_URL_NR]);
-                    if (setDataList != null) {
-                        setDataList.version = template[PGR_VERSION_NR];
-                    }
-                }
-            }
+        // dann nehmen wir halt die im jar-File
+        // liefert das Standard Programmset für das entsprechende BS
+        InputStreamReader inReader;
+        switch (ProgramToolsFactory.getOs()) {
+            case LINUX:
+                inReader = new GetFile().getPsetTamplateLinux();
+                break;
+            default:
+                inReader = new GetFile().getPsetTemplateWindows();
         }
-
-        if (setDataList == null) {
-            // dann nehmen wir halt die im jar-File
-            // liefert das Standard Programmset für das entsprechende BS
-            InputStreamReader inReader;
-            switch (ProgramToolsFactory.getOs()) {
-                case LINUX:
-                    inReader = new GetFile().getPsetTamplateLinux();
-                    break;
-                default:
-                    inReader = new GetFile().getPsetTemplateWindows();
-            }
-            // Standardgruppen laden
-            setDataList = importPset(inReader);
-        }
-
+        // Standardgruppen laden
+        SetDataList setDataList = importPset(inReader);
         if (replaceMuster && setDataList != null) {
             // damit die Variablen ersetzt werden
             SetDataList.progReplacePattern(setDataList);
         }
         return setDataList;
-    }
-
-    private boolean loadListOfSets() {
-        try {
-            liste.clear();
-            int event;
-
-            HttpURLConnection conn = (HttpURLConnection) new URL(ProgConst.URL_WEB_PROGRAM_SETS).openConnection();
-            conn.setRequestProperty("User-Agent", ProgInfos.getUserAgent());
-            conn.setReadTimeout(TIMEOUT);
-            conn.setConnectTimeout(TIMEOUT);
-
-            final XMLInputFactory inFactory = XMLInputFactory.newInstance();
-            inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
-            InputStreamReader inReader = new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
-            XMLStreamReader parser = inFactory.createXMLStreamReader(inReader);
-
-            while (parser.hasNext()) {
-                event = parser.next();
-                if (event == XMLStreamConstants.START_ELEMENT) {
-                    if (parser.getLocalName().equals(PGR)) {
-                        final String[] p = new String[PGR_MAX_ELEM];
-                        get(parser, PGR, PGR_COLUMN_NAMES, p);
-                        if (!p[PGR_URL_NR].isEmpty()) {
-                            liste.add(p);
-                        }
-                    }
-                }
-            }
-        } catch (final Exception ex) {
-            PLog.errorLog(398001963, ex);
-            return false;
-        }
-        return true;
-    }
-
-    private SetDataList importPsetFile(String fileUrl) {
-        final int timeout = 10_000; //10 Sekunden
-        try {
-            if (PUrlTools.isUrl(fileUrl)) {
-                HttpURLConnection conn;
-                conn = (HttpURLConnection) new URL(fileUrl).openConnection();
-                conn.setConnectTimeout(timeout);
-                conn.setReadTimeout(timeout);
-                conn.setRequestProperty("User-Agent", ProgInfos.getUserAgent());
-                return importPset(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
-            } else {
-                return importPset(new InputStreamReader(new FileInputStream(fileUrl), StandardCharsets.UTF_8));
-            }
-        } catch (final Exception ex) {
-            PLog.errorLog(630048926, ex);
-            return null;
-        }
     }
 
     private SetDataList importPset(InputStreamReader in) {

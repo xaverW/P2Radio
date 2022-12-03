@@ -27,8 +27,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class GetFile {
 
-    public static final String PATH_PSET_LINUX = "/de/p2tools/p2radio/tools/file/pset_linux.xml";
-    public static final String PATH_PSET_WINDOWS = "/de/p2tools/p2radio/tools/file/pset_windows.xml";
+    public static final String PATH_PSET_LINUX = "/de/p2tools/p2radio/res/file/pset_linux.xml";
+    public static final String PATH_PSET_WINDOWS = "/de/p2tools/p2radio/res/file/pset_windows.xml";
 
     public InputStreamReader getPsetTamplateLinux() {
         try {

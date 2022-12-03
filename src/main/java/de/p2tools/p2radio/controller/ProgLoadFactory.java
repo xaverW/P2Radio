@@ -16,34 +16,21 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ReadConfigFile;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.Events;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import javafx.application.Platform;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProgLoadFactory {
 
     private ProgLoadFactory() {
-    }
-
-    public static boolean loadProgConfigData() {
-        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
-        boolean found;
-        if ((found = loadProgConfig()) == false) {
-            PLog.sysLog("-> konnte nicht geladen werden!");
-            clearConfig();
-        } else {
-            UpdateConfig.update(); //falls es ein Programmupdate gab, Configs anpassen
-            PLog.sysLog("-> wurde gelesen!");
-        }
-        return found;
     }
 
     /**
@@ -167,25 +154,5 @@ public class ProgLoadFactory {
         logList.add("Sender in Favoriten eingetragen");
         progData.favouriteList.addStationInList();
         progData.lastPlayedList.addStationInList();
-    }
-
-    private static void clearConfig() {
-        ProgData progData = ProgData.getInstance();
-        progData.setDataList.clear();
-        progData.favouriteList.clear();
-        progData.lastPlayedList.clear();
-        progData.blackDataList.clear();
-    }
-
-    private static boolean loadProgConfig() {
-        final Path path = ProgInfos.getSettingsFile();
-        PLog.sysLog("Programmstart und ProgConfig laden von: " + path);
-
-        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
-        ProgConfig.addConfigData(configFile);
-        ReadConfigFile readConfigFile = new ReadConfigFile();
-        readConfigFile.addConfigFile(configFile);
-
-        return readConfigFile.readConfigFile();
     }
 }

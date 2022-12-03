@@ -57,7 +57,6 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
-    public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStr("system-update-progset-version");
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBool("system-update-search-act", true); //Infos und Programm
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBool("system-update-search-beta", false); //beta suchen
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBool("system-update-search-daily", false); //daily suchen
@@ -109,7 +108,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty STATION_GUI_TABLE_VIS = addStr("station-gui-table-vis");
     public static StringProperty STATION_GUI_TABLE_ORDER = addStr("station-gui-table-order");
     //Gui SmallRadio
-    public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size");
+    public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size", "600:400");
     public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50.0,70.0,205.0,87.0,88.0,80.0,185.0,80.0,80.0,80.0,112.0,80.0,80.0,80.0,80.0,80.0");
     public static StringProperty SMALL_RADIO_TABLE_SORT = addStr("small-radio-table-sort");
     public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");

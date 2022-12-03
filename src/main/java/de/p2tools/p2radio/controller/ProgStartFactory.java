@@ -43,7 +43,7 @@ public class ProgStartFactory {
 
     public static boolean workBeforeGui(ProgData progData) {
         boolean firstProgramStart = false;
-        boolean loadOk = ProgLoadFactory.loadProgConfigData();
+        boolean loadOk = ProgLoadConfigFactory.loadProgConfigData();
         if (ProgConfig.SYSTEM_LOG_ON.get()) {
             PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
         }
@@ -52,40 +52,18 @@ public class ProgStartFactory {
             PDuration.onlyPing("Erster Start");
             firstProgramStart = true;
             UpdateConfig.setUpdateDone(); //dann ists ja kein Programmupdate
-
-            StartDialogController startDialogController = new StartDialogController();
-            if (!startDialogController.isOk()) {
-                // dann jetzt beenden -> Tschüss
-                Platform.exit();
-                System.exit(0);
-            }
-
-            Platform.runLater(() -> {
-                PDuration.onlyPing("Erster Start: PSet");
-                // kann ein Dialog aufgehen
-                final SetDataList pSet = new PsetVorlagen().getStandarset(true /*replaceMuster*/);
-                if (pSet != null) {
-                    progData.setDataList.addSetData(pSet);
-                    ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
-                }
-                PDuration.onlyPing("Erster Start: PSet geladen");
-            });
-
-            InitStoredFilter.initFilter();
+            firstStartDialog(progData);
 
         } else {
             //dann hat das Laden geklappt :)
             ProgData.getInstance().blackDataList.sortIncCounter(false);
         }
-
         return firstProgramStart;
     }
 
     /**
      * alles was nach der GUI gemacht werden soll z.B.
      * Senderliste beim Programmstart!! laden
-     *
-     * @param firstProgramStart
      */
     public static void workAfterGui(ProgData progData) {
         GetIcon.addWindowP2Icon(progData.primaryStage);
@@ -94,6 +72,24 @@ public class ProgStartFactory {
 
         progData.initProgData();
         checkProgUpdate(progData);
+    }
+
+    private static void firstStartDialog(ProgData progData) {
+        StartDialogController startDialogController = new StartDialogController();
+        if (!startDialogController.isOk()) {
+            // dann jetzt beenden -> Tschüss
+            Platform.exit();
+            System.exit(0);
+        }
+
+        PDuration.onlyPing("Erster Start: PSet");
+        final SetDataList pSet = new PsetVorlagen().getStandarset(true /*replaceMuster*/);
+        if (pSet != null) {
+            progData.setDataList.addSetData(pSet);
+        }
+        PDuration.onlyPing("Erster Start: PSet geladen");
+
+        InitStoredFilter.initFilter();
     }
 
     private static void startMsg() {
