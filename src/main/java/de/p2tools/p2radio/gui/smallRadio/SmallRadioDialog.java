@@ -25,6 +25,7 @@ import javafx.stage.StageStyle;
 
 
 public class SmallRadioDialog extends PDialogOnly {
+    private static final int MOVE_SIZE = 20;
     private double xOffset = 0;
     private double yOffset = 0;
     private double xSize = 0;
@@ -45,28 +46,28 @@ public class SmallRadioDialog extends PDialogOnly {
             xPos = event.getScreenX(); //Pos vom Bildschirmrand
             yPos = event.getScreenY(); //Pos vom Bildschirmrand
 
-            if (yOffset < 20 && xOffset < 20) {
+            if (isUp() && isLeft()) {
                 //oben links
                 getStage().getScene().setCursor(Cursor.NW_RESIZE);
-            } else if (yOffset < 20 && xOffset > xSize - 20) {
+            } else if (isUp() && isRight()) {
                 //oben rechts
                 getStage().getScene().setCursor(Cursor.NE_RESIZE);
-            } else if (yOffset > ySize - 20 && xOffset > xSize - 20) {
+            } else if (isDown() && isRight()) {
                 //unten rechts
                 getStage().getScene().setCursor(Cursor.SE_RESIZE);
-            } else if (yOffset > ySize - 20 && xOffset < 20) {
+            } else if (isDown() && isLeft()) {
                 //unten links
                 getStage().getScene().setCursor(Cursor.SW_RESIZE);
-            } else if (yOffset < 20) {
+            } else if (isUp()) {
                 //oben
                 getStage().getScene().setCursor(Cursor.N_RESIZE);
-            } else if (yOffset > ySize - 20) {
+            } else if (isDown()) {
                 //unten
                 getStage().getScene().setCursor(Cursor.S_RESIZE);
-            } else if (xOffset < 20) {
+            } else if (isLeft()) {
                 //links
                 getStage().getScene().setCursor(Cursor.E_RESIZE);
-            } else if (xOffset > xSize - 20) {
+            } else if (isRight()) {
                 //rechts
                 getStage().getScene().setCursor(Cursor.W_RESIZE);
             } else {
@@ -78,32 +79,32 @@ public class SmallRadioDialog extends PDialogOnly {
             getStage().getScene().setCursor(Cursor.DEFAULT);
         });
         getStage().getScene().setOnMouseDragged(event -> {
-            if (yOffset < 20 && xOffset < 20) {
+            if (isUp() && isLeft()) {
                 //oben links
                 moveUp(event);
                 moveLeft(event);
-            } else if (yOffset < 20 && xOffset > xSize - 20) {
+            } else if (isUp() && isRight()) {
                 //oben rechts
                 moveUp(event);
                 moveRight(event);
-            } else if (yOffset > ySize - 20 && xOffset > xSize - 20) {
+            } else if (isDown() && isRight()) {
                 //unten rechts
                 moveDown(event);
                 moveRight(event);
-            } else if (yOffset > ySize - 20 && xOffset < 20) {
+            } else if (isDown() && isLeft()) {
                 //unten links
                 moveDown(event);
                 moveLeft(event);
-            } else if (yOffset < 20) {
+            } else if (isUp()) {
                 //oben
                 moveUp(event);
-            } else if (yOffset > ySize - 20) {
+            } else if (isDown()) {
                 //unten
                 moveDown(event);
-            } else if (xOffset < 20) {
+            } else if (isLeft()) {
                 //links
                 moveLeft(event);
-            } else if (xOffset > xSize - 20) {
+            } else if (isRight()) {
                 //rechts
                 moveRight(event);
             } else {
@@ -118,6 +119,22 @@ public class SmallRadioDialog extends PDialogOnly {
         super.showDialog();
     }
 
+    private boolean isUp() {
+        return yOffset < MOVE_SIZE;
+    }
+
+    private boolean isDown() {
+        return yOffset > ySize - MOVE_SIZE;
+    }
+
+    private boolean isLeft() {
+        return xOffset < MOVE_SIZE;
+    }
+
+    private boolean isRight() {
+        return xOffset > xSize - MOVE_SIZE;
+    }
+
     private void moveRight(MouseEvent event) {
         double newX = xSize + event.getScreenX() - xPos;
         getStage().setWidth(newX);
@@ -126,7 +143,6 @@ public class SmallRadioDialog extends PDialogOnly {
     private void moveLeft(MouseEvent event) {
         double newX = xSize + xPos - event.getScreenX();
         double moveX = xPos - event.getScreenX();
-        System.out.println(moveX);
         getStage().setWidth(newX);
         getStage().setX(xPos - moveX);
     }
@@ -134,7 +150,6 @@ public class SmallRadioDialog extends PDialogOnly {
     private void moveUp(MouseEvent event) {
         double newY = ySize + yPos - event.getScreenY();
         double moveY = yPos - event.getScreenY();
-        System.out.println(moveY);
         getStage().setHeight(newY);
         getStage().setY(yPos - moveY);
     }

@@ -178,8 +178,9 @@
 
 /*SmallRadio*/
 .smallRadio{
-    -fx-background-color: #297fcf, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: 0, 10, 15;
+    -fx-background-color: #2166a3, #c20000, -lin-grad-1;
+    -fx-background-insets: 0, 10, 12;
+    -fx-background-radius: 0, 20, 20;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
 
