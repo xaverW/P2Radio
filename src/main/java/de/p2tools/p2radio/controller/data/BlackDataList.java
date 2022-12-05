@@ -88,7 +88,6 @@ public class BlackDataList extends SimpleListProperty<BlackData> implements PDat
     public synchronized void filterListAndNotifyListeners() {
         progData.stationList.filterListWithBlacklist(true);
         progData.pEventHandler.notifyListener(new PEvent(Events.BLACKLIST_CHANGED));
-//        Listener.notify(Listener.EVENT_BLACKLIST_CHANGED, BlackDataList.class.getSimpleName());
     }
 
     public synchronized void clearCounter() {

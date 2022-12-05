@@ -99,7 +99,6 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     }
 
     public void triggerFilter() {
-//        filteredList.setPredicate(filteredList.getPredicate());
         filteredListSetPred(ProgData.getInstance().storedFilters.getActFilterSettings().getPredicate());
     }
 

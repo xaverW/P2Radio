@@ -57,29 +57,6 @@ public class FilterWorker {
             }
         });
 
-//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-//            @Override
-//            public void start(EventLoadRadioList event) {
-//                // the station combo will be resetted, therefore save the filter
-//                saveFilter();
-//            }
-//
-//            @Override
-//            public void progress(EventLoadRadioList event) {
-//            }
-//
-//            @Override
-//            public void loaded(EventLoadRadioList event) {
-//            }
-//
-//            @Override
-//            public void finished(EventLoadRadioList event) {
-//                createFilterLists();
-//                // activate the saved filter
-//                resetFilter();
-//            }
-//        });
-
         allGenreList.addAll("70s", "80s", "90s", "classic", "classic rock", "dance",
                 "deutschrock", "chillout", "disco", "electro", "electronic",
                 "hard rock", "metal", "house", "jazz", "oldies", "pop", "rock",

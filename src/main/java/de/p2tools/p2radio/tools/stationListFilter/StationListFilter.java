@@ -24,6 +24,8 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -42,7 +44,12 @@ public class StationListFilter {
     }
 
     public void init() {
-        progData.storedFilters.filterChangeProperty().addListener((observable, oldValue, newValue) -> filter()); // Senderfilter (User) haben sich geändert
+        progData.storedFilters.filterChangeProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                filter();
+            }
+        }); // Senderfilter (User) haben sich geändert
         progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
             public <T extends PEvent> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {

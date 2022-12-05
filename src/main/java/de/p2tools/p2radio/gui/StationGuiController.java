@@ -108,22 +108,6 @@ public class StationGuiController extends AnchorPane {
         progData.stationInfoDialogController.setStation(station);
     }
 
-    private void selectStation() {
-        Platform.runLater(() -> {
-            if ((tableView.getItems().size() == 0)) {
-                return;
-            }
-
-            Station selStation = tableView.getSelectionModel().getSelectedItem();
-            if (selStation != null) {
-                tableView.scrollTo(selStation);
-            } else {
-                tableView.scrollTo(0);
-                tableView.getSelectionModel().select(0);
-            }
-        });
-    }
-
     public void playStation() {
         // Menü/Button Sender (URL) abspielen
         final Optional<Station> stationSelection = getSel();
@@ -214,10 +198,25 @@ public class StationGuiController extends AnchorPane {
         PTableFactory.selectPreviousRow(tableView);
     }
 
+    private void selectStation() {
+        Platform.runLater(() -> {
+            if ((tableView.getItems().size() == 0)) {
+                return;
+            }
+
+            Station selStation = tableView.getSelectionModel().getSelectedItem();
+            if (selStation != null) {
+                tableView.scrollTo(selStation);
+            } else {
+                tableView.scrollTo(0);
+                tableView.getSelectionModel().select(0);
+            }
+        });
+    }
+
     private void initListener() {
         progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
-        SortedList<Station> sortedList = progData.stationListBlackFiltered.getSortedList();
-        sortedList.addListener((ListChangeListener<Station>) c -> {
+        progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<Station>) c -> {
             selectStation();
         });
         progData.setDataList.listChangedProperty().addListener((observable, oldValue, newValue) -> {

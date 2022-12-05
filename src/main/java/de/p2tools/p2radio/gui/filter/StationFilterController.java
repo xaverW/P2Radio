@@ -80,12 +80,6 @@ public class StationFilterController extends FilterController {
                 setBlack();
             }
         });
-//        Listener.addListener(new Listener(Listener.EVENT_BLACKLIST_CHANGED, StationListFilter.class.getSimpleName()) {
-//            @Override
-//            public void pingFx() {
-//                setBlack();
-//            }
-//        });
         setBlack();
     }
 

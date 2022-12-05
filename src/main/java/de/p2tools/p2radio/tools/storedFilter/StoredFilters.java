@@ -29,9 +29,9 @@ public final class StoredFilters {
     private final ChangeListener<Boolean> blacklistChangeListener;
     // ist die Liste der gespeicherten Filter
     private final SelectedFilterList filterList = new SelectedFilterList();
-    private StoredFiltersForwardBackward storedFiltersForwardBackward = null; // gespeicherte Filterprofile
     // ist der aktuell angezeigte Filter
     private final SelectedFilter actFilterSettings = new SelectedFilter("aktuelle Einstellung"); //ist der "aktuelle" Filter, Name dient nur der Info im Config-File
+    private StoredFiltersForwardBackward storedFiltersForwardBackward = null; // gespeicherte Filterprofile
 
     public StoredFilters(ProgData progData) {
         this.progData = progData;
