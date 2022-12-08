@@ -25,7 +25,7 @@ import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.ProgStartFactory;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
-import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiPack;
+import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -111,9 +111,9 @@ public class P2Radio extends Application {
                 primaryStage.centerOnScreen();
             }
 
-            if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && !progData.favouriteList.isEmpty()) {
+            if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann gleich mit smallRadio starten
-                Platform.runLater(() -> new SmallRadioGuiPack(progData));
+                Platform.runLater(() -> new SmallRadioGuiController());
             } else {
                 primaryStage.show();
             }

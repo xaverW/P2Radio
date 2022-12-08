@@ -70,8 +70,14 @@ public class ProgQuitFactory {
 
     private static void writeTableWindowSettings() {
         // Tabelleneinstellungen merken
-        ProgData.getInstance().stationGuiController.saveTable();
-        ProgData.getInstance().favouriteGuiController.saveTable();
-        ProgData.getInstance().lastPlayedGuiController.saveTable();
+        if (ProgData.getInstance().stationGuiController != null) {
+            ProgData.getInstance().stationGuiController.saveTable();
+        }
+        if (ProgData.getInstance().favouriteGuiController != null) {
+            ProgData.getInstance().favouriteGuiController.saveTable();
+        }
+        if (ProgData.getInstance().lastPlayedGuiController != null) {
+            ProgData.getInstance().lastPlayedGuiController.saveTable();
+        }
     }
 }

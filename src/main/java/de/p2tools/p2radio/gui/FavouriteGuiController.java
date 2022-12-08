@@ -63,7 +63,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     public FavouriteGuiController() {
         progData = ProgData.getInstance();
-        tableView = new TableFavourite(Table.TABLE_ENUM.FAVOURITE, progData, false);
+        tableView = new TableFavourite(Table.TABLE_ENUM.FAVOURITE, progData);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);

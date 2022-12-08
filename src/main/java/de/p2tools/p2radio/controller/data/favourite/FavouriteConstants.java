@@ -18,12 +18,6 @@ package de.p2tools.p2radio.controller.data.favourite;
 
 public class FavouriteConstants {
 
-    //Startnummer (Reihenfolge) der Sender
-    public static final int FAVOURITE_NUMBER_NOT_STARTED = Integer.MAX_VALUE;
-
-    //SenderNr wenn kein Sender mehr gefunden wird
-    public static final int STATION_NUMBER_NOT_FOUND = Integer.MAX_VALUE;
-
     //Stati
     public static final int STATE_INIT = 0; //nicht gestart
     public static final int STATE_STARTED_RUN = 1; //Favorite läuft

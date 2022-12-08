@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio;
 
-import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
@@ -30,7 +29,7 @@ import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.LastPlayedGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.gui.StatusBarController;
-import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiPack;
+import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -176,16 +175,8 @@ public class P2RadioController extends StackPane {
             return;
         }
 
-        if (progData.favouriteList.isEmpty()) {
-            PAlert.showErrorAlert("keine Favoriten",
-                    "Es sind noch keine Favoriten angelegt. Diese müssen " +
-                            "zuerst angelegt werden!");
-            return;
-        }
-
-//        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
         progData.primaryStage.close();
-        new SmallRadioGuiPack(progData);
+        new SmallRadioGuiController();
     }
 
     private void selPanelStation() {

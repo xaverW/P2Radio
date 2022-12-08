@@ -145,7 +145,7 @@ public class ProgTray {
         miQuit.addActionListener(e -> Platform.runLater(() -> {
             Stage stage = null;
             if (progData.smallRadioGuiController != null) {
-                stage = progData.smallRadioGuiController.getSmallRadioGuiPack().getStage();
+                stage = progData.smallRadioGuiController.getStage();
             } else if (progData.primaryStage.isShowing()) {
                 stage = progData.primaryStage;
             }

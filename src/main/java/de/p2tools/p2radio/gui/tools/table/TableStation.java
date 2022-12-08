@@ -18,165 +18,18 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgColorList;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
-import de.p2tools.p2radio.controller.data.station.StationFactory;
-import javafx.beans.property.BooleanProperty;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 public class TableStation extends PTable<Station> {
-
-    private final Callback<TableColumn<Station, Integer>, TableCell<Station, Integer>> cellFactoryBitrate
-            = (final TableColumn<Station, Integer> param) -> {
-
-        final TableCell<Station, Integer> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                if (item == 0) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    setGraphic(null);
-                    setText(item + "");
-                }
-
-            }
-        };
-        return cell;
-    };
-    private final ProgData progData;
-    private final BooleanProperty geoMelden;
-    private final BooleanProperty small;
-    private final Callback<TableColumn<Station, String>, TableCell<Station, String>> cellFactoryStart
-            = (final TableColumn<Station, String> param) -> {
-
-        final TableCell<Station, String> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(4);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                Station station = getTableView().getItems().get(getIndex());
-                final boolean playing = station.getStart() != null;
-                final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
-                final boolean fav = station.isFavourite();
-
-                if (playing) {
-                    //stoppen
-                    final Button btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
-                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        progData.startFactory.stopStation(station);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (small.get()) {
-                        btnPlay.setMaxHeight(18);
-                        btnPlay.setMinHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-
-//                } else if (set) {
-//                    //läuft nix, mehre Sets
-//                    final ComboBox<SetData> cboSet;
-//                    cboSet = new ComboBox();
-//                    cboSet.setMinWidth(60);
-//                    cboSet.getStyleClass().add("cboTableMoreSets");
-//                    cboSet.setTooltip(new Tooltip("Set zum Abspielen des Senders auswählen"));
-////                    cboSet.getStyleClass().add("combo-box-icon");
-//                    cboSet.getItems().addAll(progData.setDataList);
-//                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
-//                        progData.startFactory.playStation(station, ne);
-//                        getTableView().getSelectionModel().clearSelection();
-//                        getTableView().getSelectionModel().select(getIndex());
-//                    });
-//
-//                    if (small.get()) {
-//                        cboSet.setMinHeight(18);
-//                        cboSet.setMaxHeight(18);
-//                    }
-//                    hbox.getChildren().add(cboSet);
-
-                } else {
-                    //starten
-                    final Button btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        progData.startFactory.playStation(station);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (small.get()) {
-                        btnPlay.setMaxHeight(18);
-                        btnPlay.setMinHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-                }
-
-                final Button btnFavorite;
-                btnFavorite = new Button("");
-                btnFavorite.getStyleClass().add("btnSmallRadio");
-                btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
-                btnFavorite.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_SAVE.getImageView());
-                btnFavorite.setOnAction(event -> {
-                    StationFactory.favouriteStation(station);
-                });
-
-                if (small.get()) {
-                    btnFavorite.setMaxHeight(18);
-                    btnFavorite.setMinHeight(18);
-                }
-                hbox.getChildren().add(btnFavorite);
-
-                setGraphic(hbox);
-            }
-        };
-        return cell;
-    };
 
     public TableStation(Table.TABLE_ENUM table_enum, ProgData progData) {
         super(table_enum);
         this.table_enum = table_enum;
-        this.progData = progData;
         initFileRunnerColumn();
-
-        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     }
 
     public Table.TABLE_ENUM getETable() {
@@ -196,7 +49,6 @@ public class TableStation extends PTable<Station> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-
         final TableColumn<Station, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         nrColumn.getStyleClass().add("alignCenterLeft");
@@ -215,11 +67,11 @@ public class TableStation extends PTable<Station> {
 
         final TableColumn<Station, Integer> bitrateColumn = new TableColumn<>(PlayableXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
-        bitrateColumn.setCellFactory(cellFactoryBitrate);
+        bitrateColumn.setCellFactory(new CellBitrate().cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<Station, String> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(cellFactoryStart);
+        startColumn.setCellFactory(new CellStationStart().cellFactoryStart);
         startColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Station, String> stateColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATE);

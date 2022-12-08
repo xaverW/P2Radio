@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.smallRadio;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.gui.tools.table.TableFavourite;
+import de.p2tools.p2radio.gui.tools.table.TableSmalRadio;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
@@ -28,9 +28,9 @@ public class SmallRadioGuiTableContextMenu {
 
     private final ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
-    private final TableFavourite tableView;
+    private final TableSmalRadio tableView;
 
-    public SmallRadioGuiTableContextMenu(ProgData progData, SmallRadioGuiController smallRadioGuiController, TableFavourite tableView) {
+    public SmallRadioGuiTableContextMenu(ProgData progData, SmallRadioGuiController smallRadioGuiController, TableSmalRadio tableView) {
         this.progData = progData;
         this.smallRadioGuiController = smallRadioGuiController;
         this.tableView = tableView;

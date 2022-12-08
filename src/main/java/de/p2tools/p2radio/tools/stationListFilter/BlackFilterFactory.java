@@ -25,18 +25,17 @@ import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BlackFilterFactory {
 
-    private BlackFilterFactory() {
-    }
-
+    private final static ProgData progData = ProgData.getInstance();
     private static int minBitrate = 0;
     private static int maxBitrate = StationFilterFactory.FILTER_BITRATE_MAX;
-    private final static ProgData progData = ProgData.getInstance();
+
+    private BlackFilterFactory() {
+    }
 
     public static synchronized void getBlackFiltered() {
         // hier wird die komplette Senderliste gegen die Blacklist gefiltert
@@ -45,8 +44,8 @@ public class BlackFilterFactory {
 
         PDuration.counterStart("StationListBlackFilter.getBlackFiltered");
         if (progData.stationList != null) {
-            Stream<Station> initialStream = progData.stationList.parallelStream();
 
+            Stream<Station> initialStream = progData.stationList.stream();
             if (progData.storedFilters.getActFilterSettings().isBlacklistOn()) {
                 //blacklist in ON
                 PLog.sysLog("StationListBlackFilter - isBlacklistOn");
@@ -62,9 +61,9 @@ public class BlackFilterFactory {
                 PLog.sysLog("StationListBlackFilter - isBlacklistOff");
             }
 
-            final List<Station> col = initialStream.collect(Collectors.toList());
-            progData.stationListBlackFiltered.setAll(col);
-            col.clear();
+            //todo
+            PLog.sysLog("START: BlackFilterFactory-getBlackFiltered");
+            progData.stationListBlackFiltered.addAll(initialStream.collect(Collectors.toList()));
         }
         PDuration.counterStop("StationListBlackFilter.getBlackFiltered");
     }
@@ -74,12 +73,9 @@ public class BlackFilterFactory {
         final StationList stationList = progData.stationList;
         loadCurrentFilterSettings();
 
+        PLog.sysLog("START: markStationBlack");
         stationList.stream().forEach(station -> {
-            if (checkBlock(station)) {
-                station.setBlackBlocked(true);
-            } else {
-                station.setBlackBlocked(false);
-            }
+            station.setBlackBlocked(checkBlock(station));
         });
         PDuration.counterStop("StationListBlackFilter.markStationBlack");
     }
@@ -96,21 +92,14 @@ public class BlackFilterFactory {
         if (!name.empty && !StationFilterFactory.checkSenderName(name, station)) {
             return false;
         }
-        if (!genre.empty && !StationFilterFactory.checkGenre(genre, station)) {
-            return false;
-        }
-        return true;
+        return genre.empty || StationFilterFactory.checkGenre(genre, station);
     }
 
     public static boolean isBlackEmpty() {
         //liefert, ob es keine "black" gibt
-        if (ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE.get() == 0 &&
+        return ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE.get() == 0 &&
                 ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE.get() == StationFilterFactory.FILTER_BITRATE_MAX &&
-                progData.blackDataList.isEmpty()) {
-            return true;
-        }
-
-        return false;
+                progData.blackDataList.isEmpty();
     }
 
     private static synchronized boolean checkBlock(Station station) {

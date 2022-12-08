@@ -40,16 +40,14 @@ public class SmallRadioGuiBottom extends HBox {
     private final RadioButton rbSender = new RadioButton("Sender");
     private final RadioButton rbFavourite = new RadioButton("Favoriten");
     private final RadioButton rbLastPlayed = new RadioButton("History");
-    private final SmallRadioGuiPack smallRadioGuiPack;
     private final SmallRadioGuiController smallRadioGuiController;
     private final FavouriteFilter favouriteFilter = new FavouriteFilter();
     Button btnRadio = new Button();
     ProgData progData;
     StringProperty selectedCollectionName = ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME;
 
-    public SmallRadioGuiBottom(SmallRadioGuiPack smallRadioGuiPack, SmallRadioGuiController smallRadioGuiController) {
+    public SmallRadioGuiBottom(SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
-        this.smallRadioGuiPack = smallRadioGuiPack;
         this.smallRadioGuiController = smallRadioGuiController;
         initBottom();
         initStartButton();
@@ -70,7 +68,7 @@ public class SmallRadioGuiBottom extends HBox {
 
         CollectionData collectionData = progData.collectionList.getByName(selectedCollectionName.getValueSafe());
         favouriteFilter.setCollectionData(collectionData);
-        smallRadioGuiPack.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
+        smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
 
         cboCollections.getSelectionModel().select(collectionData);
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
@@ -79,7 +77,7 @@ public class SmallRadioGuiBottom extends HBox {
             }
             selectedCollectionName.setValue(n.getName());
             favouriteFilter.setCollectionData(n);
-            smallRadioGuiPack.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
+            smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
             PDebugLog.sysLog(selectedCollectionName.getValueSafe());
         });
 
@@ -103,7 +101,7 @@ public class SmallRadioGuiBottom extends HBox {
 
     private void initStartButton() {
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> smallRadioGuiPack.changeGui());
+        btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().add("btnTab");
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());

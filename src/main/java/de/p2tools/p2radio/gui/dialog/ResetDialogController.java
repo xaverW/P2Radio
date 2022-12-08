@@ -107,7 +107,7 @@ public class ResetDialogController extends PDialogExtra {
                 ProgData.reset = true;
                 Stage stage = null;
                 if (progData.smallRadioGuiController != null) {
-                    stage = progData.smallRadioGuiController.getSmallRadioGuiPack().getStage();
+                    stage = progData.smallRadioGuiController.getStage();
 
                 } else if (progData.primaryStage.isShowing()) {
                     stage = progData.primaryStage;

@@ -27,9 +27,9 @@ import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TableFavourite extends PTable<Favourite> {
+public class TableSmalRadio extends PTable<Favourite> {
 
-    public TableFavourite(Table.TABLE_ENUM table_enum, ProgData progData) {
+    public TableSmalRadio(Table.TABLE_ENUM table_enum, ProgData progData) {
         super(table_enum);
         this.table_enum = table_enum;
 
@@ -101,7 +101,7 @@ public class TableFavourite extends PTable<Favourite> {
         ownColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Favourite, Integer> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(new CellFavouriteStart().cellFactoryButton);
+        startColumn.setCellFactory(new CellSmallRadioStart().cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_COUNTRY);

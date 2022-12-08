@@ -37,75 +37,71 @@ public class ProgLoadFactory {
      * Senderliste beim Programmstart laden
      */
     public static void loadStationProgStart(boolean firstProgramStart) {
-        // Gui startet ein wenig flüssiger
-        Thread th = new Thread(() -> {
-            final ProgData progData = ProgData.getInstance();
-            PDuration.onlyPing("Programmstart Senderliste laden: start");
+        PLog.sysLog("START: loadStationProgStart");
+        final ProgData progData = ProgData.getInstance();
+        PDuration.onlyPing("Programmstart Senderliste laden: start");
 
-            progData.pEventHandler.notifyListener(
-                    new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
-                            "", "gespeicherte Senderliste laden",
-                            RunEventRadio.PROGRESS_INDETERMINATE, false));
+        progData.pEventHandler.notifyListener(
+                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+                        "", "gespeicherte Senderliste laden",
+                        RunEventRadio.PROGRESS_INDETERMINATE, false));
 
-            final List<String> logList = new ArrayList<>();
-            logList.add("");
-            logList.add(PLog.LILNE1);
+        final List<String> logList = new ArrayList<>();
+        logList.add("");
+        logList.add(PLog.LILNE1);
 
-            if (firstProgramStart) {
-                //dann wird immer geladen
-                logList.add("erster Programmstart: Neue Senderliste laden");
+        if (firstProgramStart) {
+            //dann wird immer geladen
+            logList.add("erster Programmstart: Neue Senderliste laden");
+            progData.loadNewStationList.loadNewStationFromServer();
+
+        } else {
+            // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen
+            logList.add("Programmstart, gespeicherte Senderliste laden");
+            boolean loadOk = SenderLoadFactory.readList();
+            if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
+                //wenn die gespeicherte zu alt ist
+                progData.pEventHandler.notifyListener(
+                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+                                "", "Senderliste zu alt, neue Senderliste laden",
+                                RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
+
+                logList.add("Senderliste zu alt, neue Senderliste laden");
+                logList.add(PLog.LILNE3);
                 progData.loadNewStationList.loadNewStationFromServer();
 
             } else {
-                // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen
-                logList.add("Programmstart, gespeicherte Senderliste laden");
-                boolean loadOk = SenderLoadFactory.readList();
-                if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
-                    //wenn die gespeicherte zu alt ist
-                    progData.pEventHandler.notifyListener(
-                            new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
-                                    "", "Senderliste zu alt, neue Senderliste laden",
-                                    RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
+                progData.pEventHandler.notifyListener(
+                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
+                                "", "Senderliste verarbeiten",
+                                RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
-                    logList.add("Senderliste zu alt, neue Senderliste laden");
-                    logList.add(PLog.LILNE3);
-                    progData.loadNewStationList.loadNewStationFromServer();
+                afterLoadingStationList(logList);
+                logList.add("Liste der Radios geladen");
 
-                } else {
-                    progData.pEventHandler.notifyListener(
-                            new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-                                    "", "Senderliste verarbeiten",
-                                    RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
-
-                    afterLoadingStationList(logList);
-                    logList.add("Liste der Radios geladen");
-
-                    progData.pEventHandler.notifyListener(
-                            new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
-                                    "", "", 0, false));
-                }
+                PLog.sysLog("START: loadStationProgStart FINISHED");
+                progData.pEventHandler.notifyListener(
+                        new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
+                                "", "", 0, false));
             }
+        }
 
-            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-                case 0:
-                    Platform.runLater(() -> progData.stationGuiController.selUrl());
-                    break;
-                case 1:
-                    Platform.runLater(() -> progData.favouriteGuiController.selUrl());
-                    break;
-                case 2:
-                default:
-                    Platform.runLater(() -> progData.lastPlayedGuiController.selUrl());
-                    break;
-            }
+        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+            case 0:
+                Platform.runLater(() -> progData.stationGuiController.selUrl());
+                break;
+            case 1:
+                Platform.runLater(() -> progData.favouriteGuiController.selUrl());
+                break;
+            case 2:
+            default:
+                Platform.runLater(() -> progData.lastPlayedGuiController.selUrl());
+                break;
+        }
 
-            logList.add(PLog.LILNE1);
-            logList.add("");
-            PLog.addSysLog(logList);
-        });
-
-        th.setName("loadStationProgStart");
-        th.start();
+        logList.add(PLog.LILNE1);
+        logList.add("");
+        PLog.addSysLog(logList);
     }
 
     /**

@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigIntPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.IntegerProperty;
@@ -32,8 +32,8 @@ import java.util.ArrayList;
 
 public class StartProps extends PDataSample<Start> {
 
-    private final IntegerProperty no = new SimpleIntegerProperty(FavouriteConstants.FAVOURITE_NUMBER_NOT_STARTED);
-    private final IntegerProperty stationNo = new SimpleIntegerProperty(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+    private final IntegerProperty no = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
+    private final IntegerProperty stationNo = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final StringProperty stationName = new SimpleStringProperty("");
     private final StringProperty url = new SimpleStringProperty("");
     private final StringProperty setDataId = new SimpleStringProperty("");

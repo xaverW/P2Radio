@@ -19,193 +19,19 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgColorList;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.playable.PlayableXml;
-import javafx.beans.property.BooleanProperty;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 public class TableLastPlayed extends PTable<Favourite> {
-
-    private final ProgData progData;
-    private final BooleanProperty small;
-    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryBitrate
-            = (final TableColumn<Favourite, Integer> param) -> {
-
-        final TableCell<Favourite, Integer> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                if (item == 0) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    setGraphic(null);
-                    setText(item + "");
-                }
-            }
-        };
-        return cell;
-    };
-    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
-            = (final TableColumn<Favourite, Integer> param) -> {
-
-        final TableCell<Favourite, Integer> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                Favourite lastPlayed = getTableView().getItems().get(getIndex());
-                final boolean playing = lastPlayed.getStart() != null;
-
-                if (playing) {
-                    //dann stoppen
-                    final Button btnPlay;
-                    btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
-                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        progData.startFactory.stopLastPlayed(lastPlayed);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (small.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-
-                } else {
-                    //starten, nur ein Set
-                    final Button btnPlay;
-                    btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        progData.startFactory.playLastPlayed(lastPlayed);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (small.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-                }
-
-                final Button btnDel;
-                btnDel = new Button("");
-                btnDel.getStyleClass().add("btnSmallRadio");
-                btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
-                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
-                btnDel.setOnAction(event -> {
-                    LastPlayedFactory.deleteHistory(lastPlayed);
-                });
-
-                if (small.get()) {
-                    btnDel.setMinHeight(18);
-                    btnDel.setMaxHeight(18);
-                }
-                hbox.getChildren().add(btnDel);
-                setGraphic(hbox);
-            }
-        };
-        return cell;
-    };
-    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryNo
-            = (final TableColumn<Favourite, Integer> param) -> {
-
-        final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
-
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                if (item == FavouriteConstants.FAVOURITE_NUMBER_NOT_STARTED) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    setGraphic(null);
-                    setText(item + "");
-                }
-            }
-        };
-        return cell;
-    };
-    private final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactorySenderNo
-            = (final TableColumn<Favourite, Integer> param) -> {
-
-        final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
-
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                if (item == FavouriteConstants.STATION_NUMBER_NOT_FOUND) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    setGraphic(null);
-                    setText(item + "");
-                }
-            }
-        };
-        return cell;
-    };
 
     public TableLastPlayed(Table.TABLE_ENUM table_enum, ProgData progData) {
         super(table_enum);
         this.table_enum = table_enum;
-        this.progData = progData;
 
         initFileRunnerColumn();
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     }
 
     public Table.TABLE_ENUM getETable() {
@@ -227,12 +53,12 @@ public class TableLastPlayed extends PTable<Favourite> {
 
         final TableColumn<Favourite, Integer> nrColumn = new TableColumn<>(PlayableXml.STATION_PROP_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        nrColumn.setCellFactory(cellFactoryNo);
+        nrColumn.setCellFactory(new CellNo().cellFactoryNo);
         nrColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Favourite, Integer> senderNoColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NO);
         senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
-        senderNoColumn.setCellFactory(cellFactorySenderNo);
+        senderNoColumn.setCellFactory(new CellNo().cellFactoryNo);
         senderNoColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Favourite, String> senderColumn = new TableColumn<>(PlayableXml.STATION_PROP_STATION_NAME);
@@ -257,7 +83,7 @@ public class TableLastPlayed extends PTable<Favourite> {
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<Favourite, Integer> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(cellFactoryButton);
+        startColumn.setCellFactory(new CellLastPlayedStart().cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Favourite, PDate> countryColumn = new TableColumn<>(PlayableXml.STATION_PROP_DATE);
@@ -310,7 +136,7 @@ public class TableLastPlayed extends PTable<Favourite> {
                         setTooltip(tooltip);
                     }
 
-                    final boolean fav = progData.favouriteList.getUrlStation(lastPlayed.getStationUrl()) != null;
+                    final boolean fav = ProgData.getInstance().favouriteList.getUrlStation(lastPlayed.getStationUrl()) != null;
                     final boolean playing = lastPlayed.getStart() != null;
                     final boolean error = lastPlayed.getStart() != null && lastPlayed.getStart().getStartStatus().isStateError();
 

@@ -17,12 +17,10 @@
 package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.PTableFactory;
+import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
+import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
@@ -30,68 +28,102 @@ import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
-import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TableFavourite;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.scene.control.ContextMenu;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Random;
 
-public class SmallRadioGuiController {
+public class SmallRadioGuiController extends PDialogOnly {
 
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;
-    private final TableFavourite tableView;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
-    private final SmallRadioGuiPack smallRadioGuiPack;
+    private final FilteredList<Favourite> filteredFavourites;
 
-    public SmallRadioGuiController(SmallRadioGuiPack smallRadioGuiPack) {
-        this.smallRadioGuiPack = smallRadioGuiPack;
+    public SmallRadioGuiController() {
+        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
+                "Radio", false, false, true);
+
         progData = ProgData.getInstance();
-        smallRadioGuiCenter = new SmallRadioGuiCenter(smallRadioGuiPack);
-        smallRadioGuiBottom = new SmallRadioGuiBottom(smallRadioGuiPack, this);
+        ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
+        filteredFavourites = new FilteredList<>(progData.favouriteList, p -> true);
+        progData.smallRadioGuiController = this;
 
-        tableView = new TableFavourite(Table.TABLE_ENUM.SMALL_RADIO, progData, true);
-
-        make();
+        smallRadioGuiCenter = new SmallRadioGuiCenter(this);
+        smallRadioGuiBottom = new SmallRadioGuiBottom(this);
         favouriteGuiInfoController = new FavouriteGuiInfoController();
-//        initListener();
+
+        init(true);
     }
 
-    private void make() {
-        smallRadioGuiPack.getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiCenter, smallRadioGuiBottom);
+    @Override
+    public void make() {
+        SmallRadioFactory.addBorderListener(getStage());
+        getStage().initStyle(StageStyle.TRANSPARENT);
+        getVBoxCompleteDialog().getStyleClass().add("smallRadio");
+
+        getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiCenter, smallRadioGuiBottom);
         VBox.setVgrow(smallRadioGuiCenter, Priority.ALWAYS);
+
+        VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
+        getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                changeGui();
+            }
+        });
+        getStage().setOnCloseRequest(e -> {
+            e.consume();
+            close();
+        });
+    }
+
+    @Override
+    public void close() {
+        saveMe();
+        super.close();
+    }
+
+    public FilteredList<Favourite> getFiltertFavourite() {
+        return filteredFavourites;
     }
 
     public PMaskerPane getMaskerPane() {
-        return smallRadioGuiPack.getMaskerPane();
+        return super.getMaskerPane();
     }
 
-    public SmallRadioGuiPack getSmallRadioGuiPack() {
-        return smallRadioGuiPack;
+    private void saveMe() {
+        progData.smallRadioGuiController.saveTable();
+        PGuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
+    }
+
+    public void changeGui() {
+        close();
+        ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
+        progData.smallRadioGuiController = null;
+
+        Platform.runLater(() -> {
+                    PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
+                    progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
+                    progData.primaryStage.setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+                    progData.primaryStage.show();
+                }
+        );
     }
 
     public void tableRefresh() {
-        tableView.refresh();
+        smallRadioGuiCenter.tableRefresh();
     }
 
     public void isShown() {
-        tableView.requestFocus();
+        smallRadioGuiCenter.isShown();
         setSelectedFavourite();
-    }
-
-    public int getFavouritesShown() {
-        return tableView.getItems().size();
     }
 
     public void copyUrl() {
@@ -103,7 +135,7 @@ public class SmallRadioGuiController {
     }
 
     private void setSelectedFavourite() {
-        Favourite favourite = tableView.getSelectionModel().getSelectedItem();
+        Favourite favourite = smallRadioGuiCenter.getSel().get();
         if (favourite != null) {
             favouriteGuiInfoController.setFavourite(favourite);
             Station station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
@@ -205,16 +237,11 @@ public class SmallRadioGuiController {
     }
 
     public void saveTable() {
-        Table.saveTable(tableView, Table.TABLE_ENUM.SMALL_RADIO);
+        smallRadioGuiCenter.saveTable();
     }
 
     public ArrayList<Favourite> getSelList() {
-        final ArrayList<Favourite> ret = new ArrayList<>();
-        ret.addAll(tableView.getSelectionModel().getSelectedItems());
-        if (ret.isEmpty()) {
-            PAlert.showInfoNoSelection();
-        }
-        return ret;
+        return smallRadioGuiCenter.getSelList();
     }
 
     public Optional<Favourite> getSel() {
@@ -222,107 +249,10 @@ public class SmallRadioGuiController {
     }
 
     public Optional<Favourite> getSel(boolean show) {
-        final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
-        if (selectedTableRow >= 0) {
-            return Optional.of(tableView.getSelectionModel().getSelectedItem());
-        }
-
-        if (show) {
-            PAlert.showInfoNoSelection();
-        }
-        return Optional.empty();
-    }
-
-    public void selUrl() {
-        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream()
-                .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
-        if (optional.isPresent()) {
-            tableView.getSelectionModel().select(optional.get());
-            int sel = tableView.getSelectionModel().getSelectedIndex();
-            tableView.scrollTo(sel);
-        }
-    }
-
-    public void setNextStation() {
-        PTableFactory.selectNextRow(tableView);
-    }
-
-    public void setPreviousStation() {
-        PTableFactory.selectPreviousRow(tableView);
+        return smallRadioGuiCenter.getSel();
     }
 
     public void playRandomStation() {
-        Random r = new Random();
-        Favourite favourite = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
-        tableView.getSelectionModel().clearSelection();
-        if (favourite != null) {
-            progData.startFactory.playFavourite(favourite);
-            tableView.getSelectionModel().select(favourite);
-            tableView.scrollTo(favourite);
-        }
-    }
-
-    private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void pingGui(PEvent event) {
-                tableView.refresh();
-            }
-        });
-        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
-            @Override
-            public void pingGui(PEvent runEvent) {
-                PTableFactory.refreshTable(tableView);
-            }
-        });
-    }
-
-    private void initTable() {
-        Table.setTable(tableView);
-
-        FilteredList<Favourite> filteredFavourites = smallRadioGuiPack.getFiltertFavourite();
-        SortedList<Favourite> sortedFavourites = new SortedList<>(filteredFavourites);
-        tableView.setItems(sortedFavourites);
-        sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
-        Platform.runLater(() -> PTableFactory.refreshTable(tableView));
-
-        tableView.setOnMouseClicked(m -> {
-            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
-                changeFavourite(false);
-            }
-        });
-        tableView.setOnMousePressed(m -> {
-            if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Favourite> optionalDownload = getSel(false);
-                Favourite favourite;
-                if (optionalDownload.isPresent()) {
-                    favourite = optionalDownload.get();
-                } else {
-                    favourite = null;
-                }
-                ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData, this, tableView)
-                        .getContextMenu(favourite);
-                tableView.setContextMenu(contextMenu);
-            }
-        });
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> setSelectedFavourite());
-        });
-        tableView.getItems().addListener((ListChangeListener<Favourite>) c -> {
-            if (tableView.getItems().size() == 1) {
-                // wenns nur eine Zeile gibt, dann gleich selektieren
-                tableView.getSelectionModel().select(0);
-            }
-        });
-        tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (PTableFactory.SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
-                event.consume();
-            }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
-                event.consume();
-            }
-        });
+        smallRadioGuiCenter.playRandomStation();
     }
 }

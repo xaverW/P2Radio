@@ -34,7 +34,7 @@ import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TableFavourite;
+import de.p2tools.p2radio.gui.tools.table.TableSmalRadio;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
@@ -58,20 +58,20 @@ import java.util.Random;
 public class SmallRadioGuiCenter extends HBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableFavourite tableView;
+    private final TableSmalRadio tableView;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
-    private final SmallRadioGuiPack smallRadioGuiPack;
     private final Button btnPrev = new Button();
     private final Button btnNext = new Button();
     private final Button btnClose = new Button();
     private final Button btnRadio = new Button();
+    private final SmallRadioGuiController smallRadioGuiController;
 
 
-    public SmallRadioGuiCenter(SmallRadioGuiPack smallRadioGuiPack) {
-        this.smallRadioGuiPack = smallRadioGuiPack;
+    public SmallRadioGuiCenter(SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
-        tableView = new TableFavourite(Table.TABLE_ENUM.SMALL_RADIO, progData, true);
+        this.smallRadioGuiController = smallRadioGuiController;
+        tableView = new TableSmalRadio(Table.TABLE_ENUM.SMALL_RADIO, progData);
 
         make();
         favouriteGuiInfoController = new FavouriteGuiInfoController();
@@ -96,18 +96,19 @@ public class SmallRadioGuiCenter extends HBox {
         vBoxRight.setAlignment(Pos.CENTER);
         vBoxLeft.getChildren().addAll(btnRadio, PGuiTools.getVBoxGrower(), btnPrev, PGuiTools.getVBoxGrower());
         vBoxRight.getChildren().addAll(btnClose, PGuiTools.getVBoxGrower(), btnNext, PGuiTools.getVBoxGrower());
-//        vBoxLeft.getChildren().addAll(btnPrev);
-//        vBoxRight.getChildren().addAll(btnNext);
         getChildren().addAll(vBoxLeft, scrollPane, vBoxRight);
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
-        btnClose.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
+        btnClose.setOnAction(e -> {
+            smallRadioGuiController.close();
+            ProgQuitFactory.quit(progData.primaryStage, true);
+        });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().add("btnTab");
         btnClose.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> smallRadioGuiPack.changeGui());
+        btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().add("btnTab");
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
@@ -128,11 +129,7 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     public PMaskerPane getMaskerPane() {
-        return smallRadioGuiPack.getMaskerPane();
-    }
-
-    public SmallRadioGuiPack getSmallRadioGuiPack() {
-        return smallRadioGuiPack;
+        return smallRadioGuiController.getMaskerPane();
     }
 
     public void tableRefresh() {
@@ -334,7 +331,7 @@ public class SmallRadioGuiCenter extends HBox {
     private void initTable() {
         Table.setTable(tableView);
 
-        FilteredList<Favourite> filteredFavourites = smallRadioGuiPack.getFiltertFavourite();
+        FilteredList<Favourite> filteredFavourites = smallRadioGuiController.getFiltertFavourite();
         SortedList<Favourite> sortedFavourites = new SortedList<>(filteredFavourites);
         tableView.setItems(sortedFavourites);
         sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());

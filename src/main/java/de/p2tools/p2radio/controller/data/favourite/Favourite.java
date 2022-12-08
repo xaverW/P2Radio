@@ -18,6 +18,7 @@ package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.playable.PlayableProperty;
 import de.p2tools.p2radio.controller.data.start.Start;
@@ -76,7 +77,7 @@ public final class Favourite extends PlayableProperty implements Playable {
     public void setStation(Station station) {
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
-            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+            setStationNo(ProgConst.NUMBER_DONT_USED);
             return;
         }
 
@@ -100,7 +101,7 @@ public final class Favourite extends PlayableProperty implements Playable {
     public void setFavourite(Favourite favourite) {
         if (favourite == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
-            setStationNo(FavouriteConstants.STATION_NUMBER_NOT_FOUND);
+            setStationNo(ProgConst.NUMBER_DONT_USED);
             return;
         }
 
