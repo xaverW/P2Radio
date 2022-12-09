@@ -32,7 +32,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class CellStationStart<S, T> extends TableCell<S, T> {
+public class CellStartStation<S, T> extends TableCell<S, T> {
 
     public final Callback<TableColumn<Station, String>, TableCell<Station, String>> cellFactoryStart
             = (final TableColumn<Station, String> param) -> {

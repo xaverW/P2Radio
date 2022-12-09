@@ -22,7 +22,7 @@ import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
-import de.p2tools.p2radio.gui.tools.table.TableLastPlayed;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -34,9 +34,9 @@ public class LastPlayedGuiTableContextMenu {
 
     private final ProgData progData;
     private final LastPlayedGuiController lastPlayedGuiController;
-    private final TableLastPlayed tableView;
+    private final TablePlayable tableView;
 
-    public LastPlayedGuiTableContextMenu(ProgData progData, LastPlayedGuiController lastPlayedGuiController, TableLastPlayed tableView) {
+    public LastPlayedGuiTableContextMenu(ProgData progData, LastPlayedGuiController lastPlayedGuiController, TablePlayable tableView) {
         this.progData = progData;
         this.lastPlayedGuiController = lastPlayedGuiController;
         this.tableView = tableView;

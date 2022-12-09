@@ -34,7 +34,7 @@ import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TableSmalRadio;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
@@ -58,7 +58,7 @@ import java.util.Random;
 public class SmallRadioGuiCenter extends HBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableSmalRadio tableView;
+    private final TablePlayable<Favourite> tableView;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
     private final Button btnPrev = new Button();
@@ -71,7 +71,7 @@ public class SmallRadioGuiCenter extends HBox {
     public SmallRadioGuiCenter(SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
         this.smallRadioGuiController = smallRadioGuiController;
-        tableView = new TableSmalRadio(Table.TABLE_ENUM.SMALL_RADIO, progData);
+        tableView = new TablePlayable<Favourite>(Table.TABLE_ENUM.SMALL_RADIO);
 
         make();
         favouriteGuiInfoController = new FavouriteGuiInfoController();

@@ -43,6 +43,8 @@ public interface Playable {
     void setBlackBlocked(boolean set);
 
     //====================================
+    boolean isNewStation();
+
     int getNo();
 
     int getStationNo();
@@ -73,6 +75,8 @@ public interface Playable {
 
     String getCountry();
 
+    String getState();
+    
     String getLanguage();
 
     String getCountryCode();

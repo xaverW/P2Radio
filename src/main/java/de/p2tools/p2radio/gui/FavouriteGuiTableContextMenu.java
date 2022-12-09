@@ -20,7 +20,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.gui.tools.table.TableFavourite;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -32,9 +32,9 @@ public class FavouriteGuiTableContextMenu {
 
     private final ProgData progData;
     private final FavouriteGuiController favouriteGuiController;
-    private final TableFavourite tableView;
+    private final TablePlayable tableView;
 
-    public FavouriteGuiTableContextMenu(ProgData progData, FavouriteGuiController favouriteGuiController, TableFavourite tableView) {
+    public FavouriteGuiTableContextMenu(ProgData progData, FavouriteGuiController favouriteGuiController, TablePlayable tableView) {
         this.progData = progData;
         this.favouriteGuiController = favouriteGuiController;
         this.tableView = tableView;

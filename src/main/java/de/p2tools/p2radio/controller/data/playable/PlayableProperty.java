@@ -44,6 +44,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     private final IntegerProperty clickCount = new SimpleIntegerProperty();
     private final IntegerProperty clickTrend = new SimpleIntegerProperty();
     private final StringProperty country = new SimpleStringProperty("");
+    private final StringProperty state = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
@@ -72,6 +73,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new ConfigIntPropExtra("clickTrend", PlayableXml.STATION_PROP_CLICK_TREND, clickTrend));
 
         list.add(new ConfigStringPropExtra("country", PlayableXml.STATION_PROP_COUNTRY, country));
+        list.add(new ConfigStringPropExtra("state", PlayableXml.STATION_PROP_STATE, state));
         list.add(new ConfigStringPropExtra("countryCode", PlayableXml.STATION_PROP_COUNTRY_CODE, countryCode));
         list.add(new ConfigStringPropExtra("language", PlayableXml.STATION_PROP_LANGUAGE, language));
         list.add(new ConfigStringPropExtra("description", PlayableXml.STATION_PROP_DESCRIPTION, description));
@@ -271,6 +273,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public StringProperty countryProperty() {
         return country;
+    }
+
+    public String getState() {
+        return state.get();
+    }
+
+    public void setState(String state) {
+        this.state.set(state);
+    }
+
+    public StringProperty stateProperty() {
+        return state;
     }
 
     public String getCountryCode() {

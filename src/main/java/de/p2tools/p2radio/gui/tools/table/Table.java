@@ -42,7 +42,7 @@ public class Table {
     private static StringProperty confVis; //Spalte ist sichtbar
     private static StringProperty confOrder; //"Reihenfolge" der Spalten
 
-    public static void setTable(PTable table) {
+    public static void setTable(TablePlayable table) {
         // Tabelle setzen
         try {
             initConf(table.getETable());
@@ -130,7 +130,7 @@ public class Table {
         confOrder.set(order);
     }
 
-    public static void resetTable(PTable ta) {
+    public static void resetTable(TablePlayable ta) {
         initConf(ta.getETable());
         reset(ta);
         setTable(ta);

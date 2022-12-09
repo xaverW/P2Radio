@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
@@ -33,12 +34,17 @@ public class StartFactory {
         this.progData = progData;
     }
 
+    public void stopPlayable(Playable favourite) {
+        if (favourite.getStart() != null) {
+            favourite.getStart().stopStart();
+        }
+    }
+
     public void stopStation(Station station) {
         if (station.getStart() != null) {
             station.getStart().stopStart();
         }
     }
-
 
     public void stopFavourite(Favourite favourite) {
         if (favourite.getStart() != null) {
@@ -93,6 +99,19 @@ public class StartFactory {
         startUrlWithProgram(station, setData);
     }
 
+    public void playPlayable(Playable favourite) {
+        playPlayable(favourite, null);
+    }
+
+    public void playPlayable(Playable favourite, SetData data) {
+        SetData setData = checkSetData(data);
+        if (setData == null) {
+            return;
+        }
+        // und starten
+        startUrlWithProgram(favourite, setData);
+    }
+
     public void playFavourite(Favourite favourite) {
         playFavourite(favourite, null);
     }
@@ -132,6 +151,22 @@ public class StartFactory {
     }
 
     private synchronized void startUrlWithProgram(Station station, SetData setData) {
+        final String url = station.getStationUrl();
+        if (!url.isEmpty()) {
+            progData.lastPlayedList.addStation(station);
+
+            progData.startFactory.stopAll();
+            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
+
+            final Start start = new Start(setData, station);
+            station.setStart(start);
+            start.initStart();
+
+            startStart(start);
+        }
+    }
+
+    private synchronized void startUrlWithProgram(Playable station, SetData setData) {
         final String url = station.getStationUrl();
         if (!url.isEmpty()) {
             progData.lastPlayedList.addStation(station);

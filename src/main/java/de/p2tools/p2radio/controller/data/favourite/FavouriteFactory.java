@@ -20,6 +20,7 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
@@ -76,6 +77,14 @@ public class FavouriteFactory {
                 f.copyToMe(fCopy);
             }
             ProgData.getInstance().collectionList.updateNames();//könnte ja geändert sein
+        }
+    }
+
+    public static void deletePlayable(Playable favourite) {
+        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
+                "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
+            ProgData.getInstance().favouriteList.remove(favourite);
+            StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
     }
 

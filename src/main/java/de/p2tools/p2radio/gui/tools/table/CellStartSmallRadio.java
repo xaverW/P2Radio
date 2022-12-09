@@ -32,7 +32,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class CellFavouriteStart<S, T> extends TableCell<S, T> {
+public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
 
     public final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
             = (final TableColumn<Favourite, Integer> param) -> {
@@ -100,7 +100,6 @@ public class CellFavouriteStart<S, T> extends TableCell<S, T> {
                 final Button btnDel;
                 btnDel = new Button("");
                 btnDel.getStyleClass().add("btnSmallRadio");
-
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {

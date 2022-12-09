@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.station.Station;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -96,6 +97,16 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
             //dann gibts ihn noch nicht
             Favourite lastPlayed = new Favourite();
             lastPlayed.setFavourite(favourite);
+            this.add(0, lastPlayed);
+        }
+        reCount();
+    }
+
+    public synchronized void addStation(Playable station) {
+        if (!checkUrl(station.getStationUrl())) {
+            //dann gibts ihn noch nicht
+            Favourite lastPlayed = new Favourite();
+            lastPlayed.setStation(station);
             this.add(0, lastPlayed);
         }
         reCount();

@@ -74,6 +74,26 @@ public final class Favourite extends PlayableProperty implements Playable {
         return false;
     }
 
+    public void setStation(Playable station) {
+        if (station == null) {
+            // bei gespeicherten Sendern kann es den Sender nicht mehr geben
+            setStationNo(ProgConst.NUMBER_DONT_USED);
+            return;
+        }
+
+        setStationNo(station.getNo());
+        setStationName(station.getStationName());
+        setGenre(station.getGenre());
+        setCodec(station.getCodec());
+        setBitrate(station.getBitrate());
+        setCountry(station.getCountry());
+        setCountryCode(station.getCountryCode());
+        setLanguage(station.getLanguage());
+        setWebsite(station.getWebsite());
+        setStationUrl(station.getStationUrl());
+        setStationDate(station.getStationDate());
+    }
+
     public void setStation(Station station) {
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben

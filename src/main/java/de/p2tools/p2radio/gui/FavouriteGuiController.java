@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TableFavourite;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -52,7 +52,7 @@ public class FavouriteGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableFavourite tableView;
+    private final TablePlayable<Favourite> tableView;
 
     private final ProgData progData;
     private final SortedList<Favourite> sortedFavourites;
@@ -63,7 +63,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     public FavouriteGuiController() {
         progData = ProgData.getInstance();
-        tableView = new TableFavourite(Table.TABLE_ENUM.FAVOURITE, progData);
+        tableView = new TablePlayable(Table.TABLE_ENUM.FAVOURITE);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -173,7 +173,8 @@ public class FavouriteGuiController extends AnchorPane {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream().filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
+        Optional<Favourite> optional = tableView.getItems().stream()
+                .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
             int sel = tableView.getSelectionModel().getSelectedIndex();

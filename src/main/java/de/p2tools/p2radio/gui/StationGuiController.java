@@ -27,7 +27,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TableStation;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -54,7 +54,7 @@ public class StationGuiController extends AnchorPane {
 
     private final TabPane infoTab = new TabPane();
     private final TilePane tilePaneButton = new TilePane();
-    private final TableStation tableView;
+    private final TablePlayable<Station> tableView;
     private final ProgData progData;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
@@ -65,7 +65,7 @@ public class StationGuiController extends AnchorPane {
 
     public StationGuiController() {
         progData = ProgData.getInstance();
-        tableView = new TableStation(Table.TABLE_ENUM.STATION, progData);
+        tableView = new TablePlayable(Table.TABLE_ENUM.STATION);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);

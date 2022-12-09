@@ -54,7 +54,7 @@ public class SmallRadioGuiBottom extends HBox {
     }
 
     private void initBottom() {
-        setPadding(new Insets(5, 10, 5, 10));
+        setPadding(new Insets(5, 10, 10, 10));
 
         //Collection
         ToggleGroup tg = new ToggleGroup();
@@ -82,21 +82,23 @@ public class SmallRadioGuiBottom extends HBox {
         });
 
         HBox hBoxRb = new HBox(5);
+        hBoxRb.setAlignment(Pos.CENTER);
         hBoxRb.getChildren().addAll(rbSender, rbFavourite, rbLastPlayed);
         VBox vbColl = new VBox(5);
-        vbColl.getChildren().addAll(hBoxRb, cboCollections);
+        vbColl.getChildren().addAll(hBoxRb);
 
         HBox hBoxCollect = new HBox(15);
         hBoxCollect.setAlignment(Pos.CENTER);
-        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), vbColl, btnClearFilter);
+        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), cboCollections, btnClearFilter);
 
+        vbColl.getChildren().add(hBoxCollect);
 
         HBox hBoxButton = new HBox(5);
-        hBoxButton.setAlignment(Pos.CENTER_RIGHT);
+        hBoxButton.setAlignment(Pos.BOTTOM_RIGHT);
         hBoxButton.getChildren().addAll(btnStart, btnStop, PGuiTools.getHDistance(20), btnRandom);
 
-        setAlignment(Pos.CENTER);
-        getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(), hBoxCollect, PGuiTools.getHBoxGrower(), hBoxButton);
+        setAlignment(Pos.BOTTOM_CENTER);
+        getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initStartButton() {

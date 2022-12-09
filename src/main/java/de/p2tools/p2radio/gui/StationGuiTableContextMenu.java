@@ -22,7 +22,7 @@ import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
-import de.p2tools.p2radio.gui.tools.table.TableStation;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -32,9 +32,9 @@ public class StationGuiTableContextMenu {
 
     private final ProgData progData;
     private final StationGuiController stationGuiController;
-    private final TableStation tableView;
+    private final TablePlayable tableView;
 
-    public StationGuiTableContextMenu(ProgData progData, StationGuiController stationGuiController, TableStation tableView) {
+    public StationGuiTableContextMenu(ProgData progData, StationGuiController stationGuiController, TablePlayable tableView) {
         this.progData = progData;
         this.stationGuiController = stationGuiController;
         this.tableView = tableView;

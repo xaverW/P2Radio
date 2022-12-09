@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TableLastPlayed;
+import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -52,7 +52,7 @@ public class LastPlayedGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableLastPlayed tableView;
+    private final TablePlayable<Favourite> tableView;
     private final ProgData progData;
     private final LastPlayedGuiInfoController lastPlayedGuiInfoController;
     private final LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
@@ -62,7 +62,7 @@ public class LastPlayedGuiController extends AnchorPane {
 
     public LastPlayedGuiController() {
         progData = ProgData.getInstance();
-        tableView = new TableLastPlayed(Table.TABLE_ENUM.LAST_PLAYED, progData);
+        tableView = new TablePlayable(Table.TABLE_ENUM.LAST_PLAYED);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);

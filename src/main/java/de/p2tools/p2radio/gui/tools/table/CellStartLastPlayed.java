@@ -32,7 +32,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class CellLastPlayedStart<S, T> extends TableCell<S, T> {
+public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
     public final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
             = (final TableColumn<Favourite, Integer> param) -> {
 
