@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.radiosReadWriteFile.StationSaveFactory;
 
 import java.nio.file.Path;
 
@@ -33,7 +34,7 @@ public class ProgSaveFactory {
     public static void saveAll() {
         PLog.sysLog("save all data");
         saveProgConfig();
-        SenderSaveFactory.saveStationListJson();
+        StationSaveFactory.saveStationListJson();
     }
 
     public static void saveProgConfig() {

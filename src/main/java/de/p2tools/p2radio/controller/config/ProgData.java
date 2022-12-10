@@ -33,7 +33,7 @@ import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.getNewStationList.LoadNewStationList;
+import de.p2tools.p2radio.controller.radiosLoadFromWeb.LoadNewStationList;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;

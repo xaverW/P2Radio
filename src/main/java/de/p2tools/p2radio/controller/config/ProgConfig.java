@@ -109,12 +109,13 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty STATION_GUI_TABLE_ORDER = addStr("station-gui-table-order");
     //Gui SmallRadio
     public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size", "600:400");
-    public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50.0,70.0,205.0,87.0,88.0,80.0,185.0,80.0,80.0,80.0,112.0,80.0,80.0,80.0,80.0,80.0");
+    public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50,70,141,86,93,87,74,55,55,180,57,61,66,62,195,99,111,82,252,393");
     public static StringProperty SMALL_RADIO_TABLE_SORT = addStr("small-radio-table-sort");
     public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");
-    public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "false,false,true,true,true,false,true,false,false,false,true,false,false,false,false,false");
-    public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "Nr,SenderNr,Sender,Sammlung,Bewertung,Starts,Genre,Codec,Bitrate,Eigener,,Land,Land,Sprache,Datum,URL");
+    public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
+    public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "");
     public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStr("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
+
     // Gui Favorite
     public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDouble("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty FAVOURITE_GUI_FILTER_DIVIDER_ON = addBool("favourite-gui-filter-divider-on", Boolean.TRUE);

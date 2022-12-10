@@ -36,8 +36,8 @@ public class PlayableXml {
     public static final int STATION_PROP_COLLECTION_INT = 4;
     public static final String STATION_PROP_COLLECTION = "Sammlung";
 
-    public static final int STATION_PROP_GRADE_INT = 5;
-    public static final String STATION_PROP_GRADE = "Bewertung";
+    public static final int STATION_PROP_OWN_GRADE_INT = 5;
+    public static final String STATION_PROP_OWN_GRADE = "Bewertung";
 
     public static final int STATION_PROP_CLICK_COUNT_INT = 6;
     public static final String STATION_PROP_CLICK_COUNT = "Starts";
@@ -75,7 +75,7 @@ public class PlayableXml {
     public static final String STATION_PROP_LANGUAGE = "Sprache";
 
     public static final int STATION_PROP_VOTES_INT = 17;
-    public static final String STATION_PROP_VOTES = "Bewertung";
+    public static final String STATION_PROP_VOTES = "Stimmen";
 
     public static final int STATION_PROP_DESCRIPTION_INT = 18;
     public static final String STATION_PROP_DESCRIPTION = "Beschreibung";
@@ -105,7 +105,7 @@ public class PlayableXml {
 
     public static String[] COLUMN_NAMES = {
             STATION_PROP_NO, STATION_PROP_STATION_NO, STATION_PROP_STATION_NEW,
-            STATION_PROP_STATION_NAME, STATION_PROP_COLLECTION, STATION_PROP_GRADE,
+            STATION_PROP_STATION_NAME, STATION_PROP_COLLECTION, STATION_PROP_OWN_GRADE,
             STATION_PROP_CLICK_COUNT, STATION_PROP_CLICK_TREND, STATION_PROP_GENRE, STATION_PROP_CODEC,
             STATION_PROP_BITRATE, STATION_PROP_INT_BITRATE, STATION_PROP_OWN,
             STATION_PROP_COUNTRY, STATION_PROP_STATE, STATION_PROP_COUNTRY_CODE, STATION_PROP_LANGUAGE, STATION_PROP_VOTES,

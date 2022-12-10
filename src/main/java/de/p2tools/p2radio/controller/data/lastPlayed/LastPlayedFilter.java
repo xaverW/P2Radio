@@ -71,7 +71,7 @@ public class LastPlayedFilter extends LastPlayedFilterXml {
         Predicate<Favourite> predicate = favourite -> true;
 
         if (gradeFilter.get()) {
-            predicate = predicate.and(favourite -> favourite.getGrade() > 0);
+            predicate = predicate.and(favourite -> favourite.getOwnGrade() > 0);
         }
         if (!genreFilter.get().isEmpty()) {
             predicate = predicate.and(favourite -> check(genreFilter.get(), favourite.getGenre()));

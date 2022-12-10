@@ -76,20 +76,24 @@ public class TablePlayable<T> extends TableView<T> {
         collectionColumn.setComparator(sorter);
 
         final TableColumn<T, Integer> startColumn = new TableColumn<>("");
-        if (this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
-            startColumn.setCellFactory(new CellStartStation().cellFactoryStart);
-        } else if (this.table_enum.equals(Table.TABLE_ENUM.FAVOURITE)) {
-            startColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
-        } else if (this.table_enum.equals(Table.TABLE_ENUM.LAST_PLAYED)) {
-            startColumn.setCellFactory(new CellStartLastPlayed().cellFactoryButton);
-        } else {
-            //dann smallRadio
-            startColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
-        }
         startColumn.getStyleClass().add("alignCenter");
+        switch (this.table_enum) {
+            case STATION:
+                startColumn.setCellFactory(new CellStartStation().cellFactoryStart);
+                break;
+            case FAVOURITE:
+                startColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
+                break;
+            case LAST_PLAYED:
+                startColumn.setCellFactory(new CellStartLastPlayed().cellFactoryButton);
+                break;
+            case SMALL_RADIO:
+            default:
+                startColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
+        }
 
-        final TableColumn<T, Integer> gradeColumn = new TableColumn<>(PlayableXml.STATION_PROP_GRADE);
-        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        final TableColumn<T, Integer> gradeColumn = new TableColumn<>(PlayableXml.STATION_PROP_OWN_GRADE);
+        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("ownGrade"));
         gradeColumn.setCellFactory(new CellGrade().cellFactoryGrade);
 
         final TableColumn<T, Integer> clickCountColumn = new TableColumn<>(PlayableXml.STATION_PROP_CLICK_COUNT);
@@ -156,12 +160,17 @@ public class TablePlayable<T> extends TableView<T> {
         genreColumn.setPrefWidth(180);
 
         setRowFactory(tv -> new TableRowPlayable<>());
+
         getColumns().addAll(
                 nrColumn, senderNoColumn,
-                senderColumn, collectionColumn, startColumn, gradeColumn,
-                clickCountColumn, clickTrendColumn, genreColumn,
-                codecColumn, bitrateColumn, ownColumn, stateColumn, countryColumn,
-                countryCodeColumn, languageColumn, votesColumn,
+                senderColumn, collectionColumn, startColumn);
+        if (!this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
+            getColumns().addAll(gradeColumn);
+        }
+        getColumns().addAll(
+                votesColumn, clickCountColumn, clickTrendColumn,
+                genreColumn, codecColumn, bitrateColumn, ownColumn, stateColumn,
+                countryColumn, countryCodeColumn, languageColumn,
                 datumColumn, websiteColumn, urlColumn);
     }
 }

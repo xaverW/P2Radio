@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.getNewStationList;
+package de.p2tools.p2radio.controller.radiosLoadFromWeb;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -22,8 +22,6 @@ import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.ProgLoadFactory;
-import de.p2tools.p2radio.controller.SenderLoadFactory;
-import de.p2tools.p2radio.controller.SenderSaveFactory;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
@@ -31,6 +29,8 @@ import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
+import de.p2tools.p2radio.controller.radiosReadWriteFile.StationLoadFactory;
+import de.p2tools.p2radio.controller.radiosReadWriteFile.StationSaveFactory;
 import de.p2tools.p2radio.controller.worker.PMaskerFactory;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -46,13 +46,11 @@ public class LoadNewStationList {
 
     private static final AtomicBoolean stop = new AtomicBoolean(false); //damit kann das Laden gestoppt werden
     private final ProgData progData;
-    private final ReadStations readStations;
     private final HashSet<String> hashSet = new HashSet<>();
     private final BooleanProperty propLoadStationList = new SimpleBooleanProperty(false);
 
     public LoadNewStationList(ProgData progData) {
         this.progData = progData;
-        readStations = new ReadStations();
 
         progData.pEventHandler.addListener(new PListener(Events.READ_STATIONS) {
             public <T extends PEvent> void pingGui(T runEvent) {
@@ -78,7 +76,7 @@ public class LoadNewStationList {
                                 new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
                                         "", "Sender verarbeiten",
                                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
-//
+
                         PLog.addSysLog("Liste der Radios geladen");
                         PLog.sysLog(PLog.LILNE1);
                         PLog.addSysLog("");
@@ -118,6 +116,7 @@ public class LoadNewStationList {
     }
 
     public void loadNewStationFromServer() {
+        //das Laden wird gestartet, wenns noch nicht läuft
         if (getPropLoadStationList()) {
             // nicht doppelt starten
             return;
@@ -139,14 +138,14 @@ public class LoadNewStationList {
         fillHash(logList, progData.stationList);
         PMaskerFactory.setMaskerButtonVisible(progData, true);
 
-        if (progData.smallRadioGuiController != null) {
-            progData.smallRadioGuiController.getMaskerPane().setButtonVisible(true);
-        }
+        //todo
+//        if (progData.smallRadioGuiController != null) {
+//            progData.smallRadioGuiController.getMaskerPane().setButtonVisible(true);
+//        }
         progData.stationList.clear();
         progData.stationListBlackFiltered.clear();
         setStop(false);
-        readStations.loadNewStationList(progData.stationList);
-
+        new ReadRadiosFromWebThread().loadNewStationList(progData.stationList);
         PLog.addSysLog(logList);
     }
 
@@ -172,7 +171,7 @@ public class LoadNewStationList {
             // dann die alte Liste wieder laden
             progData.stationList.clear();
             setStop(false);
-            SenderLoadFactory.readList();
+            StationLoadFactory.readList();
             logList.add("");
 
         } else {
@@ -187,7 +186,7 @@ public class LoadNewStationList {
             logList.add("Sender schreiben (" + progData.stationList.size() + " Sender) :");
             logList.add("   --> Start Schreiben nach: " + ProgInfos.getStationFileJsonString());
 
-            SenderSaveFactory.saveStationListJson();
+            StationSaveFactory.saveStationListJson();
             logList.add("   --> geschrieben!");
             logList.add("");
         }

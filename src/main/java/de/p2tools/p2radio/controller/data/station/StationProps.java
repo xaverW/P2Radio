@@ -35,7 +35,7 @@ public class StationProps extends PDataSample<Station> {
     private int votes = 0;
     private int clickCount = 0;
     private int clickTrend = 0;
-    private int grade = 0;
+    private int ownGrade = 0;
 
     private boolean favouriteUrl = false;
     private boolean doubleUrl = false;
@@ -97,10 +97,10 @@ public class StationProps extends PDataSample<Station> {
 
     public void setVotes(String votes) {
         try {
-            this.bitrateInt = Integer.parseInt(votes);
+            this.votes = Integer.parseInt(votes);
             arr[PlayableXml.STATION_PROP_VOTES_INT] = votes;
         } catch (Exception ex) {
-            this.bitrateInt = 0;
+            this.votes = 0;
             arr[PlayableXml.STATION_PROP_VOTES_INT] = "0";
         }
     }
@@ -115,10 +115,10 @@ public class StationProps extends PDataSample<Station> {
 
     public void setClickCount(String clickCount) {
         try {
-            this.bitrateInt = Integer.parseInt(clickCount);
+            this.clickCount = Integer.parseInt(clickCount);
             arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = clickCount;
         } catch (Exception ex) {
-            this.bitrateInt = 0;
+            this.clickCount = 0;
             arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = "0";
         }
     }
@@ -134,10 +134,10 @@ public class StationProps extends PDataSample<Station> {
 
     public void setClickTrend(String clickTrend) {
         try {
-            this.bitrateInt = Integer.parseInt(clickTrend);
+            this.clickTrend = Integer.parseInt(clickTrend);
             arr[PlayableXml.STATION_PROP_CLICK_TREND_INT] = clickTrend;
         } catch (Exception ex) {
-            this.bitrateInt = 0;
+            this.clickTrend = 0;
             arr[PlayableXml.STATION_PROP_CLICK_TREND_INT] = "0";
         }
     }
@@ -297,22 +297,22 @@ public class StationProps extends PDataSample<Station> {
         arr[PlayableXml.STATION_PROP_COLLECTION_INT] = name;
     }
 
-    public int getGrade() {
-        return grade;
+    public int getOwnGrade() {
+        return ownGrade;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
-        arr[PlayableXml.STATION_PROP_GRADE_INT] = grade + "";
+    public void setOwnGrade(int ownGrade) {
+        this.ownGrade = ownGrade;
+        arr[PlayableXml.STATION_PROP_OWN_GRADE_INT] = ownGrade + "";
     }
 
     public void setGrade(String grade) {
         try {
-            this.grade = Integer.parseInt(grade);
-            arr[PlayableXml.STATION_PROP_GRADE_INT] = grade;
+            this.ownGrade = Integer.parseInt(grade);
+            arr[PlayableXml.STATION_PROP_OWN_GRADE_INT] = grade;
         } catch (Exception ex) {
-            this.grade = 0;
-            arr[PlayableXml.STATION_PROP_BITRATE_INT] = "0";
+            this.ownGrade = 0;
+            arr[PlayableXml.STATION_PROP_OWN_GRADE_INT] = "0";
         }
     }
 

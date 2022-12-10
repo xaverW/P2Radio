@@ -63,7 +63,7 @@ public interface Playable {
 
     int getBitrateInt();
 
-    int getGrade();
+    int getOwnGrade();
 
     boolean isOwn();
 
@@ -76,7 +76,7 @@ public interface Playable {
     String getCountry();
 
     String getState();
-    
+
     String getLanguage();
 
     String getCountryCode();

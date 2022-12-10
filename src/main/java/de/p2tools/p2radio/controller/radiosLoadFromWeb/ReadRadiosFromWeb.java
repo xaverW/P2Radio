@@ -14,16 +14,13 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.getNewStationList.radioBrowser;
+package de.p2tools.p2radio.controller.radiosLoadFromWeb;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
@@ -32,7 +29,6 @@ import de.p2tools.p2radio.tools.ProgressMonitorInputStream;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.tukaani.xz.XZInputStream;
 
 import java.io.IOException;
@@ -43,14 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-public class ReadRadioBrowser {
+public class ReadRadiosFromWeb {
 
-    static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
     private double progress = 0;
     private int countAll = 0;
 
     /*
-    Hier wird die Liste tatsächlich geladen (von Datei/URL)
+    Hier wird die Liste tatsächlich geladen (von URL)
      */
     public boolean readList(final StationList stationList) {
         boolean ret = false;
@@ -158,7 +153,7 @@ public class ReadRadioBrowser {
         while (!ProgData.getInstance().loadNewStationList.isStop() && (jp.nextToken()) != null) {
             if (jp.isExpectedStartObjectToken()) {
                 final Station station = new Station();
-                addValue(station, jp);
+                ReadJsonFactory.readJsonValue(station, jp);
                 //etwa bei 1/3 der Sender
                 //if (station.arr[Station.STATION_URL].equals(station.arr[Station.STATION_URL_RESOLVED])) {
                 //  station.arr[Station.STATION_URL_RESOLVED] = "============";
@@ -170,80 +165,6 @@ public class ReadRadioBrowser {
             }
         }
         return;
-    }
-
-    private void addValue(Station station, JsonParser jp) throws IOException {
-        JsonToken jsonToken;
-        while ((jsonToken = jp.nextToken()) != null) {
-            if (jsonToken == JsonToken.END_OBJECT) {
-                break;
-            }
-
-            String name = jp.getCurrentName();
-            if (jp.nextToken() == null) {
-                break;
-            }
-
-            String value = jp.getValueAsString();
-            if (name == null || name.isEmpty() || value == null) {
-                continue;
-            }
-            value = value.trim();
-
-            switch (name) {
-                case StationFieldNamesWeb.NAME:
-                    station.arr[PlayableXml.STATION_PROP_STATION_NAME_INT] = value;
-                    break;
-                case StationFieldNamesWeb.GENRE:
-                    station.arr[PlayableXml.STATION_PROP_GENRE_INT] = value;
-                    break;
-                case StationFieldNamesWeb.CODEC:
-                    station.arr[PlayableXml.STATION_PROP_CODEC_INT] = value;
-                    break;
-                case StationFieldNamesWeb.BITRATE:
-                    station.arr[PlayableXml.STATION_PROP_BITRATE_INT] = value;
-                    break;
-                case StationFieldNamesWeb.COUNTRY:
-                    station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = value;
-                    break;
-                case StationFieldNamesWeb.COUNTRY_CODE:
-                    station.arr[PlayableXml.STATION_PROP_COUNTRY_CODE_INT] = value;
-                    break;
-                case StationFieldNamesWeb.STATE:
-                    station.arr[PlayableXml.STATION_PROP_STATE_INT] = value;
-                    break;
-                case StationFieldNamesWeb.LANGUAGE:
-                    station.arr[PlayableXml.STATION_PROP_LANGUAGE_INT] = value;
-                    break;
-                case StationFieldNamesWeb.VOTES:
-                    station.arr[PlayableXml.STATION_PROP_VOTES_INT] = value;
-                    break;
-                case StationFieldNamesWeb.CLICK_COUNT:
-                    station.arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = value;
-                    break;
-                case StationFieldNamesWeb.CLICK_TREND:
-                    station.arr[PlayableXml.STATION_PROP_CLICK_TREND_INT] = value;
-                    break;
-                case StationFieldNamesWeb.URL:
-                    station.arr[PlayableXml.STATION_PROP_URL_INT] = value;
-                    break;
-                case StationFieldNamesWeb.URL_RESOLVED:
-                    station.arr[PlayableXml.STATION_PROP_URL_RESOLVED_INT] = value;
-                    break;
-                case StationFieldNamesWeb.HOMEPAGE:
-                    station.arr[PlayableXml.STATION_PROP_WEBSITE_INT] = value;
-                    break;
-                case StationFieldNamesWeb.LAST_CHANGE_TIME:
-                    //"2020-08-21 10:40:59"
-                    try {
-                        PDate pd = new PDate(sdf_date_time.parse(value));
-                        station.arr[PlayableXml.STATION_PROP_DATE_INT] = pd.get_dd_MM_yyyy();
-                    } catch (Exception ex) {
-                        station.arr[PlayableXml.STATION_PROP_DATE_INT] = value;
-                    }
-                    break;
-            }
-        }
     }
 
     private void notifyStart(String url) {

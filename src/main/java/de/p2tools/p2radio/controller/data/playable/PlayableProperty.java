@@ -39,7 +39,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     private final StringProperty bitrate = new SimpleStringProperty("0");
     private final IntegerProperty bitrateInt = new SimpleIntegerProperty(0);
     private final IntegerProperty votes = new SimpleIntegerProperty(0);
-    private final IntegerProperty grade = new SimpleIntegerProperty(0);
+    private final IntegerProperty ownGrade = new SimpleIntegerProperty(0);
     private final BooleanProperty own = new SimpleBooleanProperty(false);
     private final IntegerProperty clickCount = new SimpleIntegerProperty();
     private final IntegerProperty clickTrend = new SimpleIntegerProperty();
@@ -67,7 +67,8 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new ConfigStringPropExtra("bitrate", PlayableXml.STATION_PROP_BITRATE, bitrate));
         list.add(new ConfigIntPropExtra("bitrateInt", PlayableXml.STATION_PROP_BITRATE, bitrateInt));
         list.add(new ConfigIntPropExtra("votes", PlayableXml.STATION_PROP_VOTES, votes));
-        list.add(new ConfigIntPropExtra("grade", PlayableXml.STATION_PROP_GRADE, grade));
+        list.add(new ConfigIntPropExtra("grade", PlayableXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
+        list.add(new ConfigIntPropExtra("ownGrade", PlayableXml.STATION_PROP_OWN_GRADE, ownGrade));
         list.add(new ConfigBoolPropExtra("own", PlayableXml.STATION_PROP_OWN, own));
         list.add(new ConfigIntPropExtra("clickCount", PlayableXml.STATION_PROP_CLICK_COUNT, clickCount));
         list.add(new ConfigIntPropExtra("clickTrend", PlayableXml.STATION_PROP_CLICK_TREND, clickTrend));
@@ -215,16 +216,16 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         return votes;
     }
 
-    public int getGrade() {
-        return grade.get();
+    public int getOwnGrade() {
+        return ownGrade.get();
     }
 
-    public void setGrade(int grade) {
-        this.grade.set(grade);
+    public void setOwnGrade(int ownGrade) {
+        this.ownGrade.set(ownGrade);
     }
 
-    public IntegerProperty gradeProperty() {
-        return grade;
+    public IntegerProperty ownGradeProperty() {
+        return ownGrade;
     }
 
     public boolean isOwn() {

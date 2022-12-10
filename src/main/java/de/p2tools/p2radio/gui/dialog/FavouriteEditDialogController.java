@@ -223,7 +223,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 }
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_GRADE_INT:
+            case PlayableXml.STATION_PROP_OWN_GRADE_INT:
                 lbl[i].setTextFill(Color.BLUE);
                 initGrade();
                 HBox hBox = new HBox(5);
@@ -333,7 +333,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
     private void initGrade() {
         stopGradeListener = true;
         for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
-            cbxGrade[i].setSelected(actFavourite.getGrade() > i);
+            cbxGrade[i].setSelected(actFavourite.getOwnGrade() > i);
         }
         stopGradeListener = false;
     }
@@ -345,7 +345,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 ++g;
             }
         }
-        actFavourite.setGrade(g);
+        actFavourite.setOwnGrade(g);
     }
 
     private Button addAllButton(int i) {
@@ -360,8 +360,8 @@ public class FavouriteEditDialogController extends PDialogExtra {
                     case PlayableXml.STATION_PROP_DESCRIPTION_INT:
                         f.setDescription(actFavourite.getDescription());
                         break;
-                    case PlayableXml.STATION_PROP_GRADE_INT:
-                        f.setGrade(actFavourite.getGrade());
+                    case PlayableXml.STATION_PROP_OWN_GRADE_INT:
+                        f.setOwnGrade(actFavourite.getOwnGrade());
                         break;
                 }
             });

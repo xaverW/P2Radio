@@ -14,21 +14,17 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.getNewStationList;
+package de.p2tools.p2radio.controller.radiosLoadFromWeb;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.getNewStationList.radioBrowser.ReadRadioBrowser;
 
-public class ReadStations {
-    //bis jetzt nur einer: RadioBrowser
-    private final ReadRadioBrowser readRadioBrowser;
+public class ReadRadiosFromWebThread {
 
-    public ReadStations() {
-        readRadioBrowser = new ReadRadioBrowser();
+    public ReadRadiosFromWebThread() {
     }
 
     public void loadNewStationList(StationList stationList) {
@@ -62,7 +58,7 @@ public class ReadStations {
             PLog.addSysLog("komplette Liste laden");
 
             //und jetzt File/Url laden
-            ret = readRadioBrowser.readList(stationList);
+            ret = new ReadRadiosFromWeb().readList(stationList);
             if (!ret || ProgData.getInstance().loadNewStationList.isStop()) {
                 // wenn abgebrochen wurde, nicht weitermachen
                 PLog.errorLog(951235497, "Es konnten keine Sender geladen werden!");

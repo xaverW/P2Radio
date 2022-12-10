@@ -23,6 +23,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
+import de.p2tools.p2radio.controller.radiosReadWriteFile.StationLoadFactory;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class ProgLoadFactory {
         } else {
             // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen
             logList.add("Programmstart, gespeicherte Senderliste laden");
-            boolean loadOk = SenderLoadFactory.readList();
+            boolean loadOk = StationLoadFactory.readList();
             if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
                 //wenn die gespeicherte zu alt ist
                 progData.pEventHandler.notifyListener(

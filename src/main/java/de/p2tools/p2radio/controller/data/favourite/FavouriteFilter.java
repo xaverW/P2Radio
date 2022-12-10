@@ -37,9 +37,21 @@ import java.util.regex.Pattern;
 public class FavouriteFilter extends FavouriteFilterXml {
 
     private CollectionData collectionData = new CollectionData(CollectionList.COLLECTION_ALL);
-    private BooleanProperty ownFilter = new SimpleBooleanProperty(false);
-    private BooleanProperty gradeFilter = new SimpleBooleanProperty(false);
-    private StringProperty genreFilter = new SimpleStringProperty("");
+    private final BooleanProperty ownFilter = new SimpleBooleanProperty(false);
+    private final BooleanProperty gradeFilter = new SimpleBooleanProperty(false);
+    private final StringProperty genreFilter = new SimpleStringProperty("");
+
+    private static boolean check(String filter, String im) {
+        if (Filter.isPattern(filter)) {
+            Pattern pattern = Filter.makePattern(filter);
+            // dann ists eine RegEx
+            return (pattern.matcher(im).matches());
+        }
+        // wenn einer passt, dann ists gut
+        return im.toLowerCase().contains(filter);
+
+        // nix wars
+    }
 
     public void clearFilter() {
         collectionData = ProgData.getInstance().collectionList.getByName(CollectionList.COLLECTION_ALL);
@@ -75,7 +87,7 @@ public class FavouriteFilter extends FavouriteFilterXml {
             predicate = predicate.and(favourite -> favourite.isOwn());
         }
         if (gradeFilter.get()) {
-            predicate = predicate.and(favourite -> favourite.getGrade() > 0);
+            predicate = predicate.and(favourite -> favourite.getOwnGrade() > 0);
         }
         if (!genreFilter.get().isEmpty()) {
             predicate = predicate.and(favourite -> check(genreFilter.get(), favourite.getGenre()));
@@ -95,51 +107,36 @@ public class FavouriteFilter extends FavouriteFilterXml {
         return ownFilter.get();
     }
 
-    public BooleanProperty ownFilterProperty() {
-        return ownFilter;
-    }
-
     public void setOwnFilter(boolean ownFilter) {
         this.ownFilter.set(ownFilter);
+    }
+
+    public BooleanProperty ownFilterProperty() {
+        return ownFilter;
     }
 
     public boolean isGradeFilter() {
         return gradeFilter.get();
     }
 
-    public BooleanProperty gradeFilterProperty() {
-        return gradeFilter;
-    }
-
     public void setGradeFilter(boolean gradeFilter) {
         this.gradeFilter.set(gradeFilter);
+    }
+
+    public BooleanProperty gradeFilterProperty() {
+        return gradeFilter;
     }
 
     public String getGenreFilter() {
         return genreFilter.get();
     }
 
-    public StringProperty genreFilterProperty() {
-        return genreFilter;
-    }
-
     public void setGenreFilter(String genreFilter) {
         this.genreFilter.set(genreFilter);
     }
 
-    private static boolean check(String filter, String im) {
-        if (Filter.isPattern(filter)) {
-            Pattern pattern = Filter.makePattern(filter);
-            // dann ists eine RegEx
-            return (pattern.matcher(im).matches());
-        }
-        if (im.toLowerCase().contains(filter)) {
-            // wenn einer passt, dann ists gut
-            return true;
-        }
-
-        // nix wars
-        return false;
+    public StringProperty genreFilterProperty() {
+        return genreFilter;
     }
 
 }
