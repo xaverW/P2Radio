@@ -51,6 +51,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     private final StringProperty stationUrl = new SimpleStringProperty("");
     private final StringProperty stationUrlResolved = new SimpleStringProperty("");
     private final BooleanProperty doubleUrl = new SimpleBooleanProperty(false);
+    private final BooleanProperty favouriteUrl = new SimpleBooleanProperty(false);
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private final PLocalDate stationDate = new PLocalDate();
@@ -82,23 +83,15 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
         list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, stationUrl));
         list.add(new ConfigStringPropExtra("urlResolved", PlayableXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
-        list.add(new ConfigBoolPropExtra("doubleUrl", PlayableXml.STATION_PROP_URL, doubleUrl));
-        list.add(new ConfigBoolPropExtra("blackBlocked", PlayableXml.STATION_PROP_URL, blackBlocked));
+        list.add(new ConfigBoolPropExtra("doubleUrl", PlayableXml.STATION_PROP_DOUBLE_URL, doubleUrl));
+        list.add(new ConfigBoolPropExtra("favouriteUrl", PlayableXml.STATION_PROP_FAVOURITE_URL, favouriteUrl));
+        list.add(new ConfigBoolPropExtra("blackBlocked", PlayableXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
         list.add(new ConfigStringPropExtra("website", PlayableXml.STATION_PROP_WEBSITE, website));
         list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
 
         return list.toArray(new Config[]{});
     }
 
-    //Station
-    public boolean getFavouriteUrl() {
-        return false;
-    }
-
-    public void setFavouriteUrl(boolean set) {
-    }
-
-    //Favourite
     public int getNo() {
         return no.get();
     }
@@ -352,6 +345,20 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     }
 
     public String getStationUrl() {
+        //        if (!arr[STATION_URL].isEmpty()
+        //                && !arr[STATION_URL_RESOLVED].isEmpty()
+        //                && !arr[STATION_URL].equals(arr[STATION_URL_RESOLVED])) {
+        //            return "--> " + arr[STATION_URL] + " - " + arr[STATION_URL_RESOLVED];
+        //
+        //        } else {
+        //            return arr[STATION_URL];
+        //        }
+
+        //        if (arr[STATION_URL_RESOLVED].isEmpty()) {
+        //            return arr[STATION_URL];
+        //        } else {
+        //            return arr[STATION_URL_RESOLVED];
+        //        }
         return stationUrl.get();
     }
 
@@ -397,6 +404,17 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public BooleanProperty blackBlockedProperty() {
         return blackBlocked;
+    }
+
+    public boolean isFavouriteUrl() {
+        return favouriteUrl.get();
+    }
+
+    public void setFavouriteUrl(boolean set) {
+    }
+
+    public BooleanProperty favouriteUrlProperty() {
+        return favouriteUrl;
     }
 
     public String getWebsite() {

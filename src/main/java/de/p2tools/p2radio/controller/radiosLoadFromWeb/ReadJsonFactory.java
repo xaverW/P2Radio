@@ -86,10 +86,9 @@ public class ReadJsonFactory {
                 case StationFieldNamesWeb.URL:
                     favourite.setStationUrl(value);
                     break;
-//                case StationFieldNamesWeb.URL_RESOLVED:
-//                    favourite.seturl
-//                    favourite.arr[PlayableXml.STATION_PROP_URL_RESOLVED_INT] = value;
-//                    break;
+                case StationFieldNamesWeb.URL_RESOLVED:
+                    favourite.setStationUrlResolved(value);
+                    break;
                 case StationFieldNamesWeb.HOMEPAGE:
                     favourite.setWebsite(value);
                     break;
@@ -98,10 +97,8 @@ public class ReadJsonFactory {
                     try {
                         PDate pd = new PDate(sdf_date_time.parse(value));
                         favourite.setStationDate(pd.get_dd_MM_yyyy());
-//                        favourite.arr[PlayableXml.STATION_PROP_DATE_INT] = pd.get_dd_MM_yyyy();
                     } catch (Exception ex) {
                         favourite.setStationDate(value);
-//                        favourite.arr[PlayableXml.STATION_PROP_DATE_INT] = value;
                     }
                     break;
             }

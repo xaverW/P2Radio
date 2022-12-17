@@ -37,14 +37,7 @@ public interface Playable {
 
     void setStart(Start start);
 
-    //===========================
-    //Station
-    boolean getFavouriteUrl();
-
-    void setFavouriteUrl(boolean set);
-
-    //===========================
-    //Favourite
+    //=====================================================
     int getNo();
 
     void setNo(int no);
@@ -170,6 +163,10 @@ public interface Playable {
     void setDoubleUrl(boolean doubleUrl);
 
     BooleanProperty doubleUrlProperty();
+
+    boolean isFavouriteUrl();
+
+    void setFavouriteUrl(boolean set);
 
     boolean isBlackBlocked();
 

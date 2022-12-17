@@ -38,46 +38,6 @@ public class SetDataList extends SetDataListWorker {
         return ret;
     }
 
-    public boolean removeSetData(Object obj) {
-        //remove and notify
-        boolean ret = super.remove(obj);
-        setListChanged();
-        return ret;
-    }
-
-    public boolean addSetData(SetData psetData) {
-        //add and notify
-        boolean play = false;
-        for (final SetData sd : this) {
-            if (sd.isPlay()) {
-                play = true;
-                break;
-            }
-        }
-        if (play) {
-            //gibt schon einen "play"
-            psetData.setPlay(false);
-        } else {
-            psetData.setPlay(true);
-        }
-
-        final boolean ret = super.add(psetData);
-        setListChanged();
-        return ret;
-    }
-
-    public boolean addSetData(SetDataList list) {
-        //add and notify
-        boolean ret = true;
-        for (final SetData entry : list) {
-            if (!addSetData(entry)) {
-                ret = false;
-            }
-        }
-        setListChanged();
-        return ret;
-    }
-
     private static boolean progReplacePattern(SetData pSet) {
         String vlc = "";
         // damit nur die Variablen abgefragt werden, die auch verwendet werden
@@ -108,16 +68,41 @@ public class SetDataList extends SetDataListWorker {
         return ProgConfig.SYSTEM_PATH_VLC.get();
     }
 
-//    public SetData getSetDataPlay(String id) {
-//        //liefert die Programmgruppe zum Abspielen
-//        //oder wenn nicht vorhanden, die Standard-Programmgruppe
-//        for (final SetData setData : this) {
-//            if (setData.getId().equals(id)) {
-//                return setData;
-//            }
-//        }
-//        return getSetDataPlay();
-//    }
+    public boolean removeSetData(Object obj) {
+        //remove and notify
+        boolean ret = super.remove(obj);
+        setListChanged();
+        return ret;
+    }
+
+    public boolean addSetData(SetData psetData) {
+        //add and notify
+        boolean play = false;
+        for (final SetData sd : this) {
+            if (sd.isPlay()) {
+                play = true;
+                break;
+            }
+        }
+        //gibt schon einen "play"
+        psetData.setPlay(!play);
+
+        final boolean ret = super.add(psetData);
+        setListChanged();
+        return ret;
+    }
+
+    public boolean addSetData(SetDataList list) {
+        //add and notify
+        boolean ret = true;
+        for (final SetData entry : list) {
+            if (!addSetData(entry)) {
+                ret = false;
+            }
+        }
+        setListChanged();
+        return ret;
+    }
 
     public SetData getSetDataPlay() {
         //liefert die Standard-Programmgruppe zum Abspielen
@@ -133,15 +118,6 @@ public class SetDataList extends SetDataListWorker {
         }
         return null;
     }
-
-//    public SetDataList getSetDataListPlay() {
-//        //liefert eine Liste Programmsets, die zum abspielen angelegt sind
-//        //sind jetzt alle
-//        if (this.isEmpty()) {
-//            return new SetDataList();
-//        }
-//        return this;
-//    }
 
     public SetDataList getSetDataListButton() {
         //liefert eine Liste Programmsets, die als Button angelegt sind

@@ -39,23 +39,23 @@ public class StartFactory {
         }
     }
 
-    public void stopStation(Favourite station) {
-        if (station.getStart() != null) {
-            station.getStart().stopStart();
-        }
-    }
+//    public void stopStation(Favourite station) {
+//        if (station.getStart() != null) {
+//            station.getStart().stopStart();
+//        }
+//    }
 
-    public void stopFavourite(Favourite favourite) {
-        if (favourite.getStart() != null) {
-            favourite.getStart().stopStart();
-        }
-    }
+//    public void stopFavourite(Favourite favourite) {
+//        if (favourite.getStart() != null) {
+//            favourite.getStart().stopStart();
+//        }
+//    }
 
-    public void stopLastPlayed(Favourite lastPlayed) {
-        if (lastPlayed.getStart() != null) {
-            lastPlayed.getStart().stopStart();
-        }
-    }
+//    public void stopLastPlayed(Favourite lastPlayed) {
+//        if (lastPlayed.getStart() != null) {
+//            lastPlayed.getStart().stopStart();
+//        }
+//    }
 
     public void stopAll() {
         stopAllStations();
@@ -64,39 +64,39 @@ public class StartFactory {
     }
 
     public void stopAllStations() {
-        progData.stationList.stream().forEach(station -> progData.startFactory.stopStation(station));
+        progData.stationList.stream().forEach(station -> progData.startFactory.stopPlayable(station));
     }
 
     public void stopAllFavourites() {
-        progData.favouriteList.stream().forEach(favourite -> progData.startFactory.stopFavourite(favourite));
+        progData.favouriteList.stream().forEach(favourite -> progData.startFactory.stopPlayable(favourite));
     }
 
     public void stopAllLastPlayed() {
-        progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopLastPlayed(lastPlayed));
+        progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
     }
 
     public Favourite playRandomStation() {
         Random r = new Random();
         Favourite station = progData.stationList.get(r.nextInt(progData.stationList.size()));
         if (station != null) {
-            playStation(station);
+            playPlayable(station);
         }
         return station;
     }
 
-    public void playStation(Favourite station) {
-        playStation(station, null);
-    }
+//    public void playStation(Favourite station) {
+//        playPlayable(station, null);
+//    }
 
 
-    public void playStation(Favourite station, SetData data) {
-        SetData setData = checkSetData(data);
-        if (setData == null) {
-            return;
-        }
-        // und starten
-        startUrlWithProgram(station, setData);
-    }
+//    public void playStation(Favourite station, SetData data) {
+//        SetData setData = checkSetData(data);
+//        if (setData == null) {
+//            return;
+//        }
+//        // und starten
+//        startUrlWithProgram(station, setData);
+//    }
 
     public void playPlayable(Playable favourite) {
         playPlayable(favourite, null);
@@ -111,31 +111,31 @@ public class StartFactory {
         startUrlWithProgram(favourite, setData);
     }
 
-    public void playFavourite(Favourite favourite) {
-        playFavourite(favourite, null);
-    }
+//    public void playFavourite(Favourite favourite) {
+//        playPlayable(favourite, null);
+//    }
+//
+//    public void playFavourite(Favourite favourite, SetData data) {
+//        SetData setData = checkSetData(data);
+//        if (setData == null) {
+//            return;
+//        }
+//        // und starten
+//        startUrlWithProgram(favourite, setData);
+//    }
 
-    public void playFavourite(Favourite favourite, SetData data) {
-        SetData setData = checkSetData(data);
-        if (setData == null) {
-            return;
-        }
-        // und starten
-        startUrlWithProgram(favourite, setData);
-    }
-
-    public void playLastPlayed(Favourite lastPlayed) {
-        playLastPlayed(lastPlayed, null);
-    }
-
-    public void playLastPlayed(Favourite lastPlayed, SetData data) {
-        SetData setData = checkSetData(data);
-        if (setData == null) {
-            return;
-        }
-        // und starten
-        startUrlWithProgram(lastPlayed, setData);
-    }
+//    public void playLastPlayed(Favourite lastPlayed) {
+//        playLastPlayed(lastPlayed, null);
+//    }
+//
+//    public void playLastPlayed(Favourite lastPlayed, SetData data) {
+//        SetData setData = checkSetData(data);
+//        if (setData == null) {
+//            return;
+//        }
+//        // und starten
+//        startUrlWithProgram(lastPlayed, setData);
+//    }
 
     private SetData checkSetData(SetData setData) {
         SetData sd = setData;
@@ -149,21 +149,21 @@ public class StartFactory {
         return sd;
     }
 
-    private synchronized void startUrlWithProgram(Favourite station, SetData setData) {
-        final String url = station.getStationUrl();
-        if (!url.isEmpty()) {
-            progData.lastPlayedList.addStation(station);
-
-            progData.startFactory.stopAll();
-            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
-
-            final Start start = new Start(setData, station);
-            station.setStart(start);
-            start.initStart();
-
-            startStart(start);
-        }
-    }
+//    private synchronized void startUrlWithProgram(Favourite station, SetData setData) {
+//        final String url = station.getStationUrl();
+//        if (!url.isEmpty()) {
+//            progData.lastPlayedList.addStation(station);
+//
+//            progData.startFactory.stopAll();
+//            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
+//
+//            final Start start = new Start(setData, station);
+//            station.setStart(start);
+//            start.initStart();
+//
+//            startStart(start);
+//        }
+//    }
 
     private synchronized void startUrlWithProgram(Playable station, SetData setData) {
         final String url = station.getStationUrl();

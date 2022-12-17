@@ -112,19 +112,19 @@ public class StationGuiController extends AnchorPane {
         // Menü/Button Sender (URL) abspielen
         final Optional<Favourite> stationSelection = getSel();
         if (stationSelection.isPresent()) {
-            progData.startFactory.playStation(stationSelection.get());
+            progData.startFactory.playPlayable(stationSelection.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.stationList.stream().forEach(f -> progData.startFactory.stopStation(f));
+            progData.stationList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
 
         } else {
             final Optional<Favourite> station = getSel();
             if (station.isPresent()) {
-                progData.startFactory.stopStation(station.get());
+                progData.startFactory.stopPlayable(station.get());
             }
         }
     }
@@ -136,7 +136,7 @@ public class StationGuiController extends AnchorPane {
             return;
         }
 
-        progData.startFactory.playStation(sel.get(), psetData);
+        progData.startFactory.playPlayable(sel.get(), psetData);
     }
 
 
@@ -146,7 +146,7 @@ public class StationGuiController extends AnchorPane {
         if (station != null) {
             tableView.getSelectionModel().select(station);
             tableView.scrollTo(station);
-            progData.startFactory.playStation(station);
+            progData.startFactory.playPlayable(station);
         }
     }
 

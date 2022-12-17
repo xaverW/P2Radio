@@ -42,15 +42,6 @@ public class StationInfos {
                 }
             }
         });
-//        Listener.addListener(new Listener(Listener.EVENT_TIMER, StationInfos.class.getSimpleName()) {
-//            @Override
-//            public void ping() {
-//                if (!progData.loadNewStationList.getPropLoadStationList()) {
-//                    //dann wird die Liste neu gebaut
-//                    generateInfos();
-//                }
-//            }
-//        });
     }
 
 

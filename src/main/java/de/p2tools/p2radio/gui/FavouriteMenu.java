@@ -87,7 +87,7 @@ public class FavouriteMenu {
                 miStart.setOnAction(a -> {
                     final Optional<Favourite> favourite = ProgData.getInstance().favouriteGuiController.getSel();
                     if (favourite.isPresent()) {
-                        progData.startFactory.playFavourite(favourite.get(), set);
+                        progData.startFactory.playPlayable(favourite.get(), set);
                     }
                 });
                 miStartWithSet.getItems().add(miStart);

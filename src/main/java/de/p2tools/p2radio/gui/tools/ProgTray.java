@@ -128,9 +128,9 @@ public class ProgTray {
 
         miMaxMin.addActionListener(e -> Platform.runLater(() -> maxMin()));
         miStop.addActionListener(e -> {
-            progData.stationList.stream().forEach(f -> progData.startFactory.stopStation(f));
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopFavourite(f));
-            progData.lastPlayedList.stream().forEach(f -> progData.startFactory.stopLastPlayed(f));
+            progData.stationList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.lastPlayedList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();

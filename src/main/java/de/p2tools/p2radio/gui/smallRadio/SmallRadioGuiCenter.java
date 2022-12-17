@@ -175,7 +175,7 @@ public class SmallRadioGuiCenter extends HBox {
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopFavourite(f));
+            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
 
         } else {
             final Optional<Playable> favourite = getSel();

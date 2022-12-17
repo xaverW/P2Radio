@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
@@ -109,7 +108,7 @@ public class StationFactory {
         }
     }
 
-    public static void playStation(Favourite station, SetData psetData) {
-        ProgData.getInstance().startFactory.playStation(station);
-    }
+//    public static void playStation(Favourite station, SetData psetData) {
+//        ProgData.getInstance().startFactory.playPlayable(station);
+//    }
 }

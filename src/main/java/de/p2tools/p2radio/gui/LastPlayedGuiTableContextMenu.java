@@ -106,7 +106,7 @@ public class LastPlayedGuiTableContextMenu {
                 item.setOnAction(event -> {
                     final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
                     if (lastPlayed.isPresent()) {
-                        progData.startFactory.playLastPlayed(lastPlayed.get(), setData);
+                        progData.startFactory.playPlayable(lastPlayed.get(), setData);
                     }
                 });
                 submenuSet.getItems().add(item);

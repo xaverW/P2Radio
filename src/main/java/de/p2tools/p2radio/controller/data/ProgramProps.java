@@ -44,12 +44,16 @@ public class ProgramProps extends PDataSample<ProgramData> {
 
     public String[] arr;
 
-    private StringProperty name = new SimpleStringProperty("");
-    private StringProperty progPath = new SimpleStringProperty("");
-    private StringProperty progSwitch = new SimpleStringProperty("");
-    private StringProperty praefix = new SimpleStringProperty("");
-    private StringProperty suffix = new SimpleStringProperty("");
+    private final StringProperty name = new SimpleStringProperty("");
+    private final StringProperty progPath = new SimpleStringProperty("");
+    private final StringProperty progSwitch = new SimpleStringProperty("");
+    private final StringProperty praefix = new SimpleStringProperty("");
+    private final StringProperty suffix = new SimpleStringProperty("");
 //    private BooleanProperty restart = new SimpleBooleanProperty(false);
+
+    public ProgramProps() {
+        makeArr();
+    }
 
     @Override
     public String getTag() {
@@ -64,7 +68,6 @@ public class ProgramProps extends PDataSample<ProgramData> {
                 new ConfigStringPropExtra("progSwitch", ProgramDataFieldNames.PROGRAM_SWITCH, progSwitch),
                 new ConfigStringPropExtra("praefix", ProgramDataFieldNames.PROGRAM_PRAEFIX, praefix),
                 new ConfigStringPropExtra("suffix", ProgramDataFieldNames.PROGRAM_SWITCH, suffix),
-//                new ConfigBoolPropExtra("restart", ProgramDataFieldNames.PROGRAM_RESTART, restart),
         };
     }
 
@@ -72,76 +75,60 @@ public class ProgramProps extends PDataSample<ProgramData> {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
+        return name;
     }
 
     public String getProgPath() {
         return progPath.get();
     }
 
-    public StringProperty progPathProperty() {
-        return progPath;
-    }
-
     public void setProgPath(String progPath) {
         this.progPath.set(progPath);
+    }
+
+    public StringProperty progPathProperty() {
+        return progPath;
     }
 
     public String getProgSwitch() {
         return progSwitch.get();
     }
 
-    public StringProperty progSwitchProperty() {
-        return progSwitch;
-    }
-
     public void setProgSwitch(String progSwitch) {
         this.progSwitch.set(progSwitch);
+    }
+
+    public StringProperty progSwitchProperty() {
+        return progSwitch;
     }
 
     public String getPraefix() {
         return praefix.get();
     }
 
-    public StringProperty praefixProperty() {
-        return praefix;
-    }
-
     public void setPraefix(String praefix) {
         this.praefix.set(praefix);
+    }
+
+    public StringProperty praefixProperty() {
+        return praefix;
     }
 
     public String getSuffix() {
         return suffix.get();
     }
 
-    public StringProperty suffixProperty() {
-        return suffix;
-    }
-
     public void setSuffix(String suffix) {
         this.suffix.set(suffix);
     }
 
-//    public boolean isRestart() {
-//        return restart.get();
-//    }
-//
-//    public BooleanProperty restartProperty() {
-//        return restart;
-//    }
-//
-//    public void setRestart(boolean restart) {
-//        this.restart.set(restart);
-//    }
-
-    public ProgramProps() {
-        makeArr();
+    public StringProperty suffixProperty() {
+        return suffix;
     }
 
     @Override
@@ -185,7 +172,6 @@ public class ProgramProps extends PDataSample<ProgramData> {
         setProgSwitch(arr[PROGRAM_SCHALTER]);
         setPraefix(arr[PROGRAM_PRAEFIX]);
         setSuffix(arr[PROGRAM_SUFFIX]);
-//        setRestart(Boolean.parseBoolean(arr[PROGRAM_RESTART]));
     }
 
     public void setXmlFromProps() {
@@ -194,6 +180,5 @@ public class ProgramProps extends PDataSample<ProgramData> {
         arr[PROGRAM_SCHALTER] = getProgSwitch();
         arr[PROGRAM_PRAEFIX] = getPraefix();
         arr[PROGRAM_SUFFIX] = getSuffix();
-//        arr[PROGRAM_RESTART] = String.valueOf(isRestart());
     }
 }

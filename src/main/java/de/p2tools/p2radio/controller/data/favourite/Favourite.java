@@ -70,16 +70,6 @@ public final class Favourite extends PlayableProperty implements Playable {
         }
     }
 
-//    public void copyToMe(Favourite favourite) {
-//        start = favourite.start;
-//
-//        Config[] configs = favourite.getConfigsArr();
-//        Config[] configsCopy = getConfigsArr();
-//        for (int i = 0; i < configs.length; ++i) {
-//            configsCopy[i].setActValue(configs[i].getActValueString());
-//        }
-//    }
-
     public boolean isStation() {
         return false;
     }

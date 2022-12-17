@@ -66,7 +66,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.stopStation(station);
+                        ProgData.getInstance().startFactory.stopPlayable(station);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -84,7 +84,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.playStation(station);
+                        ProgData.getInstance().startFactory.playPlayable(station);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });

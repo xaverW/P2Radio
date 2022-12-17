@@ -55,43 +55,5 @@ public class Worker {
                 }
             }
         });
-
-
-//        progData.eventNotifyLoadRadioList.addListenerLoadStationList(new EventListenerLoadRadioList() {
-//            @Override
-//            public void start(EventLoadRadioList event) {
-//                if (event.progress == EventListenerLoadRadioList.PROGRESS_INDETERMINATE) {
-//                    //ist dann die gespeicherte Senderliste
-////                    progData.maskerPane.setMaskerVisible(true, false);
-//                    PMaskerFactory.setMaskerVisible(progData, true, false);
-//
-//                } else {
-////                    progData.maskerPane.setMaskerVisible(true, true);
-//                    PMaskerFactory.setMaskerVisible(progData, true, true);
-//                }
-////                progData.maskerPane.setMaskerProgress(event.progress, event.text);
-//                PMaskerFactory.setMaskerProgress(progData, event.progress, event.text);
-//            }
-//
-//            @Override
-//            public void progress(EventLoadRadioList event) {
-////                progData.maskerPane.setMaskerProgress(event.progress, event.text);
-//                PMaskerFactory.setMaskerProgress(progData, event.progress, event.text);
-//            }
-//
-//        @Override
-//        public void loaded (EventLoadRadioList event){
-////                progData.maskerPane.setMaskerVisible(true, false);
-//            PMaskerFactory.setMaskerVisible(progData, true, false);
-////                progData.maskerPane.setMaskerProgress(EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
-//            PMaskerFactory.setMaskerProgress(progData, EventListenerLoadRadioList.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
-//        }
-//
-//        @Override
-//        public void finished (EventLoadRadioList event){
-////                progData.maskerPane.setMaskerVisible(false);
-//            PMaskerFactory.setMaskerVisible(progData, false);
-//        }
-//    });
     }
 }

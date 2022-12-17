@@ -100,7 +100,7 @@ public class FavouriteGuiTableContextMenu {
                 item.setOnAction(event -> {
                     final Optional<Favourite> favourite = ProgData.getInstance().favouriteGuiController.getSel();
                     if (favourite.isPresent()) {
-                        progData.startFactory.playFavourite(favourite.get(), setData);
+                        progData.startFactory.playPlayable(favourite.get(), setData);
                     }
                 });
                 submenuSet.getItems().add(item);

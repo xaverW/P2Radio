@@ -123,19 +123,19 @@ public class FavouriteGuiController extends AnchorPane {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<Favourite> favourite = getSel();
         if (favourite.isPresent()) {
-            progData.startFactory.playFavourite(favourite.get());
+            progData.startFactory.playPlayable(favourite.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopFavourite(f));
+            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
 
         } else {
             final Optional<Favourite> favourite = getSel();
             if (favourite.isPresent()) {
-                progData.startFactory.stopFavourite(favourite.get());
+                progData.startFactory.stopPlayable(favourite.get());
             }
         }
     }
@@ -195,12 +195,6 @@ public class FavouriteGuiController extends AnchorPane {
                 tableView.refresh();
             }
         });
-//        Listener.addListener(new Listener(Listener.EVENT_SETDATA_CHANGED, FavouriteGuiController.class.getSimpleName()) {
-//            @Override
-//            public void pingFx() {
-//                tableView.refresh();
-//            }
-//        });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
             public void pingGui(PEvent event) {

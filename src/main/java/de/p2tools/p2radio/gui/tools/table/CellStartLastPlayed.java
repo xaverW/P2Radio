@@ -64,7 +64,7 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.stopLastPlayed(lastPlayed);
+                        ProgData.getInstance().startFactory.stopPlayable(lastPlayed);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -83,7 +83,7 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.playLastPlayed(lastPlayed);
+                        ProgData.getInstance().startFactory.playPlayable(lastPlayed);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });

@@ -239,6 +239,20 @@ public class StationInfoDialogController extends PDialogExtra {
                             lblCont[i].setText("");
                         }
                         break;
+                    case PlayableXml.STATION_PROP_FAVOURITE_URL_INT:
+                        if (station.isFavourite()) {
+                            lblCont[i].setText("X");
+                        } else {
+                            lblCont[i].setText("");
+                        }
+                        break;
+                    case PlayableXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
+                        if (station.isBlackBlocked()) {
+                            lblCont[i].setText("X");
+                        } else {
+                            lblCont[i].setText("");
+                        }
+                        break;
                     case PlayableXml.STATION_PROP_URL_RESOLVED_INT:
                         lblCont[i].setText(station.getStationUrlResolved());
                         break;

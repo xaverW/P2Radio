@@ -83,7 +83,7 @@ public class LastPlayedMenu {
                 miStart.setOnAction(a -> {
                     final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
                     if (lastPlayed.isPresent()) {
-                        progData.startFactory.playLastPlayed(lastPlayed.get(), set);
+                        progData.startFactory.playPlayable(lastPlayed.get(), set);
                     }
                 });
                 miStartWithSet.getItems().add(miStart);
