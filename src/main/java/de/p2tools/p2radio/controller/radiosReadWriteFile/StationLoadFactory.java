@@ -25,7 +25,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.radiosLoadFromWeb.ReadJsonFactory;
 import org.tukaani.xz.XZInputStream;
@@ -118,11 +118,11 @@ public class StationLoadFactory {
                 meta = true;
             }
             if (jp.isExpectedStartObjectToken()) {
-                final Station station = new Station();
-                ReadJsonFactory.readJsonValue(station, jp);
+                final Favourite favourite = new Favourite();
+                ReadJsonFactory.readJsonValue(favourite, jp);
                 ++countAll;
-                station.init(); // damit wird auch das Datum! gesetzt
-                stationList.importStationOnlyWithNr(station);
+//                favourite.init(); // damit wird auch das Datum! gesetzt
+                stationList.importStationOnlyWithNr(favourite);
             }
         }
         return;

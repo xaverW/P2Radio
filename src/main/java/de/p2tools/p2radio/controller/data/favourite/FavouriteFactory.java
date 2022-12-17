@@ -47,8 +47,8 @@ public class FavouriteFactory {
     }
 
     public static void changeFavourite(boolean allSel) {
-        ArrayList<Favourite> list = new ArrayList<>();
-        ArrayList<Favourite> listCopy = new ArrayList<>();
+        ArrayList<Playable> list = new ArrayList<>();
+        ArrayList<Playable> listCopy = new ArrayList<>();
         if (allSel) {
             list.addAll(ProgData.getInstance().favouriteGuiController.getSelList());
         } else {
@@ -62,7 +62,7 @@ public class FavouriteFactory {
             return;
         }
         list.stream().forEach(f -> {
-            Favourite favouriteCopy = f.getCopy();
+            Playable favouriteCopy = f.getCopy();
             listCopy.add(favouriteCopy);
         });
 
@@ -71,7 +71,7 @@ public class FavouriteFactory {
 
         if (favouriteEditDialogController.isOk()) {
             for (int i = 0; i < listCopy.size(); ++i) {
-                final Favourite f, fCopy;
+                final Playable f, fCopy;
                 f = list.get(i);
                 fCopy = listCopy.get(i);
                 f.copyToMe(fCopy);

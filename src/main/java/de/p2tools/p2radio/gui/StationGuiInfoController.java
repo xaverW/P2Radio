@@ -21,8 +21,7 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.playable.PlayableXml;
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -42,7 +41,7 @@ public class StationGuiInfoController extends PClosePaneH {
     private final PHyperlink hyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
-    private Station station = null;
+    private Favourite station = null;
 
     public StationGuiInfoController() {
         super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
@@ -73,7 +72,7 @@ public class StationGuiInfoController extends PClosePaneH {
         gridPane.add(hyperlinkUrl, 1, row);
     }
 
-    public void setStation(Station station) {
+    public void setStation(Favourite station) {
         this.station = station;
         if (station == null) {
             lblTitle.setText("");
@@ -82,8 +81,8 @@ public class StationGuiInfoController extends PClosePaneH {
             return;
         }
 
-        lblTitle.setText(station.arr[PlayableXml.STATION_PROP_STATION_NAME_INT] + "  -  " + station.arr[PlayableXml.STATION_PROP_COUNTRY_INT]);
-        hyperlinkWebsite.setUrl(station.arr[PlayableXml.STATION_PROP_WEBSITE_INT]);
+        lblTitle.setText(station.getStationName() + "  -  " + station.getCountry());
+        hyperlinkWebsite.setUrl(station.getWebsite());
         hyperlinkUrl.setUrl(station.getStationUrl());
     }
 }

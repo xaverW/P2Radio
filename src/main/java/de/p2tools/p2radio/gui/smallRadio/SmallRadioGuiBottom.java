@@ -61,6 +61,23 @@ public class SmallRadioGuiBottom extends HBox {
         rbSender.setToggleGroup(tg);
         rbFavourite.setToggleGroup(tg);
         rbLastPlayed.setToggleGroup(tg);
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_STATION)) {
+            rbSender.setSelected(true);
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_FAVOURITE)) {
+            rbFavourite.setSelected(true);
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_HISTORY)) {
+            rbLastPlayed.setSelected(true);
+        }
+        rbSender.setOnAction(a -> {
+            setList();
+        });
+        rbFavourite.setOnAction(a -> {
+            setList();
+        });
+        rbLastPlayed.setOnAction(a -> {
+            setList();
+        });
+        setList();
 
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
@@ -68,7 +85,7 @@ public class SmallRadioGuiBottom extends HBox {
 
         CollectionData collectionData = progData.collectionList.getByName(selectedCollectionName.getValueSafe());
         favouriteFilter.setCollectionData(collectionData);
-        smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
+//        smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicatePlayable());
 
         cboCollections.getSelectionModel().select(collectionData);
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
@@ -77,7 +94,7 @@ public class SmallRadioGuiBottom extends HBox {
             }
             selectedCollectionName.setValue(n.getName());
             favouriteFilter.setCollectionData(n);
-            smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicate());
+//            smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicatePlayable());
             PDebugLog.sysLog(selectedCollectionName.getValueSafe());
         });
 
@@ -99,6 +116,16 @@ public class SmallRadioGuiBottom extends HBox {
 
         setAlignment(Pos.BOTTOM_CENTER);
         getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
+    }
+
+    private void setList() {
+        if (rbSender.isSelected()) {
+            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(SmallRadioFactory.LIST_STATION);
+        } else if (rbFavourite.isSelected()) {
+            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(SmallRadioFactory.LIST_FAVOURITE);
+        } else {
+            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(SmallRadioFactory.LIST_HISTORY);
+        }
     }
 
     private void initStartButton() {

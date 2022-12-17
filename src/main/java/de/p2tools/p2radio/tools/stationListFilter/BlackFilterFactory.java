@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 
@@ -45,7 +45,7 @@ public class BlackFilterFactory {
         PDuration.counterStart("StationListBlackFilter.getBlackFiltered");
         if (progData.stationList != null) {
 
-            Stream<Station> initialStream = progData.stationList.stream();
+            Stream<Favourite> initialStream = progData.stationList.stream();
             if (progData.storedFilters.getActFilterSettings().isBlacklistOn()) {
                 //blacklist in ON
                 PLog.sysLog("StationListBlackFilter - isBlacklistOn");
@@ -88,7 +88,7 @@ public class BlackFilterFactory {
      * @param station
      * @return
      */
-    public static boolean checkNameGenreWithFilter(Filter name, Filter genre, Station station) {
+    public static boolean checkNameGenreWithFilter(Filter name, Filter genre, Favourite station) {
         if (!name.empty && !StationFilterFactory.checkSenderName(name, station)) {
             return false;
         }
@@ -102,7 +102,7 @@ public class BlackFilterFactory {
                 progData.blackDataList.isEmpty();
     }
 
-    private static synchronized boolean checkBlock(Station station) {
+    private static synchronized boolean checkBlock(Favourite station) {
         // hier werden die Sender gegen die Blacklist geprüft
         if (station.getBitrateInt() != 0 && minBitrate > 0 &&
                 station.getBitrateInt() < minBitrate) {
@@ -128,7 +128,7 @@ public class BlackFilterFactory {
      * @return true if station can be displayed
      */
 
-    private static boolean blockWithBlacklistFilters(Station station, boolean countHits) {
+    private static boolean blockWithBlacklistFilters(Favourite station, boolean countHits) {
         for (final BlackData blackData : progData.blackDataList) {
             if (checkNameGenreWithFilter(blackData.fName, blackData.fGenre, station)) {
                 if (countHits) {

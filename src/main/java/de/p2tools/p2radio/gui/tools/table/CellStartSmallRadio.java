@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -54,7 +55,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                 hbox.setAlignment(Pos.CENTER);
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                Favourite favourite = getTableView().getItems().get(getIndex());
+                Playable favourite = getTableView().getItems().get(getIndex());
                 final boolean playing = favourite.getStart() != null;
                 final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
 
@@ -66,7 +67,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.stopFavourite(favourite);
+                        ProgData.getInstance().startFactory.stopPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -85,7 +86,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.playFavourite(favourite);
+                        ProgData.getInstance().startFactory.playPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -103,7 +104,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
-                    FavouriteFactory.deleteFavourite(favourite);
+                    FavouriteFactory.deletePlayable(favourite);
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {

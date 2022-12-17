@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 
 import java.util.ArrayList;
@@ -28,25 +29,25 @@ import java.util.ArrayList;
 public class StationFactory {
 
     public static void favouriteStationList() {
-        final ArrayList<Station> list = ProgData.getInstance().stationGuiController.getSelList();
+        final ArrayList<Favourite> list = ProgData.getInstance().stationGuiController.getSelList();
         StationFactory.favouriteStation(list);
     }
 
-    public static void favouriteStation(Station station) {
-        ArrayList<Station> list = new ArrayList<>();
+    public static void favouriteStation(Favourite station) {
+        ArrayList<Favourite> list = new ArrayList<>();
         list.add(station);
         favouriteStation(list);
     }
 
-    private static void favouriteStation(ArrayList<Station> list) {
+    private static void favouriteStation(ArrayList<Favourite> list) {
         if (list.isEmpty()) {
             return;
         }
 
         ProgData progData = ProgData.getInstance();
-        ArrayList<Station> addList = new ArrayList<>();
+        ArrayList<Favourite> addList = new ArrayList<>();
 
-        for (final Station station : list) {
+        for (final Favourite station : list) {
             // erst mal schauen obs den schon gibt
             Favourite favourite = progData.favouriteList.getUrlStation(station.getStationUrl());
             if (favourite == null) {
@@ -87,7 +88,7 @@ public class StationFactory {
             }
         }
         if (!addList.isEmpty()) {
-            ArrayList<Favourite> favouriteList = new ArrayList<>();
+            ArrayList<Playable> favouriteList = new ArrayList<>();
             addList.stream().forEach(s -> {
                 Favourite favourite = new Favourite(s, "");
                 favouriteList.add(favourite);
@@ -97,7 +98,10 @@ public class StationFactory {
                     new FavouriteEditDialogController(progData, favouriteList);
 
             if (favouriteEditDialogController.isOk()) {
-                progData.favouriteList.addAll(favouriteList);
+                favouriteList.stream().forEach(f -> {
+                    progData.favouriteList.addAll((Favourite) f);
+                });
+//                progData.favouriteList.addAll(favouriteList);
                 //Favoriten markieren und Filter anstoßen
                 StationListFactory.findAndMarkFavouriteStations(progData);
                 progData.stationListBlackFiltered.triggerFilter();
@@ -105,7 +109,7 @@ public class StationFactory {
         }
     }
 
-    public static void playStation(Station station, SetData psetData) {
+    public static void playStation(Favourite station, SetData psetData) {
         ProgData.getInstance().startFactory.playStation(station);
     }
 }

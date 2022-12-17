@@ -26,7 +26,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
-import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
@@ -111,8 +110,8 @@ public class LastPlayedGuiController extends AnchorPane {
         Favourite favourite = tableView.getSelectionModel().getSelectedItem();
         if (favourite != null) {
             lastPlayedGuiInfoController.setLastPlayed(favourite);
-            Station station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
-            progData.stationInfoDialogController.setStation(station);
+            Favourite fav = progData.stationList.getSenderByUrl(favourite.getStationUrl());
+            progData.stationInfoDialogController.setStation(fav);
         } else {
             lastPlayedGuiInfoController.setLastPlayed(null);
         }

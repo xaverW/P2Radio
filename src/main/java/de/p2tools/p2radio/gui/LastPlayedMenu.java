@@ -24,7 +24,6 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
-import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
@@ -130,9 +129,9 @@ public class LastPlayedMenu {
             final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
             if (lastPlayed.isPresent()) {
                 String stationUrl = lastPlayed.get().getStationUrl();
-                Station station = progData.stationList.getSenderByUrl(stationUrl);
-                if (station != null) {
-                    StationFactory.favouriteStation(station);
+                Favourite favourite = progData.stationList.getSenderByUrl(stationUrl);
+                if (favourite != null) {
+                    StationFactory.favouriteStation(favourite);
                 }
             }
         });

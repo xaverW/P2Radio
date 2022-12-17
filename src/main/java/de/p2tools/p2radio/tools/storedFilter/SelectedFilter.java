@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools.storedFilter;
 
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -197,7 +197,7 @@ public final class SelectedFilter extends SelectedFilterProps {
         return ret;
     }
 
-    public Predicate<Station> getPredicate() {
+    public Predicate<Favourite> getPredicate() {
         SelectedFilter selectedFilter = this;
 
         Filter fStationName;
@@ -231,7 +231,7 @@ public final class SelectedFilter extends SelectedFilterProps {
         final boolean onlyBlack = selectedFilter.isBlacklistOnly();
 
 
-        Predicate<Station> predicate = station -> true;
+        Predicate<Favourite> predicate = station -> true;
 
         if (onlyNew) {
             predicate = predicate.and(station -> station.isNewStation());

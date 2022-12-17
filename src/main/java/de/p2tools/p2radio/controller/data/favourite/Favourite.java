@@ -22,7 +22,6 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.playable.PlayableProperty;
 import de.p2tools.p2radio.controller.data.start.Start;
-import de.p2tools.p2radio.controller.data.station.Station;
 
 public final class Favourite extends PlayableProperty implements Playable {
 
@@ -31,7 +30,7 @@ public final class Favourite extends PlayableProperty implements Playable {
     public Favourite() {
     }
 
-    public Favourite(Station station, String collectionName) {
+    public Favourite(Favourite station, String collectionName) {
         setStation(station);
         setCollectionName(collectionName);
         setStationUrl(station.getStationUrl());
@@ -60,15 +59,26 @@ public final class Favourite extends PlayableProperty implements Playable {
         return ret;
     }
 
-    public void copyToMe(Favourite favourite) {
-        start = favourite.start;
+    @Override
+    public void copyToMe(Playable playable) {
+        start = playable.getStart();
 
-        Config[] configs = favourite.getConfigsArr();
+        Config[] configs = playable.getConfigsArr();
         Config[] configsCopy = getConfigsArr();
         for (int i = 0; i < configs.length; ++i) {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
     }
+
+//    public void copyToMe(Favourite favourite) {
+//        start = favourite.start;
+//
+//        Config[] configs = favourite.getConfigsArr();
+//        Config[] configsCopy = getConfigsArr();
+//        for (int i = 0; i < configs.length; ++i) {
+//            configsCopy[i].setActValue(configs[i].getActValueString());
+//        }
+//    }
 
     public boolean isStation() {
         return false;
@@ -94,7 +104,7 @@ public final class Favourite extends PlayableProperty implements Playable {
         setStationDate(station.getStationDate());
     }
 
-    public void setStation(Station station) {
+    public void setStation(Favourite station) {
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
             setStationNo(ProgConst.NUMBER_DONT_USED);

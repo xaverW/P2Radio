@@ -22,8 +22,8 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,13 +53,13 @@ public class FavouriteEditDialogController extends PDialogExtra {
     private final ProgData progData;
     private final Button btnOk = new Button("_Ok");
     private final Button btnCancel = new Button("_Abbrechen");
-    private final ArrayList<Favourite> favouriteList;
+    private final ArrayList<Playable> favouriteList;
     private boolean ok = false;
-    private Favourite actFavourite;
+    private Playable actFavourite;
     private int actSender = 0;
     private boolean stopGradeListener = false;
 
-    public FavouriteEditDialogController(ProgData progData, ArrayList<Favourite> favouriteList) {
+    public FavouriteEditDialogController(ProgData progData, ArrayList<Playable> favouriteList) {
         super(progData.primaryStage, ProgConfig.FAVOURITE_DIALOG_EDIT_SIZE,
                 "Favoriten ändern", true, false);
 
@@ -137,7 +137,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
     }
 
     private void changeAct(int newPos) {
-        Favourite fNew = favouriteList.get(newPos);
+        Playable fNew = favouriteList.get(newPos);
         actFavourite.copyToMe(fNew);
         cboCollection.setValue(actFavourite.getCollectionName());
         initGrade();
@@ -145,7 +145,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
 
     private void saveAct() {
         actFavourite.setCollectionName(cboCollection.getValue());
-        Favourite f = favouriteList.get(actSender);
+        Playable f = favouriteList.get(actSender);
         f.copyToMe(actFavourite);
     }
 

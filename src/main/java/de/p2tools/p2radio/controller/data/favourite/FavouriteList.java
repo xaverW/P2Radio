@@ -33,9 +33,8 @@ public class FavouriteList extends SimpleListProperty<Favourite> implements PDat
     public static final String TAG = "FavouriteList";
     private final ProgData progData;
     private final FavouriteStartsFactory favouriteStartsFactory;
-    private int no = 0;
-
     private final BooleanProperty favouriteChanged = new SimpleBooleanProperty(true);
+    private int no = 0;
 
     public FavouriteList(ProgData progData) {
         super(FXCollections.observableArrayList());

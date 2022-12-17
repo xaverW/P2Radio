@@ -21,7 +21,6 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -47,13 +46,14 @@ public class StationListFactory {
         // https://github.com/javafxports/openjdk-jfx/issues/287
         PDuration.counterStart("cleanFaultyCharacter");
         StationList stationList = ProgData.getInstance().stationList;
-        stationList.stream().forEach(station -> {
+        stationList.stream().forEach(favourite -> {
 
-            station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = clean_1(station.getCountry(), true);
-            station.arr[PlayableXml.STATION_PROP_GENRE_INT] = clean_1(station.getGenre(), true);
 
-            station.arr[PlayableXml.STATION_PROP_COUNTRY_INT] = clean_2(station.getCountry());
-            station.arr[PlayableXml.STATION_PROP_GENRE_INT] = clean_2(station.getGenre());
+            favourite.setCountry(clean_1(favourite.getCountry(), true));
+            favourite.setGenre(clean_1(favourite.getGenre(), true));
+
+            favourite.setCountry(clean_2(favourite.getCountry()));
+            favourite.setGenre(clean_2(favourite.getGenre()));
 
             // U+3000 (12288)	　	Trenn- (Leer-) Zeichen	Whitespace	IDEOGRAPHIC SPACE	Ideographisches Leerzeichen
             // das hat die Probleme gemacht, Sender: Weltbilder

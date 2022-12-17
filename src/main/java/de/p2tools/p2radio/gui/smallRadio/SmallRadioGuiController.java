@@ -24,7 +24,7 @@ import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
@@ -127,7 +127,7 @@ public class SmallRadioGuiController extends PDialogOnly {
     }
 
     public void copyUrl() {
-        final Optional<Favourite> favourite = getSel();
+        final Optional<Playable> favourite = getSel();
         if (!favourite.isPresent()) {
             return;
         }
@@ -135,10 +135,10 @@ public class SmallRadioGuiController extends PDialogOnly {
     }
 
     private void setSelectedFavourite() {
-        Favourite favourite = smallRadioGuiCenter.getSel().get();
+        Playable favourite = smallRadioGuiCenter.getSel().get();
         if (favourite != null) {
             favouriteGuiInfoController.setFavourite(favourite);
-            Station station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
+            Favourite station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
             progData.stationInfoDialogController.setStation(station);
         } else {
             favouriteGuiInfoController.setFavourite(null);
@@ -147,9 +147,9 @@ public class SmallRadioGuiController extends PDialogOnly {
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
-        final Optional<Favourite> favourite = getSel();
+        final Optional<Playable> favourite = getSel();
         if (favourite.isPresent()) {
-            progData.startFactory.playFavourite(favourite.get());
+            progData.startFactory.playPlayable(favourite.get());
         }
     }
 
@@ -159,16 +159,16 @@ public class SmallRadioGuiController extends PDialogOnly {
             progData.favouriteList.stream().forEach(f -> progData.startFactory.stopFavourite(f));
 
         } else {
-            final Optional<Favourite> favourite = getSel();
+            final Optional<Playable> favourite = getSel();
             if (favourite.isPresent()) {
-                progData.startFactory.stopFavourite(favourite.get());
+                progData.startFactory.stopPlayable(favourite.get());
             }
         }
     }
 
     public void deleteFavourite(boolean all) {
         if (all) {
-            final ArrayList<Favourite> list = getSelList();
+            final ArrayList<Playable> list = getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -186,14 +186,14 @@ public class SmallRadioGuiController extends PDialogOnly {
             }
 
         } else {
-            final Optional<Favourite> favourite = getSel();
+            final Optional<Playable> favourite = getSel();
             if (favourite.isPresent()) {
                 deleteFavourite(favourite.get());
             }
         }
     }
 
-    public void deleteFavourite(Favourite favourite) {
+    public void deleteFavourite(Playable favourite) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?",
                 "Favoriten löschen?",
                 "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
@@ -203,12 +203,12 @@ public class SmallRadioGuiController extends PDialogOnly {
     }
 
     public void changeFavourite(boolean allSel) {
-        ArrayList<Favourite> list = new ArrayList<>();
-        ArrayList<Favourite> listCopy = new ArrayList<>();
+        ArrayList<Playable> list = new ArrayList<>();
+        ArrayList<Playable> listCopy = new ArrayList<>();
         if (allSel) {
             list.addAll(getSelList());
         } else {
-            final Optional<Favourite> favourite = getSel();
+            final Optional<Playable> favourite = getSel();
             if (favourite.isPresent()) {
                 list.add(favourite.get());
             }
@@ -218,7 +218,7 @@ public class SmallRadioGuiController extends PDialogOnly {
             return;
         }
         list.stream().forEach(f -> {
-            Favourite favouriteCopy = f.getCopy();
+            Playable favouriteCopy = f.getCopy();
             listCopy.add(favouriteCopy);
         });
 
@@ -227,7 +227,7 @@ public class SmallRadioGuiController extends PDialogOnly {
 
         if (favouriteEditDialogController.isOk()) {
             for (int i = 0; i < listCopy.size(); ++i) {
-                final Favourite f, fCopy;
+                final Playable f, fCopy;
                 f = list.get(i);
                 fCopy = listCopy.get(i);
                 f.copyToMe(fCopy);
@@ -240,15 +240,15 @@ public class SmallRadioGuiController extends PDialogOnly {
         smallRadioGuiCenter.saveTable();
     }
 
-    public ArrayList<Favourite> getSelList() {
+    public ArrayList<Playable> getSelList() {
         return smallRadioGuiCenter.getSelList();
     }
 
-    public Optional<Favourite> getSel() {
+    public Optional<Playable> getSel() {
         return getSel(true);
     }
 
-    public Optional<Favourite> getSel(boolean show) {
+    public Optional<Playable> getSel(boolean show) {
         return smallRadioGuiCenter.getSel();
     }
 

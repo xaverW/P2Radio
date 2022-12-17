@@ -49,6 +49,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     private final StringProperty countryCode = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty stationUrl = new SimpleStringProperty("");
+    private final StringProperty stationUrlResolved = new SimpleStringProperty("");
     private final BooleanProperty doubleUrl = new SimpleBooleanProperty(false);
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
@@ -80,6 +81,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new ConfigStringPropExtra("description", PlayableXml.STATION_PROP_DESCRIPTION, description));
 
         list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, stationUrl));
+        list.add(new ConfigStringPropExtra("urlResolved", PlayableXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
         list.add(new ConfigBoolPropExtra("doubleUrl", PlayableXml.STATION_PROP_URL, doubleUrl));
         list.add(new ConfigBoolPropExtra("blackBlocked", PlayableXml.STATION_PROP_URL, blackBlocked));
         list.add(new ConfigStringPropExtra("website", PlayableXml.STATION_PROP_WEBSITE, website));
@@ -88,14 +90,15 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         return list.toArray(new Config[]{});
     }
 
+    //Station
     public boolean getFavouriteUrl() {
         return false;
     }
 
     public void setFavouriteUrl(boolean set) {
-
     }
 
+    //Favourite
     public int getNo() {
         return no.get();
     }
@@ -212,6 +215,14 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         this.votes.set(votes);
     }
 
+    public void setVotes(String votes) {
+        try {
+            this.votes.set(Integer.parseInt(votes));
+        } catch (Exception ex) {
+            this.votes.set(0);
+        }
+    }
+
     public IntegerProperty votesProperty() {
         return votes;
     }
@@ -248,6 +259,14 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         this.clickCount.set(clickCount);
     }
 
+    public void setClickCount(String clickCount) {
+        try {
+            this.clickCount.set(Integer.parseInt(clickCount));
+        } catch (Exception ex) {
+            this.clickCount.set(0);
+        }
+    }
+
     public IntegerProperty clickCountProperty() {
         return clickCount;
     }
@@ -258,6 +277,14 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public void setClickTrend(int clickTrend) {
         this.clickTrend.set(clickTrend);
+    }
+
+    public void setClickTrend(String clickTrend) {
+        try {
+            this.clickTrend.set(Integer.parseInt(clickTrend));
+        } catch (Exception ex) {
+            this.clickTrend.set(0);
+        }
     }
 
     public IntegerProperty clickTrendProperty() {
@@ -334,6 +361,18 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
 
     public StringProperty stationUrlProperty() {
         return stationUrl;
+    }
+
+    public String getStationUrlResolved() {
+        return stationUrlResolved.get();
+    }
+
+    public void setStationUrlResolved(String stationUrlResolved) {
+        this.stationUrlResolved.set(stationUrlResolved);
+    }
+
+    public StringProperty stationUrlResolvedProperty() {
+        return stationUrlResolved;
     }
 
     public boolean isDoubleUrl() {

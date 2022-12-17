@@ -16,21 +16,16 @@
 
 package de.p2tools.p2radio.controller.data.playable;
 
+import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.data.start.Start;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 
 public interface Playable {
 
     boolean station = false, favourite = false, lastPlayed = false;
-    boolean blackBlocked = false;
-
-    Start getStart();
-
-    void setStart(Start start);
-
-    boolean getFavouriteUrl();
-
-    void setFavouriteUrl(boolean set);
 
     boolean isStation();
 
@@ -38,54 +33,155 @@ public interface Playable {
 
     boolean isLastPlayed();
 
-    boolean isBlackBlocked();
+    Start getStart();
 
-    void setBlackBlocked(boolean set);
+    void setStart(Start start);
 
-    //====================================
-    boolean isNewStation();
+    //===========================
+    //Station
+    boolean getFavouriteUrl();
 
+    void setFavouriteUrl(boolean set);
+
+    //===========================
+    //Favourite
     int getNo();
+
+    void setNo(int no);
+
+    IntegerProperty noProperty();
 
     int getStationNo();
 
     void setStationNo(int no);
 
+    IntegerProperty stationNoProperty();
+
+    boolean isNewStation();
+
+    void setNewStation(boolean newStation);
+
+    BooleanProperty newStationProperty();
+
     String getStationName();
+
+    void setStationName(String stationName);
+
+    StringProperty stationNameProperty();
 
     String getCollectionName();
 
+    void setCollectionName(String collectionName);
+
+    StringProperty collectionNameProperty();
+
     String getGenre();
+
+    void setGenre(String genre);
+
+    StringProperty genreProperty();
 
     String getCodec();
 
+    void setCodec(String codec);
+
+    StringProperty codecProperty();
+
     String getBitrate();
+
+    void setBitrate(String bitrate);
+
+    StringProperty bitrateProperty();
 
     int getBitrateInt();
 
+    void setBitrateInt(int bitrateInt);
+
+    IntegerProperty bitrateIntProperty();
+
+    int getVotes();
+
+    void setVotes(int votes);
+
+    IntegerProperty votesProperty();
+
     int getOwnGrade();
+
+    void setOwnGrade(int ownGrade);
+
+    IntegerProperty ownGradeProperty();
 
     boolean isOwn();
 
     void setOwn(boolean own);
 
+    BooleanProperty ownProperty();
+
     int getClickCount();
 
     void setClickCount(int clickCount);
 
+    IntegerProperty clickCountProperty();
+
+    int getClickTrend();
+
+    void setClickTrend(int clickTrend);
+
+    IntegerProperty clickTrendProperty();
+
     String getCountry();
+
+    void setCountry(String country);
+
+    StringProperty countryProperty();
 
     String getState();
 
-    String getLanguage();
+    void setState(String state);
+
+    StringProperty stateProperty();
 
     String getCountryCode();
 
+    void setCountryCode(String countryCode);
+
+    StringProperty countryCodeProperty();
+
+    String getLanguage();
+
+    void setLanguage(String language);
+
+    StringProperty languageProperty();
+
     String getDescription();
+
+    void setDescription(String description);
+
+    StringProperty descriptionProperty();
 
     String getStationUrl();
 
+    void setStationUrl(String stationUrl);
+
+    StringProperty stationUrlProperty();
+
+    boolean isDoubleUrl();
+
+    void setDoubleUrl(boolean doubleUrl);
+
+    BooleanProperty doubleUrlProperty();
+
+    boolean isBlackBlocked();
+
+    void setBlackBlocked(boolean blackBlocked);
+
+    BooleanProperty blackBlockedProperty();
+
     String getWebsite();
+
+    void setWebsite(String website);
+
+    StringProperty websiteProperty();
 
     PLocalDate getStationDate();
 
@@ -93,5 +189,10 @@ public interface Playable {
 
     void setStationDate(String date);
 
+    //=======================================
+    Config[] getConfigsArr();
+
     Playable getCopy();
+
+    void copyToMe(Playable playable);
 }

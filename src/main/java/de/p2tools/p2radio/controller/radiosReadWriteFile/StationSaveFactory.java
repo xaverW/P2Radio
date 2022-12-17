@@ -25,8 +25,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.playable.PlayableXml;
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.radiosLoadFromWeb.StationFieldNamesWeb;
 
@@ -58,23 +57,23 @@ public class StationSaveFactory {
                 }
                 jsonGenerator.writeEndObject();
 
-                for (Station station : stationList) {
+                for (Favourite station : stationList) {
                     jsonGenerator.writeStartObject();
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.NAME, station.arr[PlayableXml.STATION_PROP_STATION_NAME_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.GENRE, station.arr[PlayableXml.STATION_PROP_GENRE_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.CODEC, station.arr[PlayableXml.STATION_PROP_CODEC_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.BITRATE, station.arr[PlayableXml.STATION_PROP_BITRATE_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY, station.arr[PlayableXml.STATION_PROP_COUNTRY_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY_CODE, station.arr[PlayableXml.STATION_PROP_COUNTRY_CODE_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.STATE, station.arr[PlayableXml.STATION_PROP_STATE_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.LANGUAGE, station.arr[PlayableXml.STATION_PROP_LANGUAGE_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.VOTES, station.arr[PlayableXml.STATION_PROP_VOTES_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_COUNT, station.arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_TREND, station.arr[PlayableXml.STATION_PROP_CLICK_TREND_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL, station.arr[PlayableXml.STATION_PROP_URL_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL_RESOLVED, station.arr[PlayableXml.STATION_PROP_URL_RESOLVED_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.HOMEPAGE, station.arr[PlayableXml.STATION_PROP_WEBSITE_INT]);
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.LAST_CHANGE_TIME, station.arr[PlayableXml.STATION_PROP_DATE_INT]);
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.NAME, station.getStationName());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.GENRE, station.getGenre());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.CODEC, station.getCodec());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.BITRATE, station.getBitrate());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY, station.getCountry());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY_CODE, station.getCountryCode());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.STATE, station.getState());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.LANGUAGE, station.getLanguage());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.VOTES, station.getVotes() + "");
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_COUNT, station.getClickCount() + "");
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_TREND, station.getClickTrend() + "");
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL, station.getStationUrl());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL_RESOLVED, station.getStationUrlResolved());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.HOMEPAGE, station.getWebsite());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.LAST_CHANGE_TIME, station.getStationDate().toString());
                     jsonGenerator.writeEndObject();
                 }
 

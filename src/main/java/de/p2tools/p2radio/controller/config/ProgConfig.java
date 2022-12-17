@@ -25,6 +25,7 @@ import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
+import de.p2tools.p2radio.gui.smallRadio.SmallRadioFactory;
 import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
 import javafx.beans.property.*;
 
@@ -115,6 +116,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
     public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "");
     public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStr("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
+    public static StringProperty SMALL_RADIO_SELECTED_LIST = addStr("small-radio-selected-list", SmallRadioFactory.LIST_STATION);
 
     // Gui Favorite
     public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDouble("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);

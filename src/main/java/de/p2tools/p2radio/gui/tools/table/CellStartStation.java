@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.station.Station;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -34,10 +34,10 @@ import javafx.util.Callback;
 
 public class CellStartStation<S, T> extends TableCell<S, T> {
 
-    public final Callback<TableColumn<Station, String>, TableCell<Station, String>> cellFactoryStart
-            = (final TableColumn<Station, String> param) -> {
+    public final Callback<TableColumn<Favourite, String>, TableCell<Favourite, String>> cellFactoryStart
+            = (final TableColumn<Favourite, String> param) -> {
 
-        final TableCell<Station, String> cell = new TableCell<>() {
+        final TableCell<Favourite, String> cell = new TableCell<>() {
 
             @Override
             public void updateItem(String item, boolean empty) {
@@ -54,7 +54,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
                 hbox.setAlignment(Pos.CENTER);
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                Station station = getTableView().getItems().get(getIndex());
+                Favourite station = getTableView().getItems().get(getIndex());
                 final boolean playing = station.getStart() != null;
                 final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
                 final boolean fav = station.isFavourite();

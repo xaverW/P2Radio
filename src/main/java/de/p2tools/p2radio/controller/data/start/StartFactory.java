@@ -22,7 +22,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.playable.Playable;
-import de.p2tools.p2radio.controller.data.station.Station;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
 import java.util.Random;
@@ -40,7 +39,7 @@ public class StartFactory {
         }
     }
 
-    public void stopStation(Station station) {
+    public void stopStation(Favourite station) {
         if (station.getStart() != null) {
             station.getStart().stopStart();
         }
@@ -76,21 +75,21 @@ public class StartFactory {
         progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopLastPlayed(lastPlayed));
     }
 
-    public Station playRandomStation() {
+    public Favourite playRandomStation() {
         Random r = new Random();
-        Station station = progData.stationList.get(r.nextInt(progData.stationList.size()));
+        Favourite station = progData.stationList.get(r.nextInt(progData.stationList.size()));
         if (station != null) {
             playStation(station);
         }
         return station;
     }
 
-    public void playStation(Station station) {
+    public void playStation(Favourite station) {
         playStation(station, null);
     }
 
 
-    public void playStation(Station station, SetData data) {
+    public void playStation(Favourite station, SetData data) {
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;
@@ -150,7 +149,7 @@ public class StartFactory {
         return sd;
     }
 
-    private synchronized void startUrlWithProgram(Station station, SetData setData) {
+    private synchronized void startUrlWithProgram(Favourite station, SetData setData) {
         final String url = station.getStationUrl();
         if (!url.isEmpty()) {
             progData.lastPlayedList.addStation(station);
@@ -182,22 +181,22 @@ public class StartFactory {
         }
     }
 
-    private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
-        final String url = favourite.getStationUrl();
-        if (!url.isEmpty()) {
-            //todo wenn lastPlayed dann brauchts das eigenlich nicht
-            progData.lastPlayedList.addFavourite(favourite);
-
-            progData.startFactory.stopAll();
-            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
-
-            final Start start = new Start(setData, favourite);
-            favourite.setStart(start);
-            start.initStart();
-
-            startStart(start);
-        }
-    }
+//    private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
+//        final String url = favourite.getStationUrl();
+//        if (!url.isEmpty()) {
+//            //todo wenn lastPlayed dann brauchts das eigenlich nicht
+//            progData.lastPlayedList.addFavourite(favourite);
+//
+//            progData.startFactory.stopAll();
+//            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
+//
+//            final Start start = new Start(setData, favourite);
+//            favourite.setStart(start);
+//            start.initStart();
+//
+//            startStart(start);
+//        }
+//    }
 
     private synchronized void startStart(Start start) {
         StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);

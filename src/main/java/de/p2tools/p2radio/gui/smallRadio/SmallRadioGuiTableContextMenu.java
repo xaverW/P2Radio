@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -36,13 +36,13 @@ public class SmallRadioGuiTableContextMenu {
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(Favourite favourite) {
+    public ContextMenu getContextMenu(Playable favourite) {
         final ContextMenu contextMenu = new ContextMenu();
         getMenu(contextMenu, favourite);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, Favourite favourite) {
+    private void getMenu(ContextMenu contextMenu, Playable favourite) {
         MenuItem miStart = new MenuItem("Sender starten");
         miStart.setOnAction(a -> smallRadioGuiController.playStation());
         MenuItem miStop = new MenuItem("Sender stoppen");

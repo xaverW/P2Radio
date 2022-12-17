@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -42,7 +42,7 @@ public class FavouriteGuiInfoController extends PClosePaneH {
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
-    private Favourite favourite = null;
+    private Playable favourite = null;
 
     public FavouriteGuiInfoController() {
         super(ProgConfig.FAVOURITE_GUI_DIVIDER_ON, true);
@@ -79,7 +79,7 @@ public class FavouriteGuiInfoController extends PClosePaneH {
         gridPane.add(taDescription, 1, row);
     }
 
-    public void setFavourite(Favourite favourite) {
+    public void setFavourite(Playable favourite) {
         if (this.favourite != null) {
             taDescription.textProperty().unbindBidirectional(this.favourite.descriptionProperty());
         }

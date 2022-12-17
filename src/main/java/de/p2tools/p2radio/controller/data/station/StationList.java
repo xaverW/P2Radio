@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -35,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
-public class StationList extends SimpleListProperty<Station> implements PDataListMeta<Station> {
+public class StationList extends SimpleListProperty<Favourite> implements PDataListMeta<Favourite> {
 
     public static final String TAG = "StationList";
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
@@ -47,8 +48,8 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     public String[] codecs = {""};
     public String[] countries = {""};
     int countDouble = 0;
-    private FilteredList<Station> filteredList = null;
-    private SortedList<Station> sortedList = null;
+    private FilteredList<Favourite> filteredList = null;
+    private SortedList<Favourite> sortedList = null;
 
     {
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
@@ -69,15 +70,15 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     }
 
     @Override
-    public Station getNewItem() {
-        return new Station();
+    public Favourite getNewItem() {
+        return new Favourite();
     }
 
     @Override
     public void addNewItem(Object obj) {
-        if (obj.getClass().equals(Station.class)) {
-            ((Station) obj).init(); // damit wird auch das Datum! gesetzt
-            importStationOnlyWithNr(((Station) obj));
+        if (obj.getClass().equals(Favourite.class)) {
+//            ((Favourite) obj).init(); // damit wird auch das Datum! gesetzt
+            importStationOnlyWithNr(((Favourite) obj));
         }
     }
 
@@ -130,7 +131,7 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         BlackFilterFactory.getBlackFiltered();
     }
 
-    public SortedList<Station> getSortedList() {
+    public SortedList<Favourite> getSortedList() {
         if (sortedList == null || filteredList == null) {
             filteredList = new FilteredList<>(this, p -> true);
             sortedList = new SortedList<>(filteredList);
@@ -138,19 +139,19 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         return sortedList;
     }
 
-    public FilteredList<Station> getFilteredList() {
+    public FilteredList<Favourite> getFilteredList() {
         if (sortedList == null || filteredList == null) {
-            filteredList = new FilteredList<Station>(this, p -> true);
+            filteredList = new FilteredList<Favourite>(this, p -> true);
             sortedList = new SortedList<>(filteredList);
         }
         return filteredList;
     }
 
-    public synchronized void filteredListSetPred(Predicate<Station> predicate) {
+    public synchronized void filteredListSetPred(Predicate<Favourite> predicate) {
         filteredList.setPredicate(predicate);
     }
 
-    public synchronized boolean importStationOnlyWithNr(Station station) {
+    public synchronized boolean importStationOnlyWithNr(Favourite station) {
         // hier nur beim Laden aus einer fertigen Senderliste mit der GUI
         // die Sender sind schon sortiert, nur die Nummer muss noch ergänzt werden
         station.setStationNo(nr++);
@@ -181,10 +182,10 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         return countDouble;
     }
 
-    private boolean addInit(Station station) {
-        station.init();
-        return add(station);
-    }
+//    private boolean addInit(Favourite station) {
+////        station.init();
+//        return add(station);
+//    }
 
     @Override
     public synchronized void clear() {
@@ -196,19 +197,19 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
         Collections.sort(this);
         // und jetzt noch die Nummerierung in Ordnung bringen
         int i = 1;
-        for (final Station station : this) {
+        for (final Favourite station : this) {
             station.setStationNo(i++);
         }
     }
 
-    public synchronized Station getSenderByUrl(final String url) {
-        final Optional<Station> opt =
+    public synchronized Favourite getSenderByUrl(final String url) {
+        final Optional<Favourite> opt =
                 parallelStream().filter(station -> station.getStationUrl().equalsIgnoreCase(url)).findAny();
         return opt.orElse(null);
     }
 
     public synchronized long countNewStations() {
-        return stream().filter(Station::isNewStation).count();
+        return stream().filter(Favourite::isNewStation).count();
     }
 
     /**
@@ -240,7 +241,7 @@ public class StationList extends SimpleListProperty<Station> implements PDataLis
     public synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Stationen gesucht
         int ret = 0;
-        for (final Station station : this) {
+        for (final Favourite station : this) {
             if (station.getStart() != null &&
                     (station.getStart().getStartStatus().isStarted() || station.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;

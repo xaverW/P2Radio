@@ -24,6 +24,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
+import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -36,10 +37,10 @@ import java.util.regex.Pattern;
 
 public class FavouriteFilter extends FavouriteFilterXml {
 
-    private CollectionData collectionData = new CollectionData(CollectionList.COLLECTION_ALL);
     private final BooleanProperty ownFilter = new SimpleBooleanProperty(false);
     private final BooleanProperty gradeFilter = new SimpleBooleanProperty(false);
     private final StringProperty genreFilter = new SimpleStringProperty("");
+    private CollectionData collectionData = new CollectionData(CollectionList.COLLECTION_ALL);
 
     private static boolean check(String filter, String im) {
         if (Filter.isPattern(filter)) {
@@ -76,6 +77,25 @@ public class FavouriteFilter extends FavouriteFilterXml {
         return TAG;
     }
 
+    public Predicate<Playable> getPredicatePlayable() {
+        Predicate<Playable> predicate = favourite -> true;
+
+        if (collectionData != null && !collectionData.getName().isEmpty() &&
+                !collectionData.getName().contains(CollectionList.COLLECTION_ALL)) {
+            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionData.getName()));
+        }
+        if (ownFilter.get()) {
+            predicate = predicate.and(favourite -> favourite.isOwn());
+        }
+        if (gradeFilter.get()) {
+            predicate = predicate.and(favourite -> favourite.getOwnGrade() > 0);
+        }
+        if (!genreFilter.get().isEmpty()) {
+            predicate = predicate.and(favourite -> check(genreFilter.get(), favourite.getGenre()));
+        }
+        return predicate;
+    }
+    
     public Predicate<Favourite> getPredicate() {
         Predicate<Favourite> predicate = favourite -> true;
 

@@ -20,13 +20,14 @@ import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.playable.PlayableXml;
+import javafx.beans.property.*;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-public class StationProps extends PDataSample<Station> {
+public class StationProps extends PDataSample<Favourite> {
 
     public static final String TAG = "Station";
-    //    static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
     static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
     public final String[] arr = new String[PlayableXml.MAX_ELEM];
     public int no;
@@ -43,33 +44,15 @@ public class StationProps extends PDataSample<Station> {
     private boolean blackBlocked = false;
     private boolean own = false;
 
-//    @Override
-//    public Config[] getConfigsArr() {
-//        ArrayList<Config> list = new ArrayList<>();
-//        list.add(new ConfigStringExtra("name", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_STATION_NAME_INT], arr, PlayableXml.STATION_PROP_STATION_NAME_INT));
-//        list.add(new ConfigStringExtra("genre", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_GENRE_INT], arr, PlayableXml.STATION_PROP_GENRE_INT));
-//        list.add(new ConfigStringExtra("codec", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_CODEC_INT], arr, PlayableXml.STATION_PROP_CODEC_INT));
-//        list.add(new ConfigStringExtra("bitrate", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_BITRATE_INT], arr, PlayableXml.STATION_PROP_BITRATE_INT));
-//        list.add(new ConfigStringExtra("state", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_STATE_INT], arr, PlayableXml.STATION_PROP_STATE_INT));
-//        list.add(new ConfigStringExtra("country", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_COUNTRY_INT], arr, PlayableXml.STATION_PROP_COUNTRY_INT));
-//        list.add(new ConfigStringExtra("countryCode", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_COUNTRY_CODE_INT], arr, PlayableXml.STATION_PROP_COUNTRY_CODE_INT));
-//        list.add(new ConfigStringExtra("language", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_LANGUAGE_INT], arr, PlayableXml.STATION_PROP_LANGUAGE_INT));
-//        list.add(new ConfigStringExtra("votes", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_VOTES_INT], arr, PlayableXml.STATION_PROP_VOTES_INT));
-//        list.add(new ConfigStringExtra("clickCount", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_CLICK_COUNT_INT], arr, PlayableXml.STATION_PROP_CLICK_COUNT_INT));
-//        list.add(new ConfigStringExtra("trend", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_CLICK_TREND_INT], arr, PlayableXml.STATION_PROP_CLICK_TREND_INT));
-//        list.add(new ConfigStringExtra("url", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_URL_INT], arr, PlayableXml.STATION_PROP_URL_INT));
-//        list.add(new ConfigStringExtra("urlR", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_URL_RESOLVED_INT], arr, PlayableXml.STATION_PROP_URL_RESOLVED_INT));
-//        list.add(new ConfigStringExtra("website", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_WEBSITE_INT], arr, PlayableXml.STATION_PROP_WEBSITE_INT));
-//        list.add(new ConfigStringExtra("date", PlayableXml.COLUMN_NAMES[PlayableXml.STATION_PROP_DATE_INT], arr, PlayableXml.STATION_PROP_DATE_INT));
-//        list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
-//        return list.toArray(new Config[]{});
-//    }
-
     @Override
     public String getTag() {
         return TAG;
     }
 
+    public void init() {
+        preserveMemory();
+        setDate();
+    }
 
     public boolean isNewStation() {
         return newStation;
@@ -79,12 +62,20 @@ public class StationProps extends PDataSample<Station> {
         this.newStation = newStation;
     }
 
+    public BooleanProperty newStationProperty() {
+        return new SimpleBooleanProperty(newStation);
+    }
+
     public boolean isBlackBlocked() {
         return blackBlocked;
     }
 
     public void setBlackBlocked(boolean set) {
         blackBlocked = set;
+    }
+
+    public BooleanProperty blackBlockedProperty() {
+        return new SimpleBooleanProperty(isBlackBlocked());
     }
 
     public int getVotes() {
@@ -105,6 +96,10 @@ public class StationProps extends PDataSample<Station> {
         }
     }
 
+    public IntegerProperty votesProperty() {
+        return new SimpleIntegerProperty(getVotes());
+    }
+
     public int getClickCount() {
         return clickCount;
     }
@@ -121,6 +116,10 @@ public class StationProps extends PDataSample<Station> {
             this.clickCount = 0;
             arr[PlayableXml.STATION_PROP_CLICK_COUNT_INT] = "0";
         }
+    }
+
+    public IntegerProperty clickCountProperty() {
+        return new SimpleIntegerProperty(getClickCount());
     }
 
     public int getClickTrend() {
@@ -142,6 +141,10 @@ public class StationProps extends PDataSample<Station> {
         }
     }
 
+    public IntegerProperty clickTrendProperty() {
+        return new SimpleIntegerProperty(getClickTrend());
+    }
+
     public boolean isFavouriteUrl() {
         return favouriteUrl;
     }
@@ -154,24 +157,70 @@ public class StationProps extends PDataSample<Station> {
         this.doubleUrl = doubleUrl;
     }
 
+    public BooleanProperty doubleUrlProperty() {
+        return new SimpleBooleanProperty(isDoubleUrl());
+    }
+
     public int getNo() {
         return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+
+    public IntegerProperty noProperty() {
+        return new SimpleIntegerProperty(no);
+    }
+
+    public int getStationNo() {
+        return no;
+    }
+
+    public void setStationNo(int stationNo) {
+        this.no = stationNo;
+        arr[PlayableXml.STATION_PROP_STATION_NO_INT] = stationNo + "";
+    }
+
+    public IntegerProperty stationNoProperty() {
+        return new SimpleIntegerProperty(no);
     }
 
     public String getStationName() {
         return arr[PlayableXml.STATION_PROP_STATION_NAME_INT];
     }
 
+    public void setStationName(String stationName) {
+        arr[PlayableXml.STATION_PROP_STATION_NAME_INT] = stationName;
+    }
+
+    public StringProperty stationNameProperty() {
+        return new SimpleStringProperty(getStationName());
+    }
+
     public String getGenre() {
         return arr[PlayableXml.STATION_PROP_GENRE_INT];
+    }
+
+    public void setGenre(String genre) {
+        arr[PlayableXml.STATION_PROP_GENRE_INT] = genre;
+    }
+
+    public StringProperty genreProperty() {
+        return new SimpleStringProperty(getGenre());
     }
 
     public String getCodec() {
         return arr[PlayableXml.STATION_PROP_CODEC_INT];
     }
 
-    //=========================================================
-    //die RadioFelder
+    public void setCodec(String codec) {
+        arr[PlayableXml.STATION_PROP_CODEC_INT] = codec;
+    }
+
+    public StringProperty codecProperty() {
+        return new SimpleStringProperty(getCodec());
+    }
 
     public String getBitrate() {
         return arr[PlayableXml.STATION_PROP_BITRATE_INT];
@@ -187,6 +236,10 @@ public class StationProps extends PDataSample<Station> {
         }
     }
 
+    public StringProperty bitrateProperty() {
+        return new SimpleStringProperty(getBitrate());
+    }
+
     public int getBitrateInt() {
         return bitrateInt;
     }
@@ -196,20 +249,56 @@ public class StationProps extends PDataSample<Station> {
         arr[PlayableXml.STATION_PROP_BITRATE_INT] = bitrate + "";
     }
 
+    public IntegerProperty bitrateIntProperty() {
+        return new SimpleIntegerProperty(getBitrateInt());
+    }
+
     public String getState() {
         return arr[PlayableXml.STATION_PROP_STATE_INT];
+    }
+
+    public void setState(String state) {
+        arr[PlayableXml.STATION_PROP_STATE_INT] = state;
+    }
+
+    public StringProperty stateProperty() {
+        return new SimpleStringProperty(getState());
     }
 
     public String getCountry() {
         return arr[PlayableXml.STATION_PROP_COUNTRY_INT];
     }
 
+    public void setCountry(String country) {
+        arr[PlayableXml.STATION_PROP_COUNTRY_INT] = country;
+    }
+
+    public StringProperty countryProperty() {
+        return new SimpleStringProperty(getCountry());
+    }
+
     public String getCountryCode() {
         return arr[PlayableXml.STATION_PROP_COUNTRY_CODE_INT];
     }
 
+    public void setCountryCode(String countryCode) {
+        arr[PlayableXml.STATION_PROP_COUNTRY_CODE_INT] = countryCode;
+    }
+
+    public StringProperty countryCodeProperty() {
+        return new SimpleStringProperty(getCountryCode());
+    }
+
     public String getLanguage() {
         return arr[PlayableXml.STATION_PROP_LANGUAGE_INT];
+    }
+
+    public void setLanguage(String language) {
+        arr[PlayableXml.STATION_PROP_LANGUAGE_INT] = language;
+    }
+
+    public StringProperty languageProperty() {
+        return new SimpleStringProperty(getLanguage());
     }
 
     public String getStationUrl() {
@@ -231,24 +320,28 @@ public class StationProps extends PDataSample<Station> {
 //        }
     }
 
+    public void setStationUrl(String stationUrl) {
+        arr[PlayableXml.STATION_PROP_URL_INT] = stationUrl;
+    }
+
+    public StringProperty stationUrlProperty() {
+        return new SimpleStringProperty(getStationUrl());
+    }
+
     public String getUrlResolved() {
         return arr[PlayableXml.STATION_PROP_URL_RESOLVED_INT];
     }
 
-//    public String getVotes() {
-//        return arr[STATION_VOTES];
-//    }
-//
-//    public String getClickCount() {
-//        return arr[STATION_CLICK_COUNT];
-//    }
-//
-//    public String getClickTrend() {
-//        return arr[STATION_CLICK_TREND];
-//    }
-
     public String getWebsite() {
         return arr[PlayableXml.STATION_PROP_WEBSITE_INT];
+    }
+
+    public void setWebsite(String website) {
+        arr[PlayableXml.STATION_PROP_WEBSITE_INT] = website;
+    }
+
+    public StringProperty websiteProperty() {
+        return new SimpleStringProperty(getWebsite());
     }
 
     public PLocalDate getStationDate() {
@@ -272,21 +365,16 @@ public class StationProps extends PDataSample<Station> {
         arr[PlayableXml.STATION_PROP_OWN_INT] = Boolean.toString(own);
     }
 
+    public BooleanProperty ownProperty() {
+        return new SimpleBooleanProperty(isOwn());
+    }
+
     public boolean getFavouriteUrl() {
         return favouriteUrl;
     }
 
     public void setFavouriteUrl(boolean favouriteUrl) {
         this.favouriteUrl = favouriteUrl;
-    }
-
-    public int getStationNo() {
-        return no;
-    }
-
-    public void setStationNo(int stationNo) {
-        this.no = stationNo;
-        arr[PlayableXml.STATION_PROP_STATION_NO_INT] = stationNo + "";
     }
 
     public String getCollectionName() {
@@ -297,6 +385,10 @@ public class StationProps extends PDataSample<Station> {
         arr[PlayableXml.STATION_PROP_COLLECTION_INT] = name;
     }
 
+    public StringProperty collectionNameProperty() {
+        return new SimpleStringProperty(getCollectionName());
+    }
+
     public int getOwnGrade() {
         return ownGrade;
     }
@@ -304,6 +396,10 @@ public class StationProps extends PDataSample<Station> {
     public void setOwnGrade(int ownGrade) {
         this.ownGrade = ownGrade;
         arr[PlayableXml.STATION_PROP_OWN_GRADE_INT] = ownGrade + "";
+    }
+
+    public IntegerProperty ownGradeProperty() {
+        return new SimpleIntegerProperty(getOwnGrade());
     }
 
     public void setGrade(String grade) {
@@ -322,6 +418,10 @@ public class StationProps extends PDataSample<Station> {
 
     public void setDescription(String description) {
         arr[PlayableXml.STATION_PROP_DESCRIPTION_INT] = description;
+    }
+
+    public StringProperty descriptionProperty() {
+        return new SimpleStringProperty(getDescription());
     }
 
     void preserveMemory() {
@@ -346,19 +446,24 @@ public class StationProps extends PDataSample<Station> {
         }
     }
 
-    public Station getCopy() {
-        final Station ret = new Station();
-        System.arraycopy(arr, 0, ret.arr, 0, arr.length);
-        ret.init(); //Datum und int-Werte setzen
-        return ret;
-    }
-
-    @Override
-    public int compareTo(Station arg0) {
-        int ret;
-        if ((ret = sorter.compare(arr[PlayableXml.STATION_PROP_STATION_NAME_INT], arg0.arr[PlayableXml.STATION_PROP_STATION_NAME_INT])) == 0) {
-            return sorter.compare(arr[PlayableXml.STATION_PROP_GENRE_INT], arg0.arr[PlayableXml.STATION_PROP_GENRE_INT]);
-        }
-        return ret;
-    }
+//    public Station getCopy() {
+//        final Station ret = new Station();
+//        System.arraycopy(arr, 0, ret.arr, 0, arr.length);
+//        ret.init(); //Datum und int-Werte setzen
+//        return ret;
+//    }
+//
+//    public void copyToMe(Playable playable) {
+//        System.arraycopy(playable.getConfigsArr(), 0, arr, 0, arr.length);
+//        this.init();
+//    }
+//
+//    @Override
+//    public int compareTo(Station arg0) {
+//        int ret;
+//        if ((ret = sorter.compare(arr[PlayableXml.STATION_PROP_STATION_NAME_INT], arg0.arr[PlayableXml.STATION_PROP_STATION_NAME_INT])) == 0) {
+//            return sorter.compare(arr[PlayableXml.STATION_PROP_GENRE_INT], arg0.arr[PlayableXml.STATION_PROP_GENRE_INT]);
+//        }
+//        return ret;
+//    }
 }
