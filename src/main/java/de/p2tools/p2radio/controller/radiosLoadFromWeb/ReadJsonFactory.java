@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.radiosLoadFromWeb;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class ReadJsonFactory {
     private ReadJsonFactory() {
     }
 
-    public static void readJsonValue(Favourite favourite, JsonParser jp) throws IOException {
+    public static void readJsonValue(StationData stationData, JsonParser jp) throws IOException {
         JsonToken jsonToken;
         while ((jsonToken = jp.nextToken()) != null) {
             if (jsonToken == JsonToken.END_OBJECT) {
@@ -51,54 +51,54 @@ public class ReadJsonFactory {
 
             switch (name) {
                 case StationFieldNamesWeb.NAME:
-                    favourite.setStationName(value);
+                    stationData.setStationName(value);
                     break;
                 case StationFieldNamesWeb.GENRE:
-                    favourite.setGenre(value);
+                    stationData.setGenre(value);
                     break;
                 case StationFieldNamesWeb.CODEC:
-                    favourite.setCodec(value);
+                    stationData.setCodec(value);
                     break;
                 case StationFieldNamesWeb.BITRATE:
-                    favourite.setBitrate(value);
+                    stationData.setBitrate(value);
                     break;
                 case StationFieldNamesWeb.COUNTRY:
-                    favourite.setCountry(value);
+                    stationData.setCountry(value);
                     break;
                 case StationFieldNamesWeb.COUNTRY_CODE:
-                    favourite.setCountryCode(value);
+                    stationData.setCountryCode(value);
                     break;
                 case StationFieldNamesWeb.STATE:
-                    favourite.setState(value);
+                    stationData.setState(value);
                     break;
                 case StationFieldNamesWeb.LANGUAGE:
-                    favourite.setLanguage(value);
+                    stationData.setLanguage(value);
                     break;
                 case StationFieldNamesWeb.VOTES:
-                    favourite.setVotes(value);
+                    stationData.setVotes(value);
                     break;
                 case StationFieldNamesWeb.CLICK_COUNT:
-                    favourite.setClickCount(value);
+                    stationData.setClickCount(value);
                     break;
                 case StationFieldNamesWeb.CLICK_TREND:
-                    favourite.setClickTrend(value);
+                    stationData.setClickTrend(value);
                     break;
                 case StationFieldNamesWeb.URL:
-                    favourite.setStationUrl(value);
+                    stationData.setStationUrl(value);
                     break;
                 case StationFieldNamesWeb.URL_RESOLVED:
-                    favourite.setStationUrlResolved(value);
+                    stationData.setStationUrlResolved(value);
                     break;
                 case StationFieldNamesWeb.HOMEPAGE:
-                    favourite.setWebsite(value);
+                    stationData.setWebsite(value);
                     break;
                 case StationFieldNamesWeb.LAST_CHANGE_TIME:
                     //"2020-08-21 10:40:59"
                     try {
                         PDate pd = new PDate(sdf_date_time.parse(value));
-                        favourite.setStationDate(pd.get_dd_MM_yyyy());
+                        stationData.setStationDate(pd.get_dd_MM_yyyy());
                     } catch (Exception ex) {
-                        favourite.setStationDate(value);
+                        stationData.setStationDate(value);
                     }
                     break;
             }

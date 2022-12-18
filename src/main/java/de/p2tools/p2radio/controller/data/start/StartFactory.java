@@ -20,8 +20,7 @@ package de.p2tools.p2radio.controller.data.start;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
 import java.util.Random;
@@ -33,7 +32,7 @@ public class StartFactory {
         this.progData = progData;
     }
 
-    public void stopPlayable(Playable favourite) {
+    public void stopPlayable(StationData favourite) {
         if (favourite.getStart() != null) {
             favourite.getStart().stopStart();
         }
@@ -75,9 +74,9 @@ public class StartFactory {
         progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
     }
 
-    public Favourite playRandomStation() {
+    public StationData playRandomStation() {
         Random r = new Random();
-        Favourite station = progData.stationList.get(r.nextInt(progData.stationList.size()));
+        StationData station = progData.stationList.get(r.nextInt(progData.stationList.size()));
         if (station != null) {
             playPlayable(station);
         }
@@ -98,11 +97,11 @@ public class StartFactory {
 //        startUrlWithProgram(station, setData);
 //    }
 
-    public void playPlayable(Playable favourite) {
+    public void playPlayable(StationData favourite) {
         playPlayable(favourite, null);
     }
 
-    public void playPlayable(Playable favourite, SetData data) {
+    public void playPlayable(StationData favourite, SetData data) {
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;
@@ -165,7 +164,7 @@ public class StartFactory {
 //        }
 //    }
 
-    private synchronized void startUrlWithProgram(Playable station, SetData setData) {
+    private synchronized void startUrlWithProgram(StationData station, SetData setData) {
         final String url = station.getStationUrl();
         if (!url.isEmpty()) {
             progData.lastPlayedList.addStation(station);

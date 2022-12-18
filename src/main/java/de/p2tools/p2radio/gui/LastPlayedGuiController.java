@@ -24,8 +24,8 @@ import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
@@ -51,7 +51,7 @@ public class LastPlayedGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TablePlayable<Favourite> tableView;
+    private final TablePlayable<StationData> tableView;
     private final ProgData progData;
     private final LastPlayedGuiInfoController lastPlayedGuiInfoController;
     private final LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
@@ -99,7 +99,7 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     public void copyUrl() {
-        final Optional<Favourite> favourite = getSel();
+        final Optional<StationData> favourite = getSel();
         if (!favourite.isPresent()) {
             return;
         }
@@ -107,10 +107,10 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     private void setSelectedFavourite() {
-        Favourite favourite = tableView.getSelectionModel().getSelectedItem();
-        if (favourite != null) {
-            lastPlayedGuiInfoController.setLastPlayed(favourite);
-            Favourite fav = progData.stationList.getSenderByUrl(favourite.getStationUrl());
+        StationData stationData = tableView.getSelectionModel().getSelectedItem();
+        if (stationData != null) {
+            lastPlayedGuiInfoController.setLastPlayed(stationData);
+            StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
         } else {
             lastPlayedGuiInfoController.setLastPlayed(null);
@@ -119,7 +119,7 @@ public class LastPlayedGuiController extends AnchorPane {
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
-        final Optional<Favourite> lastPlayed = getSel();
+        final Optional<StationData> lastPlayed = getSel();
         if (lastPlayed.isPresent()) {
             progData.startFactory.playPlayable(lastPlayed.get());
         }
@@ -131,7 +131,7 @@ public class LastPlayedGuiController extends AnchorPane {
             progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
 
         } else {
-            final Optional<Favourite> lastPlayed = getSel();
+            final Optional<StationData> lastPlayed = getSel();
             if (lastPlayed.isPresent()) {
                 progData.startFactory.stopPlayable(lastPlayed.get());
             }
@@ -142,8 +142,8 @@ public class LastPlayedGuiController extends AnchorPane {
         Table.saveTable(tableView, Table.TABLE_ENUM.LAST_PLAYED);
     }
 
-    public ArrayList<Favourite> getSelList() {
-        final ArrayList<Favourite> ret = new ArrayList<>();
+    public ArrayList<StationData> getSelList() {
+        final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             PAlert.showInfoNoSelection();
@@ -151,11 +151,11 @@ public class LastPlayedGuiController extends AnchorPane {
         return ret;
     }
 
-    public Optional<Favourite> getSel() {
+    public Optional<StationData> getSel() {
         return getSel(true);
     }
 
-    public Optional<Favourite> getSel(boolean show) {
+    public Optional<StationData> getSel(boolean show) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow >= 0) {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
@@ -169,7 +169,7 @@ public class LastPlayedGuiController extends AnchorPane {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream().filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
+        Optional<StationData> optional = tableView.getItems().stream().filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
             int sel = tableView.getSelectionModel().getSelectedIndex();
@@ -219,15 +219,15 @@ public class LastPlayedGuiController extends AnchorPane {
     private void initTable() {
         Table.setTable(tableView);
 
-        SortedList<Favourite> sortedLastPlayedList = new SortedList<>(progData.filteredLastPlayedList);
+        SortedList<StationData> sortedLastPlayedList = new SortedList<>(progData.filteredLastPlayedList);
         tableView.setItems(sortedLastPlayedList);
         sortedLastPlayedList.comparatorProperty().bind(tableView.comparatorProperty());
         Platform.runLater(() -> PTableFactory.refreshTable(tableView));
 
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Favourite> optionalDownload = getSel(false);
-                Favourite lastPlayed;
+                final Optional<StationData> optionalDownload = getSel(false);
+                StationData lastPlayed;
                 if (optionalDownload.isPresent()) {
                     lastPlayed = optionalDownload.get();
                 } else {
@@ -241,7 +241,7 @@ public class LastPlayedGuiController extends AnchorPane {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> setSelectedFavourite());
         });
-        tableView.getItems().addListener((ListChangeListener<Favourite>) c -> {
+        tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);

@@ -25,7 +25,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
@@ -54,7 +54,7 @@ public class StationGuiController extends AnchorPane {
 
     private final TabPane infoTab = new TabPane();
     private final TilePane tilePaneButton = new TilePane();
-    private final TablePlayable<Favourite> tableView;
+    private final TablePlayable<StationData> tableView;
     private final ProgData progData;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
@@ -103,14 +103,14 @@ public class StationGuiController extends AnchorPane {
 
 
     private void setStation() {
-        Favourite station = tableView.getSelectionModel().getSelectedItem();
+        StationData station = tableView.getSelectionModel().getSelectedItem();
         stationGuiInfoController.setStation(station);
         progData.stationInfoDialogController.setStation(station);
     }
 
     public void playStation() {
         // Menü/Button Sender (URL) abspielen
-        final Optional<Favourite> stationSelection = getSel();
+        final Optional<StationData> stationSelection = getSel();
         if (stationSelection.isPresent()) {
             progData.startFactory.playPlayable(stationSelection.get());
         }
@@ -122,7 +122,7 @@ public class StationGuiController extends AnchorPane {
             progData.stationList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
 
         } else {
-            final Optional<Favourite> station = getSel();
+            final Optional<StationData> station = getSel();
             if (station.isPresent()) {
                 progData.startFactory.stopPlayable(station.get());
             }
@@ -131,7 +131,7 @@ public class StationGuiController extends AnchorPane {
 
     public void playStationWithSet(SetData psetData) {
         //Url mit Prognr. starten
-        final Optional<Favourite> sel = getSel();
+        final Optional<StationData> sel = getSel();
         if (!sel.isPresent()) {
             return;
         }
@@ -142,7 +142,7 @@ public class StationGuiController extends AnchorPane {
 
     public void playRandomStation() {
         int rInt = new Random().nextInt(tableView.getItems().size());
-        Favourite station = tableView.getItems().get(rInt);
+        StationData station = tableView.getItems().get(rInt);
         if (station != null) {
             tableView.getSelectionModel().select(station);
             tableView.scrollTo(station);
@@ -154,8 +154,8 @@ public class StationGuiController extends AnchorPane {
         new Table().saveTable(tableView, Table.TABLE_ENUM.STATION);
     }
 
-    public ArrayList<Favourite> getSelList() {
-        final ArrayList<Favourite> ret = new ArrayList<>();
+    public ArrayList<StationData> getSelList() {
+        final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             PAlert.showInfoNoSelection();
@@ -163,11 +163,11 @@ public class StationGuiController extends AnchorPane {
         return ret;
     }
 
-    public Optional<Favourite> getSel() {
+    public Optional<StationData> getSel() {
         return getSel(true);
     }
 
-    public Optional<Favourite> getSel(boolean show) {
+    public Optional<StationData> getSel(boolean show) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow >= 0) {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
@@ -181,7 +181,7 @@ public class StationGuiController extends AnchorPane {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream().
+        Optional<StationData> optional = tableView.getItems().stream().
                 filter(station -> station.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
@@ -204,7 +204,7 @@ public class StationGuiController extends AnchorPane {
                 return;
             }
 
-            Favourite selStation = tableView.getSelectionModel().getSelectedItem();
+            StationData selStation = tableView.getSelectionModel().getSelectedItem();
             if (selStation != null) {
                 tableView.scrollTo(selStation);
             } else {
@@ -216,7 +216,7 @@ public class StationGuiController extends AnchorPane {
 
     private void initListener() {
         progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
-        progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<Favourite>) c -> {
+        progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();
         });
         progData.setDataList.listChangedProperty().addListener((observable, oldValue, newValue) -> {
@@ -275,7 +275,7 @@ public class StationGuiController extends AnchorPane {
         new Table().setTable(tableView);
         tableView.setTableMenuButtonVisible(true);
 
-        SortedList<Favourite> sortedList = progData.stationListBlackFiltered.getSortedList();
+        SortedList<StationData> sortedList = progData.stationListBlackFiltered.getSortedList();
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
 
@@ -287,8 +287,8 @@ public class StationGuiController extends AnchorPane {
 
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Favourite> optionalStation = getSel(false);
-                Favourite station;
+                final Optional<StationData> optionalStation = getSel(false);
+                StationData station;
                 if (optionalStation.isPresent()) {
                     station = optionalStation.get();
                 } else {

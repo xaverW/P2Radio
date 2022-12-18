@@ -18,8 +18,8 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetDataList;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
@@ -40,21 +40,21 @@ public class FavouriteGuiTableContextMenu {
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(Favourite favourite) {
+    public ContextMenu getContextMenu(StationData stationData) {
         final ContextMenu contextMenu = new ContextMenu();
-        getMenu(contextMenu, favourite);
+        getMenu(contextMenu, stationData);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, Favourite favourite) {
+    private void getMenu(ContextMenu contextMenu, StationData stationData) {
         MenuItem miStart = new MenuItem("Sender starten");
-        miStart.setDisable(favourite == null);
+        miStart.setDisable(stationData == null);
         miStart.setOnAction(a -> favouriteGuiController.playStation());
         contextMenu.getItems().addAll(miStart);
 
-        Menu mStartStation = startStationWithSet(favourite); // Sender mit Set starten
+        Menu mStartStation = startStationWithSet(stationData); // Sender mit Set starten
         if (mStartStation != null) {
-            mStartStation.setDisable(favourite == null);
+            mStartStation.setDisable(stationData == null);
             contextMenu.getItems().add(mStartStation);
         }
 
@@ -70,11 +70,11 @@ public class FavouriteGuiTableContextMenu {
         MenuItem miRemove = new MenuItem("Favoriten löschen");
         miRemove.setOnAction(a -> FavouriteFactory.deleteFavourite(false));
 
-        miStop.setDisable(favourite == null);
-        miStopAll.setDisable(favourite == null);
-        miCopyUrl.setDisable(favourite == null);
-        miChange.setDisable(favourite == null);
-        miRemove.setDisable(favourite == null);
+        miStop.setDisable(stationData == null);
+        miStopAll.setDisable(stationData == null);
+        miCopyUrl.setDisable(stationData == null);
+        miChange.setDisable(stationData == null);
+        miRemove.setDisable(stationData == null);
 
         contextMenu.getItems().addAll(miStop, miStopAll, miCopyUrl, miChange, miRemove);
 
@@ -85,7 +85,7 @@ public class FavouriteGuiTableContextMenu {
         contextMenu.getItems().addAll(resetTable);
     }
 
-    private Menu startStationWithSet(Favourite station) {
+    private Menu startStationWithSet(StationData station) {
         final SetDataList list = progData.setDataList.getSetDataListButton();
         if (!list.isEmpty()) {
             Menu submenuSet = new Menu("Sender mit Set abspielen");
@@ -98,7 +98,7 @@ public class FavouriteGuiTableContextMenu {
             list.stream().forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
                 item.setOnAction(event -> {
-                    final Optional<Favourite> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+                    final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
                     if (favourite.isPresent()) {
                         progData.startFactory.playPlayable(favourite.get(), setData);
                     }

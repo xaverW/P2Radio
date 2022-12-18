@@ -22,8 +22,8 @@ import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.PlayableXml;
+import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
@@ -37,24 +37,24 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
             new PColorData("", Color.rgb(255, 233, 233),
                     Color.rgb(200, 183, 183));
     private final GridPane gridPane = new GridPane();
-    private final Label[] lbl = new Label[PlayableXml.MAX_ELEM];
-    private final Label[] lblCont = new Label[PlayableXml.MAX_ELEM];
-    private final CheckBox[] cbx = new CheckBox[PlayableXml.MAX_ELEM];
-    private final TextField[] txt = new TextField[PlayableXml.MAX_ELEM];
+    private final Label[] lbl = new Label[StationDataXml.MAX_ELEM];
+    private final Label[] lblCont = new Label[StationDataXml.MAX_ELEM];
+    private final CheckBox[] cbx = new CheckBox[StationDataXml.MAX_ELEM];
+    private final TextField[] txt = new TextField[StationDataXml.MAX_ELEM];
     private final ComboBox<String> cboCollection = new ComboBox<>();
     private final TextArea taDescription = new TextArea();
     private final ProgData progData;
     private final Button btnOk = new Button("_Ok");
     private final Button btnCancel = new Button("_Abbrechen");
-    private final Favourite favourite;
+    private final StationData stationData;
     private boolean ok = false;
 
-    public FavouriteAddOwnDialogController(ProgData progData, Favourite favourite) {
+    public FavouriteAddOwnDialogController(ProgData progData, StationData stationData) {
         super(progData.primaryStage, ProgConfig.FAVOURITE_DIALOG_ADD_SIZE,
                 "Favoriten hinzufügen", true, false);
 
         this.progData = progData;
-        this.favourite = favourite;
+        this.stationData = stationData;
 
         init(true);
     }
@@ -63,7 +63,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
         cboCollection.setMaxWidth(Double.MAX_VALUE);
         cboCollection.setEditable(true);
         cboCollection.setItems(progData.collectionList.getNames());
-        cboCollection.getSelectionModel().select(favourite.getCollectionName());
+        cboCollection.getSelectionModel().select(stationData.getCollectionName());
 
         taDescription.setEditable(true);
 
@@ -82,7 +82,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     }
 
     private void initButton() {
-        btnOk.disableProperty().bind(favourite.stationUrlProperty().isEmpty().or(favourite.stationNameProperty().isEmpty()));
+        btnOk.disableProperty().bind(stationData.stationUrlProperty().isEmpty().or(stationData.stationNameProperty().isEmpty()));
         btnOk.setOnAction(event -> {
             saveAct();
             ok = true;
@@ -95,7 +95,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     }
 
     private void saveAct() {
-        favourite.setCollectionName(cboCollection.getValue());
+        stationData.setCollectionName(cboCollection.getValue());
     }
 
     private void initGridPane() {
@@ -108,8 +108,8 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
-            lbl[i] = new Label(PlayableXml.COLUMN_NAMES[i] + ":");
+        for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
+            lbl[i] = new Label(StationDataXml.COLUMN_NAMES[i] + ":");
             lbl[i].setPadding(new Insets(2, 0, 2, 0));
             lblCont[i] = new Label("");
 
@@ -126,7 +126,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
             cbx[i].setDisable(true);
         }
 
-        for (int i = 0; i < PlayableXml.MAX_ELEM; ++i) {
+        for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
             row = setGrid(i, row);
         }
     }
@@ -134,77 +134,77 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     private int setGrid(int i, int row) {
         PHyperlink hyperlink;
         switch (i) {
-            case PlayableXml.STATION_PROP_NO_INT:
-            case PlayableXml.STATION_PROP_STATION_NO_INT:
-            case PlayableXml.STATION_PROP_BUTTON1_INT:
-            case PlayableXml.STATION_PROP_BUTTON2_INT:
-            case PlayableXml.STATION_PROP_CLICK_COUNT_INT:
-            case PlayableXml.STATION_PROP_DATE_INT:
+            case StationDataXml.STATION_PROP_NO_INT:
+            case StationDataXml.STATION_PROP_STATION_NO_INT:
+            case StationDataXml.STATION_PROP_BUTTON1_INT:
+            case StationDataXml.STATION_PROP_BUTTON2_INT:
+            case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
+            case StationDataXml.STATION_PROP_DATE_INT:
                 // bis hier nicht anzeigen
                 break;
-            case PlayableXml.STATION_PROP_STATION_NAME_INT:
+            case StationDataXml.STATION_PROP_STATION_NAME_INT:
                 addCheck(txt[i]);
-                txt[i].textProperty().bindBidirectional(favourite.stationNameProperty());
+                txt[i].textProperty().bindBidirectional(stationData.stationNameProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row, 3, 1);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_COLLECTION_INT:
-                lblCont[i].textProperty().bindBidirectional(favourite.collectionNameProperty());
+            case StationDataXml.STATION_PROP_COLLECTION_INT:
+                lblCont[i].textProperty().bindBidirectional(stationData.collectionNameProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(cboCollection, 1, row, 3, 1);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_GENRE_INT:
-                txt[i].textProperty().bindBidirectional(favourite.genreProperty());
+            case StationDataXml.STATION_PROP_GENRE_INT:
+                txt[i].textProperty().bindBidirectional(stationData.genreProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row, 3, 1);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_CODEC_INT:
-                txt[i].textProperty().bindBidirectional(favourite.codecProperty());
+            case StationDataXml.STATION_PROP_CODEC_INT:
+                txt[i].textProperty().bindBidirectional(stationData.codecProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row);
 
-                txt[PlayableXml.STATION_PROP_BITRATE_INT].textProperty().bindBidirectional(favourite.bitrateProperty());
-                gridPane.add(lbl[PlayableXml.STATION_PROP_BITRATE_INT], 2, row);
-                gridPane.add(txt[PlayableXml.STATION_PROP_BITRATE_INT], 3, row);
+                txt[StationDataXml.STATION_PROP_BITRATE_INT].textProperty().bindBidirectional(stationData.bitrateProperty());
+                gridPane.add(lbl[StationDataXml.STATION_PROP_BITRATE_INT], 2, row);
+                gridPane.add(txt[StationDataXml.STATION_PROP_BITRATE_INT], 3, row);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_COUNTRY_INT:
-                txt[i].textProperty().bindBidirectional(favourite.countryProperty());
+            case StationDataXml.STATION_PROP_COUNTRY_INT:
+                txt[i].textProperty().bindBidirectional(stationData.countryProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row);
 
-                txt[PlayableXml.STATION_PROP_LANGUAGE_INT].textProperty().bindBidirectional(favourite.languageProperty());
-                gridPane.add(lbl[PlayableXml.STATION_PROP_LANGUAGE_INT], 2, row);
-                gridPane.add(txt[PlayableXml.STATION_PROP_LANGUAGE_INT], 3, row);
+                txt[StationDataXml.STATION_PROP_LANGUAGE_INT].textProperty().bindBidirectional(stationData.languageProperty());
+                gridPane.add(lbl[StationDataXml.STATION_PROP_LANGUAGE_INT], 2, row);
+                gridPane.add(txt[StationDataXml.STATION_PROP_LANGUAGE_INT], 3, row);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_DESCRIPTION_INT:
+            case StationDataXml.STATION_PROP_DESCRIPTION_INT:
                 lbl[i].setTextFill(Color.BLUE);
-                taDescription.textProperty().bindBidirectional(favourite.descriptionProperty());
+                taDescription.textProperty().bindBidirectional(stationData.descriptionProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(taDescription, 1, row, 3, 1);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_URL_INT:
+            case StationDataXml.STATION_PROP_URL_INT:
                 addCheck(txt[i]);
-                txt[i].textProperty().bindBidirectional(favourite.stationUrlProperty());
+                txt[i].textProperty().bindBidirectional(stationData.stationUrlProperty());
 
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row, 3, 1);
                 ++row;
                 break;
-            case PlayableXml.STATION_PROP_WEBSITE_INT:
-                txt[i].textProperty().bindBidirectional(favourite.websiteProperty());
+            case StationDataXml.STATION_PROP_WEBSITE_INT:
+                txt[i].textProperty().bindBidirectional(stationData.websiteProperty());
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row, 3, 1);
                 ++row;
                 break;
         }
 
-        if (i == PlayableXml.STATION_PROP_COLLECTION_INT || txt[i].isEditable() || !cbx[i].isDisabled()) {
+        if (i == StationDataXml.STATION_PROP_COLLECTION_INT || txt[i].isEditable() || !cbx[i].isDisabled()) {
             lbl[i].setTextFill(Color.BLUE);
         }
         return row;

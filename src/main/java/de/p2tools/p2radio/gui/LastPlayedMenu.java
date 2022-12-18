@@ -22,8 +22,8 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
@@ -81,7 +81,7 @@ public class LastPlayedMenu {
             for (SetData set : progData.setDataList) {
                 MenuItem miStart = new MenuItem(set.getVisibleName());
                 miStart.setOnAction(a -> {
-                    final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+                    final Optional<StationData> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
                     if (lastPlayed.isPresent()) {
                         progData.startFactory.playPlayable(lastPlayed.get(), set);
                     }
@@ -126,12 +126,12 @@ public class LastPlayedMenu {
 
         MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
         miAddFavourite.setOnAction(a -> {
-            final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+            final Optional<StationData> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
             if (lastPlayed.isPresent()) {
                 String stationUrl = lastPlayed.get().getStationUrl();
-                Favourite favourite = progData.stationList.getSenderByUrl(stationUrl);
-                if (favourite != null) {
-                    StationFactory.favouriteStation(favourite);
+                StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
+                if (stationData != null) {
+                    StationFactory.favouriteStation(stationData);
                 }
             }
         });

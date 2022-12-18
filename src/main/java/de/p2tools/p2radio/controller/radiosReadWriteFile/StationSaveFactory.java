@@ -25,7 +25,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.radiosLoadFromWeb.StationFieldNamesWeb;
 
@@ -57,7 +57,7 @@ public class StationSaveFactory {
                 }
                 jsonGenerator.writeEndObject();
 
-                for (Favourite station : stationList) {
+                for (StationData station : stationList) {
                     jsonGenerator.writeStartObject();
                     jsonGenerator.writeStringField(StationFieldNamesWeb.NAME, station.getStationName());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.GENRE, station.getGenre());

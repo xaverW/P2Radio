@@ -21,8 +21,8 @@ import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -46,7 +46,7 @@ public class FavouriteFilterController extends FilterController {
     private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
 
     private final FavouriteFilter favouriteFilter;
-    private final FilteredList<Favourite> filteredFavourites;
+    private final FilteredList<StationData> filteredStationData;
 
     public FavouriteFilterController() {
         super(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON);
@@ -54,7 +54,7 @@ public class FavouriteFilterController extends FilterController {
         vBoxFilter = getVBoxFilter(true);
 
         favouriteFilter = progData.favouriteFilter;
-        filteredFavourites = progData.filteredFavourites;
+        filteredStationData = progData.filteredStationData;
 
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
@@ -83,14 +83,14 @@ public class FavouriteFilterController extends FilterController {
     private void initFilter() {
         cboCollections.setItems(progData.collectionList);
         cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
-        filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+        filteredStationData.setPredicate(favouriteFilter.getPredicate());
 
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
             if (n == null) {
                 return;
             }
             favouriteFilter.setCollectionData(n);
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            filteredStationData.setPredicate(favouriteFilter.getPredicate());
         });
 
         FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
@@ -101,7 +101,7 @@ public class FavouriteFilterController extends FilterController {
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
                 fN.checkPattern();
-                filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+                filteredStationData.setPredicate(favouriteFilter.getPredicate());
             }
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
@@ -109,18 +109,18 @@ public class FavouriteFilterController extends FilterController {
         tglOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
         tglOwn.selectedProperty().bindBidirectional(favouriteFilter.ownFilterProperty());
         tglOwn.selectedProperty().addListener((u, o, n) -> {
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            filteredStationData.setPredicate(favouriteFilter.getPredicate());
         });
 
         tglGrade.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
         tglGrade.selectedProperty().bindBidirectional(favouriteFilter.gradeFilterProperty());
         tglGrade.selectedProperty().addListener((u, o, n) -> {
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            filteredStationData.setPredicate(favouriteFilter.getPredicate());
         });
 
         btnClearFilter.setOnAction(event -> {
             favouriteFilter.clearFilter();
-            filteredFavourites.setPredicate(favouriteFilter.getPredicate());
+            filteredStationData.setPredicate(favouriteFilter.getPredicate());
             cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
         });
     }

@@ -20,8 +20,7 @@ import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -30,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class LastPlayedList extends SimpleListProperty<Favourite> implements PDataList<Favourite> {
+public class LastPlayedList extends SimpleListProperty<StationData> implements PDataList<StationData> {
 
     public static final String TAG = "LastPlayedList";
     private final ProgData progData;
@@ -54,14 +53,14 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
     }
 
     @Override
-    public Favourite getNewItem() {
-        return new Favourite();
+    public StationData getNewItem() {
+        return new StationData();
     }
 
     @Override
     public void addNewItem(Object obj) {
-        if (obj.getClass().equals(Favourite.class)) {
-            add((Favourite) obj);
+        if (obj.getClass().equals(StationData.class)) {
+            add((StationData) obj);
         }
     }
 
@@ -70,13 +69,13 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
     }
 
     @Override
-    public synchronized boolean add(Favourite d) {
+    public synchronized boolean add(StationData d) {
         d.setNo(++no);
         return super.add(d);
     }
 
     @Override
-    public synchronized boolean addAll(Collection<? extends Favourite> elements) {
+    public synchronized boolean addAll(Collection<? extends StationData> elements) {
         elements.stream().forEach(f -> {
             f.setNo(++no);
         });
@@ -84,37 +83,17 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
     }
 
     @Override
-    public boolean addAll(Favourite... var1) {
-        for (Favourite f : var1) {
+    public boolean addAll(StationData... var1) {
+        for (StationData f : var1) {
             f.setNo(++no);
         }
         return super.addAll(var1);
     }
 
-    public synchronized void addFavourite(Favourite favourite) {
-        if (!checkUrl(favourite.getStationUrl())) {
-            //dann gibts ihn noch nicht
-            Favourite lastPlayed = new Favourite();
-            lastPlayed.setFavourite(favourite);
-            this.add(0, lastPlayed);
-        }
-        reCount();
-    }
-
-    public synchronized void addStation(Playable station) {
+    public synchronized void addStation(StationData station) {
         if (!checkUrl(station.getStationUrl())) {
             //dann gibts ihn noch nicht
-            Favourite lastPlayed = new Favourite();
-            lastPlayed.setStation(station);
-            this.add(0, lastPlayed);
-        }
-        reCount();
-    }
-
-    public synchronized void addStation(Favourite station) {
-        if (!checkUrl(station.getStationUrl())) {
-            //dann gibts ihn noch nicht
-            Favourite lastPlayed = new Favourite();
+            StationData lastPlayed = new StationData();
             lastPlayed.setStation(station);
             this.add(0, lastPlayed);
         }
@@ -123,10 +102,10 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
 
     private boolean checkUrl(String url) {
         boolean ret = false;
-        Optional<Favourite> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
+        Optional<StationData> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
         if (opt.isPresent()) {
             ret = true;
-            Favourite lastPlayed = opt.get();
+            StationData lastPlayed = opt.get();
             this.remove(lastPlayed);
             this.add(0, lastPlayed);
         }
@@ -142,7 +121,7 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
         }
     }
 
-    public synchronized boolean remove(Favourite objects) {
+    public synchronized boolean remove(StationData objects) {
         return super.remove(objects);
     }
 
@@ -154,7 +133,7 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
     public synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Favoriten gesucht
         int ret = 0;
-        for (final Favourite lastPlayed : this) {
+        for (final StationData lastPlayed : this) {
             if (lastPlayed.getStart() != null &&
                     (lastPlayed.getStart().getStartStatus().isStarted() || lastPlayed.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;
@@ -168,26 +147,26 @@ public class LastPlayedList extends SimpleListProperty<Favourite> implements PDa
         // den Sender wieder eintragen
         PDuration.counterStart("FavouriteList.addSenderInList");
         int counter = 50;
-        for (Favourite favourite : this) {
+        for (StationData stationData : this) {
             --counter;
             if (counter < 0) {
                 break;
             }
-            favourite.setStation(progData.stationList.getSenderByUrl(favourite.getStationUrl()));
+            stationData.setStation(progData.stationList.getSenderByUrl(stationData.getStationUrl()));
         }
         PDuration.counterStop("FavouriteList.addSenderInList");
     }
 
-    public synchronized Favourite getUrlStation(String urlStation) {
-        for (final Favourite dataFavourite : this) {
-            if (dataFavourite.getStationUrl().equals(urlStation)) {
-                return dataFavourite;
+    public synchronized StationData getUrlStation(String urlStation) {
+        for (final StationData dataStationData : this) {
+            if (dataStationData.getStationUrl().equals(urlStation)) {
+                return dataStationData;
             }
         }
         return null;
     }
 
-    public synchronized List<Favourite> getListOfStartsNotFinished(String source) {
+    public synchronized List<StationData> getListOfStartsNotFinished(String source) {
         return favouriteStartsFactory.getListOfStartsNotFinished(source);
     }
 }

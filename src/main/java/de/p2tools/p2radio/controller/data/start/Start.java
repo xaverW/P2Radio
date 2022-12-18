@@ -20,20 +20,20 @@ import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 
 public final class Start extends StartProps {
 
     private final StartStatus startStatus = new StartStatus();
     private Starter starter = new Starter(this);
 
-    private Playable playable = null;
+    private StationData playable = null;
     private SetData setData = null;
 
     public Start() {
     }
 
-    public Start(SetData setData, Playable playable) {
+    public Start(SetData setData, StationData playable) {
         this.playable = playable;
         setStationNo(playable.getNo());
         setStationName(playable.getStationName());
@@ -77,7 +77,7 @@ public final class Start extends StartProps {
         return playable.getStationUrl();
     }
 
-    public Playable getPlayable() {
+    public StationData getPlayable() {
         return playable;
     }
 

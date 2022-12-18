@@ -21,7 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +32,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class CellStartFavourite<S extends Playable, T> extends TableCell<S, T> {
+public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T> {
 
     public final Callback<TableColumn<S, Integer>, TableCell<S, Integer>> cellFactoryButton
             = (final TableColumn<S, Integer> param) -> {

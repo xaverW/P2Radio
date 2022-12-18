@@ -24,8 +24,8 @@ import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
@@ -51,10 +51,10 @@ public class FavouriteGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TablePlayable<Favourite> tableView;
+    private final TablePlayable<StationData> tableView;
 
     private final ProgData progData;
-    private final SortedList<Favourite> sortedFavourites;
+    private final SortedList<StationData> sortedStationData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
     DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
@@ -80,7 +80,7 @@ public class FavouriteGuiController extends AnchorPane {
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         favouriteGuiInfoController = new FavouriteGuiInfoController();
-        sortedFavourites = new SortedList<>(progData.filteredFavourites);
+        sortedStationData = new SortedList<>(progData.filteredStationData);
 
         setInfoPane();
         initTable();
@@ -101,7 +101,7 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     public void copyUrl() {
-        final Optional<Favourite> favourite = getSel();
+        final Optional<StationData> favourite = getSel();
         if (!favourite.isPresent()) {
             return;
         }
@@ -109,10 +109,10 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void setSelectedFavourite() {
-        Favourite favourite = tableView.getSelectionModel().getSelectedItem();
-        if (favourite != null) {
-            favouriteGuiInfoController.setFavourite(favourite);
-            Favourite fav = progData.stationList.getSenderByUrl(favourite.getStationUrl());
+        StationData stationData = tableView.getSelectionModel().getSelectedItem();
+        if (stationData != null) {
+            favouriteGuiInfoController.setFavourite(stationData);
+            StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
         } else {
             favouriteGuiInfoController.setFavourite(null);
@@ -121,7 +121,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
-        final Optional<Favourite> favourite = getSel();
+        final Optional<StationData> favourite = getSel();
         if (favourite.isPresent()) {
             progData.startFactory.playPlayable(favourite.get());
         }
@@ -133,7 +133,7 @@ public class FavouriteGuiController extends AnchorPane {
             progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
 
         } else {
-            final Optional<Favourite> favourite = getSel();
+            final Optional<StationData> favourite = getSel();
             if (favourite.isPresent()) {
                 progData.startFactory.stopPlayable(favourite.get());
             }
@@ -145,8 +145,8 @@ public class FavouriteGuiController extends AnchorPane {
         new Table().saveTable(tableView, Table.TABLE_ENUM.FAVOURITE);
     }
 
-    public ArrayList<Favourite> getSelList() {
-        final ArrayList<Favourite> ret = new ArrayList<>();
+    public ArrayList<StationData> getSelList() {
+        final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             PAlert.showInfoNoSelection();
@@ -154,11 +154,11 @@ public class FavouriteGuiController extends AnchorPane {
         return ret;
     }
 
-    public Optional<Favourite> getSel() {
+    public Optional<StationData> getSel() {
         return getSel(true);
     }
 
-    public Optional<Favourite> getSel(boolean show) {
+    public Optional<StationData> getSel(boolean show) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow >= 0) {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
@@ -172,7 +172,7 @@ public class FavouriteGuiController extends AnchorPane {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Favourite> optional = tableView.getItems().stream()
+        Optional<StationData> optional = tableView.getItems().stream()
                 .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
@@ -222,8 +222,8 @@ public class FavouriteGuiController extends AnchorPane {
     private void initTable() {
         Table.setTable(tableView);
 
-        tableView.setItems(sortedFavourites);
-        sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedStationData);
+        sortedStationData.comparatorProperty().bind(tableView.comparatorProperty());
 
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
@@ -232,21 +232,21 @@ public class FavouriteGuiController extends AnchorPane {
         });
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Favourite> optionalDownload = getSel(false);
-                Favourite favourite;
+                final Optional<StationData> optionalDownload = getSel(false);
+                StationData stationData;
                 if (optionalDownload.isPresent()) {
-                    favourite = optionalDownload.get();
+                    stationData = optionalDownload.get();
                 } else {
-                    favourite = null;
+                    stationData = null;
                 }
-                ContextMenu contextMenu = new FavouriteGuiTableContextMenu(progData, this, tableView).getContextMenu(favourite);
+                ContextMenu contextMenu = new FavouriteGuiTableContextMenu(progData, this, tableView).getContextMenu(stationData);
                 tableView.setContextMenu(contextMenu);
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> setSelectedFavourite());
         });
-        tableView.getItems().addListener((ListChangeListener<Favourite>) c -> {
+        tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);

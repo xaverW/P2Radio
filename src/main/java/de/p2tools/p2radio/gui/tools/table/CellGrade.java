@@ -18,8 +18,8 @@
 package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -29,10 +29,10 @@ import javafx.util.Callback;
 
 public class CellGrade<S, T> extends TableCell<S, T> {
 
-    public final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryGrade
-            = (final TableColumn<Favourite, Integer> param) -> {
+    public final Callback<TableColumn<StationData, Integer>, TableCell<StationData, Integer>> cellFactoryGrade
+            = (final TableColumn<StationData, Integer> param) -> {
 
-        final TableCell<Favourite, Integer> cell = new TableCell<>() {
+        final TableCell<StationData, Integer> cell = new TableCell<>() {
 
             @Override
             public void updateItem(Integer item, boolean empty) {

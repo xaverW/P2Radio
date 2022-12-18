@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
 import de.p2tools.p2radio.tools.MLHttpClient;
@@ -152,7 +152,7 @@ public class ReadRadiosFromWeb {
     private void readData(JsonParser jp, StationList stationList) throws IOException {
         while (!ProgData.getInstance().loadNewStationList.isStop() && (jp.nextToken()) != null) {
             if (jp.isExpectedStartObjectToken()) {
-                final Favourite station = new Favourite();
+                final StationData station = new StationData();
                 ReadJsonFactory.readJsonValue(station, jp);
                 //etwa bei 1/3 der Sender
                 //if (station.arr[Station.STATION_URL].equals(station.arr[Station.STATION_URL_RESOLVED])) {

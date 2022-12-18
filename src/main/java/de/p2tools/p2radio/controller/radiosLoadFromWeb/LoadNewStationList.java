@@ -26,7 +26,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosReadWriteFile.StationLoadFactory;
@@ -209,7 +209,7 @@ public class LoadNewStationList {
         logList.add(PLog.LILNE3);
         logList.add("Hash füllen, Größe vorher: " + hashSet.size());
 
-        hashSet.addAll(stationList.stream().map(Favourite::getStationUrl).collect(Collectors.toList()));
+        hashSet.addAll(stationList.stream().map(StationData::getStationUrl).collect(Collectors.toList()));
         logList.add("                  nachher: " + hashSet.size());
         logList.add(PLog.LILNE3);
     }

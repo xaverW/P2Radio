@@ -18,10 +18,10 @@
 package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.config.ProgColorList;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.scene.control.Tooltip;
 
-public class TableRowPlayable<T extends Playable> extends javafx.scene.control.TableRow {
+public class TableRowPlayable<T extends StationData> extends javafx.scene.control.TableRow {
 
     public TableRowPlayable() {
     }
@@ -30,7 +30,7 @@ public class TableRowPlayable<T extends Playable> extends javafx.scene.control.T
     public void updateItem(Object f, boolean empty) {
         super.updateItem(f, empty);
 
-        Playable favourite = (Playable) f;
+        StationData favourite = (StationData) f;
         setStyle("");
         for (int i = 0; i < getChildren().size(); i++) {
             getChildren().get(i).setStyle("");

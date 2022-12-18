@@ -19,13 +19,13 @@ package de.p2tools.p2radio.controller.starter;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.pNotification.PNotification;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 
 
 public class MTNotification {
-    public static void addNotification(Favourite favourite, boolean error) {
-        String text = ("Sender:   " + favourite.getCountry() + P2LibConst.LINE_SEPARATOR +
-                "Sender: " + favourite.getStationName() + P2LibConst.LINE_SEPARATOR +
+    public static void addNotification(StationData stationData, boolean error) {
+        String text = ("Sender:   " + stationData.getCountry() + P2LibConst.LINE_SEPARATOR +
+                "Sender: " + stationData.getStationName() + P2LibConst.LINE_SEPARATOR +
                 (error ? "Download war fehlerhaft" : "Download war erfolgreich"));
 
         add(text, error);

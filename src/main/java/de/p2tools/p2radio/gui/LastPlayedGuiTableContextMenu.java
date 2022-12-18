@@ -18,8 +18,8 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetDataList;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
@@ -41,13 +41,13 @@ public class LastPlayedGuiTableContextMenu {
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(Favourite lastPlayed) {
+    public ContextMenu getContextMenu(StationData lastPlayed) {
         final ContextMenu contextMenu = new ContextMenu();
         getMenu(contextMenu, lastPlayed);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, Favourite lastPlayed) {
+    private void getMenu(ContextMenu contextMenu, StationData lastPlayed) {
         MenuItem miStart = new MenuItem("Sender starten");
         miStart.setOnAction(a -> lastPlayedGuiController.playStation());
         miStart.setDisable(lastPlayed == null);
@@ -76,10 +76,10 @@ public class LastPlayedGuiTableContextMenu {
 
         if (lastPlayed != null) {
             String stationUrl = lastPlayed.getStationUrl();
-            Favourite favourite = progData.stationList.getSenderByUrl(stationUrl);
-            if (favourite != null) {
+            StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
+            if (stationData != null) {
                 MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
-                miAddFavourite.setOnAction(a -> StationFactory.favouriteStation(favourite));
+                miAddFavourite.setOnAction(a -> StationFactory.favouriteStation(stationData));
                 miAddFavourite.setDisable(lastPlayed == null);
                 contextMenu.getItems().addAll(miAddFavourite);
             }
@@ -91,7 +91,7 @@ public class LastPlayedGuiTableContextMenu {
         contextMenu.getItems().addAll(resetTable);
     }
 
-    private Menu startStationWithSet(Favourite station) {
+    private Menu startStationWithSet(StationData station) {
         final SetDataList list = progData.setDataList.getSetDataListButton();
         if (!list.isEmpty()) {
             Menu submenuSet = new Menu("Sender mit Set abspielen");
@@ -104,7 +104,7 @@ public class LastPlayedGuiTableContextMenu {
             list.stream().forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
                 item.setOnAction(event -> {
-                    final Optional<Favourite> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
+                    final Optional<StationData> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
                     if (lastPlayed.isPresent()) {
                         progData.startFactory.playPlayable(lastPlayed.get(), setData);
                     }

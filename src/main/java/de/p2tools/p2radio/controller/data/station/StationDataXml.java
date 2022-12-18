@@ -14,10 +14,10 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.playable;
+package de.p2tools.p2radio.controller.data.station;
 
 
-public class PlayableXml {
+public class StationDataXml {
     public static final String TAG = "STATION_PROPERTY";
 
     public static final int STATION_PROP_NO_INT = 0;

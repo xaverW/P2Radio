@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -36,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
-public class StationList extends SimpleListProperty<Favourite> implements PDataListMeta<Favourite> {
+public class StationList extends SimpleListProperty<StationData> implements PDataListMeta<StationData> {
 
     public static final String TAG = "StationList";
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
@@ -48,8 +47,8 @@ public class StationList extends SimpleListProperty<Favourite> implements PDataL
     public String[] codecs = {""};
     public String[] countries = {""};
     int countDouble = 0;
-    private FilteredList<Favourite> filteredList = null;
-    private SortedList<Favourite> sortedList = null;
+    private FilteredList<StationData> filteredList = null;
+    private SortedList<StationData> sortedList = null;
 
     {
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
@@ -70,15 +69,15 @@ public class StationList extends SimpleListProperty<Favourite> implements PDataL
     }
 
     @Override
-    public Favourite getNewItem() {
-        return new Favourite();
+    public StationData getNewItem() {
+        return new StationData();
     }
 
     @Override
     public void addNewItem(Object obj) {
-        if (obj.getClass().equals(Favourite.class)) {
+        if (obj.getClass().equals(StationData.class)) {
 //            ((Favourite) obj).init(); // damit wird auch das Datum! gesetzt
-            importStationOnlyWithNr(((Favourite) obj));
+            importStationOnlyWithNr(((StationData) obj));
         }
     }
 
@@ -131,7 +130,7 @@ public class StationList extends SimpleListProperty<Favourite> implements PDataL
         BlackFilterFactory.getBlackFiltered();
     }
 
-    public SortedList<Favourite> getSortedList() {
+    public SortedList<StationData> getSortedList() {
         if (sortedList == null || filteredList == null) {
             filteredList = new FilteredList<>(this, p -> true);
             sortedList = new SortedList<>(filteredList);
@@ -139,19 +138,19 @@ public class StationList extends SimpleListProperty<Favourite> implements PDataL
         return sortedList;
     }
 
-    public FilteredList<Favourite> getFilteredList() {
+    public FilteredList<StationData> getFilteredList() {
         if (sortedList == null || filteredList == null) {
-            filteredList = new FilteredList<Favourite>(this, p -> true);
+            filteredList = new FilteredList<StationData>(this, p -> true);
             sortedList = new SortedList<>(filteredList);
         }
         return filteredList;
     }
 
-    public synchronized void filteredListSetPred(Predicate<Favourite> predicate) {
+    public synchronized void filteredListSetPred(Predicate<StationData> predicate) {
         filteredList.setPredicate(predicate);
     }
 
-    public synchronized boolean importStationOnlyWithNr(Favourite station) {
+    public synchronized boolean importStationOnlyWithNr(StationData station) {
         // hier nur beim Laden aus einer fertigen Senderliste mit der GUI
         // die Sender sind schon sortiert, nur die Nummer muss noch ergänzt werden
         station.setStationNo(nr++);
@@ -197,19 +196,19 @@ public class StationList extends SimpleListProperty<Favourite> implements PDataL
         Collections.sort(this);
         // und jetzt noch die Nummerierung in Ordnung bringen
         int i = 1;
-        for (final Favourite station : this) {
+        for (final StationData station : this) {
             station.setStationNo(i++);
         }
     }
 
-    public synchronized Favourite getSenderByUrl(final String url) {
-        final Optional<Favourite> opt =
+    public synchronized StationData getSenderByUrl(final String url) {
+        final Optional<StationData> opt =
                 parallelStream().filter(station -> station.getStationUrl().equalsIgnoreCase(url)).findAny();
         return opt.orElse(null);
     }
 
     public synchronized long countNewStations() {
-        return stream().filter(Favourite::isNewStation).count();
+        return stream().filter(StationData::isNewStation).count();
     }
 
     /**
@@ -241,7 +240,7 @@ public class StationList extends SimpleListProperty<Favourite> implements PDataL
     public synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Stationen gesucht
         int ret = 0;
-        for (final Favourite station : this) {
+        for (final StationData station : this) {
             if (station.getStart() != null &&
                     (station.getStart().getStartStatus().isStarted() || station.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;

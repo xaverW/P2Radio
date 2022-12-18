@@ -24,7 +24,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -77,8 +77,8 @@ public class FavouriteFilter extends FavouriteFilterXml {
         return TAG;
     }
 
-    public Predicate<Playable> getPredicatePlayable() {
-        Predicate<Playable> predicate = favourite -> true;
+    public Predicate<StationData> getPredicatePlayable() {
+        Predicate<StationData> predicate = favourite -> true;
 
         if (collectionData != null && !collectionData.getName().isEmpty() &&
                 !collectionData.getName().contains(CollectionList.COLLECTION_ALL)) {
@@ -95,9 +95,9 @@ public class FavouriteFilter extends FavouriteFilterXml {
         }
         return predicate;
     }
-    
-    public Predicate<Favourite> getPredicate() {
-        Predicate<Favourite> predicate = favourite -> true;
+
+    public Predicate<StationData> getPredicate() {
+        Predicate<StationData> predicate = favourite -> true;
 
         if (collectionData != null && !collectionData.getName().isEmpty() &&
                 !collectionData.getName().contains(CollectionList.COLLECTION_ALL)) {

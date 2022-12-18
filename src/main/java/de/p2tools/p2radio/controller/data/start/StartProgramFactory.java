@@ -19,8 +19,7 @@ package de.p2tools.p2radio.controller.data.start;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgramData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 
 
 public class StartProgramFactory {
@@ -28,15 +27,15 @@ public class StartProgramFactory {
     private StartProgramFactory() {
     }
 
-    public static void setClickCount(Playable playable) {
+    public static void setClickCount(StationData playable) {
         int clickCount = 0;
         //größten ClickCount suchen
-        for (Favourite favourite : ProgData.getInstance().favouriteList) {
-            if (favourite.getStationUrl().equals(playable.getStationUrl()) && favourite.getClickCount() > clickCount) {
-                clickCount = favourite.getClickCount();
+        for (StationData stationData : ProgData.getInstance().favouriteList) {
+            if (stationData.getStationUrl().equals(playable.getStationUrl()) && stationData.getClickCount() > clickCount) {
+                clickCount = stationData.getClickCount();
             }
         }
-        for (Favourite lastPlayed : ProgData.getInstance().lastPlayedList) {
+        for (StationData lastPlayed : ProgData.getInstance().lastPlayedList) {
             if (lastPlayed.getStationUrl().equals(playable.getStationUrl()) && lastPlayed.getClickCount() > clickCount) {
                 clickCount = lastPlayed.getClickCount();
             }
@@ -44,12 +43,12 @@ public class StartProgramFactory {
 
         //dann erhöhen und setzen
         ++clickCount;
-        for (Favourite favourite : ProgData.getInstance().favouriteList) {
-            if (favourite.getStationUrl().equals(playable.getStationUrl())) {
-                favourite.setClickCount(clickCount);
+        for (StationData stationData : ProgData.getInstance().favouriteList) {
+            if (stationData.getStationUrl().equals(playable.getStationUrl())) {
+                stationData.setClickCount(clickCount);
             }
         }
-        for (Favourite lastPlayed : ProgData.getInstance().lastPlayedList) {
+        for (StationData lastPlayed : ProgData.getInstance().lastPlayedList) {
             if (lastPlayed.getStationUrl().equals(playable.getStationUrl())) {
                 lastPlayed.setClickCount(clickCount);
             }

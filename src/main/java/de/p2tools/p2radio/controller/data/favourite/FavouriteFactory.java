@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
@@ -33,26 +33,26 @@ public class FavouriteFactory {
     }
 
     public static void addFavourite(boolean own) {
-        Favourite favourite = new Favourite();
-        favourite.setOwn(own);
-        favourite.setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
+        StationData stationData = new StationData();
+        stationData.setOwn(own);
+        stationData.setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
 
         FavouriteAddOwnDialogController favouriteEditDialogController =
-                new FavouriteAddOwnDialogController(ProgData.getInstance(), favourite);
+                new FavouriteAddOwnDialogController(ProgData.getInstance(), stationData);
 
         if (favouriteEditDialogController.isOk()) {
-            ProgData.getInstance().favouriteList.add(favourite);
+            ProgData.getInstance().favouriteList.add(stationData);
             ProgData.getInstance().collectionList.updateNames();//könnte ja geändert sein
         }
     }
 
     public static void changeFavourite(boolean allSel) {
-        ArrayList<Playable> list = new ArrayList<>();
-        ArrayList<Playable> listCopy = new ArrayList<>();
+        ArrayList<StationData> list = new ArrayList<>();
+        ArrayList<StationData> listCopy = new ArrayList<>();
         if (allSel) {
             list.addAll(ProgData.getInstance().favouriteGuiController.getSelList());
         } else {
-            final Optional<Favourite> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+            final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
             if (favourite.isPresent()) {
                 list.add(favourite.get());
             }
@@ -62,7 +62,7 @@ public class FavouriteFactory {
             return;
         }
         list.stream().forEach(f -> {
-            Playable favouriteCopy = f.getCopy();
+            StationData favouriteCopy = f.getCopy();
             listCopy.add(favouriteCopy);
         });
 
@@ -71,7 +71,7 @@ public class FavouriteFactory {
 
         if (favouriteEditDialogController.isOk()) {
             for (int i = 0; i < listCopy.size(); ++i) {
-                final Playable f, fCopy;
+                final StationData f, fCopy;
                 f = list.get(i);
                 fCopy = listCopy.get(i);
                 f.copyToMe(fCopy);
@@ -80,7 +80,7 @@ public class FavouriteFactory {
         }
     }
 
-    public static void deletePlayable(Playable favourite) {
+    public static void deletePlayable(StationData favourite) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
                 "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
             ProgData.getInstance().favouriteList.remove(favourite);
@@ -88,17 +88,17 @@ public class FavouriteFactory {
         }
     }
 
-    public static void deleteFavourite(Favourite favourite) {
+    public static void deleteFavourite(StationData stationData) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
                 "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            ProgData.getInstance().favouriteList.remove(favourite);
+            ProgData.getInstance().favouriteList.remove(stationData);
             StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
     }
 
     public static void deleteFavourite(boolean all) {
         if (all) {
-            final ArrayList<Favourite> list = ProgData.getInstance().favouriteGuiController.getSelList();
+            final ArrayList<StationData> list = ProgData.getInstance().favouriteGuiController.getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -116,7 +116,7 @@ public class FavouriteFactory {
             }
 
         } else {
-            final Optional<Favourite> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+            final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
             if (favourite.isPresent()) {
                 FavouriteFactory.deleteFavourite(favourite.get());
             }
@@ -126,9 +126,9 @@ public class FavouriteFactory {
     public static synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Favoriten gesucht
         int ret = 0;
-        for (final Favourite favourite : ProgData.getInstance().favouriteList) {
-            if (favourite.getStart() != null &&
-                    (favourite.getStart().getStartStatus().isStarted() || favourite.getStart().getStartStatus().isStateStartedRun())) {
+        for (final StationData stationData : ProgData.getInstance().favouriteList) {
+            if (stationData.getStart() != null &&
+                    (stationData.getStart().getStartStatus().isStarted() || stationData.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;
             }
         }

@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.station.StationData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,14 @@ public class FavouriteStartsFactory {
      * @param source Use QUELLE_XXX constants
      * @return A list with all station objects.
      */
-    synchronized List<Favourite> getListOfRunningStations(String source) {
-        final List<Favourite> activeFavourites = new ArrayList<>();
+    synchronized List<StationData> getListOfRunningStations(String source) {
+        final List<StationData> activeStationData = new ArrayList<>();
 
-        activeFavourites.addAll(favouriteList.stream()
+        activeStationData.addAll(favouriteList.stream()
                 .filter(favourite -> favourite.getStart() != null && favourite.getStart().getStartStatus().isStateStartedRun())
                 .filter(download -> source.equals(FavouriteConstants.ALL) /*|| download.getSource().equals(source)*/)
                 .collect(Collectors.toList()));
 
-        return activeFavourites;
+        return activeStationData;
     }
 }

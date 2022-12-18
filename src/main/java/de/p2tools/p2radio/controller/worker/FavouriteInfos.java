@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 
 public class FavouriteInfos {
 
@@ -63,9 +63,9 @@ public class FavouriteInfos {
         PDuration.counterStart("FavouriteInfos.generateInfos");
         // generiert die Anzahl Favoriten
         clean();
-        for (final Favourite favourite : progData.favouriteList) {
+        for (final StationData stationData : progData.favouriteList) {
             ++amount;
-            if (favourite.getStart() != null) {
+            if (stationData.getStart() != null) {
                 ++started;
             } else {
                 ++notStarted;

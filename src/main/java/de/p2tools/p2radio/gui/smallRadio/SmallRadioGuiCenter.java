@@ -28,8 +28,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
@@ -58,7 +57,7 @@ import java.util.Random;
 public class SmallRadioGuiCenter extends HBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TablePlayable<Playable> tableView;
+    private final TablePlayable<StationData> tableView;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
     private final Button btnPrev = new Button();
@@ -71,7 +70,7 @@ public class SmallRadioGuiCenter extends HBox {
     public SmallRadioGuiCenter(SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
         this.smallRadioGuiController = smallRadioGuiController;
-        tableView = new TablePlayable<Playable>(Table.TABLE_ENUM.SMALL_RADIO);
+        tableView = new TablePlayable<StationData>(Table.TABLE_ENUM.SMALL_RADIO);
 
         make();
         favouriteGuiInfoController = new FavouriteGuiInfoController();
@@ -146,7 +145,7 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     public void copyUrl() {
-        final Optional<Playable> favourite = getSel();
+        final Optional<StationData> favourite = getSel();
         if (!favourite.isPresent()) {
             return;
         }
@@ -154,10 +153,10 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     private void setSelectedFavourite() {
-        Playable favourite = tableView.getSelectionModel().getSelectedItem();
+        StationData favourite = tableView.getSelectionModel().getSelectedItem();
         if (favourite != null) {
             favouriteGuiInfoController.setFavourite(favourite);
-            Favourite fav = progData.stationList.getSenderByUrl(favourite.getStationUrl());
+            StationData fav = progData.stationList.getSenderByUrl(favourite.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
         } else {
             favouriteGuiInfoController.setFavourite(null);
@@ -166,7 +165,7 @@ public class SmallRadioGuiCenter extends HBox {
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
-        final Optional<Playable> favourite = getSel();
+        final Optional<StationData> favourite = getSel();
         if (favourite.isPresent()) {
             progData.startFactory.playPlayable(favourite.get());
         }
@@ -178,7 +177,7 @@ public class SmallRadioGuiCenter extends HBox {
             progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
 
         } else {
-            final Optional<Playable> favourite = getSel();
+            final Optional<StationData> favourite = getSel();
             if (favourite.isPresent()) {
                 progData.startFactory.stopPlayable(favourite.get());
             }
@@ -187,7 +186,7 @@ public class SmallRadioGuiCenter extends HBox {
 
     public void deleteFavourite(boolean all) {
         if (all) {
-            final ArrayList<Playable> list = getSelList();
+            final ArrayList<StationData> list = getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -205,14 +204,14 @@ public class SmallRadioGuiCenter extends HBox {
             }
 
         } else {
-            final Optional<Playable> favourite = getSel();
+            final Optional<StationData> favourite = getSel();
             if (favourite.isPresent()) {
                 deleteFavourite(favourite.get());
             }
         }
     }
 
-    public void deleteFavourite(Playable favourite) {
+    public void deleteFavourite(StationData favourite) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?",
                 "Favoriten löschen?",
                 "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
@@ -222,12 +221,12 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     public void changeFavourite(boolean allSel) {
-        ArrayList<Playable> list = new ArrayList<>();
-        ArrayList<Playable> listCopy = new ArrayList<>();
+        ArrayList<StationData> list = new ArrayList<>();
+        ArrayList<StationData> listCopy = new ArrayList<>();
         if (allSel) {
             list.addAll(getSelList());
         } else {
-            final Optional<Playable> favourite = getSel();
+            final Optional<StationData> favourite = getSel();
             if (favourite.isPresent()) {
                 list.add(favourite.get());
             }
@@ -237,7 +236,7 @@ public class SmallRadioGuiCenter extends HBox {
             return;
         }
         list.stream().forEach(f -> {
-            Playable favouriteCopy = f.getCopy();
+            StationData favouriteCopy = f.getCopy();
             listCopy.add(favouriteCopy);
         });
 
@@ -246,7 +245,7 @@ public class SmallRadioGuiCenter extends HBox {
 
         if (favouriteEditDialogController.isOk()) {
             for (int i = 0; i < listCopy.size(); ++i) {
-                final Playable f, fCopy;
+                final StationData f, fCopy;
                 f = list.get(i);
                 fCopy = listCopy.get(i);
                 f.copyToMe(fCopy);
@@ -259,8 +258,8 @@ public class SmallRadioGuiCenter extends HBox {
         Table.saveTable(tableView, Table.TABLE_ENUM.SMALL_RADIO);
     }
 
-    public ArrayList<Playable> getSelList() {
-        final ArrayList<Playable> ret = new ArrayList<>();
+    public ArrayList<StationData> getSelList() {
+        final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             PAlert.showInfoNoSelection();
@@ -268,11 +267,11 @@ public class SmallRadioGuiCenter extends HBox {
         return ret;
     }
 
-    public Optional<Playable> getSel() {
+    public Optional<StationData> getSel() {
         return getSel(true);
     }
 
-    public Optional<Playable> getSel(boolean show) {
+    public Optional<StationData> getSel(boolean show) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow >= 0) {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
@@ -286,7 +285,7 @@ public class SmallRadioGuiCenter extends HBox {
 
     public void selUrl() {
         final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
-        Optional<Playable> optional = tableView.getItems().stream()
+        Optional<StationData> optional = tableView.getItems().stream()
                 .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
@@ -305,7 +304,7 @@ public class SmallRadioGuiCenter extends HBox {
 
     public void playRandomStation() {
         Random r = new Random();
-        Playable favourite = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
+        StationData favourite = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
         tableView.getSelectionModel().clearSelection();
         if (favourite != null) {
             progData.startFactory.playPlayable(favourite);
@@ -335,20 +334,20 @@ public class SmallRadioGuiCenter extends HBox {
     private void loadTable() {
         if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_STATION)) {
 //            FilteredList<Station> filteredFavourites = smallRadioGuiController.getFiltertFavourite();
-            FilteredList<Favourite> filteredFavourites = new FilteredList<>(progData.stationList, p -> true);
-            SortedList<Playable> sortedFavourites = new SortedList<>(filteredFavourites);
+            FilteredList<StationData> filteredStationData = new FilteredList<>(progData.stationList, p -> true);
+            SortedList<StationData> sortedFavourites = new SortedList<>(filteredStationData);
             tableView.setItems(sortedFavourites);
             sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
 
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_FAVOURITE)) {
-            FilteredList<Favourite> filteredFavourites = new FilteredList<>(progData.favouriteList, p -> true);
-            SortedList<Playable> sortedFavourites = new SortedList<>(filteredFavourites);
+            FilteredList<StationData> filteredStationData = new FilteredList<>(progData.favouriteList, p -> true);
+            SortedList<StationData> sortedFavourites = new SortedList<>(filteredStationData);
             tableView.setItems(sortedFavourites);
             sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
 
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_HISTORY)) {
-            FilteredList<Favourite> filteredFavourites = new FilteredList<>(progData.lastPlayedList, p -> true);
-            SortedList<Playable> sortedFavourites = new SortedList<>(filteredFavourites);
+            FilteredList<StationData> filteredStationData = new FilteredList<>(progData.lastPlayedList, p -> true);
+            SortedList<StationData> sortedFavourites = new SortedList<>(filteredStationData);
             tableView.setItems(sortedFavourites);
             sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
         }
@@ -366,8 +365,8 @@ public class SmallRadioGuiCenter extends HBox {
         });
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Playable> optionalDownload = getSel(false);
-                Playable favourite;
+                final Optional<StationData> optionalDownload = getSel(false);
+                StationData favourite;
                 if (optionalDownload.isPresent()) {
                     favourite = optionalDownload.get();
                 } else {
@@ -381,7 +380,7 @@ public class SmallRadioGuiCenter extends HBox {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> setSelectedFavourite());
         });
-        tableView.getItems().addListener((ListChangeListener<Playable>) c -> {
+        tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);

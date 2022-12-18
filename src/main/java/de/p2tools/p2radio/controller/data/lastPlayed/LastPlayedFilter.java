@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.data.lastPlayed;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -61,14 +61,14 @@ public class LastPlayedFilter extends LastPlayedFilterXml {
         return TAG;
     }
 
-    public Predicate<Favourite> clearFilter() {
+    public Predicate<StationData> clearFilter() {
         gradeFilter.set(false);
         genreFilter.set("");
         return getPredicate();
     }
 
-    public Predicate<Favourite> getPredicate() {
-        Predicate<Favourite> predicate = favourite -> true;
+    public Predicate<StationData> getPredicate() {
+        Predicate<StationData> predicate = favourite -> true;
 
         if (gradeFilter.get()) {
             predicate = predicate.and(favourite -> favourite.getOwnGrade() > 0);

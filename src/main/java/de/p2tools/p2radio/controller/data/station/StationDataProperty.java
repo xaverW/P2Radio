@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.playable;
+package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
@@ -25,10 +25,9 @@ import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
+public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public static final String TAG = "Favourite";
-
     private final IntegerProperty no = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
@@ -55,39 +54,40 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private final PLocalDate stationDate = new PLocalDate();
+    boolean station = false, favourite = false, lastPlayed = false;
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", PlayableXml.STATION_PROP_NO, no));
-        list.add(new ConfigIntPropExtra("stationNo", PlayableXml.STATION_PROP_STATION_NO, stationNo));
-        list.add(new ConfigBoolPropExtra("newStation", PlayableXml.STATION_PROP_STATION_NEW, newStation));
-        list.add(new ConfigStringPropExtra("station", PlayableXml.STATION_PROP_STATION_NAME, stationName));
-        list.add(new ConfigStringPropExtra("collection", PlayableXml.STATION_PROP_COLLECTION, collectionName));
-        list.add(new ConfigStringPropExtra("genre", PlayableXml.STATION_PROP_GENRE, genre));
-        list.add(new ConfigStringPropExtra("codec", PlayableXml.STATION_PROP_CODEC, codec));
-        list.add(new ConfigStringPropExtra("bitrate", PlayableXml.STATION_PROP_BITRATE, bitrate));
-        list.add(new ConfigIntPropExtra("bitrateInt", PlayableXml.STATION_PROP_BITRATE, bitrateInt));
-        list.add(new ConfigIntPropExtra("votes", PlayableXml.STATION_PROP_VOTES, votes));
-        list.add(new ConfigIntPropExtra("grade", PlayableXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
-        list.add(new ConfigIntPropExtra("ownGrade", PlayableXml.STATION_PROP_OWN_GRADE, ownGrade));
-        list.add(new ConfigBoolPropExtra("own", PlayableXml.STATION_PROP_OWN, own));
-        list.add(new ConfigIntPropExtra("clickCount", PlayableXml.STATION_PROP_CLICK_COUNT, clickCount));
-        list.add(new ConfigIntPropExtra("clickTrend", PlayableXml.STATION_PROP_CLICK_TREND, clickTrend));
+        list.add(new ConfigIntPropExtra("no", StationDataXml.STATION_PROP_NO, no));
+        list.add(new ConfigIntPropExtra("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
+        list.add(new ConfigBoolPropExtra("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
+        list.add(new ConfigStringPropExtra("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
+        list.add(new ConfigStringPropExtra("collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
+        list.add(new ConfigStringPropExtra("genre", StationDataXml.STATION_PROP_GENRE, genre));
+        list.add(new ConfigStringPropExtra("codec", StationDataXml.STATION_PROP_CODEC, codec));
+        list.add(new ConfigStringPropExtra("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
+        list.add(new ConfigIntPropExtra("bitrateInt", StationDataXml.STATION_PROP_BITRATE, bitrateInt));
+        list.add(new ConfigIntPropExtra("votes", StationDataXml.STATION_PROP_VOTES, votes));
+        list.add(new ConfigIntPropExtra("grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
+        list.add(new ConfigIntPropExtra("ownGrade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
+        list.add(new ConfigBoolPropExtra("own", StationDataXml.STATION_PROP_OWN, own));
+        list.add(new ConfigIntPropExtra("clickCount", StationDataXml.STATION_PROP_CLICK_COUNT, clickCount));
+        list.add(new ConfigIntPropExtra("clickTrend", StationDataXml.STATION_PROP_CLICK_TREND, clickTrend));
 
-        list.add(new ConfigStringPropExtra("country", PlayableXml.STATION_PROP_COUNTRY, country));
-        list.add(new ConfigStringPropExtra("state", PlayableXml.STATION_PROP_STATE, state));
-        list.add(new ConfigStringPropExtra("countryCode", PlayableXml.STATION_PROP_COUNTRY_CODE, countryCode));
-        list.add(new ConfigStringPropExtra("language", PlayableXml.STATION_PROP_LANGUAGE, language));
-        list.add(new ConfigStringPropExtra("description", PlayableXml.STATION_PROP_DESCRIPTION, description));
+        list.add(new ConfigStringPropExtra("country", StationDataXml.STATION_PROP_COUNTRY, country));
+        list.add(new ConfigStringPropExtra("state", StationDataXml.STATION_PROP_STATE, state));
+        list.add(new ConfigStringPropExtra("countryCode", StationDataXml.STATION_PROP_COUNTRY_CODE, countryCode));
+        list.add(new ConfigStringPropExtra("language", StationDataXml.STATION_PROP_LANGUAGE, language));
+        list.add(new ConfigStringPropExtra("description", StationDataXml.STATION_PROP_DESCRIPTION, description));
 
-        list.add(new ConfigStringPropExtra("url", PlayableXml.STATION_PROP_URL, stationUrl));
-        list.add(new ConfigStringPropExtra("urlResolved", PlayableXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
-        list.add(new ConfigBoolPropExtra("doubleUrl", PlayableXml.STATION_PROP_DOUBLE_URL, doubleUrl));
-        list.add(new ConfigBoolPropExtra("favouriteUrl", PlayableXml.STATION_PROP_FAVOURITE_URL, favouriteUrl));
-        list.add(new ConfigBoolPropExtra("blackBlocked", PlayableXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
-        list.add(new ConfigStringPropExtra("website", PlayableXml.STATION_PROP_WEBSITE, website));
-        list.add(new ConfigLocalDateExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
+        list.add(new ConfigStringPropExtra("url", StationDataXml.STATION_PROP_URL, stationUrl));
+        list.add(new ConfigStringPropExtra("urlResolved", StationDataXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
+        list.add(new ConfigBoolPropExtra("doubleUrl", StationDataXml.STATION_PROP_DOUBLE_URL, doubleUrl));
+        list.add(new ConfigBoolPropExtra("favouriteUrl", StationDataXml.STATION_PROP_FAVOURITE_URL, favouriteUrl));
+        list.add(new ConfigBoolPropExtra("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
+        list.add(new ConfigStringPropExtra("website", StationDataXml.STATION_PROP_WEBSITE, website));
+        list.add(new ConfigLocalDateExtra("stationDate", StationDataXml.STATION_PROP_DATE, stationDate));
 
         return list.toArray(new Config[]{});
     }
@@ -446,7 +446,7 @@ public class PlayableProperty<T extends PDataSample> extends PDataSample<T> {
         return TAG;
     }
 
-    public int compareTo(PlayableProperty arg0) {
+    public int compareTo(StationDataProperty arg0) {
         int ret;
         if ((ret = Data.sorter.compare(getStationName(), arg0.getStationName())) == 0) {
             return getStationUrl().compareTo(arg0.getStationUrl());

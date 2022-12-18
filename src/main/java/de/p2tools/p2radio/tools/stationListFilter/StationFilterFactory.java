@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools.stationListFilter;
 
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 
 import java.util.regex.Pattern;
@@ -26,7 +26,7 @@ public class StationFilterFactory {
     public static final int FILTER_BITRATE_MIN = 0;
     public static final int FILTER_BITRATE_MAX = 320;
 
-    public static boolean checkCodec(Filter sender, Favourite station) {
+    public static boolean checkCodec(Filter sender, StationData station) {
         // nur ein Suchbegriff muss passen
         for (final String s : sender.filterArr) {
             // dann jeden Suchbegriff checken
@@ -37,7 +37,7 @@ public class StationFilterFactory {
         return false;
     }
 
-    public static boolean checkSenderName(Filter senderName, Favourite station) {
+    public static boolean checkSenderName(Filter senderName, StationData station) {
         if (senderName.exact) {
             // da ist keine Form optimal?? aber so passt es zur Sortierung der Themenliste
             return senderName.filter.equalsIgnoreCase(station.getStationName());
@@ -46,7 +46,7 @@ public class StationFilterFactory {
         }
     }
 
-    public static boolean checkGenre(Filter filter, Favourite station) {
+    public static boolean checkGenre(Filter filter, StationData station) {
         // nur ein Suchbegriff muss passen
         if (filter.exact) {
             return filter.filter.equalsIgnoreCase(station.getGenre());
@@ -55,7 +55,7 @@ public class StationFilterFactory {
         }
     }
 
-    public static boolean checkCountry(Filter sender, Favourite station) {
+    public static boolean checkCountry(Filter sender, StationData station) {
         // nur ein Suchbegriff muss passen
         for (final String s : sender.filterArr) {
             // dann jeden Suchbegriff checken
@@ -66,12 +66,12 @@ public class StationFilterFactory {
         return false;
     }
 
-    public static boolean checkUrl(Filter url, Favourite station) {
+    public static boolean checkUrl(Filter url, StationData station) {
         return check(url, station.getWebsite())
                 || check(url, station.getStationUrl());
     }
 
-    public static boolean checkSomewhere(Filter somewhere, Favourite station) {
+    public static boolean checkSomewhere(Filter somewhere, StationData station) {
         return check(somewhere, station.getStationName())
                 || check(somewhere, station.getGenre())
                 || check(somewhere, station.getWebsite())

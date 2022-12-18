@@ -20,9 +20,8 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,10 +34,10 @@ import javafx.util.Callback;
 
 public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
 
-    public final Callback<TableColumn<Favourite, Integer>, TableCell<Favourite, Integer>> cellFactoryButton
-            = (final TableColumn<Favourite, Integer> param) -> {
+    public final Callback<TableColumn<StationData, Integer>, TableCell<StationData, Integer>> cellFactoryButton
+            = (final TableColumn<StationData, Integer> param) -> {
 
-        final TableCell<Favourite, Integer> cell = new TableCell<Favourite, Integer>() {
+        final TableCell<StationData, Integer> cell = new TableCell<StationData, Integer>() {
 
             @Override
             public void updateItem(Integer item, boolean empty) {
@@ -55,7 +54,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                 hbox.setAlignment(Pos.CENTER);
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                Playable favourite = getTableView().getItems().get(getIndex());
+                StationData favourite = getTableView().getItems().get(getIndex());
                 final boolean playing = favourite.getStart() != null;
                 final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
 

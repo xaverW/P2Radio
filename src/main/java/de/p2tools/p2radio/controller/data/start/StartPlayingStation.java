@@ -26,7 +26,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.playable.Playable;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.application.Platform;
 
 import java.awt.*;
@@ -45,7 +45,7 @@ public class StartPlayingStation extends Thread {
     private final int stat_finished_error = 11;
     private final int stat_end = 99;
     private final Start start;
-    private final Playable playable;
+    private final StationData playable;
     private String exMessage = "";
     private boolean stop = false;
     private int runTime = 0;

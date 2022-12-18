@@ -19,7 +19,7 @@ package de.p2tools.p2radio.tools.stationListFilter;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 
 public class BlackFilterCountHitsFactory {
@@ -45,7 +45,7 @@ public class BlackFilterCountHitsFactory {
     }
 
 
-    private static void applyBlacklistFilters(Favourite station, boolean abort) {
+    private static void applyBlacklistFilters(StationData station, boolean abort) {
         // zum Sortieren ist es sinnvoll, dass ALLE MÖGLICHEN Treffer gesucht werden
         for (final BlackData blackData : progData.blackDataList) {
             if (BlackFilterFactory.checkNameGenreWithFilter(blackData.fName, blackData.fGenre, station)) {

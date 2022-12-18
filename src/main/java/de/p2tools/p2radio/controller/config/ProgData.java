@@ -26,12 +26,12 @@ import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
 import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.radiosLoadFromWeb.LoadNewStationList;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
@@ -91,11 +91,11 @@ public class ProgData {
     public StationList stationListBlackFiltered; //Senderliste nach Blacklist, wie im TabSender angezeigt
 
     public FavouriteList favouriteList; //Sender die als "Favoriten" geladen werden sollen
-    public FilteredList<Favourite> filteredFavourites;
+    public FilteredList<StationData> filteredStationData;
     public FavouriteFilter favouriteFilter;
 
     public LastPlayedList lastPlayedList; //Sender die zuletzt gespielt wurden
-    public FilteredList<Favourite> filteredLastPlayedList;
+    public FilteredList<StationData> filteredLastPlayedList;
     public LastPlayedFilter lastPlayedFilter;
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
@@ -117,7 +117,7 @@ public class ProgData {
         setDataList = new SetDataList();
 
         favouriteList = new FavouriteList(this);
-        filteredFavourites = new FilteredList<>(favouriteList, p -> true);
+        filteredStationData = new FilteredList<>(favouriteList, p -> true);
         favouriteFilter = new FavouriteFilter();
 
         lastPlayedList = new LastPlayedList(this);

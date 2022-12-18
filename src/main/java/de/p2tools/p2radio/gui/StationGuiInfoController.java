@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -41,7 +41,7 @@ public class StationGuiInfoController extends PClosePaneH {
     private final PHyperlink hyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
-    private Favourite station = null;
+    private StationData station = null;
 
     public StationGuiInfoController() {
         super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
@@ -72,7 +72,7 @@ public class StationGuiInfoController extends PClosePaneH {
         gridPane.add(hyperlinkUrl, 1, row);
     }
 
-    public void setStation(Favourite station) {
+    public void setStation(StationData station) {
         this.station = station;
         if (station == null) {
             lblTitle.setText("");

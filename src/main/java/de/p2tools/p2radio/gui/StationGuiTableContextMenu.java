@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.SetDataList;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
@@ -40,13 +40,13 @@ public class StationGuiTableContextMenu {
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(Favourite station) {
+    public ContextMenu getContextMenu(StationData station) {
         final ContextMenu contextMenu = new ContextMenu();
         getMenu(contextMenu, station);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, Favourite station) {
+    private void getMenu(ContextMenu contextMenu, StationData station) {
         // Start/Save
         MenuItem miStart = new MenuItem("Sender abspielen");
         miStart.setOnAction(a -> stationGuiController.playStation());
@@ -85,7 +85,7 @@ public class StationGuiTableContextMenu {
         contextMenu.getItems().addAll(resetTable);
     }
 
-    private Menu addFilter(Favourite station) {
+    private Menu addFilter(StationData station) {
         Menu submenuFilter = new Menu("Filter");
         if (station == null) {
             submenuFilter.setDisable(true);
@@ -105,7 +105,7 @@ public class StationGuiTableContextMenu {
         return submenuFilter;
     }
 
-    private Menu startStationWithSet(Favourite station) {
+    private Menu startStationWithSet(StationData station) {
         final SetDataList list = progData.setDataList.getSetDataListButton();
         if (!list.isEmpty()) {
             Menu submenuSet = new Menu("Sender mit Set abspielen");
@@ -127,7 +127,7 @@ public class StationGuiTableContextMenu {
         return null;
     }
 
-    private Menu addBlacklist(Favourite station) {
+    private Menu addBlacklist(StationData station) {
         Menu submenuBlacklist = new Menu("Blacklist");
         if (station == null) {
             submenuBlacklist.setDisable(true);
@@ -145,7 +145,7 @@ public class StationGuiTableContextMenu {
         return submenuBlacklist;
     }
 
-    private Menu copyUrl(Favourite station) {
+    private Menu copyUrl(StationData station) {
         final Menu subMenuURL = new Menu("Sender-URL kopieren");
         if (station == null) {
             subMenuURL.setDisable(true);

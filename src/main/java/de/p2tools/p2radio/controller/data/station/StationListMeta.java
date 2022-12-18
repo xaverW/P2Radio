@@ -23,7 +23,6 @@ import de.p2tools.p2Lib.configFile.pData.PDataListMeta;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
-import de.p2tools.p2radio.controller.data.playable.PlayableXml;
 
 import java.util.ArrayList;
 
@@ -47,7 +46,7 @@ public class StationListMeta extends PDataSample<StationListMeta> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigLocalDatePropExtra("stationDate", PlayableXml.STATION_PROP_DATE, stationDate));
+        list.add(new ConfigLocalDatePropExtra("stationDate", StationDataXml.STATION_PROP_DATE, stationDate));
         return list.toArray(new Config[]{});
     }
 

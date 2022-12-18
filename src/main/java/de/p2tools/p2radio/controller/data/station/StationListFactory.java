@@ -20,7 +20,6 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -102,7 +101,7 @@ public class StationListFactory {
     public static void findAndMarkFavouriteStations(ProgData progData) {
         PDuration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
-        hashSet.addAll(progData.favouriteList.stream().map(Favourite::getStationUrl).collect(Collectors.toList()));
+        hashSet.addAll(progData.favouriteList.stream().map(StationData::getStationUrl).collect(Collectors.toList()));
 
         progData.stationList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
         progData.stationList.stream()

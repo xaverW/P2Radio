@@ -19,8 +19,6 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.Favourite;
-import de.p2tools.p2radio.controller.data.playable.Playable;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 
 import java.util.ArrayList;
@@ -28,28 +26,28 @@ import java.util.ArrayList;
 public class StationFactory {
 
     public static void favouriteStationList() {
-        final ArrayList<Favourite> list = ProgData.getInstance().stationGuiController.getSelList();
+        final ArrayList<StationData> list = ProgData.getInstance().stationGuiController.getSelList();
         StationFactory.favouriteStation(list);
     }
 
-    public static void favouriteStation(Favourite station) {
-        ArrayList<Favourite> list = new ArrayList<>();
+    public static void favouriteStation(StationData station) {
+        ArrayList<StationData> list = new ArrayList<>();
         list.add(station);
         favouriteStation(list);
     }
 
-    private static void favouriteStation(ArrayList<Favourite> list) {
+    private static void favouriteStation(ArrayList<StationData> list) {
         if (list.isEmpty()) {
             return;
         }
 
         ProgData progData = ProgData.getInstance();
-        ArrayList<Favourite> addList = new ArrayList<>();
+        ArrayList<StationData> addList = new ArrayList<>();
 
-        for (final Favourite station : list) {
+        for (final StationData station : list) {
             // erst mal schauen obs den schon gibt
-            Favourite favourite = progData.favouriteList.getUrlStation(station.getStationUrl());
-            if (favourite == null) {
+            StationData stationData = progData.favouriteList.getUrlStation(station.getStationUrl());
+            if (stationData == null) {
                 addList.add(station);
             } else {
                 // dann ist der Sender schon in der Liste
@@ -87,10 +85,10 @@ public class StationFactory {
             }
         }
         if (!addList.isEmpty()) {
-            ArrayList<Playable> favouriteList = new ArrayList<>();
+            ArrayList<StationData> favouriteList = new ArrayList<>();
             addList.stream().forEach(s -> {
-                Favourite favourite = new Favourite(s, "");
-                favouriteList.add(favourite);
+                StationData stationData = new StationData(s, "");
+                favouriteList.add(stationData);
             });
 
             FavouriteEditDialogController favouriteEditDialogController =
@@ -98,7 +96,7 @@ public class StationFactory {
 
             if (favouriteEditDialogController.isOk()) {
                 favouriteList.stream().forEach(f -> {
-                    progData.favouriteList.addAll((Favourite) f);
+                    progData.favouriteList.addAll((StationData) f);
                 });
 //                progData.favouriteList.addAll(favouriteList);
                 //Favoriten markieren und Filter anstoßen
