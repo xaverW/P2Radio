@@ -22,7 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
@@ -65,7 +65,7 @@ public class LastPlayedMenu {
 
         btStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
-        btDel.setOnAction(a -> LastPlayedFactory.deleteHistory(true));
+        btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 
@@ -116,13 +116,13 @@ public class LastPlayedMenu {
 
         // Submenü
         final MenuItem miLastPlayedDel = new MenuItem("Sender aus History löschen");
-        miLastPlayedDel.setOnAction(a -> LastPlayedFactory.deleteHistory(false));
+        miLastPlayedDel.setOnAction(a -> HistoryFactory.deleteHistory(false));
 
         final MenuItem miLastPlayedDelSel = new MenuItem("Ale markierten Sender aus History löschen");
-        miLastPlayedDelSel.setOnAction(a -> LastPlayedFactory.deleteHistory(true));
+        miLastPlayedDelSel.setOnAction(a -> HistoryFactory.deleteHistory(true));
 
         final MenuItem miLastPlayedDelAll = new MenuItem("Gesamte History löschen");
-        miLastPlayedDelAll.setOnAction(a -> LastPlayedFactory.deleteCompleteHistory());
+        miLastPlayedDelAll.setOnAction(a -> HistoryFactory.deleteCompleteHistory());
 
         MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
         miAddFavourite.setOnAction(a -> {

@@ -50,9 +50,9 @@ public class StartFactory {
 //        }
 //    }
 
-//    public void stopLastPlayed(Favourite lastPlayed) {
-//        if (lastPlayed.getStart() != null) {
-//            lastPlayed.getStart().stopStart();
+//    public void stopLastPlayed(Favourite history) {
+//        if (history.getStart() != null) {
+//            history.getStart().stopStart();
 //        }
 //    }
 
@@ -71,7 +71,7 @@ public class StartFactory {
     }
 
     public void stopAllLastPlayed() {
-        progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
+        progData.historyList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
     }
 
     public StationData playRandomStation() {
@@ -123,17 +123,17 @@ public class StartFactory {
 //        startUrlWithProgram(favourite, setData);
 //    }
 
-//    public void playLastPlayed(Favourite lastPlayed) {
-//        playLastPlayed(lastPlayed, null);
+//    public void playLastPlayed(Favourite history) {
+//        playLastPlayed(history, null);
 //    }
 //
-//    public void playLastPlayed(Favourite lastPlayed, SetData data) {
+//    public void playLastPlayed(Favourite history, SetData data) {
 //        SetData setData = checkSetData(data);
 //        if (setData == null) {
 //            return;
 //        }
 //        // und starten
-//        startUrlWithProgram(lastPlayed, setData);
+//        startUrlWithProgram(history, setData);
 //    }
 
     private SetData checkSetData(SetData setData) {
@@ -167,7 +167,7 @@ public class StartFactory {
     private synchronized void startUrlWithProgram(StationData station, SetData setData) {
         final String url = station.getStationUrl();
         if (!url.isEmpty()) {
-            progData.lastPlayedList.addStation(station);
+            progData.historyList.addStation(station);
 
             progData.startFactory.stopAll();
             ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
@@ -183,7 +183,7 @@ public class StartFactory {
 //    private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
 //        final String url = favourite.getStationUrl();
 //        if (!url.isEmpty()) {
-//            //todo wenn lastPlayed dann brauchts das eigenlich nicht
+//            //todo wenn history dann brauchts das eigenlich nicht
 //            progData.lastPlayedList.addFavourite(favourite);
 //
 //            progData.startFactory.stopAll();

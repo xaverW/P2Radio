@@ -150,6 +150,6 @@ public class ProgLoadFactory {
 
         logList.add("Sender in Favoriten eingetragen");
         progData.favouriteList.addStationInList();
-        progData.lastPlayedList.addStationInList();
+        progData.historyList.addStationInList();
     }
 }

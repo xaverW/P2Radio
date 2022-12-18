@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -101,7 +101,7 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                 btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
-                    LastPlayedFactory.deleteHistory(lastPlayed);
+                    HistoryFactory.deleteHistory(lastPlayed);
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {

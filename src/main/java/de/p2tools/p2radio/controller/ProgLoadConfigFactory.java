@@ -47,7 +47,7 @@ public class ProgLoadConfigFactory {
         ProgData progData = ProgData.getInstance();
         progData.setDataList.clear();
         progData.favouriteList.clear();
-        progData.lastPlayedList.clear();
+        progData.historyList.clear();
         progData.blackDataList.clear();
     }
 

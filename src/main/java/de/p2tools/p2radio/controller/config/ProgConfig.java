@@ -115,6 +115,9 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");
     public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
     public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "");
+    public static StringProperty SMALL_RADIO_SELECTED_STATION_GENRE = addStr("small-radio-selected-station-genre");
+    public static StringProperty SMALL_RADIO_SELECTED_FAVOURITE_GENRE = addStr("small-radio-selected-favourite-genre");
+    public static StringProperty SMALL_RADIO_SELECTED_HISTORY_GENRE = addStr("small-radio-selected-history-genre");
     public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStr("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
     public static StringProperty SMALL_RADIO_SELECTED_LIST = addStr("small-radio-selected-list", SmallRadioFactory.LIST_STATION);
 
@@ -184,12 +187,12 @@ public class ProgConfig extends PDataProgConfig {
         configFile.addConfigs(ProgColorList.getInstance());
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().favouriteList);
-        configFile.addConfigs(ProgData.getInstance().lastPlayedList);
+        configFile.addConfigs(ProgData.getInstance().historyList);
         configFile.addConfigs(ProgData.getInstance().storedFilters.getActFilterSettings());
         configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
         configFile.addConfigs(ProgData.getInstance().blackDataList);
         configFile.addConfigs(ProgData.getInstance().favouriteFilter);
-        configFile.addConfigs(ProgData.getInstance().lastPlayedFilter);
+        configFile.addConfigs(ProgData.getInstance().historyFilter);
     }
 
     public static void getConfigLog(ArrayList<String> list) {

@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.lastPlayed;
+package de.p2tools.p2radio.controller.data.history;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -29,17 +29,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class LastPlayedList extends SimpleListProperty<StationData> implements PDataList<StationData> {
+public class HistoryList extends SimpleListProperty<StationData> implements PDataList<StationData> {
 
     public static final String TAG = "LastPlayedList";
     private final ProgData progData;
-    private final LastPlayedStartsFactory favouriteStartsFactory;
+    private final HistoryStartsFactory favouriteStartsFactory;
     private int no = 0;
 
-    public LastPlayedList(ProgData progData) {
+    public HistoryList(ProgData progData) {
         super(FXCollections.observableArrayList());
         this.progData = progData;
-        this.favouriteStartsFactory = new LastPlayedStartsFactory(progData, this);
+        this.favouriteStartsFactory = new HistoryStartsFactory(progData, this);
     }
 
     @Override

@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.favourite;
+package de.p2tools.p2radio.controller.data.filter;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
@@ -24,6 +24,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFilterXml;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
@@ -75,25 +76,6 @@ public class FavouriteFilter extends FavouriteFilterXml {
     @Override
     public String getTag() {
         return TAG;
-    }
-
-    public Predicate<StationData> getPredicatePlayable() {
-        Predicate<StationData> predicate = favourite -> true;
-
-        if (collectionData != null && !collectionData.getName().isEmpty() &&
-                !collectionData.getName().contains(CollectionList.COLLECTION_ALL)) {
-            predicate = predicate.and(favourite -> favourite.getCollectionName().equals(collectionData.getName()));
-        }
-        if (ownFilter.get()) {
-            predicate = predicate.and(favourite -> favourite.isOwn());
-        }
-        if (gradeFilter.get()) {
-            predicate = predicate.and(favourite -> favourite.getOwnGrade() > 0);
-        }
-        if (!genreFilter.get().isEmpty()) {
-            predicate = predicate.and(favourite -> check(genreFilter.get(), favourite.getGenre()));
-        }
-        return predicate;
     }
 
     public Predicate<StationData> getPredicate() {

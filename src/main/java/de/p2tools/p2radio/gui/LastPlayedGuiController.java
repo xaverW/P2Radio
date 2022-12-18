@@ -24,7 +24,7 @@ import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
+import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -54,7 +54,7 @@ public class LastPlayedGuiController extends AnchorPane {
     private final TablePlayable<StationData> tableView;
     private final ProgData progData;
     private final LastPlayedGuiInfoController lastPlayedGuiInfoController;
-    private final LastPlayedFilter lastPlayedFilter = new LastPlayedFilter();
+    private final HistoryFilter historyFilter = new HistoryFilter();
     DoubleProperty splitPaneProperty = ProgConfig.LAST_PLAYED_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
     private boolean bound = false;
@@ -128,7 +128,7 @@ public class LastPlayedGuiController extends AnchorPane {
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.lastPlayedList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
+            progData.historyList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
 
         } else {
             final Optional<StationData> lastPlayed = getSel();

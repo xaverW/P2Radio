@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
+import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;

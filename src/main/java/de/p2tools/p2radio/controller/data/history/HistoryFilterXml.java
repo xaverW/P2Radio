@@ -14,12 +14,13 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.lastPlayed;
+package de.p2tools.p2radio.controller.data.history;
 
 
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 
-public class LastPlayedFilterXml extends PDataSample<LastPlayedFilter> {
+public class HistoryFilterXml extends PDataSample<HistoryFilter> {
     public static final String TAG = "LasstPlayedFilter";
 
     public static final int LAST_PLAYED_FILTER_GENRE = 0;

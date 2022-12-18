@@ -28,6 +28,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
@@ -65,12 +66,12 @@ public class SmallRadioGuiCenter extends HBox {
     private final Button btnClose = new Button();
     private final Button btnRadio = new Button();
     private final SmallRadioGuiController smallRadioGuiController;
-
+    private FilteredList<StationData> filteredList;
 
     public SmallRadioGuiCenter(SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
         this.smallRadioGuiController = smallRadioGuiController;
-        tableView = new TablePlayable<StationData>(Table.TABLE_ENUM.SMALL_RADIO);
+        tableView = new TablePlayable<>(Table.TABLE_ENUM.SMALL_RADIO);
 
         make();
         favouriteGuiInfoController = new FavouriteGuiInfoController();
@@ -328,29 +329,41 @@ public class SmallRadioGuiCenter extends HBox {
         ProgConfig.SMALL_RADIO_SELECTED_LIST.addListener((observable, oldValue, newValue) -> {
             loadTable();
         });
-
+        ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME.addListener((observable, oldValue, newValue) -> {
+            FilterFactory.setFilter(filteredList);
+        });
+        ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.addListener((observable, oldValue, newValue) -> {
+            FilterFactory.setFilter(filteredList);
+        });
+        ProgConfig.SMALL_RADIO_SELECTED_FAVOURITE_GENRE.addListener((observable, oldValue, newValue) -> {
+            FilterFactory.setFilter(filteredList);
+        });
+        ProgConfig.SMALL_RADIO_SELECTED_HISTORY_GENRE.addListener((observable, oldValue, newValue) -> {
+            FilterFactory.setFilter(filteredList);
+        });
     }
 
     private void loadTable() {
         if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_STATION)) {
-//            FilteredList<Station> filteredFavourites = smallRadioGuiController.getFiltertFavourite();
-            FilteredList<StationData> filteredStationData = new FilteredList<>(progData.stationList, p -> true);
-            SortedList<StationData> sortedFavourites = new SortedList<>(filteredStationData);
-            tableView.setItems(sortedFavourites);
-            sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
+            filteredList = new FilteredList<>(progData.stationList, p -> true);
+            SortedList<StationData> stationData = new SortedList<>(filteredList);
+            tableView.setItems(stationData);
+            stationData.comparatorProperty().bind(tableView.comparatorProperty());
 
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_FAVOURITE)) {
-            FilteredList<StationData> filteredStationData = new FilteredList<>(progData.favouriteList, p -> true);
-            SortedList<StationData> sortedFavourites = new SortedList<>(filteredStationData);
-            tableView.setItems(sortedFavourites);
-            sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
+            filteredList = new FilteredList<>(progData.favouriteList, p -> true);
+            SortedList<StationData> stationData = new SortedList<>(filteredList);
+            tableView.setItems(stationData);
+            stationData.comparatorProperty().bind(tableView.comparatorProperty());
 
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_HISTORY)) {
-            FilteredList<StationData> filteredStationData = new FilteredList<>(progData.lastPlayedList, p -> true);
-            SortedList<StationData> sortedFavourites = new SortedList<>(filteredStationData);
-            tableView.setItems(sortedFavourites);
-            sortedFavourites.comparatorProperty().bind(tableView.comparatorProperty());
+            filteredList = new FilteredList<>(progData.historyList, p -> true);
+            SortedList<StationData> stationData = new SortedList<>(filteredList);
+            tableView.setItems(stationData);
+            stationData.comparatorProperty().bind(tableView.comparatorProperty());
         }
+
+        FilterFactory.setFilter(filteredList);
     }
 
     private void initTable() {

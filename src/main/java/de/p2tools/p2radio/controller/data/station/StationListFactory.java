@@ -108,8 +108,8 @@ public class StationListFactory {
                 .filter(station -> hashSet.contains(station.getStationUrl()))
                 .forEach(station -> station.setFavouriteUrl(true));
 
-        progData.lastPlayedList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
-        progData.lastPlayedList.stream()
+        progData.historyList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
+        progData.historyList.stream()
                 .filter(station -> hashSet.contains(station.getStationUrl()))
                 .forEach(lastPlayed -> lastPlayed.setFavouriteUrl(true));
 

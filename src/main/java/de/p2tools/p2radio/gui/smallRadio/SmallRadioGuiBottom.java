@@ -17,13 +17,11 @@
 package de.p2tools.p2radio.gui.smallRadio;
 
 import de.p2tools.p2Lib.guiTools.PGuiTools;
-import de.p2tools.p2Lib.tools.log.PDebugLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
-import javafx.beans.property.StringProperty;
+import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -33,6 +31,7 @@ import javafx.scene.layout.VBox;
 public class SmallRadioGuiBottom extends HBox {
 
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
+    private final ComboBox<String> cboGenre = new ComboBox<>();
     private final Button btnClearFilter = new Button("");
     private final Button btnRandom = new Button("");
     private final Button btnStart = new Button("");
@@ -41,10 +40,9 @@ public class SmallRadioGuiBottom extends HBox {
     private final RadioButton rbFavourite = new RadioButton("Favoriten");
     private final RadioButton rbLastPlayed = new RadioButton("History");
     private final SmallRadioGuiController smallRadioGuiController;
-    private final FavouriteFilter favouriteFilter = new FavouriteFilter();
-    Button btnRadio = new Button();
-    ProgData progData;
-    StringProperty selectedCollectionName = ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME;
+    private final HBox hBoxCollect = new HBox(15);
+    private final Button btnRadio = new Button();
+    private final ProgData progData;
 
     public SmallRadioGuiBottom(SmallRadioGuiController smallRadioGuiController) {
         progData = ProgData.getInstance();
@@ -69,34 +67,18 @@ public class SmallRadioGuiBottom extends HBox {
             rbLastPlayed.setSelected(true);
         }
         rbSender.setOnAction(a -> {
+            setHbCollection();
             setList();
         });
         rbFavourite.setOnAction(a -> {
+            setHbCollection();
             setList();
         });
         rbLastPlayed.setOnAction(a -> {
+            setHbCollection();
             setList();
         });
-        setList();
 
-        cboCollections.setMaxWidth(Double.MAX_VALUE);
-        cboCollections.setMinWidth(150);
-        cboCollections.setItems(progData.collectionList);
-
-        CollectionData collectionData = progData.collectionList.getByName(selectedCollectionName.getValueSafe());
-        favouriteFilter.setCollectionData(collectionData);
-//        smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicatePlayable());
-
-        cboCollections.getSelectionModel().select(collectionData);
-        cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            if (n == null) {
-                return;
-            }
-            selectedCollectionName.setValue(n.getName());
-            favouriteFilter.setCollectionData(n);
-//            smallRadioGuiController.getFiltertFavourite().setPredicate(favouriteFilter.getPredicatePlayable());
-            PDebugLog.sysLog(selectedCollectionName.getValueSafe());
-        });
 
         HBox hBoxRb = new HBox(5);
         hBoxRb.setAlignment(Pos.CENTER);
@@ -104,10 +86,9 @@ public class SmallRadioGuiBottom extends HBox {
         VBox vbColl = new VBox(5);
         vbColl.getChildren().addAll(hBoxRb);
 
-        HBox hBoxCollect = new HBox(15);
         hBoxCollect.setAlignment(Pos.CENTER);
-        hBoxCollect.getChildren().addAll(new Label("Sammlung:"), cboCollections, btnClearFilter);
 
+        initCbo();
         vbColl.getChildren().add(hBoxCollect);
 
         HBox hBoxButton = new HBox(5);
@@ -116,6 +97,64 @@ public class SmallRadioGuiBottom extends HBox {
 
         setAlignment(Pos.BOTTOM_CENTER);
         getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
+    }
+
+    private void initCbo() {
+        cboCollections.setMaxWidth(Double.MAX_VALUE);
+        cboCollections.setMinWidth(100);
+        cboCollections.setItems(progData.collectionList);
+        cboCollections.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME.setValue(newValue.getName());
+        });
+
+        cboGenre.setMaxWidth(Double.MAX_VALUE);
+        cboGenre.setMinWidth(100);
+//        cboGenre.setEditable(true);
+        cboGenre.setVisibleRowCount(25);
+        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
+        cboGenre.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//        cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != null && newValue != null) {
+                fN.checkPattern();
+                if (rbSender.isSelected()) {
+                    ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.setValue(newValue);
+                } else if (rbFavourite.isSelected()) {
+                    ProgConfig.SMALL_RADIO_SELECTED_FAVOURITE_GENRE.setValue(newValue);
+                } else {
+                    ProgConfig.SMALL_RADIO_SELECTED_HISTORY_GENRE.setValue(newValue);
+                }
+            }
+        });
+        cboGenre.setItems(progData.filterWorker.getAllGenreList());
+        setHbCollection();
+    }
+
+    private void setHbCollection() {
+        hBoxCollect.getChildren().clear();
+        if (rbSender.isSelected()) {
+            hBoxCollect.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
+
+        } else if (rbFavourite.isSelected()) {
+            hBoxCollect.getChildren().addAll(new Label("Genre:"), cboGenre,
+                    new Label("Sammlung:"), cboCollections, btnClearFilter);
+        } else {
+            hBoxCollect.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
+        }
+
+        if (rbSender.isSelected()) {
+            cboGenre.setValue(ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.getValueSafe());
+
+        } else if (rbFavourite.isSelected()) {
+            cboGenre.setValue(ProgConfig.SMALL_RADIO_SELECTED_FAVOURITE_GENRE.getValueSafe());
+            CollectionData collectionData = progData.collectionList.getByName(ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME.getValueSafe());
+            cboCollections.getSelectionModel().select(collectionData);
+
+        } else {
+            cboGenre.setValue(ProgConfig.SMALL_RADIO_SELECTED_HISTORY_GENRE.getValueSafe());
+        }
     }
 
     private void setList() {
@@ -139,7 +178,14 @@ public class SmallRadioGuiBottom extends HBox {
         btnClearFilter.getStyleClass().add("btnSmallRadio");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_RESET.getImageView());
         btnClearFilter.setOnAction(event -> {
-            cboCollections.getSelectionModel().select(0);
+            if (rbSender.isSelected()) {
+                cboGenre.getSelectionModel().select(0);
+            } else if (rbFavourite.isSelected()) {
+                cboGenre.getSelectionModel().select(0);
+                cboCollections.getSelectionModel().select(0);
+            } else {
+                cboGenre.getSelectionModel().select(0);
+            }
         });
 
         btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));

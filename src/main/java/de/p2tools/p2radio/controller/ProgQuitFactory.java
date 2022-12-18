@@ -36,7 +36,7 @@ public class ProgQuitFactory {
     public static boolean quit(Stage stage, boolean showOptionTerminate) {
         if (FavouriteFactory.countStartedAndRunningFavourites() > 0 ||
                 ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
-                ProgData.getInstance().lastPlayedList.countStartedAndRunningFavourites() > 0) {
+                ProgData.getInstance().historyList.countStartedAndRunningFavourites() > 0) {
             if (showOptionTerminate) {
                 //dann erst mal fragen
                 QuitDialogController quitDialogController;

@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.lastPlayed;
+package de.p2tools.p2radio.controller.data.history;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
@@ -24,11 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LastPlayedStartsFactory {
+public class HistoryStartsFactory {
     private final ProgData progData;
-    private final LastPlayedList favouriteList;
+    private final HistoryList favouriteList;
 
-    public LastPlayedStartsFactory(ProgData progData, LastPlayedList favouriteList) {
+    public HistoryStartsFactory(ProgData progData, HistoryList favouriteList) {
         this.progData = progData;
         this.favouriteList = favouriteList;
     }

@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.lastPlayed;
+package de.p2tools.p2radio.controller.data.history;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -25,8 +25,8 @@ import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class LastPlayedFactory {
-    private LastPlayedFactory() {
+public class HistoryFactory {
+    private HistoryFactory() {
 
     }
 
@@ -45,7 +45,7 @@ public class LastPlayedFactory {
             }
             if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
                     "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
-                ProgData.getInstance().lastPlayedList.removeAll(list);
+                ProgData.getInstance().historyList.removeAll(list);
             }
 
         } else {
@@ -59,7 +59,7 @@ public class LastPlayedFactory {
     public static void deleteHistory(StationData lastPlayed) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
                 "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            ProgData.getInstance().lastPlayedList.remove(lastPlayed);
+            ProgData.getInstance().historyList.remove(lastPlayed);
             StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
     }
@@ -69,7 +69,7 @@ public class LastPlayedFactory {
         text = "Soll die gesamte History gelöscht werden?";
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
                 "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
-            ProgData.getInstance().lastPlayedList.clear();
+            ProgData.getInstance().historyList.clear();
         }
     }
 }

@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.filter;
 import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
+import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,14 +37,14 @@ public class LastPlayedFilterController extends FilterController {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
 
-    private LastPlayedFilter lastPlayedFilter;
+    private final HistoryFilter historyFilter;
 
     public LastPlayedFilterController() {
         super(ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON);
         vBoxFilter = getVBoxFilter(true);
         progData = ProgData.getInstance();
 
-        lastPlayedFilter = progData.lastPlayedFilter;
+        historyFilter = progData.historyFilter;
 
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         cboGenre.setMinWidth(150);
@@ -68,17 +68,17 @@ public class LastPlayedFilterController extends FilterController {
         cboGenre.editableProperty().set(true);
         cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         cboGenre.setVisibleRowCount(25);
-        cboGenre.valueProperty().bindBidirectional(lastPlayedFilter.genreFilterProperty());
+        cboGenre.valueProperty().bindBidirectional(historyFilter.genreFilterProperty());
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
                 fN.checkPattern();
-                progData.filteredLastPlayedList.setPredicate(lastPlayedFilter.getPredicate());
+                progData.filteredLastPlayedList.setPredicate(historyFilter.getPredicate());
             }
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
 
         btnClearFilter.setOnAction(event -> {
-            progData.filteredLastPlayedList.setPredicate(lastPlayedFilter.clearFilter());
+            progData.filteredLastPlayedList.setPredicate(historyFilter.clearFilter());
         });
     }
 }

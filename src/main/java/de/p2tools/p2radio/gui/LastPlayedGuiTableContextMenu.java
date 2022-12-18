@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetDataList;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFactory;
+import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -66,7 +66,7 @@ public class LastPlayedGuiTableContextMenu {
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> lastPlayedGuiController.copyUrl());
         MenuItem miRemove = new MenuItem("Sender aus History löschen");
-        miRemove.setOnAction(a -> LastPlayedFactory.deleteHistory(false));
+        miRemove.setOnAction(a -> HistoryFactory.deleteHistory(false));
 
         miStop.setDisable(lastPlayed == null);
         miStopAll.setDisable(lastPlayed == null);

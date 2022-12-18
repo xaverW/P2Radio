@@ -28,7 +28,6 @@ import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import javafx.application.Platform;
-import javafx.collections.transformation.FilteredList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -44,7 +43,7 @@ public class SmallRadioGuiController extends PDialogOnly {
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
-    private final FilteredList<StationData> filteredStationData;
+
 
     public SmallRadioGuiController() {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
@@ -52,7 +51,7 @@ public class SmallRadioGuiController extends PDialogOnly {
 
         progData = ProgData.getInstance();
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
-        filteredStationData = new FilteredList<>(progData.favouriteList, p -> true);
+
         progData.smallRadioGuiController = this;
 
         smallRadioGuiCenter = new SmallRadioGuiCenter(this);
@@ -87,10 +86,6 @@ public class SmallRadioGuiController extends PDialogOnly {
     public void close() {
         saveMe();
         super.close();
-    }
-
-    public FilteredList<StationData> getFiltertFavourite() {
-        return filteredStationData;
     }
 
     public PMaskerPane getMaskerPane() {

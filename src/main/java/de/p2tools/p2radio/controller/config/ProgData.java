@@ -26,10 +26,10 @@ import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedFilter;
-import de.p2tools.p2radio.controller.data.lastPlayed.LastPlayedList;
+import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
+import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
+import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
@@ -94,9 +94,9 @@ public class ProgData {
     public FilteredList<StationData> filteredStationData;
     public FavouriteFilter favouriteFilter;
 
-    public LastPlayedList lastPlayedList; //Sender die zuletzt gespielt wurden
+    public HistoryList historyList; //Sender die zuletzt gespielt wurden
     public FilteredList<StationData> filteredLastPlayedList;
-    public LastPlayedFilter lastPlayedFilter;
+    public HistoryFilter historyFilter;
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
@@ -120,9 +120,9 @@ public class ProgData {
         filteredStationData = new FilteredList<>(favouriteList, p -> true);
         favouriteFilter = new FavouriteFilter();
 
-        lastPlayedList = new LastPlayedList(this);
-        filteredLastPlayedList = new FilteredList<>(lastPlayedList, p -> true);
-        lastPlayedFilter = new LastPlayedFilter();
+        historyList = new HistoryList(this);
+        filteredLastPlayedList = new FilteredList<>(historyList, p -> true);
+        historyFilter = new HistoryFilter();
 
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);

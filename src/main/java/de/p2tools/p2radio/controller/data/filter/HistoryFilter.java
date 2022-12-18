@@ -15,11 +15,12 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.lastPlayed;
+package de.p2tools.p2radio.controller.data.filter;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2radio.controller.data.history.HistoryFilterXml;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
 import javafx.beans.property.BooleanProperty;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-public class LastPlayedFilter extends LastPlayedFilterXml {
+public class HistoryFilter extends HistoryFilterXml {
 
     private final BooleanProperty gradeFilter = new SimpleBooleanProperty();
     private final StringProperty genreFilter = new SimpleStringProperty();

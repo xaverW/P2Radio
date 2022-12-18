@@ -130,7 +130,7 @@ public class ProgTray {
         miStop.addActionListener(e -> {
             progData.stationList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
             progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
-            progData.lastPlayedList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.historyList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();
