@@ -111,7 +111,7 @@ public class StationListFactory {
         progData.historyList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
         progData.historyList.stream()
                 .filter(station -> hashSet.contains(station.getStationUrl()))
-                .forEach(lastPlayed -> lastPlayed.setFavouriteUrl(true));
+                .forEach(stationData -> stationData.setFavouriteUrl(true));
 
         hashSet.clear();
         PDuration.counterStop("findAndMarkFavouriteStations");

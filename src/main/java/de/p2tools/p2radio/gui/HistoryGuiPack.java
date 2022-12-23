@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.filter.LastPlayedFilterController;
+import de.p2tools.p2radio.gui.filter.HistoryFilterController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
@@ -27,26 +27,24 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
-public class LastPlayedGuiPack {
-
-    ProgData progData;
-    private final SplitPane splitPane = new SplitPane();
-    private final HBox hBox = new HBox();
-
-    private final LastPlayedGuiController lastPlayedGuiController;
-    private final LastPlayedFilterController lastPlayedFilterController;
+public class HistoryGuiPack {
 
     static DoubleProperty doubleProperty;//sonst geht die Ref verloren
     static BooleanProperty boolDivOn;
+    private final SplitPane splitPane = new SplitPane();
+    private final HBox hBox = new HBox();
+    private final HistoryGuiController historyGuiController;
+    private final HistoryFilterController historyFilterController;
+    ProgData progData;
     private boolean bound = false;
 
-    public LastPlayedGuiPack() {
+    public HistoryGuiPack() {
         progData = ProgData.getInstance();
-        this.doubleProperty = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER;
-        this.boolDivOn = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON;
-        lastPlayedFilterController = new LastPlayedFilterController();
-        lastPlayedGuiController = new LastPlayedGuiController();
-        progData.lastPlayedGuiController = lastPlayedGuiController;
+        doubleProperty = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER;
+        boolDivOn = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON;
+        historyFilterController = new HistoryFilterController();
+        historyGuiController = new HistoryGuiController();
+        progData.historyGuiController = historyGuiController;
     }
 
     public void closeSplit() {
@@ -56,7 +54,7 @@ public class LastPlayedGuiPack {
     private void setSplit() {
         if (boolDivOn.getValue()) {
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(lastPlayedFilterController, lastPlayedGuiController);
+            splitPane.getItems().addAll(historyFilterController, historyGuiController);
             bound = true;
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
         } else {
@@ -64,7 +62,7 @@ public class LastPlayedGuiPack {
                 splitPane.getDividers().get(0).positionProperty().unbindBidirectional(doubleProperty);
             }
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(lastPlayedGuiController);
+            splitPane.getItems().addAll(historyGuiController);
         }
     }
 
@@ -73,7 +71,7 @@ public class LastPlayedGuiPack {
         menuController.setId("last-played-menu-pane");
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(lastPlayedFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(historyFilterController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);

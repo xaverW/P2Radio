@@ -29,7 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class LastPlayedFilterController extends FilterController {
+public class HistoryFilterController extends FilterController {
 
     private final VBox vBoxFilter;
     private final ProgData progData;
@@ -39,7 +39,7 @@ public class LastPlayedFilterController extends FilterController {
 
     private final HistoryFilter historyFilter;
 
-    public LastPlayedFilterController() {
+    public HistoryFilterController() {
         super(ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON);
         vBoxFilter = getVBoxFilter(true);
         progData = ProgData.getInstance();
@@ -72,13 +72,13 @@ public class LastPlayedFilterController extends FilterController {
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
                 fN.checkPattern();
-                progData.filteredLastPlayedList.setPredicate(historyFilter.getPredicate());
+                progData.filteredHistoryList.setPredicate(historyFilter.getPredicate());
             }
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
 
         btnClearFilter.setOnAction(event -> {
-            progData.filteredLastPlayedList.setPredicate(historyFilter.clearFilter());
+            progData.filteredHistoryList.setPredicate(historyFilter.clearFilter());
         });
     }
 }

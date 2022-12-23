@@ -45,7 +45,7 @@ public class StartPlayingStation extends Thread {
     private final int stat_finished_error = 11;
     private final int stat_end = 99;
     private final Start start;
-    private final StationData playable;
+    private final StationData stationData;
     private String exMessage = "";
     private boolean stop = false;
     private int runTime = 0;
@@ -54,15 +54,15 @@ public class StartPlayingStation extends Thread {
         super();
         this.progData = progData;
         this.start = start;
-        playable = start.getPlayable();
+        stationData = start.getPlayable();
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
         progData.pEventHandler.addListener(new PListener(Events.TIMER) {
             public void ping(PEvent event) {
                 ++runTime;
-                if (runTime == ProgConst.START_COUNTER_MIN_TIME && playable != null) {
-                    StartProgramFactory.setClickCount(playable);
+                if (runTime == ProgConst.START_COUNTER_MIN_TIME && stationData != null) {
+                    StartProgramFactory.setClickCount(stationData);
                 }
             }
         });
@@ -216,8 +216,8 @@ public class StartPlayingStation extends Thread {
         start.getStarter().setProcess(null);
         start.getStarter().setStartTime(null);
 
-        if (playable != null) {
-            playable.setStart(null);
+        if (stationData != null) {
+            stationData.setStart(null);
         }
     }
 
@@ -256,17 +256,7 @@ public class StartPlayingStation extends Thread {
     }
 
     private void refreshTable() {
-        if (playable != null && playable.isStation()) {
-            ProgData.getInstance().stationGuiController.tableRefresh();
-
-        } else if (playable != null && playable.isFavourite()) {
-            ProgData.getInstance().favouriteGuiController.tableRefresh();
-            if (progData.smallRadioGuiController != null) {
-                progData.smallRadioGuiController.tableRefresh();
-            }
-
-        } else if (playable != null && playable.isLastPlayed()) {
-            ProgData.getInstance().lastPlayedGuiController.tableRefresh();
-        }
+        //nicht optimal??
+        progData.pEventHandler.notifyListener(new PEvent(Events.REFRESH_TABLE));
     }
 }

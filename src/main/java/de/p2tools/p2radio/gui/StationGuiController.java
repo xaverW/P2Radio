@@ -90,7 +90,13 @@ public class StationGuiController extends AnchorPane {
     }
 
     public void tableRefresh() {
-        tableView.refresh();
+        PTableFactory.refreshTable(tableView);
+//        int i = tableView.getSelectionModel().getSelectedIndex();
+//        tableView.refresh();
+//        if (i >= 0) {
+//            tableView.getSelectionModel().select(i);
+//            tableView.scrollTo(i);
+//        }
     }
 
     public int getStationCount() {
@@ -215,7 +221,12 @@ public class StationGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
+        progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
+            public void pingGui(PEvent event) {
+                tableRefresh();
+            }
+        });
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableRefresh());
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();
         });

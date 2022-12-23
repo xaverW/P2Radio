@@ -99,7 +99,7 @@ public class StationInfoDialogController extends PDialogExtra {
                     break;
                 case 2:
                 default:
-                    progData.lastPlayedGuiController.setPreviousStation();
+                    progData.historyGuiController.setPreviousStation();
             }
         });
 
@@ -115,7 +115,7 @@ public class StationInfoDialogController extends PDialogExtra {
                     break;
                 case 2:
                 default:
-                    progData.lastPlayedGuiController.setNextStation();
+                    progData.historyGuiController.setNextStation();
             }
         });
 
@@ -131,7 +131,7 @@ public class StationInfoDialogController extends PDialogExtra {
                     break;
                 case 2:
                 default:
-                    progData.lastPlayedGuiController.playStation();
+                    progData.historyGuiController.playStation();
             }
         });
 

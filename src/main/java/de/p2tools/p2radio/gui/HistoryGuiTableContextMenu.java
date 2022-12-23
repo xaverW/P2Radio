@@ -29,58 +29,58 @@ import javafx.scene.control.SeparatorMenuItem;
 
 import java.util.Optional;
 
-public class LastPlayedGuiTableContextMenu {
+public class HistoryGuiTableContextMenu {
 
     private final ProgData progData;
-    private final LastPlayedGuiController lastPlayedGuiController;
+    private final HistoryGuiController historyGuiController;
     private final TablePlayable tableView;
 
-    public LastPlayedGuiTableContextMenu(ProgData progData, LastPlayedGuiController lastPlayedGuiController, TablePlayable tableView) {
+    public HistoryGuiTableContextMenu(ProgData progData, HistoryGuiController historyGuiController, TablePlayable tableView) {
         this.progData = progData;
-        this.lastPlayedGuiController = lastPlayedGuiController;
+        this.historyGuiController = historyGuiController;
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(StationData lastPlayed) {
+    public ContextMenu getContextMenu(StationData stationData) {
         final ContextMenu contextMenu = new ContextMenu();
-        getMenu(contextMenu, lastPlayed);
+        getMenu(contextMenu, stationData);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, StationData lastPlayed) {
+    private void getMenu(ContextMenu contextMenu, StationData data) {
         MenuItem miStart = new MenuItem("Sender starten");
-        miStart.setOnAction(a -> lastPlayedGuiController.playStation());
-        miStart.setDisable(lastPlayed == null);
+        miStart.setOnAction(a -> historyGuiController.playStation());
+        miStart.setDisable(data == null);
         contextMenu.getItems().addAll(miStart);
 
-        Menu mStartStation = startStationWithSet(lastPlayed); // Sender mit Set starten
+        Menu mStartStation = startStationWithSet(data); // Sender mit Set starten
         if (mStartStation != null) {
-            mStartStation.setDisable(lastPlayed == null);
+            mStartStation.setDisable(data == null);
             contextMenu.getItems().add(mStartStation);
         }
 
         MenuItem miStop = new MenuItem("Sender stoppen");
-        miStop.setOnAction(a -> lastPlayedGuiController.stopStation(false));
+        miStop.setOnAction(a -> historyGuiController.stopStation(false));
         MenuItem miStopAll = new MenuItem("alle Sender stoppen");
-        miStopAll.setOnAction(a -> lastPlayedGuiController.stopStation(true /* alle */));
+        miStopAll.setOnAction(a -> historyGuiController.stopStation(true /* alle */));
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
-        miCopyUrl.setOnAction(a -> lastPlayedGuiController.copyUrl());
+        miCopyUrl.setOnAction(a -> historyGuiController.copyUrl());
         MenuItem miRemove = new MenuItem("Sender aus History löschen");
         miRemove.setOnAction(a -> HistoryFactory.deleteHistory(false));
 
-        miStop.setDisable(lastPlayed == null);
-        miStopAll.setDisable(lastPlayed == null);
-        miCopyUrl.setDisable(lastPlayed == null);
-        miRemove.setDisable(lastPlayed == null);
+        miStop.setDisable(data == null);
+        miStopAll.setDisable(data == null);
+        miCopyUrl.setDisable(data == null);
+        miRemove.setDisable(data == null);
         contextMenu.getItems().addAll(miStop, miStopAll, miCopyUrl, miRemove);
 
-        if (lastPlayed != null) {
-            String stationUrl = lastPlayed.getStationUrl();
+        if (data != null) {
+            String stationUrl = data.getStationUrl();
             StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
             if (stationData != null) {
                 MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
                 miAddFavourite.setOnAction(a -> StationFactory.favouriteStation(stationData));
-                miAddFavourite.setDisable(lastPlayed == null);
+                miAddFavourite.setDisable(data == null);
                 contextMenu.getItems().addAll(miAddFavourite);
             }
         }
@@ -104,9 +104,9 @@ public class LastPlayedGuiTableContextMenu {
             list.stream().forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
                 item.setOnAction(event -> {
-                    final Optional<StationData> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
-                    if (lastPlayed.isPresent()) {
-                        progData.startFactory.playPlayable(lastPlayed.get(), setData);
+                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiController.getSel();
+                    if (stationData.isPresent()) {
+                        progData.startFactory.playPlayable(stationData.get(), setData);
                     }
                 });
                 submenuSet.getItems().add(item);

@@ -54,7 +54,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private final PLocalDate stationDate = new PLocalDate();
-    boolean station = false, favourite = false, lastPlayed = false;
+    boolean station = false, favourite = false, history = false;
 
     @Override
     public Config[] getConfigsArr() {

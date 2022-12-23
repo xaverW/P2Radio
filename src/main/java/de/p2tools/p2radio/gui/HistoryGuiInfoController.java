@@ -30,7 +30,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class LastPlayedGuiInfoController extends PClosePaneH {
+public class HistoryGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final Label lblWebsite = new Label("Website: ");
@@ -42,9 +42,9 @@ public class LastPlayedGuiInfoController extends PClosePaneH {
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
-    private StationData lastPlayed = null;
+    private StationData stationData = null;
 
-    public LastPlayedGuiInfoController() {
+    public HistoryGuiInfoController() {
         super(ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON, true);
         initInfo();
     }
@@ -79,13 +79,13 @@ public class LastPlayedGuiInfoController extends PClosePaneH {
         gridPane.add(taDescription, 1, row);
     }
 
-    public void setLastPlayed(StationData lastPlayed) {
-        if (this.lastPlayed != null) {
-            taDescription.textProperty().unbindBidirectional(this.lastPlayed.descriptionProperty());
+    public void setStationData(StationData stationData) {
+        if (this.stationData != null) {
+            taDescription.textProperty().unbindBidirectional(this.stationData.descriptionProperty());
         }
 
-        this.lastPlayed = lastPlayed;
-        if (lastPlayed == null) {
+        this.stationData = stationData;
+        if (stationData == null) {
             lblTitle.setText("");
             hyperlinkWebsite.setUrl("");
             hyperlinkUrl.setUrl("");
@@ -93,9 +93,9 @@ public class LastPlayedGuiInfoController extends PClosePaneH {
             return;
         }
 
-        lblTitle.setText(lastPlayed.getStationName() + "  -  " + lastPlayed.getCountry());
-        hyperlinkWebsite.setUrl(lastPlayed.getWebsite());
-        hyperlinkUrl.setUrl(lastPlayed.getStationUrl());
-        taDescription.textProperty().bindBidirectional(lastPlayed.descriptionProperty());
+        lblTitle.setText(stationData.getStationName() + "  -  " + stationData.getCountry());
+        hyperlinkWebsite.setUrl(stationData.getWebsite());
+        hyperlinkUrl.setUrl(stationData.getStationUrl());
+        taDescription.textProperty().bindBidirectional(stationData.descriptionProperty());
     }
 }

@@ -35,9 +35,9 @@ public class StartProgramFactory {
                 clickCount = stationData.getClickCount();
             }
         }
-        for (StationData lastPlayed : ProgData.getInstance().historyList) {
-            if (lastPlayed.getStationUrl().equals(playable.getStationUrl()) && lastPlayed.getClickCount() > clickCount) {
-                clickCount = lastPlayed.getClickCount();
+        for (StationData stationData : ProgData.getInstance().historyList) {
+            if (stationData.getStationUrl().equals(playable.getStationUrl()) && stationData.getClickCount() > clickCount) {
+                clickCount = stationData.getClickCount();
             }
         }
 
@@ -48,9 +48,9 @@ public class StartProgramFactory {
                 stationData.setClickCount(clickCount);
             }
         }
-        for (StationData lastPlayed : ProgData.getInstance().historyList) {
-            if (lastPlayed.getStationUrl().equals(playable.getStationUrl())) {
-                lastPlayed.setClickCount(clickCount);
+        for (StationData stationData : ProgData.getInstance().historyList) {
+            if (stationData.getStationUrl().equals(playable.getStationUrl())) {
+                stationData.setClickCount(clickCount);
             }
         }
     }

@@ -85,7 +85,7 @@ public class TablePlayable<T> extends TableView<T> {
                 startColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
                 break;
             case LAST_PLAYED:
-                startColumn.setCellFactory(new CellStartLastPlayed().cellFactoryButton);
+                startColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
                 break;
             case SMALL_RADIO:
             default:

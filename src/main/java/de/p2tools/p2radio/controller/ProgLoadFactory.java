@@ -96,7 +96,7 @@ public class ProgLoadFactory {
                 break;
             case 2:
             default:
-                Platform.runLater(() -> progData.lastPlayedGuiController.selUrl());
+                Platform.runLater(() -> progData.historyGuiController.selUrl());
                 break;
         }
 

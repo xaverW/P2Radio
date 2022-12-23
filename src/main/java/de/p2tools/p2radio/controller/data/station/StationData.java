@@ -115,7 +115,7 @@ public final class StationData extends StationDataProperty {
         setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
     }
 
-    public boolean isLastPlayed() {
+    public boolean isHistory() {
         return false;
     }
 

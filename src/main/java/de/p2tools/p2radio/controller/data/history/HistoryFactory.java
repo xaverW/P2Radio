@@ -32,7 +32,7 @@ public class HistoryFactory {
 
     public static void deleteHistory(boolean all) {
         if (all) {
-            final ArrayList<StationData> list = ProgData.getInstance().lastPlayedGuiController.getSelList();
+            final ArrayList<StationData> list = ProgData.getInstance().historyGuiController.getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -49,17 +49,17 @@ public class HistoryFactory {
             }
 
         } else {
-            final Optional<StationData> favourite = ProgData.getInstance().lastPlayedGuiController.getSel();
+            final Optional<StationData> favourite = ProgData.getInstance().historyGuiController.getSel();
             if (favourite.isPresent()) {
                 deleteHistory(favourite.get());
             }
         }
     }
 
-    public static void deleteHistory(StationData lastPlayed) {
+    public static void deleteHistory(StationData stationData) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
                 "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            ProgData.getInstance().historyList.remove(lastPlayed);
+            ProgData.getInstance().historyList.remove(stationData);
             StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
     }

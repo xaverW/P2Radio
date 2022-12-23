@@ -76,8 +76,8 @@ public class ProgQuitFactory {
         if (ProgData.getInstance().favouriteGuiController != null) {
             ProgData.getInstance().favouriteGuiController.saveTable();
         }
-        if (ProgData.getInstance().lastPlayedGuiController != null) {
-            ProgData.getInstance().lastPlayedGuiController.saveTable();
+        if (ProgData.getInstance().historyGuiController != null) {
+            ProgData.getInstance().historyGuiController.saveTable();
         }
     }
 }

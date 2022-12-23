@@ -21,7 +21,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -38,7 +37,7 @@ public class SmallRadioGuiBottom extends HBox {
     private final Button btnStop = new Button("");
     private final RadioButton rbSender = new RadioButton("Sender");
     private final RadioButton rbFavourite = new RadioButton("Favoriten");
-    private final RadioButton rbLastPlayed = new RadioButton("History");
+    private final RadioButton rbHistory = new RadioButton("History");
     private final SmallRadioGuiController smallRadioGuiController;
     private final HBox hBoxCollect = new HBox(15);
     private final Button btnRadio = new Button();
@@ -58,13 +57,13 @@ public class SmallRadioGuiBottom extends HBox {
         ToggleGroup tg = new ToggleGroup();
         rbSender.setToggleGroup(tg);
         rbFavourite.setToggleGroup(tg);
-        rbLastPlayed.setToggleGroup(tg);
+        rbHistory.setToggleGroup(tg);
         if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_STATION)) {
             rbSender.setSelected(true);
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_FAVOURITE)) {
             rbFavourite.setSelected(true);
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_HISTORY)) {
-            rbLastPlayed.setSelected(true);
+            rbHistory.setSelected(true);
         }
         rbSender.setOnAction(a -> {
             setHbCollection();
@@ -74,7 +73,7 @@ public class SmallRadioGuiBottom extends HBox {
             setHbCollection();
             setList();
         });
-        rbLastPlayed.setOnAction(a -> {
+        rbHistory.setOnAction(a -> {
             setHbCollection();
             setList();
         });
@@ -82,7 +81,7 @@ public class SmallRadioGuiBottom extends HBox {
 
         HBox hBoxRb = new HBox(5);
         hBoxRb.setAlignment(Pos.CENTER);
-        hBoxRb.getChildren().addAll(rbSender, rbFavourite, rbLastPlayed);
+        hBoxRb.getChildren().addAll(rbSender, rbFavourite, rbHistory);
         VBox vbColl = new VBox(5);
         vbColl.getChildren().addAll(hBoxRb);
 
@@ -114,11 +113,11 @@ public class SmallRadioGuiBottom extends HBox {
         cboGenre.setMinWidth(100);
 //        cboGenre.setEditable(true);
         cboGenre.setVisibleRowCount(25);
-        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
+//        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
         cboGenre.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 //        cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
-                fN.checkPattern();
+//                fN.checkPattern();
                 if (rbSender.isSelected()) {
                     ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.setValue(newValue);
                 } else if (rbFavourite.isSelected()) {

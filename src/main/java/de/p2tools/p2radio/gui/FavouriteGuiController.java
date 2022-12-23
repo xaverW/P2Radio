@@ -88,7 +88,13 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     public void tableRefresh() {
-        tableView.refresh();
+        PTableFactory.refreshTable(tableView);
+//        int i = tableView.getSelectionModel().getSelectedIndex();
+//        tableView.refresh();
+//        if (i >= 0) {
+//            tableView.getSelectionModel().select(i);
+//            tableView.scrollTo(i);
+//        }
     }
 
     public void isShown() {
@@ -190,6 +196,11 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     private void initListener() {
+        progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
+            public void pingGui(PEvent event) {
+                tableRefresh();
+            }
+        });
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
             public void pingGui(PEvent event) {
                 tableView.refresh();

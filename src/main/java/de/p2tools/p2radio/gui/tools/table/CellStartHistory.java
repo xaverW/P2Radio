@@ -32,7 +32,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
+public class CellStartHistory<S, T> extends TableCell<S, T> {
     public final Callback<TableColumn<StationData, Integer>, TableCell<StationData, Integer>> cellFactoryButton
             = (final TableColumn<StationData, Integer> param) -> {
 
@@ -53,8 +53,8 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                 hbox.setAlignment(Pos.CENTER);
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                StationData lastPlayed = getTableView().getItems().get(getIndex());
-                final boolean playing = lastPlayed.getStart() != null;
+                StationData stationData = getTableView().getItems().get(getIndex());
+                final boolean playing = stationData.getStart() != null;
 
                 if (playing) {
                     //dann stoppen
@@ -64,7 +64,7 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.stopPlayable(lastPlayed);
+                        ProgData.getInstance().startFactory.stopPlayable(stationData);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -83,7 +83,7 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.playPlayable(lastPlayed);
+                        ProgData.getInstance().startFactory.playPlayable(stationData);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -101,7 +101,7 @@ public class CellStartLastPlayed<S, T> extends TableCell<S, T> {
                 btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
-                    HistoryFactory.deleteHistory(lastPlayed);
+                    HistoryFactory.deleteHistory(stationData);
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {

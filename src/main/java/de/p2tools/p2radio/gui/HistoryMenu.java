@@ -31,13 +31,13 @@ import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
-public class LastPlayedMenu {
+public class HistoryMenu {
     final private VBox vBox;
     final private ProgData progData;
     BooleanProperty boolFilterOn = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON;
     BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
 
-    public LastPlayedMenu(VBox vBox) {
+    public HistoryMenu(VBox vBox) {
         this.vBox = vBox;
         progData = ProgData.getInstance();
     }
@@ -63,7 +63,7 @@ public class LastPlayedMenu {
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
-        btStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
+        btStart.setOnAction(a -> progData.historyGuiController.playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
@@ -81,9 +81,9 @@ public class LastPlayedMenu {
             for (SetData set : progData.setDataList) {
                 MenuItem miStart = new MenuItem(set.getVisibleName());
                 miStart.setOnAction(a -> {
-                    final Optional<StationData> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
-                    if (lastPlayed.isPresent()) {
-                        progData.startFactory.playPlayable(lastPlayed.get(), set);
+                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiController.getSel();
+                    if (stationData.isPresent()) {
+                        progData.startFactory.playPlayable(stationData.get(), set);
                     }
                 });
                 miStartWithSet.getItems().add(miStart);
@@ -92,43 +92,43 @@ public class LastPlayedMenu {
 
         } else {
             final MenuItem miPlay = new MenuItem("Sender abspielen");
-            miPlay.setOnAction(a -> progData.lastPlayedGuiController.playStation());
+            miPlay.setOnAction(a -> progData.historyGuiController.playStation());
             PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
             mb.getItems().addAll(miPlay);
         }
 
 //
 //        final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
-//        miFavouriteStart.setOnAction(a -> progData.lastPlayedGuiController.playStation());
+//        miFavouriteStart.setOnAction(a -> progData.historyGuiController.playStation());
 //        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> progData.lastPlayedGuiController.stopStation(false));
+        miFavouriteStop.setOnAction(a -> progData.historyGuiController.stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
-        miCopyUrl.setOnAction(a -> progData.lastPlayedGuiController.copyUrl());
+        miCopyUrl.setOnAction(a -> progData.historyGuiController.copyUrl());
 
         mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl);
 
         // Submenü
-        final MenuItem miLastPlayedDel = new MenuItem("Sender aus History löschen");
-        miLastPlayedDel.setOnAction(a -> HistoryFactory.deleteHistory(false));
+        final MenuItem miHistoryDel = new MenuItem("Sender aus History löschen");
+        miHistoryDel.setOnAction(a -> HistoryFactory.deleteHistory(false));
 
-        final MenuItem miLastPlayedDelSel = new MenuItem("Ale markierten Sender aus History löschen");
-        miLastPlayedDelSel.setOnAction(a -> HistoryFactory.deleteHistory(true));
+        final MenuItem miHistoryDelSel = new MenuItem("Ale markierten Sender aus History löschen");
+        miHistoryDelSel.setOnAction(a -> HistoryFactory.deleteHistory(true));
 
-        final MenuItem miLastPlayedDelAll = new MenuItem("Gesamte History löschen");
-        miLastPlayedDelAll.setOnAction(a -> HistoryFactory.deleteCompleteHistory());
+        final MenuItem miHistoryDelAll = new MenuItem("Gesamte History löschen");
+        miHistoryDelAll.setOnAction(a -> HistoryFactory.deleteCompleteHistory());
 
         MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
         miAddFavourite.setOnAction(a -> {
-            final Optional<StationData> lastPlayed = ProgData.getInstance().lastPlayedGuiController.getSel();
-            if (lastPlayed.isPresent()) {
-                String stationUrl = lastPlayed.get().getStationUrl();
+            final Optional<StationData> data = ProgData.getInstance().historyGuiController.getSel();
+            if (data.isPresent()) {
+                String stationUrl = data.get().getStationUrl();
                 StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
                 if (stationData != null) {
                     StationFactory.favouriteStation(stationData);
@@ -140,7 +140,7 @@ public class LastPlayedMenu {
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenu = new Menu("History");
         mb.getItems().addAll(submenu);
-        submenu.getItems().addAll(miLastPlayedDel, miLastPlayedDelSel, miLastPlayedDelAll);
+        submenu.getItems().addAll(miHistoryDel, miHistoryDelSel, miHistoryDelAll);
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");

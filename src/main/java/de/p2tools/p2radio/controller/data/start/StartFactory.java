@@ -38,28 +38,10 @@ public class StartFactory {
         }
     }
 
-//    public void stopStation(Favourite station) {
-//        if (station.getStart() != null) {
-//            station.getStart().stopStart();
-//        }
-//    }
-
-//    public void stopFavourite(Favourite favourite) {
-//        if (favourite.getStart() != null) {
-//            favourite.getStart().stopStart();
-//        }
-//    }
-
-//    public void stopLastPlayed(Favourite history) {
-//        if (history.getStart() != null) {
-//            history.getStart().stopStart();
-//        }
-//    }
-
     public void stopAll() {
         stopAllStations();
         stopAllFavourites();
-        stopAllLastPlayed();
+        stopAllHistory();
     }
 
     public void stopAllStations() {
@@ -70,8 +52,8 @@ public class StartFactory {
         progData.favouriteList.stream().forEach(favourite -> progData.startFactory.stopPlayable(favourite));
     }
 
-    public void stopAllLastPlayed() {
-        progData.historyList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
+    public void stopAllHistory() {
+        progData.historyList.stream().forEach(stationData -> progData.startFactory.stopPlayable(stationData));
     }
 
     public StationData playRandomStation() {
@@ -110,32 +92,6 @@ public class StartFactory {
         startUrlWithProgram(favourite, setData);
     }
 
-//    public void playFavourite(Favourite favourite) {
-//        playPlayable(favourite, null);
-//    }
-//
-//    public void playFavourite(Favourite favourite, SetData data) {
-//        SetData setData = checkSetData(data);
-//        if (setData == null) {
-//            return;
-//        }
-//        // und starten
-//        startUrlWithProgram(favourite, setData);
-//    }
-
-//    public void playLastPlayed(Favourite history) {
-//        playLastPlayed(history, null);
-//    }
-//
-//    public void playLastPlayed(Favourite history, SetData data) {
-//        SetData setData = checkSetData(data);
-//        if (setData == null) {
-//            return;
-//        }
-//        // und starten
-//        startUrlWithProgram(history, setData);
-//    }
-
     private SetData checkSetData(SetData setData) {
         SetData sd = setData;
         if (sd == null) {
@@ -147,22 +103,6 @@ public class StartFactory {
 
         return sd;
     }
-
-//    private synchronized void startUrlWithProgram(Favourite station, SetData setData) {
-//        final String url = station.getStationUrl();
-//        if (!url.isEmpty()) {
-//            progData.lastPlayedList.addStation(station);
-//
-//            progData.startFactory.stopAll();
-//            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
-//
-//            final Start start = new Start(setData, station);
-//            station.setStart(start);
-//            start.initStart();
-//
-//            startStart(start);
-//        }
-//    }
 
     private synchronized void startUrlWithProgram(StationData station, SetData setData) {
         final String url = station.getStationUrl();
@@ -179,23 +119,6 @@ public class StartFactory {
             startStart(start);
         }
     }
-
-//    private synchronized void startUrlWithProgram(Favourite favourite, SetData setData) {
-//        final String url = favourite.getStationUrl();
-//        if (!url.isEmpty()) {
-//            //todo wenn history dann brauchts das eigenlich nicht
-//            progData.lastPlayedList.addFavourite(favourite);
-//
-//            progData.startFactory.stopAll();
-//            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
-//
-//            final Start start = new Start(setData, favourite);
-//            favourite.setStart(start);
-//            start.initStart();
-//
-//            startStart(start);
-//        }
-//    }
 
     private synchronized void startStart(Start start) {
         StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);

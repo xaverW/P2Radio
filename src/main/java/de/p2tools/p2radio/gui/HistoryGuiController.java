@@ -46,20 +46,20 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class LastPlayedGuiController extends AnchorPane {
+public class HistoryGuiController extends AnchorPane {
 
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TablePlayable<StationData> tableView;
     private final ProgData progData;
-    private final LastPlayedGuiInfoController lastPlayedGuiInfoController;
+    private final HistoryGuiInfoController historyGuiInfoController;
     private final HistoryFilter historyFilter = new HistoryFilter();
     DoubleProperty splitPaneProperty = ProgConfig.LAST_PLAYED_GUI_DIVIDER;
     BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
     private boolean bound = false;
 
-    public LastPlayedGuiController() {
+    public HistoryGuiController() {
         progData = ProgData.getInstance();
         tableView = new TablePlayable(Table.TABLE_ENUM.LAST_PLAYED);
 
@@ -78,7 +78,7 @@ public class LastPlayedGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        lastPlayedGuiInfoController = new LastPlayedGuiInfoController();
+        historyGuiInfoController = new HistoryGuiInfoController();
 
         setInfoPane();
         initTable();
@@ -86,7 +86,13 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     public void tableRefresh() {
-        tableView.refresh();
+        PTableFactory.refreshTable(tableView);
+//        int i = tableView.getSelectionModel().getSelectedIndex();
+//        tableView.refresh();
+//        if (i >= 0) {
+//            tableView.getSelectionModel().select(i);
+//            tableView.scrollTo(i);
+//        }
     }
 
     public void isShown() {
@@ -109,31 +115,31 @@ public class LastPlayedGuiController extends AnchorPane {
     private void setSelectedFavourite() {
         StationData stationData = tableView.getSelectionModel().getSelectedItem();
         if (stationData != null) {
-            lastPlayedGuiInfoController.setLastPlayed(stationData);
+            historyGuiInfoController.setStationData(stationData);
             StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
         } else {
-            lastPlayedGuiInfoController.setLastPlayed(null);
+            historyGuiInfoController.setStationData(null);
         }
     }
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
-        final Optional<StationData> lastPlayed = getSel();
-        if (lastPlayed.isPresent()) {
-            progData.startFactory.playPlayable(lastPlayed.get());
+        final Optional<StationData> stationData = getSel();
+        if (stationData.isPresent()) {
+            progData.startFactory.playPlayable(stationData.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.historyList.stream().forEach(lastPlayed -> progData.startFactory.stopPlayable(lastPlayed));
+            progData.historyList.stream().forEach(stationData -> progData.startFactory.stopPlayable(stationData));
 
         } else {
-            final Optional<StationData> lastPlayed = getSel();
-            if (lastPlayed.isPresent()) {
-                progData.startFactory.stopPlayable(lastPlayed.get());
+            final Optional<StationData> stationData = getSel();
+            if (stationData.isPresent()) {
+                progData.startFactory.stopPlayable(stationData.get());
             }
         }
     }
@@ -186,6 +192,11 @@ public class LastPlayedGuiController extends AnchorPane {
     }
 
     private void initListener() {
+        progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
+            public void pingGui(PEvent event) {
+                tableRefresh();
+            }
+        });
         progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
             public void pingGui(PEvent event) {
@@ -210,7 +221,7 @@ public class LastPlayedGuiController extends AnchorPane {
         } else {
             bound = true;
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, lastPlayedGuiInfoController);
+            splitPane.getItems().addAll(vBox, historyGuiInfoController);
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
             SplitPane.setResizableWithParent(vBox, true);
         }
@@ -219,22 +230,22 @@ public class LastPlayedGuiController extends AnchorPane {
     private void initTable() {
         Table.setTable(tableView);
 
-        SortedList<StationData> sortedLastPlayedList = new SortedList<>(progData.filteredLastPlayedList);
-        tableView.setItems(sortedLastPlayedList);
-        sortedLastPlayedList.comparatorProperty().bind(tableView.comparatorProperty());
+        SortedList<StationData> sortedHistoryList = new SortedList<>(progData.filteredHistoryList);
+        tableView.setItems(sortedHistoryList);
+        sortedHistoryList.comparatorProperty().bind(tableView.comparatorProperty());
         Platform.runLater(() -> PTableFactory.refreshTable(tableView));
 
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<StationData> optionalDownload = getSel(false);
-                StationData lastPlayed;
+                StationData stationData;
                 if (optionalDownload.isPresent()) {
-                    lastPlayed = optionalDownload.get();
+                    stationData = optionalDownload.get();
                 } else {
-                    lastPlayed = null;
+                    stationData = null;
                 }
-                ContextMenu contextMenu = new LastPlayedGuiTableContextMenu(progData, this, tableView).
-                        getContextMenu(lastPlayed);
+                ContextMenu contextMenu = new HistoryGuiTableContextMenu(progData, this, tableView).
+                        getContextMenu(stationData);
                 tableView.setContextMenu(contextMenu);
             }
         });

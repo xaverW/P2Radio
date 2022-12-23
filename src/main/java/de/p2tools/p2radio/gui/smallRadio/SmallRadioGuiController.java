@@ -21,6 +21,9 @@ import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.events.PEvent;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -43,6 +46,11 @@ public class SmallRadioGuiController extends PDialogOnly {
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
     private final FavouriteGuiInfoController favouriteGuiInfoController;
+    private final PListener listener = new PListener(Events.REFRESH_TABLE) {
+        public void pingGui(PEvent event) {
+            tableRefresh();
+        }
+    };
 
 
     public SmallRadioGuiController() {
@@ -80,11 +88,13 @@ public class SmallRadioGuiController extends PDialogOnly {
             e.consume();
             close();
         });
+        progData.pEventHandler.addListener(listener);
     }
 
     @Override
     public void close() {
         saveMe();
+        ProgData.getInstance().pEventHandler.removeListener(listener);
         super.close();
     }
 

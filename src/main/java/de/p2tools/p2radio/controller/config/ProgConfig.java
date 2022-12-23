@@ -135,7 +135,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty FAVOURITE_GUI_TABLE_VIS = addStr("favourite-gui-table-vis");
     public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStr("favourite-gui-table-order");
     public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBool("favourite-show-notification", Boolean.TRUE);
-    // Gui LastPlayed
+    // Gui History
     public static DoubleProperty LAST_PLAYED_GUI_FILTER_DIVIDER = addDouble("last-played-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty LAST_PLAYED_GUI_FILTER_DIVIDER_ON = addBool("last-played-gui-filter-divider-on", Boolean.TRUE);
     public static StringProperty LAST_PLAYED_DIALOG_EDIT_SIZE = addStr("last-played-dialog-edit-size", "800:800");

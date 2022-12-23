@@ -38,7 +38,7 @@ import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
 import de.p2tools.p2radio.gui.FavouriteGuiController;
-import de.p2tools.p2radio.gui.LastPlayedGuiController;
+import de.p2tools.p2radio.gui.HistoryGuiController;
 import de.p2tools.p2radio.gui.StationGuiController;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.filter.StationFilterControllerClearFilter;
@@ -76,7 +76,7 @@ public class ProgData {
     public StationGuiController stationGuiController = null; // Tab mit den Sender
     public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
     public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
-    public LastPlayedGuiController lastPlayedGuiController = null; // Tab mit den Favoriten
+    public HistoryGuiController historyGuiController = null; // Tab mit den Favoriten
     public StationInfoDialogController stationInfoDialogController = null;
     public StationFilterControllerClearFilter stationFilterControllerClearFilter = null;
     // Worker
@@ -95,7 +95,7 @@ public class ProgData {
     public FavouriteFilter favouriteFilter;
 
     public HistoryList historyList; //Sender die zuletzt gespielt wurden
-    public FilteredList<StationData> filteredLastPlayedList;
+    public FilteredList<StationData> filteredHistoryList;
     public HistoryFilter historyFilter;
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
@@ -121,7 +121,7 @@ public class ProgData {
         favouriteFilter = new FavouriteFilter();
 
         historyList = new HistoryList(this);
-        filteredLastPlayedList = new FilteredList<>(historyList, p -> true);
+        filteredHistoryList = new FilteredList<>(historyList, p -> true);
         historyFilter = new HistoryFilter();
 
         collectionList = new CollectionList(this);

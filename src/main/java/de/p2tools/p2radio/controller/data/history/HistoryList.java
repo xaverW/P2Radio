@@ -31,7 +31,7 @@ import java.util.Optional;
 
 public class HistoryList extends SimpleListProperty<StationData> implements PDataList<StationData> {
 
-    public static final String TAG = "LastPlayedList";
+    public static final String TAG = "HistoryList";
     private final ProgData progData;
     private final HistoryStartsFactory favouriteStartsFactory;
     private int no = 0;
@@ -93,9 +93,9 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
     public synchronized void addStation(StationData station) {
         if (!checkUrl(station.getStationUrl())) {
             //dann gibts ihn noch nicht
-            StationData lastPlayed = new StationData();
-            lastPlayed.setStation(station);
-            this.add(0, lastPlayed);
+            StationData stationData = new StationData();
+            stationData.setStation(station);
+            this.add(0, stationData);
         }
         reCount();
     }
@@ -105,9 +105,9 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
         Optional<StationData> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
         if (opt.isPresent()) {
             ret = true;
-            StationData lastPlayed = opt.get();
-            this.remove(lastPlayed);
-            this.add(0, lastPlayed);
+            StationData stationData = opt.get();
+            this.remove(stationData);
+            this.add(0, stationData);
         }
         return ret;
     }
@@ -133,9 +133,9 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
     public synchronized int countStartedAndRunningFavourites() {
         //es wird nach gestarteten und laufenden Favoriten gesucht
         int ret = 0;
-        for (final StationData lastPlayed : this) {
-            if (lastPlayed.getStart() != null &&
-                    (lastPlayed.getStart().getStartStatus().isStarted() || lastPlayed.getStart().getStartStatus().isStateStartedRun())) {
+        for (final StationData stationData : this) {
+            if (stationData.getStart() != null &&
+                    (stationData.getStart().getStartStatus().isStarted() || stationData.getStart().getStartStatus().isStateStartedRun())) {
                 ++ret;
             }
         }

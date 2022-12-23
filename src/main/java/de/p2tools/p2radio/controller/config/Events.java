@@ -25,4 +25,5 @@ public class Events {
     public static int LOAD_RADIO_LIST = ++count;
     public static int BLACKLIST_CHANGED = ++count;
     public static int SETDATA_CHANGED = ++count;
+    public static int REFRESH_TABLE = ++count;
 }
