@@ -22,35 +22,37 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.scene.control.Tooltip;
 
 public class TableRowPlayable<T extends StationData> extends javafx.scene.control.TableRow {
+    Table.TABLE_ENUM table_enum;
 
-    public TableRowPlayable() {
+    public TableRowPlayable(Table.TABLE_ENUM table_enum) {
+        this.table_enum = table_enum;
     }
 
     @Override
     public void updateItem(Object f, boolean empty) {
         super.updateItem(f, empty);
 
-        StationData favourite = (StationData) f;
+        StationData stationData = (StationData) f;
         setStyle("");
         for (int i = 0; i < getChildren().size(); i++) {
             getChildren().get(i).setStyle("");
         }
 
-        if (favourite != null && !empty) {
-            final boolean fav = favourite.isFavourite();
-            final boolean playing = favourite.getStart() != null;
-            final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
-            final boolean newStation = favourite.isNewStation();
+        if (stationData != null && !empty) {
+            final boolean fav = stationData.isFavourite();
+            final boolean playing = stationData.getStart() != null;
+            final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
+            final boolean newStation = stationData.isNewStation();
 
-            if (favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError()) {
+            if (stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
-                tooltip.setText(favourite.getStart().getStartStatus().getErrorMessage());
+                tooltip.setText(stationData.getStart().getStartStatus().getErrorMessage());
                 setTooltip(tooltip);
             }
 
             if (error) {
                 if (ProgColorList.STATION_ERROR_BG.isUse()) {
-                    setStyle(ProgColorList.STATION_ERROR_BG.getCssBackgroundAndSel());
+                    setStyle(ProgColorList.STATION_ERROR_BG.getCssBackground());
                 }
                 if (ProgColorList.STATION_ERROR.isUse()) {
                     for (int i = 0; i < getChildren().size(); i++) {
@@ -60,7 +62,7 @@ public class TableRowPlayable<T extends StationData> extends javafx.scene.contro
 
             } else if (playing) {
                 if (ProgColorList.STATION_RUN_BG.isUse()) {
-                    setStyle(ProgColorList.STATION_RUN_BG.getCssBackgroundAndSel());
+                    setStyle(ProgColorList.STATION_RUN_BG.getCssBackground());
                 }
                 if (ProgColorList.STATION_RUN.isUse()) {
                     for (int i = 0; i < getChildren().size(); i++) {
@@ -71,7 +73,7 @@ public class TableRowPlayable<T extends StationData> extends javafx.scene.contro
             } else if (newStation) {
                 // neue Sender
                 if (ProgColorList.STATION_NEW_BG.isUse()) {
-                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackgroundAndSel());
+                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
                 }
                 if (ProgColorList.STATION_NEW.isUse()) {
                     for (int i = 0; i < getChildren().size(); i++) {
@@ -79,12 +81,11 @@ public class TableRowPlayable<T extends StationData> extends javafx.scene.contro
                     }
                 }
 
-            } else if (fav) {
+            } else if (table_enum.equals(Table.TABLE_ENUM.STATION) && fav) {
                 if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
-                    setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackgroundAndSel());
+                    setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackground());
                 }
                 if (ProgColorList.STATION_FAVOURITE.isUse()) {
-                    System.out.println("isUse");
                     for (int i = 0; i < getChildren().size(); i++) {
                         getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
                     }

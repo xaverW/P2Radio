@@ -18,6 +18,7 @@ package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2Lib.icons.GetIcon;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
+import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.LogMessage;
@@ -58,8 +59,56 @@ public class ProgStartFactory {
             //dann hat das Laden geklappt :)
             ProgData.getInstance().blackDataList.sortIncCounter(false);
         }
+        resetConfigs();
         return firstProgramStart;
     }
+
+    private static void resetConfigs() {
+        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(ProgramToolsFactory.getProgVersion()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(ProgramToolsFactory.getBuild()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(ProgramToolsFactory.getCompileDate())) {
+            //dann ist eine neue Version/Build
+            PLog.sysLog("===============================");
+            PLog.sysLog(" eine neue Version/Build");
+            PLog.sysLog(" Einstellung zurücksetzen");
+
+            ProgConfig.STATION_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.STATION_GUI_TABLE_SORT.setValue("");
+            ProgConfig.STATION_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.STATION_GUI_TABLE_VIS.setValue("");
+            ProgConfig.STATION_GUI_TABLE_ORDER.setValue("");
+
+            ProgConfig.SMALL_RADIO_TABLE_WIDTH.setValue("50,70,141,86,93,87,74,55,55,180,57,61,66,62,195,99,111,82,252,393");
+            ProgConfig.SMALL_RADIO_TABLE_SORT.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_UP_DOWN.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_VIS.setValue("true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
+            ProgConfig.SMALL_RADIO_TABLE_ORDER.setValue("");
+
+            ProgConfig.FAVOURITE_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.FAVOURITE_GUI_TABLE_SORT.setValue("");
+            ProgConfig.FAVOURITE_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.FAVOURITE_GUI_TABLE_VIS.setValue("");
+            ProgConfig.FAVOURITE_GUI_TABLE_ORDER.setValue("");
+
+            ProgConfig.HISTORY_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.HISTORY_GUI_TABLE_SORT.setValue("");
+            ProgConfig.HISTORY_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.HISTORY_GUI_TABLE_VIS.setValue("");
+            ProgConfig.HISTORY_GUI_TABLE_ORDER.setValue("");
+        }
+
+        //früher wurden die starts im clickfeld gespeichert
+        PDate pDate = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe());
+        if (pDate.before(new PDate("20.12.2022"))) {
+            ProgData.getInstance().favouriteList.stream().forEach(stationData -> {
+                stationData.setStarts(stationData.getClickCount());
+            });
+            ProgData.getInstance().historyList.stream().forEach(stationData -> {
+                stationData.setStarts(stationData.getClickCount());
+            });
+        }
+    }
+
 
     /**
      * alles was nach der GUI gemacht werden soll z.B.

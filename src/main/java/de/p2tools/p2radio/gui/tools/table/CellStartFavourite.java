@@ -60,22 +60,22 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
 
                 if (playing) {
                     //dann stoppen
-                    final Button btnPlay;
-                    btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
-                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
+                    final Button btnStop;
+                    btnStop = new Button("");
+                    btnStop.getStyleClass().add("btnSmallRadio");
+                    btnStop.setTooltip(new Tooltip("Sender stoppen"));
+                    btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                    btnStop.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.stopPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
 
                     if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
+                        btnStop.setMinHeight(18);
+                        btnStop.setMaxHeight(18);
                     }
-                    hbox.getChildren().add(btnPlay);
+                    hbox.getChildren().add(btnStop);
 
                 } else {
                     //starten, nur ein Set

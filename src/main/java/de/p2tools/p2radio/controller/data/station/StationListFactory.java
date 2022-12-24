@@ -20,6 +20,7 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
+import javafx.beans.property.SimpleListProperty;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -98,20 +99,35 @@ public class StationListFactory {
         return test;
     }
 
+    public static synchronized void addStationInList(SimpleListProperty<StationData> list) {
+        // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
+        // den Sender wieder eintragen
+        PDuration.counterStart("FavouriteList.addSenderInList");
+        int counter = 50;
+        for (StationData stationData : list) {
+            --counter;
+            if (counter < 0) {
+                break;
+            }
+            stationData.setStation(ProgData.getInstance().stationList.getSenderByUrl(stationData.getStationUrl()));
+        }
+        PDuration.counterStop("FavouriteList.addSenderInList");
+    }
+
     public static void findAndMarkFavouriteStations(ProgData progData) {
         PDuration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
         hashSet.addAll(progData.favouriteList.stream().map(StationData::getStationUrl).collect(Collectors.toList()));
 
-        progData.stationList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
+        progData.stationList.stream().forEach(station -> station.setFavourite(false));
         progData.stationList.stream()
                 .filter(station -> hashSet.contains(station.getStationUrl()))
-                .forEach(station -> station.setFavouriteUrl(true));
+                .forEach(station -> station.setFavourite(true));
 
-        progData.historyList.parallelStream().forEach(station -> station.setFavouriteUrl(false));
+        progData.historyList.stream().forEach(station -> station.setFavourite(false));
         progData.historyList.stream()
                 .filter(station -> hashSet.contains(station.getStationUrl()))
-                .forEach(stationData -> stationData.setFavouriteUrl(true));
+                .forEach(stationData -> stationData.setFavourite(true));
 
         hashSet.clear();
         PDuration.counterStop("findAndMarkFavouriteStations");

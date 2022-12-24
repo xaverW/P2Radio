@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.beans.property.BooleanProperty;
@@ -35,7 +34,7 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     private final ProgData progData;
     private final FavouriteStartsFactory favouriteStartsFactory;
     private final BooleanProperty favouriteChanged = new SimpleBooleanProperty(true);
-    private int no = 0;
+//    private int no = 0;
 
     public FavouriteList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -70,26 +69,29 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     }
 
     @Override
-    public synchronized boolean add(StationData d) {
-        progData.collectionList.addNewName(d.getCollectionName());
-        d.setNo(++no);
-        return super.add(d);
+    public synchronized boolean add(StationData stationData) {
+        progData.collectionList.addNewName(stationData.getCollectionName());
+//        stationData.setStationNo(++no);
+        stationData.setFavourite(true);
+        return super.add(stationData);
     }
 
     @Override
     public synchronized boolean addAll(Collection<? extends StationData> elements) {
-        elements.stream().forEach(f -> {
-            f.setNo(++no);
-            progData.collectionList.addNewName(f.getCollectionName());
+        elements.stream().forEach(stationData -> {
+//            stationData.setStationNo(++no);
+            stationData.setFavourite(true);
+            progData.collectionList.addNewName(stationData.getCollectionName());
         });
         return super.addAll(elements);
     }
 
     @Override
     public boolean addAll(StationData... var1) {
-        for (StationData f : var1) {
-            f.setNo(++no);
-            progData.collectionList.addNewName(f.getCollectionName());
+        for (StationData stationData : var1) {
+//            stationData.setStationNo(++no);
+            stationData.setFavourite(true);
+            progData.collectionList.addNewName(stationData.getCollectionName());
         }
         return super.addAll(var1);
     }
@@ -101,21 +103,6 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     @Override
     public synchronized boolean removeAll(Collection<?> objects) {
         return super.removeAll(objects);
-    }
-
-    public synchronized void addStationInList() {
-        // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
-        // den Sender wieder eintragen
-        PDuration.counterStart("FavouriteList.addSenderInList");
-        int counter = 50;
-        for (StationData stationData : this) {
-            --counter;
-            if (counter < 0) {
-                break;
-            }
-            stationData.setStation(progData.stationList.getSenderByUrl(stationData.getStationUrl()));
-        }
-        PDuration.counterStop("FavouriteList.addSenderInList");
     }
 
     public synchronized StationData getUrlStation(String urlStation) {

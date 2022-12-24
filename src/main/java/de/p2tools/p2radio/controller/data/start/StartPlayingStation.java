@@ -62,7 +62,7 @@ public class StartPlayingStation extends Thread {
             public void ping(PEvent event) {
                 ++runTime;
                 if (runTime == ProgConst.START_COUNTER_MIN_TIME && stationData != null) {
-                    StartProgramFactory.setClickCount(stationData);
+                    StartProgramFactory.setStartCounter(stationData);
                 }
             }
         });

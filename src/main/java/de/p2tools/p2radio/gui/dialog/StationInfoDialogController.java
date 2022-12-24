@@ -152,10 +152,6 @@ public class StationInfoDialogController extends PDialogExtra {
                 pHyperlinkWebsite.setUrl("");
             } else {
                 switch (i) {
-                    case StationDataXml.STATION_PROP_NO_INT:
-                        lblCont[i].setText(station.getNo() + "");
-                        break;
-
                     case StationDataXml.STATION_PROP_STATION_NO_INT:
                         lblCont[i].setText(station.getStationNo() + "");
                         break;
@@ -174,6 +170,9 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_OWN_GRADE_INT:
                         lblCont[i].setText(station.getOwnGrade() + "");
+                        break;
+                    case StationDataXml.STATION_PROP_STARTS_INT:
+                        lblCont[i].setText(station.getStarts() + "");
                         break;
                     case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
                         lblCont[i].setText(station.getClickCount() + "");
@@ -239,7 +238,7 @@ public class StationInfoDialogController extends PDialogExtra {
                             lblCont[i].setText("");
                         }
                         break;
-                    case StationDataXml.STATION_PROP_FAVOURITE_URL_INT:
+                    case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
                         if (station.isFavourite()) {
                             lblCont[i].setText("X");
                         } else {

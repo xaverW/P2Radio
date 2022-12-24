@@ -29,7 +29,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
@@ -41,7 +40,6 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
-    //    public String[] genres = {""};
     private final StationListMeta meta = new StationListMeta();
     public int nr = 1;
     public String[] codecs = {""};
@@ -76,7 +74,6 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
     @Override
     public void addNewItem(Object obj) {
         if (obj.getClass().equals(StationData.class)) {
-//            ((Favourite) obj).init(); // damit wird auch das Datum! gesetzt
             importStationOnlyWithNr(((StationData) obj));
         }
     }
@@ -109,7 +106,6 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
      */
     public int getAge() {
         int days = 0;
-        final LocalDate now = LocalDate.now();
         final PLocalDate stationDate = meta.stationDate.getValue();
         if (stationDate != null) {
             long diff = new Date().getTime() - stationDate.getPDate().getTime();
@@ -154,6 +150,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
         // hier nur beim Laden aus einer fertigen Senderliste mit der GUI
         // die Sender sind schon sortiert, nur die Nummer muss noch ergänzt werden
         station.setStationNo(nr++);
+//        station.setStationNo(nr++);
         return super.add(station);
     }
 
@@ -180,11 +177,6 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
 
         return countDouble;
     }
-
-//    private boolean addInit(Favourite station) {
-////        station.init();
-//        return add(station);
-//    }
 
     @Override
     public synchronized void clear() {

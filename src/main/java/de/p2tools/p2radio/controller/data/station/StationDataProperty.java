@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public static final String TAG = "Favourite";
-    private final IntegerProperty no = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
+    //    private final IntegerProperty no = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
     private final StringProperty stationName = new SimpleStringProperty("");
@@ -40,26 +40,26 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     private final IntegerProperty votes = new SimpleIntegerProperty(0);
     private final IntegerProperty ownGrade = new SimpleIntegerProperty(0);
     private final BooleanProperty own = new SimpleBooleanProperty(false);
+    private final IntegerProperty starts = new SimpleIntegerProperty();
     private final IntegerProperty clickCount = new SimpleIntegerProperty();
     private final IntegerProperty clickTrend = new SimpleIntegerProperty();
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty state = new SimpleStringProperty("");
-    private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty countryCode = new SimpleStringProperty("");
+    private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty stationUrl = new SimpleStringProperty("");
     private final StringProperty stationUrlResolved = new SimpleStringProperty("");
     private final BooleanProperty doubleUrl = new SimpleBooleanProperty(false);
-    private final BooleanProperty favouriteUrl = new SimpleBooleanProperty(false);
+    private final BooleanProperty favourite = new SimpleBooleanProperty(false);
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private final PLocalDate stationDate = new PLocalDate();
-    boolean station = false, favourite = false, history = false;
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", StationDataXml.STATION_PROP_NO, no));
+//        list.add(new ConfigIntPropExtra("no", StationDataXml.STATION_PROP_NO, no));
         list.add(new ConfigIntPropExtra("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
         list.add(new ConfigBoolPropExtra("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
         list.add(new ConfigStringPropExtra("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
@@ -72,6 +72,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new ConfigIntPropExtra("grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
         list.add(new ConfigIntPropExtra("ownGrade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
         list.add(new ConfigBoolPropExtra("own", StationDataXml.STATION_PROP_OWN, own));
+        list.add(new ConfigIntPropExtra("starts", StationDataXml.STATION_PROP_CLICK_COUNT, starts));
         list.add(new ConfigIntPropExtra("clickCount", StationDataXml.STATION_PROP_CLICK_COUNT, clickCount));
         list.add(new ConfigIntPropExtra("clickTrend", StationDataXml.STATION_PROP_CLICK_TREND, clickTrend));
 
@@ -84,7 +85,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new ConfigStringPropExtra("url", StationDataXml.STATION_PROP_URL, stationUrl));
         list.add(new ConfigStringPropExtra("urlResolved", StationDataXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
         list.add(new ConfigBoolPropExtra("doubleUrl", StationDataXml.STATION_PROP_DOUBLE_URL, doubleUrl));
-        list.add(new ConfigBoolPropExtra("favouriteUrl", StationDataXml.STATION_PROP_FAVOURITE_URL, favouriteUrl));
+        list.add(new ConfigBoolPropExtra("favourite", StationDataXml.STATION_PROP_IS_FAVOURITE, favourite));
         list.add(new ConfigBoolPropExtra("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
         list.add(new ConfigStringPropExtra("website", StationDataXml.STATION_PROP_WEBSITE, website));
         list.add(new ConfigLocalDateExtra("stationDate", StationDataXml.STATION_PROP_DATE, stationDate));
@@ -92,17 +93,17 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
         return list.toArray(new Config[]{});
     }
 
-    public int getNo() {
-        return no.get();
-    }
-
-    public void setNo(int no) {
-        this.no.set(no);
-    }
-
-    public IntegerProperty noProperty() {
-        return no;
-    }
+//    public int getNo() {
+//        return no.get();
+//    }
+//
+//    public void setNo(int no) {
+//        this.no.set(no);
+//    }
+//
+//    public IntegerProperty noProperty() {
+//        return no;
+//    }
 
     public int getStationNo() {
         return stationNo.get();
@@ -182,6 +183,11 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public void setBitrate(String bitrate) {
         this.bitrate.set(bitrate);
+        try {
+            this.bitrateInt.set(Integer.parseInt(bitrate));
+        } catch (Exception ex) {
+            this.bitrateInt.set(0);
+        }
     }
 
     public StringProperty bitrateProperty() {
@@ -194,6 +200,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public void setBitrateInt(int bitrateInt) {
         this.bitrateInt.set(bitrateInt);
+        this.bitrate.setValue(bitrateInt + "");
     }
 
     public IntegerProperty bitrateIntProperty() {
@@ -242,6 +249,18 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public BooleanProperty ownProperty() {
         return own;
+    }
+
+    public int getStarts() {
+        return starts.get();
+    }
+
+    public void setStarts(int starts) {
+        this.starts.set(starts);
+    }
+
+    public IntegerProperty startsProperty() {
+        return starts;
     }
 
     public int getClickCount() {
@@ -406,15 +425,16 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
         return blackBlocked;
     }
 
-    public boolean isFavouriteUrl() {
-        return favouriteUrl.get();
+    public boolean isFavourite() {
+        return favourite.get();
     }
 
-    public void setFavouriteUrl(boolean set) {
+    public void setFavourite(boolean favourite) {
+        this.favourite.set(favourite);
     }
 
-    public BooleanProperty favouriteUrlProperty() {
-        return favouriteUrl;
+    public BooleanProperty favouriteProperty() {
+        return favourite;
     }
 
     public String getWebsite() {

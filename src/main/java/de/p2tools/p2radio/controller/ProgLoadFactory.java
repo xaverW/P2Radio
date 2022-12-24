@@ -149,7 +149,7 @@ public class ProgLoadFactory {
                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
         logList.add("Sender in Favoriten eingetragen");
-        progData.favouriteList.addStationInList();
-        progData.historyList.addStationInList();
+        StationListFactory.addStationInList(progData.favouriteList);
+        StationListFactory.addStationInList(progData.historyList);
     }
 }

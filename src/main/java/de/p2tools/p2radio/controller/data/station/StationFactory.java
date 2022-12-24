@@ -85,28 +85,27 @@ public class StationFactory {
             }
         }
         if (!addList.isEmpty()) {
-            ArrayList<StationData> favouriteList = new ArrayList<>();
-            addList.stream().forEach(s -> {
-                StationData stationData = new StationData(s, "");
-                favouriteList.add(stationData);
+            ArrayList<StationData> newFavourites = new ArrayList<>();
+            addList.stream().forEach(stationData -> {
+                StationData newStationData = new StationData(stationData, "");
+                newFavourites.add(newStationData);
             });
 
             FavouriteEditDialogController favouriteEditDialogController =
-                    new FavouriteEditDialogController(progData, favouriteList);
+                    new FavouriteEditDialogController(progData, newFavourites);
 
             if (favouriteEditDialogController.isOk()) {
-                favouriteList.stream().forEach(f -> {
-                    progData.favouriteList.addAll(f);
+                newFavourites.stream().forEach(stationData -> {
+                    stationData.setFavourite(true);
+                    progData.favouriteList.addAll(stationData);
                 });
-//                progData.favouriteList.addAll(favouriteList);
+
                 //Favoriten markieren und Filter anstoßen
-                StationListFactory.findAndMarkFavouriteStations(progData);
+                addList.stream().forEach(stationData -> {
+                    stationData.setFavourite(true);
+                });
                 progData.stationListBlackFiltered.triggerFilter();
             }
         }
     }
-
-//    public static void playStation(Favourite station, SetData psetData) {
-//        ProgData.getInstance().startFactory.playPlayable(station);
-//    }
 }

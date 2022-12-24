@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller.data.history;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -26,7 +25,6 @@ import javafx.collections.FXCollections;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 public class HistoryList extends SimpleListProperty<StationData> implements PDataList<StationData> {
@@ -34,7 +32,7 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
     public static final String TAG = "HistoryList";
     private final ProgData progData;
     private final HistoryStartsFactory favouriteStartsFactory;
-    private int no = 0;
+//    private int no = 0;
 
     public HistoryList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -70,23 +68,23 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
 
     @Override
     public synchronized boolean add(StationData d) {
-        d.setNo(++no);
+//        d.setStationNo(++no);
         return super.add(d);
     }
 
     @Override
     public synchronized boolean addAll(Collection<? extends StationData> elements) {
-        elements.stream().forEach(f -> {
-            f.setNo(++no);
-        });
+//        elements.stream().forEach(f -> {
+//            f.setStationNo(++no);
+//        });
         return super.addAll(elements);
     }
 
     @Override
     public boolean addAll(StationData... var1) {
-        for (StationData f : var1) {
-            f.setNo(++no);
-        }
+//        for (StationData f : var1) {
+//            f.setStationNo(++no);
+//        }
         return super.addAll(var1);
     }
 
@@ -114,7 +112,7 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
 
     private void reCount() {
         for (int i = 0; i < this.size(); ++i) {
-            this.get(i).setNo(i + 1);
+            this.get(i).setStationNo(i + 1);
         }
         while (this.size() > ProgConst.MAX_HISTORY_LIST_SIZE) {
             this.remove(this.size() - 1);
@@ -142,31 +140,16 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
         return ret;
     }
 
-    public synchronized void addStationInList() {
-        // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
-        // den Sender wieder eintragen
-        PDuration.counterStart("FavouriteList.addSenderInList");
-        int counter = 50;
-        for (StationData stationData : this) {
-            --counter;
-            if (counter < 0) {
-                break;
-            }
-            stationData.setStation(progData.stationList.getSenderByUrl(stationData.getStationUrl()));
-        }
-        PDuration.counterStop("FavouriteList.addSenderInList");
-    }
-
-    public synchronized StationData getUrlStation(String urlStation) {
-        for (final StationData dataStationData : this) {
-            if (dataStationData.getStationUrl().equals(urlStation)) {
-                return dataStationData;
-            }
-        }
-        return null;
-    }
-
-    public synchronized List<StationData> getListOfStartsNotFinished(String source) {
-        return favouriteStartsFactory.getListOfStartsNotFinished(source);
-    }
+//    public synchronized StationData getUrlStation(String urlStation) {
+//        for (final StationData dataStationData : this) {
+//            if (dataStationData.getStationUrl().equals(urlStation)) {
+//                return dataStationData;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public synchronized List<StationData> getListOfStartsNotFinished(String source) {
+//        return favouriteStartsFactory.getListOfStartsNotFinished(source);
+//    }
 }

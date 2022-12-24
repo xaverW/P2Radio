@@ -35,7 +35,7 @@ public final class Start extends StartProps {
 
     public Start(SetData setData, StationData playable) {
         this.playable = playable;
-        setStationNo(playable.getNo());
+        setStationNo(playable.getStationNo());
         setStationName(playable.getStationName());
         setUrl(playable.getStationUrl());
 

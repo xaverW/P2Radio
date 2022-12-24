@@ -56,8 +56,8 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
 
                 StationData station = getTableView().getItems().get(getIndex());
                 final boolean playing = station.getStart() != null;
-                final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
-                final boolean fav = station.isFavourite();
+//                final boolean error = station.getStart() != null && station.getStart().getStartStatus().isStateError();
+//                final boolean fav = station.isFavourite();
 
                 if (playing) {
                     //stoppen

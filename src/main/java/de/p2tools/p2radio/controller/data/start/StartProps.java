@@ -44,7 +44,7 @@ public class StartProps extends PDataSample<Start> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", StationDataXml.STATION_PROP_NO, no));
+//        list.add(new ConfigIntPropExtra("no", StationDataXml.STATION_PROP_NO, no));
         list.add(new ConfigIntPropExtra("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
         list.add(new ConfigStringPropExtra("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
         list.add(new ConfigStringPropExtra("url", StationDataXml.STATION_PROP_URL, url));

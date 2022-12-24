@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.start.Start;
 
@@ -57,18 +56,14 @@ public final class StationData extends StationDataProperty {
         return ret;
     }
 
-    public void copyToMe(StationData playable) {
-        start = playable.getStart();
+    public void copyToMe(StationData stationData) {
+        start = stationData.getStart();
 
-        Config[] configs = playable.getConfigsArr();
+        Config[] configs = stationData.getConfigsArr();
         Config[] configsCopy = getConfigsArr();
         for (int i = 0; i < configs.length; ++i) {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
-    }
-
-    public boolean isStation() {
-        return false;
     }
 
     public void setStation(StationData station) {
@@ -77,46 +72,17 @@ public final class StationData extends StationDataProperty {
             setStationNo(ProgConst.NUMBER_DONT_USED);
             return;
         }
+//        int no = getStationNo();
+        String collectionName = getCollectionName();
+        int ownGrade = getOwnGrade();
+        int starts = getStarts();
 
-        setStationNo(station.getNo());
-        setStationName(station.getStationName());
-        setGenre(station.getGenre());
-        setCodec(station.getCodec());
-        setBitrate(station.getBitrate());
-        setCountry(station.getCountry());
-        setCountryCode(station.getCountryCode());
-        setLanguage(station.getLanguage());
-        setWebsite(station.getWebsite());
-        setStationUrl(station.getStationUrl());
-        setStationDate(station.getStationDate());
+        //copy
+        copyToMe(station);
+        //reset
+//        setStationNo(no);
+        setCollectionName(collectionName);
+        setOwnGrade(ownGrade);
+        setStarts(starts);
     }
-
-    public boolean isFavourite() {
-        return true;
-    }
-
-    public void setFavourite(StationData stationData) {
-        if (stationData == null) {
-            // bei gespeicherten Sendern kann es den Sender nicht mehr geben
-            setStationNo(ProgConst.NUMBER_DONT_USED);
-            return;
-        }
-
-        setStationNo(stationData.getNo());
-        setStationName(stationData.getStationName());
-        setGenre(stationData.getGenre());
-        setCodec(stationData.getCodec());
-        setBitrate(stationData.getBitrate());
-        setCountry(stationData.getCountry());
-        setCountryCode(stationData.getCountryCode());
-        setLanguage(stationData.getLanguage());
-        setWebsite(stationData.getWebsite());
-        setStationUrl(stationData.getStationUrl());
-        setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
-    }
-
-    public boolean isHistory() {
-        return false;
-    }
-
 }

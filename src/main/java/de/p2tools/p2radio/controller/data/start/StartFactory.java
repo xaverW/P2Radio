@@ -65,31 +65,17 @@ public class StartFactory {
         return station;
     }
 
-//    public void playStation(Favourite station) {
-//        playPlayable(station, null);
-//    }
-
-
-//    public void playStation(Favourite station, SetData data) {
-//        SetData setData = checkSetData(data);
-//        if (setData == null) {
-//            return;
-//        }
-//        // und starten
-//        startUrlWithProgram(station, setData);
-//    }
-
     public void playPlayable(StationData favourite) {
         playPlayable(favourite, null);
     }
 
-    public void playPlayable(StationData favourite, SetData data) {
+    public void playPlayable(StationData stationData, SetData data) {
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;
         }
         // und starten
-        startUrlWithProgram(favourite, setData);
+        startUrlWithProgram(stationData, setData);
     }
 
     private SetData checkSetData(SetData setData) {

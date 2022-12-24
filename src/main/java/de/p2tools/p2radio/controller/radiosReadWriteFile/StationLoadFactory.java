@@ -121,7 +121,6 @@ public class StationLoadFactory {
                 final StationData stationData = new StationData();
                 ReadJsonFactory.readJsonValue(stationData, jp);
                 ++countAll;
-//                favourite.init(); // damit wird auch das Datum! gesetzt
                 stationList.importStationOnlyWithNr(stationData);
             }
         }

@@ -20,27 +20,30 @@ package de.p2tools.p2radio.controller.data.station;
 public class StationDataXml {
     public static final String TAG = "STATION_PROPERTY";
 
-    public static final int STATION_PROP_NO_INT = 0;
-    public static final String STATION_PROP_NO = "Nr";
+//    public static final int STATION_PROP_NO_INT = 0;
+//    public static final String STATION_PROP_NO = "Nr";
 
-    public static final int STATION_PROP_STATION_NO_INT = 1;
+    public static final int STATION_PROP_STATION_NO_INT = 0;
     public static final String STATION_PROP_STATION_NO = "SenderNr";
 
 
-    public static final int STATION_PROP_STATION_NEW_INT = 2;
+    public static final int STATION_PROP_STATION_NEW_INT = 1;
     public static final String STATION_PROP_STATION_NEW = "Neu";
 
-    public static final int STATION_PROP_STATION_NAME_INT = 3;
+    public static final int STATION_PROP_STATION_NAME_INT = 2;
     public static final String STATION_PROP_STATION_NAME = "Sender";
 
-    public static final int STATION_PROP_COLLECTION_INT = 4;
+    public static final int STATION_PROP_COLLECTION_INT = 3;
     public static final String STATION_PROP_COLLECTION = "Sammlung";
 
-    public static final int STATION_PROP_OWN_GRADE_INT = 5;
+    public static final int STATION_PROP_OWN_GRADE_INT = 4;
     public static final String STATION_PROP_OWN_GRADE = "Eigene Bewertung";
 
+    public static final int STATION_PROP_STARTS_INT = 5;
+    public static final String STATION_PROP_STARTS = "Starts";
+
     public static final int STATION_PROP_CLICK_COUNT_INT = 6;
-    public static final String STATION_PROP_CLICK_COUNT = "Starts";
+    public static final String STATION_PROP_CLICK_COUNT = "Clicks";
 
     public static final int STATION_PROP_CLICK_TREND_INT = 7;
     public static final String STATION_PROP_CLICK_TREND = "Trend";
@@ -92,8 +95,8 @@ public class StationDataXml {
     public static final int STATION_PROP_DOUBLE_URL_INT = 22;
     public static final String STATION_PROP_DOUBLE_URL = "Doppelt";
 
-    public static final int STATION_PROP_FAVOURITE_URL_INT = 23;
-    public static final String STATION_PROP_FAVOURITE_URL = "Favourite";
+    public static final int STATION_PROP_IS_FAVOURITE_INT = 23;
+    public static final String STATION_PROP_IS_FAVOURITE = "Favourite";
 
     public static final int STATION_PROP_BLACK_BLOCKED_URL_INT = 24;
     public static final String STATION_PROP_BLACK_BLOCKED_URL = "BlackBlocked";
@@ -110,15 +113,15 @@ public class StationDataXml {
     public static final String STATION_PROP_BUTTON2 = "";
 
     public static String[] COLUMN_NAMES = {
-            STATION_PROP_NO, STATION_PROP_STATION_NO, STATION_PROP_STATION_NEW,
+            /*STATION_PROP_NO,*/ STATION_PROP_STATION_NO, STATION_PROP_STATION_NEW,
             STATION_PROP_STATION_NAME, STATION_PROP_COLLECTION, STATION_PROP_OWN_GRADE,
-            STATION_PROP_CLICK_COUNT, STATION_PROP_CLICK_TREND, STATION_PROP_GENRE, STATION_PROP_CODEC,
+            STATION_PROP_STARTS, STATION_PROP_CLICK_COUNT, STATION_PROP_CLICK_TREND, STATION_PROP_GENRE, STATION_PROP_CODEC,
             STATION_PROP_BITRATE, STATION_PROP_INT_BITRATE, STATION_PROP_OWN,
             STATION_PROP_COUNTRY, STATION_PROP_STATE, STATION_PROP_COUNTRY_CODE, STATION_PROP_LANGUAGE, STATION_PROP_VOTES,
             STATION_PROP_DESCRIPTION, STATION_PROP_DATE, STATION_PROP_DATE_LONG,
-            STATION_PROP_URL, STATION_PROP_DOUBLE_URL, STATION_PROP_FAVOURITE_URL, STATION_PROP_BLACK_BLOCKED_URL,
+            STATION_PROP_URL, STATION_PROP_DOUBLE_URL, STATION_PROP_IS_FAVOURITE, STATION_PROP_BLACK_BLOCKED_URL,
             STATION_PROP_URL_RESOLVED, STATION_PROP_WEBSITE,
             STATION_PROP_BUTTON1, STATION_PROP_BUTTON2
     };
-    public static int MAX_ELEM = 29;
+    public static int MAX_ELEM = 28;
 }

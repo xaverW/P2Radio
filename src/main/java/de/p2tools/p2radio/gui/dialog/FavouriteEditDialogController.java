@@ -199,9 +199,9 @@ public class FavouriteEditDialogController extends PDialogExtra {
     private int setGrid(int i, int row) {
         PHyperlink hyperlink;
         switch (i) {
-            case StationDataXml.STATION_PROP_NO_INT:
-                // bis hier nicht anzeigen
-                break;
+//            case StationDataXml.STATION_PROP_NO_INT:
+//                // bis hier nicht anzeigen
+//                break;
             case StationDataXml.STATION_PROP_STATION_NO_INT:
                 lblCont[i].textProperty().bind(actFavourite.stationNoProperty().asString());
                 gridPane.add(lbl[i], 0, row);

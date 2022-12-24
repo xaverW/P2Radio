@@ -27,17 +27,17 @@ public class StartProgramFactory {
     private StartProgramFactory() {
     }
 
-    public static void setClickCount(StationData playable) {
+    public static void setStartCounter(StationData playable) {
         int clickCount = 0;
         //größten ClickCount suchen
         for (StationData stationData : ProgData.getInstance().favouriteList) {
-            if (stationData.getStationUrl().equals(playable.getStationUrl()) && stationData.getClickCount() > clickCount) {
-                clickCount = stationData.getClickCount();
+            if (stationData.getStationUrl().equals(playable.getStationUrl()) && stationData.getStarts() > clickCount) {
+                clickCount = stationData.getStarts();
             }
         }
         for (StationData stationData : ProgData.getInstance().historyList) {
-            if (stationData.getStationUrl().equals(playable.getStationUrl()) && stationData.getClickCount() > clickCount) {
-                clickCount = stationData.getClickCount();
+            if (stationData.getStationUrl().equals(playable.getStationUrl()) && stationData.getStarts() > clickCount) {
+                clickCount = stationData.getStarts();
             }
         }
 
@@ -45,12 +45,12 @@ public class StartProgramFactory {
         ++clickCount;
         for (StationData stationData : ProgData.getInstance().favouriteList) {
             if (stationData.getStationUrl().equals(playable.getStationUrl())) {
-                stationData.setClickCount(clickCount);
+                stationData.setStarts(clickCount);
             }
         }
         for (StationData stationData : ProgData.getInstance().historyList) {
             if (stationData.getStationUrl().equals(playable.getStationUrl())) {
-                stationData.setClickCount(clickCount);
+                stationData.setStarts(clickCount);
             }
         }
     }

@@ -56,10 +56,10 @@ public class TablePlayable<T> extends TableView<T> {
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
 
-        final TableColumn<T, Integer> nrColumn = new TableColumn<>(StationDataXml.STATION_PROP_NO);
-        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        nrColumn.setCellFactory(new CellNo().cellFactoryNo);
-        nrColumn.getStyleClass().add("alignCenterLeft");
+//        final TableColumn<T, Integer> nrColumn = new TableColumn<>(StationDataXml.STATION_PROP_NO);
+//        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
+//        nrColumn.setCellFactory(new CellNo().cellFactoryNo);
+//        nrColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<T, Integer> senderNoColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NO);
         senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
@@ -95,6 +95,10 @@ public class TablePlayable<T> extends TableView<T> {
         final TableColumn<T, Integer> ownGradeColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN_GRADE);
         ownGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ownGrade"));
         ownGradeColumn.setCellFactory(new CellGrade().cellFactoryGrade);
+
+        final TableColumn<T, Integer> startsColumn = new TableColumn<>(StationDataXml.STATION_PROP_STARTS);
+        startsColumn.setCellValueFactory(new PropertyValueFactory<>("starts"));
+        startsColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, Integer> clickCountColumn = new TableColumn<>(StationDataXml.STATION_PROP_CLICK_COUNT);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
@@ -154,21 +158,26 @@ public class TablePlayable<T> extends TableView<T> {
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
 
-        nrColumn.setPrefWidth(50);
+//        nrColumn.setPrefWidth(50);
         senderNoColumn.setPrefWidth(70);
         senderColumn.setPrefWidth(80);
         genreColumn.setPrefWidth(180);
 
-        setRowFactory(tv -> new TableRowPlayable<>());
+        setRowFactory(tv -> new TableRowPlayable<>(table_enum));
 
         getColumns().addAll(
-                nrColumn, senderNoColumn,
+                /*nrColumn,*/ senderNoColumn,
                 senderColumn, collectionColumn, startColumn);
         if (!this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
             getColumns().addAll(ownGradeColumn);
         }
         getColumns().addAll(
-                votesColumn, clickCountColumn, clickTrendColumn,
+                votesColumn);
+        if (!this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
+            getColumns().addAll(startsColumn);
+        }
+        getColumns().addAll(
+                clickCountColumn, clickTrendColumn,
                 genreColumn, codecColumn, bitrateColumn, ownColumn, stateColumn,
                 countryColumn, countryCodeColumn, languageColumn,
                 datumColumn, websiteColumn, urlColumn);

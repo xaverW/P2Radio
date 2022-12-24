@@ -134,7 +134,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     private int setGrid(int i, int row) {
         PHyperlink hyperlink;
         switch (i) {
-            case StationDataXml.STATION_PROP_NO_INT:
+//            case StationDataXml.STATION_PROP_NO_INT:
             case StationDataXml.STATION_PROP_STATION_NO_INT:
             case StationDataXml.STATION_PROP_BUTTON1_INT:
             case StationDataXml.STATION_PROP_BUTTON2_INT:
