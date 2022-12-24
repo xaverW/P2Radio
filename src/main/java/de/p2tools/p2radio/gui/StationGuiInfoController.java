@@ -25,37 +25,34 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class StationGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
-    private final Label lblWebsite = new Label("Website: ");
-    private final Label lblUrl = new Label("Sender-URL: ");
     private final PHyperlink hyperlinkWebsite = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink hyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
+    private final StationGuiPack stationGuiPack;
     private StationData station = null;
 
-    public StationGuiInfoController() {
+    public StationGuiInfoController(StationGuiPack stationGuiPack) {
         super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
+        this.stationGuiPack = stationGuiPack;
+
         initInfo();
     }
 
     public void initInfo() {
+        stationGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
+            setStation(stationGuiPack.stationDataObjectPropertyProperty().getValue());
+        });
         getVBoxAll().getChildren().addAll(gridPane);
-        VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
-        lblWebsite.setMinWidth(Region.USE_PREF_SIZE);
-        lblUrl.setMinWidth(Region.USE_PREF_SIZE);
-
         gridPane.setHgap(5);
         gridPane.setVgap(5);
         gridPane.setPadding(new Insets(10));
@@ -63,12 +60,13 @@ public class StationGuiInfoController extends PClosePaneH {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        gridPane.add(lblTitle, 0, row, 2, 1);
+        gridPane.add(new Label("Titel: "), 0, row);
+        gridPane.add(lblTitle, 1, row);
 
-        gridPane.add(lblWebsite, 0, ++row);
+        gridPane.add(new Label("Website: "), 0, ++row);
         gridPane.add(hyperlinkWebsite, 1, row);
 
-        gridPane.add(lblUrl, 0, ++row);
+        gridPane.add(new Label("Sender-URL: "), 0, ++row);
         gridPane.add(hyperlinkUrl, 1, row);
     }
 

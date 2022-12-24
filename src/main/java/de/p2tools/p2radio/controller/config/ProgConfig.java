@@ -86,7 +86,7 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
     public static IntegerProperty SYSTEM_LAST_TAB_STATION = addInt("system-last-tab-station", 0);
-    public static StringProperty SYSTEM_LAST_PLAYED = addStr("system-last-played", "");
+    public static StringProperty SYSTEM_HISTORY = addStr("system-history", "");
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
     public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "500:500");
@@ -103,18 +103,22 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty STATION_GUI_FILTER_DIVIDER_ON = addBool("station-gui-filter-divider-on", Boolean.TRUE);
     public static DoubleProperty STATION_GUI_DIVIDER = addDouble("station-gui-divider", ProgConst.GUI_STATION_DIVIDER_LOCATION);
     public static BooleanProperty STATION_GUI_DIVIDER_ON = addBool("station-gui-divider-on", Boolean.TRUE);
+
     public static StringProperty STATION_GUI_TABLE_WIDTH = addStr("station-gui-table-width");
     public static StringProperty STATION_GUI_TABLE_SORT = addStr("station-gui-table-sort");
     public static StringProperty STATION_GUI_TABLE_UP_DOWN = addStr("station-gui-table-up-down");
     public static StringProperty STATION_GUI_TABLE_VIS = addStr("station-gui-table-vis");
     public static StringProperty STATION_GUI_TABLE_ORDER = addStr("station-gui-table-order");
+
     //Gui SmallRadio
     public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size", "600:400");
+
     public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50,70,141,86,93,87,74,55,55,180,57,61,66,62,195,99,111,82,252,393");
     public static StringProperty SMALL_RADIO_TABLE_SORT = addStr("small-radio-table-sort");
     public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");
     public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
     public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "");
+
     public static StringProperty SMALL_RADIO_SELECTED_STATION_GENRE = addStr("small-radio-selected-station-genre");
     public static StringProperty SMALL_RADIO_SELECTED_FAVOURITE_GENRE = addStr("small-radio-selected-favourite-genre");
     public static StringProperty SMALL_RADIO_SELECTED_HISTORY_GENRE = addStr("small-radio-selected-history-genre");
@@ -129,25 +133,29 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStr("start-station-error-dialog-size", "");
     public static DoubleProperty FAVOURITE_GUI_DIVIDER = addDouble("favourite-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
     public static BooleanProperty FAVOURITE_GUI_DIVIDER_ON = addBool("favourite-gui-divider-on", Boolean.TRUE);
+
     public static StringProperty FAVOURITE_GUI_TABLE_WIDTH = addStr("favourite-gui-table-width");
     public static StringProperty FAVOURITE_GUI_TABLE_SORT = addStr("favourite-gui-table-sort");
     public static StringProperty FAVOURITE_GUI_TABLE_UP_DOWN = addStr("favourite-gui-table-up-down");
     public static StringProperty FAVOURITE_GUI_TABLE_VIS = addStr("favourite-gui-table-vis");
     public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStr("favourite-gui-table-order");
+
     public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBool("favourite-show-notification", Boolean.TRUE);
     // Gui History
-    public static DoubleProperty LAST_PLAYED_GUI_FILTER_DIVIDER = addDouble("last-played-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty LAST_PLAYED_GUI_FILTER_DIVIDER_ON = addBool("last-played-gui-filter-divider-on", Boolean.TRUE);
-    public static StringProperty LAST_PLAYED_DIALOG_EDIT_SIZE = addStr("last-played-dialog-edit-size", "800:800");
-    public static StringProperty LAST_PLAYED_DIALOG_ADD_SIZE = addStr("last-played-dialog-add-size", "800:800");
-    public static DoubleProperty LAST_PLAYED_GUI_DIVIDER = addDouble("last-played-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
-    public static BooleanProperty LAST_PLAYED_GUI_DIVIDER_ON = addBool("last-played-gui-divider-on", Boolean.TRUE);
-    public static StringProperty LAST_PLAYED_GUI_TABLE_WIDTH = addStr("last-played-gui-table-width");
-    public static StringProperty LAST_PLAYED_GUI_TABLE_SORT = addStr("last-played-gui-table-sort");
-    public static StringProperty LAST_PLAYED_GUI_TABLE_UP_DOWN = addStr("last-played-gui-table-up-down");
-    public static StringProperty LAST_PLAYED_GUI_TABLE_VIS = addStr("last-played-gui-table-vis");
-    public static StringProperty LAST_PLAYED_GUI_TABLE_ORDER = addStr("last-played-gui-table-order");
-    public static BooleanProperty LAST_PLAYED_SHOW_NOTIFICATION = addBool("last-played-show-notification", Boolean.TRUE);
+    public static DoubleProperty HISTORY_GUI_FILTER_DIVIDER = addDouble("history-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty HISTORY_GUI_FILTER_DIVIDER_ON = addBool("history-gui-filter-divider-on", Boolean.TRUE);
+    public static StringProperty HISTORY_DIALOG_EDIT_SIZE = addStr("history-dialog-edit-size", "800:800");
+    public static StringProperty HISTORY_DIALOG_ADD_SIZE = addStr("history-dialog-add-size", "800:800");
+    public static DoubleProperty HISTORY_GUI_DIVIDER = addDouble("history-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
+    public static BooleanProperty HISTORY_GUI_DIVIDER_ON = addBool("history-gui-divider-on", Boolean.TRUE);
+
+    public static StringProperty HISTORY_GUI_TABLE_WIDTH = addStr("history-gui-table-width");
+    public static StringProperty HISTORY_GUI_TABLE_SORT = addStr("history-gui-table-sort");
+    public static StringProperty HISTORY_GUI_TABLE_UP_DOWN = addStr("history-gui-table-up-down");
+    public static StringProperty HISTORY_GUI_TABLE_VIS = addStr("history-gui-table-vis");
+    public static StringProperty HISTORY_GUI_TABLE_ORDER = addStr("history-gui-table-order");
+
+    public static BooleanProperty HISTORY_SHOW_NOTIFICATION = addBool("history-show-notification", Boolean.TRUE);
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
     public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBool("config_dialog-accordion", Boolean.TRUE);

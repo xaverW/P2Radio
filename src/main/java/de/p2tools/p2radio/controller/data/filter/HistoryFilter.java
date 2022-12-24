@@ -52,8 +52,8 @@ public class HistoryFilter extends HistoryFilterXml {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigBoolPropExtra("Grade", COLUMN_NAMES[LAST_PLAYED_FILTER_GRADE], gradeFilter));
-        list.add(new ConfigStringPropExtra("Genre", COLUMN_NAMES[LAST_PLAYED_FILTER_GENRE], genreFilter));
+        list.add(new ConfigBoolPropExtra("Grade", COLUMN_NAMES[HISTORY_FILTER_GRADE], gradeFilter));
+        list.add(new ConfigStringPropExtra("Genre", COLUMN_NAMES[HISTORY_FILTER_GENRE], genreFilter));
         return list.toArray(new Config[]{});
     }
 

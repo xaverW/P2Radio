@@ -49,13 +49,13 @@ public class MenuController extends ScrollPane {
             case FAVOURITE:
                 new FavouriteMenu(vb).init();
                 break;
-            case LAST_PLAYED:
+            case HISTORY:
                 new HistoryMenu(vb).init();
                 break;
         }
     }
 
     public enum StartupMode {
-        STATION, FAVOURITE, LAST_PLAYED
+        STATION, FAVOURITE, HISTORY
     }
 }

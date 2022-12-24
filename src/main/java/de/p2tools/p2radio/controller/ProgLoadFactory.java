@@ -89,14 +89,14 @@ public class ProgLoadFactory {
 
         switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
             case 0:
-                Platform.runLater(() -> progData.stationGuiController.selUrl());
+                Platform.runLater(() -> progData.stationGuiPack.getStationGuiController().selUrl());
                 break;
             case 1:
-                Platform.runLater(() -> progData.favouriteGuiController.selUrl());
+                Platform.runLater(() -> progData.favouriteGuiPack.getFavouriteGuiController().selUrl());
                 break;
             case 2:
             default:
-                Platform.runLater(() -> progData.historyGuiController.selUrl());
+                Platform.runLater(() -> progData.historyGuiPack.getHistoryGuiController().selUrl());
                 break;
         }
 

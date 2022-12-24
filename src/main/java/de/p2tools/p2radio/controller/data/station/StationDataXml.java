@@ -37,7 +37,7 @@ public class StationDataXml {
     public static final String STATION_PROP_COLLECTION = "Sammlung";
 
     public static final int STATION_PROP_OWN_GRADE_INT = 5;
-    public static final String STATION_PROP_OWN_GRADE = "Bewertung";
+    public static final String STATION_PROP_OWN_GRADE = "Eigene Bewertung";
 
     public static final int STATION_PROP_CLICK_COUNT_INT = 6;
     public static final String STATION_PROP_CLICK_COUNT = "Starts";
@@ -75,7 +75,7 @@ public class StationDataXml {
     public static final String STATION_PROP_LANGUAGE = "Sprache";
 
     public static final int STATION_PROP_VOTES_INT = 17;
-    public static final String STATION_PROP_VOTES = "Stimmen";
+    public static final String STATION_PROP_VOTES = "Bewertung";
 
     public static final int STATION_PROP_DESCRIPTION_INT = 18;
     public static final String STATION_PROP_DESCRIPTION = "Beschreibung";

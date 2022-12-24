@@ -98,15 +98,15 @@ public class P2RadioController extends StackPane {
                 case 0:
                 default:
                     initPanelStation();
-                    progData.stationGuiController.selUrl();
+                    progData.stationGuiPack.getStationGuiController().selUrl();
                     break;
                 case 1:
                     initPanelFavourite();
-                    progData.favouriteGuiController.selUrl();
+                    progData.favouriteGuiPack.getFavouriteGuiController().selUrl();
                     break;
                 case 2:
                     initPanelHistory();
-                    progData.historyGuiController.selUrl();
+                    progData.historyGuiPack.getHistoryGuiController().selUrl();
             }
         } catch (Exception ex) {
             PLog.errorLog(597841023, ex);
@@ -156,13 +156,13 @@ public class P2RadioController extends StackPane {
 
                         Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
                         if (node != null && node == paneStation) {
-                            progData.stationGuiController.isShown();
+                            progData.stationGuiPack.getStationGuiController().isShown();
                         }
                         if (node != null && node == paneFavourite) {
-                            progData.favouriteGuiController.isShown();
+                            progData.favouriteGuiPack.getFavouriteGuiController().isShown();
                         }
                         if (node != null && node == paneHistory) {
-                            progData.historyGuiController.isShown();
+                            progData.historyGuiPack.getHistoryGuiController().isShown();
                         }
                     }
                 }
@@ -186,7 +186,7 @@ public class P2RadioController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneStation)) {
             // dann ist der 2. Klick
-            stationGuiPack.closeSplit();
+            stationGuiPack.closeSplitVert();
             return;
         }
         initPanelStation();
@@ -195,7 +195,7 @@ public class P2RadioController extends StackPane {
     private void initPanelStation() {
         setButtonStyle(btnStation);
         paneStation.toFront();
-        progData.stationGuiController.isShown();
+        progData.stationGuiPack.getStationGuiController().isShown();
         statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.STATION);
     }
 
@@ -215,7 +215,7 @@ public class P2RadioController extends StackPane {
     private void initPanelFavourite() {
         setButtonStyle(btnFavourite);
         paneFavourite.toFront();
-        progData.favouriteGuiController.isShown();
+        progData.favouriteGuiPack.getFavouriteGuiController().isShown();
         statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.FAVOURITE);
     }
 
@@ -235,8 +235,8 @@ public class P2RadioController extends StackPane {
     private void initPanelHistory() {
         setButtonStyle(btnHistory);
         paneHistory.toFront();
-        progData.historyGuiController.isShown();
-        statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.LAST_PLAYED);
+        progData.historyGuiPack.getHistoryGuiController().isShown();
+        statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.HISTORY);
     }
 
     private void infoPane() {
@@ -264,7 +264,7 @@ public class P2RadioController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.setValue(!ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON.get());
+                ProgConfig.HISTORY_GUI_DIVIDER_ON.setValue(!ProgConfig.HISTORY_GUI_DIVIDER_ON.get());
             }
         });
     }

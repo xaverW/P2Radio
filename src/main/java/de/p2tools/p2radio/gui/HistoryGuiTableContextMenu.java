@@ -104,7 +104,7 @@ public class HistoryGuiTableContextMenu {
             list.stream().forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
                 item.setOnAction(event -> {
-                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiController.getSel();
+                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
                     if (stationData.isPresent()) {
                         progData.startFactory.playPlayable(stationData.get(), setData);
                     }

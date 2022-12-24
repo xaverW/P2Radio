@@ -34,8 +34,8 @@ import java.util.Optional;
 public class HistoryMenu {
     final private VBox vBox;
     final private ProgData progData;
-    BooleanProperty boolFilterOn = ProgConfig.LAST_PLAYED_GUI_FILTER_DIVIDER_ON;
-    BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
+    BooleanProperty boolFilterOn = ProgConfig.HISTORY_GUI_FILTER_DIVIDER_ON;
+    BooleanProperty boolInfoOn = ProgConfig.HISTORY_GUI_DIVIDER_ON;
 
     public HistoryMenu(VBox vBox) {
         this.vBox = vBox;
@@ -63,7 +63,7 @@ public class HistoryMenu {
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
-        btStart.setOnAction(a -> progData.historyGuiController.playStation());
+        btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
@@ -81,7 +81,7 @@ public class HistoryMenu {
             for (SetData set : progData.setDataList) {
                 MenuItem miStart = new MenuItem(set.getVisibleName());
                 miStart.setOnAction(a -> {
-                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiController.getSel();
+                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
                     if (stationData.isPresent()) {
                         progData.startFactory.playPlayable(stationData.get(), set);
                     }
@@ -92,7 +92,7 @@ public class HistoryMenu {
 
         } else {
             final MenuItem miPlay = new MenuItem("Sender abspielen");
-            miPlay.setOnAction(a -> progData.historyGuiController.playStation());
+            miPlay.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
             PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
             mb.getItems().addAll(miPlay);
         }
@@ -103,14 +103,14 @@ public class HistoryMenu {
 //        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> progData.historyGuiController.stopStation(false));
+        miFavouriteStop.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
-        miCopyUrl.setOnAction(a -> progData.historyGuiController.copyUrl());
+        miCopyUrl.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().copyUrl());
 
         mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl);
 
@@ -126,7 +126,7 @@ public class HistoryMenu {
 
         MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
         miAddFavourite.setOnAction(a -> {
-            final Optional<StationData> data = ProgData.getInstance().historyGuiController.getSel();
+            final Optional<StationData> data = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
             if (data.isPresent()) {
                 String stationUrl = data.get().getStationUrl();
                 StationData stationData = progData.stationList.getSenderByUrl(stationUrl);

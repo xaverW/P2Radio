@@ -29,57 +29,41 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TabPane;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
-public class StationGuiController extends AnchorPane {
+public class StationGuiController extends VBox {
 
-    private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private final TabPane infoTab = new TabPane();
-    private final TilePane tilePaneButton = new TilePane();
     private final TablePlayable<StationData> tableView;
     private final ProgData progData;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
-    DoubleProperty splitPaneProperty = ProgConfig.STATION_GUI_DIVIDER;
-    BooleanProperty boolInfoOn = ProgConfig.STATION_GUI_DIVIDER_ON;
-    private StationGuiInfoController stationGuiInfoController;
-    private boolean bound = false;
 
-    public StationGuiController() {
+    private final StationGuiPack stationGuiPack;
+
+    public StationGuiController(StationGuiPack stationGuiPack) {
         progData = ProgData.getInstance();
+        this.stationGuiPack = stationGuiPack;
+
         tableView = new TablePlayable(Table.TABLE_ENUM.STATION);
 
-        AnchorPane.setLeftAnchor(splitPane, 0.0);
-        AnchorPane.setBottomAnchor(splitPane, 0.0);
-        AnchorPane.setRightAnchor(splitPane, 0.0);
-        AnchorPane.setTopAnchor(splitPane, 0.0);
-        splitPane.setOrientation(Orientation.VERTICAL);
-        getChildren().addAll(splitPane);
-
+        getChildren().addAll(scrollPane);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
-        initInfoPane();
-        setInfoPane();
         initTable();
         initListener();
     }
@@ -89,15 +73,15 @@ public class StationGuiController extends AnchorPane {
         setStation();
     }
 
-    public void tableRefresh() {
-        PTableFactory.refreshTable(tableView);
-//        int i = tableView.getSelectionModel().getSelectedIndex();
-//        tableView.refresh();
-//        if (i >= 0) {
-//            tableView.getSelectionModel().select(i);
-//            tableView.scrollTo(i);
-//        }
-    }
+//    public void tableRefresh() {
+//        PTableFactory.refreshTable(tableView);
+////        int i = tableView.getSelectionModel().getSelectedIndex();
+////        tableView.refresh();
+////        if (i >= 0) {
+////            tableView.getSelectionModel().select(i);
+////            tableView.scrollTo(i);
+////        }
+//    }
 
     public int getStationCount() {
         return tableView.getItems().size();
@@ -110,8 +94,8 @@ public class StationGuiController extends AnchorPane {
 
     private void setStation() {
         StationData station = tableView.getSelectionModel().getSelectedItem();
-        stationGuiInfoController.setStation(station);
         progData.stationInfoDialogController.setStation(station);
+        stationGuiPack.stationDataObjectPropertyProperty().setValue(station);
     }
 
     public void playStation() {
@@ -186,7 +170,7 @@ public class StationGuiController extends AnchorPane {
     }
 
     public void selUrl() {
-        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
+        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
         Optional<StationData> optional = tableView.getItems().stream().
                 filter(station -> station.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
@@ -223,18 +207,12 @@ public class StationGuiController extends AnchorPane {
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
             public void pingGui(PEvent event) {
-                tableRefresh();
+                PTableFactory.refreshTable(tableView);
             }
         });
-        progData.favouriteList.addListener((observable, oldValue, newValue) -> tableRefresh());
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> PTableFactory.refreshTable(tableView));
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();
-        });
-        progData.setDataList.listChangedProperty().addListener((observable, oldValue, newValue) -> {
-            if (progData.setDataList.getSetDataListButton().size() > 1) {
-                boolInfoOn.set(true);
-            }
-            setInfoPane();
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
@@ -242,44 +220,6 @@ public class StationGuiController extends AnchorPane {
                 PTableFactory.refreshTable(tableView);
             }
         });
-    }
-
-    private void initInfoPane() {
-        stationGuiInfoController = new StationGuiInfoController();
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-
-        tilePaneButton.setVgap(15);
-        tilePaneButton.setHgap(15);
-        tilePaneButton.setPadding(new Insets(10));
-        tilePaneButton.setStyle("-fx-border-color: -fx-text-box-border; " +
-                "-fx-border-radius: 5px; " +
-                "-fx-border-width: 1;");
-    }
-
-    private void setInfoPane() {
-        if (boolInfoOn.getValue()) {
-            bound = true;
-            setInfoTabPane();
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
-
-        } else {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(splitPaneProperty);
-            }
-
-            if (splitPane.getItems().size() != 1) {
-                splitPane.getItems().clear();
-                splitPane.getItems().add(scrollPane);
-            }
-        }
-    }
-
-    private void setInfoTabPane() {
-        if (splitPane.getItems().size() != 2 || splitPane.getItems().get(1) != stationGuiInfoController) {
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(scrollPane, stationGuiInfoController);
-            SplitPane.setResizableWithParent(stationGuiInfoController, false);
-        }
     }
 
     private void initTable() {

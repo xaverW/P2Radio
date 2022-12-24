@@ -49,7 +49,7 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
 
     @Override
     public String getComment() {
-        return "Liste aller Favoriten";
+        return "Liste aller gespielten Sender";
     }
 
     @Override
@@ -116,7 +116,7 @@ public class HistoryList extends SimpleListProperty<StationData> implements PDat
         for (int i = 0; i < this.size(); ++i) {
             this.get(i).setNo(i + 1);
         }
-        while (this.size() > ProgConst.MAX_LAST_PLAYED_LIST_SIZE) {
+        while (this.size() > ProgConst.MAX_HISTORY_LIST_SIZE) {
             this.remove(this.size() - 1);
         }
     }

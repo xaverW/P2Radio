@@ -50,9 +50,9 @@ public class FavouriteFactory {
         ArrayList<StationData> list = new ArrayList<>();
         ArrayList<StationData> listCopy = new ArrayList<>();
         if (allSel) {
-            list.addAll(ProgData.getInstance().favouriteGuiController.getSelList());
+            list.addAll(ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSelList());
         } else {
-            final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+            final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
             if (favourite.isPresent()) {
                 list.add(favourite.get());
             }
@@ -98,7 +98,7 @@ public class FavouriteFactory {
 
     public static void deleteFavourite(boolean all) {
         if (all) {
-            final ArrayList<StationData> list = ProgData.getInstance().favouriteGuiController.getSelList();
+            final ArrayList<StationData> list = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -116,7 +116,7 @@ public class FavouriteFactory {
             }
 
         } else {
-            final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+            final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
             if (favourite.isPresent()) {
                 FavouriteFactory.deleteFavourite(favourite.get());
             }

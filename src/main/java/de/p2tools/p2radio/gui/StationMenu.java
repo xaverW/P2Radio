@@ -69,10 +69,10 @@ public class StationMenu {
         vBoxSpace.setMinHeight(10);
         vBox.getChildren().add(vBoxSpace);
 
-        btPlay.setOnAction(a -> progData.stationGuiController.playStation());
+        btPlay.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
         btFavourite.setOnAction(a -> StationFactory.favouriteStationList());
-        btRandom.setOnAction(a -> progData.stationGuiController.playRandomStation());
+        btRandom.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 
@@ -87,21 +87,21 @@ public class StationMenu {
             Menu miStartWithSet = new Menu("Sender abspielen, Programm auswählen");
             for (SetData set : progData.setDataList) {
                 MenuItem miStart = new MenuItem(set.getVisibleName());
-                miStart.setOnAction(a -> progData.stationGuiController.playStationWithSet(set));
+                miStart.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStationWithSet(set));
                 miStartWithSet.getItems().add(miStart);
             }
             mb.getItems().addAll(miStartWithSet);
 
         } else {
             final MenuItem miPlay = new MenuItem("Sender abspielen");
-            miPlay.setOnAction(a -> progData.stationGuiController.playStation());
+            miPlay.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStation());
             PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
             mb.getItems().addAll(miPlay);
         }
 
 
         final MenuItem miStop = new MenuItem("Sender stoppen");
-        miStop.setOnAction(a -> progData.stationGuiController.stopStation(false));
+        miStop.setOnAction(a -> progData.stationGuiPack.getStationGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());

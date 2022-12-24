@@ -35,7 +35,7 @@ public class InfoFactory {
     public static synchronized String getInfosStations() {
         String textLinks;
         final int sumStationList = progData.stationList.size();
-        final int sumStationsShown = progData.stationGuiController.getStationCount();
+        final int sumStationsShown = progData.stationGuiPack.getStationGuiController().getStationCount();
         final int runs = progData.favouriteList.getListOfStartsNotFinished(FavouriteConstants.SRC_BUTTON).size();
 
         String sumStationListStr = numberFormat.format(sumStationsShown);
@@ -74,17 +74,17 @@ public class InfoFactory {
     public static String getInfosFavourites() {
         String textLinks;
         String sumFavouriteListStr = numberFormat.format(progData.favouriteList.size());
-        String sumFavouritesShownStr = numberFormat.format(progData.favouriteGuiController.getFavouritesShown());
+        String sumFavouritesShownStr = numberFormat.format(progData.favouriteGuiPack.getFavouriteGuiController().getFavouritesShown());
 
         // Anzahl der Favoriten
-        if (progData.favouriteGuiController.getFavouritesShown() == 1) {
+        if (progData.favouriteGuiPack.getFavouriteGuiController().getFavouritesShown() == 1) {
             textLinks = "1 Favorite";
         } else {
             textLinks = sumFavouritesShownStr + " Favoriten";
         }
 
         // weitere Infos anzeigen
-        if (progData.favouriteList.size() != progData.favouriteGuiController.getFavouritesShown()) {
+        if (progData.favouriteList.size() != progData.favouriteGuiPack.getFavouriteGuiController().getFavouritesShown()) {
             textLinks += " (Insgesamt: " + sumFavouriteListStr;
             textLinks += ")";
         }

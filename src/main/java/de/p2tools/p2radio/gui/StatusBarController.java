@@ -158,5 +158,5 @@ public class StatusBarController extends AnchorPane {
         lblRightFavourite.setText(strText);
     }
 
-    public enum StatusbarIndex {NONE, STATION, FAVOURITE, LAST_PLAYED}
+    public enum StatusbarIndex {NONE, STATION, FAVOURITE, HISTORY}
 }

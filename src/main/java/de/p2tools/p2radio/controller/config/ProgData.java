@@ -37,9 +37,9 @@ import de.p2tools.p2radio.controller.radiosLoadFromWeb.LoadNewStationList;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
-import de.p2tools.p2radio.gui.FavouriteGuiController;
-import de.p2tools.p2radio.gui.HistoryGuiController;
-import de.p2tools.p2radio.gui.StationGuiController;
+import de.p2tools.p2radio.gui.FavouriteGuiPack;
+import de.p2tools.p2radio.gui.HistoryGuiPack;
+import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.filter.StationFilterControllerClearFilter;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
@@ -73,12 +73,15 @@ public class ProgData {
     public Stage primaryStage = null;
     public PMaskerPane maskerPane = null;
     public P2RadioController p2RadioController = null;
-    public StationGuiController stationGuiController = null; // Tab mit den Sender
-    public FavouriteGuiController favouriteGuiController = null; // Tab mit den Favoriten
+
+    public StationGuiPack stationGuiPack = null; // Tab mit den Sender
+    public FavouriteGuiPack favouriteGuiPack = null; // Tab mit den Favoriten
     public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
-    public HistoryGuiController historyGuiController = null; // Tab mit den Favoriten
+    public HistoryGuiPack historyGuiPack = null; // Tab mit den Favoriten
+
     public StationInfoDialogController stationInfoDialogController = null;
     public StationFilterControllerClearFilter stationFilterControllerClearFilter = null;
+
     // Worker
     public Worker worker; // Liste aller Sender, Themen, ...
     public FilterWorker filterWorker; // Liste aller Sender, Themen, ...

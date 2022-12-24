@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -37,15 +38,16 @@ public class StationFilterController extends FilterController {
     private final ProgData progData;
 
     private final PToggleSwitch tglBlacklist = new PToggleSwitch("Blacklist:");
-
+    private final StationGuiPack stationGuiPack;
     StationFilterControllerTextFilter sender;
     StationFilterControllerFilter filter;
     StationFilterControllerClearFilter clearFilter;
     StationFilterControllerProfiles profiles;
 
-    public StationFilterController() {
+    public StationFilterController(StationGuiPack stationGuiPack) {
         super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
+        this.stationGuiPack = stationGuiPack;
 
         sender = new StationFilterControllerTextFilter();//hat separator am ende??
         filter = new StationFilterControllerFilter();

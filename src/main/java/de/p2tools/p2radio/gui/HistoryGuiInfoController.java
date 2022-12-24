@@ -26,15 +26,12 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class HistoryGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
-    private final Label lblWebsite = new Label("Website: ");
-    private final Label lblUrl = new Label("Sender-URL: ");
     private final PHyperlink hyperlinkWebsite = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink hyperlinkUrl = new PHyperlink("",
@@ -42,20 +39,24 @@ public class HistoryGuiInfoController extends PClosePaneH {
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
+    private final HistoryGuiPack historyGuiPack;
     private StationData stationData = null;
 
-    public HistoryGuiInfoController() {
-        super(ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON, true);
+    public HistoryGuiInfoController(HistoryGuiPack historyGuiPack) {
+        super(ProgConfig.HISTORY_GUI_DIVIDER_ON, true);
+        this.historyGuiPack = historyGuiPack;
+
         initInfo();
     }
 
     public void initInfo() {
+        historyGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
+            setStationData(historyGuiPack.stationDataObjectPropertyProperty().getValue());
+        });
+
         getVBoxAll().getChildren().add(gridPane);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
-        lblWebsite.setMinWidth(Region.USE_PREF_SIZE);
-        lblUrl.setMinWidth(Region.USE_PREF_SIZE);
-
         taDescription.setEditable(true);
         taDescription.setWrapText(true);
         taDescription.setPrefRowCount(2);
@@ -67,12 +68,13 @@ public class HistoryGuiInfoController extends PClosePaneH {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        gridPane.add(lblTitle, 0, row, 2, 1);
+        gridPane.add(new Label("Titel: "), 0, row);
+        gridPane.add(lblTitle, 1, row);
 
-        gridPane.add(lblWebsite, 0, ++row);
+        gridPane.add(new Label("Website: "), 0, ++row);
         gridPane.add(hyperlinkWebsite, 1, row);
 
-        gridPane.add(lblUrl, 0, ++row);
+        gridPane.add(new Label("Sender-URL: "), 0, ++row);
         gridPane.add(hyperlinkUrl, 1, row);
 
         gridPane.add(lblDescription, 0, ++row);

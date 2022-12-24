@@ -32,7 +32,7 @@ public class HistoryFactory {
 
     public static void deleteHistory(boolean all) {
         if (all) {
-            final ArrayList<StationData> list = ProgData.getInstance().historyGuiController.getSelList();
+            final ArrayList<StationData> list = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -49,7 +49,7 @@ public class HistoryFactory {
             }
 
         } else {
-            final Optional<StationData> favourite = ProgData.getInstance().historyGuiController.getSel();
+            final Optional<StationData> favourite = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
             if (favourite.isPresent()) {
                 deleteHistory(favourite.get());
             }

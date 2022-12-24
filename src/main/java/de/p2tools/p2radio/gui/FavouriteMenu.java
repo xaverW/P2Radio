@@ -65,7 +65,7 @@ public class FavouriteMenu {
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
-        btStart.setOnAction(a -> progData.favouriteGuiController.playStation());
+        btStart.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
         btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
         btNew.setOnAction(a -> FavouriteFactory.addFavourite(true));
@@ -85,7 +85,7 @@ public class FavouriteMenu {
             for (SetData set : progData.setDataList) {
                 MenuItem miStart = new MenuItem(set.getVisibleName());
                 miStart.setOnAction(a -> {
-                    final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+                    final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
                     if (favourite.isPresent()) {
                         progData.startFactory.playPlayable(favourite.get(), set);
                     }
@@ -96,7 +96,7 @@ public class FavouriteMenu {
 
         } else {
             final MenuItem miPlay = new MenuItem("Sender abspielen");
-            miPlay.setOnAction(a -> progData.favouriteGuiController.playStation());
+            miPlay.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
             PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
             mb.getItems().addAll(miPlay);
         }
@@ -106,14 +106,14 @@ public class FavouriteMenu {
 //        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> progData.favouriteGuiController.stopStation(false));
+        miFavouriteStop.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
-        miCopyUrl.setOnAction(a -> progData.favouriteGuiController.copyUrl());
+        miCopyUrl.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().copyUrl());
 
         final MenuItem miFavouriteOwn = new MenuItem("Eigenen Sender als Favoriten anlegen");
         miFavouriteOwn.setOnAction(a -> FavouriteFactory.addFavourite(true));

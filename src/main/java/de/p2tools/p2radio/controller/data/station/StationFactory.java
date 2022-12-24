@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class StationFactory {
 
     public static void favouriteStationList() {
-        final ArrayList<StationData> list = ProgData.getInstance().stationGuiController.getSelList();
+        final ArrayList<StationData> list = ProgData.getInstance().stationGuiPack.getStationGuiController().getSelList();
         StationFactory.favouriteStation(list);
     }
 
@@ -96,7 +96,7 @@ public class StationFactory {
 
             if (favouriteEditDialogController.isOk()) {
                 favouriteList.stream().forEach(f -> {
-                    progData.favouriteList.addAll((StationData) f);
+                    progData.favouriteList.addAll(f);
                 });
 //                progData.favouriteList.addAll(favouriteList);
                 //Favoriten markieren und Filter anstoßen

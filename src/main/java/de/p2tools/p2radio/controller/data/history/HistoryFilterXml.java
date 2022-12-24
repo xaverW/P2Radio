@@ -21,10 +21,10 @@ import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 
 public class HistoryFilterXml extends PDataSample<HistoryFilter> {
-    public static final String TAG = "LasstPlayedFilter";
+    public static final String TAG = "HistoryFilter";
 
-    public static final int LAST_PLAYED_FILTER_GENRE = 0;
-    public static final int LAST_PLAYED_FILTER_GRADE = 1;
+    public static final int HISTORY_FILTER_GENRE = 0;
+    public static final int HISTORY_FILTER_GRADE = 1;
 
     public static final String[] COLUMN_NAMES = {
             "Genre",

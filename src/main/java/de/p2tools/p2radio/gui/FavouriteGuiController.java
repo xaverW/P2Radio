@@ -29,73 +29,54 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
-import javafx.geometry.Orientation;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class FavouriteGuiController extends AnchorPane {
+public class FavouriteGuiController extends VBox {
 
-    private final SplitPane splitPane = new SplitPane();
-    private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TablePlayable<StationData> tableView;
 
     private final ProgData progData;
     private final SortedList<StationData> sortedStationData;
-    private final FavouriteGuiInfoController favouriteGuiInfoController;
-    DoubleProperty splitPaneProperty = ProgConfig.FAVOURITE_GUI_DIVIDER;
-    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
-    private boolean bound = false;
+    private final FavouriteGuiPack favouriteGuiPack;
 
-    public FavouriteGuiController() {
+    public FavouriteGuiController(FavouriteGuiPack favouriteGuiPack) {
         progData = ProgData.getInstance();
+        this.favouriteGuiPack = favouriteGuiPack;
+
         tableView = new TablePlayable(Table.TABLE_ENUM.FAVOURITE);
 
-        AnchorPane.setLeftAnchor(splitPane, 0.0);
-        AnchorPane.setBottomAnchor(splitPane, 0.0);
-        AnchorPane.setRightAnchor(splitPane, 0.0);
-        AnchorPane.setTopAnchor(splitPane, 0.0);
-        splitPane.setOrientation(Orientation.VERTICAL);
-        getChildren().addAll(splitPane);
-
-        vBox.getChildren().addAll(scrollPane);
+        getChildren().addAll(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
-
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        favouriteGuiInfoController = new FavouriteGuiInfoController();
         sortedStationData = new SortedList<>(progData.filteredStationData);
 
-        setInfoPane();
         initTable();
         initListener();
     }
 
-    public void tableRefresh() {
-        PTableFactory.refreshTable(tableView);
-//        int i = tableView.getSelectionModel().getSelectedIndex();
-//        tableView.refresh();
-//        if (i >= 0) {
-//            tableView.getSelectionModel().select(i);
-//            tableView.scrollTo(i);
-//        }
-    }
+//    public void tableRefresh() {
+//        PTableFactory.refreshTable(tableView);
+////        int i = tableView.getSelectionModel().getSelectedIndex();
+////        tableView.refresh();
+////        if (i >= 0) {
+////            tableView.getSelectionModel().select(i);
+////            tableView.scrollTo(i);
+////        }
+//    }
 
     public void isShown() {
         tableView.requestFocus();
@@ -117,12 +98,10 @@ public class FavouriteGuiController extends AnchorPane {
     private void setSelectedFavourite() {
         StationData stationData = tableView.getSelectionModel().getSelectedItem();
         if (stationData != null) {
-            favouriteGuiInfoController.setFavourite(stationData);
             StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
-        } else {
-            favouriteGuiInfoController.setFavourite(null);
         }
+        favouriteGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
 
     public void playStation() {
@@ -177,7 +156,7 @@ public class FavouriteGuiController extends AnchorPane {
     }
 
     public void selUrl() {
-        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
+        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
         Optional<StationData> optional = tableView.getItems().stream()
                 .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
@@ -198,12 +177,12 @@ public class FavouriteGuiController extends AnchorPane {
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
             public void pingGui(PEvent event) {
-                tableRefresh();
+                PTableFactory.refreshTable(tableView);
             }
         });
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
             public void pingGui(PEvent event) {
-                tableView.refresh();
+                PTableFactory.refreshTable(tableView);
             }
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
@@ -212,22 +191,6 @@ public class FavouriteGuiController extends AnchorPane {
                 PTableFactory.refreshTable(tableView);
             }
         });
-    }
-
-    private void setInfoPane() {
-        if (!boolInfoOn.getValue()) {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(splitPaneProperty);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().add(vBox);
-        } else {
-            bound = true;
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, favouriteGuiInfoController);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
-            SplitPane.setResizableWithParent(vBox, true);
-        }
     }
 
     private void initTable() {

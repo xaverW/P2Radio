@@ -24,80 +24,60 @@ import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
-import javafx.geometry.Orientation;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class HistoryGuiController extends AnchorPane {
+public class HistoryGuiController extends VBox {
 
-    private final SplitPane splitPane = new SplitPane();
-    private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TablePlayable<StationData> tableView;
     private final ProgData progData;
-    private final HistoryGuiInfoController historyGuiInfoController;
-    private final HistoryFilter historyFilter = new HistoryFilter();
-    DoubleProperty splitPaneProperty = ProgConfig.LAST_PLAYED_GUI_DIVIDER;
-    BooleanProperty boolInfoOn = ProgConfig.LAST_PLAYED_GUI_DIVIDER_ON;
-    private boolean bound = false;
 
-    public HistoryGuiController() {
+    private final HistoryGuiPack historyGuiPack;
+
+    public HistoryGuiController(HistoryGuiPack historyGuiPack) {
         progData = ProgData.getInstance();
-        tableView = new TablePlayable(Table.TABLE_ENUM.LAST_PLAYED);
+        this.historyGuiPack = historyGuiPack;
 
-        AnchorPane.setLeftAnchor(splitPane, 0.0);
-        AnchorPane.setBottomAnchor(splitPane, 0.0);
-        AnchorPane.setRightAnchor(splitPane, 0.0);
-        AnchorPane.setTopAnchor(splitPane, 0.0);
-        splitPane.setOrientation(Orientation.VERTICAL);
-        getChildren().addAll(splitPane);
+        tableView = new TablePlayable(Table.TABLE_ENUM.HISTORY);
 
-        vBox.getChildren().addAll(scrollPane);
+        getChildren().addAll(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        historyGuiInfoController = new HistoryGuiInfoController();
-
-        setInfoPane();
         initTable();
         initListener();
     }
 
-    public void tableRefresh() {
-        PTableFactory.refreshTable(tableView);
-//        int i = tableView.getSelectionModel().getSelectedIndex();
-//        tableView.refresh();
-//        if (i >= 0) {
-//            tableView.getSelectionModel().select(i);
-//            tableView.scrollTo(i);
-//        }
-    }
+//    public void tableRefresh() {
+//        PTableFactory.refreshTable(tableView);
+////        int i = tableView.getSelectionModel().getSelectedIndex();
+////        tableView.refresh();
+////        if (i >= 0) {
+////            tableView.getSelectionModel().select(i);
+////            tableView.scrollTo(i);
+////        }
+//    }
 
     public void isShown() {
         tableView.requestFocus();
-        setSelectedFavourite();
+        setSelectedHistory();
     }
 
     public int getFavouritesShown() {
@@ -112,15 +92,13 @@ public class HistoryGuiController extends AnchorPane {
         PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
     }
 
-    private void setSelectedFavourite() {
+    private void setSelectedHistory() {
         StationData stationData = tableView.getSelectionModel().getSelectedItem();
         if (stationData != null) {
-            historyGuiInfoController.setStationData(stationData);
             StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
-        } else {
-            historyGuiInfoController.setStationData(null);
         }
+        historyGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
 
     public void playStation() {
@@ -145,7 +123,7 @@ public class HistoryGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        Table.saveTable(tableView, Table.TABLE_ENUM.LAST_PLAYED);
+        Table.saveTable(tableView, Table.TABLE_ENUM.HISTORY);
     }
 
     public ArrayList<StationData> getSelList() {
@@ -174,7 +152,7 @@ public class HistoryGuiController extends AnchorPane {
     }
 
     public void selUrl() {
-        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
+        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
         Optional<StationData> optional = tableView.getItems().stream().filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
         if (optional.isPresent()) {
             tableView.getSelectionModel().select(optional.get());
@@ -194,13 +172,13 @@ public class HistoryGuiController extends AnchorPane {
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
             public void pingGui(PEvent event) {
-                tableRefresh();
+                PTableFactory.refreshTable(tableView);
             }
         });
         progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
             public void pingGui(PEvent event) {
-                tableView.refresh();
+                PTableFactory.refreshTable(tableView);
             }
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
@@ -211,21 +189,6 @@ public class HistoryGuiController extends AnchorPane {
         });
     }
 
-    private void setInfoPane() {
-        if (!boolInfoOn.getValue()) {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(splitPaneProperty);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().add(vBox);
-        } else {
-            bound = true;
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, historyGuiInfoController);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
-            SplitPane.setResizableWithParent(vBox, true);
-        }
-    }
 
     private void initTable() {
         Table.setTable(tableView);
@@ -250,7 +213,7 @@ public class HistoryGuiController extends AnchorPane {
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> setSelectedFavourite());
+            Platform.runLater(() -> setSelectedHistory());
         });
         tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
             if (tableView.getItems().size() == 1) {

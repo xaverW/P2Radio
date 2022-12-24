@@ -28,7 +28,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
-import de.p2tools.p2radio.gui.FavouriteGuiInfoController;
 import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -45,13 +44,12 @@ public class SmallRadioGuiController extends PDialogOnly {
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
-    private final FavouriteGuiInfoController favouriteGuiInfoController;
+    //    private final FavouriteGuiInfoController favouriteGuiInfoController;
     private final PListener listener = new PListener(Events.REFRESH_TABLE) {
         public void pingGui(PEvent event) {
             tableRefresh();
         }
     };
-
 
     public SmallRadioGuiController() {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
@@ -64,7 +62,7 @@ public class SmallRadioGuiController extends PDialogOnly {
 
         smallRadioGuiCenter = new SmallRadioGuiCenter(this);
         smallRadioGuiBottom = new SmallRadioGuiBottom(this);
-        favouriteGuiInfoController = new FavouriteGuiInfoController();
+//        favouriteGuiInfoController = new FavouriteGuiInfoController(this);
 
         init(true);
     }
@@ -141,11 +139,11 @@ public class SmallRadioGuiController extends PDialogOnly {
     private void setSelectedFavourite() {
         StationData favourite = smallRadioGuiCenter.getSel().get();
         if (favourite != null) {
-            favouriteGuiInfoController.setFavourite(favourite);
+//            favouriteGuiInfoController.setFavourite(favourite);
             StationData station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
             progData.stationInfoDialogController.setStation(station);
         } else {
-            favouriteGuiInfoController.setFavourite(null);
+//            favouriteGuiInfoController.setFavourite(null);
         }
     }
 

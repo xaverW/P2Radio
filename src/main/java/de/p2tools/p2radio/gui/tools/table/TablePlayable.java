@@ -84,7 +84,7 @@ public class TablePlayable<T> extends TableView<T> {
             case FAVOURITE:
                 startColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
                 break;
-            case LAST_PLAYED:
+            case HISTORY:
                 startColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
                 break;
             case SMALL_RADIO:
@@ -92,9 +92,9 @@ public class TablePlayable<T> extends TableView<T> {
                 startColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
         }
 
-        final TableColumn<T, Integer> gradeColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN_GRADE);
-        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("ownGrade"));
-        gradeColumn.setCellFactory(new CellGrade().cellFactoryGrade);
+        final TableColumn<T, Integer> ownGradeColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN_GRADE);
+        ownGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ownGrade"));
+        ownGradeColumn.setCellFactory(new CellGrade().cellFactoryGrade);
 
         final TableColumn<T, Integer> clickCountColumn = new TableColumn<>(StationDataXml.STATION_PROP_CLICK_COUNT);
         clickCountColumn.setCellValueFactory(new PropertyValueFactory<>("clickCount"));
@@ -165,7 +165,7 @@ public class TablePlayable<T> extends TableView<T> {
                 nrColumn, senderNoColumn,
                 senderColumn, collectionColumn, startColumn);
         if (!this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
-            getColumns().addAll(gradeColumn);
+            getColumns().addAll(ownGradeColumn);
         }
         getColumns().addAll(
                 votesColumn, clickCountColumn, clickTrendColumn,

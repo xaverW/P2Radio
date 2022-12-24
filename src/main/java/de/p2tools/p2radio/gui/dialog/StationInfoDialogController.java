@@ -92,14 +92,14 @@ public class StationInfoDialogController extends PDialogExtra {
         btnPrev.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
-                    progData.stationGuiController.setPreviousStation();
+                    progData.stationGuiPack.getStationGuiController().setPreviousStation();
                     break;
                 case 1:
-                    progData.favouriteGuiController.setPreviousStation();
+                    progData.favouriteGuiPack.getFavouriteGuiController().setPreviousStation();
                     break;
                 case 2:
                 default:
-                    progData.historyGuiController.setPreviousStation();
+                    progData.historyGuiPack.getHistoryGuiController().setPreviousStation();
             }
         });
 
@@ -108,14 +108,14 @@ public class StationInfoDialogController extends PDialogExtra {
         btnNext.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
-                    progData.stationGuiController.setNextStation();
+                    progData.stationGuiPack.getStationGuiController().setNextStation();
                     break;
                 case 1:
-                    progData.favouriteGuiController.setNextStation();
+                    progData.favouriteGuiPack.getFavouriteGuiController().setNextStation();
                     break;
                 case 2:
                 default:
-                    progData.historyGuiController.setNextStation();
+                    progData.historyGuiPack.getHistoryGuiController().setNextStation();
             }
         });
 
@@ -124,14 +124,14 @@ public class StationInfoDialogController extends PDialogExtra {
         btnStart.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
-                    progData.stationGuiController.playStation();
+                    progData.stationGuiPack.getStationGuiController().playStation();
                     break;
                 case 1:
-                    progData.favouriteGuiController.playStation();
+                    progData.favouriteGuiPack.getFavouriteGuiController().playStation();
                     break;
                 case 2:
                 default:
-                    progData.historyGuiController.playStation();
+                    progData.historyGuiPack.getHistoryGuiController().playStation();
             }
         });
 

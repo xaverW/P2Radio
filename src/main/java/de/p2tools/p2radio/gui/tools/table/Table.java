@@ -155,12 +155,12 @@ public class Table {
                 confOrder = ProgConfig.FAVOURITE_GUI_TABLE_ORDER;
                 break;
 
-            case LAST_PLAYED:
-                confWidth = ProgConfig.LAST_PLAYED_GUI_TABLE_WIDTH;
-                confSort = ProgConfig.LAST_PLAYED_GUI_TABLE_SORT;
-                confUpDown = ProgConfig.LAST_PLAYED_GUI_TABLE_UP_DOWN;
-                confVis = ProgConfig.LAST_PLAYED_GUI_TABLE_VIS;
-                confOrder = ProgConfig.LAST_PLAYED_GUI_TABLE_ORDER;
+            case HISTORY:
+                confWidth = ProgConfig.HISTORY_GUI_TABLE_WIDTH;
+                confSort = ProgConfig.HISTORY_GUI_TABLE_SORT;
+                confUpDown = ProgConfig.HISTORY_GUI_TABLE_UP_DOWN;
+                confVis = ProgConfig.HISTORY_GUI_TABLE_VIS;
+                confOrder = ProgConfig.HISTORY_GUI_TABLE_ORDER;
                 break;
 
             case SMALL_RADIO:
@@ -283,6 +283,6 @@ public class Table {
     }
 
     public enum TABLE_ENUM {
-        STATION, FAVOURITE, SMALL_RADIO, LAST_PLAYED
+        STATION, FAVOURITE, SMALL_RADIO, HISTORY
     }
 }

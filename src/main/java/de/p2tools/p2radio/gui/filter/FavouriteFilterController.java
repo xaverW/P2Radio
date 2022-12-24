@@ -23,6 +23,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -47,10 +48,13 @@ public class FavouriteFilterController extends FilterController {
 
     private final FavouriteFilter favouriteFilter;
     private final FilteredList<StationData> filteredStationData;
+    private final FavouriteGuiPack favouriteGuiPack;
 
-    public FavouriteFilterController() {
+    public FavouriteFilterController(FavouriteGuiPack favouriteGuiPack) {
         super(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
+        this.favouriteGuiPack = favouriteGuiPack;
+
         vBoxFilter = getVBoxFilter(true);
 
         favouriteFilter = progData.favouriteFilter;

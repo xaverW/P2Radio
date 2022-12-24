@@ -98,7 +98,7 @@ public class FavouriteGuiTableContextMenu {
             list.stream().forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
                 item.setOnAction(event -> {
-                    final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiController.getSel();
+                    final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
                     if (favourite.isPresent()) {
                         progData.startFactory.playPlayable(favourite.get(), setData);
                     }

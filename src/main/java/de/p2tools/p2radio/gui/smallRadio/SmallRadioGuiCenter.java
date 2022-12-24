@@ -274,7 +274,7 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
 //    public void selUrl() {
-//        final String url = ProgConfig.SYSTEM_LAST_PLAYED.getValue();
+//        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
 //        Optional<StationData> optional = tableView.getItems().stream()
 //                .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
 //        if (optional.isPresent()) {

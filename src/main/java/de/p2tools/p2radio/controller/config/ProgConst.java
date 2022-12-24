@@ -24,7 +24,7 @@ public class ProgConst {
     public static final int SYSTEM_UPDATE_SATE = 0;
     public static final int LOAD_STATION_LIST_EVERY_DAYS = 7;
     public static final int START_COUNTER_MIN_TIME = 60; //nach 1 Minute gilt der Sender als gespielt
-    public static final int MAX_LAST_PLAYED_LIST_SIZE = 50;
+    public static final int MAX_HISTORY_LIST_SIZE = 50;
 
     // settings file
     public static final String CONFIG_FILE = "p2radio.xml";
@@ -71,7 +71,7 @@ public class ProgConst {
 
     public static final int MIN_TABLE_HEIGHT = 200;
     public static final int MIN_TEXTAREA_HEIGHT_LOW = 50;
-    
+
     //Nummer wird nicht angezeigt
     public static final int NUMBER_DONT_USED = Integer.MAX_VALUE;
 }

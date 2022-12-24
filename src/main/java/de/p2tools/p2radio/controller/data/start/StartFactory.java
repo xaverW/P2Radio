@@ -110,7 +110,7 @@ public class StartFactory {
             progData.historyList.addStation(station);
 
             progData.startFactory.stopAll();
-            ProgConfig.SYSTEM_LAST_PLAYED.setValue(url);
+            ProgConfig.SYSTEM_HISTORY.setValue(url);
 
             final Start start = new Start(setData, station);
             station.setStart(start);
