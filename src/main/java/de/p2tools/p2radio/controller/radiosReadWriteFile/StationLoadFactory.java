@@ -145,9 +145,9 @@ public class StationLoadFactory {
             }
 
             switch (name) {
-                case "stationDate":
+                case StationList.KEY_STATION_DATE:
                     PLocalDate pLocalDate = new PLocalDate(value);
-                    stationList.getMeta().setStationDate(pLocalDate);
+                    stationList.setStationDate(pLocalDate);
                     break;
             }
         }
