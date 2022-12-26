@@ -104,7 +104,7 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
-                    FavouriteFactory.deletePlayable(favourite);
+                    FavouriteFactory.deleteFavourite(favourite);
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {

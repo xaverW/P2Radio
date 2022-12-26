@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.favourite;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -32,9 +33,93 @@ public class FavouriteFactory {
     private FavouriteFactory() {
     }
 
-    public static void addFavourite(boolean own) {
+    public static void favouriteStationList() {
+        final ArrayList<StationData> list = ProgData.getInstance().stationGuiPack.getStationGuiController().getSelList();
+        favouriteStation(list);
+    }
+
+    public static void favouriteStation(StationData station) {
+        ArrayList<StationData> list = new ArrayList<>();
+        list.add(station);
+        favouriteStation(list);
+    }
+
+    private static void favouriteStation(ArrayList<StationData> list) {
+        if (list.isEmpty()) {
+            return;
+        }
+
+        ProgData progData = ProgData.getInstance();
+        ArrayList<StationData> addList = new ArrayList<>();
+
+        for (final StationData station : list) {
+            // erst mal schauen obs den schon gibt
+            StationData stationData = progData.favouriteList.getUrlStation(station.getStationUrl());
+            if (stationData == null) {
+                addList.add(station);
+            } else {
+                // dann ist der Sender schon in der Liste
+                if (list.size() <= 1) {
+                    PAlert.BUTTON answer = PAlert.showAlert_yes_no("Anlegen?", "Nochmal anlegen?",
+                            "Sender existiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
+                                    station.getCountry() + P2LibConst.LINE_SEPARATORx2 +
+                                    "Nochmal anlegen?");
+                    switch (answer) {
+                        case NO:
+                            // alles Abbrechen
+                            return;
+                        case YES:
+                            addList.add(station);
+                            break;
+                    }
+
+                } else {
+                    PAlert.BUTTON answer = PAlert.showAlert_yes_no_cancel("Anlegen?", "Nochmal anlegen?",
+                            "Sender existiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
+                                    station.getCountry() + P2LibConst.LINE_SEPARATORx2 +
+                                    "Nochmal anlegen (Ja / Nein)?" + P2LibConst.LINE_SEPARATOR +
+                                    "Oder alles Abbrechen?");
+                    switch (answer) {
+                        case CANCEL:
+                            // alles Abbrechen
+                            return;
+                        case NO:
+                            continue;
+                        case YES:
+                            addList.add(station);
+                            break;
+                    }
+                }
+            }
+        }
+        if (!addList.isEmpty()) {
+            ArrayList<StationData> newFavourites = new ArrayList<>();
+            addList.stream().forEach(stationData -> {
+                StationData newStationData = new StationData(stationData, "");
+                newFavourites.add(newStationData);
+            });
+
+            FavouriteEditDialogController favouriteEditDialogController =
+                    new FavouriteEditDialogController(progData, newFavourites);
+
+            if (favouriteEditDialogController.isOk()) {
+                newFavourites.stream().forEach(stationData -> {
+                    stationData.setFavourite(true);
+                    progData.favouriteList.addAll(stationData);
+                });
+
+                //Favoriten markieren und Filter anstoßen
+                addList.stream().forEach(stationData -> {
+                    stationData.setFavourite(true);
+                });
+                progData.stationListBlackFiltered.triggerFilter();
+            }
+        }
+    }
+
+    public static void addOwnStationAsFavourite() {
         StationData stationData = new StationData();
-        stationData.setOwn(own);
+        stationData.setOwn(true);
         stationData.setStationDate(new PLocalDate().getDateTime(PLocalDate.FORMAT_dd_MM_yyyy));
 
         FavouriteAddOwnDialogController favouriteEditDialogController =
@@ -46,9 +131,14 @@ public class FavouriteFactory {
         }
     }
 
+    public static void changeFavourite(StationData stationData) {
+        ArrayList<StationData> list = new ArrayList<>();
+        list.add(stationData);
+        changeFavourite(list);
+    }
+
     public static void changeFavourite(boolean allSel) {
         ArrayList<StationData> list = new ArrayList<>();
-        ArrayList<StationData> listCopy = new ArrayList<>();
         if (allSel) {
             list.addAll(ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSelList());
         } else {
@@ -57,7 +147,11 @@ public class FavouriteFactory {
                 list.add(favourite.get());
             }
         }
+        changeFavourite(list);
+    }
 
+    private static void changeFavourite(ArrayList<StationData> list) {
+        ArrayList<StationData> listCopy = new ArrayList<>();
         if (list.isEmpty()) {
             return;
         }
@@ -77,14 +171,6 @@ public class FavouriteFactory {
                 f.copyToMe(fCopy);
             }
             ProgData.getInstance().collectionList.updateNames();//könnte ja geändert sein
-        }
-    }
-
-    public static void deletePlayable(StationData favourite) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
-                "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            ProgData.getInstance().favouriteList.remove(favourite);
-            StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
     }
 

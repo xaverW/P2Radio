@@ -20,8 +20,8 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -102,7 +102,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
                 btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
                 btnFavorite.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_SAVE.getImageView());
                 btnFavorite.setOnAction(event -> {
-                    StationFactory.favouriteStation(station);
+                    FavouriteFactory.favouriteStation(station);
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {

@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio.gui.smallRadio;
 
-import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
@@ -27,8 +26,6 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationListFactory;
-import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,7 +33,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class SmallRadioGuiController extends PDialogOnly {
@@ -44,7 +40,6 @@ public class SmallRadioGuiController extends PDialogOnly {
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
-    //    private final FavouriteGuiInfoController favouriteGuiInfoController;
     private final PListener listener = new PListener(Events.REFRESH_TABLE) {
         public void pingGui(PEvent event) {
             tableRefresh();
@@ -59,10 +54,8 @@ public class SmallRadioGuiController extends PDialogOnly {
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
 
         progData.smallRadioGuiController = this;
-
         smallRadioGuiCenter = new SmallRadioGuiCenter(this);
         smallRadioGuiBottom = new SmallRadioGuiBottom(this);
-//        favouriteGuiInfoController = new FavouriteGuiInfoController(this);
 
         init(true);
     }
@@ -100,11 +93,6 @@ public class SmallRadioGuiController extends PDialogOnly {
         return super.getMaskerPane();
     }
 
-    private void saveMe() {
-        progData.smallRadioGuiController.saveTable();
-        PGuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
-    }
-
     public void changeGui() {
         close();
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
@@ -119,13 +107,17 @@ public class SmallRadioGuiController extends PDialogOnly {
         );
     }
 
-    public void tableRefresh() {
-        smallRadioGuiCenter.tableRefresh();
+    private void saveMe() {
+        progData.smallRadioGuiController.saveTable();
+        PGuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
     }
 
-    public void isShown() {
-        smallRadioGuiCenter.isShown();
-        setSelectedFavourite();
+    public void saveTable() {
+        smallRadioGuiCenter.saveTable();
+    }
+
+    public void tableRefresh() {
+        smallRadioGuiCenter.tableRefresh();
     }
 
     public void copyUrl() {
@@ -134,17 +126,6 @@ public class SmallRadioGuiController extends PDialogOnly {
             return;
         }
         PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
-    }
-
-    private void setSelectedFavourite() {
-        StationData favourite = smallRadioGuiCenter.getSel().get();
-        if (favourite != null) {
-//            favouriteGuiInfoController.setFavourite(favourite);
-            StationData station = progData.stationList.getSenderByUrl(favourite.getStationUrl());
-            progData.stationInfoDialogController.setStation(station);
-        } else {
-//            favouriteGuiInfoController.setFavourite(null);
-        }
     }
 
     public void playStation() {
@@ -168,89 +149,7 @@ public class SmallRadioGuiController extends PDialogOnly {
         }
     }
 
-    public void deleteFavourite(boolean all) {
-        if (all) {
-            final ArrayList<StationData> list = getSelList();
-            if (list.isEmpty()) {
-                return;
-            }
-
-            final String text;
-            if (list.size() == 1) {
-                text = "Soll der Favorit gelöscht werden?";
-            } else {
-                text = "Sollen die Favoriten gelöscht werden?";
-            }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?",
-                    "Favoriten löschen?", text).equals(PAlert.BUTTON.YES)) {
-                progData.favouriteList.removeAll(list);
-                StationListFactory.findAndMarkFavouriteStations(progData);
-            }
-
-        } else {
-            final Optional<StationData> favourite = getSel();
-            if (favourite.isPresent()) {
-                deleteFavourite(favourite.get());
-            }
-        }
-    }
-
-    public void deleteFavourite(StationData favourite) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?",
-                "Favoriten löschen?",
-                "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
-            progData.favouriteList.remove(favourite);
-            StationListFactory.findAndMarkFavouriteStations(progData);
-        }
-    }
-
-    public void changeFavourite(boolean allSel) {
-        ArrayList<StationData> list = new ArrayList<>();
-        ArrayList<StationData> listCopy = new ArrayList<>();
-        if (allSel) {
-            list.addAll(getSelList());
-        } else {
-            final Optional<StationData> favourite = getSel();
-            if (favourite.isPresent()) {
-                list.add(favourite.get());
-            }
-        }
-
-        if (list.isEmpty()) {
-            return;
-        }
-        list.stream().forEach(f -> {
-            StationData favouriteCopy = f.getCopy();
-            listCopy.add(favouriteCopy);
-        });
-
-        FavouriteEditDialogController favouriteEditDialogController =
-                new FavouriteEditDialogController(progData, listCopy);
-
-        if (favouriteEditDialogController.isOk()) {
-            for (int i = 0; i < listCopy.size(); ++i) {
-                final StationData f, fCopy;
-                f = list.get(i);
-                fCopy = listCopy.get(i);
-                f.copyToMe(fCopy);
-            }
-            progData.collectionList.updateNames();//könnte ja geändert sein
-        }
-    }
-
-    public void saveTable() {
-        smallRadioGuiCenter.saveTable();
-    }
-
-    public ArrayList<StationData> getSelList() {
-        return smallRadioGuiCenter.getSelList();
-    }
-
     public Optional<StationData> getSel() {
-        return getSel(true);
-    }
-
-    public Optional<StationData> getSel(boolean show) {
         return smallRadioGuiCenter.getSel();
     }
 

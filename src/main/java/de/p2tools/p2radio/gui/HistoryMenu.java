@@ -22,9 +22,9 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -131,7 +131,7 @@ public class HistoryMenu {
                 String stationUrl = data.get().getStationUrl();
                 StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
                 if (stationData != null) {
-                    StationFactory.favouriteStation(stationData);
+                    FavouriteFactory.favouriteStation(stationData);
                 }
             }
         });

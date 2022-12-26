@@ -68,7 +68,7 @@ public class FavouriteMenu {
         btStart.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
         btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
-        btNew.setOnAction(a -> FavouriteFactory.addFavourite(true));
+        btNew.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
         btDel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -116,7 +116,7 @@ public class FavouriteMenu {
         miCopyUrl.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().copyUrl());
 
         final MenuItem miFavouriteOwn = new MenuItem("Eigenen Sender als Favoriten anlegen");
-        miFavouriteOwn.setOnAction(a -> FavouriteFactory.addFavourite(true));
+        miFavouriteOwn.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
 
         mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl, miFavouriteOwn);
 

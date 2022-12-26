@@ -46,7 +46,7 @@ public class FilterFactory {
     }
 
 
-    private static Predicate<StationData> getStationPredicateSmallGui() {
+    public static Predicate<StationData> getStationPredicateSmallGui() {
         Predicate<StationData> predicate = stationData -> true;
         final String genre = ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.getValueSafe().toLowerCase();
         if (!genre.isEmpty()) {
@@ -55,7 +55,7 @@ public class FilterFactory {
         return predicate;
     }
 
-    private static Predicate<StationData> getFavoritePredicateSmallGui() {
+    public static Predicate<StationData> getFavoritePredicateSmallGui() {
         Predicate<StationData> predicate = favourite -> true;
         final CollectionData collectionData = ProgData.getInstance()
                 .collectionList.getByName(ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME.getValueSafe());
@@ -73,7 +73,7 @@ public class FilterFactory {
         return predicate;
     }
 
-    private static Predicate<StationData> getHistoryPredicateSmallGui() {
+    public static Predicate<StationData> getHistoryPredicateSmallGui() {
         Predicate<StationData> predicate = favourite -> true;
         final String genre = ProgConfig.SMALL_RADIO_SELECTED_HISTORY_GENRE.getValueSafe().toLowerCase();
         if (!genre.isEmpty()) {

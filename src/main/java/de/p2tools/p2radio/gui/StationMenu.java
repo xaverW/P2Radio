@@ -22,7 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
-import de.p2tools.p2radio.controller.data.station.StationFactory;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -71,7 +71,7 @@ public class StationMenu {
 
         btPlay.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
-        btFavourite.setOnAction(a -> StationFactory.favouriteStationList());
+        btFavourite.setOnAction(a -> FavouriteFactory.favouriteStationList());
         btRandom.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -108,7 +108,7 @@ public class StationMenu {
         PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
-        miSave.setOnAction(e -> StationFactory.favouriteStationList());
+        miSave.setOnAction(e -> FavouriteFactory.favouriteStationList());
         PShortcutWorker.addShortCut(miSave, P2RadioShortCuts.SHORTCUT_SAVE_STATION);
 
         mb.getItems().addAll(miStop, miStopAll, miSave);

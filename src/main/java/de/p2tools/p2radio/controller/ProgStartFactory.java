@@ -78,11 +78,23 @@ public class ProgStartFactory {
             ProgConfig.STATION_GUI_TABLE_VIS.setValue("");
             ProgConfig.STATION_GUI_TABLE_ORDER.setValue("");
 
-            ProgConfig.SMALL_RADIO_TABLE_WIDTH.setValue("50,70,141,86,93,87,74,55,55,180,57,61,66,62,195,99,111,82,252,393");
-            ProgConfig.SMALL_RADIO_TABLE_SORT.setValue("");
-            ProgConfig.SMALL_RADIO_TABLE_UP_DOWN.setValue("");
-            ProgConfig.SMALL_RADIO_TABLE_VIS.setValue("true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
-            ProgConfig.SMALL_RADIO_TABLE_ORDER.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_STATION_WIDTH.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_STATION_SORT.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_STATION_UP_DOWN.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_STATION_VIS.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_STATION_ORDER.setValue("");
+
+            ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_WIDTH.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_SORT.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_UP_DOWN.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_VIS.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_ORDER.setValue("");
+
+            ProgConfig.SMALL_RADIO_TABLE_HISTORY_WIDTH.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_HISTORY_SORT.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_HISTORY_UP_DOWN.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_HISTORY_VIS.setValue("");
+            ProgConfig.SMALL_RADIO_TABLE_HISTORY_ORDER.setValue("");
 
             ProgConfig.FAVOURITE_GUI_TABLE_WIDTH.setValue("");
             ProgConfig.FAVOURITE_GUI_TABLE_SORT.setValue("");

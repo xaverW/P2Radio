@@ -20,7 +20,6 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -96,21 +95,6 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                     }
                     hbox.getChildren().add(btnPlay);
                 }
-
-                final Button btnDel;
-                btnDel = new Button("");
-                btnDel.getStyleClass().add("btnSmallRadio");
-                btnDel.setTooltip(new Tooltip("Favoriten löschen"));
-                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
-                btnDel.setOnAction(event -> {
-                    FavouriteFactory.deletePlayable(favourite);
-                });
-
-                if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                    btnDel.setMinHeight(18);
-                    btnDel.setMaxHeight(18);
-                }
-                hbox.getChildren().add(btnDel);
                 setGraphic(hbox);
             }
         };

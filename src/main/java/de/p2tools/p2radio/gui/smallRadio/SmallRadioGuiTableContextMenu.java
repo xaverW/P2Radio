@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio.gui.smallRadio;
 
-import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -26,23 +25,38 @@ import javafx.scene.control.SeparatorMenuItem;
 
 public class SmallRadioGuiTableContextMenu {
 
-    private final ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
     private final TablePlayable tableView;
 
-    public SmallRadioGuiTableContextMenu(ProgData progData, SmallRadioGuiController smallRadioGuiController, TablePlayable tableView) {
-        this.progData = progData;
+    public SmallRadioGuiTableContextMenu(SmallRadioGuiController smallRadioGuiController, TablePlayable tableView) {
         this.smallRadioGuiController = smallRadioGuiController;
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(StationData favourite) {
+    public ContextMenu getContextMenuStation(StationData stationData) {
         final ContextMenu contextMenu = new ContextMenu();
-        getMenu(contextMenu, favourite);
+        getMenu1(contextMenu, stationData);
+        getMenuStation(contextMenu, stationData);
+        getMenu2(contextMenu, stationData);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, StationData favourite) {
+    public ContextMenu getContextMenuFavourite(StationData stationData) {
+        final ContextMenu contextMenu = new ContextMenu();
+        getMenu1(contextMenu, stationData);
+        getMenuFavourite(contextMenu, stationData);
+        getMenu2(contextMenu, stationData);
+        return contextMenu;
+    }
+
+    public ContextMenu getContextMenuHistory(StationData stationData) {
+        final ContextMenu contextMenu = new ContextMenu();
+        getMenu1(contextMenu, stationData);
+        getMenu2(contextMenu, stationData);
+        return contextMenu;
+    }
+
+    private void getMenu1(ContextMenu contextMenu, StationData favourite) {
         MenuItem miStart = new MenuItem("Sender starten");
         miStart.setOnAction(a -> smallRadioGuiController.playStation());
         MenuItem miStop = new MenuItem("Sender stoppen");
@@ -52,24 +66,39 @@ public class SmallRadioGuiTableContextMenu {
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> smallRadioGuiController.copyUrl());
 
-        MenuItem miChange = new MenuItem("Favorit ändern");
-        miChange.setOnAction(a -> smallRadioGuiController.changeFavourite(false));
-        MenuItem miRemove = new MenuItem("Favoriten löschen");
-        miRemove.setOnAction(a -> FavouriteFactory.deleteFavourite(false));
-
         miStart.setDisable(favourite == null);
         miStop.setDisable(favourite == null);
         miStopAll.setDisable(favourite == null);
         miCopyUrl.setDisable(favourite == null);
-        miChange.setDisable(favourite == null);
-        miRemove.setDisable(favourite == null);
 
-        contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miChange, miRemove);
+        contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl);
+    }
 
+    private void getMenu2(ContextMenu contextMenu, StationData favourite) {
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());
 
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);
+    }
+
+    private void getMenuStation(ContextMenu contextMenu, StationData stationData) {
+        MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
+        miSave.setOnAction(a -> FavouriteFactory.favouriteStation(stationData));
+        miSave.setDisable(stationData == null);
+
+        contextMenu.getItems().addAll(new SeparatorMenuItem(), miSave);
+    }
+
+    private void getMenuFavourite(ContextMenu contextMenu, StationData stationData) {
+        MenuItem miChange = new MenuItem("Favorit ändern");
+        miChange.setOnAction(a -> FavouriteFactory.changeFavourite(stationData));
+        MenuItem miRemove = new MenuItem("Favoriten löschen");
+        miRemove.setOnAction(a -> FavouriteFactory.deleteFavourite(stationData));
+
+        miChange.setDisable(stationData == null);
+        miRemove.setDisable(stationData == null);
+
+        contextMenu.getItems().addAll(new SeparatorMenuItem(), miChange, miRemove);
     }
 }

@@ -113,11 +113,23 @@ public class ProgConfig extends PDataProgConfig {
     //Gui SmallRadio
     public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size", "600:400");
 
-    public static StringProperty SMALL_RADIO_TABLE_WIDTH = addStr("small-radio-table-width", "50,70,141,86,93,87,74,55,55,180,57,61,66,62,195,99,111,82,252,393");
-    public static StringProperty SMALL_RADIO_TABLE_SORT = addStr("small-radio-table-sort");
-    public static StringProperty SMALL_RADIO_TABLE_UP_DOWN = addStr("small-radio-table-up-down");
-    public static StringProperty SMALL_RADIO_TABLE_VIS = addStr("small-radio-table-vis", "true,false,true,true,true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,true");
-    public static StringProperty SMALL_RADIO_TABLE_ORDER = addStr("small-radio-table-order", "");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_WIDTH = addStr("small-radio-table-station-width", "");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_SORT = addStr("small-radio-table-station-sort");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_UP_DOWN = addStr("small-radio-table-station-up-down");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_VIS = addStr("small-radio-table-station-vis", "");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_ORDER = addStr("small-radio-table-station-order", "");
+
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_WIDTH = addStr("small-radio-table-favourite-width", "");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_SORT = addStr("small-radio-table-favourite-sort");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_UP_DOWN = addStr("small-radio-table-favourite-up-down");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_VIS = addStr("small-radio-table-favourite-vis", "");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_ORDER = addStr("small-radio-table-favourite-order", "");
+
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_WIDTH = addStr("small-radio-table-history-width", "");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_SORT = addStr("small-radio-table-history-sort");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_UP_DOWN = addStr("small-radio-table-history-up-down");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_VIS = addStr("small-radio-table-history-vis", "");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_ORDER = addStr("small-radio-table-history-order", "");
 
     public static StringProperty SMALL_RADIO_SELECTED_STATION_GENRE = addStr("small-radio-selected-station-genre");
     public static StringProperty SMALL_RADIO_SELECTED_FAVOURITE_GENRE = addStr("small-radio-selected-favourite-genre");

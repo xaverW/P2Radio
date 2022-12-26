@@ -56,40 +56,37 @@ public class TablePlayable<T> extends TableView<T> {
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
 
-//        final TableColumn<T, Integer> nrColumn = new TableColumn<>(StationDataXml.STATION_PROP_NO);
-//        nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-//        nrColumn.setCellFactory(new CellNo().cellFactoryNo);
-//        nrColumn.getStyleClass().add("alignCenterLeft");
+        final TableColumn<T, Integer> stationNoColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NO);
+        stationNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
+        stationNoColumn.setCellFactory(new CellNo().cellFactoryNo);
+        stationNoColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, Integer> senderNoColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NO);
-        senderNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
-        senderNoColumn.setCellFactory(new CellNo().cellFactoryNo);
-        senderNoColumn.getStyleClass().add("alignCenterLeft");
+        final TableColumn<T, String> stationNameColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NAME);
+        stationNameColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
+        stationNameColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, String> senderColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NAME);
-        senderColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
-        senderColumn.getStyleClass().add("alignCenterLeft");
+        final TableColumn<T, String> collectionNameColumn = new TableColumn<>(StationDataXml.STATION_PROP_COLLECTION);
+        collectionNameColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
+        collectionNameColumn.getStyleClass().add("alignCenterLeft");
+        collectionNameColumn.setComparator(sorter);
 
-        final TableColumn<T, String> collectionColumn = new TableColumn<>(StationDataXml.STATION_PROP_COLLECTION);
-        collectionColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
-        collectionColumn.getStyleClass().add("alignCenterLeft");
-        collectionColumn.setComparator(sorter);
-
-        final TableColumn<T, Integer> startColumn = new TableColumn<>("");
-        startColumn.getStyleClass().add("alignCenter");
+        final TableColumn<T, Integer> startButtonColumn = new TableColumn<>("");
+        startButtonColumn.getStyleClass().add("alignCenter");
         switch (this.table_enum) {
             case STATION:
-                startColumn.setCellFactory(new CellStartStation().cellFactoryStart);
+                startButtonColumn.setCellFactory(new CellStartStation().cellFactoryStart);
                 break;
             case FAVOURITE:
-                startColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
+                startButtonColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
                 break;
             case HISTORY:
-                startColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
+                startButtonColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
                 break;
-            case SMALL_RADIO:
+            case SMALL_RADIO_STATION:
+            case SMALL_RADIO_FAVOURITE:
+            case SMALL_RADIO_HISTORY:
             default:
-                startColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
+                startButtonColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
         }
 
         final TableColumn<T, Integer> ownGradeColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN_GRADE);
@@ -108,6 +105,10 @@ public class TablePlayable<T> extends TableView<T> {
         clickTrendColumn.setCellValueFactory(new PropertyValueFactory<>("clickTrend"));
         clickTrendColumn.getStyleClass().add("alignCenterRightPadding_10");
 
+        final TableColumn<T, Integer> votesColumn = new TableColumn<>(StationDataXml.STATION_PROP_VOTES);
+        votesColumn.setCellValueFactory(new PropertyValueFactory<>("votes"));
+        votesColumn.getStyleClass().add("alignCenterRightPadding_10");
+
         final TableColumn<T, String> genreColumn = new TableColumn<>(StationDataXml.STATION_PROP_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
@@ -117,8 +118,8 @@ public class TablePlayable<T> extends TableView<T> {
         codecColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, Integer> bitrateColumn = new TableColumn<>(StationDataXml.STATION_PROP_BITRATE);
-        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-//        bitrateColumn.setCellFactory(cellFactoryBitrate);
+        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
+        bitrateColumn.setCellFactory(new CellBitrate().cellFactoryBitrate);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<T, Integer> ownColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN);
@@ -142,44 +143,78 @@ public class TablePlayable<T> extends TableView<T> {
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, Integer> votesColumn = new TableColumn<>(StationDataXml.STATION_PROP_VOTES);
-        votesColumn.setCellValueFactory(new PropertyValueFactory<>("votes"));
-        votesColumn.getStyleClass().add("alignCenterRightPadding_10");
-
-        final TableColumn<T, PLocalDate> datumColumn = new TableColumn<>(StationDataXml.STATION_PROP_DATE);
-        datumColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
-        datumColumn.getStyleClass().add("alignCenter");
+        final TableColumn<T, PLocalDate> stationDateColumn = new TableColumn<>(StationDataXml.STATION_PROP_DATE);
+        stationDateColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
+        stationDateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> websiteColumn = new TableColumn<>(StationDataXml.STATION_PROP_WEBSITE);
         websiteColumn.setCellValueFactory(new PropertyValueFactory<>("website"));
         websiteColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, String> urlColumn = new TableColumn<>(StationDataXml.STATION_PROP_URL);
-        urlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
-        urlColumn.getStyleClass().add("alignCenterLeft");
+        final TableColumn<T, String> stationUrlColumn = new TableColumn<>(StationDataXml.STATION_PROP_URL);
+        stationUrlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
+        stationUrlColumn.getStyleClass().add("alignCenterLeft");
 
-//        nrColumn.setPrefWidth(50);
-        senderNoColumn.setPrefWidth(70);
-        senderColumn.setPrefWidth(80);
-        genreColumn.setPrefWidth(180);
+        stationNoColumn.setPrefWidth(70);
+        stationNameColumn.setPrefWidth(150);
+        genreColumn.setPrefWidth(100);
+        languageColumn.setPrefWidth(100);
+        stateColumn.setPrefWidth(100);
 
         setRowFactory(tv -> new TableRowPlayable<>(table_enum));
 
-        getColumns().addAll(
-                /*nrColumn,*/ senderNoColumn,
-                senderColumn, collectionColumn, startColumn);
-        if (!this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
-            getColumns().addAll(ownGradeColumn);
+        if (this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    /*ownGradeColumn, startsColumn,*/
+                    clickCountColumn, clickTrendColumn, votesColumn,
+                    genreColumn, codecColumn, bitrateColumn, ownColumn,
+                    stateColumn, countryColumn, countryCodeColumn, languageColumn,
+                    stationDateColumn, websiteColumn, stationUrlColumn);
+        } else if (this.table_enum.equals(Table.TABLE_ENUM.FAVOURITE)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, collectionNameColumn, startButtonColumn,
+                    ownGradeColumn, startsColumn,
+                    clickCountColumn, clickTrendColumn, votesColumn,
+                    genreColumn, codecColumn, bitrateColumn, ownColumn,
+                    stateColumn, countryColumn, countryCodeColumn, languageColumn,
+                    stationDateColumn, websiteColumn, stationUrlColumn);
+
+        } else if (this.table_enum.equals(Table.TABLE_ENUM.HISTORY)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    /*ownGradeColumn,*/ startsColumn,
+                    clickCountColumn, clickTrendColumn, votesColumn,
+                    genreColumn, codecColumn, bitrateColumn, ownColumn,
+                    stateColumn, countryColumn, countryCodeColumn, languageColumn,
+                    stationDateColumn, websiteColumn, stationUrlColumn);
+
+        } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    /*ownGradeColumn, startsColumn,*/
+                    /*clickCountColumn, clickTrendColumn, votesColumn,*/
+                    genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn,
+                    stationDateColumn/*, websiteColumn, stationUrlColumn*/);
+
+        } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, collectionNameColumn, startButtonColumn,
+                    ownGradeColumn, startsColumn,
+                    /*clickCountColumn, clickTrendColumn, votesColumn,*/
+                    genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn,
+                    stationDateColumn/*, websiteColumn, stationUrlColumn*/);
+
+        } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    /*ownGradeColumn,*/ startsColumn,
+                    /*clickCountColumn, clickTrendColumn, votesColumn,*/
+                    genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn,
+                    stationDateColumn/*, websiteColumn, stationUrlColumn*/);
         }
-        getColumns().addAll(
-                votesColumn);
-        if (!this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
-            getColumns().addAll(startsColumn);
-        }
-        getColumns().addAll(
-                clickCountColumn, clickTrendColumn,
-                genreColumn, codecColumn, bitrateColumn, ownColumn, stateColumn,
-                countryColumn, countryCodeColumn, languageColumn,
-                datumColumn, websiteColumn, urlColumn);
     }
 }

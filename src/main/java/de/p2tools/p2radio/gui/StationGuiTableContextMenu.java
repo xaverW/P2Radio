@@ -20,8 +20,8 @@ import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.SetDataList;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
@@ -60,7 +60,7 @@ public class StationGuiTableContextMenu {
         }
 
         MenuItem miSave = new MenuItem("Sender speichern");
-        miSave.setOnAction(a -> StationFactory.favouriteStationList());
+        miSave.setOnAction(a -> FavouriteFactory.favouriteStationList());
         contextMenu.getItems().addAll(miSave);
         miSave.setDisable(station == null);
 

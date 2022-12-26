@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetDataList;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationFactory;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
@@ -79,7 +79,7 @@ public class HistoryGuiTableContextMenu {
             StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
             if (stationData != null) {
                 MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
-                miAddFavourite.setOnAction(a -> StationFactory.favouriteStation(stationData));
+                miAddFavourite.setOnAction(a -> FavouriteFactory.favouriteStation(stationData));
                 miAddFavourite.setDisable(data == null);
                 contextMenu.getItems().addAll(miAddFavourite);
             }

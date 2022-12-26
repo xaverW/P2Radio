@@ -163,12 +163,26 @@ public class Table {
                 confOrder = ProgConfig.HISTORY_GUI_TABLE_ORDER;
                 break;
 
-            case SMALL_RADIO:
-                confWidth = ProgConfig.SMALL_RADIO_TABLE_WIDTH;
-                confSort = ProgConfig.SMALL_RADIO_TABLE_SORT;
-                confUpDown = ProgConfig.SMALL_RADIO_TABLE_UP_DOWN;
-                confVis = ProgConfig.SMALL_RADIO_TABLE_VIS;
-                confOrder = ProgConfig.SMALL_RADIO_TABLE_ORDER;
+            case SMALL_RADIO_STATION:
+                confWidth = ProgConfig.SMALL_RADIO_TABLE_STATION_WIDTH;
+                confSort = ProgConfig.SMALL_RADIO_TABLE_STATION_SORT;
+                confUpDown = ProgConfig.SMALL_RADIO_TABLE_STATION_UP_DOWN;
+                confVis = ProgConfig.SMALL_RADIO_TABLE_STATION_VIS;
+                confOrder = ProgConfig.SMALL_RADIO_TABLE_STATION_ORDER;
+                break;
+            case SMALL_RADIO_FAVOURITE:
+                confWidth = ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_WIDTH;
+                confSort = ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_SORT;
+                confUpDown = ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_UP_DOWN;
+                confVis = ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_VIS;
+                confOrder = ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_ORDER;
+                break;
+            case SMALL_RADIO_HISTORY:
+                confWidth = ProgConfig.SMALL_RADIO_TABLE_HISTORY_WIDTH;
+                confSort = ProgConfig.SMALL_RADIO_TABLE_HISTORY_SORT;
+                confUpDown = ProgConfig.SMALL_RADIO_TABLE_HISTORY_UP_DOWN;
+                confVis = ProgConfig.SMALL_RADIO_TABLE_HISTORY_VIS;
+                confOrder = ProgConfig.SMALL_RADIO_TABLE_HISTORY_ORDER;
                 break;
         }
     }
@@ -283,6 +297,6 @@ public class Table {
     }
 
     public enum TABLE_ENUM {
-        STATION, FAVOURITE, SMALL_RADIO, HISTORY
+        STATION, FAVOURITE, HISTORY, SMALL_RADIO_STATION, SMALL_RADIO_FAVOURITE, SMALL_RADIO_HISTORY
     }
 }
