@@ -47,12 +47,12 @@ public class StartPane {
         iv.setSmooth(true);
         iv.setImage(im);
 
-        Label text = new Label("1) Hier kann die Liste der" + P2LibConst.LINE_SEPARATOR +
-                "Sender gefiltert werden." +
+        Label text = new Label("1)  Hier kann eine verkleinerte Ansicht" + P2LibConst.LINE_SEPARATOR +
+                "des Radios eingestellt werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "2) Hier kann eine verkleinerte Ansicht," + P2LibConst.LINE_SEPARATOR +
-                "mit den Favoriten eingestellt werden." +
+                "2) Hier kann die Liste der" + P2LibConst.LINE_SEPARATOR +
+                "Sender gefiltert werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
                 "3) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +

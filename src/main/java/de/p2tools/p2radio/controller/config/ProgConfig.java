@@ -71,6 +71,7 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
     // Configs
     public static BooleanProperty SYSTEM_SMALL_RADIO = addBool("system-small-radio", false);
+    public static BooleanProperty SYSTEM_SMALL_RADIO_SHOW_START_HELP = addBool("system-small-radio-show-start-help", false);
     public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.FALSE);
     public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBool("system-tray-own-icon", Boolean.FALSE);
     public static StringProperty SYSTEM_TRAY_ICON_PATH = addStr("system-tray-icon", ""); //ein eigenes Tray-Icon

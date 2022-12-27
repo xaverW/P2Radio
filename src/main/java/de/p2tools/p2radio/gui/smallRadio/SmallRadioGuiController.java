@@ -26,6 +26,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.gui.dialog.SmallGuiHelpDialogController;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -58,6 +59,11 @@ public class SmallRadioGuiController extends PDialogOnly {
         smallRadioGuiBottom = new SmallRadioGuiBottom(this);
 
         init(true);
+
+        if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
+            new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);
+            ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.setValue(true);
+        }
     }
 
     @Override

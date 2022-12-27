@@ -33,8 +33,6 @@ public class QuitDialogController extends PDialogExtra {
 
     public QuitDialogController(Stage stage) {
         super(stage, null, "Programm beenden", true, false);
-
-        //        super(ProgData.getInstance().primaryStage.isShowing(), null, "Programm beenden", true, false);
         init(true);
     }
 

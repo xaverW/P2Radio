@@ -195,8 +195,8 @@ public class TablePlayable<T> extends TableView<T> {
                     /*ownGradeColumn, startsColumn,*/
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
-                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn,
-                    stationDateColumn/*, websiteColumn, stationUrlColumn*/);
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
+                    stationDateColumn, websiteColumn, stationUrlColumn*/);
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE)) {
             getColumns().addAll(
@@ -204,8 +204,8 @@ public class TablePlayable<T> extends TableView<T> {
                     ownGradeColumn, startsColumn,
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
-                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn,
-                    stationDateColumn/*, websiteColumn, stationUrlColumn*/);
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
+                    stationDateColumn, websiteColumn, stationUrlColumn*/);
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY)) {
             getColumns().addAll(
@@ -213,8 +213,8 @@ public class TablePlayable<T> extends TableView<T> {
                     /*ownGradeColumn,*/ startsColumn,
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
-                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn,
-                    stationDateColumn/*, websiteColumn, stationUrlColumn*/);
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
+                    stationDateColumn, websiteColumn, stationUrlColumn*/);
         }
     }
 }

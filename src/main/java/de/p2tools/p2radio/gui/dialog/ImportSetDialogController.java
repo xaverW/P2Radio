@@ -25,7 +25,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.PsetVorlagen;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.configDialog.setData.SetPaneController;
-import de.p2tools.p2radio.gui.startDialog.DownPathPane;
 import de.p2tools.p2radio.gui.startDialog.PathPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
@@ -40,7 +39,7 @@ public class ImportSetDialogController extends PDialogExtra {
     Button btnImport = new Button("_Set importieren");
     private boolean im = false;
     private StackPane stackPane;
-    private VBox vBoxPath = new VBox();
+    private final VBox vBoxPath = new VBox();
     private SetPaneController setPaneController;
 
 

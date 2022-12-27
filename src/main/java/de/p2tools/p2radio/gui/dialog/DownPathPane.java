@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui.startDialog;
+package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
@@ -29,9 +29,8 @@ import javafx.stage.Stage;
 
 public class DownPathPane {
     private final TextField txtPath = new TextField();
-    StringProperty pathProp = ProgConfig.START_DIALOG_DOWNLOAD_PATH;
-
     private final Stage stage;
+    StringProperty pathProp = ProgConfig.START_DIALOG_DOWNLOAD_PATH;
 
     public DownPathPane(Stage stage) {
         this.stage = stage;
