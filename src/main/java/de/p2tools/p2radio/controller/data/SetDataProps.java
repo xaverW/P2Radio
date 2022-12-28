@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.data;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2radio.controller.data.start.StartRuntimeExec;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -33,60 +32,13 @@ public class SetDataProps extends PDataSample<SetData> {
     private final StringProperty progPath = new SimpleStringProperty("");
     private final StringProperty progSwitch = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-    public String[] arr;
 
     public SetDataProps() {
-        makeArray();
     }
-
-    public static String makeProgAufrufArray(String pArray) {
-        final String[] progArray = pArray.split(StartRuntimeExec.TRENNER_PROG_ARRAY);
-        String execStr = "";
-        for (final String s : progArray) {
-            execStr = execStr + s + " ";
-        }
-        execStr = execStr.trim(); // letztes Leerzeichen wieder entfernen
-        return execStr;
-    }
-
-    public String getProgrammAufrufArray(String progPath, String progSwitch) {
-        String ret;
-        ret = progPath;
-        final String[] ar = progSwitch.split(" ");
-        for (final String s : ar) {
-            ret = ret + StartRuntimeExec.TRENNER_PROG_ARRAY + s;
-        }
-        return ret;
-    }
-
-//    public boolean progsContainPath() {
-//        // ein Programmschalter mit
-//        // "**" (Pfad/Datei) oder %a (Pfad) oder %b (Datei)
-//        // damit ist es ein Set zum Speichern
-//        boolean ret = false;
-//
-//        for (ProgramData progData : programList) {
-//            if (progData.getProgSwitch().contains("**")
-//                    || progData.getProgSwitch().contains("%a")
-//                    || progData.getProgSwitch().contains("%b")) {
-//                ret = true;
-//                break;
-//            }
-//        }
-//        return ret;
-//    }
 
     @Override
     public String getTag() {
         return TAG;
-    }
-
-    void makeArray() {
-        arr = new String[SetDataFieldNames.MAX_ELEM];
-        for (int i = 0; i < arr.length; ++i) {
-            arr[i] = "";
-        }
-        arr[SetDataFieldNames.PROGRAMSET_IS_STANDARDSET_INT] = Boolean.toString(false);
     }
 
     @Override

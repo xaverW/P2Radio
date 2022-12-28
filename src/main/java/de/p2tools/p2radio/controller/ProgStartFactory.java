@@ -115,7 +115,7 @@ public class ProgStartFactory {
         if (pDate.before(new PDate("20.12.2022"))) {
             //Die Sets haben sich geändert
             if (ProgData.getInstance().setDataList.isEmpty()) {
-                final SetDataList pSet = new PsetVorlagen().getStandarset(true /*replaceMuster*/);
+                final SetDataList pSet = new PsetVorlagen().getStandarset();
                 if (pSet != null) {
                     ProgData.getInstance().setDataList.addSetData(pSet);
                 }
@@ -154,7 +154,7 @@ public class ProgStartFactory {
         }
 
         PDuration.onlyPing("Erster Start: PSet");
-        final SetDataList pSet = new PsetVorlagen().getStandarset(true /*replaceMuster*/);
+        final SetDataList pSet = new PsetVorlagen().getStandarset();
         if (pSet != null) {
             progData.setDataList.addSetData(pSet);
         }

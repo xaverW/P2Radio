@@ -65,7 +65,7 @@ public class ProgMenu extends MenuButton {
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
         miReset.setOnAction(event -> new ResetDialogController(progData));
 
-        final MenuItem miSearchUpdate = new MenuItem("Gibts ein Update?");
+        final MenuItem miSearchUpdate = new MenuItem("Gibt’s ein Update?");
         miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData, progData.primaryStage).searchNewProgramVersion(true));
 
         final Menu mHelp = new Menu("Hilfe");

@@ -37,39 +37,8 @@ public class SetListPane extends TitledPane {
     static int newCounter = 1;
     private final ProgData progData;
     private final TableView<SetData> tableView = new TableView<>();
-    private final ToggleGroup toggleGroup = new ToggleGroup();
     private final Stage stage;
     private final SetPanePack setPanePack;
-//    private final Callback<TableColumn<SetData, Boolean>, TableCell<SetData, Boolean>> cellFactoryStart
-//            = (final TableColumn<SetData, Boolean> param) -> {
-//
-//        final TableCell<SetData, Boolean> cell = new TableCell<SetData, Boolean>() {
-//
-//            @Override
-//            public void updateItem(Boolean item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (item == null || empty) {
-//                    setGraphic(null);
-//                    setText(null);
-//                    return;
-//                }
-//
-//                final HBox hbox = new HBox(5);
-//                hbox.setAlignment(Pos.CENTER);
-//                hbox.setPadding(new Insets(0, 2, 0, 2));
-//
-//                SetData setData = getTableView().getItems().get(getIndex());
-//                final RadioButton radioButton = new RadioButton("");
-//                radioButton.setToggleGroup(toggleGroup);
-//                radioButton.setSelected(item.booleanValue());
-//                radioButton.setOnAction(event -> progData.setDataList.setPlay(setData));
-//                hbox.getChildren().addAll(radioButton);
-//                setGraphic(hbox);
-//            }
-//        };
-//        return cell;
-//    };
 
     public SetListPane(SetPanePack setPanePack) {
         this.setPanePack = setPanePack;
@@ -182,7 +151,7 @@ public class SetListPane extends TitledPane {
         Button btnNewSet = new Button("Standardsets _anfügen");
         btnNewSet.setTooltip(new Tooltip("Standardsets erstellen und der Liste anfügen"));
         btnNewSet.setOnAction(event -> {
-            if (!SetFactory.addSetTemplate(new PsetVorlagen().getStandarset(true /*replaceMuster*/))) {
+            if (!SetFactory.addSetTemplate(new PsetVorlagen().getStandarset())) {
                 PAlert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
             }
         });

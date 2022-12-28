@@ -110,7 +110,7 @@ public class ImportSetDialogController extends PDialogExtra {
 
         progData.setDataList.clear();
 
-        if (SetFactory.addSetTemplate(new PsetVorlagen().getStandarset(true /*replaceMuster*/))) {
+        if (SetFactory.addSetTemplate(new PsetVorlagen().getStandarset())) {
             PAlert.showInfoAlert("Set", "Set importieren", "Sets wurden importiert!", false);
         } else {
             PAlert.showErrorAlert("Set importieren", "Sets konnten nicht importiert werden!");

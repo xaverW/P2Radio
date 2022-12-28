@@ -12,7 +12,7 @@
         <Name>Abspielen dummy</Name>
         <Programmpfad>PFAD_VLC</Programmpfad>
         <Programmschalter>%f --play-and-exit :http-user-agent="Mozilla/5.0" -I dummy</Programmschalter>
-        <Beschreibung>Sset zum Abspielen der Sender, VLC ohne grafische Oberfläche</Beschreibung>
+        <Beschreibung>Set zum Abspielen der Sender, VLC ohne grafische Oberfläche</Beschreibung>
     </ProgrammSet>
     
 </P2Radio>

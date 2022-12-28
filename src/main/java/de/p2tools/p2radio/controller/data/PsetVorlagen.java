@@ -24,32 +24,19 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
 
 
 @SuppressWarnings("serial")
 public class PsetVorlagen {
 
-    public static final String PGR = "Vorlage";
     public static final String PGR_NAME = "Name";
-    public static final int PGR_NAME_NR = 0;
     public static final String PGR_DESCRIPTION = "Beschreibung";
-    public static final int PGR_DESCRIOPTION_NR = 1;
     public static final String PGR_VERSION = "Version";
-    public static final int PGR_VERSION_NR = 2;
     public static final String PGR_BS = "Bs";
-    public static final int PGR_BS_NR = 3;
     public static final String PGR_URL = "URL";
-    public static final int PGR_URL_NR = 4;
     public static final String PGR_INFO = "Info";
-    public static final int PGR_INFO_NR = 5;
-    public static final int PGR_MAX_ELEM = 6;
-    public static final String[] PGR_COLUMN_NAMES = {PGR_NAME, PGR_DESCRIPTION, PGR_VERSION, PGR_BS, PGR_URL, PGR_INFO};
-    private final static int TIMEOUT = 10000;
 
-    private final LinkedList<String[]> liste = new LinkedList<>();
-
-    public SetDataList getStandarset(boolean replaceMuster) {
+    public SetDataList getStandarset() {
         // dann nehmen wir halt die im jar-File
         // liefert das Standard Programmset für das entsprechende BS
         InputStreamReader inReader;
@@ -62,7 +49,7 @@ public class PsetVorlagen {
         }
         // Standardgruppen laden
         SetDataList setDataList = importPset(inReader);
-        if (replaceMuster && setDataList != null) {
+        if (setDataList != null) {
             // damit die Variablen ersetzt werden
             SetDataList.progReplacePattern(setDataList);
         }
@@ -105,10 +92,6 @@ public class PsetVorlagen {
 
     private boolean get(XMLStreamReader parser, String xmlElem, SetData setData) {
         boolean ret = true;
-//        final int maxElem = strRet.length;
-//        for (int i = 0; i < maxElem; ++i) {
-//            strRet[i] = "";
-//        }
         try {
             while (parser.hasNext()) {
                 final int event = parser.next();
@@ -118,7 +101,6 @@ public class PsetVorlagen {
                     }
                 }
                 if (event == XMLStreamConstants.START_ELEMENT) {
-//                    for (int i = 0; i < maxElem; ++i) {
                     switch (parser.getLocalName()) {
                         case SetDataFieldNames.PROGRAMSET_ID:
                             setData.setId(parser.getElementText());
@@ -136,18 +118,6 @@ public class PsetVorlagen {
                             setData.setDescription(parser.getElementText());
                             break;
                     }
-
-//                        setVisibleName(arr[SetDataFieldNames.PROGRAMSET_VISIBLE_NAME_INT]);
-//                        setPlay(Boolean.parseBoolean(arr[SetDataFieldNames.PROGRAMSET_IS_STANDARDSET_INT]));
-//                        setProgPath(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_PATH_INT]);
-//                        setProgSwitch(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH_INT]);
-//                        setDescription(arr[SetDataFieldNames.PROGRAMSET_DESCRIPTION_INT]);
-//                        if (parser.getLocalName().equals(xmlNames[i])) {
-//                            strRet[i] = parser.getElementText();
-//                            break;
-//                        }
-//                    }
-
                 }
             }
         } catch (final Exception ex) {
