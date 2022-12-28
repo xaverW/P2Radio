@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.configDialog.setData.SetPaneController;
+import de.p2tools.p2radio.gui.configDialog.setData.SetPanePack;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -43,7 +43,7 @@ public class ConfigDialogController extends PDialogExtra {
     IntegerProperty propSelectedTab = ProgConfig.SYSTEM_CONFIG_DIALOG_TAB;
     ConfigPaneController configPane;
     BlackListPaneController blackPane;
-    SetPaneController setPane;
+    SetPanePack setPane;
 
     private ConfigDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
@@ -108,7 +108,7 @@ public class ConfigDialogController extends PDialogExtra {
             tab.setContent(blackPane);
             tabPane.getTabs().add(tab);
 
-            setPane = new SetPaneController(getStage());
+            setPane = new SetPanePack(getStage());
             tab = new Tab("Abspielen");
             tab.setClosable(false);
             tab.setContent(setPane);

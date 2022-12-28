@@ -37,7 +37,7 @@ public class StartProps extends PDataSample<Start> {
     private final StringProperty stationName = new SimpleStringProperty("");
     private final StringProperty url = new SimpleStringProperty("");
     private final StringProperty setDataId = new SimpleStringProperty("");
-    private final StringProperty program = new SimpleStringProperty("");
+    //    private final StringProperty program = new SimpleStringProperty("");
     private final StringProperty programCall = new SimpleStringProperty("");
     private final StringProperty programCallArray = new SimpleStringProperty("");
 
@@ -118,17 +118,17 @@ public class StartProps extends PDataSample<Start> {
         return setDataId;
     }
 
-    public String getProgram() {
-        return program.get();
-    }
-
-    public void setProgram(String program) {
-        this.program.set(program);
-    }
-
-    public StringProperty programProperty() {
-        return program;
-    }
+//    public String getProgram() {
+//        return program.get();
+//    }
+//
+//    public void setProgram(String program) {
+//        this.program.set(program);
+//    }
+//
+//    public StringProperty programProperty() {
+//        return program;
+//    }
 
     public String getProgramCall() {
         return programCall.get();

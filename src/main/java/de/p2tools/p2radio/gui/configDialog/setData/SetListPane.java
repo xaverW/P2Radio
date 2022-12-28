@@ -17,121 +17,99 @@
 package de.p2tools.p2radio.gui.configDialog.setData;
 
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.PButton;
-import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.PsetVorlagen;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetFactory;
-import de.p2tools.p2radio.gui.tools.HelpTextPset;
-import javafx.beans.property.DoubleProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-public class SetPaneController extends AnchorPane {
-
-    private final ProgData progData;
-
-    private final Accordion accordion = new Accordion();
-    private final SplitPane splitPane = new SplitPane();
-    private final ScrollPane scrollPane = new ScrollPane();
-    private final VBox vBox = new VBox();
-    private final TableView<SetData> tableView = new TableView<>();
-    private final ToggleGroup toggleGroup = new ToggleGroup();
+public class SetListPane extends TitledPane {
 
     static int newCounter = 1;
-    private SetDataPane setDataPane;
-    private Collection<TitledPane> setDataPaneTitle;
+    private final ProgData progData;
+    private final TableView<SetData> tableView = new TableView<>();
+    private final ToggleGroup toggleGroup = new ToggleGroup();
     private final Stage stage;
-    DoubleProperty split = ProgConfig.CONFIG_DIALOG_SET_DIVIDER;
+    private final SetPanePack setPanePack;
+//    private final Callback<TableColumn<SetData, Boolean>, TableCell<SetData, Boolean>> cellFactoryStart
+//            = (final TableColumn<SetData, Boolean> param) -> {
+//
+//        final TableCell<SetData, Boolean> cell = new TableCell<SetData, Boolean>() {
+//
+//            @Override
+//            public void updateItem(Boolean item, boolean empty) {
+//                super.updateItem(item, empty);
+//
+//                if (item == null || empty) {
+//                    setGraphic(null);
+//                    setText(null);
+//                    return;
+//                }
+//
+//                final HBox hbox = new HBox(5);
+//                hbox.setAlignment(Pos.CENTER);
+//                hbox.setPadding(new Insets(0, 2, 0, 2));
+//
+//                SetData setData = getTableView().getItems().get(getIndex());
+//                final RadioButton radioButton = new RadioButton("");
+//                radioButton.setToggleGroup(toggleGroup);
+//                radioButton.setSelected(item.booleanValue());
+//                radioButton.setOnAction(event -> progData.setDataList.setPlay(setData));
+//                hbox.getChildren().addAll(radioButton);
+//                setGraphic(hbox);
+//            }
+//        };
+//        return cell;
+//    };
 
-    public SetPaneController(Stage stage) {
-        this.stage = stage;
-        progData = ProgData.getInstance();
+    public SetListPane(SetPanePack setPanePack) {
+        this.setPanePack = setPanePack;
+        this.stage = setPanePack.getStage();
+        this.progData = ProgData.getInstance();
 
-        AnchorPane.setLeftAnchor(splitPane, 0.0);
-        AnchorPane.setBottomAnchor(splitPane, 0.0);
-        AnchorPane.setRightAnchor(splitPane, 0.0);
-        AnchorPane.setTopAnchor(splitPane, 0.0);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-
-        vBox.getChildren().addAll(createSetList());
-        splitPane.getItems().addAll(vBox, scrollPane);
-        SplitPane.setResizableWithParent(vBox, Boolean.FALSE);
-        getChildren().addAll(splitPane);
-
-        createSetDataPane();
+        make();
         selectTableFirst();
-
-        accordion.getPanes().addAll(setDataPaneTitle);
-        scrollPane.setContent(accordion);
-        splitPane.getDividers().get(0).positionProperty().bindBidirectional(split);
-    }
-
-    public void close() {
-        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(split);
     }
 
     public void selectTableFirst() {
         tableView.getSelectionModel().selectFirst();
     }
 
-    private Collection<TitledPane> createSetList() {
-        Collection<TitledPane> result = new ArrayList<>();
-        makeSetListTable(result);
-        return result;
-    }
-
-    private void createSetDataPane() {
-        setDataPaneTitle = new ArrayList<>();
-        setDataPane = new SetDataPane(stage);
-        setDataPane.makeSetPane(setDataPaneTitle);
-    }
-
-    private void makeSetListTable(Collection<TitledPane> result) {
+    private void make() {
         final VBox vBox = new VBox(10);
-        vBox.setFillWidth(true);
-
         initTable(vBox);
 
-        TitledPane tpSet = new TitledPane("Sets", vBox);
-        tpSet.setCollapsible(false);
-        result.add(tpSet);
-        VBox.setVgrow(tpSet, Priority.ALWAYS);
-        tpSet.setMaxHeight(Double.MAX_VALUE);
+        this.setText("Sets");
+        this.setContent(vBox);
+        this.setCollapsible(false);
+        this.setMaxHeight(Double.MAX_VALUE);
     }
-
 
     private void initTable(VBox vBox) {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            setDataPane.bindProgData(newValue);
+            setPanePack.aktSetDateProperty().setValue(newValue);
         });
 
         final TableColumn<SetData, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
-        playColumn.setCellValueFactory(new PropertyValueFactory<>("play"));
-        playColumn.setCellFactory(cellFactoryStart);
-        playColumn.getStyleClass().add("center");
+//        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
+//        playColumn.setCellValueFactory(new PropertyValueFactory<>("play"));
+//        playColumn.setCellFactory(cellFactoryStart);
+//        playColumn.getStyleClass().add("center");
 
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        tableView.getColumns().addAll(nameColumn, playColumn);
+        tableView.getColumns().addAll(nameColumn/*, playColumn*/);
         tableView.setItems(progData.setDataList);
 
         VBox.setVgrow(tableView, Priority.ALWAYS);
@@ -177,6 +155,19 @@ public class SetPaneController extends AnchorPane {
             }
         });
 
+        Button btnStandard = new Button("_Standardset");
+        btnStandard.setTooltip(new Tooltip("Das Set als Standardset festlegen"));
+        btnStandard.setOnAction(event -> {
+            SetData setData = getSelectedSelData();
+            if (setData != null) {
+                progData.setDataList.removeSetData(setData);
+                progData.setDataList.add(0, setData);
+                tableView.getSelectionModel().select(0);
+            }
+        });
+        HBox.setHgrow(btnStandard, Priority.ALWAYS);
+        btnStandard.setMaxWidth(Double.MAX_VALUE);
+
         Button btnDup = new Button("_Duplizieren");
         btnDup.setTooltip(new Tooltip("Eine Kopie des markierten Sets erstellen"));
         btnDup.setOnAction(event -> {
@@ -206,13 +197,10 @@ public class SetPaneController extends AnchorPane {
 
         HBox hBox = new HBox(10);
         HBox.setHgrow(hBox, Priority.ALWAYS);
-        hBox.getChildren().addAll(btnNew, btnDel, btnUp, btnDown);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
 
-        final Button btnHelp = PButton.helpButton(stage, "Set", HelpTextPset.HELP_PSET);
-        HBox hBoxHlp = new HBox(10);
-        hBoxHlp.getChildren().addAll(hBox, btnHelp);
-
-        vBox.getChildren().addAll(hBoxHlp, btnDup, btnNewSet, btnCheck);
+        hBox.getChildren().addAll(btnNew, btnDel, PGuiTools.getHBoxGrower(), btnUp, btnDown);
+        vBox.getChildren().addAll(hBox, btnStandard, btnDup, btnNewSet, btnCheck);
     }
 
     private SetData getSelectedSelData() {
@@ -230,39 +218,4 @@ public class SetPaneController extends AnchorPane {
         }
         return sel;
     }
-
-    private Callback<TableColumn<SetData, Boolean>, TableCell<SetData, Boolean>> cellFactoryStart
-            = (final TableColumn<SetData, Boolean> param) -> {
-
-        final TableCell<SetData, Boolean> cell = new TableCell<SetData, Boolean>() {
-
-            @Override
-            public void updateItem(Boolean item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                final HBox hbox = new HBox(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                SetData setData = getTableView().getItems().get(getIndex());
-
-                final RadioButton radioButton = new RadioButton("");
-                radioButton.setToggleGroup(toggleGroup);
-                radioButton.setSelected(item.booleanValue());
-
-                radioButton.setOnAction(event -> progData.setDataList.setPlay(setData));
-
-                hbox.getChildren().addAll(radioButton);
-                setGraphic(hbox);
-
-            }
-        };
-        return cell;
-    };
 }

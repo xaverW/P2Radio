@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.PsetVorlagen;
 import de.p2tools.p2radio.controller.data.SetFactory;
-import de.p2tools.p2radio.gui.configDialog.setData.SetPaneController;
+import de.p2tools.p2radio.gui.configDialog.setData.SetPanePack;
 import de.p2tools.p2radio.gui.startDialog.PathPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
@@ -35,12 +35,12 @@ import javafx.scene.layout.VBox;
 public class ImportSetDialogController extends PDialogExtra {
 
     private final ProgData progData;
+    private final VBox vBoxPath = new VBox();
     Button btnCancel = new Button("_Abbrechen");
     Button btnImport = new Button("_Set importieren");
     private boolean im = false;
     private StackPane stackPane;
-    private final VBox vBoxPath = new VBox();
-    private SetPaneController setPaneController;
+    private SetPanePack setPanePack;
 
 
     public ImportSetDialogController(ProgData progData) {
@@ -52,7 +52,7 @@ public class ImportSetDialogController extends PDialogExtra {
     }
 
     public void close() {
-        setPaneController.close();
+        setPanePack.close();
         super.close();
     }
 
@@ -87,13 +87,13 @@ public class ImportSetDialogController extends PDialogExtra {
         vBoxPath.setStyle("-fx-background-color: -fx-background;");
 
         // nach Import
-        setPaneController = new SetPaneController(P2LibConst.primaryStage);
-        setPaneController.setMaxWidth(Double.MAX_VALUE);
-        setPaneController.setMaxHeight(Double.MAX_VALUE);
-        setPaneController.setStyle("-fx-background-color: -fx-background;");
+        setPanePack = new SetPanePack(P2LibConst.primaryStage);
+        setPanePack.setMaxWidth(Double.MAX_VALUE);
+        setPanePack.setMaxHeight(Double.MAX_VALUE);
+        setPanePack.setStyle("-fx-background-color: -fx-background;");
 
         stackPane = new StackPane();
-        stackPane.getChildren().addAll(vBoxPath, setPaneController);
+        stackPane.getChildren().addAll(vBoxPath, setPanePack);
         vBoxPath.toFront();
         VBox.setVgrow(stackPane, Priority.ALWAYS);
         getvBoxCont().getChildren().add(stackPane);
@@ -116,7 +116,7 @@ public class ImportSetDialogController extends PDialogExtra {
             PAlert.showErrorAlert("Set importieren", "Sets konnten nicht importiert werden!");
         }
 
-        setPaneController.toFront();
-        setPaneController.selectTableFirst();
+        setPanePack.toFront();
+//        setPanePack.selectTableFirst();
     }
 }

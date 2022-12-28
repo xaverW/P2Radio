@@ -45,17 +45,20 @@ public class ProgConfig extends PDataProgConfig {
     public static final String SHORTCUT_FAVOURITE_STOP_INIT = "Ctrl+T";
     public static final String SHORTCUT_FAVOURITE_CHANGE_INIT = "Ctrl+C";
     private static final ArrayList<Config> arrayList = new ArrayList<>();
-    // Programm-Configs, änderbar nur im Config-File
+
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt
     public static IntegerProperty SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND = addInt("__system-parameter__download-errormsg-in-second_30__", 30);
+
     // Configs der Programmversion, nur damit sie (zur Update-Suche) im Config-File stehen
     public static StringProperty SYSTEM_PROG_VERSION = addStr("system-prog-version");
     public static StringProperty SYSTEM_PROG_BUILD_NO = addStr("system-prog-build-no");
     public static StringProperty SYSTEM_PROG_BUILD_DATE = addStr("system-prog-build-date");//z.B.: 27.07.2021
     public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStr("system-download-dir-new-version", "");
+
     // Configs zum Aktualisieren beim Programmupdate
     public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);
+
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
     public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBool("system-update-search-act", true); //Infos und Programm
@@ -65,10 +68,12 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_UPDATE_LAST_ACT = addStr("system-update-last-act");
     public static StringProperty SYSTEM_UPDATE_LAST_BETA = addStr("system-update-last-beta");
     public static StringProperty SYSTEM_UPDATE_LAST_DAILY = addStr("system-update-last-daily");
+
     // ConfigDialog, Dialog nach Start immer gleich öffnen
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_TAB = new SimpleIntegerProperty(0);
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_CONFIG = new SimpleIntegerProperty(-1);
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
+
     // Configs
     public static BooleanProperty SYSTEM_SMALL_RADIO = addBool("system-small-radio", false);
     public static BooleanProperty SYSTEM_SMALL_RADIO_SHOW_START_HELP = addBool("system-small-radio-show-start-help", false);
@@ -77,7 +82,6 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_TRAY_ICON_PATH = addStr("system-tray-icon", ""); //ein eigenes Tray-Icon
     public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
-    public static BooleanProperty SYSTEM_MARK_GEO = addBool("system-mark-geo", Boolean.TRUE);
     public static BooleanProperty SYSTEM_STYLE = addBool("system-style", Boolean.FALSE);
     public static IntegerProperty SYSTEM_STYLE_SIZE = addInt("system-geo-home-place", 14);
     public static StringProperty SYSTEM_LOG_DIR = addStr("system-log-dir", "");
@@ -88,17 +92,20 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
     public static IntegerProperty SYSTEM_LAST_TAB_STATION = addInt("system-last-tab-station", 0);
     public static StringProperty SYSTEM_HISTORY = addStr("system-history", "");
+    public static BooleanProperty SYSTEM_SHOW_MSG_SETDATA_CHANGED = addBool("system-show-msg-setdata-changed", Boolean.FALSE);
+
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
     public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "500:500");
+
     // Einstellungen Senderliste
     public static StringProperty SYSTEM_PATH_VLC = addStr("path-vlc", SetFactory.getTemplatePathVlc());
+
     // Blacklist
     public static IntegerProperty SYSTEM_BLACKLIST_MIN_BITRATE = addInt("blacklist-min-bitrate", 0);
     public static IntegerProperty SYSTEM_BLACKLIST_MAX_BITRATE = addInt("blacklist-max-bitrate", StationFilterFactory.FILTER_BITRATE_MAX);
     public static BooleanProperty SYSTEM_BLACKLIST_IS_WHITELIST = addBool("blacklist-is-whitelist");
-    // Download
-    public static BooleanProperty DOWNLOAD_BEEP = addBool("download-beep");
+
     // Gui Station
     public static DoubleProperty STATION_GUI_FILTER_DIVIDER = addDouble("station-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty STATION_GUI_FILTER_DIVIDER_ON = addBool("station-gui-filter-divider-on", Boolean.TRUE);
@@ -154,11 +161,10 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStr("favourite-gui-table-order");
 
     public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBool("favourite-show-notification", Boolean.TRUE);
+
     // Gui History
     public static DoubleProperty HISTORY_GUI_FILTER_DIVIDER = addDouble("history-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty HISTORY_GUI_FILTER_DIVIDER_ON = addBool("history-gui-filter-divider-on", Boolean.TRUE);
-    public static StringProperty HISTORY_DIALOG_EDIT_SIZE = addStr("history-dialog-edit-size", "800:800");
-    public static StringProperty HISTORY_DIALOG_ADD_SIZE = addStr("history-dialog-add-size", "800:800");
     public static DoubleProperty HISTORY_GUI_DIVIDER = addDouble("history-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
     public static BooleanProperty HISTORY_GUI_DIVIDER_ON = addBool("history-gui-divider-on", Boolean.TRUE);
 
@@ -168,18 +174,16 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty HISTORY_GUI_TABLE_VIS = addStr("history-gui-table-vis");
     public static StringProperty HISTORY_GUI_TABLE_ORDER = addStr("history-gui-table-order");
 
-    public static BooleanProperty HISTORY_SHOW_NOTIFICATION = addBool("history-show-notification", Boolean.TRUE);
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
     public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBool("config_dialog-accordion", Boolean.TRUE);
     public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDouble("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
     public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStr("config-dialog-import-set-size", "800:700");
     public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDouble("config-dialog-shortcut-divider", 0.1);
+
     //StartDialog
     public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStr("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
-    //SenderInfoDialog
-//    public static StringProperty STATION_INFO_DIALOG = addStr("station-info-dialog");
-    public static BooleanProperty STATION_INFO_DIALOG_SHOW_URL = addBool("station-info-dialog-show-url", Boolean.TRUE);
+
     //Filter Sender
     public static IntegerProperty FILTER_STATION_SEL_FILTER = addInt("filter-station-sel-filter");
     public static StringProperty SHORTCUT_QUIT_PROGRAM = addStr("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);

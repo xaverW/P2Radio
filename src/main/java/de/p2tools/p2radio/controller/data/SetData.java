@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.PIndex;
 
@@ -33,44 +32,41 @@ public class SetData extends SetDataProps {
         setVisibleName(name);
     }
 
-    public boolean isEmpty() {
-        boolean ret = true;
-        Config[] configs = getConfigsArr();
+//    public boolean isEmpty() {
+//        boolean ret = true;
+//        Config[] configs = getConfigsArr();
+//
+//        for (int i = 0; i < configs.length; ++i) {
+//            if (!configs[i].getActValueString().isEmpty()) {
+//                ret = false;
+//            }
+//        }
+//        return ret;
+//    }
 
-        for (int i = 0; i < configs.length; ++i) {
-            if (!configs[i].getActValueString().isEmpty()) {
-                ret = false;
-            }
-        }
-        if (!programList.isEmpty()) {
-            ret = false;
-        }
-        return ret;
-    }
-
-    public ProgramData getProgForUrl(String url) {
-        //mit einer Url das Passende Programm finden
-        //passt nichts, wird das letzte Programm genommen
-        //ist nur ein Programm in der Liste wird dieses genommen
-        ProgramData ret = null;
-        if (programList.isEmpty()) {
-            new PAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
-                    "Es ist kein Programm zum Abspielen der Sender");
-        } else if (programList.size() == 1) {
-            ret = programList.get(0);
-        } else {
-            for (ProgramData progData : programList) {
-                if (progData.urlTesten(url)) {
-                    ret = progData;
-                    break;
-                }
-            }
-            if (!programList.isEmpty() && ret == null) {
-                ret = programList.get(programList.size() - 1);
-            }
-        }
-        return ret;
-    }
+//    public ProgramData getProgForUrl(String url) {
+//        //mit einer Url das Passende Programm finden
+//        //passt nichts, wird das letzte Programm genommen
+//        //ist nur ein Programm in der Liste wird dieses genommen
+//        ProgramData ret = null;
+//        if (programList.isEmpty()) {
+//            new PAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
+//                    "Es ist kein Programm zum Abspielen der Sender");
+//        } else if (programList.size() == 1) {
+//            ret = programList.get(0);
+//        } else {
+//            for (ProgramData programData : programList) {
+//                if (programData.urlTesten(url)) {
+//                    ret = programData;
+//                    break;
+//                }
+//            }
+//            if (!programList.isEmpty() && ret == null) {
+//                ret = programList.get(programList.size() - 1);
+//            }
+//        }
+//        return ret;
+//    }
 
     public SetData copy() {
         final SetData ret = new SetData();
@@ -82,11 +78,7 @@ public class SetData extends SetDataProps {
         }
         ret.setId(PIndex.getIndexStr()); //es darf nur einen geben!
         ret.setVisibleName("Kopie-" + getVisibleName());
-        ret.setPlay(false);
 
-        for (final ProgramData programData : getProgramList()) {
-            ret.addProg(programData.copy());
-        }
         return ret;
     }
 
@@ -100,20 +92,16 @@ public class SetData extends SetDataProps {
             ret += "     | " + configs[i].getName() + ": " + configs[i].getActValueString() + P2LibConst.LINE_SEPARATOR;
         }
 
-        for (final ProgramData programData : programList) {
-            ret += "     |" + P2LibConst.LINE_SEPARATOR;
-            ret += programData.toString();
-        }
         ret += "     |_______________________________________________" + P2LibConst.LINE_SEPARATOR;
         return ret;
     }
 
-    public void setPropsFromXml() {
-        setId(arr[PROGRAMSET_ID]);
-        setVisibleName(arr[PROGRAMSET_VISIBLE_NAME]);
-        setPrefix(arr[PROGRAMSET_PRAEFIX_DIRECT]);
-        setSuffix(arr[PROGRAMSET_SUFFIX_DIRECT]);
-        setPlay(Boolean.parseBoolean(arr[PROGRAMSET_IST_ABSPIELEN]));
-        setDescription(arr[PROGRAMSET_BESCHREIBUNG]);
-    }
+//    public void setPropsFromXml() {
+//        setId(arr[SetDataFieldNames.PROGRAMSET_ID_INT]);
+//        setVisibleName(arr[SetDataFieldNames.PROGRAMSET_VISIBLE_NAME_INT]);
+//        setPlay(Boolean.parseBoolean(arr[SetDataFieldNames.PROGRAMSET_IS_STANDARDSET_INT]));
+//        setProgPath(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_PATH_INT]);
+//        setProgSwitch(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH_INT]);
+//        setDescription(arr[SetDataFieldNames.PROGRAMSET_DESCRIPTION_INT]);
+//    }
 }

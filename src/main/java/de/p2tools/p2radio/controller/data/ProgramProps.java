@@ -41,15 +41,12 @@ public class ProgramProps extends PDataSample<ProgramData> {
             "Schalter", "Präfix", "Suffix", "Restart"};
     public static final String[] XML_NAMES = {"Programmname", "Programmpfad",
             "Programmschalter", "Praefix", "Suffix", "Restart"}; //ist im Set zum Download so festgesetzt
-
-    public String[] arr;
-
     private final StringProperty name = new SimpleStringProperty("");
     private final StringProperty progPath = new SimpleStringProperty("");
     private final StringProperty progSwitch = new SimpleStringProperty("");
-    private final StringProperty praefix = new SimpleStringProperty("");
-    private final StringProperty suffix = new SimpleStringProperty("");
-//    private BooleanProperty restart = new SimpleBooleanProperty(false);
+    //    private final StringProperty praefix = new SimpleStringProperty("");
+//    private final StringProperty suffix = new SimpleStringProperty("");
+    public String[] arr;
 
     public ProgramProps() {
         makeArr();
@@ -66,8 +63,8 @@ public class ProgramProps extends PDataSample<ProgramData> {
                 new ConfigStringPropExtra("name", ProgramDataFieldNames.PROGRAM_NAME, name),
                 new ConfigStringPropExtra("progPath", ProgramDataFieldNames.PROGRAM_PROGRAM_PATH, progPath),
                 new ConfigStringPropExtra("progSwitch", ProgramDataFieldNames.PROGRAM_SWITCH, progSwitch),
-                new ConfigStringPropExtra("praefix", ProgramDataFieldNames.PROGRAM_PRAEFIX, praefix),
-                new ConfigStringPropExtra("suffix", ProgramDataFieldNames.PROGRAM_SWITCH, suffix),
+//                new ConfigStringPropExtra("praefix", ProgramDataFieldNames.PROGRAM_PRAEFIX, praefix),
+//                new ConfigStringPropExtra("suffix", ProgramDataFieldNames.PROGRAM_SWITCH, suffix),
         };
     }
 
@@ -107,29 +104,29 @@ public class ProgramProps extends PDataSample<ProgramData> {
         return progSwitch;
     }
 
-    public String getPraefix() {
-        return praefix.get();
-    }
-
-    public void setPraefix(String praefix) {
-        this.praefix.set(praefix);
-    }
-
-    public StringProperty praefixProperty() {
-        return praefix;
-    }
-
-    public String getSuffix() {
-        return suffix.get();
-    }
-
-    public void setSuffix(String suffix) {
-        this.suffix.set(suffix);
-    }
-
-    public StringProperty suffixProperty() {
-        return suffix;
-    }
+//    public String getPraefix() {
+//        return praefix.get();
+//    }
+//
+//    public void setPraefix(String praefix) {
+//        this.praefix.set(praefix);
+//    }
+//
+//    public StringProperty praefixProperty() {
+//        return praefix;
+//    }
+//
+//    public String getSuffix() {
+//        return suffix.get();
+//    }
+//
+//    public void setSuffix(String suffix) {
+//        this.suffix.set(suffix);
+//    }
+//
+//    public StringProperty suffixProperty() {
+//        return suffix;
+//    }
 
     @Override
     public String toString() {
@@ -170,15 +167,15 @@ public class ProgramProps extends PDataSample<ProgramData> {
         setName(arr[PROGRAM_NAME]);
         setProgPath(arr[PROGRAM_PROGRAMPATH]);
         setProgSwitch(arr[PROGRAM_SCHALTER]);
-        setPraefix(arr[PROGRAM_PRAEFIX]);
-        setSuffix(arr[PROGRAM_SUFFIX]);
+//        setPraefix(arr[PROGRAM_PRAEFIX]);
+//        setSuffix(arr[PROGRAM_SUFFIX]);
     }
 
     public void setXmlFromProps() {
         arr[PROGRAM_NAME] = getName();
         arr[PROGRAM_PROGRAMPATH] = getProgPath();
         arr[PROGRAM_SCHALTER] = getProgSwitch();
-        arr[PROGRAM_PRAEFIX] = getPraefix();
-        arr[PROGRAM_SUFFIX] = getSuffix();
+//        arr[PROGRAM_PRAEFIX] = getPraefix();
+//        arr[PROGRAM_SUFFIX] = getSuffix();
     }
 }

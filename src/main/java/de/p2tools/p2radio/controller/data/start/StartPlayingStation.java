@@ -23,13 +23,11 @@ import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.application.Platform;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -222,13 +220,6 @@ public class StartPlayingStation extends Thread {
     }
 
     private void finishedMsg(final Start start) {
-        if (ProgConfig.DOWNLOAD_BEEP.get()) {
-            try {
-                Toolkit.getDefaultToolkit().beep();
-            } catch (final Exception ignored) {
-            }
-        }
-
         final ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
         list.add("Sender abspielen beendet");

@@ -70,7 +70,6 @@ public class PsetVorlagen {
     }
 
     private SetDataList importPset(InputStreamReader in) {
-        SetData psetData = null;
         final SetDataList list = new SetDataList();
         try {
             int event;
@@ -80,29 +79,14 @@ public class PsetVorlagen {
             parser = inFactory.createXMLStreamReader(in);
             while (parser.hasNext()) {
                 event = parser.next();
-                if (event == XMLStreamConstants.START_ELEMENT) {
-                    switch (parser.getLocalName()) {
-                        case SetData.TAG:
-                            psetData = new SetData();
-                            if (!get(parser, SetData.TAG, SetData.XML_NAMES, psetData.arr)) {
-                                psetData = null;
-                            } else {
-                                if (!psetData.isEmpty()) {
-                                    //kann beim Einlesen der Konfigdatei vorkommen
-                                    psetData.setPropsFromXml();
-                                    list.add(psetData);
-                                }
-                            }
-                            break;
-                        case ProgramData.TAG:
-                            if (psetData != null) {
-                                final ProgramData progData = new ProgramData();
-                                if (get(parser, ProgramData.TAG, ProgramData.XML_NAMES, progData.arr)) {
-                                    progData.setPropsFromXml();
-                                    psetData.addProg(progData);
-                                }
-                            }
-                            break;
+                if (event == XMLStreamConstants.START_ELEMENT &&
+                        parser.getLocalName().equals(SetData.TAG)) {
+
+                    SetData setData = new SetData();
+                    if (get(parser, SetData.TAG, setData)) {
+                        if (!setData.getProgPath().isEmpty() && !setData.getProgSwitch().isEmpty()) {
+                            list.add(setData);
+                        }
                     }
                 }
             }
@@ -119,12 +103,12 @@ public class PsetVorlagen {
         }
     }
 
-    private boolean get(XMLStreamReader parser, String xmlElem, String[] xmlNames, String[] strRet) {
+    private boolean get(XMLStreamReader parser, String xmlElem, SetData setData) {
         boolean ret = true;
-        final int maxElem = strRet.length;
-        for (int i = 0; i < maxElem; ++i) {
-            strRet[i] = "";
-        }
+//        final int maxElem = strRet.length;
+//        for (int i = 0; i < maxElem; ++i) {
+//            strRet[i] = "";
+//        }
         try {
             while (parser.hasNext()) {
                 final int event = parser.next();
@@ -134,12 +118,36 @@ public class PsetVorlagen {
                     }
                 }
                 if (event == XMLStreamConstants.START_ELEMENT) {
-                    for (int i = 0; i < maxElem; ++i) {
-                        if (parser.getLocalName().equals(xmlNames[i])) {
-                            strRet[i] = parser.getElementText();
+//                    for (int i = 0; i < maxElem; ++i) {
+                    switch (parser.getLocalName()) {
+                        case SetDataFieldNames.PROGRAMSET_ID:
+                            setData.setId(parser.getElementText());
                             break;
-                        }
+                        case SetDataFieldNames.PROGRAMSET_VISIBLE_NAME:
+                            setData.setVisibleName(parser.getElementText());
+                            break;
+                        case SetDataFieldNames.PROGRAMSET_PROGRAM_PATH:
+                            setData.setProgPath(parser.getElementText());
+                            break;
+                        case SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH:
+                            setData.setProgSwitch(parser.getElementText());
+                            break;
+                        case SetDataFieldNames.PROGRAMSET_DESCRIPTION:
+                            setData.setDescription(parser.getElementText());
+                            break;
                     }
+
+//                        setVisibleName(arr[SetDataFieldNames.PROGRAMSET_VISIBLE_NAME_INT]);
+//                        setPlay(Boolean.parseBoolean(arr[SetDataFieldNames.PROGRAMSET_IS_STANDARDSET_INT]));
+//                        setProgPath(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_PATH_INT]);
+//                        setProgSwitch(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH_INT]);
+//                        setDescription(arr[SetDataFieldNames.PROGRAMSET_DESCRIPTION_INT]);
+//                        if (parser.getLocalName().equals(xmlNames[i])) {
+//                            strRet[i] = parser.getElementText();
+//                            break;
+//                        }
+//                    }
+
                 }
             }
         } catch (final Exception ex) {

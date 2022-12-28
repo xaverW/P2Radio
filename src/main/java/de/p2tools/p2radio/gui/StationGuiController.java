@@ -99,7 +99,7 @@ public class StationGuiController extends VBox {
     }
 
     public void playStation() {
-        // Menü/Button Sender (URL) abspielen
+        // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
         if (stationSelection.isPresent()) {
             progData.startFactory.playPlayable(stationSelection.get());

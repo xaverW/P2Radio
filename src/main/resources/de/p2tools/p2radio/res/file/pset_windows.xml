@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <P2Radio>
     
-    <Programmset>
+    <ProgrammSet>
         <Name>Abspielen</Name>
-        <Beschreibung>Standardset zum Abspielen der Sender</Beschreibung>
-    </Programmset>
-    <Programm>
-        <Programmname>Vlc</Programmname>
         <Programmpfad>PFAD_VLC</Programmpfad>
         <Programmschalter>%f --play-and-exit :http-user-agent="Mozilla/5.0"</Programmschalter>
-    </Programm>
+        <Beschreibung>Standardset zum Abspielen der Sender</Beschreibung>
+    </ProgrammSet>
+    
+    <ProgrammSet>
+        <Name>Abspielen dummy</Name>
+        <Programmpfad>PFAD_VLC</Programmpfad>
+        <Programmschalter>%f --play-and-exit :http-user-agent="Mozilla/5.0" -I dummy</Programmschalter>
+        <Beschreibung>Sset zum Abspielen der Sender, VLC ohne grafische Oberfläche</Beschreibung>
+    </ProgrammSet>
     
 </P2Radio>

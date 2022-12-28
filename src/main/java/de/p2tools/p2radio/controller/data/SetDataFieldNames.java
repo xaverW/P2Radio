@@ -19,12 +19,26 @@ package de.p2tools.p2radio.controller.data;
 
 public class SetDataFieldNames {
 
-    public static final String ID = "Id";
-    public static final String VISIBLE_NAME = "Name";
-    public static final String PRAEFIX_DIRECT = "Präfix";
-    public static final String SUFFIX_DIRECT = "Suffix";
-    public static final String IS_PLAY = "Abspielen";
-    public static final String DESCRIPTION = "Beschreibung";
+    public static final String PROGRAMSET_ID = "Id";
+    public static final String PROGRAMSET_VISIBLE_NAME = "Name";
+    public static final String PROGRAMSET_IS_STANDARDSET = "Standardset";
+    public static final String PROGRAMSET_PROGRAM_PATH = "Programmpfad";
+    public static final String PROGRAMSET_PROGRAM_SWITCH = "Programmschalter";
+    public static final String PROGRAMSET_DESCRIPTION = "Beschreibung";
+
+    public static final int PROGRAMSET_ID_INT = 0;
+    public static final int PROGRAMSET_VISIBLE_NAME_INT = 1;
+    public static final int PROGRAMSET_IS_STANDARDSET_INT = 2;
+    public static final int PROGRAMSET_PROGRAM_PATH_INT = 3;
+    public static final int PROGRAMSET_PROGRAM_SWITCH_INT = 4;
+    public static final int PROGRAMSET_DESCRIPTION_INT = 5;
+
+    public static final int MAX_ELEM = 6;
+
+    public static final String[] COLUMN_NAMES = {PROGRAMSET_ID, PROGRAMSET_VISIBLE_NAME,
+            PROGRAMSET_IS_STANDARDSET, PROGRAMSET_PROGRAM_PATH, PROGRAMSET_PROGRAM_SWITCH,
+            PROGRAMSET_DESCRIPTION};
+
 
     private SetDataFieldNames() {
     }

@@ -53,6 +53,7 @@ public class ProgStartFactory {
             PDuration.onlyPing("Erster Start");
             firstProgramStart = true;
             UpdateConfig.setUpdateDone(); //dann ists ja kein Programmupdate
+            ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.setValue(true);//den Dialog brauchts dann auch nicht
             firstStartDialog(progData);
 
         } else {
@@ -67,6 +68,7 @@ public class ProgStartFactory {
         if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(ProgramToolsFactory.getProgVersion()) ||
                 !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(ProgramToolsFactory.getBuild()) ||
                 !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(ProgramToolsFactory.getCompileDate())) {
+
             //dann ist eine neue Version/Build
             PLog.sysLog("===============================");
             PLog.sysLog(" eine neue Version/Build");
@@ -109,9 +111,17 @@ public class ProgStartFactory {
             ProgConfig.HISTORY_GUI_TABLE_ORDER.setValue("");
         }
 
-        //früher wurden die starts im clickfeld gespeichert
         PDate pDate = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe());
         if (pDate.before(new PDate("20.12.2022"))) {
+            //Die Sets haben sich geändert
+            if (ProgData.getInstance().setDataList.isEmpty()) {
+                final SetDataList pSet = new PsetVorlagen().getStandarset(true /*replaceMuster*/);
+                if (pSet != null) {
+                    ProgData.getInstance().setDataList.addSetData(pSet);
+                }
+            }
+
+            //früher wurden die starts im Klickfeld gespeichert
             ProgData.getInstance().favouriteList.stream().forEach(stationData -> {
                 stationData.setStarts(stationData.getClickCount());
             });

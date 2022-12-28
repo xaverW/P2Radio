@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -70,6 +71,12 @@ public class StartFactory {
     }
 
     public void playPlayable(StationData stationData, SetData data) {
+        if (!ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.getValue()) {
+            PAlert.showInfoAlert("Sender starten", "Änderungen beim Sender-Start",
+                    "Die Einstellungen zum Starten eines Senders haben " +
+                            "sich geändert. Wenn es Probleme gibt, bitte die Einstellungen überprüfen.");
+            ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.setValue(true);
+        }
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;

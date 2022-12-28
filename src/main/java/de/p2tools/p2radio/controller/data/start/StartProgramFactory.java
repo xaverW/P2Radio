@@ -18,7 +18,6 @@ package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgramData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 
 
@@ -57,29 +56,39 @@ public class StartProgramFactory {
 
     public static boolean makeProgParameter(Start start) {
         try {
-            final ProgramData programData = start.getSetData().getProgForUrl(start.getUrl());
-            if (programData == null) {
-                return false;
-            }
+//            final ProgramData programData = start.getSetData().getProgForUrl(start.getUrl());
+//            if (programData == null) {
+//                return false;
+//            }
+//            start.setProgram(programData.getName());
 
-            start.setProgram(programData.getName());
-            buildProgParameter(start, programData);
+            buildProgParameter(start);
         } catch (final Exception ex) {
             PLog.errorLog(825600145, ex);
         }
         return true;
     }
 
-    private static void buildProgParameter(Start start, ProgramData program) {
-        String befehlsString = program.getProgrammAufruf();
-        befehlsString = replaceExec(start, befehlsString);
-        start.setProgramCall(befehlsString);
+    private static void buildProgParameter(Start start) {
+//        String befehlsString = program.getProgrammAufruf();
+        String prog = start.getSetData().getProgPath() + " " + start.getSetData().getProgSwitch();
+        prog = replaceExec(start, prog);
+        start.setProgramCall(prog);
 
-        String progArray = program.getProgrammAufrufArray();
+        String progArray = getProgrammAufrufArray(start.getSetData().getProgPath(), start.getSetData().getProgSwitch());
         progArray = replaceExec(start, progArray);
         start.setProgramCallArray(progArray);
     }
 
+    private static String getProgrammAufrufArray(String progPath, String progSwitch) {
+        String ret;
+        ret = progPath;
+        final String[] ar = progSwitch.split(" ");
+        for (final String s : ar) {
+            ret = ret + StartRuntimeExec.TRENNER_PROG_ARRAY + s;
+        }
+        return ret;
+    }
 
     private static String replaceExec(Start start, String execString) {
         execString = execString.replace("%f", start.getUrl());

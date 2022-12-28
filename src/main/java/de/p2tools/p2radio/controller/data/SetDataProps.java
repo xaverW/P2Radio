@@ -17,75 +17,86 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2radio.controller.data.start.StartRuntimeExec;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class SetDataProps extends SetDataBase {
+public class SetDataProps extends PDataSample<SetData> {
 
-    final ProgramList programList = new ProgramList();
-
-    private StringProperty id = new SimpleStringProperty("");
-    private StringProperty visibleName = new SimpleStringProperty("");
-    private StringProperty prefix = new SimpleStringProperty("");
-    private StringProperty suffix = new SimpleStringProperty("");
-    private BooleanProperty play = new SimpleBooleanProperty(false);//ist das Standard-Set
-    private StringProperty description = new SimpleStringProperty("");
+    public static final String TAG = "ProgrammSet";
+    private final StringProperty id = new SimpleStringProperty("");
+    private final StringProperty visibleName = new SimpleStringProperty("");
+    private final StringProperty progPath = new SimpleStringProperty("");
+    private final StringProperty progSwitch = new SimpleStringProperty("");
+    private final StringProperty description = new SimpleStringProperty("");
+    public String[] arr;
 
     public SetDataProps() {
+        makeArray();
     }
 
-    public boolean addProg(ProgramData prog) {
-        return programList.add(prog);
+    public static String makeProgAufrufArray(String pArray) {
+        final String[] progArray = pArray.split(StartRuntimeExec.TRENNER_PROG_ARRAY);
+        String execStr = "";
+        for (final String s : progArray) {
+            execStr = execStr + s + " ";
+        }
+        execStr = execStr.trim(); // letztes Leerzeichen wieder entfernen
+        return execStr;
     }
 
-    public ProgramList getProgramList() {
-        return programList;
-    }
-
-    public ProgramData getProg(int i) {
-        return programList.get(i);
-    }
-
-    public boolean progsContainPath() {
-        // ein Programmschalter mit
-        // "**" (Pfad/Datei) oder %a (Pfad) oder %b (Datei)
-        // damit ist es ein Set zum Speichern
-        boolean ret = false;
-
-        for (ProgramData progData : programList) {
-            if (progData.getProgSwitch().contains("**")
-                    || progData.getProgSwitch().contains("%a")
-                    || progData.getProgSwitch().contains("%b")) {
-                ret = true;
-                break;
-            }
+    public String getProgrammAufrufArray(String progPath, String progSwitch) {
+        String ret;
+        ret = progPath;
+        final String[] ar = progSwitch.split(" ");
+        for (final String s : ar) {
+            ret = ret + StartRuntimeExec.TRENNER_PROG_ARRAY + s;
         }
         return ret;
     }
+
+//    public boolean progsContainPath() {
+//        // ein Programmschalter mit
+//        // "**" (Pfad/Datei) oder %a (Pfad) oder %b (Datei)
+//        // damit ist es ein Set zum Speichern
+//        boolean ret = false;
+//
+//        for (ProgramData progData : programList) {
+//            if (progData.getProgSwitch().contains("**")
+//                    || progData.getProgSwitch().contains("%a")
+//                    || progData.getProgSwitch().contains("%b")) {
+//                ret = true;
+//                break;
+//            }
+//        }
+//        return ret;
+//    }
 
     @Override
     public String getTag() {
         return TAG;
     }
 
+    void makeArray() {
+        arr = new String[SetDataFieldNames.MAX_ELEM];
+        for (int i = 0; i < arr.length; ++i) {
+            arr[i] = "";
+        }
+        arr[SetDataFieldNames.PROGRAMSET_IS_STANDARDSET_INT] = Boolean.toString(false);
+    }
+
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("id", SetDataFieldNames.ID, id));
-        list.add(new ConfigStringPropExtra("visibleName", SetDataFieldNames.VISIBLE_NAME, visibleName));
-        list.add(new ConfigStringPropExtra("praefixDirect", SetDataFieldNames.PRAEFIX_DIRECT, prefix));
-        list.add(new ConfigStringPropExtra("suffixDirect", SetDataFieldNames.SUFFIX_DIRECT, suffix));
-        list.add(new ConfigBoolPropExtra("isPlay", SetDataFieldNames.IS_PLAY, play));
-        list.add(new ConfigStringPropExtra("description", SetDataFieldNames.DESCRIPTION, description));
-        list.add(new ConfigPDataList(programList));
-
+        list.add(new ConfigStringPropExtra("id", SetDataFieldNames.PROGRAMSET_ID, id));
+        list.add(new ConfigStringPropExtra("visibleName", SetDataFieldNames.PROGRAMSET_VISIBLE_NAME, visibleName));
+        list.add(new ConfigStringPropExtra("progPath", SetDataFieldNames.PROGRAMSET_PROGRAM_PATH, progPath));
+        list.add(new ConfigStringPropExtra("progSwitch", SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH, progSwitch));
+        list.add(new ConfigStringPropExtra("description", SetDataFieldNames.PROGRAMSET_DESCRIPTION, description));
         return list.toArray(new Config[]{});
     }
 
@@ -94,72 +105,60 @@ public class SetDataProps extends SetDataBase {
         return id.get();
     }
 
-    public StringProperty idProperty() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id.set(id);
+    }
+
+    public StringProperty idProperty() {
+        return id;
     }
 
     public String getVisibleName() {
         return visibleName.get();
     }
 
-    public StringProperty visibleNameProperty() {
-        return visibleName;
-    }
-
     public void setVisibleName(String visibleName) {
         this.visibleName.set(visibleName);
     }
 
-    public String getPrefix() {
-        return prefix.get();
+    public StringProperty visibleNameProperty() {
+        return visibleName;
     }
 
-    public StringProperty prefixProperty() {
-        return prefix;
+    public String getProgPath() {
+        return progPath.get();
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix.set(prefix);
+    public void setProgPath(String progPath) {
+        this.progPath.set(progPath);
     }
 
-    public String getSuffix() {
-        return suffix.get();
+    public StringProperty progPathProperty() {
+        return progPath;
     }
 
-    public StringProperty suffixProperty() {
-        return suffix;
+    public String getProgSwitch() {
+        return progSwitch.get();
     }
 
-    public void setSuffix(String suffix) {
-        this.suffix.set(suffix);
+    public void setProgSwitch(String progSwitch) {
+        this.progSwitch.set(progSwitch);
     }
 
-    public boolean isPlay() {
-        return play.get();
-    }
-
-    public BooleanProperty playProperty() {
-        return play;
-    }
-
-    public void setPlay(boolean play) {
-        this.play.set(play);
+    public StringProperty progSwitchProperty() {
+        return progSwitch;
     }
 
     public String getDescription() {
         return description.get();
     }
 
-    public StringProperty descriptionProperty() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description.set(description);
+    }
+
+    public StringProperty descriptionProperty() {
+        return description;
     }
 
     @Override

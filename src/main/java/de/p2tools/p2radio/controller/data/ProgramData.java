@@ -21,7 +21,26 @@ import de.p2tools.p2radio.controller.data.start.StartRuntimeExec;
 public class ProgramData extends ProgramProps {
 
     public ProgramData() {
-//        setRestart(false);
+    }
+
+    public static String makeProgAufrufArray(String pArray) {
+        final String[] progArray = pArray.split(StartRuntimeExec.TRENNER_PROG_ARRAY);
+        String execStr = "";
+        for (final String s : progArray) {
+            execStr = execStr + s + " ";
+        }
+        execStr = execStr.trim(); // letztes Leerzeichen wieder entfernen
+        return execStr;
+    }
+
+    public String getProgrammAufrufArray(String progPath, String progSwitch) {
+        String ret;
+        ret = progPath;
+        final String[] ar = progSwitch.split(" ");
+        for (final String s : ar) {
+            ret = ret + StartRuntimeExec.TRENNER_PROG_ARRAY + s;
+        }
+        return ret;
     }
 
     public ProgramData copy() {
@@ -39,35 +58,15 @@ public class ProgramData extends ProgramProps {
         boolean ret = false;
         if (url != null) {
             //Felder sind entweder leer oder passen
-            if (SetFactory.testPrefix(getPraefix(), url, true)
-                    && SetFactory.testPrefix(getSuffix(), url, false)) {
-                ret = true;
-            }
+//            if (SetFactory.testPrefix(getPraefix(), url, true)
+//                    && SetFactory.testPrefix(getSuffix(), url, false)) {
+//                ret = true;
+//            }
         }
         return ret;
     }
 
     public String getProgrammAufruf() {
         return getProgPath() + " " + getProgSwitch();
-    }
-
-    public String getProgrammAufrufArray() {
-        String ret;
-        ret = getProgPath();
-        final String[] ar = getProgSwitch().split(" ");
-        for (final String s : ar) {
-            ret = ret + StartRuntimeExec.TRENNER_PROG_ARRAY + s;
-        }
-        return ret;
-    }
-
-    public static String makeProgAufrufArray(String pArray) {
-        final String[] progArray = pArray.split(StartRuntimeExec.TRENNER_PROG_ARRAY);
-        String execStr = "";
-        for (final String s : progArray) {
-            execStr = execStr + s + " ";
-        }
-        execStr = execStr.trim(); // letztes Leerzeichen wieder entfernen
-        return execStr;
     }
 }

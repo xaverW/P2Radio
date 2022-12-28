@@ -78,12 +78,6 @@ public class StationGuiPack {
         //horizontal
         SplitPane.setResizableWithParent(stationGuiInfoController, false);
         splitPaneInfo.setOrientation(Orientation.VERTICAL);
-        progData.setDataList.listChangedProperty().addListener((observable, oldValue, newValue) -> {
-            if (progData.setDataList.getSetDataListButton().size() > 1) {
-                ProgConfig.STATION_GUI_DIVIDER_ON.set(true);
-            }
-            setSpliltPaneInfo();
-        });
         ProgConfig.STATION_GUI_DIVIDER_ON.addListener((observable, oldValue, newValue) -> setSpliltPaneInfo());
         tilePaneButton.setVgap(15);
         tilePaneButton.setHgap(15);
