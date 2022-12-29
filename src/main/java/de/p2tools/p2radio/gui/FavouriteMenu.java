@@ -32,8 +32,6 @@ import java.util.Optional;
 public class FavouriteMenu {
     final private VBox vBox;
     final private ProgData progData;
-//    BooleanProperty boolInfoOn = ProgConfig.FAVOURITE_GUI_DIVIDER_ON;
-//    BooleanProperty boolFilterOn = ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON;
 
     public FavouriteMenu(VBox vBox) {
         this.vBox = vBox;
@@ -100,10 +98,6 @@ public class FavouriteMenu {
             PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
             mb.getItems().addAll(miPlay);
         }
-
-//        final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
-//        miFavouriteStart.setOnAction(a -> progData.favouriteGuiController.playStation());
-//        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
         miFavouriteStop.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().stopStation(false));

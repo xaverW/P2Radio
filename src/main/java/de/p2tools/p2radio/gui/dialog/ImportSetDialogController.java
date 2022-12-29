@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.PsetVorlagen;
+import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.configDialog.setData.SetPanePack;
 import de.p2tools.p2radio.gui.startDialog.PathPane;
@@ -45,7 +45,7 @@ public class ImportSetDialogController extends PDialogExtra {
 
     public ImportSetDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_IMPORT_SET_SIZE,
-                "Set importieren", true, false, DECO.SMALL);
+                "Set importieren", true, true, DECO.SMALL);
 
         this.progData = progData;
         init(true);
@@ -72,18 +72,13 @@ public class ImportSetDialogController extends PDialogExtra {
             importSet();
         });
 
-
         // vor import
-        TitledPane tpDownPath = new DownPathPane(progData.primaryStage).makePath();
-        tpDownPath.setMaxHeight(Double.MAX_VALUE);
-        tpDownPath.setCollapsible(false);
-
         TitledPane tpPath = new PathPane(progData.primaryStage).makePath();
         tpPath.setMaxHeight(Double.MAX_VALUE);
         tpPath.setCollapsible(false);
 
         vBoxPath.setSpacing(10);
-        vBoxPath.getChildren().addAll(tpDownPath, tpPath);
+        vBoxPath.getChildren().addAll(tpPath);
         vBoxPath.setStyle("-fx-background-color: -fx-background;");
 
         // nach Import
@@ -106,17 +101,17 @@ public class ImportSetDialogController extends PDialogExtra {
     private void importSet() {
         im = true;
         btnCancel.setText("Ok");
-        btnImport.setDisable(true);
+        btnImport.setVisible(false);
+        btnImport.setManaged(false);
 
         progData.setDataList.clear();
 
-        if (SetFactory.addSetTemplate(new PsetVorlagen().getStandarset())) {
+        if (SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
             PAlert.showInfoAlert("Set", "Set importieren", "Sets wurden importiert!", false);
         } else {
             PAlert.showErrorAlert("Set importieren", "Sets konnten nicht importiert werden!");
         }
 
         setPanePack.toFront();
-//        setPanePack.selectTableFirst();
     }
 }

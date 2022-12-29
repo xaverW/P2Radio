@@ -22,7 +22,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 public class PMaskerFactory {
 
     private PMaskerFactory() {
-
     }
 
     public static void setMaskerButtonVisible(ProgData progData, boolean buttonVisible) {

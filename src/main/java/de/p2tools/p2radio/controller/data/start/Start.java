@@ -59,10 +59,7 @@ public final class Start extends StartProps {
     }
 
     public void stopStart() {
-        if (getStartStatus().isStateError()) {
-            // damit fehlerhafte nicht wieder starten
-//            getStart().setRestartCounter(ProgConfig.SYSTEM_PARAMETER_DOWNLOAD_MAX_RESTART.get());
-        } else {
+        if (!getStartStatus().isStateError()) {
             getStartStatus().setStateStopped();
         }
 

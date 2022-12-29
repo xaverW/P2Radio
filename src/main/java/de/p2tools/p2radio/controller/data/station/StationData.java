@@ -72,15 +72,14 @@ public final class StationData extends StationDataProperty {
             setStationNo(ProgConst.NUMBER_DONT_USED);
             return;
         }
-//        int no = getStationNo();
         String collectionName = getCollectionName();
         int ownGrade = getOwnGrade();
         int starts = getStarts();
 
         //copy
         copyToMe(station);
+
         //reset
-//        setStationNo(no);
         setCollectionName(collectionName);
         setOwnGrade(ownGrade);
         setStarts(starts);

@@ -178,7 +178,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
     public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBool("config_dialog-accordion", Boolean.TRUE);
     public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDouble("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
-    public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStr("config-dialog-import-set-size", "800:700");
+    public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStr("config-dialog-import-set-size", "600:400");
     public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDouble("config-dialog-shortcut-divider", 0.1);
 
     //StartDialog

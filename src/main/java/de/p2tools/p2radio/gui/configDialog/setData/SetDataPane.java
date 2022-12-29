@@ -20,9 +20,13 @@ package de.p2tools.p2radio.gui.configDialog.setData;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
+import de.p2tools.p2Lib.guiTools.PStyles;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
+import de.p2tools.p2radio.controller.data.SetFactory;
+import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.gui.tools.HelpTextPset;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -33,6 +37,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class SetDataPane extends TitledPane {
     private final TextField txtVisibleName = new TextField("");
@@ -76,6 +82,21 @@ public class SetDataPane extends TitledPane {
         btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
 
+        txtProgPath.textProperty().addListener((observable, oldValue, newValue) -> {
+            File file = new File(txtProgPath.getText());
+            if (!file.exists() || !file.isFile()) {
+                txtProgPath.setStyle(PStyles.PTEXTFIELD_ERROR);
+            } else {
+                txtProgPath.setStyle("");
+            }
+        });
+        final Button btnFind = new Button("suchen");
+        btnFind.setOnAction(event -> {
+            ProgConfig.SYSTEM_PATH_VLC.setValue("");
+            txtProgPath.setText(SetFactory.getTemplatePathVlc());
+        });
+        final Button btnHelpSearch = PButton.helpButton(stage,
+                "Videoplayer", HelpText.PROG_PATHS);
 
         // Name, Beschreibung
         int row = 0;
@@ -85,18 +106,20 @@ public class SetDataPane extends TitledPane {
         gridPane.setPadding(new Insets(20));
 
         gridPane.add(new Label("Name:"), 0, row);
-        gridPane.add(txtVisibleName, 1, row, 2, 1);
+        gridPane.add(txtVisibleName, 1, row, 4, 1);
 
         gridPane.add(new Label("Beschreibung:"), 0, ++row);
-        gridPane.add(txtDescription, 1, row, 2, 1);
+        gridPane.add(txtDescription, 1, row, 4, 1);
 
         gridPane.add(new Label("Programm:"), 0, ++row);
         gridPane.add(txtProgPath, 1, row);
         gridPane.add(btnFile, 2, row);
+        gridPane.add(btnFind, 3, row);
+        gridPane.add(btnHelpSearch, 4, row);
 
 
         gridPane.add(new Label("Schalter:"), 0, ++row);
-        gridPane.add(txtProgSwitch, 1, row, 2, 1);
+        gridPane.add(txtProgSwitch, 1, row, 4, 1);
 
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),

@@ -20,9 +20,6 @@ package de.p2tools.p2radio.controller.data.station;
 public class StationDataXml {
     public static final String TAG = "STATION_PROPERTY";
 
-//    public static final int STATION_PROP_NO_INT = 0;
-//    public static final String STATION_PROP_NO = "Nr";
-
     public static final int STATION_PROP_STATION_NO_INT = 0;
     public static final String STATION_PROP_STATION_NO = "SenderNr";
 
@@ -113,7 +110,7 @@ public class StationDataXml {
     public static final String STATION_PROP_BUTTON2 = "";
 
     public static String[] COLUMN_NAMES = {
-            /*STATION_PROP_NO,*/ STATION_PROP_STATION_NO, STATION_PROP_STATION_NEW,
+            STATION_PROP_STATION_NO, STATION_PROP_STATION_NEW,
             STATION_PROP_STATION_NAME, STATION_PROP_COLLECTION, STATION_PROP_OWN_GRADE,
             STATION_PROP_STARTS, STATION_PROP_CLICK_COUNT, STATION_PROP_CLICK_TREND, STATION_PROP_GENRE, STATION_PROP_CODEC,
             STATION_PROP_BITRATE, STATION_PROP_INT_BITRATE, STATION_PROP_OWN,

@@ -111,13 +111,9 @@ public class SmallRadioGuiBottom extends HBox {
 
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         cboGenre.setMinWidth(100);
-//        cboGenre.setEditable(true);
         cboGenre.setVisibleRowCount(25);
-//        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
         cboGenre.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//        cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
-//                fN.checkPattern();
                 if (rbSender.isSelected()) {
                     ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.setValue(newValue);
                 } else if (rbFavourite.isSelected()) {

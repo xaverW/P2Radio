@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.guiTools.PStyles;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -41,10 +42,10 @@ import java.util.List;
 
 public class PathPane {
     private final Stage stage;
-    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
     private final GridPane gridPane = new GridPane();
-    private int row = 0;
     private final List<UnBind> unbindList = new ArrayList<>();
+    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
+    private int row = 0;
 
     public PathPane(Stage stage) {
         this.stage = stage;
@@ -71,7 +72,7 @@ public class PathPane {
                 addPlayer();
                 break;
             default:
-                // da brauchs alles
+                // da brauchts alles
                 addPlayer();
         }
 
@@ -101,7 +102,7 @@ public class PathPane {
         txtPlayer.textProperty().addListener((observable, oldValue, newValue) -> {
             File file = new File(txtPlayer.getText());
             if (!file.exists() || !file.isFile()) {
-//                txtPlayer.setStyle(ProgColorList.STATION_NAME_ERROR.getCssBackground());
+                txtPlayer.setStyle(PStyles.PTEXTFIELD_ERROR);
             } else {
                 txtPlayer.setStyle("");
             }

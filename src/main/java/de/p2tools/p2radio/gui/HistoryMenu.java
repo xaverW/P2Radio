@@ -97,11 +97,6 @@ public class HistoryMenu {
             mb.getItems().addAll(miPlay);
         }
 
-//
-//        final MenuItem miFavouriteStart = new MenuItem("Sender abspielen");
-//        miFavouriteStart.setOnAction(a -> progData.historyGuiController.playStation());
-//        PShortcutWorker.addShortCut(miFavouriteStart, P2RadioShortCuts.SHORTCUT_FAVOURITE_START);
-
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
         miFavouriteStop.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().stopStation(false));
 

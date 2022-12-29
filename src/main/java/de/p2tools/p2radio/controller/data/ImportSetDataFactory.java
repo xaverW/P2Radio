@@ -27,16 +27,11 @@ import java.io.InputStreamReader;
 
 
 @SuppressWarnings("serial")
-public class PsetVorlagen {
+public class ImportSetDataFactory {
+    private ImportSetDataFactory() {
+    }
 
-    public static final String PGR_NAME = "Name";
-    public static final String PGR_DESCRIPTION = "Beschreibung";
-    public static final String PGR_VERSION = "Version";
-    public static final String PGR_BS = "Bs";
-    public static final String PGR_URL = "URL";
-    public static final String PGR_INFO = "Info";
-
-    public SetDataList getStandarset() {
+    public static SetDataList getStandarset() {
         // dann nehmen wir halt die im jar-File
         // liefert das Standard Programmset für das entsprechende BS
         InputStreamReader inReader;
@@ -47,6 +42,7 @@ public class PsetVorlagen {
             default:
                 inReader = new GetFile().getPsetTemplateWindows();
         }
+
         // Standardgruppen laden
         SetDataList setDataList = importPset(inReader);
         if (setDataList != null) {
@@ -56,7 +52,7 @@ public class PsetVorlagen {
         return setDataList;
     }
 
-    private SetDataList importPset(InputStreamReader in) {
+    private static SetDataList importPset(InputStreamReader in) {
         final SetDataList list = new SetDataList();
         try {
             int event;
@@ -90,7 +86,7 @@ public class PsetVorlagen {
         }
     }
 
-    private boolean get(XMLStreamReader parser, String xmlElem, SetData setData) {
+    private static boolean get(XMLStreamReader parser, String xmlElem, SetData setData) {
         boolean ret = true;
         try {
             while (parser.hasNext()) {
@@ -102,10 +98,7 @@ public class PsetVorlagen {
                 }
                 if (event == XMLStreamConstants.START_ELEMENT) {
                     switch (parser.getLocalName()) {
-                        case SetDataFieldNames.PROGRAMSET_ID:
-                            setData.setId(parser.getElementText());
-                            break;
-                        case SetDataFieldNames.PROGRAMSET_VISIBLE_NAME:
+                        case SetDataFieldNames.PROGRAMSET_NAME:
                             setData.setVisibleName(parser.getElementText());
                             break;
                         case SetDataFieldNames.PROGRAMSET_PROGRAM_PATH:

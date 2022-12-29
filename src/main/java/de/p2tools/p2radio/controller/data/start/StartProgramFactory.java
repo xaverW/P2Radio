@@ -56,12 +56,6 @@ public class StartProgramFactory {
 
     public static boolean makeProgParameter(Start start) {
         try {
-//            final ProgramData programData = start.getSetData().getProgForUrl(start.getUrl());
-//            if (programData == null) {
-//                return false;
-//            }
-//            start.setProgram(programData.getName());
-
             buildProgParameter(start);
         } catch (final Exception ex) {
             PLog.errorLog(825600145, ex);
@@ -70,7 +64,6 @@ public class StartProgramFactory {
     }
 
     private static void buildProgParameter(Start start) {
-//        String befehlsString = program.getProgrammAufruf();
         String prog = start.getSetData().getProgPath() + " " + start.getSetData().getProgSwitch();
         prog = replaceExec(start, prog);
         start.setProgramCall(prog);

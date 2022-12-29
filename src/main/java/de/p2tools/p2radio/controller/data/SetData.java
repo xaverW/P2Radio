@@ -27,46 +27,9 @@ public class SetData extends SetDataProps {
     }
 
     public SetData(String name) {
-        //neue Pset sind immer gleich Button
         setId(PIndex.getIndexStr());
         setVisibleName(name);
     }
-
-//    public boolean isEmpty() {
-//        boolean ret = true;
-//        Config[] configs = getConfigsArr();
-//
-//        for (int i = 0; i < configs.length; ++i) {
-//            if (!configs[i].getActValueString().isEmpty()) {
-//                ret = false;
-//            }
-//        }
-//        return ret;
-//    }
-
-//    public ProgramData getProgForUrl(String url) {
-//        //mit einer Url das Passende Programm finden
-//        //passt nichts, wird das letzte Programm genommen
-//        //ist nur ein Programm in der Liste wird dieses genommen
-//        ProgramData ret = null;
-//        if (programList.isEmpty()) {
-//            new PAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
-//                    "Es ist kein Programm zum Abspielen der Sender");
-//        } else if (programList.size() == 1) {
-//            ret = programList.get(0);
-//        } else {
-//            for (ProgramData programData : programList) {
-//                if (programData.urlTesten(url)) {
-//                    ret = programData;
-//                    break;
-//                }
-//            }
-//            if (!programList.isEmpty() && ret == null) {
-//                ret = programList.get(programList.size() - 1);
-//            }
-//        }
-//        return ret;
-//    }
 
     public SetData copy() {
         final SetData ret = new SetData();
@@ -95,13 +58,4 @@ public class SetData extends SetDataProps {
         ret += "     |_______________________________________________" + P2LibConst.LINE_SEPARATOR;
         return ret;
     }
-
-//    public void setPropsFromXml() {
-//        setId(arr[SetDataFieldNames.PROGRAMSET_ID_INT]);
-//        setVisibleName(arr[SetDataFieldNames.PROGRAMSET_VISIBLE_NAME_INT]);
-//        setPlay(Boolean.parseBoolean(arr[SetDataFieldNames.PROGRAMSET_IS_STANDARDSET_INT]));
-//        setProgPath(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_PATH_INT]);
-//        setProgSwitch(arr[SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH_INT]);
-//        setDescription(arr[SetDataFieldNames.PROGRAMSET_DESCRIPTION_INT]);
-//    }
 }

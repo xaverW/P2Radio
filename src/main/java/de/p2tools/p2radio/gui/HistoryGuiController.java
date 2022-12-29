@@ -65,16 +65,6 @@ public class HistoryGuiController extends VBox {
         initListener();
     }
 
-//    public void tableRefresh() {
-//        PTableFactory.refreshTable(tableView);
-////        int i = tableView.getSelectionModel().getSelectedIndex();
-////        tableView.refresh();
-////        if (i >= 0) {
-////            tableView.getSelectionModel().select(i);
-////            tableView.scrollTo(i);
-////        }
-//    }
-
     public void isShown() {
         tableView.requestFocus();
         setSelectedHistory();

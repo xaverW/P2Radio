@@ -25,7 +25,7 @@ import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.data.PsetVorlagen;
+import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.gui.startDialog.StartDialogController;
 import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
@@ -115,7 +115,7 @@ public class ProgStartFactory {
         if (pDate.before(new PDate("20.12.2022"))) {
             //Die Sets haben sich geändert
             if (ProgData.getInstance().setDataList.isEmpty()) {
-                final SetDataList pSet = new PsetVorlagen().getStandarset();
+                final SetDataList pSet = ImportSetDataFactory.getStandarset();
                 if (pSet != null) {
                     ProgData.getInstance().setDataList.addSetData(pSet);
                 }
@@ -154,7 +154,7 @@ public class ProgStartFactory {
         }
 
         PDuration.onlyPing("Erster Start: PSet");
-        final SetDataList pSet = new PsetVorlagen().getStandarset();
+        final SetDataList pSet = ImportSetDataFactory.getStandarset();
         if (pSet != null) {
             progData.setDataList.addSetData(pSet);
         }

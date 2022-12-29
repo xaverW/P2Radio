@@ -36,7 +36,7 @@ public class NoSetDialogController extends PDialogExtra {
 
     public NoSetDialogController(ProgData progData) {
         super(progData.primaryStage, null,
-                "Kein Videoplayer!", true, false);
+                "Kein Videoplayer!", true, false, DECO.SMALL);
 
         this.progData = progData;
         init(true);
@@ -52,32 +52,25 @@ public class NoSetDialogController extends PDialogExtra {
             close();
         });
 
-        Text textHeaderSave = new Text("Kein Set zum Aufzeichnen!");
-        textHeaderSave.setFont(Font.font(null, FontWeight.BOLD, -1));
-
-        Text textHeaderPlay = new Text("Kein Videoplayer zum Abspielen!");
+        Text textHeaderPlay = new Text("Kein Mediaplayer zum Abspielen!");
         textHeaderPlay.setFont(Font.font(null, FontWeight.BOLD, -1));
-
-        Text textHeaderAbo = new Text("Kein Set zum Aufzeichnen der Abos!");
-        textHeaderAbo.setFont(Font.font(null, FontWeight.BOLD, -1));
-
-        final String txtAdd = "Im Menü Einstellungen unter" + P2LibConst.LINE_SEPARATOR +
-                "   ->Abspielen" + P2LibConst.LINE_SEPARATOR +
-                "die Programme zum Abspielen von Radiosendern " + P2LibConst.LINE_SEPARATOR +
-                "korrigieren." + P2LibConst.LINE_SEPARATORx3 +
-                "Oder die Einstellungen zurücksetzen und" + P2LibConst.LINE_SEPARATOR +
-                "das Standardset wieder herstellen.";
 
         final int prefRowCount = 14;
         TextArea textArea = new TextArea();
         textArea.setEditable(false);
+        textArea.setWrapText(true);
         textArea.setMaxHeight(Double.MAX_VALUE);
         textArea.setPrefRowCount(prefRowCount);
         VBox.setVgrow(textArea, Priority.ALWAYS);
-        getvBoxCont().getChildren().addAll(textHeaderSave, textArea);
+        getvBoxCont().getChildren().addAll(textHeaderPlay, textArea);
         getvBoxCont().setSpacing(20);
-        textArea.setText("Es ist kein Videoplayer zum Abspielen" + P2LibConst.LINE_SEPARATOR +
-                "der Radiosender angelegt." + P2LibConst.LINE_SEPARATORx2 + txtAdd);
+        textArea.setText("Es ist kein Mediaplayer zum Abspielen der Radiosender " +
+                "angelegt." + P2LibConst.LINE_SEPARATORx2 +
+                "Im Menü Einstellungen unter \"Abspielen\" " +
+                "kann ein Programm zum Abspielen von Radiosendern " +
+                "eingerichtet werden. Bitte dort die Einstellungen " +
+                "korrigieren. Oder die Einstellungen zurücksetzen " +
+                "und das Standardset wieder herstellen.");
 
         addOkButton(btnImport);
         addCancelButton(btnCancel);

@@ -21,7 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 
 public class HelpText {
 
-    public static final String PROG_PATHS = "Hiermit kann das Standardprogramm zum \"Abspielen\" " +
+    public static final String PROG_PATHS = "Hier kann das Programm zum \"Abspielen\" " +
             "der Sender eingetragen werden. Wird der Pfad nicht automatisch erkannt, " +
             "kann man ihn auch per Hand auswählen." +
             P2LibConst.LINE_SEPARATOR +

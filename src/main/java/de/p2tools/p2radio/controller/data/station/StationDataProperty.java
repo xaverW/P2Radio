@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public static final String TAG = "Favourite";
-    //    private final IntegerProperty no = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
     private final StringProperty stationName = new SimpleStringProperty("");
@@ -59,7 +58,6 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-//        list.add(new ConfigIntPropExtra("no", StationDataXml.STATION_PROP_NO, no));
         list.add(new ConfigIntPropExtra("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
         list.add(new ConfigBoolPropExtra("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
         list.add(new ConfigStringPropExtra("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
@@ -92,18 +90,6 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
         return list.toArray(new Config[]{});
     }
-
-//    public int getNo() {
-//        return no.get();
-//    }
-//
-//    public void setNo(int no) {
-//        this.no.set(no);
-//    }
-//
-//    public IntegerProperty noProperty() {
-//        return no;
-//    }
 
     public int getStationNo() {
         return stationNo.get();

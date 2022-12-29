@@ -32,7 +32,7 @@ public class QuitDialogController extends PDialogExtra {
     private boolean canQuit = false;
 
     public QuitDialogController(Stage stage) {
-        super(stage, null, "Programm beenden", true, false);
+        super(stage, null, "Programm beenden", true, true);
         init(true);
     }
 

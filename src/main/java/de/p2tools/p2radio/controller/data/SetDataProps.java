@@ -26,7 +26,8 @@ import java.util.ArrayList;
 
 public class SetDataProps extends PDataSample<SetData> {
 
-    public static final String TAG = "ProgrammSet";
+    public static final String TAG = SetDataFieldNames.TAG;
+
     private final StringProperty id = new SimpleStringProperty("");
     private final StringProperty visibleName = new SimpleStringProperty("");
     private final StringProperty progPath = new SimpleStringProperty("");
@@ -45,10 +46,10 @@ public class SetDataProps extends PDataSample<SetData> {
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
         list.add(new ConfigStringPropExtra("id", SetDataFieldNames.PROGRAMSET_ID, id));
-        list.add(new ConfigStringPropExtra("visibleName", SetDataFieldNames.PROGRAMSET_VISIBLE_NAME, visibleName));
-        list.add(new ConfigStringPropExtra("progPath", SetDataFieldNames.PROGRAMSET_PROGRAM_PATH, progPath));
-        list.add(new ConfigStringPropExtra("progSwitch", SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH, progSwitch));
-        list.add(new ConfigStringPropExtra("description", SetDataFieldNames.PROGRAMSET_DESCRIPTION, description));
+        list.add(new ConfigStringPropExtra(SetDataFieldNames.PROGRAMSET_NAME, visibleName));
+        list.add(new ConfigStringPropExtra(SetDataFieldNames.PROGRAMSET_PROGRAM_PATH, progPath));
+        list.add(new ConfigStringPropExtra(SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH, progSwitch));
+        list.add(new ConfigStringPropExtra(SetDataFieldNames.PROGRAMSET_DESCRIPTION, description));
         return list.toArray(new Config[]{});
     }
 

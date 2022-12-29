@@ -80,10 +80,6 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
         }
     }
 
-    //    @Override
-//    public StationListMeta getMeta() {
-//        return meta;
-//    }
     public PLocalDate getStationDate() {
         return stationDate.get();
     }
@@ -159,7 +155,6 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
         // hier nur beim Laden aus einer fertigen Senderliste mit der GUI
         // die Sender sind schon sortiert, nur die Nummer muss noch ergänzt werden
         station.setStationNo(nr++);
-//        station.setStationNo(nr++);
         return super.add(station);
     }
 

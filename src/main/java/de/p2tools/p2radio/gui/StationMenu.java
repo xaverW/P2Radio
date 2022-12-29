@@ -40,7 +40,6 @@ public class StationMenu {
         progData = ProgData.getInstance();
     }
 
-
     public void init() {
         vBox.getChildren().clear();
         initStationMenu();

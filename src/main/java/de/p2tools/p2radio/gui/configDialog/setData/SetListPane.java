@@ -19,8 +19,8 @@ package de.p2tools.p2radio.gui.configDialog.setData;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.controller.data.PsetVorlagen;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import javafx.geometry.Pos;
@@ -72,14 +72,12 @@ public class SetListPane extends TitledPane {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-//        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
-//        playColumn.setCellValueFactory(new PropertyValueFactory<>("play"));
-//        playColumn.setCellFactory(cellFactoryStart);
-//        playColumn.getStyleClass().add("center");
-
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        tableView.getColumns().addAll(nameColumn/*, playColumn*/);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableView.getColumns().addAll(nameColumn);
         tableView.setItems(progData.setDataList);
+        if (tableView.getItems().size() > 0) {
+            tableView.getSelectionModel().select(0);
+        }
 
         VBox.setVgrow(tableView, Priority.ALWAYS);
         vBox.getChildren().addAll(tableView);
@@ -151,7 +149,7 @@ public class SetListPane extends TitledPane {
         Button btnNewSet = new Button("Standardsets _anfügen");
         btnNewSet.setTooltip(new Tooltip("Standardsets erstellen und der Liste anfügen"));
         btnNewSet.setOnAction(event -> {
-            if (!SetFactory.addSetTemplate(new PsetVorlagen().getStandarset())) {
+            if (!SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
                 PAlert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
             }
         });
