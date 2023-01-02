@@ -18,8 +18,8 @@
 package de.p2tools.p2radio.controller.data.filter;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
 import de.p2tools.p2radio.controller.data.history.HistoryFilterXml;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.tools.storedFilter.Filter;
@@ -52,8 +52,8 @@ public class HistoryFilter extends HistoryFilterXml {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigBoolPropExtra("Grade", COLUMN_NAMES[HISTORY_FILTER_GRADE], gradeFilter));
-        list.add(new ConfigStringPropExtra("Genre", COLUMN_NAMES[HISTORY_FILTER_GENRE], genreFilter));
+        list.add(new ConfigExtra_boolProp("Grade", COLUMN_NAMES[HISTORY_FILTER_GRADE], gradeFilter));
+        list.add(new ConfigExtra_stringProp("Genre", COLUMN_NAMES[HISTORY_FILTER_GENRE], genreFilter));
         return list.toArray(new Config[]{});
     }
 

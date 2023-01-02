@@ -18,9 +18,9 @@
 package de.p2tools.p2radio.controller.data.filter;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigPData;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_pData;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
@@ -65,11 +65,10 @@ public class FavouriteFilter extends FavouriteFilterXml {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigPData(collectionData));
-        list.add(new ConfigBoolPropExtra("Eigene", COLUMN_NAMES[FAVOURITE_FILTER_OWN], ownFilter));
-        list.add(new ConfigBoolPropExtra("Grade", COLUMN_NAMES[FAVOURITE_FILTER_GRADE], gradeFilter));
-        list.add(new ConfigStringPropExtra("Genre", COLUMN_NAMES[FAVOURITE_FILTER_GENRE], genreFilter));
-
+        list.add(new Config_pData(collectionData));
+        list.add(new ConfigExtra_boolProp("Eigene", COLUMN_NAMES[FAVOURITE_FILTER_OWN], ownFilter));
+        list.add(new ConfigExtra_boolProp("Grade", COLUMN_NAMES[FAVOURITE_FILTER_GRADE], gradeFilter));
+        list.add(new ConfigExtra_stringProp("Genre", COLUMN_NAMES[FAVOURITE_FILTER_GENRE], genreFilter));
         return list.toArray(new Config[]{});
     }
 

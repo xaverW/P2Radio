@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller.data.collection;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -26,9 +26,8 @@ import java.util.ArrayList;
 
 public class CollectionDataProps extends PDataSample<CollectionData> {
     public static final String TAG = "CollectionData";
-
-    private int no = 0;
     private final StringProperty name = new SimpleStringProperty("");
+    private int no = 0;
 
     @Override
     public String getTag() {
@@ -38,7 +37,7 @@ public class CollectionDataProps extends PDataSample<CollectionData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("name", ConfigDataFieldNames.NAME, name));
+        list.add(new ConfigExtra_stringProp("name", ConfigDataFieldNames.NAME, name));
         return list.toArray(new Config[]{});
     }
 
@@ -54,11 +53,11 @@ public class CollectionDataProps extends PDataSample<CollectionData> {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
+        return name;
     }
 }

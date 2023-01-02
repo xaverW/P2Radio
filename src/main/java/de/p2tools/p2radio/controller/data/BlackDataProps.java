@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,12 +29,11 @@ import java.util.ArrayList;
 
 public class BlackDataProps extends PDataSample<BlackData> {
     public static final String TAG = "BlackData";
-
-    private int no = 0;
     private final StringProperty name = new SimpleStringProperty("");
     private final BooleanProperty nameExact = new SimpleBooleanProperty(true);
     private final StringProperty genre = new SimpleStringProperty("");
     private final BooleanProperty genreExact = new SimpleBooleanProperty(true);
+    private int no = 0;
     private int countHits = 0;
 
     @Override
@@ -45,10 +44,10 @@ public class BlackDataProps extends PDataSample<BlackData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("name", BlackDataFieldNames.NAME, name));
-        list.add(new ConfigBoolPropExtra("nameExact", BlackDataFieldNames.NAME_EXACT, nameExact));
-        list.add(new ConfigStringPropExtra("genre", BlackDataFieldNames.GENRE, genre));
-        list.add(new ConfigBoolPropExtra("genreExact", BlackDataFieldNames.GENRE_EXACT, genreExact));
+        list.add(new ConfigExtra_stringProp("name", BlackDataFieldNames.NAME, name));
+        list.add(new ConfigExtra_boolProp("nameExact", BlackDataFieldNames.NAME_EXACT, nameExact));
+        list.add(new ConfigExtra_stringProp("genre", BlackDataFieldNames.GENRE, genre));
+        list.add(new ConfigExtra_boolProp("genreExact", BlackDataFieldNames.GENRE_EXACT, genreExact));
 
         return list.toArray(new Config[]{});
     }
@@ -77,47 +76,47 @@ public class BlackDataProps extends PDataSample<BlackData> {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
+        return name;
     }
 
     public boolean isNameExact() {
         return nameExact.get();
     }
 
-    public BooleanProperty nameExactProperty() {
-        return nameExact;
-    }
-
     public void setNameExact(boolean nameExact) {
         this.nameExact.set(nameExact);
+    }
+
+    public BooleanProperty nameExactProperty() {
+        return nameExact;
     }
 
     public String getGenre() {
         return genre.get();
     }
 
-    public StringProperty genreProperty() {
-        return genre;
-    }
-
     public void setGenre(String genre) {
         this.genre.set(genre);
+    }
+
+    public StringProperty genreProperty() {
+        return genre;
     }
 
     public boolean isGenreExact() {
         return genreExact.get();
     }
 
-    public BooleanProperty genreExactProperty() {
-        return genreExact;
-    }
-
     public void setGenreExact(boolean genreExact) {
         this.genreExact.set(genreExact);
+    }
+
+    public BooleanProperty genreExactProperty() {
+        return genreExact;
     }
 }

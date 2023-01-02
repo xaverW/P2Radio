@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.history;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -30,7 +30,7 @@ import java.util.Optional;
 
 public class HistoryList extends SimpleListProperty<StationData> implements PDataList<StationData> {
 
-    public static final String TAG = "HistoryList" + ConfigFile.TAGGER + "LastPlayedList";
+    public static final String TAG = "HistoryList" + PData.TAGGER + "LastPlayedList";
     private final ProgData progData;
     private final HistoryStartsFactory favouriteStartsFactory;
 //    private int no = 0;

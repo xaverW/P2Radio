@@ -58,35 +58,35 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
-        list.add(new ConfigBoolPropExtra("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
-        list.add(new ConfigStringPropExtra("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
-        list.add(new ConfigStringPropExtra("collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
-        list.add(new ConfigStringPropExtra("genre", StationDataXml.STATION_PROP_GENRE, genre));
-        list.add(new ConfigStringPropExtra("codec", StationDataXml.STATION_PROP_CODEC, codec));
-        list.add(new ConfigStringPropExtra("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
-        list.add(new ConfigIntPropExtra("bitrateInt", StationDataXml.STATION_PROP_BITRATE, bitrateInt));
-        list.add(new ConfigIntPropExtra("votes", StationDataXml.STATION_PROP_VOTES, votes));
-        list.add(new ConfigIntPropExtra("grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
-        list.add(new ConfigIntPropExtra("ownGrade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
-        list.add(new ConfigBoolPropExtra("own", StationDataXml.STATION_PROP_OWN, own));
-        list.add(new ConfigIntPropExtra("starts", StationDataXml.STATION_PROP_CLICK_COUNT, starts));
-        list.add(new ConfigIntPropExtra("clickCount", StationDataXml.STATION_PROP_CLICK_COUNT, clickCount));
-        list.add(new ConfigIntPropExtra("clickTrend", StationDataXml.STATION_PROP_CLICK_TREND, clickTrend));
+        list.add(new ConfigExtra_intProp("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
+        list.add(new ConfigExtra_boolProp("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
+        list.add(new ConfigExtra_stringProp("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
+        list.add(new ConfigExtra_stringProp("collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
+        list.add(new ConfigExtra_stringProp("genre", StationDataXml.STATION_PROP_GENRE, genre));
+        list.add(new ConfigExtra_stringProp("codec", StationDataXml.STATION_PROP_CODEC, codec));
+        list.add(new ConfigExtra_stringProp("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
+        list.add(new ConfigExtra_intProp("bitrateInt", StationDataXml.STATION_PROP_BITRATE, bitrateInt));
+        list.add(new ConfigExtra_intProp("votes", StationDataXml.STATION_PROP_VOTES, votes));
+        list.add(new ConfigExtra_intProp("grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
+        list.add(new ConfigExtra_intProp("ownGrade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
+        list.add(new ConfigExtra_boolProp("own", StationDataXml.STATION_PROP_OWN, own));
+        list.add(new ConfigExtra_intProp("starts", StationDataXml.STATION_PROP_CLICK_COUNT, starts));
+        list.add(new ConfigExtra_intProp("clickCount", StationDataXml.STATION_PROP_CLICK_COUNT, clickCount));
+        list.add(new ConfigExtra_intProp("clickTrend", StationDataXml.STATION_PROP_CLICK_TREND, clickTrend));
 
-        list.add(new ConfigStringPropExtra("country", StationDataXml.STATION_PROP_COUNTRY, country));
-        list.add(new ConfigStringPropExtra("state", StationDataXml.STATION_PROP_STATE, state));
-        list.add(new ConfigStringPropExtra("countryCode", StationDataXml.STATION_PROP_COUNTRY_CODE, countryCode));
-        list.add(new ConfigStringPropExtra("language", StationDataXml.STATION_PROP_LANGUAGE, language));
-        list.add(new ConfigStringPropExtra("description", StationDataXml.STATION_PROP_DESCRIPTION, description));
+        list.add(new ConfigExtra_stringProp("country", StationDataXml.STATION_PROP_COUNTRY, country));
+        list.add(new ConfigExtra_stringProp("state", StationDataXml.STATION_PROP_STATE, state));
+        list.add(new ConfigExtra_stringProp("countryCode", StationDataXml.STATION_PROP_COUNTRY_CODE, countryCode));
+        list.add(new ConfigExtra_stringProp("language", StationDataXml.STATION_PROP_LANGUAGE, language));
+        list.add(new ConfigExtra_stringProp("description", StationDataXml.STATION_PROP_DESCRIPTION, description));
 
-        list.add(new ConfigStringPropExtra("url", StationDataXml.STATION_PROP_URL, stationUrl));
-        list.add(new ConfigStringPropExtra("urlResolved", StationDataXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
-        list.add(new ConfigBoolPropExtra("doubleUrl", StationDataXml.STATION_PROP_DOUBLE_URL, doubleUrl));
-        list.add(new ConfigBoolPropExtra("favourite", StationDataXml.STATION_PROP_IS_FAVOURITE, favourite));
-        list.add(new ConfigBoolPropExtra("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
-        list.add(new ConfigStringPropExtra("website", StationDataXml.STATION_PROP_WEBSITE, website));
-        list.add(new ConfigLocalDateExtra("stationDate", StationDataXml.STATION_PROP_DATE, stationDate));
+        list.add(new ConfigExtra_stringProp("url", StationDataXml.STATION_PROP_URL, stationUrl));
+        list.add(new ConfigExtra_stringProp("urlResolved", StationDataXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
+        list.add(new ConfigExtra_boolProp("doubleUrl", StationDataXml.STATION_PROP_DOUBLE_URL, doubleUrl));
+        list.add(new ConfigExtra_boolProp("favourite", StationDataXml.STATION_PROP_IS_FAVOURITE, favourite));
+        list.add(new ConfigExtra_boolProp("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
+        list.add(new ConfigExtra_stringProp("website", StationDataXml.STATION_PROP_WEBSITE, website));
+        list.add(new ConfigExtra_pLocalDate("stationDate", StationDataXml.STATION_PROP_DATE, stationDate));
 
         return list.toArray(new Config[]{});
     }

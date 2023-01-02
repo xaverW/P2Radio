@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.configDialog;
 
-import de.p2tools.p2Lib.configFile.pConfData.PColorData;
+import de.p2tools.p2Lib.data.PColorData;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
