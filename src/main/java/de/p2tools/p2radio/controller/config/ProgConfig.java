@@ -48,26 +48,26 @@ public class ProgConfig extends PDataProgConfig {
 
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt
-    public static IntegerProperty SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND = addInt("__system-parameter__download-errormsg-in-second_30__", 30);
+    public static IntegerProperty SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND = addIntProp("__system-parameter__download-errormsg-in-second_30__", 30);
 
     // Configs der Programmversion, nur damit sie (zur Update-Suche) im Config-File stehen
-    public static StringProperty SYSTEM_PROG_VERSION = addStr("system-prog-version");
-    public static StringProperty SYSTEM_PROG_BUILD_NO = addStr("system-prog-build-no");
-    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStr("system-prog-build-date");//z.B.: 27.07.2021
-    public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStr("system-download-dir-new-version", "");
+    public static StringProperty SYSTEM_PROG_VERSION = addStrProp("system-prog-version");
+    public static StringProperty SYSTEM_PROG_BUILD_NO = addStrProp("system-prog-build-no");
+    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStrProp("system-prog-build-date");//z.B.: 27.07.2021
+    public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStrProp("system-download-dir-new-version", "");
 
     // Configs zum Aktualisieren beim Programmupdate
-    public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);
+    public static IntegerProperty SYSTEM_UPDATE_STATE = addIntProp("system-update-state", 0);
 
     // Configs zur Programmupdatesuche
-    public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBool("system-update-search-act", true); //Infos und Programm
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBool("system-update-search-beta", false); //beta suchen
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBool("system-update-search-daily", false); //daily suchen
-    public static StringProperty SYSTEM_UPDATE_LAST_INFO = addStr("system-update-last-info");
-    public static StringProperty SYSTEM_UPDATE_LAST_ACT = addStr("system-update-last-act");
-    public static StringProperty SYSTEM_UPDATE_LAST_BETA = addStr("system-update-last-beta");
-    public static StringProperty SYSTEM_UPDATE_LAST_DAILY = addStr("system-update-last-daily");
+    public static StringProperty SYSTEM_UPDATE_DATE = addStrProp("system-update-date"); // Datum der letzten Prüfung
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBoolProp("system-update-search-act", true); //Infos und Programm
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBoolProp("system-update-search-beta", false); //beta suchen
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBoolProp("system-update-search-daily", false); //daily suchen
+    public static StringProperty SYSTEM_UPDATE_LAST_INFO = addStrProp("system-update-last-info");
+    public static StringProperty SYSTEM_UPDATE_LAST_ACT = addStrProp("system-update-last-act");
+    public static StringProperty SYSTEM_UPDATE_LAST_BETA = addStrProp("system-update-last-beta");
+    public static StringProperty SYSTEM_UPDATE_LAST_DAILY = addStrProp("system-update-last-daily");
 
     // ConfigDialog, Dialog nach Start immer gleich öffnen
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_TAB = new SimpleIntegerProperty(0);
@@ -75,127 +75,127 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
 
     // Configs
-    public static BooleanProperty SYSTEM_SMALL_RADIO = addBool("system-small-radio", false);
-    public static BooleanProperty SYSTEM_SMALL_RADIO_SHOW_START_HELP = addBool("system-small-radio-show-start-help", false);
-    public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBool("system-tray-own-icon", Boolean.FALSE);
-    public static StringProperty SYSTEM_TRAY_ICON_PATH = addStr("system-tray-icon", ""); //ein eigenes Tray-Icon
-    public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
-    public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
-    public static BooleanProperty SYSTEM_STYLE = addBool("system-style", Boolean.FALSE);
-    public static IntegerProperty SYSTEM_STYLE_SIZE = addInt("system-geo-home-place", 14);
-    public static StringProperty SYSTEM_LOG_DIR = addStr("system-log-dir", "");
-    public static BooleanProperty SYSTEM_LOG_ON = addBool("system-log-on", Boolean.TRUE);
-    public static BooleanProperty SYSTEM_LOAD_STATION_LIST_EVERY_DAYS = addBool("system-load-station-list-every-days", Boolean.TRUE);
-    public static BooleanProperty SYSTEM_SMALL_ROW_TABLE = addBool("system-small-row-table", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
-    public static IntegerProperty SYSTEM_LAST_TAB_STATION = addInt("system-last-tab-station", 0);
-    public static StringProperty SYSTEM_HISTORY = addStr("system-history", "");
-    public static BooleanProperty SYSTEM_SHOW_MSG_SETDATA_CHANGED = addBool("system-show-msg-setdata-changed", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_SMALL_RADIO = addBoolProp("system-small-radio", false);
+    public static BooleanProperty SYSTEM_SMALL_RADIO_SHOW_START_HELP = addBoolProp("system-small-radio-show-start-help", false);
+    public static BooleanProperty SYSTEM_TRAY = addBoolProp("system-tray", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBoolProp("system-tray-own-icon", Boolean.FALSE);
+    public static StringProperty SYSTEM_TRAY_ICON_PATH = addStrProp("system-tray-icon", ""); //ein eigenes Tray-Icon
+    public static StringProperty SYSTEM_USERAGENT = addStrProp("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
+    public static StringProperty SYSTEM_PROG_OPEN_URL = addStrProp("system-prog-open-url");
+    public static BooleanProperty SYSTEM_STYLE = addBoolProp("system-style", Boolean.FALSE);
+    public static IntegerProperty SYSTEM_STYLE_SIZE = addIntProp("system-geo-home-place", 14);
+    public static StringProperty SYSTEM_LOG_DIR = addStrProp("system-log-dir", "");
+    public static BooleanProperty SYSTEM_LOG_ON = addBoolProp("system-log-on", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_LOAD_STATION_LIST_EVERY_DAYS = addBoolProp("system-load-station-list-every-days", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_SMALL_ROW_TABLE = addBoolProp("system-small-row-table", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_DARK_THEME = addBoolProp("system-dark-theme", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_THEME_CHANGED = addBoolProp("system-theme-changed");
+    public static IntegerProperty SYSTEM_LAST_TAB_STATION = addIntProp("system-last-tab-station", 0);
+    public static StringProperty SYSTEM_HISTORY = addStrProp("system-history", "");
+    public static BooleanProperty SYSTEM_SHOW_MSG_SETDATA_CHANGED = addBoolProp("system-show-msg-setdata-changed", Boolean.FALSE);
 
     // Fenstereinstellungen
-    public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
-    public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStr("system-size-dialog-station-info", "500:500");
+    public static StringProperty SYSTEM_SIZE_GUI = addStrProp("system-size-gui", "1000:800");
+    public static StringProperty SYSTEM_SIZE_DIALOG_STATION_INFO = addStrProp("system-size-dialog-station-info", "500:500");
 
     // Einstellungen Senderliste
-    public static StringProperty SYSTEM_PATH_VLC = addStr("path-vlc", SetFactory.getTemplatePathVlc());
+    public static StringProperty SYSTEM_PATH_VLC = addStrProp("path-vlc", SetFactory.getTemplatePathVlc());
 
     // Blacklist
-    public static IntegerProperty SYSTEM_BLACKLIST_MIN_BITRATE = addInt("blacklist-min-bitrate", 0);
-    public static IntegerProperty SYSTEM_BLACKLIST_MAX_BITRATE = addInt("blacklist-max-bitrate", StationFilterFactory.FILTER_BITRATE_MAX);
-    public static BooleanProperty SYSTEM_BLACKLIST_IS_WHITELIST = addBool("blacklist-is-whitelist");
+    public static IntegerProperty SYSTEM_BLACKLIST_MIN_BITRATE = addIntProp("blacklist-min-bitrate", 0);
+    public static IntegerProperty SYSTEM_BLACKLIST_MAX_BITRATE = addIntProp("blacklist-max-bitrate", StationFilterFactory.FILTER_BITRATE_MAX);
+    public static BooleanProperty SYSTEM_BLACKLIST_IS_WHITELIST = addBoolProp("blacklist-is-whitelist");
 
     // Gui Station
-    public static DoubleProperty STATION_GUI_FILTER_DIVIDER = addDouble("station-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty STATION_GUI_FILTER_DIVIDER_ON = addBool("station-gui-filter-divider-on", Boolean.TRUE);
-    public static DoubleProperty STATION_GUI_DIVIDER = addDouble("station-gui-divider", ProgConst.GUI_STATION_DIVIDER_LOCATION);
-    public static BooleanProperty STATION_GUI_DIVIDER_ON = addBool("station-gui-divider-on", Boolean.TRUE);
+    public static DoubleProperty STATION_GUI_FILTER_DIVIDER = addDoubleProp("station-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty STATION_GUI_FILTER_DIVIDER_ON = addBoolProp("station-gui-filter-divider-on", Boolean.TRUE);
+    public static DoubleProperty STATION_GUI_DIVIDER = addDoubleProp("station-gui-divider", ProgConst.GUI_STATION_DIVIDER_LOCATION);
+    public static BooleanProperty STATION_GUI_DIVIDER_ON = addBoolProp("station-gui-divider-on", Boolean.TRUE);
 
-    public static StringProperty STATION_GUI_TABLE_WIDTH = addStr("station-gui-table-width");
-    public static StringProperty STATION_GUI_TABLE_SORT = addStr("station-gui-table-sort");
-    public static StringProperty STATION_GUI_TABLE_UP_DOWN = addStr("station-gui-table-up-down");
-    public static StringProperty STATION_GUI_TABLE_VIS = addStr("station-gui-table-vis");
-    public static StringProperty STATION_GUI_TABLE_ORDER = addStr("station-gui-table-order");
+    public static StringProperty STATION_GUI_TABLE_WIDTH = addStrProp("station-gui-table-width");
+    public static StringProperty STATION_GUI_TABLE_SORT = addStrProp("station-gui-table-sort");
+    public static StringProperty STATION_GUI_TABLE_UP_DOWN = addStrProp("station-gui-table-up-down");
+    public static StringProperty STATION_GUI_TABLE_VIS = addStrProp("station-gui-table-vis");
+    public static StringProperty STATION_GUI_TABLE_ORDER = addStrProp("station-gui-table-order");
 
     //Gui SmallRadio
-    public static StringProperty SMALL_RADIO_SIZE = addStr("small-radio-size", "600:400");
+    public static StringProperty SMALL_RADIO_SIZE = addStrProp("small-radio-size", "600:400");
 
-    public static StringProperty SMALL_RADIO_TABLE_STATION_WIDTH = addStr("small-radio-table-station-width", "");
-    public static StringProperty SMALL_RADIO_TABLE_STATION_SORT = addStr("small-radio-table-station-sort");
-    public static StringProperty SMALL_RADIO_TABLE_STATION_UP_DOWN = addStr("small-radio-table-station-up-down");
-    public static StringProperty SMALL_RADIO_TABLE_STATION_VIS = addStr("small-radio-table-station-vis", "");
-    public static StringProperty SMALL_RADIO_TABLE_STATION_ORDER = addStr("small-radio-table-station-order", "");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_WIDTH = addStrProp("small-radio-table-station-width", "");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_SORT = addStrProp("small-radio-table-station-sort");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_UP_DOWN = addStrProp("small-radio-table-station-up-down");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_VIS = addStrProp("small-radio-table-station-vis", "");
+    public static StringProperty SMALL_RADIO_TABLE_STATION_ORDER = addStrProp("small-radio-table-station-order", "");
 
-    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_WIDTH = addStr("small-radio-table-favourite-width", "");
-    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_SORT = addStr("small-radio-table-favourite-sort");
-    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_UP_DOWN = addStr("small-radio-table-favourite-up-down");
-    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_VIS = addStr("small-radio-table-favourite-vis", "");
-    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_ORDER = addStr("small-radio-table-favourite-order", "");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_WIDTH = addStrProp("small-radio-table-favourite-width", "");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_SORT = addStrProp("small-radio-table-favourite-sort");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_UP_DOWN = addStrProp("small-radio-table-favourite-up-down");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_VIS = addStrProp("small-radio-table-favourite-vis", "");
+    public static StringProperty SMALL_RADIO_TABLE_FAVOURITE_ORDER = addStrProp("small-radio-table-favourite-order", "");
 
-    public static StringProperty SMALL_RADIO_TABLE_HISTORY_WIDTH = addStr("small-radio-table-history-width", "");
-    public static StringProperty SMALL_RADIO_TABLE_HISTORY_SORT = addStr("small-radio-table-history-sort");
-    public static StringProperty SMALL_RADIO_TABLE_HISTORY_UP_DOWN = addStr("small-radio-table-history-up-down");
-    public static StringProperty SMALL_RADIO_TABLE_HISTORY_VIS = addStr("small-radio-table-history-vis", "");
-    public static StringProperty SMALL_RADIO_TABLE_HISTORY_ORDER = addStr("small-radio-table-history-order", "");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_WIDTH = addStrProp("small-radio-table-history-width", "");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_SORT = addStrProp("small-radio-table-history-sort");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_UP_DOWN = addStrProp("small-radio-table-history-up-down");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_VIS = addStrProp("small-radio-table-history-vis", "");
+    public static StringProperty SMALL_RADIO_TABLE_HISTORY_ORDER = addStrProp("small-radio-table-history-order", "");
 
-    public static StringProperty SMALL_RADIO_SELECTED_STATION_GENRE = addStr("small-radio-selected-station-genre");
-    public static StringProperty SMALL_RADIO_SELECTED_FAVOURITE_GENRE = addStr("small-radio-selected-favourite-genre");
-    public static StringProperty SMALL_RADIO_SELECTED_HISTORY_GENRE = addStr("small-radio-selected-history-genre");
-    public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStr("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
-    public static StringProperty SMALL_RADIO_SELECTED_LIST = addStr("small-radio-selected-list", SmallRadioFactory.LIST_STATION);
+    public static StringProperty SMALL_RADIO_SELECTED_STATION_GENRE = addStrProp("small-radio-selected-station-genre");
+    public static StringProperty SMALL_RADIO_SELECTED_FAVOURITE_GENRE = addStrProp("small-radio-selected-favourite-genre");
+    public static StringProperty SMALL_RADIO_SELECTED_HISTORY_GENRE = addStrProp("small-radio-selected-history-genre");
+    public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStrProp("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
+    public static StringProperty SMALL_RADIO_SELECTED_LIST = addStrProp("small-radio-selected-list", SmallRadioFactory.LIST_STATION);
 
     // Gui Favorite
-    public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDouble("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty FAVOURITE_GUI_FILTER_DIVIDER_ON = addBool("favourite-gui-filter-divider-on", Boolean.TRUE);
-    public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStr("favourite-dialog-edit-size", "800:800");
-    public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStr("favourite-dialog-add-size", "800:800");
-    public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStr("start-station-error-dialog-size", "");
-    public static DoubleProperty FAVOURITE_GUI_DIVIDER = addDouble("favourite-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
-    public static BooleanProperty FAVOURITE_GUI_DIVIDER_ON = addBool("favourite-gui-divider-on", Boolean.TRUE);
+    public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDoubleProp("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty FAVOURITE_GUI_FILTER_DIVIDER_ON = addBoolProp("favourite-gui-filter-divider-on", Boolean.TRUE);
+    public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStrProp("favourite-dialog-edit-size", "800:800");
+    public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStrProp("favourite-dialog-add-size", "800:800");
+    public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
+    public static DoubleProperty FAVOURITE_GUI_DIVIDER = addDoubleProp("favourite-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
+    public static BooleanProperty FAVOURITE_GUI_DIVIDER_ON = addBoolProp("favourite-gui-divider-on", Boolean.TRUE);
 
-    public static StringProperty FAVOURITE_GUI_TABLE_WIDTH = addStr("favourite-gui-table-width");
-    public static StringProperty FAVOURITE_GUI_TABLE_SORT = addStr("favourite-gui-table-sort");
-    public static StringProperty FAVOURITE_GUI_TABLE_UP_DOWN = addStr("favourite-gui-table-up-down");
-    public static StringProperty FAVOURITE_GUI_TABLE_VIS = addStr("favourite-gui-table-vis");
-    public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStr("favourite-gui-table-order");
+    public static StringProperty FAVOURITE_GUI_TABLE_WIDTH = addStrProp("favourite-gui-table-width");
+    public static StringProperty FAVOURITE_GUI_TABLE_SORT = addStrProp("favourite-gui-table-sort");
+    public static StringProperty FAVOURITE_GUI_TABLE_UP_DOWN = addStrProp("favourite-gui-table-up-down");
+    public static StringProperty FAVOURITE_GUI_TABLE_VIS = addStrProp("favourite-gui-table-vis");
+    public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStrProp("favourite-gui-table-order");
 
-    public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBool("favourite-show-notification", Boolean.TRUE);
+    public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBoolProp("favourite-show-notification", Boolean.TRUE);
 
     // Gui History
-    public static DoubleProperty HISTORY_GUI_FILTER_DIVIDER = addDouble("history-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty HISTORY_GUI_FILTER_DIVIDER_ON = addBool("history-gui-filter-divider-on", Boolean.TRUE);
-    public static DoubleProperty HISTORY_GUI_DIVIDER = addDouble("history-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
-    public static BooleanProperty HISTORY_GUI_DIVIDER_ON = addBool("history-gui-divider-on", Boolean.TRUE);
+    public static DoubleProperty HISTORY_GUI_FILTER_DIVIDER = addDoubleProp("history-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty HISTORY_GUI_FILTER_DIVIDER_ON = addBoolProp("history-gui-filter-divider-on", Boolean.TRUE);
+    public static DoubleProperty HISTORY_GUI_DIVIDER = addDoubleProp("history-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
+    public static BooleanProperty HISTORY_GUI_DIVIDER_ON = addBoolProp("history-gui-divider-on", Boolean.TRUE);
 
-    public static StringProperty HISTORY_GUI_TABLE_WIDTH = addStr("history-gui-table-width");
-    public static StringProperty HISTORY_GUI_TABLE_SORT = addStr("history-gui-table-sort");
-    public static StringProperty HISTORY_GUI_TABLE_UP_DOWN = addStr("history-gui-table-up-down");
-    public static StringProperty HISTORY_GUI_TABLE_VIS = addStr("history-gui-table-vis");
-    public static StringProperty HISTORY_GUI_TABLE_ORDER = addStr("history-gui-table-order");
+    public static StringProperty HISTORY_GUI_TABLE_WIDTH = addStrProp("history-gui-table-width");
+    public static StringProperty HISTORY_GUI_TABLE_SORT = addStrProp("history-gui-table-sort");
+    public static StringProperty HISTORY_GUI_TABLE_UP_DOWN = addStrProp("history-gui-table-up-down");
+    public static StringProperty HISTORY_GUI_TABLE_VIS = addStrProp("history-gui-table-vis");
+    public static StringProperty HISTORY_GUI_TABLE_ORDER = addStrProp("history-gui-table-order");
 
     // ConfigDialog
-    public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
-    public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBool("config_dialog-accordion", Boolean.TRUE);
-    public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDouble("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
-    public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStr("config-dialog-import-set-size", "600:400");
-    public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDouble("config-dialog-shortcut-divider", 0.1);
+    public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size");
+    public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBoolProp("config_dialog-accordion", Boolean.TRUE);
+    public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDoubleProp("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
+    public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStrProp("config-dialog-import-set-size", "600:400");
+    public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDoubleProp("config-dialog-shortcut-divider", 0.1);
 
     //StartDialog
-    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStr("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
+    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
 
     //Filter Sender
-    public static IntegerProperty FILTER_STATION_SEL_FILTER = addInt("filter-station-sel-filter");
-    public static StringProperty SHORTCUT_QUIT_PROGRAM = addStr("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);
-    public static StringProperty SHORTCUT_PLAY_STATION = addStr("SHORTCUT_PLAY_STATION", SHORTCUT_PLAY_STATION_INIT);
-    public static StringProperty SHORTCUT_SAVE_STATION = addStr("SHORTCUT_SAVE_STATION", SHORTCUT_SAVE_STATIION_INIT);
-    public static StringProperty SHORTCUT_FAVOURITE_START = addStr("SHORTCUT_FAVOURITE_START", SHORTCUT_FAVOURITE_START_INIT);
-    public static StringProperty SHORTCUT_FAVOURITE_STOP = addStr("SHORTCUT_FAVOURITE_STOP", SHORTCUT_FAVOURITE_STOP_INIT);
-    public static StringProperty SHORTCUT_FAVOURITE_CHANGE = addStr("SHORTCUT_FAVOURITE_CHANGE", SHORTCUT_FAVOURITE_CHANGE_INIT);
+    public static IntegerProperty FILTER_STATION_SEL_FILTER = addIntProp("filter-station-sel-filter");
+    public static StringProperty SHORTCUT_QUIT_PROGRAM = addStrProp("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);
+    public static StringProperty SHORTCUT_PLAY_STATION = addStrProp("SHORTCUT_PLAY_STATION", SHORTCUT_PLAY_STATION_INIT);
+    public static StringProperty SHORTCUT_SAVE_STATION = addStrProp("SHORTCUT_SAVE_STATION", SHORTCUT_SAVE_STATIION_INIT);
+    public static StringProperty SHORTCUT_FAVOURITE_START = addStrProp("SHORTCUT_FAVOURITE_START", SHORTCUT_FAVOURITE_START_INIT);
+    public static StringProperty SHORTCUT_FAVOURITE_STOP = addStrProp("SHORTCUT_FAVOURITE_STOP", SHORTCUT_FAVOURITE_STOP_INIT);
+    public static StringProperty SHORTCUT_FAVOURITE_CHANGE = addStrProp("SHORTCUT_FAVOURITE_CHANGE", SHORTCUT_FAVOURITE_CHANGE_INIT);
     private static ProgConfig instance;
 
     private ProgConfig() {
-        super(arrayList, "ProgConfig");
+        super("ProgConfig");
     }
 
     public static final ProgConfig getInstance() {
@@ -238,65 +238,5 @@ public class ProgConfig extends PDataProgConfig {
 
             list.add(s + "  " + c.getActValueString());
         });
-    }
-
-    private static StringProperty addStr(String key) {
-        return addStrProp(arrayList, key);
-    }
-
-    private static StringProperty addStrC(String comment, String key) {
-        return addStrPropC(comment, arrayList, key);
-    }
-
-    private static StringProperty addStr(String key, String init) {
-        return addStrProp(arrayList, key, init);
-    }
-
-    private static StringProperty addStrC(String comment, String key, String init) {
-        return addStrPropC(comment, arrayList, key, init);
-    }
-
-    private static DoubleProperty addDouble(String key, double init) {
-        return addDoubleProp(arrayList, key, init);
-    }
-
-    private static DoubleProperty addDoubleC(String comment, String key, double init) {
-        return addDoublePropC(comment, arrayList, key, init);
-    }
-
-    private static IntegerProperty addInt(String key) {
-        return addIntProp(arrayList, key, 0);
-    }
-
-    private static IntegerProperty addInt(String key, int init) {
-        return addIntProp(arrayList, key, init);
-    }
-
-    private static IntegerProperty addIntC(String comment, String key, int init) {
-        return addIntPropC(comment, arrayList, key, init);
-    }
-
-    private static LongProperty addLong(String key) {
-        return addLongProp(arrayList, key, 0);
-    }
-
-    private static LongProperty addLong(String key, long init) {
-        return addLongProp(arrayList, key, init);
-    }
-
-    private static LongProperty addLongC(String comment, String key, long init) {
-        return addLongPropC(comment, arrayList, key, init);
-    }
-
-    private static BooleanProperty addBool(String key, boolean init) {
-        return addBoolProp(arrayList, key, init);
-    }
-
-    private static BooleanProperty addBool(String key) {
-        return addBoolProp(arrayList, key, Boolean.FALSE);
-    }
-
-    private static BooleanProperty addBoolC(String comment, String key, boolean init) {
-        return addBoolPropC(comment, arrayList, key, init);
     }
 }

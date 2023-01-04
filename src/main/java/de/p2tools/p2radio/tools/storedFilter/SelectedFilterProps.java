@@ -17,9 +17,9 @@
 package de.p2tools.p2radio.tools.storedFilter;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_intProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_boolProp;
+import de.p2tools.p2Lib.configFile.config.Config_intProp;
+import de.p2tools.p2Lib.configFile.config.Config_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
 import javafx.beans.property.*;
@@ -76,29 +76,29 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_stringProp("name", SelectedFilterFieldNames.NAME, name));
-        list.add(new ConfigExtra_boolProp("stationNameVis", SelectedFilterFieldNames.STATION_NAME_VIS, stationNameVis));
-        list.add(new ConfigExtra_stringProp("stationName", SelectedFilterFieldNames.STATION_NAME, stationName));
-        list.add(new ConfigExtra_boolProp("codecVis", SelectedFilterFieldNames.CODEC_VIS, codecVis));
-        list.add(new ConfigExtra_stringProp("codec", SelectedFilterFieldNames.CODEC, codec));
-        list.add(new ConfigExtra_boolProp("genreVis", SelectedFilterFieldNames.GENRE_VIS, genreVis));
-        list.add(new ConfigExtra_stringProp("genre", SelectedFilterFieldNames.GENRE, genre));
-        list.add(new ConfigExtra_boolProp("countryVis", SelectedFilterFieldNames.COUNTRY_VIS, countryVis));
-        list.add(new ConfigExtra_stringProp("country", SelectedFilterFieldNames.COUNTRY, country));
-        list.add(new ConfigExtra_boolProp("urlVis", SelectedFilterFieldNames.URL_VIS, urlVis));
-        list.add(new ConfigExtra_stringProp("url", SelectedFilterFieldNames.URL, url));
-        list.add(new ConfigExtra_boolProp("somewhereVis", SelectedFilterFieldNames.SOMEWHERE_VIS, somewhereVis));
-        list.add(new ConfigExtra_stringProp("somewhere", SelectedFilterFieldNames.SOMEWHERE, somewhere));
+        list.add(new Config_stringProp("name", SelectedFilterFieldNames.NAME, name));
+        list.add(new Config_boolProp("stationNameVis", SelectedFilterFieldNames.STATION_NAME_VIS, stationNameVis));
+        list.add(new Config_stringProp("stationName", SelectedFilterFieldNames.STATION_NAME, stationName));
+        list.add(new Config_boolProp("codecVis", SelectedFilterFieldNames.CODEC_VIS, codecVis));
+        list.add(new Config_stringProp("codec", SelectedFilterFieldNames.CODEC, codec));
+        list.add(new Config_boolProp("genreVis", SelectedFilterFieldNames.GENRE_VIS, genreVis));
+        list.add(new Config_stringProp("genre", SelectedFilterFieldNames.GENRE, genre));
+        list.add(new Config_boolProp("countryVis", SelectedFilterFieldNames.COUNTRY_VIS, countryVis));
+        list.add(new Config_stringProp("country", SelectedFilterFieldNames.COUNTRY, country));
+        list.add(new Config_boolProp("urlVis", SelectedFilterFieldNames.URL_VIS, urlVis));
+        list.add(new Config_stringProp("url", SelectedFilterFieldNames.URL, url));
+        list.add(new Config_boolProp("somewhereVis", SelectedFilterFieldNames.SOMEWHERE_VIS, somewhereVis));
+        list.add(new Config_stringProp("somewhere", SelectedFilterFieldNames.SOMEWHERE, somewhere));
 
-        list.add(new ConfigExtra_boolProp("minMaxBitVis", SelectedFilterFieldNames.MIN_MAX_BIT_VIS, minMaxBitVis));
-        list.add(new ConfigExtra_intProp("minBit", SelectedFilterFieldNames.MIN_BIT, minBit));
-        list.add(new ConfigExtra_intProp("maxBit", SelectedFilterFieldNames.MAX_BIT, maxBit));
-        list.add(new ConfigExtra_boolProp("onlyVis", SelectedFilterFieldNames.ONLY_VIS, onlyVis));
-        list.add(new ConfigExtra_boolProp("onlyNew", SelectedFilterFieldNames.ONLY_NEW, onlyNew));
-        list.add(new ConfigExtra_boolProp("noFavourites", SelectedFilterFieldNames.NO_FAVOURITES, noFavourites));
-        list.add(new ConfigExtra_boolProp("noDoubles", SelectedFilterFieldNames.NO_DOUBLES, noDoubles));
-        list.add(new ConfigExtra_boolProp("blacklistOn", SelectedFilterFieldNames.BLACKLIST_ON, blacklistOn));
-        list.add(new ConfigExtra_boolProp("blacklistOnly", SelectedFilterFieldNames.BLACKLIST_ONLY, blacklistOnly));
+        list.add(new Config_boolProp("minMaxBitVis", SelectedFilterFieldNames.MIN_MAX_BIT_VIS, minMaxBitVis));
+        list.add(new Config_intProp("minBit", SelectedFilterFieldNames.MIN_BIT, minBit));
+        list.add(new Config_intProp("maxBit", SelectedFilterFieldNames.MAX_BIT, maxBit));
+        list.add(new Config_boolProp("onlyVis", SelectedFilterFieldNames.ONLY_VIS, onlyVis));
+        list.add(new Config_boolProp("onlyNew", SelectedFilterFieldNames.ONLY_NEW, onlyNew));
+        list.add(new Config_boolProp("noFavourites", SelectedFilterFieldNames.NO_FAVOURITES, noFavourites));
+        list.add(new Config_boolProp("noDoubles", SelectedFilterFieldNames.NO_DOUBLES, noDoubles));
+        list.add(new Config_boolProp("blacklistOn", SelectedFilterFieldNames.BLACKLIST_ON, blacklistOn));
+        list.add(new Config_boolProp("blacklistOnly", SelectedFilterFieldNames.BLACKLIST_ONLY, blacklistOnly));
 
         return list.toArray(new Config[]{});
     }

@@ -19,14 +19,17 @@ package de.p2tools.p2radio.controller.radiosLoadFromWeb;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ReadJsonFactory {
-    private static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+
+    private static final DateTimeFormatter DT_yyyy_MM_dd___HH__mm__ss = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private ReadJsonFactory() {
     }
@@ -93,12 +96,19 @@ public class ReadJsonFactory {
                     stationData.setWebsite(value);
                     break;
                 case StationFieldNamesWeb.LAST_CHANGE_TIME:
-                    //"2020-08-21 10:40:59"
+                    //"lastchangetime" : "2022-12-23"
                     try {
-                        PDate pd = new PDate(sdf_date_time.parse(value));
-                        stationData.setStationDate(pd.get_dd_MM_yyyy());
+                        LocalDate ld;
+                        if (value.length() == "2020-08-21 10:40:59".length()) {
+                            ld = LocalDate.parse(value, DT_yyyy_MM_dd___HH__mm__ss);
+                        } else if (value.length() == "2020-08-21".length()) {
+                            ld = LocalDate.parse(value, DT_yyyy_MM_dd);
+                        } else {
+                            ld = LocalDate.MIN;
+                        }
+                        stationData.setStationDate(PLDateFactory.toString(ld));
                     } catch (Exception ex) {
-                        stationData.setStationDate(value);
+                        stationData.setStationDate(PLDateFactory.toString(LocalDate.MIN));
                     }
                     break;
             }

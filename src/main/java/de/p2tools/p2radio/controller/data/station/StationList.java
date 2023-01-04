@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
+import de.p2tools.p2Lib.tools.date.PLDateProperty;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -30,8 +30,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
@@ -42,7 +43,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
-    private final PLocalDateProperty stationDate = new PLocalDateProperty();
+    private final PLDateProperty stationDate = new PLDateProperty();
     public int nr = 1;
     public String[] codecs = {""};
     public String[] countries = {""};
@@ -80,20 +81,20 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
         }
     }
 
-    public PLocalDate getStationDate() {
+    public LocalDate getStationDate() {
         return stationDate.get();
     }
 
-    public void setStationDate(PLocalDate stationDate) {
+    public void setStationDate(LocalDate stationDate) {
         this.stationDate.set(stationDate);
     }
 
     public synchronized String getGenDate() {
-        return stationDate.getValue().getPDate().get_dd_MM_yyyy();
+        return PLDateFactory.toString(stationDate.getValue());
     }
 
     public synchronized void setGenDateNow() {
-        stationDate.getValue().setPLocalDateNow();
+        stationDate.setValue(LocalDate.now());
     }
 
     public boolean isTooOld() {
@@ -111,10 +112,9 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
      */
     public int getAge() {
         int days = 0;
-        final PLocalDate sDate = stationDate.getValue();
+        final LocalDate sDate = stationDate.getValue();
         if (sDate != null) {
-            long diff = new Date().getTime() - sDate.getPDate().getTime();
-            days = (int) TimeUnit.MILLISECONDS.toDays(diff);
+            days = (int) ChronoUnit.DAYS.between(sDate, LocalDate.now());
             if (days < 0) {
                 days = 0;
             }

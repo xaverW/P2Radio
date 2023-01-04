@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_intProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_intProp;
+import de.p2tools.p2Lib.configFile.config.Config_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
@@ -43,9 +43,9 @@ public class StartProps extends PDataSample<Start> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_intProp("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
-        list.add(new ConfigExtra_stringProp("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
-        list.add(new ConfigExtra_stringProp("url", StationDataXml.STATION_PROP_URL, url));
+        list.add(new Config_intProp("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
+        list.add(new Config_stringProp("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
+        list.add(new Config_stringProp("url", StationDataXml.STATION_PROP_URL, url));
 
         return list.toArray(new Config[]{});
     }

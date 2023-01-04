@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_boolProp;
+import de.p2tools.p2Lib.configFile.config.Config_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -44,10 +44,10 @@ public class BlackDataProps extends PDataSample<BlackData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_stringProp("name", BlackDataFieldNames.NAME, name));
-        list.add(new ConfigExtra_boolProp("nameExact", BlackDataFieldNames.NAME_EXACT, nameExact));
-        list.add(new ConfigExtra_stringProp("genre", BlackDataFieldNames.GENRE, genre));
-        list.add(new ConfigExtra_boolProp("genreExact", BlackDataFieldNames.GENRE_EXACT, genreExact));
+        list.add(new Config_stringProp("name", BlackDataFieldNames.NAME, name));
+        list.add(new Config_boolProp("nameExact", BlackDataFieldNames.NAME_EXACT, nameExact));
+        list.add(new Config_stringProp("genre", BlackDataFieldNames.GENRE, genre));
+        list.add(new Config_boolProp("genreExact", BlackDataFieldNames.GENRE_EXACT, genreExact));
 
         return list.toArray(new Config[]{});
     }

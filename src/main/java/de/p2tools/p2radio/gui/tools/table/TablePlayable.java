@@ -19,12 +19,13 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.time.LocalDate;
 
 public class TablePlayable<T> extends TableView<T> {
 
@@ -143,8 +144,9 @@ public class TablePlayable<T> extends TableView<T> {
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         languageColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, PLocalDate> stationDateColumn = new TableColumn<>(StationDataXml.STATION_PROP_DATE);
+        final TableColumn<T, LocalDate> stationDateColumn = new TableColumn<>(StationDataXml.STATION_PROP_DATE);
         stationDateColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
+        stationDateColumn.setCellFactory(new CellLocalDate().cellFactory);
         stationDateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> websiteColumn = new TableColumn<>(StationDataXml.STATION_PROP_WEBSITE);

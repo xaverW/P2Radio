@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -45,11 +45,11 @@ public class SetDataProps extends PDataSample<SetData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_stringProp("id", SetDataFieldNames.PROGRAMSET_ID, id));
-        list.add(new ConfigExtra_stringProp(SetDataFieldNames.PROGRAMSET_NAME, visibleName));
-        list.add(new ConfigExtra_stringProp(SetDataFieldNames.PROGRAMSET_PROGRAM_PATH, progPath));
-        list.add(new ConfigExtra_stringProp(SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH, progSwitch));
-        list.add(new ConfigExtra_stringProp(SetDataFieldNames.PROGRAMSET_DESCRIPTION, description));
+        list.add(new Config_stringProp("id", SetDataFieldNames.PROGRAMSET_ID, id));
+        list.add(new Config_stringProp(SetDataFieldNames.PROGRAMSET_NAME, visibleName));
+        list.add(new Config_stringProp(SetDataFieldNames.PROGRAMSET_PROGRAM_PATH, progPath));
+        list.add(new Config_stringProp(SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH, progSwitch));
+        list.add(new Config_stringProp(SetDataFieldNames.PROGRAMSET_DESCRIPTION, description));
         return list.toArray(new Config[]{});
     }
 
