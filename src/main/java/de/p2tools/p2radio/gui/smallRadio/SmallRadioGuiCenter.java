@@ -100,8 +100,7 @@ public class SmallRadioGuiCenter extends HBox {
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
-            smallRadioGuiController.close();
-            ProgQuitFactory.quit(progData.primaryStage, true);
+            ProgQuitFactory.quit(smallRadioGuiController.getStage(), true);
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().add("btnTab");
