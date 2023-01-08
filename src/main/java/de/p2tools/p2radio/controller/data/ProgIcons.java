@@ -74,12 +74,12 @@ public class ProgIcons {
 
         //ICON_DIALOG_EIN("dialog-ein-sw.png", "dialog-ein.png"),
         //ICON_DIALOG_AUS("dialog-aus-sw.png", "dialog-aus.png"),
-        ICON_DIALOG_EIN("dialog-ein-sw.png"),
-        ICON_DIALOG_AUS("dialog-aus-sw.png"),
+        ICON_DIALOG_EIN("dialog-ein.png"),
+//        ICON_DIALOG_AUS("button-reset.png"),
 
         IMAGE_ACHTUNG_64("achtung_64.png");
 
-        private String fileName;
+        private final String fileName;
         private String fileNameDark = "";
         private int w = 0;
         private int h = 0;

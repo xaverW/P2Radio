@@ -40,8 +40,8 @@ public class ProgConst {
     public static final String XML_START = "P2Radio";
 
     public static final String LOG_DIR = "Log";
-    public static final String CSS_FILE = "de/p2tools/p2radio/mtfx.css";
-    public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2radio/mtfx-dark.css";
+    public static final String CSS_FILE = "de/p2tools/p2radio/radioFx.css";
+    public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2radio/radioFx-dark.css";
 
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";

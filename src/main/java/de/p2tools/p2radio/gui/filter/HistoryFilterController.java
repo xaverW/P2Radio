@@ -84,5 +84,6 @@ public class HistoryFilterController extends FilterController {
         btnClearFilter.setOnAction(event -> {
             progData.filteredHistoryList.setPredicate(historyFilter.clearFilter());
         });
+//        btnClearFilter.getStyleClass().add("btnSmallRadio");
     }
 }

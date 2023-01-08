@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui.dialog;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -317,7 +318,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 break;
             case StationDataXml.STATION_PROP_DATE_INT:
 //                lblCont[i].textProperty().bind(actFavourite.stationDateProperty().getPDate());
-                lblCont[i].setText(actFavourite.getStationDate().toString());
+                lblCont[i].setText(PLDateFactory.toString(actFavourite.getStationDate()));
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
                 ++row;

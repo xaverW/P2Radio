@@ -95,7 +95,7 @@ public class SmallRadioGuiBottom extends HBox {
         hBoxButton.getChildren().addAll(btnStart, btnStop, PGuiTools.getHDistance(20), btnRandom);
 
         setAlignment(Pos.BOTTOM_CENTER);
-        getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
+        getChildren().addAll(/*btnRadio,*/ PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initCbo() {
@@ -166,7 +166,7 @@ public class SmallRadioGuiBottom extends HBox {
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
-        btnRadio.getStyleClass().add("btnTab");
+        btnRadio.getStyleClass().add("btnTop");
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
 
         btnClearFilter.setTooltip(new Tooltip("Auswahl löschen"));

@@ -53,16 +53,21 @@ public class StationFilterControllerClearFilter extends VBox {
         btnGoBack.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
+//        btnGoBack.getStyleClass().add("btnSmallRadio");
+
         btnGoForward.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
         btnGoForward.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
+//        btnGoForward.getStyleClass().add("btnSmallRadio");
 
         btnClearFilter.setOnAction(a -> clearFilter());
+//        btnClearFilter.getStyleClass().add("btnSmallRadio");
 
         btnEditFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_EDIT_FILTER.getImageView());
         btnEditFilter.setOnAction(a -> editFilter());
         btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
+//        btnEditFilter.getStyleClass().add("btnSmallRadio");
 
         HBox hBox = new HBox(5);
         hBox.setAlignment(Pos.CENTER_RIGHT);

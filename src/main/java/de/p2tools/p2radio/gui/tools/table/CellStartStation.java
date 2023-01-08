@@ -60,7 +60,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
                 if (playing) {
                     //stoppen
                     final Button btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
+                    btnPlay.getStyleClass().add("btnTable");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -78,7 +78,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
                 } else {
                     //starten
                     final Button btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallRadio");
+                    btnPlay.getStyleClass().add("btnTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -96,7 +96,7 @@ public class CellStartStation<S, T> extends TableCell<S, T> {
 
                 final Button btnFavorite;
                 btnFavorite = new Button("");
-                btnFavorite.getStyleClass().add("btnSmallRadio");
+                btnFavorite.getStyleClass().add("btnTable");
                 btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
                 btnFavorite.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_SAVE.getImageView());
                 btnFavorite.setOnAction(event -> {

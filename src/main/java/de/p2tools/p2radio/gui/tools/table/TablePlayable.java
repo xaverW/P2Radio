@@ -54,6 +54,7 @@ public class TablePlayable<T> extends TableView<T> {
         setEditable(false);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+//        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
 

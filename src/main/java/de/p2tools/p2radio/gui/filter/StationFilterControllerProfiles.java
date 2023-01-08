@@ -79,6 +79,7 @@ public class StationFilterControllerProfiles extends VBox {
         btnLoadFilter.setGraphic(ProgIcons.Icons.ICON_FILTER_STATION_LOAD.getImageView());
         btnLoadFilter.setText("");
         btnLoadFilter.setTooltip(new Tooltip("Filterprofil wieder laden"));
+//        btnLoadFilter.getStyleClass().add("btnSmallRadio");
 
         btnSaveFilter.setOnAction(a -> {
             if (cboFilterProfiles.getSelectionModel().getSelectedItem() == null
@@ -90,11 +91,13 @@ public class StationFilterControllerProfiles extends VBox {
         btnSaveFilter.setGraphic(ProgIcons.Icons.ICON_FILTER_STATION_SAVE.getImageView());
         btnSaveFilter.setText("");
         btnSaveFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als Filterprofil speichern"));
+//        btnSaveFilter.getStyleClass().add("btnSmallRadio");
 
         btnNewFilter.setOnAction(a -> newFilter());
         btnNewFilter.setGraphic(ProgIcons.Icons.ICON_FILTER_STATION_NEW.getImageView());
         btnNewFilter.setText("");
         btnNewFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als neues Filterprofil anlegen"));
+//        btnNewFilter.getStyleClass().add("btnSmallRadio");
     }
 
     private void filterProfiles() {
@@ -174,6 +177,8 @@ public class StationFilterControllerProfiles extends VBox {
         getChildren().add(vBox);
 
         final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
+//        btnHelp.getStyleClass().add("btnSmallRadio");
+
         hBox = new HBox(10);
         hBox.getChildren().addAll(mbFilterTools, PGuiTools.getHBoxGrower(), btnHelp);
         getChildren().add(hBox);
@@ -254,11 +259,7 @@ public class StationFilterControllerProfiles extends VBox {
     private void checkCboFilter() {
         SelectedFilter sf = progData.storedFilters.getActFilterSettings();
         SelectedFilter sfCbo = cboFilterProfiles.getSelectionModel().getSelectedItem();
-        if (SelectedFilterFactory.compareFilterWithoutNameOfFilter(sf, sfCbo)) {
-            markFilterSelected(true);
-        } else {
-            markFilterSelected(false);
-        }
+        markFilterSelected(SelectedFilterFactory.compareFilterWithoutNameOfFilter(sf, sfCbo));
     }
 
 }

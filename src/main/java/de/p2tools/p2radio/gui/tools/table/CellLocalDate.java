@@ -41,13 +41,8 @@ public class CellLocalDate<S, T> extends TableCell<S, T> {
                     return;
                 }
 
-                if (item.isEqual(LocalDate.MIN)) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    setGraphic(null);
-                    setText(PLDateFactory.toString(item));
-                }
+                setGraphic(null);
+                setText(PLDateFactory.toString(item));
             }
         };
         return cell;

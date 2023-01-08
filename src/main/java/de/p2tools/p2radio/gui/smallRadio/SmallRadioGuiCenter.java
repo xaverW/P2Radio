@@ -103,13 +103,13 @@ public class SmallRadioGuiCenter extends HBox {
             ProgQuitFactory.quit(smallRadioGuiController.getStage(), true);
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
-        btnClose.getStyleClass().add("btnTab");
+        btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnClose.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
-        btnRadio.getStyleClass().add("btnTab");
+        btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
 
         btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));

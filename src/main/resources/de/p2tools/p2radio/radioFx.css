@@ -1,6 +1,6 @@
 /*  Programmweites style sheet */
 .root {
-    /*für den FilterClear-Button*/
+     /*für den FilterClear-Button*/
     -clear-filter-tab-button-1: #d6d6d6;
     -clear-filter-tab-button-2: #e6e6e6;
     -clear-filter-tab-button-3: #d6d6d6;
@@ -8,6 +8,31 @@
     -clear-filter-rad-grad-1: radial-gradient(center 50% -40%, radius 200%, -clear-filter-tab-button-2 45%, -clear-filter-tab-button-3 50%);
 }
 
+/* ========================================================================== */
+/* sind javafx gui Elemente */
+/* ========================================================================== */
+
+/*.btnTab, .btnTab-sel{
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+.btnFunction{
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+.btnFunctionWide{
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+.btnTable{
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 5 10;
+}*/
+
+/*================================================*/
+/*================================================*/
+/*================================================*/
 
 /* CheckBoxCell: CheckBoxen in der Tabelle*/
 .checkbox-table * {
@@ -28,7 +53,8 @@
 }
 
 
-/* Button "Senderliste" */
+/* Button "Senderliste" *//*
+
 .btnStationList{
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-background-radius: 30;
@@ -36,7 +62,9 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
     -fx-padding: 5 20 5 20;
-    /*-fx-border: 5;*/
+    */
+/*-fx-border: 5;*//*
+
 }
 .btnStationList_{
     -fx-background-color: #3a74d4,
@@ -47,7 +75,9 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
     -fx-padding: 5 20 5 20;
-    /*-fx-border: 5;*/
+    */
+/*-fx-border: 5;*//*
+
 }
 .btnStationList:focused{
     -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
@@ -66,12 +96,13 @@
          linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 40%, white 90%),
          radial-gradient(center 80% -70%, radius 200%, #e6e6e6 35%, -tab-button-3 40%);
 }
+*/
 
 
 /*Button zum löschen der Filter*/
-.btnClearFilter {
+/*.btnClearFilter {
     -fx-background-color: #6a7c9a, -clear-filter-lin-grad-1, -clear-filter-rad-grad-1;
-    /*-fx-background-radius: 10;*/
+    -fx-background-radius: 10;
     -fx-background-insets: 0,2,2;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
@@ -93,7 +124,7 @@
     -fx-background-color: #1d0f62,
          linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 40%, white 90%),
          radial-gradient(center 80% -70%, radius 200%, #e6e6e6 35%, -clear-filter-tab-button-3 40%);
-}
+}*/
 
 
 /* ist die ComboBox mit den Filterprofilen: markiert wenn das Profil aktiv ist*/
@@ -109,21 +140,6 @@
 }
 
 
-/*Checkbox edit all abo*/
-.chk-edit-all > .box {
-    -fx-border-color: cornflowerblue;
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
- }
-.chk-edit-all-text {
-    -fx-border-color: cornflowerblue;
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-padding: 5;
-}
-
-
 /* ist die Senderauswahl (Mehrfachauswahl) */
 .channel-menu{
     -fx-border-radius: 5;
@@ -134,22 +150,28 @@
 }
 
 
-/* ist der abgesetzte Bereich im favourite Dialog*/
+/* ist der abgesetzte Bereich im favourite Dialog*//*
+
 .favouriteDialog {
     -fx-background-color: gainsboro;
 }
+*/
 
 
+/*
 .thick-chart .chart-series-line {
     -fx-stroke-width: 1px;
 }
+*/
 
+/*
 #infoGrid {
     -fx-border-style: solid inside;
     -fx-border-width: 1;
     -fx-border-radius: 5;
     -fx-border-color: -text-color-blue;
 }
+*/
 
 .channel-button {
     -fx-border-radius: 5;
@@ -157,27 +179,9 @@
     -fx-font-size: 0.9em;
 }
 
-.chart-alternative-row-fill {
-    -fx-fill: #e1e1e1;
-    -fx-stroke: transparent;
-    -fx-stroke-width: 0;
-}
-
-.combo-box-icon {
-	-fx-background-image: url("/de/p2tools/p2radio/res/program/table-station-play.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: 10%,center;
-	-fx-background-size: auto;
-	-fx-background-insets: 1;
-
-	-fx-border-color: #3499ff;
-	-fx-border-width: 2px;
-}
-
-
-
 /*SmallRadio*/
 .smallRadio{
+    /*ist der ganze Dialog*/
     -fx-background-color: #2166a3, #c20000, -lin-grad-1;
     -fx-background-insets: 0, 10, 13;
     -fx-background-radius: 0, 20, 20;
@@ -185,13 +189,19 @@
 }
 
 .btnSmallRadio{
-    -fx-font-weight: bold;
-    -fx-alignment: center ;
-    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
-    -fx-background-radius: 30;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
     -fx-background-insets: 0,1,1;
-    -fx-text-fill: black;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 10;
+
+    -fx-alignment: center ;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+.btnSmallRadio:pressed{
+    -fx-border-width: 1;
     -fx-padding: 5 10;
 }
 .btnSmallRadio:focused{
@@ -205,32 +215,4 @@
 .btnSmallRadio:focused:hover{
     -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -1.4,1,1;
-}
-
-/*Tabelle, Auswahl des Startets*/
-.cboTableMoreSets{
-	-fx-background-image: url("/de/p2tools/p2radio/res/program/table-station-play.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: 20%,center;
-
-	-fx-background-size: auto;
-    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
-    -fx-background-radius: 30;
-    -fx-background-insets: 1,1,1;
-
-	-fx-border-color: #002fbe;
-	-fx-border-width: 1px;
-    -fx-border-radius: 30;
-}
-.cboTableMoreSets:focused{
-    -fx-background-color: #78869a, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -1,1,1;
-}
-.cboTableMoreSets:hover{
-    -fx-background-color: #78869a, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -1,1,1;
-}
-.cboTableMoreSets:focused:hover{
-    -fx-background-color: #78869a, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -2,1,1;
 }

@@ -95,6 +95,14 @@ public class SmallRadioGuiController extends PDialogOnly {
         super.close();
     }
 
+    public void setNextStation() {
+        smallRadioGuiCenter.setNextStation();
+    }
+
+    public void setPreviousStation() {
+        smallRadioGuiCenter.setPreviousStation();
+    }
+
     public PMaskerPane getMaskerPane() {
         return super.getMaskerPane();
     }

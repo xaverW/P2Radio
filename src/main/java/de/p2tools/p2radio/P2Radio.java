@@ -67,6 +67,7 @@ public class P2Radio extends Application {
     private void initP2lib() {
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
                 "", ProgData.debug, ProgData.duration);
+        //css-files in die Liste aufnehmen
         P2LibInit.addCssFile(P2LibConst.CSS_GUI);
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }

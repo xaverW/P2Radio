@@ -66,7 +66,8 @@ public class StationFilterControllerFilter extends VBox {
         checkOnly.addItem(ONLY_NEW, "+neu", "nur neue Sender anzeigen", progData.storedFilters.getActFilterSettings().onlyNewProperty());
         checkOnly.addItem(NOT_FAVOURITES, "-Favorit", "keine Sender aus den Favoriten anzeigen", progData.storedFilters.getActFilterSettings().noFavouritesProperty());
         checkOnly.addItem(NOT_DOUBLE, "-doppelt", "doppelte Sender nur einmal anzeigen", progData.storedFilters.getActFilterSettings().noDoublesProperty());
-
+        checkOnly.getStyleClass().add("pCheckComboBox");
+        
         VBox vBox = new VBox();
         vBox.getChildren().addAll(lblOnly, checkOnly);
         vBox.visibleProperty().bind(progData.storedFilters.getActFilterSettings().onlyVisProperty());

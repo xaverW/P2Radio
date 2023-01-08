@@ -127,5 +127,6 @@ public class FavouriteFilterController extends FilterController {
             filteredStationData.setPredicate(favouriteFilter.getPredicate());
             cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
         });
+//        btnClearFilter.getStyleClass().add("btnSmallRadio");
     }
 }

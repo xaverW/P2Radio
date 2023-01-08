@@ -128,7 +128,7 @@ public class P2RadioController extends StackPane {
         btnSmallRadio.setTooltip(new Tooltip("kleine Senderübersicht anzeigen"));
         btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
-        btnSmallRadio.getStyleClass().add("btnTab");
+        btnSmallRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnSmallRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
 
         btnStation.setTooltip(new Tooltip("Sender anzeigen"));

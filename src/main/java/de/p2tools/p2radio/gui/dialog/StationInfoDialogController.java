@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui.dialog;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -47,6 +48,10 @@ public class StationInfoDialogController extends PDialogExtra {
     private final Button btnStop = new Button("");
     private final Button btnOk = new Button("_Ok");
     private final ImageView ivNew = new ImageView();
+    private final ImageView ivOwn = new ImageView();
+    private final ImageView ivDouble = new ImageView();
+    private final ImageView ivFavourite = new ImageView();
+    private final ImageView ivBlack = new ImageView();
 
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
@@ -86,38 +91,53 @@ public class StationInfoDialogController extends PDialogExtra {
         getHboxLeft().getChildren().addAll(btnPrev, btnNext, new HBox(), btnStart, btnStop);
         addOkButton(btnOk);
         btnOk.setOnAction(a -> close());
+//        btnOk.getStyleClass().add("btnSmallRadio");
 
-        btnPrev.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnPrev.setTooltip(new Tooltip("Vorherigen Sender in der Tabelle anzeigen"));
         btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
-            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-                case 0:
-                    progData.stationGuiPack.getStationGuiController().setPreviousStation();
-                    break;
-                case 1:
-                    progData.favouriteGuiPack.getFavouriteGuiController().setPreviousStation();
-                    break;
-                case 2:
-                default:
-                    progData.historyGuiPack.getHistoryGuiController().setPreviousStation();
+            if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
+                //dann ist das kleine Fenster offen
+                progData.smallRadioGuiController.setPreviousStation();
+
+            } else {
+                switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                    case 0:
+                        progData.stationGuiPack.getStationGuiController().setPreviousStation();
+                        break;
+                    case 1:
+                        progData.favouriteGuiPack.getFavouriteGuiController().setPreviousStation();
+                        break;
+                    case 2:
+                    default:
+                        progData.historyGuiPack.getHistoryGuiController().setPreviousStation();
+                }
             }
         });
+//        btnPrev.getStyleClass().add("btnSmallRadio");
 
-        btnNext.setTooltip(new Tooltip("weniger Informationen zum Sender anzeigen"));
+        btnNext.setTooltip(new Tooltip("Nächsten Sender in der Tabelle anzeigen"));
         btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
-            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-                case 0:
-                    progData.stationGuiPack.getStationGuiController().setNextStation();
-                    break;
-                case 1:
-                    progData.favouriteGuiPack.getFavouriteGuiController().setNextStation();
-                    break;
-                case 2:
-                default:
-                    progData.historyGuiPack.getHistoryGuiController().setNextStation();
+            if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
+                //dann ist das kleine Fenster offen
+                progData.smallRadioGuiController.setNextStation();
+
+            } else {
+                switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                    case 0:
+                        progData.stationGuiPack.getStationGuiController().setNextStation();
+                        break;
+                    case 1:
+                        progData.favouriteGuiPack.getFavouriteGuiController().setNextStation();
+                        break;
+                    case 2:
+                    default:
+                        progData.historyGuiPack.getHistoryGuiController().setNextStation();
+                }
             }
         });
+//        btnNext.getStyleClass().add("btnSmallRadio");
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
         btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
@@ -134,10 +154,12 @@ public class StationInfoDialogController extends PDialogExtra {
                     progData.historyGuiPack.getHistoryGuiController().playStation();
             }
         });
+//        btnStart.getStyleClass().add("btnSmallRadio");
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> progData.startFactory.stopAll());
+//        btnStop.getStyleClass().add("btnSmallRadio");
 
         initUrl();
         makeGridPane();
@@ -147,7 +169,11 @@ public class StationInfoDialogController extends PDialogExtra {
         for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
             if (station == null) {
                 lblCont[i].setText("");
-                ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_AUS.getImage());
+                ivNew.setImage(null);
+                ivOwn.setImage(null);
+                ivDouble.setImage(null);
+                ivFavourite.setImage(null);
+                ivBlack.setImage(null);
                 pHyperlinkUrl.setUrl("");
                 pHyperlinkWebsite.setUrl("");
             } else {
@@ -159,7 +185,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         if (station.isNewStation()) {
                             ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
                         } else {
-                            ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_AUS.getImage());
+                            ivNew.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_STATION_NAME_INT:
@@ -196,9 +222,9 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_OWN_INT:
                         if (station.isOwn()) {
-                            lblCont[i].setText("X");
+                            ivOwn.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
                         } else {
-                            lblCont[i].setText("");
+                            ivOwn.setImage(null);
                         }
                         break;
 
@@ -222,10 +248,8 @@ public class StationInfoDialogController extends PDialogExtra {
                         lblCont[i].setText(station.getDescription());
                         break;
                     case StationDataXml.STATION_PROP_DATE_INT:
-                        lblCont[i].setText(station.getStationDate().toString());
-                        break;
                     case StationDataXml.STATION_PROP_DATE_LONG_INT:
-                        lblCont[i].setText(station.getStationDate().toString());
+                        lblCont[i].setText(PLDateFactory.toString(station.getStationDate()));
                         break;
 
                     case StationDataXml.STATION_PROP_URL_INT:
@@ -233,23 +257,23 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DOUBLE_URL_INT:
                         if (station.isDoubleUrl()) {
-                            lblCont[i].setText("X");
+                            ivDouble.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
                         } else {
-                            lblCont[i].setText("");
+                            ivDouble.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
                         if (station.isFavourite()) {
-                            lblCont[i].setText("X");
+                            ivFavourite.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
                         } else {
-                            lblCont[i].setText("");
+                            ivFavourite.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                         if (station.isBlackBlocked()) {
-                            lblCont[i].setText("X");
+                            ivBlack.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
                         } else {
-                            lblCont[i].setText("");
+                            ivBlack.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_URL_RESOLVED_INT:
@@ -302,6 +326,7 @@ public class StationInfoDialogController extends PDialogExtra {
                 case StationDataXml.STATION_PROP_STATE_INT:
                 case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
                 case StationDataXml.STATION_PROP_DATE_INT:
+                case StationDataXml.STATION_PROP_DATE_LONG_INT:
                     // bis hier nicht anzeigen
                     break;
 
@@ -309,6 +334,24 @@ public class StationInfoDialogController extends PDialogExtra {
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(ivNew, 1, row++, 3, 1);
                     break;
+                case StationDataXml.STATION_PROP_OWN_INT:
+                    gridPane.add(textTitle[i], 0, row);
+                    gridPane.add(ivOwn, 1, row++, 3, 1);
+                    break;
+                case StationDataXml.STATION_PROP_DOUBLE_URL_INT:
+                    gridPane.add(textTitle[i], 0, row);
+                    gridPane.add(ivDouble, 1, row++, 3, 1);
+                    break;
+                case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
+                    gridPane.add(textTitle[i], 0, row);
+                    gridPane.add(ivFavourite, 1, row++, 3, 1);
+                    break;
+                case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
+                    gridPane.add(textTitle[i], 0, row);
+                    gridPane.add(ivBlack, 1, row++, 3, 1);
+                    break;
+
+
                 case StationDataXml.STATION_PROP_CODEC_INT:
                     gridPane.add(textTitle[StationDataXml.STATION_PROP_CODEC_INT], 0, row);
                     gridPane.add(lblCont[StationDataXml.STATION_PROP_CODEC_INT], 1, row);
