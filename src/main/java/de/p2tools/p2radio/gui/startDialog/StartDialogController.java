@@ -34,22 +34,16 @@ import javafx.scene.layout.VBox;
 
 public class StartDialogController extends PDialogExtra {
 
+    private final ProgData progData;
+    private final TilePane tilePane = new TilePane();
+    private final Button btnStart1 = new Button("Infos");
+    private final Button btnStart2 = new Button("Infos");
+    private final Button btnStart3 = new Button("Infos");
+    private final Button btnConfig = new Button("Einstellungen");
     private boolean ok = false;
-
-    private TilePane tilePane = new TilePane();
     private StackPane stackpane;
     private Button btnOk, btnCancel;
     private Button btnPrev, btnNext;
-    private Button btnStart1 = new Button(STR_START_1), btnStart2 = new Button(STR_START_2),
-            btnStart3 = new Button(STR_START_3), btnConfig = new Button(STR_CONFIG);
-
-    private static final String STR_START_1 = "Infos";
-    private static final String STR_START_2 = "Infos";
-    private static final String STR_START_3 = "Infos";
-    private static final String STR_CONFIG = "Einstellungen";
-
-    private enum State {START_1, START_2, START_3, CONFIG}
-
     private State aktState = State.START_1;
 
     private TitledPane tStart1;
@@ -61,8 +55,6 @@ public class StartDialogController extends PDialogExtra {
     private StartPane startPane2;
     private StartPane startPane3;
     private ConfigPane configPane;
-
-    private final ProgData progData;
 
     public StartDialogController() {
         super(null, null, "Starteinstellungen", true, false);
@@ -101,14 +93,15 @@ public class StartDialogController extends PDialogExtra {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        setButton(btnStart1, State.START_1);
-        setButton(btnStart2, State.START_2);
-        setButton(btnStart3, State.START_3);
-        setButton(btnConfig, State.CONFIG);
+        initButton(btnStart1, State.START_1);
+        initButton(btnStart2, State.START_2);
+        initButton(btnStart3, State.START_3);
+        initButton(btnConfig, State.CONFIG);
     }
 
-    private void setButton(Button btn, State state) {
-        btn.getStyleClass().add("btnStartDialog");
+    private void initButton(Button btn, State state) {
+        btn.getStyleClass().addAll("btnFunction", "btnFuncStartDialog");
+        btn.setAlignment(Pos.CENTER);
         btn.setMaxWidth(Double.MAX_VALUE);
         btn.setOnAction(a -> {
             aktState = state;
@@ -193,11 +186,6 @@ public class StartDialogController extends PDialogExtra {
             selectActPane();
         });
 
-        btnOk.getStyleClass().add("btnStartDialog");
-        btnCancel.getStyleClass().add("btnStartDialog");
-        btnNext.getStyleClass().add("btnStartDialog");
-        btnPrev.getStyleClass().add("btnStartDialog");
-
         addOkCancelButtons(btnOk, btnCancel);
         ButtonBar.setButtonData(btnPrev, ButtonBar.ButtonData.BACK_PREVIOUS);
         ButtonBar.setButtonData(btnNext, ButtonBar.ButtonData.NEXT_FORWARD);
@@ -212,25 +200,25 @@ public class StartDialogController extends PDialogExtra {
                 btnPrev.setDisable(true);
                 btnNext.setDisable(false);
                 tStart1.toFront();
-                setButtonStyle(btnStart1);
+                setActButtonStyle(btnStart1);
                 break;
             case START_2:
                 btnPrev.setDisable(false);
                 btnNext.setDisable(false);
                 tStart2.toFront();
-                setButtonStyle(btnStart2);
+                setActButtonStyle(btnStart2);
                 break;
             case START_3:
                 btnPrev.setDisable(false);
                 btnNext.setDisable(false);
                 tStart3.toFront();
-                setButtonStyle(btnStart3);
+                setActButtonStyle(btnStart3);
                 break;
             case CONFIG:
                 btnPrev.setDisable(false);
                 btnNext.setDisable(true);
                 tConfig.toFront();
-                setButtonStyle(btnConfig);
+                setActButtonStyle(btnConfig);
                 btnOk.setDisable(false);
                 break;
             default:
@@ -238,12 +226,12 @@ public class StartDialogController extends PDialogExtra {
         }
     }
 
-    private void setButtonStyle(Button btnSel) {
-        btnStart1.getStyleClass().retainAll("btnStartDialog");
-        btnStart2.getStyleClass().retainAll("btnStartDialog");
-        btnStart3.getStyleClass().retainAll("btnStartDialog");
-        btnConfig.getStyleClass().retainAll("btnStartDialog");
-        btnSel.getStyleClass().add("btnStartDialogSel");
+    private void setActButtonStyle(Button btnSel) {
+        btnStart1.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnStart2.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnStart3.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnConfig.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnSel.getStyleClass().setAll("btnFunction", "btnFuncStartDialogSel");
     }
 
     private void initTooltip() {
@@ -258,4 +246,6 @@ public class StartDialogController extends PDialogExtra {
         btnNext.setTooltip(new Tooltip("Nächste Einstellmöglichkeit"));
         btnPrev.setTooltip(new Tooltip("Vorherige Einstellmöglichkeit"));
     }
+
+    private enum State {START_1, START_2, START_3, CONFIG}
 }
