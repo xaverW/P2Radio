@@ -93,13 +93,13 @@ public class StartDialogController extends PDialogExtra {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        initButton(btnStart1, State.START_1);
-        initButton(btnStart2, State.START_2);
-        initButton(btnStart3, State.START_3);
-        initButton(btnConfig, State.CONFIG);
+        initTopButton(btnStart1, State.START_1);
+        initTopButton(btnStart2, State.START_2);
+        initTopButton(btnStart3, State.START_3);
+        initTopButton(btnConfig, State.CONFIG);
     }
 
-    private void initButton(Button btn, State state) {
+    private void initTopButton(Button btn, State state) {
         btn.getStyleClass().addAll("btnFunction", "btnFuncStartDialog");
         btn.setAlignment(Pos.CENTER);
         btn.setMaxWidth(Double.MAX_VALUE);

@@ -44,24 +44,19 @@ import java.util.Collection;
 public class ConfigPaneController extends PAccordionPane {
 
     private final ProgData progData;
-
+    private final PToggleSwitch tglSmallStation = new PToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
+    private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Senderliste automatisch alle " +
+            ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
+    private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");
+    private final Stage stage;
     BooleanProperty logfileChanged = new SimpleBooleanProperty(false);
     StringProperty propUrl = ProgConfig.SYSTEM_PROG_OPEN_URL;
     BooleanProperty propLog = ProgConfig.SYSTEM_LOG_ON;
     StringProperty propLogDir = ProgConfig.SYSTEM_LOG_DIR;
-    BooleanProperty propSizeSender = ProgConfig.SYSTEM_SMALL_ROW_TABLE;
     BooleanProperty propLoadStationListEveryDay = ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS;
-
-    private final PToggleSwitch tglSmallStation = new PToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
-    private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Senderliste automatisch alle " +
-            ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
-
     private TextField txtUserAgent;
-    private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");
     private TextField txtLogFile;
     private TextField txtFileManagerWeb;
-
-    private final Stage stage;
     private UpdatePane updatePane;
     private ColorPane colorPane;
     private ShortcutPane shortcutPane;
@@ -83,7 +78,7 @@ public class ConfigPaneController extends PAccordionPane {
         colorPane.close();
         shortcutPane.close();
         stylePane.close();
-        tglSmallStation.selectedProperty().unbindBidirectional(propSizeSender);
+        tglSmallStation.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().unbindBidirectional(propLoadStationListEveryDay);
         txtUserAgent.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
         tglEnableLog.selectedProperty().unbindBidirectional(propLog);
@@ -122,7 +117,7 @@ public class ConfigPaneController extends PAccordionPane {
         TitledPane tpConfig = new TitledPane("Allgemein", gridPane);
         result.add(tpConfig);
 
-        tglSmallStation.selectedProperty().bindBidirectional(propSizeSender);
+        tglSmallStation.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().bindBidirectional(propLoadStationListEveryDay);
         final Button btnHelpLoadStationList = PButton.helpButton(stage, "Liste der Sender aktualisieren",
                 HelpText.LOAD_STATION_LIST_EVERY_DAYS);
@@ -155,10 +150,7 @@ public class ConfigPaneController extends PAccordionPane {
                 String str = PStringUtils.convertToASCIIEncoding(text);
                 final int size = getText().length() + text.length();
 
-                if (text.isEmpty() || (size < ProgConst.MAX_USER_AGENT_SIZE) && text.equals(str)) {
-                    return true;
-                }
-                return false;
+                return text.isEmpty() || (size < ProgConst.MAX_USER_AGENT_SIZE) && text.equals(str);
             }
         };
         txtUserAgent.textProperty().bindBidirectional(ProgConfig.SYSTEM_USERAGENT);

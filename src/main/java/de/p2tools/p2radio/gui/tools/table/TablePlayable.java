@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -74,22 +75,8 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> startButtonColumn = new TableColumn<>("");
         startButtonColumn.getStyleClass().add("alignCenter");
-        switch (this.table_enum) {
-            case STATION:
-                startButtonColumn.setCellFactory(new CellStartStation().cellFactoryStart);
-                break;
-            case FAVOURITE:
-                startButtonColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
-                break;
-            case HISTORY:
-                startButtonColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
-                break;
-            case SMALL_RADIO_STATION:
-            case SMALL_RADIO_FAVOURITE:
-            case SMALL_RADIO_HISTORY:
-            default:
-                startButtonColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
-        }
+        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observable, oldValue, newValue) -> addStart(startButtonColumn));
+        addStart(startButtonColumn);
 
         final TableColumn<T, Integer> ownGradeColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN_GRADE);
         ownGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ownGrade"));
@@ -218,6 +205,25 @@ public class TablePlayable<T> extends TableView<T> {
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
                     /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
                     stationDateColumn, websiteColumn, stationUrlColumn*/);
+        }
+    }
+
+    private void addStart(TableColumn startButtonColumn) {
+        switch (this.table_enum) {
+            case STATION:
+                startButtonColumn.setCellFactory(new CellStartStation().cellFactoryStart);
+                break;
+            case FAVOURITE:
+                startButtonColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
+                break;
+            case HISTORY:
+                startButtonColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
+                break;
+            case SMALL_RADIO_STATION:
+            case SMALL_RADIO_FAVOURITE:
+            case SMALL_RADIO_HISTORY:
+            default:
+                startButtonColumn.setCellFactory(new CellStartSmallRadio().cellFactoryButton);
         }
     }
 }

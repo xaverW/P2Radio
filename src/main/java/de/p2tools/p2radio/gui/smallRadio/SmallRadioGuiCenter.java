@@ -113,14 +113,14 @@ public class SmallRadioGuiCenter extends HBox {
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
 
         btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
-        btnPrev.getStyleClass().add("btnSmallRadio");
+        btnPrev.getStyleClass().add("btnSmallGui");
         btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
             setPreviousStation();
         });
 
         btnNext.setTooltip(new Tooltip("nächsten Sender auswählen"));
-        btnNext.getStyleClass().add("btnSmallRadio");
+        btnNext.getStyleClass().add("btnSmallGui");
         btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
             setNextStation();

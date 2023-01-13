@@ -61,7 +61,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                     //dann stoppen
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnTable");
+                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -80,7 +80,7 @@ public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnTable");
+                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {

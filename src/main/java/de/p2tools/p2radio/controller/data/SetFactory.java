@@ -155,7 +155,7 @@ public class SetFactory {
             }
             text += "++++++++++++++++++++++++++++++++++++++++++++" + "" + P2LibConst.LINE_SEPARATORx3;
         }
-        PAlert.showInfoAlert("Set", "Sets prüfen", text);
+        PAlert.showInfoAlert("Set", "Sets prüfen", text, true);
         return ret;
     }
 }

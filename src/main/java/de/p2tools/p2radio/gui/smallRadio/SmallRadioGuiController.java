@@ -70,12 +70,12 @@ public class SmallRadioGuiController extends PDialogOnly {
     public void make() {
         SmallRadioFactory.addBorderListener(getStage());
         getStage().initStyle(StageStyle.TRANSPARENT);
-        getVBoxCompleteDialog().getStyleClass().add("smallRadio");
+        getVBoxCompleteDialog().getStyleClass().add("smallGui");
 
         getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiCenter, smallRadioGuiBottom);
         VBox.setVgrow(smallRadioGuiCenter, Priority.ALWAYS);
-
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
+
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
                 changeGui();

@@ -57,7 +57,7 @@ public class StationFilterControllerTextFilter extends VBox {
     }
 
     private void initCodecFilter() {
-        mbCodec.getStyleClass().add("channel-menu");
+        mbCodec.getStyleClass().add("cbo-menu");
         mbCodec.setMaxWidth(Double.MAX_VALUE);
         VBox.setVgrow(mbCodec, Priority.ALWAYS);
 
@@ -88,7 +88,7 @@ public class StationFilterControllerTextFilter extends VBox {
         miCheckAll.setVisible(false);
 
         Button btnAll = new Button("Auswahl löschen");
-        btnAll.getStyleClass().add("channel-button");
+        btnAll.getStyleClass().add("cbo-menu-button");
         btnAll.setMaxWidth(Double.MAX_VALUE);
         btnAll.minWidthProperty().bind(mbCodec.widthProperty().add(-50));
         btnAll.setOnAction(e -> {
@@ -118,7 +118,7 @@ public class StationFilterControllerTextFilter extends VBox {
             codecMenuItemsList.add(menuItemClass);
 
             Button btnCodec = new Button(s);
-            btnCodec.getStyleClass().add("channel-button");
+            btnCodec.getStyleClass().add("cbo-menu-button");
             btnCodec.setMaxWidth(Double.MAX_VALUE);
             btnCodec.minWidthProperty().bind(mbCodec.widthProperty().add(-50));
             btnCodec.setOnAction(e -> {

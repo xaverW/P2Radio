@@ -170,7 +170,7 @@ public class SmallRadioGuiBottom extends HBox {
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
 
         btnClearFilter.setTooltip(new Tooltip("Auswahl löschen"));
-        btnClearFilter.getStyleClass().add("btnSmallRadio");
+        btnClearFilter.getStyleClass().add("btnSmallGui");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_RESET.getImageView());
         btnClearFilter.setOnAction(event -> {
             if (rbSender.isSelected()) {
@@ -184,21 +184,21 @@ public class SmallRadioGuiBottom extends HBox {
         });
 
         btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
-        btnRandom.getStyleClass().add("btnSmallRadio");
+        btnRandom.getStyleClass().add("btnSmallGui");
         btnRandom.setGraphic(ProgIcons.Icons.ICON_BUTTON_RANDOM.getImageView());
         btnRandom.setOnAction(event -> {
             smallRadioGuiController.playRandomStation();
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
-        btnStart.getStyleClass().add("btnSmallRadio");
+        btnStart.getStyleClass().add("btnSmallGui");
         btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> {
             smallRadioGuiController.playStation();
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
-        btnStop.getStyleClass().add("btnSmallRadio");
+        btnStop.getStyleClass().add("btnSmallGui");
         btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> progData.startFactory.stopAll());
     }

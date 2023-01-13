@@ -122,7 +122,7 @@ public class SetListPane extends TitledPane {
             }
         });
 
-        Button btnStandard = new Button("_Standardset");
+        Button btnStandard = new Button("Als _Standardset setzen");
         btnStandard.setTooltip(new Tooltip("Das Set als Standardset festlegen"));
         btnStandard.setOnAction(event -> {
             SetData setData = getSelectedSelData();

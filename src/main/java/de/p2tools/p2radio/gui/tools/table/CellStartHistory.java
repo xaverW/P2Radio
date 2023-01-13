@@ -60,7 +60,7 @@ public class CellStartHistory<S, T> extends TableCell<S, T> {
                     //dann stoppen
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnTable");
+                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -79,7 +79,7 @@ public class CellStartHistory<S, T> extends TableCell<S, T> {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnTable");
+                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -97,7 +97,7 @@ public class CellStartHistory<S, T> extends TableCell<S, T> {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.getStyleClass().add("btnTable");
+                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {

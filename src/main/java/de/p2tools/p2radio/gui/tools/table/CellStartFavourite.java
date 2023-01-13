@@ -56,13 +56,12 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
 
                 S favourite = getTableView().getItems().get(getIndex());
                 final boolean playing = favourite.getStart() != null;
-                final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
 
                 if (playing) {
                     //dann stoppen
                     final Button btnStop;
                     btnStop = new Button("");
-                    btnStop.getStyleClass().add("btnTable");
+                    btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
                     btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
@@ -81,7 +80,7 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnTable");
+                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -99,7 +98,7 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.getStyleClass().add("btnTable");
+                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
 
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
