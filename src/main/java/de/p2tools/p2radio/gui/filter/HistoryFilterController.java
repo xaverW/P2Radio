@@ -76,6 +76,7 @@ public class HistoryFilterController extends FilterController {
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
                 fN.checkPattern();
+                historyFilter.setGenreFilter(newValue);
                 progData.filteredHistoryList.setPredicate(historyFilter.getPredicate());
             }
         });

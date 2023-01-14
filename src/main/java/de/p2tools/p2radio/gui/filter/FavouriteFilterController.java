@@ -47,7 +47,7 @@ public class FavouriteFilterController extends FilterController {
     private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
 
     private final FavouriteFilter favouriteFilter;
-    private final FilteredList<StationData> filteredStationData;
+    private final FilteredList<StationData> filteredList;
     private final FavouriteGuiPack favouriteGuiPack;
 
     public FavouriteFilterController(FavouriteGuiPack favouriteGuiPack) {
@@ -58,7 +58,7 @@ public class FavouriteFilterController extends FilterController {
         vBoxFilter = getVBoxFilter(true);
 
         favouriteFilter = progData.favouriteFilter;
-        filteredStationData = progData.filteredStationData;
+        filteredList = progData.filteredFavoriteList;
 
         cboCollections.setMaxWidth(Double.MAX_VALUE);
         cboCollections.setMinWidth(150);
@@ -87,14 +87,14 @@ public class FavouriteFilterController extends FilterController {
     private void initFilter() {
         cboCollections.setItems(progData.collectionList);
         cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
-        filteredStationData.setPredicate(favouriteFilter.getPredicate());
+        filteredList.setPredicate(favouriteFilter.getPredicate());
 
         cboCollections.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
             if (n == null) {
                 return;
             }
             favouriteFilter.setCollectionData(n);
-            filteredStationData.setPredicate(favouriteFilter.getPredicate());
+            filteredList.setPredicate(favouriteFilter.getPredicate());
         });
 
         FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
@@ -103,9 +103,10 @@ public class FavouriteFilterController extends FilterController {
         cboGenre.setVisibleRowCount(25);
         cboGenre.valueProperty().bindBidirectional(favouriteFilter.genreFilterProperty());
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != null && newValue != null) {
+            if (/*oldValue != null &&*/ newValue != null) {
                 fN.checkPattern();
-                filteredStationData.setPredicate(favouriteFilter.getPredicate());
+                favouriteFilter.setGenreFilter(newValue);
+                filteredList.setPredicate(favouriteFilter.getPredicate());
             }
         });
         cboGenre.setItems(progData.filterWorker.getAllGenreList());
@@ -113,18 +114,18 @@ public class FavouriteFilterController extends FilterController {
         tglOwn.setTooltip(new Tooltip("Nur eigene Sender anzeigen"));
         tglOwn.selectedProperty().bindBidirectional(favouriteFilter.ownFilterProperty());
         tglOwn.selectedProperty().addListener((u, o, n) -> {
-            filteredStationData.setPredicate(favouriteFilter.getPredicate());
+            filteredList.setPredicate(favouriteFilter.getPredicate());
         });
 
         tglGrade.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
         tglGrade.selectedProperty().bindBidirectional(favouriteFilter.gradeFilterProperty());
         tglGrade.selectedProperty().addListener((u, o, n) -> {
-            filteredStationData.setPredicate(favouriteFilter.getPredicate());
+            filteredList.setPredicate(favouriteFilter.getPredicate());
         });
 
         btnClearFilter.setOnAction(event -> {
             favouriteFilter.clearFilter();
-            filteredStationData.setPredicate(favouriteFilter.getPredicate());
+            filteredList.setPredicate(favouriteFilter.getPredicate());
             cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
         });
 //        btnClearFilter.getStyleClass().add("btnSmallRadio");

@@ -62,7 +62,7 @@ public class FavouriteGuiController extends VBox {
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        sortedStationData = new SortedList<>(progData.filteredStationData);
+        sortedStationData = new SortedList<>(progData.filteredFavoriteList);
 
         initTable();
         initListener();

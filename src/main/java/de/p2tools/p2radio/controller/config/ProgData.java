@@ -94,7 +94,7 @@ public class ProgData {
     public StationList stationListBlackFiltered; //Senderliste nach Blacklist, wie im TabSender angezeigt
 
     public FavouriteList favouriteList; //Sender die als "Favoriten" geladen werden sollen
-    public FilteredList<StationData> filteredStationData;
+    public FilteredList<StationData> filteredFavoriteList;
     public FavouriteFilter favouriteFilter;
 
     public HistoryList historyList; //Sender die zuletzt gespielt wurden
@@ -120,7 +120,7 @@ public class ProgData {
         setDataList = new SetDataList();
 
         favouriteList = new FavouriteList(this);
-        filteredStationData = new FilteredList<>(favouriteList, p -> true);
+        filteredFavoriteList = new FilteredList<>(favouriteList, p -> true);
         favouriteFilter = new FavouriteFilter();
 
         historyList = new HistoryList(this);
