@@ -15,7 +15,6 @@
  */
 package de.p2tools.p2radio;
 
-import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
@@ -66,9 +65,8 @@ public class P2Radio extends Application {
 
     private void initP2lib() {
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
-                "", ProgData.debug, ProgData.duration);
+                "", ProgConfig.SYSTEM_DARK_THEME, ProgData.debug, ProgData.duration);
         //css-files in die Liste aufnehmen
-        P2LibInit.addCssFile(P2LibConst.CSS_GUI);
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }
 
@@ -125,12 +123,10 @@ public class P2Radio extends Application {
 
     private void addThemeCss() {
         if (ProgConfig.SYSTEM_DARK_THEME.get()) {
-            P2LibInit.addCssFile(P2LibConst.CSS_GUI_DARK);
             P2LibInit.addCssFile(ProgConst.CSS_FILE_DARK_THEME);
         } else {
-            P2LibInit.removeCssFile(P2LibConst.CSS_GUI_DARK);
             P2LibInit.removeCssFile(ProgConst.CSS_FILE_DARK_THEME);
         }
-        P2LibInit.addP2LibCssToScene(scene);
+        P2LibInit.addP2CssToScene(scene);
     }
 }
