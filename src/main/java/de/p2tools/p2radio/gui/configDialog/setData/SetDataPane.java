@@ -98,6 +98,8 @@ public class SetDataPane extends TitledPane {
         final Button btnHelpSearch = PButton.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);
 
+        txtDescription.setWrapText(true);
+        
         // Name, Beschreibung
         int row = 0;
         GridPane gridPane = new GridPane();
