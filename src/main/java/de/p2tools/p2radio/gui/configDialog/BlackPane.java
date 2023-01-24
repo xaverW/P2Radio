@@ -22,7 +22,10 @@ import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.Events;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -47,7 +50,6 @@ public class BlackPane {
 
     private final TableView<BlackData> tableView = new TableView<>();
     private final GridPane gridPane = new GridPane();
-
     private final TextField name = new TextField();
     private final PToggleSwitch tgName = new PToggleSwitch("exakt:");
     private final TextField genre = new TextField();
@@ -114,6 +116,19 @@ public class BlackPane {
 
 
     private void initTable(VBox vBox) {
+        tableView.setTableMenuButtonVisible(false);
+        tableView.setEditable(false);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+
+//        tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
+
+        SortedList<BlackData> sortedList;
+        sortedList = new SortedList<>(ProgData.getInstance().blackDataList);
+        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedList);
+
         final TableColumn<BlackData, String> noColumn = new TableColumn<>("Nr");
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         noColumn.getStyleClass().add("center");
@@ -128,19 +143,9 @@ public class BlackPane {
         hitsColumn.setCellValueFactory(new PropertyValueFactory<>("countHits"));
         hitsColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
         tableView.getColumns().addAll(noColumn, nameColumn, genreColumn, hitsColumn);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setActBlackData));
-
-        SortedList<BlackData> sortedList;
-        sortedList = new SortedList<>(ProgData.getInstance().blackDataList);
-        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
-        tableView.setItems(sortedList);
-
 
         Button btnDel = new Button("");
         btnDel.setGraphic(ProgIcons.Icons.ICON_BUTTON_REMOVE.getImageView());
@@ -152,7 +157,7 @@ public class BlackPane {
                 PAlert.showInfoNoSelection();
             } else {
                 ProgData.getInstance().blackDataList.removeAll(selected);
-                tableView.getSelectionModel().clearSelection();
+                tableView.scrollTo(tableView.getSelectionModel().getSelectedIndex());
             }
         });
 
@@ -216,8 +221,13 @@ public class BlackPane {
         HBox hBox = new HBox(10);
         hBox.getChildren().addAll(btnNew, btnDel, hBoxCount);
 
-        VBox.setVgrow(tableView, Priority.ALWAYS);
-        vBox.getChildren().addAll(tableView, hBox);
+        final ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(tableView);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
+        vBox.getChildren().addAll(scrollPane, hBox);
     }
 
     private void addConfigs(VBox vBox) {
