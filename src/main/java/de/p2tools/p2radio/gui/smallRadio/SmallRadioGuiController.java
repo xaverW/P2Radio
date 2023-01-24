@@ -113,7 +113,7 @@ public class SmallRadioGuiController extends PDialogOnly {
         progData.smallRadioGuiController = null;
 
         Platform.runLater(() -> {
-                    PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
+                    PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
                     progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.show();

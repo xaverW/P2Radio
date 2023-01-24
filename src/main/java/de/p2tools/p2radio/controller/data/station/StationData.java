@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.data.station;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.start.Start;
 
 public final class StationData extends StationDataProperty {
@@ -69,7 +69,7 @@ public final class StationData extends StationDataProperty {
     public void setStation(StationData station) {
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
-            setStationNo(ProgConst.NUMBER_DONT_USED);
+            setStationNo(P2LibConst.NUMBER_NOT_STARTED);
             return;
         }
         String collectionName = getCollectionName();

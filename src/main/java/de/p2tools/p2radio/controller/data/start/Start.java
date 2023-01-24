@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -63,7 +63,7 @@ public final class Start extends StartProps {
             getStartStatus().setStateStopped();
         }
 
-        setNo(ProgConst.NUMBER_DONT_USED);
+        setNo(P2LibConst.NUMBER_NOT_STARTED);
     }
 
     //==============================================

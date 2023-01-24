@@ -99,16 +99,13 @@ public class P2Radio extends Application {
                 e.consume();
                 ProgQuitFactory.quit(primaryStage, true);
             });
+            //Pos setzen
+            PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage);
 
             scene.heightProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             scene.widthProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.xProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.yProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
-
-            //Pos setzen
-            if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage)) {
-                primaryStage.centerOnScreen();
-            }
 
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann gleich mit smallRadio starten

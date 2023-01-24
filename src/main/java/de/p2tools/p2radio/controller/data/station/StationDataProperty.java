@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.controller.data.station;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PLDateFactory;
-import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.*;
 
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
 
     public static final String TAG = "Favourite";
-    private final IntegerProperty stationNo = new SimpleIntegerProperty(ProgConst.NUMBER_DONT_USED);
+    private final IntegerProperty stationNo = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
     private final StringProperty stationName = new SimpleStringProperty("");
     private final StringProperty collectionName = new SimpleStringProperty("");

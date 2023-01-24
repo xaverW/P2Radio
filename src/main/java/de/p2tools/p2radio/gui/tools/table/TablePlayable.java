@@ -17,6 +17,9 @@
 package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
+import de.p2tools.p2Lib.guiTools.pTable.CellIntMax;
+import de.p2tools.p2Lib.guiTools.pTable.CellIntNull;
+import de.p2tools.p2Lib.guiTools.pTable.CellLocalDate;
 import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -61,7 +64,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> stationNoColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NO);
         stationNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
-        stationNoColumn.setCellFactory(new CellNo().cellFactoryNo);
+        stationNoColumn.setCellFactory(new CellIntMax<T, Integer>().cellFactory);
         stationNoColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<T, String> stationNameColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NAME);
@@ -108,7 +111,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> bitrateColumn = new TableColumn<>(StationDataXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
-        bitrateColumn.setCellFactory(new CellBitrate().cellFactoryBitrate);
+        bitrateColumn.setCellFactory(new CellIntNull().cellFactory);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<T, Integer> ownColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN);
