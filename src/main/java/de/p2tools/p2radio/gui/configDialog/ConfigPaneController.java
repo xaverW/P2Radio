@@ -226,6 +226,7 @@ public class ConfigPaneController extends PAccordionPane {
             PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
             logfileChanged.setValue(false);
         });
+        Label lblDir = new Label("Ordner:");
 
         int row = 0;
         gridPane.add(tglEnableLog, 0, row, 3, 1);
@@ -233,7 +234,7 @@ public class ConfigPaneController extends PAccordionPane {
 
         gridPane.add(new Label(""), 0, ++row);
 
-        gridPane.add(new Label("Ordner:"), 0, ++row);
+        gridPane.add(lblDir, 0, ++row);
         gridPane.add(txtLogFile, 1, row);
         gridPane.add(btnFile, 2, row);
         gridPane.add(btnReset, 3, row);
@@ -244,6 +245,7 @@ public class ConfigPaneController extends PAccordionPane {
                 PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcPrefSize());
 
+        lblDir.disableProperty().bind(tglEnableLog.selectedProperty().not());
         txtLogFile.disableProperty().bind(tglEnableLog.selectedProperty().not());
         btnFile.disableProperty().bind(tglEnableLog.selectedProperty().not());
         btnReset.disableProperty().bind(tglEnableLog.selectedProperty().not());

@@ -37,6 +37,7 @@ public class TrayPane {
     private final Stage stage;
     private final PToggleSwitch tglTray = new PToggleSwitch("Programm im System Tray anzeigen");
     private final PToggleSwitch tglOwnIcon = new PToggleSwitch("Ein eigenes Icon anzeigen");
+    private final Label lblDatei = new Label("Datei (png, jpg):");
     private final TextField txtPath = new TextField();
 
     public TrayPane(Stage stage) {
@@ -62,7 +63,7 @@ public class TrayPane {
         final Button btnHelpTrayOwnIcon = PButton.helpButton(stage, "Eigenes Bild im Tray anzeigen",
                 HelpText.TRAY_OWN_ICON);
         GridPane.setHalignment(btnHelpTrayOwnIcon, HPos.RIGHT);
-        btnHelpTrayOwnIcon.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
+        btnHelpTrayOwnIcon.disableProperty().bind(tglTray.selectedProperty().not());
 
         final Button btnFile = new Button();
         btnFile.setTooltip(new Tooltip("Einen Ordner für das Logfile auswählen"));
@@ -76,6 +77,7 @@ public class TrayPane {
         btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
+        lblDatei.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
         txtPath.textProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY_ICON_PATH);
         txtPath.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
@@ -86,7 +88,7 @@ public class TrayPane {
         gridPane.add(tglOwnIcon, 0, ++row, 2, 1);
         gridPane.add(btnHelpTrayOwnIcon, 2, row);
 
-        gridPane.add(new Label("Datei (png, jpg):"), 0, ++row);
+        gridPane.add(lblDatei, 0, ++row);
         gridPane.add(txtPath, 1, row);
         gridPane.add(btnFile, 2, row);
 

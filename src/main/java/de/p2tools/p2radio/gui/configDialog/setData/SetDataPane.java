@@ -45,6 +45,14 @@ public class SetDataPane extends TitledPane {
     private final TextArea txtDescription = new TextArea("");
     private final TextField txtProgPath = new TextField();
     private final TextField txtProgSwitch = new TextField();
+    private final Button btnFile = new Button();
+    private final Button btnFind = new Button("suchen");
+    private final Button btnHelpSearch;
+    private final Label lblName = new Label("Name:");
+    private final Label lblDescription = new Label("Beschreibung:");
+    private final Label lblProgram = new Label("Programm:");
+    private final Label lblSwitch = new Label("Schalter:");
+
     private final Stage stage;
     private final SetPanePack setPanePack;
 
@@ -54,6 +62,8 @@ public class SetDataPane extends TitledPane {
     SetDataPane(SetPanePack setPanePack) {
         this.setPanePack = setPanePack;
         this.stage = setPanePack.getStage();
+        this.btnHelpSearch = PButton.helpButton(stage,
+                "Videoplayer", HelpText.PROG_PATHS);
     }
 
     public void close() {
@@ -77,7 +87,6 @@ public class SetDataPane extends TitledPane {
         this.setCollapsible(false);
         this.setMaxHeight(Double.MAX_VALUE);
 
-        final Button btnFile = new Button();
         btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtProgPath));
         btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
@@ -90,16 +99,13 @@ public class SetDataPane extends TitledPane {
                 txtProgPath.setStyle("");
             }
         });
-        final Button btnFind = new Button("suchen");
         btnFind.setOnAction(event -> {
             ProgConfig.SYSTEM_PATH_VLC.setValue("");
             txtProgPath.setText(SetFactory.getTemplatePathVlc());
         });
-        final Button btnHelpSearch = PButton.helpButton(stage,
-                "Videoplayer", HelpText.PROG_PATHS);
 
         txtDescription.setWrapText(true);
-        
+
         // Name, Beschreibung
         int row = 0;
         GridPane gridPane = new GridPane();
@@ -107,20 +113,20 @@ public class SetDataPane extends TitledPane {
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(20));
 
-        gridPane.add(new Label("Name:"), 0, row);
+        gridPane.add(lblName, 0, row);
         gridPane.add(txtVisibleName, 1, row, 4, 1);
 
-        gridPane.add(new Label("Beschreibung:"), 0, ++row);
+        gridPane.add(lblDescription, 0, ++row);
         gridPane.add(txtDescription, 1, row, 4, 1);
 
-        gridPane.add(new Label("Programm:"), 0, ++row);
+        gridPane.add(lblProgram, 0, ++row);
         gridPane.add(txtProgPath, 1, row);
         gridPane.add(btnFile, 2, row);
         gridPane.add(btnFind, 3, row);
         gridPane.add(btnHelpSearch, 4, row);
 
 
-        gridPane.add(new Label("Schalter:"), 0, ++row);
+        gridPane.add(lblSwitch, 0, ++row);
         gridPane.add(txtProgSwitch, 1, row, 4, 1);
 
 
@@ -136,7 +142,7 @@ public class SetDataPane extends TitledPane {
         vBox.getChildren().add(hBox);
     }
 
-    public void bindProgData(SetData setData) {
+    private void bindProgData(SetData setData) {
         unBindProgData();
 
         this.setData = setData;
@@ -145,10 +151,32 @@ public class SetDataPane extends TitledPane {
             txtProgPath.textProperty().bindBidirectional(setData.progPathProperty());
             txtProgSwitch.textProperty().bindBidirectional(setData.progSwitchProperty());
             txtDescription.textProperty().bindBidirectional(setData.descriptionProperty());
+            setDis(false);
+
+        } else {
+            txtVisibleName.setText("");
+            txtProgPath.setText("");
+            txtProgSwitch.setText("");
+            txtDescription.setText("");
+            setDis(true);
         }
     }
 
-    void unBindProgData() {
+    private void setDis(boolean set) {
+        txtVisibleName.setDisable(set);
+        txtProgPath.setDisable(set);
+        txtProgSwitch.setDisable(set);
+        txtDescription.setDisable(set);
+        btnFile.setDisable(set);
+        btnFind.setDisable(set);
+        btnHelpSearch.setDisable(set);
+        lblName.setDisable(set);
+        lblDescription.setDisable(set);
+        lblProgram.setDisable(set);
+        lblSwitch.setDisable(set);
+    }
+
+    private void unBindProgData() {
         if (setData != null) {
             txtVisibleName.textProperty().unbindBidirectional(setData.visibleNameProperty());
             txtProgPath.textProperty().unbindBidirectional(setData.progPathProperty());
