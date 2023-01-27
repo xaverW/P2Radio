@@ -28,8 +28,6 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -43,8 +41,6 @@ import java.io.File;
 public class ConfigPane {
     private final Stage stage;
     private final PToggleSwitch tglSearch = new PToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
-    BooleanProperty updateProp = ProgConfig.SYSTEM_UPDATE_SEARCH_ACT;
-    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
     private final GridPane gridPane = new GridPane();
     private final TextField txtPlayer = new TextField();
     private int row = 0;
@@ -62,8 +58,8 @@ public class ConfigPane {
     }
 
     public void close() {
-        tglSearch.selectedProperty().unbindBidirectional(updateProp);
-        txtPlayer.textProperty().bindBidirectional(vlcProp);
+        tglSearch.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
+        txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
     }
 
     private void makeUpdate() {
@@ -73,7 +69,7 @@ public class ConfigPane {
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
 
         //einmal am Tag Update suchen
-        tglSearch.selectedProperty().bindBidirectional(updateProp);
+        tglSearch.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
 
         Text text = new Text("Suche nach einem Programmupdate");
         text.setStyle("-fx-font-weight: bold");
@@ -111,7 +107,7 @@ public class ConfigPane {
                 txtPlayer.setStyle("");
             }
         });
-        txtPlayer.textProperty().bindBidirectional(vlcProp);
+        txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> {

@@ -21,7 +21,6 @@ import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PStyles;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -100,7 +99,6 @@ public class SetDataPane extends TitledPane {
             }
         });
         btnFind.setOnAction(event -> {
-            ProgConfig.SYSTEM_PATH_VLC.setValue("");
             txtProgPath.setText(SetFactory.getTemplatePathVlc());
         });
 
