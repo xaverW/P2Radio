@@ -106,9 +106,9 @@ public class FavouriteEditDialogController extends PDialogExtra {
 
             vBoxAllFavourites.getStyleClass().add("downloadDialog");
             vBoxAllFavourites.getChildren().addAll(hBoxTop);
-            getvBoxCont().getChildren().add(vBoxAllFavourites);
+            getVBoxCont().getChildren().add(vBoxAllFavourites);
         }
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().add(gridPane);
     }
 
     private void initButton() {

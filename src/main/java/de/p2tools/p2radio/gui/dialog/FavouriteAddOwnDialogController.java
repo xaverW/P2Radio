@@ -78,7 +78,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     }
 
     private void initCont() {
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().add(gridPane);
     }
 
     private void initButton() {

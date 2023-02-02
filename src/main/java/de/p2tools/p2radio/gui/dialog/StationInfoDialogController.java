@@ -290,8 +290,8 @@ public class StationInfoDialogController extends PDialogExtra {
 
     private void makeGridPane() {
         final GridPane gridPane = new GridPane();
-        getvBoxCont().getChildren().clear();
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().clear();
+        getVBoxCont().getChildren().add(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         gridPane.setHgap(10);

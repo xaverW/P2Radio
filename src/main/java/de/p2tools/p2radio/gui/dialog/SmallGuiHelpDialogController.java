@@ -65,7 +65,7 @@ public class SmallGuiHelpDialogController extends PDialogExtra {
                 "restlichen Rand, passt die" + P2LibConst.LINE_SEPARATOR +
                 "Fenstergröße an.");
         hBox.getChildren().add(text);
-        getvBoxCont().getChildren().addAll(hBox);
+        getVBoxCont().getChildren().addAll(hBox);
     }
 
     private javafx.scene.image.Image getHelpScreen() {

@@ -62,8 +62,8 @@ public class NoSetDialogController extends PDialogExtra {
         textArea.setMaxHeight(Double.MAX_VALUE);
         textArea.setPrefRowCount(prefRowCount);
         VBox.setVgrow(textArea, Priority.ALWAYS);
-        getvBoxCont().getChildren().addAll(textHeaderPlay, textArea);
-        getvBoxCont().setSpacing(20);
+        getVBoxCont().getChildren().addAll(textHeaderPlay, textArea);
+        getVBoxCont().setSpacing(20);
         textArea.setText("Es ist kein Mediaplayer zum Abspielen der Radiosender " +
                 "angelegt." + P2LibConst.LINE_SEPARATORx2 +
                 "Im Menü Einstellungen unter \"Abspielen\" " +

@@ -86,7 +86,7 @@ public class StartDialogController extends PDialogExtra {
     }
 
     private void initTopButton() {
-        getvBoxCont().getChildren().add(tilePane);
+        getVBoxCont().getChildren().add(tilePane);
         tilePane.getChildren().addAll(btnStart1, btnStart2, btnStart3, btnConfig);
         tilePane.setAlignment(Pos.CENTER);
         tilePane.setPadding(new Insets(10, 10, 20, 10));
@@ -112,7 +112,7 @@ public class StartDialogController extends PDialogExtra {
     private void initStack() {
         stackpane = new StackPane();
         VBox.setVgrow(stackpane, Priority.ALWAYS);
-        getvBoxCont().getChildren().add(stackpane);
+        getVBoxCont().getChildren().add(stackpane);
 
         //startPane 1
         startPane1 = new StartPane(getStage());

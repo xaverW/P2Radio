@@ -40,24 +40,18 @@ public class StartStationErrorDialogController extends PDialogExtra {
 
     private final HBox hBoxTitle;
     private final VBox vBoxCont;
-
-    private Label lblHeader = new Label("Downloadfehler");
-    private Button btnOk = new Button("_Ok");
-
-    private Label lblStationTitle = new Label("ARD: Tatort, ..");
-    private Label lblUrl = new Label();
-    private TextArea txtCont = new TextArea();
-
-    private Label lblTime = new Label("");
-
-    private ImageView imageView = new ImageView();
-    private GridPane gridPane = new GridPane();
-
-    private Timeline timeline = null;
-    private Integer timeSeconds = ProgConfig.SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND.get();
-
     private final String message;
     private final Start start;
+    private final Label lblHeader = new Label("Downloadfehler");
+    private final Button btnOk = new Button("_Ok");
+    private final Label lblStationTitle = new Label("ARD: Tatort, ..");
+    private final Label lblUrl = new Label();
+    private final TextArea txtCont = new TextArea();
+    private final Label lblTime = new Label("");
+    private final ImageView imageView = new ImageView();
+    private final GridPane gridPane = new GridPane();
+    private Timeline timeline = null;
+    private Integer timeSeconds = ProgConfig.SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND.get();
 
     public StartStationErrorDialogController(Start start, String message) {
         super(ProgData.getInstance().primaryStage, ProgConfig.START_STATION_ERROR_DIALOG_SIZE,
@@ -67,7 +61,7 @@ public class StartStationErrorDialogController extends PDialogExtra {
         this.message = message;
 
         hBoxTitle = getHBoxTitle();
-        vBoxCont = getvBoxCont();
+        vBoxCont = getVBoxCont();
         init(true);
     }
 
@@ -138,6 +132,16 @@ public class StartStationErrorDialogController extends PDialogExtra {
         getHboxLeft().getChildren().add(lblTime);
     }
 
+    private void stopCounter() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+    }
+
+    private void quit() {
+        close();
+    }
+
     private class CountdownAction implements EventHandler {
 
         @Override
@@ -150,15 +154,5 @@ public class StartStationErrorDialogController extends PDialogExtra {
                 quit();
             }
         }
-    }
-
-    private void stopCounter() {
-        if (timeline != null) {
-            timeline.stop();
-        }
-    }
-
-    private void quit() {
-        close();
     }
 }

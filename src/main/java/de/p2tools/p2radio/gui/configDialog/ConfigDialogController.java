@@ -69,8 +69,8 @@ public class ConfigDialogController extends PDialogExtra {
     @Override
     public void make() {
         VBox.setVgrow(tabPane, Priority.ALWAYS);
-        getvBoxCont().getChildren().add(tabPane);
-        getvBoxCont().setPadding(new Insets(0));
+        getVBoxCont().getChildren().add(tabPane);
+        getVBoxCont().setPadding(new Insets(0));
 
         addOkButton(btnOk);
         btnOk.setOnAction(a -> close());

@@ -38,7 +38,7 @@ public class StationFilterEditDialog extends PDialogExtra {
 
     @Override
     public void make() {
-        init(getvBoxCont());
+        init(getVBoxCont());
 
         final Button btnHelp = PButton.helpButton(getStage(), "Filter ein- und ausschalten",
                 HelpText.GUI_STATIONS_EDIT_FILTER);
