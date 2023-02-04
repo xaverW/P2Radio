@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.smallRadio;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
@@ -74,14 +75,13 @@ public class SmallRadioGuiCenter extends HBox {
         tableViewFavourite = new TablePlayable<>(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE);
         tableViewHistory = new TablePlayable<>(Table.TABLE_ENUM.SMALL_RADIO_HISTORY);
         tableView = tableViewStation;
-
         make();
         initTable();
         initListener();
     }
 
     private void make() {
-        setSpacing(5);
+        setSpacing(P2LibConst.DIST_BUTTON);
         setPadding(new Insets(10, 10, 0, 10));
         setAlignment(Pos.CENTER);
 

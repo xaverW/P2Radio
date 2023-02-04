@@ -157,7 +157,6 @@ public class ShortcutPane {
         SplitPane.setResizableWithParent(txtLongDescription, Boolean.FALSE);
         splitPane.getItems().addAll(tableView, txtLongDescription);
         splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
-//        splitPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         initTable(tableView);
         txtLongDescription.setMinHeight(ProgConst.MIN_TEXTAREA_HEIGHT_LOW);

@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.smallRadio;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -39,7 +40,7 @@ public class SmallRadioGuiBottom extends HBox {
     private final RadioButton rbFavourite = new RadioButton("Favoriten");
     private final RadioButton rbHistory = new RadioButton("History");
     private final SmallRadioGuiController smallRadioGuiController;
-    private final HBox hBoxCollect = new HBox(15);
+    private final HBox hBoxSearch = new HBox(P2LibConst.DIST_BUTTON);
     private final Button btnRadio = new Button();
     private final ProgData progData;
 
@@ -51,7 +52,7 @@ public class SmallRadioGuiBottom extends HBox {
     }
 
     private void initBottom() {
-        setPadding(new Insets(5, 10, 10, 10));
+        setPadding(new Insets(0, 10, 10, 10));
 
         //Collection
         ToggleGroup tg = new ToggleGroup();
@@ -78,24 +79,22 @@ public class SmallRadioGuiBottom extends HBox {
             setList();
         });
 
-
-        HBox hBoxRb = new HBox(5);
+        HBox hBoxRb = new HBox(P2LibConst.DIST_BUTTON);
         hBoxRb.setAlignment(Pos.CENTER);
         hBoxRb.getChildren().addAll(rbSender, rbFavourite, rbHistory);
-        VBox vbColl = new VBox(5);
-        vbColl.getChildren().addAll(hBoxRb);
-
-        hBoxCollect.setAlignment(Pos.CENTER);
+        VBox vbColl = new VBox(P2LibConst.DIST_BUTTON);
 
         initCbo();
-        vbColl.getChildren().add(hBoxCollect);
+        hBoxSearch.setAlignment(Pos.CENTER);
 
-        HBox hBoxButton = new HBox(5);
+        vbColl.getChildren().addAll(hBoxRb, hBoxSearch);
+
+        HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.BOTTOM_RIGHT);
-        hBoxButton.getChildren().addAll(btnStart, btnStop, PGuiTools.getHDistance(20), btnRandom);
+        hBoxButton.getChildren().addAll(btnStart, btnStop, PGuiTools.getVDistance(P2LibConst.DIST_BUTTON_BLOCK), btnRandom);
 
         setAlignment(Pos.BOTTOM_CENTER);
-        getChildren().addAll(/*btnRadio,*/ PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
+        getChildren().addAll(PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initCbo() {
@@ -128,15 +127,15 @@ public class SmallRadioGuiBottom extends HBox {
     }
 
     private void setHbCollection() {
-        hBoxCollect.getChildren().clear();
+        hBoxSearch.getChildren().clear();
         if (rbSender.isSelected()) {
-            hBoxCollect.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
+            hBoxSearch.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
 
         } else if (rbFavourite.isSelected()) {
-            hBoxCollect.getChildren().addAll(new Label("Genre:"), cboGenre,
+            hBoxSearch.getChildren().addAll(new Label("Genre:"), cboGenre,
                     new Label("Sammlung:"), cboCollections, btnClearFilter);
         } else {
-            hBoxCollect.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
+            hBoxSearch.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
         }
 
         if (rbSender.isSelected()) {
