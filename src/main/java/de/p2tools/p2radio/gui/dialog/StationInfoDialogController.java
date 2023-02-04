@@ -62,7 +62,7 @@ public class StationInfoDialogController extends PDialogExtra {
 
     public StationInfoDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.SYSTEM_SIZE_DIALOG_STATION_INFO,
-                "Senderinfos", false, false, DECO.SMALL);
+                "Senderinfos", false, false, DECO.BORDER_SMALL);
 
         this.progData = progData;
         init(false);
