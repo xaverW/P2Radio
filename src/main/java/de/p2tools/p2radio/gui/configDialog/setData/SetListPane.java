@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.configDialog.setData;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -54,7 +55,7 @@ public class SetListPane extends TitledPane {
     }
 
     private void make() {
-        final VBox vBox = new VBox(10);
+        final VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
         initTable(vBox);
 
         this.setText("Sets");
@@ -162,7 +163,7 @@ public class SetListPane extends TitledPane {
         HBox.setHgrow(btnCheck, Priority.ALWAYS);
         btnCheck.setMaxWidth(Double.MAX_VALUE);
 
-        HBox hBox = new HBox(10);
+        HBox hBox = new HBox(P2LibConst.DIST_BUTTON);
         HBox.setHgrow(hBox, Priority.ALWAYS);
         hBox.setAlignment(Pos.CENTER_RIGHT);
 

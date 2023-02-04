@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.configDialog;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.accordion.PAccordionPane;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
@@ -40,13 +41,11 @@ public class BlackListPaneController extends PAccordionPane {
 
     private final ProgData progData;
     private final PRangeBox slBitrate = new PRangeBox(0, StationFilterFactory.FILTER_BITRATE_MAX);
-
+    private final BooleanProperty blackChanged;
+    private final Stage stage;
     IntegerProperty propMinBit = ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE;
     IntegerProperty propMaxBit = ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE;
-    private final BooleanProperty blackChanged;
-
     private BlackPane blackPane;
-    private final Stage stage;
 
     public BlackListPaneController(Stage stage, BooleanProperty blackChanged) {
         super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_BLACKLIST);
@@ -73,9 +72,9 @@ public class BlackListPaneController extends PAccordionPane {
     private void makeBlack(Collection<TitledPane> result) {
         initBitrateFilter();
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Blacklist allgemein", gridPane);
         result.add(tpConfig);
@@ -84,7 +83,7 @@ public class BlackListPaneController extends PAccordionPane {
                 HelpText.BLACKLIST_BITRATE);
 
         int row = 0;
-        gridPane.add(new Label("nur Sender mit der Bitrate anzeigen:"), 0, ++row, 2, 1);
+        gridPane.add(new Label("nur Sender mit der Bitrate anzeigen:"), 0, row, 2, 1);
 
         gridPane.add(new Label("Bitrate:"), 0, ++row);
         gridPane.add(slBitrate, 1, row);

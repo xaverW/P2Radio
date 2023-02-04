@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.configDialog;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
@@ -70,6 +71,7 @@ public class BlackPane {
     public void makeBlackTable(Collection<TitledPane> result) {
         final VBox vBox = new VBox();
         vBox.setSpacing(10);
+        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         makeConfig(vBox);
         initTable(vBox);
@@ -87,9 +89,9 @@ public class BlackPane {
 
     private void makeConfig(VBox vBox) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+//        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         vBox.getChildren().add(gridPane);
 
@@ -120,9 +122,6 @@ public class BlackPane {
         tableView.setEditable(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
-
-//        tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
 
         SortedList<BlackData> sortedList;
         sortedList = new SortedList<>(ProgData.getInstance().blackDataList);
@@ -213,12 +212,12 @@ public class BlackPane {
         };
         ProgData.getInstance().pEventHandler.addListener(listener);
 
-        HBox hBoxCount = new HBox(10);
+        HBox hBoxCount = new HBox(P2LibConst.DIST_BUTTON);
         hBoxCount.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(hBoxCount, Priority.ALWAYS);
         hBoxCount.getChildren().addAll(btnSortList, btnCountHits, btnHelpCount);
 
-        HBox hBox = new HBox(10);
+        HBox hBox = new HBox(P2LibConst.DIST_BUTTON);
         hBox.getChildren().addAll(btnNew, btnDel, hBoxCount);
 
         final ScrollPane scrollPane = new ScrollPane();
@@ -232,9 +231,9 @@ public class BlackPane {
 
     private void addConfigs(VBox vBox) {
         gridPane.getStyleClass().add("extra-pane");
-        gridPane.setHgap(15);
-        gridPane.setVgap(5);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         int row = 0;
 

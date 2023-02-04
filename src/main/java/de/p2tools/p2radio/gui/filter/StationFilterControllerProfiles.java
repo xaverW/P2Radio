@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
@@ -52,9 +53,8 @@ public class StationFilterControllerProfiles extends VBox {
     public StationFilterControllerProfiles() {
         super();
         progData = ProgData.getInstance();
-
-        setPadding(new Insets(10, 15, 5, 15));
-        setSpacing(FilterController.FILTER_SPACING_PROFIlE);
+        setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
+        setSpacing(P2LibConst.DIST_BUTTON);
 
         initButton();
         filterProfiles();

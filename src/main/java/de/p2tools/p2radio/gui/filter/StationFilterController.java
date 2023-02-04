@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
@@ -34,20 +35,24 @@ import javafx.scene.layout.VBox;
 
 public class StationFilterController extends FilterController {
 
+    private final VBox vBoxAll;
     private final VBox vBoxBottom;
     private final ProgData progData;
 
     private final PToggleSwitch tglBlacklist = new PToggleSwitch("Blacklist:");
     private final StationGuiPack stationGuiPack;
-    StationFilterControllerTextFilter sender;
-    StationFilterControllerFilter filter;
-    StationFilterControllerClearFilter clearFilter;
-    StationFilterControllerProfiles profiles;
+    private final StationFilterControllerTextFilter sender;
+    private final StationFilterControllerFilter filter;
+    private final StationFilterControllerClearFilter clearFilter;
+    private final StationFilterControllerProfiles profiles;
 
     public StationFilterController(StationGuiPack stationGuiPack) {
         super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
         this.stationGuiPack = stationGuiPack;
+        this.vBoxAll = getVBoxAll();
+        this.vBoxAll.setSpacing(P2LibConst.DIST_BUTTON);
+        this.vBoxAll.setSpacing(0);
 
         sender = new StationFilterControllerTextFilter();//hat separator am ende??
         filter = new StationFilterControllerFilter();
@@ -57,12 +62,12 @@ public class StationFilterController extends FilterController {
         Separator sp = new Separator();
         sp.getStyleClass().add("pseperator3");
         sp.setMinHeight(0);
-        sp.setPadding(new Insets(0, 15, 0, 15));
+        sp.setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
 
-        final VBox vBoxTop = getVBoxAll();
-        vBoxTop.setSpacing(0);
+//        setSpacing(P2LibConst.DIST_BUTTON);
+
         VBox.setVgrow(clearFilter, Priority.ALWAYS);
-        vBoxTop.getChildren().addAll(sender, filter, clearFilter, sp, profiles);
+        vBoxAll.getChildren().addAll(sender, filter, clearFilter, sp, profiles);
 
         Label lblRight = new Label();
         tglBlacklist.setAllowIndeterminate(true);
@@ -71,10 +76,11 @@ public class StationFilterController extends FilterController {
         tglBlacklist.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnProperty());
         tglBlacklist.indeterminateProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().blacklistOnlyProperty());
 
-        vBoxBottom = getVBoxBottom();
+        //Anzeige der Blacklist
         HBox hBox = new HBox(5);
         HBox.setHgrow(tglBlacklist, Priority.ALWAYS);
         hBox.getChildren().addAll(tglBlacklist, lblRight);
+        vBoxBottom = getVBoxBottom();//zum Schluss, damit untern in der VBoxAll
         vBoxBottom.getChildren().addAll(hBox);
 
         progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
@@ -83,6 +89,16 @@ public class StationFilterController extends FilterController {
             }
         });
         setBlack();
+    }
+
+    private VBox getVBoxBottom() {
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("extra-pane");
+        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBox.setSpacing(P2LibConst.DIST_BUTTON);
+        vBox.setMaxWidth(Double.MAX_VALUE);
+        vBoxAll.getChildren().addAll(vBox);
+        return vBox;
     }
 
     private void setBlack() {

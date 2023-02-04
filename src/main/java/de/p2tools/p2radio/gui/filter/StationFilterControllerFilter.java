@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
 import de.p2tools.p2Lib.guiTools.pRange.PRangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -40,9 +41,8 @@ public class StationFilterControllerFilter extends VBox {
     public StationFilterControllerFilter() {
         super();
         progData = ProgData.getInstance();
-
-        setPadding(new Insets(10, 15, 5, 15));
-        setSpacing(FilterController.FILTER_SPACING_FILTER);
+        setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
+        setSpacing(P2LibConst.DIST_BUTTON);
 
         addSlider();
         addCheckFilter();
@@ -67,7 +67,7 @@ public class StationFilterControllerFilter extends VBox {
         checkOnly.addItem(NOT_FAVOURITES, "-Favorit", "keine Sender aus den Favoriten anzeigen", progData.storedFilters.getActFilterSettings().noFavouritesProperty());
         checkOnly.addItem(NOT_DOUBLE, "-doppelt", "doppelte Sender nur einmal anzeigen", progData.storedFilters.getActFilterSettings().noDoublesProperty());
         checkOnly.getStyleClass().add("pCheckComboBox");
-        
+
         VBox vBox = new VBox();
         vBox.getChildren().addAll(lblOnly, checkOnly);
         vBox.visibleProperty().bind(progData.storedFilters.getActFilterSettings().onlyVisProperty());

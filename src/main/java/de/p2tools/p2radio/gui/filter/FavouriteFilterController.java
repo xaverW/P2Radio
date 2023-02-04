@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -55,7 +56,9 @@ public class FavouriteFilterController extends FilterController {
         progData = ProgData.getInstance();
         this.favouriteGuiPack = favouriteGuiPack;
 
-        vBoxFilter = getVBoxFilter(true);
+        vBoxFilter = getVBoxAll();
+        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
 
         favouriteFilter = progData.favouriteFilter;
         filteredList = progData.filteredFavoriteList;

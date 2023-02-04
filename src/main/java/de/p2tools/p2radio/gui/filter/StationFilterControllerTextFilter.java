@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
 import javafx.beans.property.BooleanProperty;
@@ -45,9 +46,8 @@ public class StationFilterControllerTextFilter extends VBox {
     public StationFilterControllerTextFilter() {
         super();
         progData = ProgData.getInstance();
-
-        setPadding(new Insets(10, 15, 5, 15));
-        setSpacing(FilterController.FILTER_SPACING_TEXTFILTER);
+        setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
+        setSpacing(P2LibConst.DIST_BUTTON);
 
         initCodecFilter();
         initCountryFilter();
@@ -96,7 +96,7 @@ public class StationFilterControllerTextFilter extends VBox {
             mbCodec.hide();
         });
 
-        HBox hBoxAll = new HBox(10);
+        HBox hBoxAll = new HBox(P2LibConst.DIST_BUTTON);
         hBoxAll.setAlignment(Pos.CENTER_LEFT);
         hBoxAll.getChildren().addAll(miCheckAll, btnAll);
 
@@ -222,7 +222,7 @@ public class StationFilterControllerTextFilter extends VBox {
     }
 
     private void addFilter() {
-        VBox vBox = new VBox(10);
+        VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
 
         addTxt("Name", txtStationName, vBox, progData.storedFilters.getActFilterSettings().stationNameVisProperty());
         addGenre(vBox);

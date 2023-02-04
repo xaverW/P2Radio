@@ -21,6 +21,15 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 
 public class HelpText {
 
+    public static final String SHORTCUT =
+            "Zum Ändern eines Tastenkürzels, seinen \"Ändern\"-Button klicken und dann " +
+                    "die gewünschten neuen Tasten drücken.\n" +
+                    "\n" +
+                    "Der \"Zurücksetzen\"-Button stellt den Originalzustand wieder her.\n" +
+                    "\n" +
+                    "Damit die Änderungen wirksam werden, muss das Programm neu gestartet werden." +
+                    "\n";
+
     public static final String PROG_PATHS = "Hier kann das Programm zum \"Abspielen\" " +
             "der Sender eingetragen werden. Wird der Pfad nicht automatisch erkannt, " +
             "kann man ihn auch per Hand auswählen." +

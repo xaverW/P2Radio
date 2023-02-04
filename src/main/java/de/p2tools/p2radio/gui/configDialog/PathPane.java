@@ -14,8 +14,9 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui.startDialog;
+package de.p2tools.p2radio.gui.configDialog;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
@@ -55,9 +56,9 @@ public class PathPane {
     }
 
     public TitledPane makePath() {
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
 
         Button btnEmpty = new Button(" "); // ist nur für die Zeilenhöhe

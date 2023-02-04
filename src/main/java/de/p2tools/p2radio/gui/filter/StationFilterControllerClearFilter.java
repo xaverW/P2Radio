@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -41,9 +42,8 @@ public class StationFilterControllerClearFilter extends VBox {
         super();
         progData = ProgData.getInstance();
         progData.stationFilterControllerClearFilter = this;
-
-        setPadding(new Insets(10, 15, 5, 15));
-        setSpacing(FilterController.FILTER_SPACING_CLEAR);
+        setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
+        setSpacing(P2LibConst.DIST_BUTTON);
 
         addButton();
     }
@@ -53,25 +53,21 @@ public class StationFilterControllerClearFilter extends VBox {
         btnGoBack.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
-//        btnGoBack.getStyleClass().add("btnSmallRadio");
 
         btnGoForward.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
         btnGoForward.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
-//        btnGoForward.getStyleClass().add("btnSmallRadio");
 
         btnClearFilter.setOnAction(a -> clearFilter());
-//        btnClearFilter.getStyleClass().add("btnSmallRadio");
 
         btnEditFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_EDIT_FILTER.getImageView());
         btnEditFilter.setOnAction(a -> editFilter());
         btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
-//        btnEditFilter.getStyleClass().add("btnSmallRadio");
 
-        HBox hBox = new HBox(5);
+        HBox hBox = new HBox(P2LibConst.DIST_BUTTON);
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.setPadding(new Insets(5, 0, 0, 0));
+//        hBox.setPadding(new Insets(5, 0, 0, 0));
         hBox.getChildren().addAll(btnEditFilter, PGuiTools.getHBoxGrower(), btnGoBack, btnGoForward, btnClearFilter);
         getChildren().addAll(hBox);
     }

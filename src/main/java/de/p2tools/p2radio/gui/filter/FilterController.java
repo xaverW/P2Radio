@@ -20,16 +20,12 @@ import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class FilterController extends PClosePaneV {
 
     public static final int FILTER_SPACING_FILTER = 15;
-    public static final int FILTER_SPACING_DOWNLOAD = 25;
     public static final int FILTER_SPACING_TEXTFILTER = 10;
     public static final int FILTER_SPACING_CLEAR = 10;
     public static final int FILTER_SPACING_PROFIlE = 10;
@@ -40,6 +36,7 @@ public class FilterController extends PClosePaneV {
     public FilterController(BooleanProperty mlConfig) {
         super(mlConfig, true);
         vBoxAll = super.getVBoxAll();
+        vBoxAll.setPadding(new Insets(0));
         progData = ProgData.getInstance();
     }
 
@@ -51,8 +48,8 @@ public class FilterController extends PClosePaneV {
 
     public VBox getVBoxFilter(boolean vgrow) {
         VBox vbFilter = new VBox();
-        vbFilter.setPadding(new Insets(10, 15, 5, 15));
-        vbFilter.setSpacing(FILTER_SPACING_TEXTFILTER);
+//        vbFilter.setPadding(new Insets(10, 15, 5, 15));
+//        vbFilter.setSpacing(FILTER_SPACING_TEXTFILTER);
         if (vgrow) {
             VBox.setVgrow(vbFilter, Priority.ALWAYS);
         }
@@ -61,28 +58,28 @@ public class FilterController extends PClosePaneV {
         return vbFilter;
     }
 
-    public VBox getVBoxBottom() {
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("extra-pane");
-        vBox.setPadding(new Insets(15, 15, 15, 15));
-        vBox.setSpacing(20);
-        vBox.setMaxWidth(Double.MAX_VALUE);
-        vBoxAll.getChildren().addAll(vBox);
-        return vBox;
-    }
+//    public VBox getVBoxBottom() {
+//        VBox vBox = new VBox();
+//        vBox.getStyleClass().add("extra-pane");
+//        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+//        vBox.setSpacing(P2LibConst.DIST_BUTTON);
+//        vBox.setMaxWidth(Double.MAX_VALUE);
+//        vBoxAll.getChildren().addAll(vBox);
+//        return vBox;
+//    }
 
-    public void addCont(String txt, Control control, VBox vBox) {
-        control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        VBox v = new VBox(2);
-        Label label = new Label(txt);
-        v.getChildren().addAll(label, control);
-        vBox.getChildren().add(v);
-    }
-
-    public void addCont(HBox txt, Control control, VBox vBox) {
-        control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        VBox v = new VBox(2);
-        v.getChildren().addAll(txt, control);
-        vBox.getChildren().add(v);
-    }
+//    public void addCont(String txt, Control control, VBox vBox) {
+//        control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+//        VBox v = new VBox(2);
+//        Label label = new Label(txt);
+//        v.getChildren().addAll(label, control);
+//        vBox.getChildren().add(v);
+//    }
+//
+//    public void addCont(HBox txt, Control control, VBox vBox) {
+//        control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+//        VBox v = new VBox(2);
+//        v.getChildren().addAll(txt, control);
+//        vBox.getChildren().add(v);
+//    }
 }
