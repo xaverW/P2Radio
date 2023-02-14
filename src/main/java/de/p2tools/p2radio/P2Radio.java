@@ -19,9 +19,9 @@ import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2radio.controller.ProgLoadFactory;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
-import de.p2tools.p2radio.controller.ProgStartFactory;
+import de.p2tools.p2radio.controller.ProgQuit;
+import de.p2tools.p2radio.controller.ProgStartAfterGui;
+import de.p2tools.p2radio.controller.ProgStartBeforeGui;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
@@ -48,16 +48,14 @@ public class P2Radio extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        boolean firstProgramStart;
         PDuration.counterStart(LOG_TEXT_PROGRAM_START);
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
 
         initP2lib();
-        firstProgramStart = ProgStartFactory.workBeforeGui(progData);
+        ProgStartBeforeGui.workBeforeGui(progData);
         initRootLayout();
-        ProgStartFactory.workAfterGui(progData);
-        ProgLoadFactory.loadStationProgStart(firstProgramStart);
+        ProgStartAfterGui.workAfterGui(progData);
 
         PDuration.onlyPing("Gui steht!");
         PDuration.counterStop(LOG_TEXT_PROGRAM_START);
@@ -97,7 +95,7 @@ public class P2Radio extends Application {
             primaryStage.setScene(scene);
             primaryStage.setOnCloseRequest(e -> {
                 e.consume();
-                ProgQuitFactory.quit(primaryStage, true);
+                ProgQuit.quit(primaryStage, true);
             });
             //Pos setzen
             PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage);

@@ -18,7 +18,7 @@ package de.p2tools.p2radio;/*
 import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
+import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -45,7 +45,7 @@ public class ProgMenu extends MenuButton {
         miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());
 
         final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
+        miQuit.setOnAction(e -> ProgQuit.quit(progData.primaryStage, true));
         PShortcutWorker.addShortCut(miQuit, P2RadioShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("Über dieses Programm");

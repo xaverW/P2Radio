@@ -16,12 +16,11 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.icons.GetIcon;
+import de.p2tools.p2Lib.configFile.ConfigFile;
+import de.p2tools.p2Lib.configFile.ReadConfigFile;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2radio.controller.config.*;
@@ -29,22 +28,18 @@ import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.gui.startDialog.StartDialogController;
 import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
-import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.nio.file.Path;
 
-public class ProgStartFactory {
+public class ProgStartBeforeGui {
+    public static boolean firstProgramStart = false;
 
-    private ProgStartFactory() {
+    private ProgStartBeforeGui() {
     }
 
     public static boolean workBeforeGui(ProgData progData) {
-        boolean firstProgramStart = false;
-        boolean loadOk = ProgLoadConfigFactory.loadProgConfigData();
+        boolean loadOk = loadProgConfigData();
         if (ProgConfig.SYSTEM_LOG_ON.get()) {
             PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
         }
@@ -131,20 +126,6 @@ public class ProgStartFactory {
         }
     }
 
-
-    /**
-     * alles was nach der GUI gemacht werden soll z.B.
-     * Senderliste beim Programmstart!! laden
-     */
-    public static void workAfterGui(ProgData progData) {
-        GetIcon.addWindowP2Icon(progData.primaryStage);
-        startMsg();
-        setTitle(progData.primaryStage);
-
-        progData.initProgData();
-        checkProgUpdate(progData);
-    }
-
     private static void firstStartDialog(ProgData progData) {
         StartDialogController startDialogController = new StartDialogController();
         if (!startDialogController.isOk()) {
@@ -163,56 +144,37 @@ public class ProgStartFactory {
         InitStoredFilter.initFilter();
     }
 
-    private static void startMsg() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Verzeichnisse:");
-        list.add("Programmpfad: " + ProgInfos.getPathJar());
-        list.add("Verzeichnis Einstellungen: " + ProgInfos.getSettingsDirectoryString());
-        list.add(PLog.LILNE2);
-        list.add("");
-        list.add("Programmsets:");
-        list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
-        ProgConfig.getConfigLog(list);
-        LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
-    }
+    private static boolean loadProgConfigData() {
+        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        if (!loadProgConfig()) {
+            PLog.sysLog("-> konnte nicht geladen werden!");
+            clearConfig();
+            return false;
 
-    public static void setTitle(Stage stage) {
-        if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
+            UpdateConfig.update(); //falls es ein Programmupdate gab, Configs anpassen
+            PLog.sysLog("-> wurde gelesen!");
+            return true;
         }
     }
 
-    private static void checkProgUpdate(ProgData progData) {
-        // Prüfen obs ein Programmupdate gibt
-        PDuration.onlyPing("checkProgUpdate");
-        if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
-                !updateCheckTodayDone()) {
-            // nach Updates suchen
-            runUpdateCheck(progData, false);
-
-        } else {
-            // will der User nicht --oder-- wurde heute schon gemacht
-            List list = new ArrayList(5);
-            list.add("Kein Update-Check:");
-            if (!ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get()) {
-                list.add("  der User will nicht");
-            }
-            if (updateCheckTodayDone()) {
-                list.add("  heute schon gemacht");
-            }
-            PLog.sysLog(list);
-        }
+    private static void clearConfig() {
+        ProgData progData = ProgData.getInstance();
+        progData.setDataList.clear();
+        progData.favouriteList.clear();
+        progData.historyList.clear();
+        progData.blackDataList.clear();
     }
 
-    private static boolean updateCheckTodayDone() {
-        return ProgConfig.SYSTEM_UPDATE_DATE.get().equals(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
-    }
+    private static boolean loadProgConfig() {
+        final Path path = ProgInfos.getSettingsFile();
+        PLog.sysLog("Programmstart und ProgConfig laden von: " + path);
 
-    private static void runUpdateCheck(ProgData progData, boolean showAlways) {
-        //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version, ..
-        ProgConfig.SYSTEM_UPDATE_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
-        new SearchProgramUpdate(progData).searchNewProgramVersion(showAlways);
+        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
+        ProgConfig.addConfigData(configFile);
+        ReadConfigFile readConfigFile = new ReadConfigFile();
+        readConfigFile.addConfigFile(configFile);
+
+        return readConfigFile.readConfigFile();
     }
 }

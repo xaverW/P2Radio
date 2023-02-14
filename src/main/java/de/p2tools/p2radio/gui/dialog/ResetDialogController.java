@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.BigButton;
 import de.p2tools.p2Lib.guiTools.PButton;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
+import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -112,7 +112,7 @@ public class ResetDialogController extends PDialogExtra {
                 } else if (progData.primaryStage.isShowing()) {
                     stage = progData.primaryStage;
                 }
-                ProgQuitFactory.quit(stage, false);
+                ProgQuit.quit(stage, false);
             }
         });
 

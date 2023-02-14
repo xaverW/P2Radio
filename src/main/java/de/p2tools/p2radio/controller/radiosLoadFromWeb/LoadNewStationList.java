@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.ProgLoadFactory;
+import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
@@ -191,7 +191,7 @@ public class LoadNewStationList {
             logList.add("");
         }
 
-        ProgLoadFactory.afterLoadingStationList(logList);
+        ProgStartAfterGui.afterLoadingStationList(logList);
         setPropLoadStationList(false);
         PLog.addSysLog(logList);
     }

@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.tools;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
+import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
@@ -149,7 +149,7 @@ public class ProgTray {
             } else if (progData.primaryStage.isShowing()) {
                 stage = progData.primaryStage;
             }
-            ProgQuitFactory.quit(stage, true);
+            ProgQuit.quit(stage, true);
         }));
 
         PopupMenu popupMenu = new PopupMenu();

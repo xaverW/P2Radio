@@ -23,7 +23,7 @@ import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
+import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -100,7 +100,7 @@ public class SmallRadioGuiCenter extends HBox {
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
-            ProgQuitFactory.quit(smallRadioGuiController.getStage(), true);
+            ProgQuit.quit(smallRadioGuiController.getStage(), true);
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");

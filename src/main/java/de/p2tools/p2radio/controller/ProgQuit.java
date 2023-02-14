@@ -16,16 +16,24 @@
 
 package de.p2tools.p2radio.controller;
 
+import de.p2tools.p2Lib.configFile.ConfigFile;
+import de.p2tools.p2Lib.configFile.WriteConfigFile;
 import de.p2tools.p2Lib.tools.log.LogMessage;
+import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-public class ProgQuitFactory {
+import java.nio.file.Path;
 
-    private ProgQuitFactory() {
+public class ProgQuit {
+
+    private ProgQuit() {
     }
 
     /**
@@ -52,7 +60,7 @@ public class ProgQuitFactory {
         stopAllStations();
         writeTableWindowSettings();
 
-        ProgSaveFactory.saveProgConfig();
+        saveProgConfig();
         LogMessage.endMsg();
 
         // und dann Programm beenden
@@ -79,5 +87,18 @@ public class ProgQuitFactory {
         if (ProgData.getInstance().historyGuiPack != null) {
             ProgData.getInstance().historyGuiPack.getHistoryGuiController().saveTable();
         }
+    }
+
+    private static void saveProgConfig() {
+        //sind die Programmeinstellungen
+        PLog.sysLog("save progConfig");
+
+        final Path xmlFilePath = ProgInfos.getSettingsFile();
+        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, xmlFilePath);
+        ProgConfig.addConfigData(configFile);
+
+        WriteConfigFile writeConfigFile = new WriteConfigFile();
+        writeConfigFile.addConfigFile(configFile);
+        writeConfigFile.writeConfigFile();
     }
 }

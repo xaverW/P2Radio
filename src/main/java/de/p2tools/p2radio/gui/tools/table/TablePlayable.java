@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
+import de.p2tools.p2Lib.guiTools.pTable.CellCheckBox;
 import de.p2tools.p2Lib.guiTools.pTable.CellIntMax;
 import de.p2tools.p2Lib.guiTools.pTable.CellIntNull;
 import de.p2tools.p2Lib.guiTools.pTable.CellLocalDate;
@@ -116,7 +116,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> ownColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN);
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
-        ownColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
+        ownColumn.setCellFactory(new CellCheckBox().cellFactoryBool);
         ownColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> stateColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATE);
