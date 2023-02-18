@@ -17,11 +17,10 @@
 package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.WriteConfigFile;
+import de.p2tools.p2Lib.configFile.ConfigWriteFile;
 import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
@@ -91,14 +90,10 @@ public class ProgQuit {
 
     private static void saveProgConfig() {
         //sind die Programmeinstellungen
-        PLog.sysLog("save progConfig");
-
+        PLog.sysLog("Alle Programmeinstellungen sichern");
         final Path xmlFilePath = ProgInfos.getSettingsFile();
-        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, xmlFilePath);
+        ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true);
         ProgConfig.addConfigData(configFile);
-
-        WriteConfigFile writeConfigFile = new WriteConfigFile();
-        writeConfigFile.addConfigFile(configFile);
-        writeConfigFile.writeConfigFile();
+        ConfigWriteFile.writeConfigFile(configFile);
     }
 }

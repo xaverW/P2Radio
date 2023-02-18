@@ -16,8 +16,8 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2Lib.P2LibInit;
-import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
+import de.p2tools.p2Lib.tools.IoReadWriteStyle;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;

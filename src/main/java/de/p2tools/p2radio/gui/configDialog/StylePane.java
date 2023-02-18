@@ -18,10 +18,10 @@ package de.p2tools.p2radio.gui.configDialog;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
-import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
+import de.p2tools.p2Lib.tools.IoReadWriteStyle;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -42,9 +42,9 @@ public class StylePane {
     private final PToggleSwitch tglStyle = new PToggleSwitch("die Schriftgröße im Programm ändern:");
     private final Stage stage;
     private final ProgData progData;
+    private final Spinner<Integer> spinnerAnz = new Spinner<>();
     boolean changed = false;
     BooleanProperty styleProperty = ProgConfig.SYSTEM_STYLE;
-    private final Spinner<Integer> spinnerAnz = new Spinner<>();
 
     public StylePane(Stage stage, ProgData progData) {
         this.stage = stage;

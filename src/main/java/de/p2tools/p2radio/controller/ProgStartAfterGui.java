@@ -122,7 +122,7 @@ public class ProgStartAfterGui {
         logList.add("");
         logList.add(PLog.LILNE1);
 
-        if (ProgStartBeforeGui.firstProgramStart) {
+        if (ProgData.firstProgramStart) {
             //dann wird immer geladen
             logList.add("erster Programmstart: Neue Senderliste laden");
             progData.loadNewStationList.loadNewStationFromServer();

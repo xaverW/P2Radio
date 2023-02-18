@@ -17,36 +17,34 @@
 package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ReadConfigFile;
+import de.p2tools.p2Lib.configFile.ConfigReadFile;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.config.UpdateConfig;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.gui.startDialog.StartDialogController;
 import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
 import javafx.application.Platform;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ProgStartBeforeGui {
-    public static boolean firstProgramStart = false;
 
     private ProgStartBeforeGui() {
     }
 
-    public static boolean workBeforeGui(ProgData progData) {
-        boolean loadOk = loadProgConfigData();
-        if (ProgConfig.SYSTEM_LOG_ON.get()) {
-            PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
-        }
-
-        if (!loadOk) {
+    public static void workBeforeGui(ProgData progData) {
+        if (!loadProgConfigData()) {
             PDuration.onlyPing("Erster Start");
-            firstProgramStart = true;
+            ProgData.firstProgramStart = true;
             UpdateConfig.setUpdateDone(); //dann ists ja kein Programmupdate
             ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.setValue(true);//den Dialog brauchts dann auch nicht
             firstStartDialog(progData);
@@ -56,7 +54,6 @@ public class ProgStartBeforeGui {
             ProgData.getInstance().blackDataList.sortIncCounter(false);
         }
         resetConfigs();
-        return firstProgramStart;
     }
 
     private static void resetConfigs() {
@@ -145,10 +142,14 @@ public class ProgStartBeforeGui {
     }
 
     private static boolean loadProgConfigData() {
+        if (ProgConfig.SYSTEM_LOG_ON.get()) {
+            PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
+        }
+
         PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
         if (!loadProgConfig()) {
             PLog.sysLog("-> konnte nicht geladen werden!");
-            clearConfig();
+            clearTheConfigs();
             return false;
 
         } else {
@@ -158,23 +159,44 @@ public class ProgStartBeforeGui {
         }
     }
 
-    private static void clearConfig() {
+    private static boolean loadProgConfig() {
+        final Path xmlFilePath = ProgInfos.getSettingsFile();
+        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        try {
+            if (!Files.exists(xmlFilePath)) {
+                //dann gibts das Konfig-File gar nicht
+                PLog.sysLog("Konfig existiert nicht!");
+                return false;
+            }
+
+            PLog.sysLog("Programmstart und ProgConfig laden von: " + xmlFilePath);
+            ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true) {
+                @Override
+                public void clearConfigFile() {
+                    clearTheConfigs();
+                }
+            };
+            ProgConfig.addConfigData(configFile);
+            if (ConfigReadFile.readConfig(configFile)) {
+                PLog.sysLog("Konfig wurde geladen!");
+                return true;
+
+            } else {
+                // dann hat das Laden nicht geklappt
+                PLog.sysLog("Konfig konnte nicht geladen werden!");
+                return false;
+            }
+        } catch (final Exception ex) {
+            PLog.errorLog(915470101, ex);
+        }
+        return false;
+    }
+
+    private static void clearTheConfigs() {
         ProgData progData = ProgData.getInstance();
         progData.setDataList.clear();
         progData.favouriteList.clear();
         progData.historyList.clear();
         progData.blackDataList.clear();
-    }
-
-    private static boolean loadProgConfig() {
-        final Path path = ProgInfos.getSettingsFile();
-        PLog.sysLog("Programmstart und ProgConfig laden von: " + path);
-
-        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
-        ProgConfig.addConfigData(configFile);
-        ReadConfigFile readConfigFile = new ReadConfigFile();
-        readConfigFile.addConfigFile(configFile);
-
-        return readConfigFile.readConfigFile();
     }
 }
