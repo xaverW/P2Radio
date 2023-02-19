@@ -41,13 +41,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PathPane {
+public class PanePath {
     private final Stage stage;
     private final GridPane gridPane = new GridPane();
     private final List<UnBind> unbindList = new ArrayList<>();
     private int row = 0;
 
-    public PathPane(Stage stage) {
+    public PanePath(Stage stage) {
         this.stage = stage;
     }
 

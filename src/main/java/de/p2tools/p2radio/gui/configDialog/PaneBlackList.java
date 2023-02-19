@@ -47,7 +47,7 @@ import javafx.stage.Stage;
 
 import java.util.Collection;
 
-public class BlackPane {
+public class PaneBlackList {
 
     private final TableView<BlackData> tableView = new TableView<>();
     private final GridPane gridPane = new GridPane();
@@ -63,7 +63,7 @@ public class BlackPane {
     PListener listener;
     private BlackData blackData = null;
 
-    public BlackPane(Stage stage, BooleanProperty blackChanged) {
+    public PaneBlackList(Stage stage, BooleanProperty blackChanged) {
         this.stage = stage;
         this.blackChanged = blackChanged;
     }
@@ -110,7 +110,7 @@ public class BlackPane {
         rbWhite.selectedProperty().bindBidirectional(propWhite);
         rbWhite.selectedProperty().addListener((observable, oldValue, newValue) -> blackChanged.set(true));
         gridPane.add(rbWhite, 0, ++row);
-        gridPane.add(new Label("nur diese \"Sender mit Name/Genre\" anzeigen (Whitelist)"), 1, row);
+        gridPane.add(new Label("Nur diese \"Sender mit Name/Genre\" anzeigen (Whitelist)"), 1, row);
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());

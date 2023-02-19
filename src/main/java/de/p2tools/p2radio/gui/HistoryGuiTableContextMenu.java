@@ -61,7 +61,7 @@ public class HistoryGuiTableContextMenu {
 
         MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> historyGuiController.stopStation(false));
-        MenuItem miStopAll = new MenuItem("alle Sender stoppen");
+        MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
         miStopAll.setOnAction(a -> historyGuiController.stopStation(true /* alle */));
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> historyGuiController.copyUrl());

@@ -43,8 +43,8 @@ public class FavouriteFilterController extends FilterController {
 
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
     private final ComboBox<String> cboGenre = new ComboBox<>();
-    private final PToggleSwitch tglOwn = new PToggleSwitch("eigene Sender");
-    private final PToggleSwitch tglGrade = new PToggleSwitch("positiv bewertete Sender");
+    private final PToggleSwitch tglOwn = new PToggleSwitch("Eigene Sender");
+    private final PToggleSwitch tglGrade = new PToggleSwitch("Positiv bewertete Sender");
     private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
 
     private final FavouriteFilter favouriteFilter;

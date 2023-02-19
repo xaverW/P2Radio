@@ -31,27 +31,23 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class SetListPane extends TitledPane {
+public class PaneSetList extends TitledPane {
 
     static int newCounter = 1;
     private final ProgData progData;
     private final TableView<SetData> tableView = new TableView<>();
-    private final Stage stage;
-    private final SetPanePack setPanePack;
+    private final ControllerSet controllerSet;
 
-    public SetListPane(SetPanePack setPanePack) {
-        this.setPanePack = setPanePack;
-        this.stage = setPanePack.getStage();
+    public PaneSetList(ControllerSet controllerSet) {
+        this.controllerSet = controllerSet;
         this.progData = ProgData.getInstance();
 
         make();
         selectTableFirst();
     }
 
-    public void selectTableFirst() {
-        tableView.getSelectionModel().selectFirst();
+    public void close() {
     }
 
     private void make() {
@@ -64,9 +60,13 @@ public class SetListPane extends TitledPane {
         this.setMaxHeight(Double.MAX_VALUE);
     }
 
+    private void selectTableFirst() {
+        tableView.getSelectionModel().selectFirst();
+    }
+
     private void initTable(VBox vBox) {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            setPanePack.aktSetDateProperty().setValue(newValue);
+            controllerSet.aktSetDateProperty().setValue(newValue);
         });
 
         final TableColumn<SetData, String> nameColumn = new TableColumn<>("Name");

@@ -26,7 +26,6 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
-import javafx.beans.property.BooleanProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,29 +40,26 @@ import javafx.stage.Stage;
 
 import java.util.Collection;
 
-public class UpdatePane {
+public class PaneUpdate {
 
     private final ProgData progData;
 
-    private final PToggleSwitch tglSearch = new PToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
-    private final PToggleSwitch tglSearchBeta = new PToggleSwitch("auch nach neuen Vorabversionen suchen");
+    private final PToggleSwitch tglSearch = new PToggleSwitch("Einmal am Tag nach einer neuen Programmversion suchen");
+    private final PToggleSwitch tglSearchBeta = new PToggleSwitch("Auch nach neuen Vorabversionen suchen");
     private final CheckBox chkDaily = new CheckBox("Zwischenschritte (Dailys) mit einbeziehen");
     private final Button btnNow = new Button("_Jetzt suchen");
     private final Stage stage;
-    BooleanProperty propUpdateSearch = ProgConfig.SYSTEM_UPDATE_SEARCH_ACT;
-    BooleanProperty propUpdateBetaSearch = ProgConfig.SYSTEM_UPDATE_SEARCH_BETA;
-    BooleanProperty propUpdateDailySearch = ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY;
     private Button btnHelpBeta;
 
-    public UpdatePane(Stage stage) {
+    public PaneUpdate(Stage stage) {
         this.stage = stage;
         progData = ProgData.getInstance();
     }
 
     public void close() {
-        tglSearch.selectedProperty().unbindBidirectional(propUpdateSearch);
-        tglSearchBeta.selectedProperty().unbindBidirectional(propUpdateBetaSearch);
-        chkDaily.selectedProperty().unbindBidirectional(propUpdateDailySearch);
+        tglSearch.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
+        tglSearchBeta.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_BETA);
+        chkDaily.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY);
     }
 
     public void makeUpdate(Collection<TitledPane> result) {
@@ -76,15 +72,15 @@ public class UpdatePane {
         result.add(tpConfig);
 
         //einmal am Tag Update suchen
-        tglSearch.selectedProperty().bindBidirectional(propUpdateSearch);
+        tglSearch.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
         final Button btnHelp = PButton.helpButton(stage, "Programmupdate suchen",
                 "Beim Programmstart wird geprüft, ob es eine neue Version des Programms gibt. " +
                         "Ist eine aktualisierte Version vorhanden, dann wird das gemeldet."
                         + P2LibConst.LINE_SEPARATOR +
                         "Das Programm wird aber nicht ungefragt ersetzt.");
 
-        tglSearchBeta.selectedProperty().bindBidirectional(propUpdateBetaSearch);
-        chkDaily.selectedProperty().bindBidirectional(propUpdateDailySearch);
+        tglSearchBeta.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_BETA);
+        chkDaily.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY);
         btnHelpBeta = PButton.helpButton(stage, "Vorabversionen suchen",
                 "Beim Programmstart wird geprüft, ob es eine neue Vorabversion des Programms gibt. " +
                         P2LibConst.LINE_SEPARATORx2 +

@@ -25,7 +25,7 @@ public class InitStoredFilter {
         ProgData progData = ProgData.getInstance();
 
         //========================================================
-        SelectedFilter sf = new SelectedFilter("alle Sender");
+        SelectedFilter sf = new SelectedFilter("Alle Sender");
 
         sf.setStationNameVis(true);
         sf.setGenreVis(true);
@@ -87,7 +87,7 @@ public class InitStoredFilter {
         progData.storedFilters.getStoredFilterList().add(sf);
 
         //========================================================
-        sf = new SelectedFilter("mp3");
+        sf = new SelectedFilter("MP3");
 
         sf.setStationNameVis(true);
         sf.setGenreVis(true);
@@ -108,7 +108,7 @@ public class InitStoredFilter {
         progData.storedFilters.getStoredFilterList().add(sf);
 
         //========================================================
-        sf = new SelectedFilter("deutsche Sender");
+        sf = new SelectedFilter("Deutsche Sender");
 
         sf.setStationNameVis(true);
         sf.setGenreVis(true);

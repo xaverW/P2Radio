@@ -17,16 +17,13 @@
 package de.p2tools.p2radio.gui.configDialog;
 
 import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.dialogs.accordion.PAccordionPane;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pRange.PRangeBox;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,42 +31,25 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-public class BlackListPaneController extends PAccordionPane {
+public class PaneBlack {
 
-    private final ProgData progData;
     private final PRangeBox slBitrate = new PRangeBox(0, StationFilterFactory.FILTER_BITRATE_MAX);
     private final BooleanProperty blackChanged;
     private final Stage stage;
-    IntegerProperty propMinBit = ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE;
-    IntegerProperty propMaxBit = ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE;
-    private BlackPane blackPane;
 
-    public BlackListPaneController(Stage stage, BooleanProperty blackChanged) {
-        super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_BLACKLIST);
+    public PaneBlack(Stage stage, BooleanProperty blackChanged) {
         this.stage = stage;
         this.blackChanged = blackChanged;
-        progData = ProgData.getInstance();
-
-        init();
     }
 
     public void close() {
-        super.close();
-        blackPane.close();
+        slBitrate.minValueProperty().unbindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE);
+        slBitrate.maxValueProperty().unbindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE);
     }
 
-    public Collection<TitledPane> createPanes() {
-        Collection<TitledPane> result = new ArrayList<>();
-        makeBlack(result);
-        blackPane = new BlackPane(stage, blackChanged);
-        blackPane.makeBlackTable(result);
-        return result;
-    }
-
-    private void makeBlack(Collection<TitledPane> result) {
+    public void makeBlack(Collection<TitledPane> result) {
         initBitrateFilter();
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
@@ -83,7 +63,7 @@ public class BlackListPaneController extends PAccordionPane {
                 HelpText.BLACKLIST_BITRATE);
 
         int row = 0;
-        gridPane.add(new Label("nur Sender mit der Bitrate anzeigen:"), 0, row, 2, 1);
+        gridPane.add(new Label("Nur Sender mit der Bitrate anzeigen:"), 0, row, 2, 1);
 
         gridPane.add(new Label("Bitrate:"), 0, ++row);
         gridPane.add(slBitrate, 1, row);
@@ -95,8 +75,8 @@ public class BlackListPaneController extends PAccordionPane {
     }
 
     private void initBitrateFilter() {
-        slBitrate.minValueProperty().bindBidirectional(propMinBit);
-        slBitrate.maxValueProperty().bindBidirectional(propMaxBit);
+        slBitrate.minValueProperty().bindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE);
+        slBitrate.maxValueProperty().bindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE);
         slBitrate.setValuePrefix("");
         slBitrate.setUnitSuffix(" Bit");
         slBitrate.maxValueProperty().addListener((observable, oldValue, newValue) -> blackChanged.set(true));

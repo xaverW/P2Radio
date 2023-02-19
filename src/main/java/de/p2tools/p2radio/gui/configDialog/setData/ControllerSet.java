@@ -28,24 +28,23 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SetPanePack extends AnchorPane {
+public class ControllerSet extends AnchorPane {
 
     private final ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
     private final VBox vBox = new VBox();
     private final Stage stage;
-    private final SetListPane setListPane;
-    private final SetDataPane setDataPane;
+    private final PaneSetList paneSetList;
+    private final PaneSetData paneSetData;
     private final ObjectProperty<SetData> aktSetDate = new SimpleObjectProperty<>();
 
-    public SetPanePack(Stage stage) {
+    public ControllerSet(Stage stage) {
         this.stage = stage;
         progData = ProgData.getInstance();
 
-        setListPane = new SetListPane(this);
-        setDataPane = new SetDataPane(this);
-        setDataPane.makePane();
+        paneSetList = new PaneSetList(this);
+        paneSetData = new PaneSetData(this);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -54,13 +53,13 @@ public class SetPanePack extends AnchorPane {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
-        VBox.setVgrow(setListPane, Priority.ALWAYS);
-        vBox.getChildren().addAll(setListPane);
+        VBox.setVgrow(paneSetList, Priority.ALWAYS);
+        vBox.getChildren().addAll(paneSetList);
         splitPane.getItems().addAll(vBox, scrollPane);
         SplitPane.setResizableWithParent(vBox, Boolean.FALSE);
         getChildren().addAll(splitPane);
 
-        scrollPane.setContent(setDataPane);
+        scrollPane.setContent(paneSetData);
         splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
     }
 
@@ -82,5 +81,7 @@ public class SetPanePack extends AnchorPane {
 
     public void close() {
         splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
+        paneSetData.close();
+        paneSetList.close();
     }
 }

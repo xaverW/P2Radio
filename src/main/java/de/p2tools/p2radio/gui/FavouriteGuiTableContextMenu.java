@@ -60,7 +60,7 @@ public class FavouriteGuiTableContextMenu {
 
         MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> favouriteGuiController.stopStation(false));
-        MenuItem miStopAll = new MenuItem("alle Sender stoppen");
+        MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
         miStopAll.setOnAction(a -> favouriteGuiController.stopStation(true /* alle */));
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> favouriteGuiController.copyUrl());

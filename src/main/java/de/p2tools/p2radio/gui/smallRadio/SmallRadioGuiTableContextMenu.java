@@ -61,7 +61,7 @@ public class SmallRadioGuiTableContextMenu {
         miStart.setOnAction(a -> smallRadioGuiController.playStation());
         MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> smallRadioGuiController.stopStation(false));
-        MenuItem miStopAll = new MenuItem("alle Sender stoppen");
+        MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
         miStopAll.setOnAction(a -> smallRadioGuiController.stopStation(true /* alle */));
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> smallRadioGuiController.copyUrl());

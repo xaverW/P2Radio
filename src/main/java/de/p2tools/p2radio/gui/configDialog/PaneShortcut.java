@@ -41,7 +41,7 @@ import javafx.util.Callback;
 
 import java.util.Collection;
 
-public class ShortcutPane {
+public class PaneShortcut {
     private final Stage stage;
     private final ProgData progData;
     private final TextArea txtLongDescription = new TextArea();
@@ -140,7 +140,7 @@ public class ShortcutPane {
         return cell;
     };
 
-    public ShortcutPane(Stage stage) {
+    public PaneShortcut(Stage stage) {
         this.stage = stage;
         progData = ProgData.getInstance();
         this.doubleProperty = ProgConfig.CONFIG_DIALOG_SHORTCUT_DIVIDER;

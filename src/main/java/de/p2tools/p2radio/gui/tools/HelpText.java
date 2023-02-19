@@ -176,7 +176,8 @@ public class HelpText {
             "\n";
 
     public static final String USER_AGENT = "Hier kann ein User Agent angegeben werden. " +
-            "Beim Laden der Senderliste wird er dann als Absender verwendet. Es sollte der Name des Programms " +
+            "Beim Laden der Senderliste wird er dann als Absender verwendet. " +
+            "Es sollte der Name des Programms " +
             " enthalten sein. Wird kein User Agent angegeben, wird auch keiner verwendet." +
             P2LibConst.LINE_SEPARATORx2 +
             "(Es sind nur ASCII-Zeichen erlaubt und die Textlänge ist begrenzt auf 100 Zeichen)" +
