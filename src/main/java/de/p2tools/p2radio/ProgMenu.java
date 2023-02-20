@@ -39,7 +39,7 @@ public class ProgMenu extends MenuButton {
         ProgData progData = ProgData.getInstance();
         // Menü
         final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
-        miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
+        miConfig.setOnAction(e -> new ConfigDialogController(progData));
 
         final MenuItem miLoadStationList = new MenuItem("Neue Senderliste laden");
         miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());

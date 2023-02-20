@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.gui.configDialog.setData;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,7 +29,6 @@ import javafx.stage.Stage;
 
 public class ControllerSet extends AnchorPane {
 
-    private final ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
     private final VBox vBox = new VBox();
@@ -41,7 +39,6 @@ public class ControllerSet extends AnchorPane {
 
     public ControllerSet(Stage stage) {
         this.stage = stage;
-        progData = ProgData.getInstance();
 
         paneSetList = new PaneSetList(this);
         paneSetData = new PaneSetData(this);
@@ -63,6 +60,12 @@ public class ControllerSet extends AnchorPane {
         splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
     }
 
+    public void close() {
+        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
+        paneSetData.close();
+        paneSetList.close();
+    }
+
     public Stage getStage() {
         return stage;
     }
@@ -77,11 +80,5 @@ public class ControllerSet extends AnchorPane {
 
     public ObjectProperty<SetData> aktSetDateProperty() {
         return aktSetDate;
-    }
-
-    public void close() {
-        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
-        paneSetData.close();
-        paneSetList.close();
     }
 }

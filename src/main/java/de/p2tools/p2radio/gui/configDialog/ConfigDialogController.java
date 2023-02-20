@@ -34,34 +34,20 @@ import javafx.scene.layout.VBox;
 
 
 public class ConfigDialogController extends PDialogExtra {
-    private static ConfigDialogController instance;
     private final ProgData progData;
     private final TabPane tabPane = new TabPane();
     private final Button btnOk = new Button("_Ok");
     private final BooleanProperty blackChanged = new SimpleBooleanProperty(false);
-    private ControllerConfig configPane;
-    private ControllerBlackList blackPane;
-    private ControllerSet setPane;
+    private ControllerConfig controllerConfig;
+    private ControllerBlackList controllerBlackList;
+    private ControllerSet controllerSet;
 
-    private ConfigDialogController(ProgData progData) {
+    public ConfigDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
                 true, false, DECO.NO_BORDER);
 
         this.progData = progData;
-        init(false);//!!!!!!!!!!!!!!!!!!!!!
-    }
-
-    public synchronized static final ConfigDialogController getInstanceAndShow() {
-        if (instance == null) {
-            instance = new ConfigDialogController(ProgData.getInstance());
-        }
-
-        if (!instance.isShowing()) {
-            instance.showDialog();
-        }
-        instance.getStage().toFront();
-
-        return instance;
+        init(true);
     }
 
     @Override
@@ -84,9 +70,9 @@ public class ConfigDialogController extends PDialogExtra {
             progData.pEventHandler.notifyListener(new PEvent(Events.BLACKLIST_CHANGED));
         }
 
-        configPane.close();
-        blackPane.close();
-        setPane.close();
+        controllerConfig.close();
+        controllerBlackList.close();
+        controllerSet.close();
 
         progData.pEventHandler.notifyListener(new PEvent(Events.SETDATA_CHANGED));
         super.close();
@@ -94,22 +80,22 @@ public class ConfigDialogController extends PDialogExtra {
 
     private void initPanel() {
         try {
-            configPane = new ControllerConfig(getStage());
+            controllerConfig = new ControllerConfig(getStage());
             Tab tab = new Tab("Allgemein");
             tab.setClosable(false);
-            tab.setContent(configPane);
+            tab.setContent(controllerConfig);
             tabPane.getTabs().add(tab);
 
-            blackPane = new ControllerBlackList(getStage(), blackChanged);
+            controllerBlackList = new ControllerBlackList(getStage(), blackChanged);
             tab = new Tab("Blacklist");
             tab.setClosable(false);
-            tab.setContent(blackPane);
+            tab.setContent(controllerBlackList);
             tabPane.getTabs().add(tab);
 
-            setPane = new ControllerSet(getStage());
+            controllerSet = new ControllerSet(getStage());
             tab = new Tab("Abspielen");
             tab.setClosable(false);
-            tab.setContent(setPane);
+            tab.setContent(controllerSet);
             tabPane.getTabs().add(tab);
 
             tabPane.getSelectionModel().select(ProgConfig.SYSTEM_CONFIG_DIALOG_TAB.get());

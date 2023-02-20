@@ -44,7 +44,6 @@ public class PaneSetList extends TitledPane {
         this.progData = ProgData.getInstance();
 
         make();
-        selectTableFirst();
     }
 
     public void close() {
@@ -58,10 +57,6 @@ public class PaneSetList extends TitledPane {
         this.setContent(vBox);
         this.setCollapsible(false);
         this.setMaxHeight(Double.MAX_VALUE);
-    }
-
-    private void selectTableFirst() {
-        tableView.getSelectionModel().selectFirst();
     }
 
     private void initTable(VBox vBox) {
@@ -79,7 +74,8 @@ public class PaneSetList extends TitledPane {
         if (tableView.getItems().size() > 0) {
             tableView.getSelectionModel().select(0);
         }
-
+        tableView.getSelectionModel().selectFirst();
+        
         VBox.setVgrow(tableView, Priority.ALWAYS);
         vBox.getChildren().addAll(tableView);
 
