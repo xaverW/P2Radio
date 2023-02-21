@@ -35,6 +35,7 @@ public class P2Radio extends Application {
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     protected ProgData progData;
     Scene scene = null;
+    int i = 0;
     private Stage primaryStage;
 
     public static void main(String[] args) {
@@ -56,6 +57,8 @@ public class P2Radio extends Application {
         ProgStartBeforeGui.workBeforeGui(progData);
         initRootLayout();
         ProgStartAfterGui.workAfterGui(progData);
+
+        ProgConfig.CONFIG_DIALOG_SET_DIVIDER.addListener((u, o, n) -> System.out.println("=============>>" + i++));
 
         PDuration.onlyPing("Gui steht!");
         PDuration.counterStop(LOG_TEXT_PROGRAM_START);

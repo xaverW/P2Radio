@@ -52,6 +52,7 @@ public class ControllerSet extends AnchorPane {
 
         VBox.setVgrow(paneSetList, Priority.ALWAYS);
         vBox.getChildren().addAll(paneSetList);
+
         splitPane.getItems().addAll(vBox, scrollPane);
         SplitPane.setResizableWithParent(vBox, Boolean.FALSE);
         getChildren().addAll(splitPane);

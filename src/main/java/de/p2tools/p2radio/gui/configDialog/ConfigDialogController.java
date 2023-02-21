@@ -38,6 +38,7 @@ public class ConfigDialogController extends PDialogExtra {
     private final TabPane tabPane = new TabPane();
     private final Button btnOk = new Button("_Ok");
     private final BooleanProperty blackChanged = new SimpleBooleanProperty(false);
+
     private ControllerConfig controllerConfig;
     private ControllerBlackList controllerBlackList;
     private ControllerSet controllerSet;
