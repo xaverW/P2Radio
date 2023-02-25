@@ -15,8 +15,8 @@
  */
 package de.p2tools.p2radio;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.PHyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import javafx.application.Application;
@@ -33,8 +33,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MTStartErrorWindow extends Application {
-    private Stage primaryStage;
     private final String url = "https://www.p2tools.de/p2radio/manual/start.html";
+    private Stage primaryStage;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() throws Exception {
@@ -93,9 +97,5 @@ public class MTStartErrorWindow extends Application {
     private void quitt() {
         Platform.exit();
         System.exit(3);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

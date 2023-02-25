@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.tools.update;
 
-import de.p2tools.p2Lib.checkForActInfos.FoundAll;
-import de.p2tools.p2Lib.checkForActInfos.FoundSearchData;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2lib.checkforactinfos.FoundAll;
+import de.p2tools.p2lib.checkforactinfos.FoundSearchData;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;

@@ -16,11 +16,11 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.events.PEvent;
+import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.stationListFilter.BlackFilterCountHitsFactory;
+import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 

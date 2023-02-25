@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.guiTools.PButton;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.PButton;
+import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.scene.control.Button;

@@ -15,16 +15,16 @@ package de.p2tools.p2radio;/*
  */
 
 
-import de.p2tools.p2Lib.guiTools.POpen;
-import de.p2tools.p2Lib.tools.log.PLogger;
-import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
+import de.p2tools.p2lib.guitools.POpen;
+import de.p2tools.p2lib.tools.log.PLogger;
+import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
-import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
+import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;

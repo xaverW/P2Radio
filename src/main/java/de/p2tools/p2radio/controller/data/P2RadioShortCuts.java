@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2Lib.tools.shortcut.PShortcut;
+import de.p2tools.p2lib.tools.shortcut.PShortcut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;

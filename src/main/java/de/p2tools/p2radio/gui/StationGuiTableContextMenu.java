@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.SetDataList;

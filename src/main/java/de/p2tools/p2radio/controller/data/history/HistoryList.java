@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.data.history;
 
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;

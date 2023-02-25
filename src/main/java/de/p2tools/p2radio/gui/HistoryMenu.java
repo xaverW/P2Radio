@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
+import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;

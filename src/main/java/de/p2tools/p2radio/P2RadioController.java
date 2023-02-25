@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio;
 
-import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -29,7 +29,7 @@ import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.gui.StatusBarController;
-import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
+import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

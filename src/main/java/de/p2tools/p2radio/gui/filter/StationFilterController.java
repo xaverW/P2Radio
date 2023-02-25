@@ -16,15 +16,15 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.StationGuiPack;
-import de.p2tools.p2radio.tools.stationListFilter.BlackFilterFactory;
+import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;

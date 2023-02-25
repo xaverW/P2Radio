@@ -16,11 +16,11 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.Config_intProp;
-import de.p2tools.p2Lib.configFile.config.Config_stringProp;
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.configfile.config.Config_intProp;
+import de.p2tools.p2lib.configfile.config.Config_stringProp;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.IntegerProperty;

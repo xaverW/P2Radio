@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;

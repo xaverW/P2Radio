@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools.file;
 
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.PLog;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

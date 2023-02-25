@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.data.SetData;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

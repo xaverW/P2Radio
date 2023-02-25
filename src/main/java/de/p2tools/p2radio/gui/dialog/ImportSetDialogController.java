@@ -16,16 +16,16 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.guiTools.PButton;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
-import de.p2tools.p2radio.gui.configDialog.PanePath;
-import de.p2tools.p2radio.gui.configDialog.setData.ControllerSet;
+import de.p2tools.p2radio.gui.configdialog.PanePath;
+import de.p2tools.p2radio.gui.configdialog.setdata.ControllerSet;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Priority;

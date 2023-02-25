@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2Lib.icons.GetIcon;
+import de.p2tools.p2lib.icons.GetIcon;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -16,15 +16,15 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.DateFactory;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.LogMessage;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.icons.GetIcon;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.log.LogMessage;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
-import de.p2tools.p2radio.controller.radiosReadWriteFile.StationLoadFactory;
+import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.application.Platform;
 import javafx.stage.Stage;

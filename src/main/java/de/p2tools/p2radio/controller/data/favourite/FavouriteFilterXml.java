@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 
 public class FavouriteFilterXml extends PDataSample<FavouriteFilter> {

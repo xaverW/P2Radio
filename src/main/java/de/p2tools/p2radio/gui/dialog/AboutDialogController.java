@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2Lib.dialogs.AboutDialog;
+import de.p2tools.p2lib.dialogs.AboutDialog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;

@@ -16,16 +16,16 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.PButtonClearFilter;
+import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
-import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.collection;
 
-import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -27,9 +27,8 @@ public class CollectionList extends SimpleListProperty<CollectionData> implement
 
     public static final String COLLECTION_ALL = " ";
     public static final String TAG = "CollectionDataList";
-
-    private int nr = 0;
     private final ProgData progData;
+    private int nr = 0;
 
     public CollectionList(ProgData progData) {
         super(FXCollections.observableArrayList());

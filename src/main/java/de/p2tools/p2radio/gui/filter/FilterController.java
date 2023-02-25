@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
+import de.p2tools.p2lib.guitools.pclosepane.PClosePaneV;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;

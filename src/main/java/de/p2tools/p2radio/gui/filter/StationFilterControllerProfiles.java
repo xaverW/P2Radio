@@ -16,17 +16,17 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.PButton;
-import de.p2tools.p2Lib.guiTools.PGuiTools;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.guitools.PButton;
+import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
-import de.p2tools.p2radio.tools.storedFilter.SelectedFilter;
-import de.p2tools.p2radio.tools.storedFilter.SelectedFilterFactory;
+import de.p2tools.p2radio.tools.storedfilter.InitStoredFilter;
+import de.p2tools.p2radio.tools.storedfilter.SelectedFilter;
+import de.p2tools.p2radio.tools.storedfilter.SelectedFilterFactory;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;

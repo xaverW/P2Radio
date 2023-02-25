@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;

@@ -17,9 +17,9 @@
 
 package de.p2tools.p2radio.controller.worker;
 
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 

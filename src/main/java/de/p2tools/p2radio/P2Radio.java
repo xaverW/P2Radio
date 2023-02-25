@@ -15,16 +15,16 @@
  */
 package de.p2tools.p2radio;
 
-import de.p2tools.p2Lib.P2LibInit;
-import de.p2tools.p2Lib.guiTools.PGuiSize;
-import de.p2tools.p2Lib.tools.IoReadWriteStyle;
-import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.guitools.PGuiSize;
+import de.p2tools.p2lib.tools.IoReadWriteStyle;
+import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
-import de.p2tools.p2radio.gui.smallRadio.SmallRadioGuiController;
+import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;

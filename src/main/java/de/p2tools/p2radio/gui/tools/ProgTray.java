@@ -17,13 +17,13 @@
 
 package de.p2tools.p2radio.gui.tools;
 
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.gui.configDialog.ConfigDialogController;
+import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;

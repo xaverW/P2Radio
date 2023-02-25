@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
+import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.pclosepane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.station.StationData;

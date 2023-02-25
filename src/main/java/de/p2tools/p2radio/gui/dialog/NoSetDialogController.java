@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.application.Platform;
 import javafx.scene.control.Button;

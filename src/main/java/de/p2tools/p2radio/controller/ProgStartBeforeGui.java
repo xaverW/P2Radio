@@ -16,21 +16,21 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ConfigReadFile;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.PLogger;
+import de.p2tools.p2lib.configfile.ConfigFile;
+import de.p2tools.p2lib.configfile.ConfigReadFile;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.PLogger;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.config.UpdateConfig;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
-import de.p2tools.p2radio.gui.startDialog.StartDialogController;
-import de.p2tools.p2radio.tools.storedFilter.InitStoredFilter;
+import de.p2tools.p2radio.gui.startdialog.StartDialogController;
+import de.p2tools.p2radio.tools.storedfilter.InitStoredFilter;
 import javafx.application.Platform;
 
 import java.nio.file.Files;

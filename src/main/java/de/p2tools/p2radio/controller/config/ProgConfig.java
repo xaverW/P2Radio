@@ -17,16 +17,16 @@
 
 package de.p2tools.p2radio.controller.config;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.data.PDataProgConfig;
-import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.configfile.ConfigFile;
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.data.PDataProgConfig;
+import de.p2tools.p2lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.gui.smallRadio.SmallRadioFactory;
-import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
+import de.p2tools.p2radio.gui.smallradio.SmallRadioFactory;
+import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.*;
 
 import java.util.ArrayList;

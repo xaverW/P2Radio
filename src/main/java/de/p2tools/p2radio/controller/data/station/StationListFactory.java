@@ -17,8 +17,8 @@
 
 package de.p2tools.p2radio.controller.data.station;
 
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.SimpleListProperty;
 

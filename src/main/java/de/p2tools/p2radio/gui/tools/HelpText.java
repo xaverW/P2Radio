@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.tools;
 
-import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2radio.controller.config.ProgConst;
 
 public class HelpText {

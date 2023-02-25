@@ -16,13 +16,13 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.PButtonClearFilter;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
-import de.p2tools.p2radio.tools.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.favourite;
 
-import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.beans.property.BooleanProperty;

@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.config;
 
-import de.p2tools.p2Lib.configFile.SettingsDirectory;
-import de.p2tools.p2Lib.tools.PException;
+import de.p2tools.p2lib.configfile.SettingsDirectory;
+import de.p2tools.p2lib.tools.PException;
 import de.p2tools.p2radio.Main;
 
 import java.io.File;

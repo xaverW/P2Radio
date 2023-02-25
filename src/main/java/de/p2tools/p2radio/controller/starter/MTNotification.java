@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.starter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.pNotification.PNotification;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.pnotification.PNotification;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationData;
 

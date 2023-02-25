@@ -22,7 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.gui.smallRadio.SmallRadioFactory;
+import de.p2tools.p2radio.gui.smallradio.SmallRadioFactory;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.function.Predicate;

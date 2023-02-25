@@ -16,7 +16,7 @@ package de.p2tools.p2radio.controller.starter;
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.PLog;
 
 /**
  * das sind die Meldungen die externe Programme liefern (z.B.: VLC)
@@ -31,6 +31,16 @@ public class PlayerMessage {
         lineNo = ++LINE_NO;
     }
 
+    private static String getNr(int nr) {
+        final int MAX_STELLEN = 5;
+        final String FUELL_ZEICHEN = "0";
+        String str = String.valueOf(nr);
+        while (str.length() < MAX_STELLEN) {
+            str = FUELL_ZEICHEN + str;
+        }
+        return str;
+    }
+
     public synchronized void playerMessage(String text) {
         playerMessage(new String[]{text});
     }
@@ -42,15 +52,5 @@ public class PlayerMessage {
             final String z = "[" + noStr + "] >> " + texte[0];
             PLog.extToolLog(z);
         }
-    }
-
-    private static String getNr(int nr) {
-        final int MAX_STELLEN = 5;
-        final String FUELL_ZEICHEN = "0";
-        String str = String.valueOf(nr);
-        while (str.length() < MAX_STELLEN) {
-            str = FUELL_ZEICHEN + str;
-        }
-        return str;
     }
 }

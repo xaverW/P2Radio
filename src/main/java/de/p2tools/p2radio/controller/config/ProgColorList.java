@@ -18,8 +18,8 @@
 package de.p2tools.p2radio.controller.config;
 
 
-import de.p2tools.p2Lib.data.PColorData;
-import de.p2tools.p2Lib.data.PColorList;
+import de.p2tools.p2lib.data.PColorData;
+import de.p2tools.p2lib.data.PColorList;
 import javafx.scene.paint.Color;
 
 public class ProgColorList extends PColorList {

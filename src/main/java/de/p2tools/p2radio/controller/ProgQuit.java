@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ConfigWriteFile;
-import de.p2tools.p2Lib.tools.log.LogMessage;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.configfile.ConfigFile;
+import de.p2tools.p2lib.configfile.ConfigWriteFile;
+import de.p2tools.p2lib.tools.log.LogMessage;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;

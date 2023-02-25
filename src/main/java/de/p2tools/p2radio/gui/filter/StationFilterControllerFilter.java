@@ -16,11 +16,11 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
-import de.p2tools.p2Lib.guiTools.pRange.PRangeBox;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.pcheckcombobox.PCheckComboBox;
+import de.p2tools.p2lib.guitools.prange.PRangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.stationListFilter.StationFilterFactory;
+import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

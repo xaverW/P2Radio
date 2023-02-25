@@ -16,12 +16,12 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2Lib.guiTools.pTable.CellCheckBox;
-import de.p2tools.p2Lib.guiTools.pTable.CellIntMax;
-import de.p2tools.p2Lib.guiTools.pTable.CellIntNull;
-import de.p2tools.p2Lib.guiTools.pTable.CellLocalDate;
-import de.p2tools.p2Lib.tools.GermanStringIntSorter;
-import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2lib.guitools.ptable.CellCheckBox;
+import de.p2tools.p2lib.guitools.ptable.CellIntMax;
+import de.p2tools.p2lib.guitools.ptable.CellIntNull;
+import de.p2tools.p2lib.guitools.ptable.CellLocalDate;
+import de.p2tools.p2lib.tools.GermanStringIntSorter;
+import de.p2tools.p2lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.scene.control.SelectionMode;

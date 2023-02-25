@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools;
 
-import de.p2tools.p2Lib.tools.GermanStringSorter;
+import de.p2tools.p2lib.tools.GermanStringSorter;
 
 public class Data<E> implements Comparable<E> {
 

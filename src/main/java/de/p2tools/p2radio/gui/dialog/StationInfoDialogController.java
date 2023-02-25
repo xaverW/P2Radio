@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;

@@ -17,9 +17,9 @@
 package de.p2tools.p2radio.gui.dialog;
 
 
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.guiTools.BigButton;
-import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.BigButton;
+import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
