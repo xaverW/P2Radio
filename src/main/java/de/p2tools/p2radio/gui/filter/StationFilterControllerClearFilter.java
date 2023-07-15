@@ -17,11 +17,11 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButtonClearFilter;
+import de.p2tools.p2lib.guitools.PButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -31,7 +31,7 @@ import javafx.scene.layout.VBox;
 
 public class StationFilterControllerClearFilter extends VBox {
 
-    private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
+    private final Button btnClearFilter = PButtonClearFilterFactory.getPButtonClear();
     private final Button btnEditFilter = new Button("");
     private final Button btnGoBack = new Button("");
     private final Button btnGoForward = new Button("");
@@ -49,19 +49,19 @@ public class StationFilterControllerClearFilter extends VBox {
     }
 
     private void addButton() {
-        btnGoBack.setGraphic(ProgIcons.Icons.ICON_BUTTON_BACKWARD.getImageView());
+        btnGoBack.setGraphic(ProgIconsP2Radio.ICON_BUTTON_BACKWARD.getImageView());
         btnGoBack.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnGoForward.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
+        btnGoForward.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FORWARD.getImageView());
         btnGoForward.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
         btnClearFilter.setOnAction(a -> clearFilter());
 
-        btnEditFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_EDIT_FILTER.getImageView());
+        btnEditFilter.setGraphic(ProgIconsP2Radio.ICON_BUTTON_EDIT_FILTER.getImageView());
         btnEditFilter.setOnAction(a -> editFilter());
         btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
 

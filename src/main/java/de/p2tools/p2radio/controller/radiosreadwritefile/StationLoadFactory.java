@@ -75,7 +75,7 @@ public class StationLoadFactory {
         logList.add("   Anzahl verwendet:   " + stationList.size());
         logList.add(PLog.LILNE2);
         logList.add("");
-        PLog.addSysLog(logList);
+        PLog.sysLog(logList);
 
         PDuration.counterStop("LoadJsonFactory.read()");
     }

@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
@@ -63,7 +63,7 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
                     btnStop = new Button("");
                     btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
-                    btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                    btnStop.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.stopPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
@@ -82,7 +82,7 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
                     btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_STATION_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.playPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
@@ -101,7 +101,7 @@ public class CellStartFavourite<S extends StationData, T> extends TableCell<S, T
                 btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
 
                 btnDel.setTooltip(new Tooltip("Favoriten löschen"));
-                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
+                btnDel.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     FavouriteFactory.deleteFavourite(favourite);
                 });

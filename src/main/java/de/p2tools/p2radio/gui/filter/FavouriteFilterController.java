@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButtonClearFilter;
+import de.p2tools.p2lib.guitools.PButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -29,6 +29,7 @@ import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -45,7 +46,7 @@ public class FavouriteFilterController extends FilterController {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final PToggleSwitch tglOwn = new PToggleSwitch("Eigene Sender");
     private final PToggleSwitch tglGrade = new PToggleSwitch("Positiv bewertete Sender");
-    private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
+    private final Button btnClearFilter = PButtonClearFilterFactory.getPButtonClear();
 
     private final FavouriteFilter favouriteFilter;
     private final FilteredList<StationData> filteredList;

@@ -55,7 +55,7 @@ public class ReadRadiosFromWebThread {
         private boolean runReadStationsThread(StationList stationList) {
             boolean ret;
             this.stationList.clear();
-            PLog.addSysLog("komplette Liste laden");
+            PLog.sysLog("komplette Liste laden");
 
             //und jetzt File/Url laden
             ret = new ReadRadiosFromWeb().readList(stationList);

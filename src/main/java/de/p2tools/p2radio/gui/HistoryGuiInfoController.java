@@ -20,7 +20,7 @@ import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2lib.guitools.PHyperlink;
 import de.p2tools.p2lib.guitools.pclosepane.PClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -33,9 +33,9 @@ public class HistoryGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final PHyperlink hyperlinkWebsite = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink hyperlinkUrl = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 

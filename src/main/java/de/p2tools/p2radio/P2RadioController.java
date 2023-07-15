@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -120,7 +120,7 @@ public class P2RadioController extends StackPane {
         maskerPane.toFront();
         Button btnStop = maskerPane.getButton();
         maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setGraphic(ProgIconsP2Radio.ICON_BUTTON_STOP.getImageView());
         btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
     }
 
@@ -129,7 +129,7 @@ public class P2RadioController extends StackPane {
         btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
         btnSmallRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnSmallRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
+        btnSmallRadio.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
 
         btnStation.setTooltip(new Tooltip("Sender anzeigen"));
         btnStation.setOnAction(e -> selPanelStation());

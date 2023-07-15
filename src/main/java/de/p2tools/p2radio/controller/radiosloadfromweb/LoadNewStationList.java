@@ -77,9 +77,9 @@ public class LoadNewStationList {
                                         "", "Sender verarbeiten",
                                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
-                        PLog.addSysLog("Liste der Radios geladen");
+                        PLog.sysLog("Liste der Radios geladen");
                         PLog.sysLog(PLog.LILNE1);
-                        PLog.addSysLog("");
+                        PLog.sysLog("");
 
                         PDuration.onlyPing("Sender geladen: Nachbearbeiten");
                         afterImportNewStationListFromServer(runE);
@@ -146,7 +146,7 @@ public class LoadNewStationList {
         progData.stationListBlackFiltered.clear();
         setStop(false);
         new ReadRadiosFromWebThread().loadNewStationList(progData.stationList);
-        PLog.addSysLog(logList);
+        PLog.sysLog(logList);
     }
 
     /**
@@ -193,7 +193,7 @@ public class LoadNewStationList {
 
         ProgStartAfterGui.afterLoadingStationList(logList);
         setPropLoadStationList(false);
-        PLog.addSysLog(logList);
+        PLog.sysLog(logList);
     }
 
     private void findAndMarkNewStations(List<String> logList, StationList stationList) {

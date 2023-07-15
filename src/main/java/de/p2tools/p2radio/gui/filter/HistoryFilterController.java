@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButtonClearFilter;
+import de.p2tools.p2lib.guitools.PButtonClearFilterFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
@@ -25,6 +25,7 @@ import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -37,7 +38,7 @@ public class HistoryFilterController extends FilterController {
     private final ProgData progData;
 
     private final ComboBox<String> cboGenre = new ComboBox<>();
-    private final PButtonClearFilter btnClearFilter = new PButtonClearFilter();
+    private final Button btnClearFilter = PButtonClearFilterFactory.getPButtonClear();
 
     private final HistoryFilter historyFilter;
     private final HistoryGuiPack historyGuiPack;

@@ -23,7 +23,7 @@ import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -75,7 +75,7 @@ public class PaneTray {
                 txtPath.setText(s);
             }
         });
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
         lblDatei.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));

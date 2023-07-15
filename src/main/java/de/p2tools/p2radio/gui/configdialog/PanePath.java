@@ -25,7 +25,7 @@ import de.p2tools.p2lib.guitools.PStyles;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.beans.property.StringProperty;
@@ -93,7 +93,7 @@ public class PanePath {
         });
         hyperlink = new PHyperlink(stage,
                 ProgConst.URL_WEBSITE_VLC,
-                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
 
         text.setStyle("-fx-font-weight: bold");
 
@@ -112,7 +112,7 @@ public class PanePath {
         btnFile.setOnAction(event -> {
             PDirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
         final Button btnHelp = PButton.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);

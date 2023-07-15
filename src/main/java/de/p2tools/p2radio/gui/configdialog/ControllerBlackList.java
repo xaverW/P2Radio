@@ -33,7 +33,7 @@ public class ControllerBlackList extends PAccordionPane {
     private PaneBlackList paneBlackList;
 
     public ControllerBlackList(Stage stage, BooleanProperty blackChanged) {
-        super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_BLACKLIST);
+        super(ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_BLACKLIST);
         this.stage = stage;
         this.blackChanged = blackChanged;
 

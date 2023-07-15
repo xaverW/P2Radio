@@ -20,7 +20,7 @@ import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import javafx.beans.property.BooleanProperty;
@@ -53,15 +53,15 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btPlay = new ToolBarButton(vBox,
-                "Markierten Sender abspielen", "Markierten Sender abspielen", ProgIcons.Icons.ICON_TOOLBAR_STATION_START.getImageView());
+                "Markierten Sender abspielen", "Markierten Sender abspielen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_START.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", ProgIcons.Icons.ICON_TOOLBAR_STATION_STOP.getImageView());
+                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_STOP.getImageView());
         final ToolBarButton btFavourite = new ToolBarButton(vBox,
-                "Markierte Sender als Favoriten speichern", "Markierte Sender als Favoriten speichern", ProgIcons.Icons.ICON_TOOLBAR_STATION_REC.getImageView());
+                "Markierte Sender als Favoriten speichern", "Markierte Sender als Favoriten speichern", ProgIconsP2Radio.ICON_TOOLBAR_STATION_REC.getImageView());
         final ToolBarButton btRandom = new ToolBarButton(vBox,
-                "Einen Sender per Zufall starten", "Einen Sender per Zufall starten", ProgIcons.Icons.ICON_TOOLBAR_STATION_RANDOM.getImageView());
+                "Einen Sender per Zufall starten", "Einen Sender per Zufall starten", ProgIconsP2Radio.ICON_TOOLBAR_STATION_RANDOM.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_STATION_INFO.getImageView());
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);
@@ -78,7 +78,7 @@ public class StationMenu {
     private void initStationMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Sendermenü anzeigen"));
-        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
+        mb.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
         final boolean moreSets = progData.setDataList.size() > 1;

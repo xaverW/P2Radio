@@ -93,7 +93,7 @@ public class ReadRadiosFromWeb {
 
         logList.add(PLog.LILNE2);
         logList.add("");
-        PLog.addSysLog(logList);
+        PLog.sysLog(logList);
 
         PDuration.counterStop("ReadRadioBrowser.read()");
     }

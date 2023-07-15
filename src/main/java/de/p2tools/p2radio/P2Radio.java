@@ -16,6 +16,7 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.guitools.PGuiSize;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.duration.PDuration;
@@ -23,6 +24,7 @@ import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
 import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
@@ -65,6 +67,8 @@ public class P2Radio extends Application {
     }
 
     private void initP2lib() {
+        ProgIconsP2Radio.initIcons();
+        ProgIconsP2Lib.initIcons();
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
                 "", ProgConfig.SYSTEM_DARK_THEME, ProgData.debug, ProgData.duration);
         //css-files in die Liste aufnehmen

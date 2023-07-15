@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.BlackData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.application.Platform;
@@ -147,7 +147,7 @@ public class PaneBlackList {
                 Platform.runLater(this::setActBlackData));
 
         Button btnDel = new Button("");
-        btnDel.setGraphic(ProgIcons.Icons.ICON_BUTTON_REMOVE.getImageView());
+        btnDel.setGraphic(ProgIconsP2Radio.ICON_BUTTON_REMOVE.getImageView());
         btnDel.setOnAction(event -> {
             blackChanged.set(true);
             final ObservableList<BlackData> selected = tableView.getSelectionModel().getSelectedItems();
@@ -161,7 +161,7 @@ public class PaneBlackList {
         });
 
         Button btnNew = new Button("");
-        btnNew.setGraphic(ProgIcons.Icons.ICON_BUTTON_ADD.getImageView());
+        btnNew.setGraphic(ProgIconsP2Radio.ICON_BUTTON_ADD.getImageView());
         btnNew.setOnAction(event -> {
             blackChanged.set(true);
             BlackData blackData = new BlackData();

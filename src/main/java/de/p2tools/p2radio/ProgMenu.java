@@ -23,7 +23,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
@@ -59,7 +59,7 @@ public class ProgMenu extends MenuButton {
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
             POpen.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
         });
 
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
@@ -73,7 +73,7 @@ public class ProgMenu extends MenuButton {
 
         setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         getStyleClass().addAll("btnFunction", "btnFunc-1");
-        setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
+        setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_MENU_TOP.getImageView());
         getItems().addAll(miConfig, miLoadStationList, mHelp,
                 new SeparatorMenuItem(), miQuit);
     }

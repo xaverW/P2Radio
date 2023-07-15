@@ -32,16 +32,16 @@ public class PMaskerFactory {
     }
 
     public static void setMaskerVisible(ProgData progData, boolean vis) {
-        progData.maskerPane.setMaskerVisible(vis);
+        progData.maskerPane.setMaskerVisible(vis, vis, vis);
         if (progData.smallRadioGuiController != null) {
-            progData.smallRadioGuiController.getMaskerPane().setMaskerVisible(vis);
+            progData.smallRadioGuiController.getMaskerPane().setMaskerVisible(vis, vis, vis);
         }
     }
 
     public static void setMaskerVisible(ProgData progData, boolean maskerVisible, boolean buttonVisible) {
-        progData.maskerPane.setMaskerVisible(maskerVisible, buttonVisible);
+        progData.maskerPane.setMaskerVisible(maskerVisible, buttonVisible, buttonVisible);
         if (progData.smallRadioGuiController != null) {
-            progData.smallRadioGuiController.getMaskerPane().setMaskerVisible(maskerVisible, buttonVisible);
+            progData.smallRadioGuiController.getMaskerPane().setMaskerVisible(maskerVisible, buttonVisible, buttonVisible);
         }
     }
 

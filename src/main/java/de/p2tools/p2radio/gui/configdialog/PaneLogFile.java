@@ -26,7 +26,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -92,10 +92,10 @@ public class PaneLogFile {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtLogFile);
         });
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnReset = new Button();
-        btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_RESET.getImageView());
+        btnReset.setGraphic(ProgIconsP2Radio.ICON_BUTTON_RESET.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für das Logfile wieder herstellen"));
         btnReset.setOnAction(event -> {
             txtLogFile.setText(ProgInfos.getStandardLogDirectoryString());

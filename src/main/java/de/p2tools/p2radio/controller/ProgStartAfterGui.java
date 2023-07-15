@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2lib.icons.GetIcon;
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.date.DateFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
@@ -43,7 +43,7 @@ public class ProgStartAfterGui {
      * Senderliste beim Programmstart!! laden
      */
     public static void workAfterGui(ProgData progData) {
-        GetIcon.addWindowP2Icon(progData.primaryStage);
+        P2WindowIcon.addWindowP2Icon(progData.primaryStage);
         startMsg();
         setTitle(progData.primaryStage);
 
@@ -173,7 +173,7 @@ public class ProgStartAfterGui {
 
         logList.add(PLog.LILNE1);
         logList.add("");
-        PLog.addSysLog(logList);
+        PLog.sysLog(logList);
     }
 
     /**

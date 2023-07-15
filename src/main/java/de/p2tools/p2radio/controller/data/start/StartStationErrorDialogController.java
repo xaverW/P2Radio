@@ -20,7 +20,7 @@ import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
@@ -82,7 +82,7 @@ public class StartStationErrorDialogController extends PDialogExtra {
             quit();
         });
 
-        imageView.setImage(ProgIcons.Icons.IMAGE_ACHTUNG_64.getImage());
+        imageView.setImage(ProgIconsP2Radio.IMAGE_ACHTUNG_64.getImage());
 
         //start the countdown...
         lblTime.setText("");

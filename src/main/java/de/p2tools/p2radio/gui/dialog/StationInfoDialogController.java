@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.PHyperlink;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
@@ -54,9 +54,9 @@ public class StationInfoDialogController extends PDialogExtra {
     private final ImageView ivBlack = new ImageView();
 
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
     private final ProgData progData;
     private StationData station;
 
@@ -94,7 +94,7 @@ public class StationInfoDialogController extends PDialogExtra {
 //        btnOk.getStyleClass().add("btnSmallRadio");
 
         btnPrev.setTooltip(new Tooltip("Vorherigen Sender in der Tabelle anzeigen"));
-        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
+        btnPrev.setGraphic(ProgIconsP2Radio.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann ist das kleine Fenster offen
@@ -117,7 +117,7 @@ public class StationInfoDialogController extends PDialogExtra {
 //        btnPrev.getStyleClass().add("btnSmallRadio");
 
         btnNext.setTooltip(new Tooltip("Nächsten Sender in der Tabelle anzeigen"));
-        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
+        btnNext.setGraphic(ProgIconsP2Radio.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann ist das kleine Fenster offen
@@ -140,7 +140,7 @@ public class StationInfoDialogController extends PDialogExtra {
 //        btnNext.getStyleClass().add("btnSmallRadio");
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
-        btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
+        btnStart.setGraphic(ProgIconsP2Radio.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
@@ -157,7 +157,7 @@ public class StationInfoDialogController extends PDialogExtra {
 //        btnStart.getStyleClass().add("btnSmallRadio");
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
-        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStop.setGraphic(ProgIconsP2Radio.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> progData.startFactory.stopAll());
 //        btnStop.getStyleClass().add("btnSmallRadio");
 
@@ -183,7 +183,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_STATION_NEW_INT:
                         if (station.isNewStation()) {
-                            ivNew.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
+                            ivNew.setImage(ProgIconsP2Radio.ICON_DIALOG_EIN_SW.getImage());
                         } else {
                             ivNew.setImage(null);
                         }
@@ -222,7 +222,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_OWN_INT:
                         if (station.isOwn()) {
-                            ivOwn.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
+                            ivOwn.setImage(ProgIconsP2Radio.ICON_DIALOG_EIN_SW.getImage());
                         } else {
                             ivOwn.setImage(null);
                         }
@@ -257,21 +257,21 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DOUBLE_URL_INT:
                         if (station.isDoubleUrl()) {
-                            ivDouble.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
+                            ivDouble.setImage(ProgIconsP2Radio.ICON_DIALOG_EIN_SW.getImage());
                         } else {
                             ivDouble.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
                         if (station.isFavourite()) {
-                            ivFavourite.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
+                            ivFavourite.setImage(ProgIconsP2Radio.ICON_DIALOG_EIN_SW.getImage());
                         } else {
                             ivFavourite.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                         if (station.isBlackBlocked()) {
-                            ivBlack.setImage(ProgIcons.Icons.ICON_DIALOG_EIN.getImage());
+                            ivBlack.setImage(ProgIconsP2Radio.ICON_DIALOG_EIN_SW.getImage());
                         } else {
                             ivBlack.setImage(null);
                         }

@@ -21,7 +21,7 @@ import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import javafx.geometry.Pos;
@@ -81,7 +81,7 @@ public class PaneSetList extends TitledPane {
 
         Button btnDel = new Button("");
         btnDel.setTooltip(new Tooltip("Markiertes Set löschen"));
-        btnDel.setGraphic(ProgIcons.Icons.ICON_BUTTON_REMOVE.getImageView());
+        btnDel.setGraphic(ProgIconsP2Radio.ICON_BUTTON_REMOVE.getImageView());
         btnDel.setOnAction(event -> {
             SetData setData = getSelectedSelData();
             if (setData != null) {
@@ -91,7 +91,7 @@ public class PaneSetList extends TitledPane {
 
         Button btnNew = new Button("");
         btnNew.setTooltip(new Tooltip("Ein neues Set anlegen"));
-        btnNew.setGraphic(ProgIcons.Icons.ICON_BUTTON_ADD.getImageView());
+        btnNew.setGraphic(ProgIconsP2Radio.ICON_BUTTON_ADD.getImageView());
         btnNew.setOnAction(event -> {
             SetData setData = new SetData("Neu-" + ++newCounter);
             progData.setDataList.addSetData(setData);
@@ -99,7 +99,7 @@ public class PaneSetList extends TitledPane {
 
         Button btnUp = new Button("");
         btnUp.setTooltip(new Tooltip("Markiertes Set nach oben schieben"));
-        btnUp.setGraphic(ProgIcons.Icons.ICON_BUTTON_MOVE_UP.getImageView());
+        btnUp.setGraphic(ProgIconsP2Radio.ICON_BUTTON_MOVE_UP.getImageView());
         btnUp.setOnAction(event -> {
             int sel = getSelectedLine();
             if (sel >= 0) {
@@ -110,7 +110,7 @@ public class PaneSetList extends TitledPane {
 
         Button btnDown = new Button("");
         btnDown.setTooltip(new Tooltip("Markiertes Set nach unten schieben"));
-        btnDown.setGraphic(ProgIcons.Icons.ICON_BUTTON_MOVE_DOWN.getImageView());
+        btnDown.setGraphic(ProgIconsP2Radio.ICON_BUTTON_MOVE_DOWN.getImageView());
         btnDown.setOnAction(event -> {
             int sel = getSelectedLine();
             if (sel >= 0) {
