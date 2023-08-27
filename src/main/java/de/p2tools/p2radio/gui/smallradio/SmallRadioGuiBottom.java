@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -91,10 +91,10 @@ public class SmallRadioGuiBottom extends HBox {
 
         HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.BOTTOM_RIGHT);
-        hBoxButton.getChildren().addAll(btnStart, btnStop, PGuiTools.getVDistance(P2LibConst.DIST_BUTTON_BLOCK), btnRandom);
+        hBoxButton.getChildren().addAll(btnStart, btnStop, P2GuiTools.getVDistance(P2LibConst.DIST_BUTTON_BLOCK), btnRandom);
 
         setAlignment(Pos.BOTTOM_CENTER);
-        getChildren().addAll(PGuiTools.getHBoxGrower(), vbColl, PGuiTools.getHBoxGrower(), hBoxButton);
+        getChildren().addAll(P2GuiTools.getHBoxGrower(), vbColl, P2GuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initCbo() {
@@ -162,7 +162,7 @@ public class SmallRadioGuiBottom extends HBox {
     }
 
     private void initStartButton() {
-        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
+        btnRadio.setTooltip(new Tooltip("Große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().add("btnTop");

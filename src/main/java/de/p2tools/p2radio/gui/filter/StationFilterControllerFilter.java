@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.pcheckcombobox.PCheckComboBox;
-import de.p2tools.p2lib.guitools.prange.PRangeBox;
+import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.geometry.Insets;
@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 
 public class StationFilterControllerFilter extends VBox {
 
-    private final PRangeBox slBitrate = new PRangeBox(0, StationFilterFactory.FILTER_BITRATE_MAX);
+    private final P2RangeBox slBitrate = new P2RangeBox("", true, 0, StationFilterFactory.FILTER_BITRATE_MAX);
     private final Label lblBitrate = new Label("Bitrate:");
 
     private final Label lblOnly = new Label("anzeigen");
@@ -51,8 +51,8 @@ public class StationFilterControllerFilter extends VBox {
     private void addSlider() {
         slBitrate.minValueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().minBitProperty());
         slBitrate.maxValueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().maxBitProperty());
-        slBitrate.setValuePrefix("");
-        slBitrate.setUnitSuffix(" Bit");
+// todo        slBitrate.setValuePrefix("");
+//        slBitrate.setUnitSuffix(" Bit");
 
         // MinMax Bitrate
         VBox vBox = new VBox(3);

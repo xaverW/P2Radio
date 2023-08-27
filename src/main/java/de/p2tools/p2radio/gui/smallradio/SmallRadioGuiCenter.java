@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.PTableFactory;
 import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
 import de.p2tools.p2lib.tools.events.PEvent;
@@ -93,8 +93,8 @@ public class SmallRadioGuiCenter extends HBox {
         vBoxLeft.setAlignment(Pos.CENTER);
         VBox vBoxRight = new VBox();
         vBoxRight.setAlignment(Pos.CENTER);
-        vBoxLeft.getChildren().addAll(btnRadio, PGuiTools.getVBoxGrower(), btnPrev, PGuiTools.getVBoxGrower());
-        vBoxRight.getChildren().addAll(btnClose, PGuiTools.getVBoxGrower(), btnNext, PGuiTools.getVBoxGrower());
+        vBoxLeft.getChildren().addAll(btnRadio, P2GuiTools.getVBoxGrower(), btnPrev, P2GuiTools.getVBoxGrower());
+        vBoxRight.getChildren().addAll(btnClose, P2GuiTools.getVBoxGrower(), btnNext, P2GuiTools.getVBoxGrower());
         getChildren().addAll(vBoxLeft, scrollPane, vBoxRight);
         HBox.setHgrow(scrollPane, Priority.ALWAYS);
 

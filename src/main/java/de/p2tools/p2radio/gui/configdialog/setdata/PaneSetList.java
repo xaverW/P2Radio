@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.configdialog.setdata;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -163,7 +163,7 @@ public class PaneSetList extends TitledPane {
         HBox.setHgrow(hBox, Priority.ALWAYS);
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
-        hBox.getChildren().addAll(btnNew, btnDel, PGuiTools.getHBoxGrower(), btnUp, btnDown);
+        hBox.getChildren().addAll(btnNew, btnDel, P2GuiTools.getHBoxGrower(), btnUp, btnDown);
         vBox.getChildren().addAll(hBox, btnStandard, btnDup, btnNewSet, btnCheck);
     }
 

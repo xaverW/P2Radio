@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller.starter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.pnotification.PNotification;
+import de.p2tools.p2lib.guitools.pnotification.P2Notification;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationData;
 
@@ -36,7 +36,7 @@ public class MTNotification {
             return;
         }
 
-        PNotification.addNotification("Download beendet", text, error);
+        P2Notification.addNotification("Download beendet", text, error);
     }
 
 }

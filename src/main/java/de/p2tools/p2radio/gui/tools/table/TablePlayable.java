@@ -116,7 +116,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> ownColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN);
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
-        ownColumn.setCellFactory(new CellCheckBox().cellFactoryBool);
+        ownColumn.setCellFactory(new CellCheckBox().cellFactory);
         ownColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> stateColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATE);

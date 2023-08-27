@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.configdialog;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.prange.PRangeBox;
+import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
@@ -35,7 +35,7 @@ import java.util.Collection;
 
 public class PaneBlack {
 
-    private final PRangeBox slBitrate = new PRangeBox(0, StationFilterFactory.FILTER_BITRATE_MAX);
+    private final P2RangeBox slBitrate = new P2RangeBox("", true, 0, StationFilterFactory.FILTER_BITRATE_MAX);
     private final BooleanProperty blackChanged;
     private final Stage stage;
 
@@ -77,8 +77,8 @@ public class PaneBlack {
     private void initBitrateFilter() {
         slBitrate.minValueProperty().bindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE);
         slBitrate.maxValueProperty().bindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE);
-        slBitrate.setValuePrefix("");
-        slBitrate.setUnitSuffix(" Bit");
+// todo        slBitrate.setValuePrefix("");
+//        slBitrate.setUnitSuffix(" Bit");
         slBitrate.maxValueProperty().addListener((observable, oldValue, newValue) -> blackChanged.set(true));
         slBitrate.minValueProperty().addListener((observable, oldValue, newValue) -> blackChanged.set(true));
     }
