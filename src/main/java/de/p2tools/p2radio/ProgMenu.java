@@ -29,10 +29,17 @@ import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 
 public class ProgMenu extends MenuButton {
     public ProgMenu() {
         makeMenu();
+        setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                ProgConfig.SYSTEM_DARK_THEME.setValue(!ProgConfig.SYSTEM_DARK_THEME.getValue());
+
+            }
+        });
     }
 
     private void makeMenu() {
@@ -43,6 +50,9 @@ public class ProgMenu extends MenuButton {
 
         final MenuItem miLoadStationList = new MenuItem("Neue Senderliste laden");
         miLoadStationList.setOnAction(e -> progData.loadNewStationList.loadNewStationFromServer());
+
+        final CheckMenuItem miDarkMode = new CheckMenuItem("Dark Mode");
+        miDarkMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
 
         final MenuItem miQuit = new MenuItem("Beenden");
         miQuit.setOnAction(e -> ProgQuit.quit(progData.primaryStage, true));
@@ -74,7 +84,7 @@ public class ProgMenu extends MenuButton {
         setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         getStyleClass().addAll("btnFunction", "btnFunc-1");
         setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_MENU_TOP.getImageView());
-        getItems().addAll(miConfig, miLoadStationList, mHelp,
+        getItems().addAll(miConfig, miLoadStationList, miDarkMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
     }
 }
