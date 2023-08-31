@@ -134,7 +134,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     }
 
     public String getCollectionName() {
-        return collectionName.get();
+        return collectionName.getValueSafe();
     }
 
     public void setCollectionName(String collectionName) {

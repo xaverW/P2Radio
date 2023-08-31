@@ -71,6 +71,11 @@ public class TablePlayable<T> extends TableView<T> {
         stationNameColumn.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         stationNameColumn.getStyleClass().add("alignCenterLeft");
 
+        final TableColumn<T, Boolean> favouriteColumn = new TableColumn<>(StationDataXml.STATION_PROP_IS_FAVOURITE);
+        favouriteColumn.setCellValueFactory(new PropertyValueFactory<>("favourite"));
+        favouriteColumn.setCellFactory(new CellCheckBox().cellFactory);
+        favouriteColumn.getStyleClass().add("alignCenter");
+
         final TableColumn<T, String> collectionNameColumn = new TableColumn<>(StationDataXml.STATION_PROP_COLLECTION);
         collectionNameColumn.setCellValueFactory(new PropertyValueFactory<>("collectionName"));
         collectionNameColumn.getStyleClass().add("alignCenterLeft");
@@ -158,15 +163,16 @@ public class TablePlayable<T> extends TableView<T> {
 
         if (this.table_enum.equals(Table.TABLE_ENUM.STATION)) {
             getColumns().addAll(
-                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    stationNoColumn, stationNameColumn, favouriteColumn, /*collectionNameColumn,*/ startButtonColumn,
                     /*ownGradeColumn, startsColumn,*/
                     clickCountColumn, clickTrendColumn, votesColumn,
                     genreColumn, codecColumn, bitrateColumn, ownColumn,
                     stateColumn, countryColumn, countryCodeColumn, languageColumn,
                     stationDateColumn, websiteColumn, stationUrlColumn);
+
         } else if (this.table_enum.equals(Table.TABLE_ENUM.FAVOURITE)) {
             getColumns().addAll(
-                    stationNoColumn, stationNameColumn, collectionNameColumn, startButtonColumn,
+                    stationNoColumn, stationNameColumn,/*isFavouriteColumn,*/ collectionNameColumn, startButtonColumn,
                     ownGradeColumn, startsColumn,
                     clickCountColumn, clickTrendColumn, votesColumn,
                     genreColumn, codecColumn, bitrateColumn, ownColumn,
@@ -175,7 +181,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.HISTORY)) {
             getColumns().addAll(
-                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    stationNoColumn, stationNameColumn, favouriteColumn, /*collectionNameColumn,*/ startButtonColumn,
                     /*ownGradeColumn,*/ startsColumn,
                     clickCountColumn, clickTrendColumn, votesColumn,
                     genreColumn, codecColumn, bitrateColumn, ownColumn,
@@ -184,7 +190,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)) {
             getColumns().addAll(
-                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    stationNoColumn, stationNameColumn, favouriteColumn, /*collectionNameColumn,*/ startButtonColumn,
                     /*ownGradeColumn, startsColumn,*/
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
@@ -193,7 +199,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE)) {
             getColumns().addAll(
-                    stationNoColumn, stationNameColumn, collectionNameColumn, startButtonColumn,
+                    stationNoColumn, stationNameColumn, /*isFavouriteColumn,*/collectionNameColumn, startButtonColumn,
                     ownGradeColumn, startsColumn,
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
@@ -202,7 +208,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY)) {
             getColumns().addAll(
-                    stationNoColumn, stationNameColumn, /*collectionNameColumn,*/ startButtonColumn,
+                    stationNoColumn, stationNameColumn, favouriteColumn,/*collectionNameColumn,*/ startButtonColumn,
                     /*ownGradeColumn,*/ startsColumn,
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
@@ -214,13 +220,13 @@ public class TablePlayable<T> extends TableView<T> {
     private void addStart(TableColumn startButtonColumn) {
         switch (this.table_enum) {
             case STATION:
-                startButtonColumn.setCellFactory(new CellStartStation().cellFactoryStart);
+                startButtonColumn.setCellFactory(new CellButtonStation().cellFactoryStart);
                 break;
             case FAVOURITE:
-                startButtonColumn.setCellFactory(new CellStartFavourite().cellFactoryButton);
+                startButtonColumn.setCellFactory(new CellButtonFavourite().cellFactoryButton);
                 break;
             case HISTORY:
-                startButtonColumn.setCellFactory(new CellStartHistory().cellFactoryButton);
+                startButtonColumn.setCellFactory(new CellButtonHistory().cellFactoryButton);
                 break;
             case SMALL_RADIO_STATION:
             case SMALL_RADIO_FAVOURITE:

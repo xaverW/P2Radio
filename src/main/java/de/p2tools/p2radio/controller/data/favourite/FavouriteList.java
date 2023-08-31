@@ -19,8 +19,6 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -33,8 +31,6 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     public static final String TAG = "FavouriteList";
     private final ProgData progData;
     private final FavouriteStartsFactory favouriteStartsFactory;
-    private final BooleanProperty favouriteChanged = new SimpleBooleanProperty(true);
-//    private int no = 0;
 
     public FavouriteList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -71,7 +67,6 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     @Override
     public synchronized boolean add(StationData stationData) {
         progData.collectionList.addNewName(stationData.getCollectionName());
-//        stationData.setStationNo(++no);
         stationData.setFavourite(true);
         return super.add(stationData);
     }
@@ -79,7 +74,6 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     @Override
     public synchronized boolean addAll(Collection<? extends StationData> elements) {
         elements.stream().forEach(stationData -> {
-//            stationData.setStationNo(++no);
             stationData.setFavourite(true);
             progData.collectionList.addNewName(stationData.getCollectionName());
         });
@@ -89,7 +83,6 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
     @Override
     public boolean addAll(StationData... var1) {
         for (StationData stationData : var1) {
-//            stationData.setStationNo(++no);
             stationData.setFavourite(true);
             progData.collectionList.addNewName(stationData.getCollectionName());
         }

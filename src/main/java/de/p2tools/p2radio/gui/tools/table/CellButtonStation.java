@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.tools.table;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
-import de.p2tools.p2radio.controller.data.history.HistoryFactory;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -32,14 +32,15 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class CellStartHistory<S, T> extends TableCell<S, T> {
-    public final Callback<TableColumn<StationData, Integer>, TableCell<StationData, Integer>> cellFactoryButton
-            = (final TableColumn<StationData, Integer> param) -> {
+public class CellButtonStation<S, T> extends TableCell<S, T> {
 
-        final TableCell<StationData, Integer> cell = new TableCell<>() {
+    public final Callback<TableColumn<StationData, String>, TableCell<StationData, String>> cellFactoryStart
+            = (final TableColumn<StationData, String> param) -> {
+
+        final TableCell<StationData, String> cell = new TableCell<>() {
 
             @Override
-            public void updateItem(Integer item, boolean empty) {
+            public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty) {
@@ -49,70 +50,69 @@ public class CellStartHistory<S, T> extends TableCell<S, T> {
                 }
 
                 final HBox hbox = new HBox();
-                hbox.setSpacing(5);
+                hbox.setSpacing(4);
                 hbox.setAlignment(Pos.CENTER);
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                StationData stationData = getTableView().getItems().get(getIndex());
-                final boolean playing = stationData.getStart() != null;
+                StationData station = getTableView().getItems().get(getIndex());
+                final boolean playing = station.getStart() != null;
 
                 if (playing) {
-                    //dann stoppen
-                    final Button btnPlay;
-                    btnPlay = new Button("");
+                    //stoppen
+                    final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
                     btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.stopPlayable(stationData);
+                        ProgData.getInstance().startFactory.stopPlayable(station);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
 
                     if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMinHeight(18);
                         btnPlay.setMaxHeight(18);
+                        btnPlay.setMinHeight(18);
                     }
                     hbox.getChildren().add(btnPlay);
 
                 } else {
-                    //starten, nur ein Set
-                    final Button btnPlay;
-                    btnPlay = new Button("");
+                    //starten
+                    final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.playPlayable(stationData);
+                        ProgData.getInstance().startFactory.playPlayable(station);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
 
                     if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMinHeight(18);
                         btnPlay.setMaxHeight(18);
+                        btnPlay.setMinHeight(18);
                     }
                     hbox.getChildren().add(btnPlay);
                 }
 
-                final Button btnDel;
-                btnDel = new Button("");
-                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
-                btnDel.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
-                btnDel.setOnAction(event -> {
-                    HistoryFactory.deleteHistory(stationData);
+                final Button btnFavorite;
+                btnFavorite = new Button("");
+                btnFavorite.getStyleClass().addAll("btnFunction", "btnFuncTable");
+
+                btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
+                btnFavorite.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_SAVE.getImageView());
+                btnFavorite.setOnAction(event -> {
+                    FavouriteFactory.favouriteStation(station);
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                    btnDel.setMinHeight(18);
-                    btnDel.setMaxHeight(18);
+                    btnFavorite.setMaxHeight(18);
+                    btnFavorite.setMinHeight(18);
                 }
-                hbox.getChildren().add(btnDel);
+                hbox.getChildren().add(btnFavorite);
+
                 setGraphic(hbox);
             }
         };
         return cell;
     };
-
 }

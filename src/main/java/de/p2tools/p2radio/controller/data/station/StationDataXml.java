@@ -93,7 +93,7 @@ public class StationDataXml {
     public static final String STATION_PROP_DOUBLE_URL = "Doppelt";
 
     public static final int STATION_PROP_IS_FAVOURITE_INT = 23;
-    public static final String STATION_PROP_IS_FAVOURITE = "Favourite";
+    public static final String STATION_PROP_IS_FAVOURITE = "Favorite";
 
     public static final int STATION_PROP_BLACK_BLOCKED_URL_INT = 24;
     public static final String STATION_PROP_BLACK_BLOCKED_URL = "BlackBlocked";

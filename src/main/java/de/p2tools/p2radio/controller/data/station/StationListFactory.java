@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class StationListFactory {
     final static String regEx1 = "[\\n\\r]";
@@ -115,9 +114,10 @@ public class StationListFactory {
     }
 
     public static void findAndMarkFavouriteStations(ProgData progData) {
+        // nach Programmstart oder löschen einer Sammlung/History
         PDuration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
-        hashSet.addAll(progData.favouriteList.stream().map(StationData::getStationUrl).collect(Collectors.toList()));
+        hashSet.addAll(progData.favouriteList.stream().map(StationData::getStationUrl).toList());
 
         progData.stationList.stream().forEach(station -> station.setFavourite(false));
         progData.stationList.stream()
