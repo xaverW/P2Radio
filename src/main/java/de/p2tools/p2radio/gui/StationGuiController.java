@@ -56,7 +56,7 @@ public class StationGuiController extends VBox {
         progData = ProgData.getInstance();
         this.stationGuiPack = stationGuiPack;
 
-        tableView = new TablePlayable(Table.TABLE_ENUM.STATION);
+        tableView = new TablePlayable<>(Table.TABLE_ENUM.STATION);
 
         getChildren().addAll(scrollPane);
         scrollPane.setFitToHeight(true);

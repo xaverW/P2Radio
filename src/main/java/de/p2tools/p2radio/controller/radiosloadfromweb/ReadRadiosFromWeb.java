@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.controller.radiosloadfromweb;
 
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import de.p2tools.p2lib.tools.duration.PDuration;
@@ -105,6 +106,64 @@ public class ReadRadiosFromWeb {
      * @param stationList the list to read to
      */
     private void processFromWeb(URL source, StationList stationList) {
+
+//        try {
+//            HttpURLConnection con = (HttpURLConnection) source.openConnection();
+//            con.setRequestMethod("GET");
+//            con.setRequestProperty("User-Agent", ProgConst.PROGRAM_NAME);
+//            int responseCode = con.getResponseCode();
+//            System.out.println("GET Response Code :: " + responseCode);
+//            if (responseCode == HttpURLConnection.HTTP_OK) {
+//                // success
+//                // our progress monitor callback
+//                final InputStreamProgressMonitor monitor = new InputStreamProgressMonitor() {
+//                    private int oldProgress = 0;
+//
+//                    @Override
+//                    public void progress(long bytesRead, long size) {
+//                        final int iProgress = (int) (bytesRead * 100/* zum Runden */ / size);
+//                        if (iProgress != oldProgress) {
+//                            oldProgress = iProgress;
+//                            notifyProgress(source.toString(), 1.0 * iProgress / 100);
+//                        }
+//                    }
+//                };
+//
+//                try (InputStream is = new ProgressMonitorInputStream(
+//                        selectDecompressor(source.toString(), con.getInputStream()),
+//                        con.getContentLength(), monitor);
+//                     JsonParser jp = new JsonFactory().createParser(is)) {
+//                    readData(jp, stationList);
+//                }
+//
+//            } else {
+//                System.out.println("GET request did not work.");
+//            }
+//
+//
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+
+
+//        OkHttpClient httpClient = new OkHttpClient.Builder().build();
+//        final Request.Builder builder = new Request.Builder().url(source);
+//        builder.addHeader("User-Agent", ProgInfos.getUserAgent());
+//        try (Response response = httpClient.newCall(builder.build()).execute();
+//             ResponseBody body = response.body()) {
+//            if (body != null && response.isSuccessful()) {
+//                try (InputStream is = selectDecompressor(source.toString(), body.byteStream());
+//                     JsonParser jp = new JsonFactory().createParser(is)) {
+//                    readData(jp, stationList);
+//                }
+//            }
+//        } catch (final Exception ex) {
+//            PLog.errorLog(830214789, ex, "Senderliste: " + source);
+//            stationList.clear();
+//        }
+
+
+//        //===========================
         final Request.Builder builder = new Request.Builder().url(source);
         builder.addHeader("User-Agent", ProgInfos.getUserAgent());
 
