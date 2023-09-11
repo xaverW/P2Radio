@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 public class StationFilterFactory {
 
     public static final int FILTER_BITRATE_MIN = 0;
-    public static final int FILTER_BITRATE_MAX = 320;
+    public static final int FILTER_BITRATE_MAX = 320; // kbit/s
 
     public static boolean checkCodec(Filter sender, StationData station) {
         // nur ein Suchbegriff muss passen

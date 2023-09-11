@@ -68,6 +68,7 @@ public class BlackDataList extends SimpleListProperty<BlackData> implements PDat
     }
 
     public synchronized boolean addAndNotify(BlackData b) {
+        // aus dem (Maus) Menü, in die BlackList einfügen
         b.setNo(nr++);
         final boolean ret = super.add(b);
         filterListAndNotifyListeners();

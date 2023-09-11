@@ -175,7 +175,7 @@ public final class StoredFilters {
         boolean found = false;
         while (!found) {
             final String name = "Filter " + id;
-            if (!filterList.stream().filter(f -> name.equalsIgnoreCase(f.getName())).findAny().isPresent()) {
+            if (filterList.stream().noneMatch(f -> name.equalsIgnoreCase(f.getName()))) {
                 ret = name;
                 found = true;
             }

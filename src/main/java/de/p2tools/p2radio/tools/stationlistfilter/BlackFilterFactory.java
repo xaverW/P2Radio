@@ -22,16 +22,16 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.data.station.StationDataProperty;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.tools.storedfilter.Filter;
 
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BlackFilterFactory {
 
     private final static ProgData progData = ProgData.getInstance();
-    private static int minBitrate = 0;
+    private static int minBitrate = StationFilterFactory.FILTER_BITRATE_MIN;
     private static int maxBitrate = StationFilterFactory.FILTER_BITRATE_MAX;
 
     private BlackFilterFactory() {
@@ -54,7 +54,7 @@ public class BlackFilterFactory {
             } else if (progData.storedFilters.getActFilterSettings().isBlacklistOnly()) {
                 //blacklist in ONLY
                 PLog.sysLog("StationListBlackFilter - isBlacklistOnly");
-                initialStream = initialStream.filter(f -> f.isBlackBlocked());
+                initialStream = initialStream.filter(StationDataProperty::isBlackBlocked);
 
             } else {
                 //blacklist in OFF
@@ -63,18 +63,20 @@ public class BlackFilterFactory {
 
             //todo
             PLog.sysLog("START: BlackFilterFactory-getBlackFiltered");
-            progData.stationListBlackFiltered.addAll(initialStream.collect(Collectors.toList()));
+            progData.stationListBlackFiltered.setAll(initialStream.toList());
         }
         PDuration.counterStop("StationListBlackFilter.getBlackFiltered");
     }
 
     public static synchronized void markStationBlack() {
+        // die Liste der Sender durchgehen und gegen die Blacklist checken
+        // und geblockte Sender markieren
         PDuration.counterStart("StationListBlackFilter.markStationBlack");
         final StationList stationList = progData.stationList;
         loadCurrentFilterSettings();
 
         PLog.sysLog("START: markStationBlack");
-        stationList.stream().forEach(station -> {
+        stationList.forEach(station -> {
             station.setBlackBlocked(checkBlock(station));
         });
         PDuration.counterStop("StationListBlackFilter.markStationBlack");
@@ -97,14 +99,15 @@ public class BlackFilterFactory {
 
     public static boolean isBlackEmpty() {
         //liefert, ob es keine "black" gibt
-        return ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE.get() == 0 &&
+        return ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE.get() == StationFilterFactory.FILTER_BITRATE_MIN &&
                 ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE.get() == StationFilterFactory.FILTER_BITRATE_MAX &&
                 progData.blackDataList.isEmpty();
     }
 
     private static synchronized boolean checkBlock(StationData station) {
         // hier werden die Sender gegen die Blacklist geprüft
-        if (station.getBitrateInt() != 0 && minBitrate > 0 &&
+        // true wenn geblockt
+        if (station.getBitrateInt() != 0 && minBitrate > StationFilterFactory.FILTER_BITRATE_MIN &&
                 station.getBitrateInt() < minBitrate) {
             return true;
         }
@@ -120,13 +123,6 @@ public class BlackFilterFactory {
 
         return blockWithBlacklistFilters(station, false);
     }
-
-    /**
-     * Apply filters to station.
-     *
-     * @param station item to be filtered
-     * @return true if station can be displayed
-     */
 
     private static boolean blockWithBlacklistFilters(StationData station, boolean countHits) {
         for (final BlackData blackData : progData.blackDataList) {

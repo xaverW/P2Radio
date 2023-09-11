@@ -24,6 +24,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,22 +39,30 @@ public class PaneBlack {
     private final P2RangeBox slBitrate = new P2RangeBox("", true, 0, StationFilterFactory.FILTER_BITRATE_MAX);
     private final BooleanProperty blackChanged;
     private final Stage stage;
+    private final ChangeListener<Number> changeListenerMin;
+    private final ChangeListener<Number> changeListenerMax;
 
     public PaneBlack(Stage stage, BooleanProperty blackChanged) {
         this.stage = stage;
         this.blackChanged = blackChanged;
+
+        changeListenerMin = (observable, oldValue, newValue) -> blackChanged.set(true);
+        changeListenerMax = (observable, oldValue, newValue) -> blackChanged.set(true);
+        slBitrate.setUnitSuffix("kbit/s");
     }
 
     public void close() {
         slBitrate.minValueProperty().unbindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE);
         slBitrate.maxValueProperty().unbindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE);
+        slBitrate.minValueProperty().removeListener(changeListenerMin);
+        slBitrate.maxValueProperty().removeListener(changeListenerMax);
     }
 
     public void makeBlack(Collection<TitledPane> result) {
         initBitrateFilter();
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
-        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Blacklist allgemein", gridPane);
@@ -77,9 +86,7 @@ public class PaneBlack {
     private void initBitrateFilter() {
         slBitrate.minValueProperty().bindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MIN_BITRATE);
         slBitrate.maxValueProperty().bindBidirectional(ProgConfig.SYSTEM_BLACKLIST_MAX_BITRATE);
-// todo        slBitrate.setValuePrefix("");
-//        slBitrate.setUnitSuffix(" Bit");
-        slBitrate.maxValueProperty().addListener((observable, oldValue, newValue) -> blackChanged.set(true));
-        slBitrate.minValueProperty().addListener((observable, oldValue, newValue) -> blackChanged.set(true));
+        slBitrate.minValueProperty().addListener(changeListenerMin);
+        slBitrate.maxValueProperty().addListener(changeListenerMax);
     }
 }
