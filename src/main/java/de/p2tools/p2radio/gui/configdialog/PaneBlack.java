@@ -37,14 +37,12 @@ import java.util.Collection;
 public class PaneBlack {
 
     private final P2RangeBox slBitrate = new P2RangeBox("", true, 0, StationFilterFactory.FILTER_BITRATE_MAX);
-    private final BooleanProperty blackChanged;
     private final Stage stage;
     private final ChangeListener<Number> changeListenerMin;
     private final ChangeListener<Number> changeListenerMax;
 
     public PaneBlack(Stage stage, BooleanProperty blackChanged) {
         this.stage = stage;
-        this.blackChanged = blackChanged;
 
         changeListenerMin = (observable, oldValue, newValue) -> blackChanged.set(true);
         changeListenerMax = (observable, oldValue, newValue) -> blackChanged.set(true);
