@@ -63,7 +63,7 @@ public class StationSaveFactory {
                     jsonGenerator.writeStringField(StationFieldNamesWeb.NAME, station.getStationName());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.GENRE, station.getGenre());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.CODEC, station.getCodec());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.BITRATE, station.getBitrate());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.BITRATE, station.getBitrateStr());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY, station.getCountry());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY_CODE, station.getCountryCode());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.STATE, station.getState());

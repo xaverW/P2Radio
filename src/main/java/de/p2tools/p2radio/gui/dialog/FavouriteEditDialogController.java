@@ -254,7 +254,10 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
 
-                lblCont[StationDataXml.STATION_PROP_BITRATE_INT].textProperty().bind(actFavourite.bitrateProperty());
+                actFavourite.bitrateProperty().addListener((observable, oldValue, newValue) ->
+                        lblCont[StationDataXml.STATION_PROP_BITRATE_INT].setText(actFavourite.getBitrateStr()));
+                lblCont[StationDataXml.STATION_PROP_BITRATE_INT].setText(actFavourite.getBitrateStr());
+
                 gridPane.add(lbl[StationDataXml.STATION_PROP_BITRATE_INT], 2, row);
                 gridPane.add(lblCont[StationDataXml.STATION_PROP_BITRATE_INT], 3, row);
 

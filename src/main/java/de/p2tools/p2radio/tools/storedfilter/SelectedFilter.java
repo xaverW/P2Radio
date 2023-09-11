@@ -251,10 +251,10 @@ public final class SelectedFilter extends SelectedFilterProps {
 
         // Bitrate
         if (minBitrate != 0) {
-            predicate = predicate.and(station -> StationFilterFactory.checkBitrateMin(minBitrate, station.getBitrateInt()));
+            predicate = predicate.and(station -> StationFilterFactory.checkBitrateMin(minBitrate, station.getBitrate()));
         }
         if (maxBitrate != StationFilterFactory.FILTER_BITRATE_MAX) {
-            predicate = predicate.and(station -> StationFilterFactory.checkBitrateMax(maxBitrate, station.getBitrateInt()));
+            predicate = predicate.and(station -> StationFilterFactory.checkBitrateMax(maxBitrate, station.getBitrate()));
         }
 
         if (!fStationName.empty) {

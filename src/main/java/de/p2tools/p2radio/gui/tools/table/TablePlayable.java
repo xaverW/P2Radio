@@ -115,7 +115,7 @@ public class TablePlayable<T> extends TableView<T> {
         codecColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, Integer> bitrateColumn = new TableColumn<>(StationDataXml.STATION_PROP_BITRATE);
-        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrateInt"));
+        bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
         bitrateColumn.setCellFactory(new CellIntNull().cellFactory);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 

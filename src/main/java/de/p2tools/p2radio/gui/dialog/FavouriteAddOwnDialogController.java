@@ -166,7 +166,10 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(txt[i], 1, row);
 
-                txt[StationDataXml.STATION_PROP_BITRATE_INT].textProperty().bindBidirectional(stationData.bitrateProperty());
+                txt[StationDataXml.STATION_PROP_BITRATE_INT].textProperty().addListener((observable, oldValue, newValue) ->
+                        stationData.setBitrate(txt[StationDataXml.STATION_PROP_BITRATE_INT].getText()));
+                txt[StationDataXml.STATION_PROP_BITRATE_INT].setText(stationData.getBitrateStr());
+
                 gridPane.add(lbl[StationDataXml.STATION_PROP_BITRATE_INT], 2, row);
                 gridPane.add(txt[StationDataXml.STATION_PROP_BITRATE_INT], 3, row);
                 ++row;

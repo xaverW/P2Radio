@@ -214,12 +214,9 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
 
                     case StationDataXml.STATION_PROP_BITRATE_INT:
-                        lblCont[i].setText(station.getBitrate() + "");
+                        lblCont[i].setText(station.getBitrateStr());
                         break;
 
-                    case StationDataXml.STATION_PROP_INT_BITRATE_INT:
-                        lblCont[i].setText(station.getBitrateInt() + "");
-                        break;
                     case StationDataXml.STATION_PROP_OWN_INT:
                         if (station.isOwn()) {
                             ivOwn.setImage(ProgIconsP2Radio.ICON_DIALOG_EIN_SW.getImage());

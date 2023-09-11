@@ -35,8 +35,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     private final StringProperty collectionName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
-    private final StringProperty bitrate = new SimpleStringProperty("0");
-    private final IntegerProperty bitrateInt = new SimpleIntegerProperty(0);
+    private final IntegerProperty bitrate = new SimpleIntegerProperty(0);
     private final IntegerProperty votes = new SimpleIntegerProperty(0);
     private final IntegerProperty ownGrade = new SimpleIntegerProperty(0);
     private final BooleanProperty own = new SimpleBooleanProperty(false);
@@ -65,8 +64,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
         list.add(new Config_stringProp("collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
         list.add(new Config_stringProp("genre", StationDataXml.STATION_PROP_GENRE, genre));
         list.add(new Config_stringProp("codec", StationDataXml.STATION_PROP_CODEC, codec));
-        list.add(new Config_stringProp("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
-        list.add(new Config_intProp("bitrateInt", StationDataXml.STATION_PROP_BITRATE, bitrateInt));
+        list.add(new Config_intProp("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
         list.add(new Config_intProp("votes", StationDataXml.STATION_PROP_VOTES, votes));
         list.add(new Config_intProp("grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
         list.add(new Config_intProp("ownGrade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
@@ -169,34 +167,28 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
         return codec;
     }
 
-    public String getBitrate() {
-        return bitrate.get();
+    public String getBitrateStr() {
+        return bitrate.get() + "";
     }
 
     public void setBitrate(String bitrate) {
-        this.bitrate.set(bitrate);
         try {
-            this.bitrateInt.set(Integer.parseInt(bitrate));
+            this.bitrate.set(Integer.parseInt(bitrate));
         } catch (Exception ex) {
-            this.bitrateInt.set(0);
+            this.bitrate.set(0);
         }
     }
 
-    public StringProperty bitrateProperty() {
+    public void setBitrate(int bitrate) {
+        this.bitrate.set(bitrate);
+    }
+
+    public int getBitrate() {
+        return bitrate.get();
+    }
+
+    public IntegerProperty bitrateProperty() {
         return bitrate;
-    }
-
-    public int getBitrateInt() {
-        return bitrateInt.get();
-    }
-
-    public void setBitrateInt(int bitrateInt) {
-        this.bitrateInt.set(bitrateInt);
-        this.bitrate.setValue(bitrateInt + "");
-    }
-
-    public IntegerProperty bitrateIntProperty() {
-        return bitrateInt;
     }
 
     public int getVotes() {

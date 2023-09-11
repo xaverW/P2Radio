@@ -61,7 +61,6 @@ public class BlackFilterFactory {
                 PLog.sysLog("StationListBlackFilter - isBlacklistOff");
             }
 
-            //todo
             PLog.sysLog("START: BlackFilterFactory-getBlackFiltered");
             progData.stationListBlackFiltered.setAll(initialStream.toList());
         }
@@ -107,12 +106,12 @@ public class BlackFilterFactory {
     private static synchronized boolean checkBlock(StationData station) {
         // hier werden die Sender gegen die Blacklist geprüft
         // true wenn geblockt
-        if (station.getBitrateInt() != 0 && minBitrate > StationFilterFactory.FILTER_BITRATE_MIN &&
-                station.getBitrateInt() < minBitrate) {
+        if (station.getBitrate() != 0 && minBitrate > StationFilterFactory.FILTER_BITRATE_MIN &&
+                station.getBitrate() < minBitrate) {
             return true;
         }
-        if (station.getBitrateInt() != 0 && maxBitrate < StationFilterFactory.FILTER_BITRATE_MAX &&
-                station.getBitrateInt() > maxBitrate) {
+        if (station.getBitrate() != 0 && maxBitrate < StationFilterFactory.FILTER_BITRATE_MAX &&
+                station.getBitrate() > maxBitrate) {
             return true;
         }
 
