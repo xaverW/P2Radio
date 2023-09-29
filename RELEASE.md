@@ -2,6 +2,17 @@
 
 <br />
 
+**Release 6**
+
+* Das ganze Gui wurde überarbeitet
+* Die Farben in den Tabellen wurden überarbeitet und können jetzt weitreichender eingestellt werden
+* Das kleinere Radio-Fenster wurde ganz neu gestaltet
+* Die Einstellungen zum Starten eines Senders wurden vereinfacht
+* Intern gab es einige Änderungen
+* ...
+
+<br />
+
 **Release 5**
 
 * GUI: Es gab einige Änderungen/Anpassungen
