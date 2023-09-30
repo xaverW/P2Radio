@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.log.PLogger;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -39,10 +39,10 @@ import java.util.Collection;
 
 public class PaneLogFile {
 
-    private final PToggleSwitch tglSmallStation = new PToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
-    private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Senderliste automatisch alle " +
+    private final P2ToggleSwitch tglSmallStation = new P2ToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
+    private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
             ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
-    private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");
+    private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
     private final BooleanProperty logfileChanged = new SimpleBooleanProperty(false);
     private final Stage stage;
     private TextField txtLogFile;
@@ -79,7 +79,7 @@ public class PaneLogFile {
             }
         }));
 
-        final Button btnHelp = PButton.helpButton(stage, "Logfile", HelpText.LOGFILE);
+        final Button btnHelp = P2Button.helpButton(stage, "Logfile", HelpText.LOGFILE);
 
         txtLogFile = new TextField();
         txtLogFile.textProperty().bindBidirectional(ProgConfig.SYSTEM_LOG_DIR);
@@ -123,10 +123,10 @@ public class PaneLogFile {
         gridPane.add(btnReset, 3, row);
 
         gridPane.add(btnChange, 0, ++row, 2, 1);
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcPrefSize());
 
         lblDir.disableProperty().bind(tglEnableLog.selectedProperty().not());
         txtLogFile.disableProperty().bind(tglEnableLog.selectedProperty().not());

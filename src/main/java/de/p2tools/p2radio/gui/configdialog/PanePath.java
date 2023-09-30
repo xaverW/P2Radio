@@ -18,10 +18,10 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
-import de.p2tools.p2lib.guitools.PStyles;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.P2Styles;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -59,7 +59,7 @@ public class PanePath {
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         Button btnEmpty = new Button(" "); // ist nur für die Zeilenhöhe
         btnEmpty.setVisible(false);
@@ -82,7 +82,7 @@ public class PanePath {
 
     private void addPlayer() {
         Text text;
-        PHyperlink hyperlink;
+        P2Hyperlink hyperlink;
         TextField txtPlayer = new TextField();
         final Button btnFind = new Button("suchen");
 
@@ -91,7 +91,7 @@ public class PanePath {
             ProgConfig.SYSTEM_PATH_VLC.setValue("");
             txtPlayer.setText(SetFactory.getTemplatePathVlc());
         });
-        hyperlink = new PHyperlink(stage,
+        hyperlink = new P2Hyperlink(stage,
                 ProgConst.URL_WEBSITE_VLC,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
 
@@ -100,7 +100,7 @@ public class PanePath {
         txtPlayer.textProperty().addListener((observable, oldValue, newValue) -> {
             File file = new File(txtPlayer.getText());
             if (!file.exists() || !file.isFile()) {
-                txtPlayer.setStyle(PStyles.PTEXTFIELD_ERROR);
+                txtPlayer.setStyle(P2Styles.PTEXTFIELD_ERROR);
             } else {
                 txtPlayer.setStyle("");
             }
@@ -114,7 +114,7 @@ public class PanePath {
         });
         btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
-        final Button btnHelp = PButton.helpButton(stage,
+        final Button btnHelp = P2Button.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);
 
         HBox hBox = new HBox();

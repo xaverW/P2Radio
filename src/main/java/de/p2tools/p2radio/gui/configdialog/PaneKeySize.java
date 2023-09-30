@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -39,7 +39,7 @@ import java.util.Collection;
 
 public class PaneKeySize {
 
-    private final PToggleSwitch tglStyle = new PToggleSwitch("Die Schriftgröße im Programm ändern:");
+    private final P2ToggleSwitch tglStyle = new P2ToggleSwitch("Die Schriftgröße im Programm ändern:");
     private final Stage stage;
     private final ProgData progData;
     private final Spinner<Integer> spinnerAnz = new Spinner<>();
@@ -72,7 +72,7 @@ public class PaneKeySize {
 
     public TitledPane makeStyle(Collection<TitledPane> result) {
         tglStyle.selectedProperty().bindBidirectional(styleProperty);
-        final Button btnHelpStyle = PButton.helpButton(stage, "Schriftgröße anpassen", HelpText.CONFIG_STYLE);
+        final Button btnHelpStyle = P2Button.helpButton(stage, "Schriftgröße anpassen", HelpText.CONFIG_STYLE);
 
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
@@ -93,9 +93,9 @@ public class PaneKeySize {
         lbl.disableProperty().bind(tglStyle.selectedProperty().not());
         spinnerAnz.disableProperty().bind(tglStyle.selectedProperty().not());
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize());
 
         TitledPane tpConfig = new TitledPane("Schriftgröße", gridPane);
         if (result != null) {

@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -66,7 +66,7 @@ public class PaneBlack {
         TitledPane tpConfig = new TitledPane("Blacklist allgemein", gridPane);
         result.add(tpConfig);
 
-        final Button btnHelpBitrate = PButton.helpButton(stage, "Blacklist",
+        final Button btnHelpBitrate = P2Button.helpButton(stage, "Blacklist",
                 HelpText.BLACKLIST_BITRATE);
 
         int row = 0;
@@ -76,9 +76,9 @@ public class PaneBlack {
         gridPane.add(slBitrate, 1, row);
         gridPane.add(btnHelpBitrate, 2, row);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize());
     }
 
     private void initBitrateFilter() {

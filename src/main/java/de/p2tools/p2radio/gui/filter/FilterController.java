@@ -16,14 +16,14 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2lib.guitools.pclosepane.PClosePaneV;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneV;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class FilterController extends PClosePaneV {
+public class FilterController extends P2ClosePaneV {
 
     public static final int FILTER_SPACING_FILTER = 15;
     public static final int FILTER_SPACING_TEXTFILTER = 10;

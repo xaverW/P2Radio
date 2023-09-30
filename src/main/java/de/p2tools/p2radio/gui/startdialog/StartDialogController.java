@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.startdialog;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PButton;
+import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import javafx.geometry.Insets;
@@ -151,7 +151,7 @@ public class StartDialogController extends PDialogExtra {
         btnCancel = new Button("_Abbrechen");
         btnCancel.setOnAction(a -> closeDialog(false));
 
-        btnNext = PButton.getButton(ProgIconsP2Radio.ICON_BUTTON_NEXT.getImageView(), "nächste Seite");
+        btnNext = P2Button.getButton(ProgIconsP2Radio.ICON_BUTTON_NEXT.getImageView(), "nächste Seite");
         btnNext.setOnAction(event -> {
             switch (aktState) {
                 case START_1:
@@ -168,7 +168,7 @@ public class StartDialogController extends PDialogExtra {
             }
             selectActPane();
         });
-        btnPrev = PButton.getButton(ProgIconsP2Radio.ICON_BUTTON_PREV.getImageView(), "vorherige Seite");
+        btnPrev = P2Button.getButton(ProgIconsP2Radio.ICON_BUTTON_PREV.getImageView(), "vorherige Seite");
         btnPrev.setOnAction(event -> {
             switch (aktState) {
                 case START_1:

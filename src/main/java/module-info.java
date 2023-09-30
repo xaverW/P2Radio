@@ -17,5 +17,6 @@ module p2radio {
     requires org.tukaani.xz;
 
     requires okhttp3;
+    requires org.apache.commons.io;
 }
 

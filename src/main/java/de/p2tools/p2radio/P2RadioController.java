@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio;
 
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -41,7 +41,7 @@ import javafx.scene.layout.*;
 public class P2RadioController extends StackPane {
 
     private final ProgData progData;
-    private final PMaskerPane maskerPane = new PMaskerPane();
+    private final P2MaskerPane maskerPane = new P2MaskerPane();
     Button btnSmallRadio = new Button("");
     Button btnStation = new Button("Sender");
     Button btnFavourite = new Button("Favoriten");

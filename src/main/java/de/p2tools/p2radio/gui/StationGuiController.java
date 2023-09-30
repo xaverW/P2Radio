@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PTableFactory;
+import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -171,11 +171,11 @@ public class StationGuiController extends VBox {
     }
 
     public void setNextStation() {
-        PTableFactory.selectNextRow(tableView);
+        P2TableFactory.selectNextRow(tableView);
     }
 
     public void setPreviousStation() {
-        PTableFactory.selectPreviousRow(tableView);
+        P2TableFactory.selectPreviousRow(tableView);
     }
 
     private void selectStation() {
@@ -197,17 +197,17 @@ public class StationGuiController extends VBox {
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
             public void pingGui(PEvent event) {
-                PTableFactory.refreshTable(tableView);
+                P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.favouriteList.addListener((observable, oldValue, newValue) -> PTableFactory.refreshTable(tableView));
+        progData.favouriteList.addListener((observable, oldValue, newValue) -> P2TableFactory.refreshTable(tableView));
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
             public void pingGui(PEvent runEvent) {
-                PTableFactory.refreshTable(tableView);
+                P2TableFactory.refreshTable(tableView);
             }
         });
     }
@@ -242,11 +242,11 @@ public class StationGuiController extends VBox {
 
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
+                P2TableFactory.scrollVisibleRangeDown(tableView);
                 event.consume();
             }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
+            if (P2TableFactory.SPACE_SHIFT.match(event)) {
+                P2TableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
 

@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButton;
+import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2lib.tools.shortcut.PShortcut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -147,7 +147,7 @@ public class PaneShortcut {
     }
 
     public void makeShortcut(Collection<TitledPane> result) {
-        final Button btnHelp = PButton.helpButton(stage, "Tastenkürzel ändern",
+        final Button btnHelp = P2Button.helpButton(stage, "Tastenkürzel ändern",
                 HelpText.SHORTCUT);
 
         SplitPane splitPane = new SplitPane();

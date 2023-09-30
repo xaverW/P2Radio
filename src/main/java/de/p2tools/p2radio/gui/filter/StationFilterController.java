@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
@@ -39,7 +39,7 @@ public class StationFilterController extends FilterController {
     private final VBox vBoxBottom;
     private final ProgData progData;
 
-    private final PToggleSwitch tglBlacklist = new PToggleSwitch("Blacklist:");
+    private final P2ToggleSwitch tglBlacklist = new P2ToggleSwitch("Blacklist:");
     private final StationGuiPack stationGuiPack;
     private final StationFilterControllerTextFilter sender;
     private final StationFilterControllerFilter filter;

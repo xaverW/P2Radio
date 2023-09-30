@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.config.Events;
@@ -52,9 +52,9 @@ public class PaneBlackList {
     private final TableView<BlackData> tableView = new TableView<>();
     private final GridPane gridPane = new GridPane();
     private final TextField name = new TextField();
-    private final PToggleSwitch tgName = new PToggleSwitch("exakt:");
+    private final P2ToggleSwitch tgName = new P2ToggleSwitch("exakt:");
     private final TextField genre = new TextField();
-    private final PToggleSwitch tgGenre = new PToggleSwitch("exakt:");
+    private final P2ToggleSwitch tgGenre = new P2ToggleSwitch("exakt:");
     private final RadioButton rbBlack = new RadioButton();
     private final RadioButton rbWhite = new RadioButton();
     private final BooleanProperty blackChanged;
@@ -103,7 +103,7 @@ public class PaneBlackList {
         int row = 0;
         gridPane.add(rbBlack, 0, row);
         gridPane.add(new Label("\"Sender mit Name/Genre\" werden nicht angezeigt (Blacklist)"), 1, row);
-        final Button btnHelp = PButton.helpButton(stage, "Blacklist / Whitelist",
+        final Button btnHelp = P2Button.helpButton(stage, "Blacklist / Whitelist",
                 HelpText.BLACKLIST_WHITELIST);
         gridPane.add(btnHelp, 2, row);
 
@@ -112,8 +112,8 @@ public class PaneBlackList {
         gridPane.add(rbWhite, 0, ++row);
         gridPane.add(new Label("Nur diese \"Sender mit Name/Genre\" anzeigen (Whitelist)"), 1, row);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
     }
 
 
@@ -171,7 +171,7 @@ public class PaneBlackList {
             tableView.scrollTo(blackData);
         });
 
-        final Button btnHelpCount = PButton.helpButton(stage, "_Treffer zählen",
+        final Button btnHelpCount = P2Button.helpButton(stage, "_Treffer zählen",
                 HelpText.BLACKLIST_COUNT);
 
 
@@ -245,9 +245,9 @@ public class PaneBlackList {
         gridPane.add(genre, 1, row);
         gridPane.add(tgGenre, 2, row);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize());
 
         vBox.getChildren().add(gridPane);
         gridPane.setDisable(true);

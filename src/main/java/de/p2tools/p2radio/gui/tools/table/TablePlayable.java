@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.ptable.CellCheckBox;
-import de.p2tools.p2lib.guitools.ptable.CellIntMax;
-import de.p2tools.p2lib.guitools.ptable.CellIntNull;
-import de.p2tools.p2lib.guitools.ptable.CellLocalDate;
+import de.p2tools.p2lib.guitools.ptable.P2CellCheckBox;
+import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
+import de.p2tools.p2lib.guitools.ptable.P2CellIntNull;
+import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
 import de.p2tools.p2lib.tools.GermanStringIntSorter;
 import de.p2tools.p2lib.tools.date.PDate;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -64,7 +64,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> stationNoColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NO);
         stationNoColumn.setCellValueFactory(new PropertyValueFactory<>("stationNo"));
-        stationNoColumn.setCellFactory(new CellIntMax<T, Integer>().cellFactory);
+        stationNoColumn.setCellFactory(new P2CellIntMax<T, Integer>().cellFactory);
         stationNoColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<T, String> stationNameColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATION_NAME);
@@ -73,7 +73,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Boolean> favouriteColumn = new TableColumn<>(StationDataXml.STATION_PROP_IS_FAVOURITE);
         favouriteColumn.setCellValueFactory(new PropertyValueFactory<>("favourite"));
-        favouriteColumn.setCellFactory(new CellCheckBox().cellFactory);
+        favouriteColumn.setCellFactory(new P2CellCheckBox().cellFactory);
         favouriteColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> collectionNameColumn = new TableColumn<>(StationDataXml.STATION_PROP_COLLECTION);
@@ -116,12 +116,12 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, Integer> bitrateColumn = new TableColumn<>(StationDataXml.STATION_PROP_BITRATE);
         bitrateColumn.setCellValueFactory(new PropertyValueFactory<>("bitrate"));
-        bitrateColumn.setCellFactory(new CellIntNull().cellFactory);
+        bitrateColumn.setCellFactory(new P2CellIntNull().cellFactory);
         bitrateColumn.getStyleClass().add("alignCenterRightPadding_10");
 
         final TableColumn<T, Integer> ownColumn = new TableColumn<>(StationDataXml.STATION_PROP_OWN);
         ownColumn.setCellValueFactory(new PropertyValueFactory<>("own"));
-        ownColumn.setCellFactory(new CellCheckBox().cellFactory);
+        ownColumn.setCellFactory(new P2CellCheckBox().cellFactory);
         ownColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> stateColumn = new TableColumn<>(StationDataXml.STATION_PROP_STATE);
@@ -142,7 +142,7 @@ public class TablePlayable<T> extends TableView<T> {
 
         final TableColumn<T, LocalDate> stationDateColumn = new TableColumn<>(StationDataXml.STATION_PROP_DATE);
         stationDateColumn.setCellValueFactory(new PropertyValueFactory<>("stationDate"));
-        stationDateColumn.setCellFactory(new CellLocalDate().cellFactory);
+        stationDateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         stationDateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<T, String> websiteColumn = new TableColumn<>(StationDataXml.STATION_PROP_WEBSITE);

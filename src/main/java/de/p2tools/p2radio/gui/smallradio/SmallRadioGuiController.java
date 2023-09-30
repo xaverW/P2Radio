@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogOnly;
-import de.p2tools.p2lib.guitools.PGuiSize;
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
@@ -103,7 +103,7 @@ public class SmallRadioGuiController extends PDialogOnly {
         smallRadioGuiCenter.setPreviousStation();
     }
 
-    public PMaskerPane getMaskerPane() {
+    public P2MaskerPane getMaskerPane() {
         return super.getMaskerPane();
     }
 
@@ -113,9 +113,9 @@ public class SmallRadioGuiController extends PDialogOnly {
         progData.smallRadioGuiController = null;
 
         Platform.runLater(() -> {
-                    PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                    progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+                    P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
+                    progData.primaryStage.setWidth(P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
+                    progData.primaryStage.setHeight(P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.show();
                 }
         );
@@ -123,7 +123,7 @@ public class SmallRadioGuiController extends PDialogOnly {
 
     private void saveMe() {
         progData.smallRadioGuiController.saveTable();
-        PGuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
+        P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
     }
 
     public void saveTable() {

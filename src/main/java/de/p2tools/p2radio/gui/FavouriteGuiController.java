@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PTableFactory;
+import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
@@ -157,28 +157,28 @@ public class FavouriteGuiController extends VBox {
     }
 
     public void setNextStation() {
-        PTableFactory.selectNextRow(tableView);
+        P2TableFactory.selectNextRow(tableView);
     }
 
     public void setPreviousStation() {
-        PTableFactory.selectPreviousRow(tableView);
+        P2TableFactory.selectPreviousRow(tableView);
     }
 
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
             public void pingGui(PEvent event) {
-                PTableFactory.refreshTable(tableView);
+                P2TableFactory.refreshTable(tableView);
             }
         });
         progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
             public void pingGui(PEvent event) {
-                PTableFactory.refreshTable(tableView);
+                P2TableFactory.refreshTable(tableView);
             }
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
             public void pingGui(PEvent event) {
-                PTableFactory.refreshTable(tableView);
+                P2TableFactory.refreshTable(tableView);
             }
         });
     }
@@ -217,12 +217,12 @@ public class FavouriteGuiController extends VBox {
             }
         });
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (PTableFactory.SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
+            if (P2TableFactory.SPACE.match(event)) {
+                P2TableFactory.scrollVisibleRangeDown(tableView);
                 event.consume();
             }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
+            if (P2TableFactory.SPACE_SHIFT.match(event)) {
+                P2TableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
         });

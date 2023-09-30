@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.data.PColorData;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.PColorFactory;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2radio.controller.config.*;
@@ -42,7 +42,7 @@ import java.util.Collection;
 public class PaneColor {
     private final Stage stage;
     //    BooleanProperty propDarkTheme = ProgConfig.SYSTEM_DARK_THEME;
-    private final PToggleSwitch tglDarkTheme = new PToggleSwitch("Dunkles Erscheinungsbild der Programmoberfläche");
+    private final P2ToggleSwitch tglDarkTheme = new P2ToggleSwitch("Dunkles Erscheinungsbild der Programmoberfläche");
     private final Callback<TableColumn<PColorData, String>, TableCell<PColorData, String>> cellFactoryUse
             = (final TableColumn<PColorData, String> param) -> {
 
@@ -217,12 +217,12 @@ public class PaneColor {
 //        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         tglDarkTheme.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
-        final Button btnHelpTheme = PButton.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
+        final Button btnHelpTheme = P2Button.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
                 HelpText.DARK_THEME);
 
         gridPane.add(tglDarkTheme, 0, 0);
         gridPane.add(btnHelpTheme, 1, 0);
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
 
         TableView<PColorData> tableView = new TableView<>();
         VBox.setVgrow(tableView, Priority.ALWAYS);

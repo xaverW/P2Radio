@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.scene.control.Button;
@@ -41,7 +41,7 @@ public class StationFilterEditDialog extends PDialogExtra {
     public void make() {
         init(getVBoxCont());
 
-        final Button btnHelp = PButton.helpButton(getStage(), "Filter ein- und ausschalten",
+        final Button btnHelp = P2Button.helpButton(getStage(), "Filter ein- und ausschalten",
                 HelpText.GUI_STATIONS_EDIT_FILTER);
 
         Button btnOk = new Button("_Ok");
@@ -54,42 +54,42 @@ public class StationFilterEditDialog extends PDialogExtra {
     public void init(VBox vbox) {
         vbox.setSpacing(15);
 
-        PToggleSwitch tglName = new PToggleSwitch("Sendername");
+        P2ToggleSwitch tglName = new P2ToggleSwitch("Sendername");
         tglName.setMaxWidth(Double.MAX_VALUE);
         tglName.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().stationNameVisProperty());
         vbox.getChildren().add(tglName);
 
-        PToggleSwitch tglGenre = new PToggleSwitch("Genre");
+        P2ToggleSwitch tglGenre = new P2ToggleSwitch("Genre");
         tglGenre.setMaxWidth(Double.MAX_VALUE);
         tglGenre.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreVisProperty());
         vbox.getChildren().add(tglGenre);
 
-        PToggleSwitch tglCodec = new PToggleSwitch("Codec");
+        P2ToggleSwitch tglCodec = new P2ToggleSwitch("Codec");
         tglCodec.setMaxWidth(Double.MAX_VALUE);
         tglCodec.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().codecVisProperty());
         vbox.getChildren().add(tglCodec);
 
-        PToggleSwitch tglCountry = new PToggleSwitch("Land");
+        P2ToggleSwitch tglCountry = new P2ToggleSwitch("Land");
         tglCountry.setMaxWidth(Double.MAX_VALUE);
         tglCountry.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().countryVisProperty());
         vbox.getChildren().add(tglCountry);
 
-        PToggleSwitch tglUrl = new PToggleSwitch("Url");
+        P2ToggleSwitch tglUrl = new P2ToggleSwitch("Url");
         tglUrl.setMaxWidth(Double.MAX_VALUE);
         tglUrl.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().urlVisProperty());
         vbox.getChildren().add(tglUrl);
 
-        PToggleSwitch tglSomewhere = new PToggleSwitch("irgendwo");
+        P2ToggleSwitch tglSomewhere = new P2ToggleSwitch("irgendwo");
         tglSomewhere.setMaxWidth(Double.MAX_VALUE);
         tglSomewhere.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().somewhereVisProperty());
         vbox.getChildren().add(tglSomewhere);
 
-        PToggleSwitch tglMinMax = new PToggleSwitch("Bitrate Min/Max");
+        P2ToggleSwitch tglMinMax = new P2ToggleSwitch("Bitrate Min/Max");
         tglMinMax.setMaxWidth(Double.MAX_VALUE);
         tglMinMax.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().minMaxBitVisProperty());
         vbox.getChildren().add(tglMinMax);
 
-        PToggleSwitch tglOnly = new PToggleSwitch("\"anzeigen\"");
+        P2ToggleSwitch tglOnly = new P2ToggleSwitch("\"anzeigen\"");
         tglOnly.setMaxWidth(Double.MAX_VALUE);
         tglOnly.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().onlyVisProperty());
         vbox.getChildren().add(tglOnly);

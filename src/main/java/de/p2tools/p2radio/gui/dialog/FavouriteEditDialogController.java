@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -170,10 +170,10 @@ public class FavouriteEditDialogController extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(10));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
         for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
@@ -198,7 +198,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
     }
 
     private int setGrid(int i, int row) {
-        PHyperlink hyperlink;
+        P2Hyperlink hyperlink;
         switch (i) {
 //            case StationDataXml.STATION_PROP_NO_INT:
 //                // bis hier nicht anzeigen
@@ -302,7 +302,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 ++row;
                 break;
             case StationDataXml.STATION_PROP_URL_INT:
-                hyperlink = new PHyperlink(this.getStage(), actFavourite.stationUrlProperty().getValueSafe(),
+                hyperlink = new P2Hyperlink(this.getStage(), actFavourite.stationUrlProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.stationUrlProperty());
@@ -311,7 +311,7 @@ public class FavouriteEditDialogController extends PDialogExtra {
                 ++row;
                 break;
             case StationDataXml.STATION_PROP_WEBSITE_INT:
-                hyperlink = new PHyperlink(this.getStage(), actFavourite.websiteProperty().getValueSafe(),
+                hyperlink = new P2Hyperlink(this.getStage(), actFavourite.websiteProperty().getValueSafe(),
                         ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.websiteProperty());

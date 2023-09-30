@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.config;
 
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PEventHandler;
@@ -72,7 +72,7 @@ public class ProgData {
     public StationListFilter stationListFilter;
     // Gui
     public Stage primaryStage = null;
-    public PMaskerPane maskerPane = null;
+    public P2MaskerPane maskerPane = null;
     public P2RadioController p2RadioController = null;
 
     public StationGuiPack stationGuiPack = null; // Tab mit den Sender

@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.guitools.PButtonClearFilterFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -31,7 +31,7 @@ import javafx.scene.layout.VBox;
 
 public class StationFilterControllerClearFilter extends VBox {
 
-    private final Button btnClearFilter = PButtonClearFilterFactory.getPButtonClear();
+    private final Button btnClearFilter = P2ButtonClearFilterFactory.getPButtonClear();
     private final Button btnEditFilter = new Button("");
     private final Button btnGoBack = new Button("");
     private final Button btnGoForward = new Button("");

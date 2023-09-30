@@ -18,8 +18,8 @@ package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.data.PColorData;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -102,10 +102,10 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(10));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
         for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
@@ -132,7 +132,7 @@ public class FavouriteAddOwnDialogController extends PDialogExtra {
     }
 
     private int setGrid(int i, int row) {
-        PHyperlink hyperlink;
+        P2Hyperlink hyperlink;
         switch (i) {
 //            case StationDataXml.STATION_PROP_NO_INT:
             case StationDataXml.STATION_PROP_STATION_NO_INT:

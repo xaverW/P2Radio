@@ -18,8 +18,8 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -176,7 +176,7 @@ public class StationFilterControllerProfiles extends VBox {
         vBox.getChildren().addAll(new Label("Filterprofile:"), cboFilterProfiles);
         getChildren().add(vBox);
 
-        final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
+        final Button btnHelp = P2Button.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 //        btnHelp.getStyleClass().add("btnSmallRadio");
 
         hBox = new HBox(10);

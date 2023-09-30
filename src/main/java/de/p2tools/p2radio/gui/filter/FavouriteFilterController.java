@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButtonClearFilterFactory;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
@@ -44,9 +44,9 @@ public class FavouriteFilterController extends FilterController {
 
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
     private final ComboBox<String> cboGenre = new ComboBox<>();
-    private final PToggleSwitch tglOwn = new PToggleSwitch("Eigene Sender");
-    private final PToggleSwitch tglGrade = new PToggleSwitch("Positiv bewertete Sender");
-    private final Button btnClearFilter = PButtonClearFilterFactory.getPButtonClear();
+    private final P2ToggleSwitch tglOwn = new P2ToggleSwitch("Eigene Sender");
+    private final P2ToggleSwitch tglGrade = new P2ToggleSwitch("Positiv bewertete Sender");
+    private final Button btnClearFilter = P2ButtonClearFilterFactory.getPButtonClear();
 
     private final FavouriteFilter favouriteFilter;
     private final FilteredList<StationData> filteredList;

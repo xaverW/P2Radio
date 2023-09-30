@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
-import de.p2tools.p2lib.guitools.pclosepane.PClosePaneH;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -29,12 +29,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class FavouriteGuiInfoController extends PClosePaneH {
+public class FavouriteGuiInfoController extends P2ClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
-    private final PHyperlink hyperlinkWebsite = new PHyperlink("",
+    private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
-    private final PHyperlink hyperlinkUrl = new PHyperlink("",
+    private final P2Hyperlink hyperlinkUrl = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
@@ -64,8 +64,8 @@ public class FavouriteGuiInfoController extends PClosePaneH {
         gridPane.setHgap(5);
         gridPane.setVgap(5);
         gridPane.setPadding(new Insets(10));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
         gridPane.add(new Label("Titel: "), 0, row);

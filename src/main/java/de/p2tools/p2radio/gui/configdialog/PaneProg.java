@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -35,10 +35,10 @@ import java.util.Collection;
 
 public class PaneProg {
 
-    private final PToggleSwitch tglSmallStation = new PToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
-    private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Senderliste automatisch alle " +
+    private final P2ToggleSwitch tglSmallStation = new P2ToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
+    private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
             ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
-    private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");
+    private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
     private final Stage stage;
     private TextField txtFileManagerWeb;
 
@@ -63,7 +63,7 @@ public class PaneProg {
         result.add(tpConfig);
 
         addWebbrowser(gridPane, 0);
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
     }
 
     private void addWebbrowser(GridPane gridPane, int row) {
@@ -78,7 +78,7 @@ public class PaneProg {
         btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Einen Webbrowser zum Öffnen von URLs auswählen"));
 
-        final Button btnHelp = PButton.helpButton(stage, "Webbrowser", HelpText.WEBBROWSER);
+        final Button btnHelp = P2Button.helpButton(stage, "Webbrowser", HelpText.WEBBROWSER);
 
         gridPane.add(txtFileManagerWeb, 0, row + 1);
         gridPane.add(btnFile, 1, row + 1);

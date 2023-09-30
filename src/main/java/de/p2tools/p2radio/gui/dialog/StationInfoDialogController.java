@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -53,9 +53,9 @@ public class StationInfoDialogController extends PDialogExtra {
     private final ImageView ivFavourite = new ImageView();
     private final ImageView ivBlack = new ImageView();
 
-    private final PHyperlink pHyperlinkUrl = new PHyperlink("",
+    private final P2Hyperlink pHyperlinkUrl = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
-    private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
+    private final P2Hyperlink pHyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
     private final ProgData progData;
     private StationData station;
@@ -294,9 +294,9 @@ public class StationInfoDialogController extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(5));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
             textTitle[i] = new Text(StationDataXml.COLUMN_NAMES[i] + ":");

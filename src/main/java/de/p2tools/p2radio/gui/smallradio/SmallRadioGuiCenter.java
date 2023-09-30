@@ -19,8 +19,8 @@ package de.p2tools.p2radio.gui.smallradio;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.guitools.PTableFactory;
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2radio.controller.ProgQuit;
@@ -127,12 +127,12 @@ public class SmallRadioGuiCenter extends HBox {
         });
     }
 
-    public PMaskerPane getMaskerPane() {
+    public P2MaskerPane getMaskerPane() {
         return smallRadioGuiController.getMaskerPane();
     }
 
     public void tableRefresh() {
-        PTableFactory.refreshTable(tableView);
+        P2TableFactory.refreshTable(tableView);
     }
 
     public void isShown() {
@@ -198,11 +198,11 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     public void setNextStation() {
-        PTableFactory.selectNextRow(tableView);
+        P2TableFactory.selectNextRow(tableView);
     }
 
     public void setPreviousStation() {
-        PTableFactory.selectPreviousRow(tableView);
+        P2TableFactory.selectPreviousRow(tableView);
     }
 
     public void playRandomStation() {
@@ -345,12 +345,12 @@ public class SmallRadioGuiCenter extends HBox {
             setSelectedFavourite();
         });
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (PTableFactory.SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
+            if (P2TableFactory.SPACE.match(event)) {
+                P2TableFactory.scrollVisibleRangeDown(tableView);
                 event.consume();
             }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
+            if (P2TableFactory.SPACE_SHIFT.match(event)) {
+                P2TableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
         });

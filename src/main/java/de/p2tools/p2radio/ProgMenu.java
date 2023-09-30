@@ -15,7 +15,7 @@ package de.p2tools.p2radio;/*
  */
 
 
-import de.p2tools.p2lib.guitools.POpen;
+import de.p2tools.p2lib.guitools.P2Open;
 import de.p2tools.p2lib.tools.log.PLogger;
 import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuit;
@@ -68,7 +68,7 @@ public class ProgMenu extends MenuButton {
 
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
-            POpen.openURL(ProgConst.URL_WEBSITE_HELP,
+            P2Open.openURL(ProgConst.URL_WEBSITE_HELP,
                     ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
         });
 

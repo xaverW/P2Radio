@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -36,8 +36,8 @@ import java.util.Collection;
 public class PaneTray {
 
     private final Stage stage;
-    private final PToggleSwitch tglTray = new PToggleSwitch("Programm im System Tray anzeigen");
-    private final PToggleSwitch tglOwnIcon = new PToggleSwitch("Ein eigenes Icon anzeigen");
+    private final P2ToggleSwitch tglTray = new P2ToggleSwitch("Programm im System Tray anzeigen");
+    private final P2ToggleSwitch tglOwnIcon = new P2ToggleSwitch("Ein eigenes Icon anzeigen");
     private final Label lblDatei = new Label("Datei (png, jpg):");
     private final TextField txtPath = new TextField();
 
@@ -55,13 +55,13 @@ public class PaneTray {
         result.add(tpConfig);
 
         tglTray.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY);
-        final Button btnHelpTray = PButton.helpButton(stage, "Programm im System Tray anzeigen",
+        final Button btnHelpTray = P2Button.helpButton(stage, "Programm im System Tray anzeigen",
                 HelpText.TRAY);
         GridPane.setHalignment(btnHelpTray, HPos.RIGHT);
 
         tglOwnIcon.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY_USE_OWN_ICON);
         tglOwnIcon.disableProperty().bind(tglTray.selectedProperty().not());
-        final Button btnHelpTrayOwnIcon = PButton.helpButton(stage, "Eigenes Bild im Tray anzeigen",
+        final Button btnHelpTrayOwnIcon = P2Button.helpButton(stage, "Eigenes Bild im Tray anzeigen",
                 HelpText.TRAY_OWN_ICON);
         GridPane.setHalignment(btnHelpTrayOwnIcon, HPos.RIGHT);
         btnHelpTrayOwnIcon.disableProperty().bind(tglTray.selectedProperty().not());
@@ -93,8 +93,8 @@ public class PaneTray {
         gridPane.add(txtPath, 1, row);
         gridPane.add(btnFile, 2, row);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
     }
 
     public void close() {

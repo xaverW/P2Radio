@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.pcheckcombobox.PCheckComboBox;
+import de.p2tools.p2lib.guitools.pcheckcombobox.P2CheckComboBox;
 import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
@@ -31,7 +31,7 @@ public class StationFilterControllerFilter extends VBox {
     private final Label lblBitrate = new Label("Bitrate:");
 
     private final Label lblOnly = new Label("anzeigen");
-    private final PCheckComboBox checkOnly = new PCheckComboBox();
+    private final P2CheckComboBox checkOnly = new P2CheckComboBox();
     private final String ONLY_NEW = "nur neue";
     private final String NOT_FAVOURITES = "keine Favoriten";
     private final String NOT_DOUBLE = "keine doppelten";
