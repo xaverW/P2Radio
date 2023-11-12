@@ -17,43 +17,43 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2lib.tools.shortcut.PShortcut;
+import de.p2tools.p2lib.tools.shortcut.P2ShortcutKey;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class P2RadioShortCuts {
     // Menü
-    public static final PShortcut SHORTCUT_QUIT_PROGRAM =
-            new PShortcut(ProgConfig.SHORTCUT_QUIT_PROGRAM, ProgConfig.SHORTCUT_QUIT_PROGRAM_INIT,
+    public static final P2ShortcutKey SHORTCUT_QUIT_PROGRAM =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_QUIT_PROGRAM, ProgConfig.SHORTCUT_QUIT_PROGRAM_INIT,
                     "Programm beenden",
                     "Das Programm wird beendet.");
 
     // Tabelle Sender
-    public static final PShortcut SHORTCUT_PLAY_STATION =
-            new PShortcut(ProgConfig.SHORTCUT_PLAY_STATION, ProgConfig.SHORTCUT_PLAY_STATION_INIT,
+    public static final P2ShortcutKey SHORTCUT_PLAY_STATION =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_PLAY_STATION, ProgConfig.SHORTCUT_PLAY_STATION_INIT,
                     "Sender abspielen",
                     "Der markierte Sender in der Tabelle \"Sender\" wird abgespielt.");
-    public static final PShortcut SHORTCUT_SAVE_STATION =
-            new PShortcut(ProgConfig.SHORTCUT_SAVE_STATION, ProgConfig.SHORTCUT_SAVE_STATIION_INIT,
+    public static final P2ShortcutKey SHORTCUT_SAVE_STATION =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_SAVE_STATION, ProgConfig.SHORTCUT_SAVE_STATIION_INIT,
                     "Sender als Favorit speichern",
                     "Der markierte Sender in der Tabelle \"Sender\" wird als Favorite gespeichert.");
 
     // Tabelle Favoriten
-    public static final PShortcut SHORTCUT_FAVOURITE_START =
-            new PShortcut(ProgConfig.SHORTCUT_FAVOURITE_START, ProgConfig.SHORTCUT_FAVOURITE_START_INIT,
+    public static final P2ShortcutKey SHORTCUT_FAVOURITE_START =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_FAVOURITE_START, ProgConfig.SHORTCUT_FAVOURITE_START_INIT,
                     "Favoriten abspielen",
                     "Der markierte Favorite in der Tabelle \"Favoriten\" wird gestartet.");
-    public static final PShortcut SHORTCUT_FAVOURITE_STOP =
-            new PShortcut(ProgConfig.SHORTCUT_FAVOURITE_STOP, ProgConfig.SHORTCUT_FAVOURITE_STOP_INIT,
+    public static final P2ShortcutKey SHORTCUT_FAVOURITE_STOP =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_FAVOURITE_STOP, ProgConfig.SHORTCUT_FAVOURITE_STOP_INIT,
                     "Favoriten stoppen",
                     "Der markierte Favorite in der Tabelle \"Favoriten\" wird gestoppt.");
-    public static final PShortcut SHORTCUT_FAVOURITE_CHANGE =
-            new PShortcut(ProgConfig.SHORTCUT_FAVOURITE_CHANGE, ProgConfig.SHORTCUT_FAVOURITE_CHANGE_INIT,
+    public static final P2ShortcutKey SHORTCUT_FAVOURITE_CHANGE =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_FAVOURITE_CHANGE, ProgConfig.SHORTCUT_FAVOURITE_CHANGE_INIT,
                     "Favoriten ändern",
                     "Der markierte Favorite in der Tabelle \"Favoriten\" kann geändert werden.");
 
-    private static ObservableList<PShortcut> shortcutList = FXCollections.observableArrayList();
+    private static ObservableList<P2ShortcutKey> shortcutList = FXCollections.observableArrayList();
 
     public P2RadioShortCuts() {
         shortcutList.add(SHORTCUT_QUIT_PROGRAM);
@@ -66,7 +66,7 @@ public class P2RadioShortCuts {
         shortcutList.add(SHORTCUT_FAVOURITE_CHANGE);
     }
 
-    public static synchronized ObservableList<PShortcut> getShortcutList() {
+    public static synchronized ObservableList<P2ShortcutKey> getShortcutList() {
         return shortcutList;
     }
 }
