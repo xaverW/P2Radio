@@ -27,11 +27,11 @@ public final class StationData extends StationDataProperty {
     public StationData() {
     }
 
-    public StationData(StationData station, String collectionName) {
-        setStation(station);
-        setCollectionName(collectionName);
-        setStationUrl(station.getStationUrl());
-    }
+//    public StationData(StationData station, String collectionName) {
+//        setStation(station);
+//        setCollectionName(collectionName);
+//        setStationUrl(station.getStationUrl());
+//    }
 
     //==============================================
     // Get/Set
@@ -67,12 +67,16 @@ public final class StationData extends StationDataProperty {
     }
 
     public void setStation(StationData station) {
+        // beim Anlegen einer neuen History
+        // und nach dem Neuladen einer Radioliste, für Favourite/History
         if (station == null) {
             // bei gespeicherten Sendern kann es den Sender nicht mehr geben
             setStationNo(P2LibConst.NUMBER_NOT_STARTED);
             return;
         }
+
         String collectionName = getCollectionName();
+        String description = getDescription();
         int ownGrade = getOwnGrade();
         int starts = getStarts();
 
@@ -81,6 +85,7 @@ public final class StationData extends StationDataProperty {
 
         //reset
         setCollectionName(collectionName);
+        setDescription(description);
         setOwnGrade(ownGrade);
         setStarts(starts);
     }

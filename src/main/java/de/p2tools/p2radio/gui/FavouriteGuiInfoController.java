@@ -26,6 +26,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -55,6 +57,7 @@ public class FavouriteGuiInfoController extends P2ClosePaneH {
         });
 
         getVBoxAll().getChildren().add(gridPane);
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
         taDescription.setEditable(true);
@@ -79,6 +82,7 @@ public class FavouriteGuiInfoController extends P2ClosePaneH {
 
         gridPane.add(lblDescription, 0, ++row);
         gridPane.add(taDescription, 1, row);
+        GridPane.setVgrow(taDescription, Priority.ALWAYS);
     }
 
     public void setStationData(StationData stationData) {

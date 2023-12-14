@@ -79,7 +79,7 @@ public class FavouriteGuiController extends VBox {
 
     public void copyUrl() {
         final Optional<StationData> favourite = getSel();
-        if (!favourite.isPresent()) {
+        if (favourite.isEmpty()) {
             return;
         }
         PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
@@ -87,19 +87,17 @@ public class FavouriteGuiController extends VBox {
 
     private void setSelectedFavourite() {
         StationData stationData = tableView.getSelectionModel().getSelectedItem();
-        if (stationData != null) {
-            StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
-            progData.stationInfoDialogController.setStation(fav);
-        }
+//        if (stationData != null) {
+//        StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
+//        }
+        progData.stationInfoDialogController.setStation(stationData);
         favouriteGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
-        if (favourite.isPresent()) {
-            progData.startFactory.playPlayable(favourite.get());
-        }
+        favourite.ifPresent(stationData -> progData.startFactory.playPlayable(stationData));
     }
 
     public void stopStation(boolean all) {
@@ -109,9 +107,7 @@ public class FavouriteGuiController extends VBox {
 
         } else {
             final Optional<StationData> favourite = getSel();
-            if (favourite.isPresent()) {
-                progData.startFactory.stopPlayable(favourite.get());
-            }
+            favourite.ifPresent(stationData -> progData.startFactory.stopPlayable(stationData));
         }
     }
 
@@ -208,7 +204,8 @@ public class FavouriteGuiController extends VBox {
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> setSelectedFavourite());
+            Platform.runLater(this::setSelectedFavourite);
+//            setSelectedFavourite();
         });
         tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
             if (tableView.getItems().size() == 1) {

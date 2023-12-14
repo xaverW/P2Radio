@@ -55,7 +55,7 @@ public class SetDataListWorker extends SimpleListProperty<SetData> implements PD
 
     @Override
     public String getComment() {
-        return "Liste aller Mitglieder";
+        return "Liste aller Sets";
     }
 
     @Override
