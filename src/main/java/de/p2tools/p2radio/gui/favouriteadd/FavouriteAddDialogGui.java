@@ -1,0 +1,148 @@
+/*
+ * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * https://www.p2tools.de
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
+ */
+
+package de.p2tools.p2radio.gui.favouriteadd;
+
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2radio.controller.data.station.StationDataXml;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+public class FavouriteAddDialogGui {
+
+    private final AddFavouriteDto addFavouriteDto;
+    private final VBox vBoxCont;
+    private final HBox hBoxTop = new HBox();
+    private final GridPane gridPane = new GridPane();
+
+    public FavouriteAddDialogGui(AddFavouriteDto addFavouriteDto, VBox vBoxCont) {
+        this.addFavouriteDto = addFavouriteDto;
+        this.vBoxCont = vBoxCont;
+    }
+
+    public void addCont() {
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(5));
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
+        int row = 0;
+
+        if (addFavouriteDto.addFavouriteData.length > 1) {
+            // Top, nur wenn es mehre gibt
+            hBoxTop.getStyleClass().add("downloadDialog");
+            hBoxTop.setSpacing(20);
+            hBoxTop.setAlignment(Pos.CENTER);
+            hBoxTop.setPadding(new Insets(5));
+            hBoxTop.getChildren().addAll(addFavouriteDto.btnPrev, addFavouriteDto.lblSum, addFavouriteDto.btnNext);
+            vBoxCont.setPadding(new Insets(10));
+            vBoxCont.getChildren().add(hBoxTop);
+
+            Font font = Font.font(null, FontWeight.BOLD, -1);
+            addFavouriteDto.btnAll.setFont(font);
+            addFavouriteDto.btnAll.setWrapText(true);
+            addFavouriteDto.btnAll.setMinHeight(Region.USE_PREF_SIZE);
+            gridPane.add(addFavouriteDto.btnAll, 4, row, 1, 2);
+            GridPane.setValignment(addFavouriteDto.btnAll, VPos.TOP);
+            ++row;
+        }
+
+        // Nr
+        gridPane.add(new Label(StationDataXml.STATION_PROP_STATION_NO + ":"), 0, row);
+        gridPane.add(addFavouriteDto.lblStationNo, 1, row, 3, 1);
+
+        // Name
+        gridPane.add(new Label(StationDataXml.STATION_PROP_STATION_NAME + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblStationName, 1, row, 3, 1);
+
+        // Sammlung
+        addFavouriteDto.cboCollection.setMaxWidth(Double.MAX_VALUE);
+        gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_COLLECTION + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.cboCollection, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.chkCollectionAll, 4, row);
+
+        // eigene Bewertung
+        HBox hBox = new HBox(P2LibConst.DIST_HBOX);
+        hBox.getChildren().addAll(addFavouriteDto.chkGrade1, addFavouriteDto.chkGrade2, addFavouriteDto.chkGrade3);
+        gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_OWN_GRADE + ":"), 0, ++row);
+        gridPane.add(hBox, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.chkGradeAll, 4, row);
+
+        // Genre
+        gridPane.add(new Label(StationDataXml.STATION_PROP_GENRE + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblGenre, 1, row, 3, 1);
+
+        // Codec
+        gridPane.add(new Label(StationDataXml.STATION_PROP_CODEC + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblCodec, 1, row);
+        // Bitrate
+        gridPane.add(new Label(StationDataXml.STATION_PROP_BITRATE + ":"), 2, row);
+        gridPane.add(addFavouriteDto.lblBitrate, 3, row);
+
+        // Clicks
+        gridPane.add(new Label(StationDataXml.STATION_PROP_CLICK_COUNT + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblClicks, 1, row);
+        // Eigener
+        gridPane.add(new Label(StationDataXml.STATION_PROP_OWN + ":"), 2, row);
+        gridPane.add(addFavouriteDto.chkOwn, 3, row);
+
+        // Land
+        gridPane.add(new Label(StationDataXml.STATION_PROP_COUNTRY + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblCountry, 1, row);
+        // Sprache
+        gridPane.add(new Label(StationDataXml.STATION_PROP_LANGUAGE + ":"), 2, row);
+        gridPane.add(addFavouriteDto.lblLanguage, 3, row);
+
+        // Beschreibung
+        gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_DESCRIPTION + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.taDescription, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.chkDescriptionAll, 4, row);
+
+        // GenDate
+        gridPane.add(new Label(StationDataXml.STATION_PROP_DATE + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblGenDate, 1, row, 3, 1);
+
+        // URL
+        gridPane.add(new Label(StationDataXml.STATION_PROP_URL + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblUrl, 1, row, 3, 1);
+
+        // Website
+        gridPane.add(new Label(StationDataXml.STATION_PROP_WEBSITE + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblWebsite, 1, row, 3, 1);
+
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSizeCenter());
+
+        vBoxCont.getChildren().add(gridPane);
+    }
+
+    public void init() {
+        if (addFavouriteDto.addFavouriteData.length == 1) {
+            // wenns nur einen Download gibt, macht dann keinen Sinn
+            hBoxTop.setVisible(false);
+            hBoxTop.setManaged(false);
+        }
+        FavouriteAddAllFactory.init(addFavouriteDto);
+    }
+}

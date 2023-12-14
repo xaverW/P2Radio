@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
-import de.p2tools.p2radio.gui.dialog.FavouriteEditDialogController;
+import de.p2tools.p2radio.gui.favouriteadd.FavouriteAddDialogController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -95,26 +95,17 @@ public class FavouriteFactory {
         }
         if (!addList.isEmpty()) {
             ArrayList<StationData> newFavourites = new ArrayList<>();
-            addList.stream().forEach(stationData -> {
-                StationData newStationData = new StationData(stationData, "");
+            addList.forEach(stationData -> {
+                StationData newStationData = new StationData();
+                newStationData.copyToMe(stationData);
                 newFavourites.add(newStationData);
             });
 
-            FavouriteEditDialogController favouriteEditDialogController =
-                    new FavouriteEditDialogController(progData, newFavourites);
+            new FavouriteAddDialogController(ProgData.getInstance(), addList, true);
 
-            if (favouriteEditDialogController.isOk()) {
-                newFavourites.stream().forEach(stationData -> {
-                    stationData.setFavourite(true);
-                    progData.favouriteList.addAll(stationData);
-                });
-
-                //Favoriten markieren und Filter anstoßen
-                addList.stream().forEach(stationData -> {
-                    stationData.setFavourite(true);
-                });
-                progData.stationListBlackFiltered.triggerFilter();
-            }
+            //Favoriten markieren und Filter anstoßen
+            addList.forEach(stationData -> stationData.setFavourite(true));
+            progData.stationListBlackFiltered.triggerFilter();
         }
     }
 
@@ -152,27 +143,8 @@ public class FavouriteFactory {
     }
 
     private static void changeFavourite(ArrayList<StationData> list) {
-        ArrayList<StationData> listCopy = new ArrayList<>();
-        if (list.isEmpty()) {
-            return;
-        }
-        list.stream().forEach(f -> {
-            StationData favouriteCopy = f.getCopy();
-            listCopy.add(favouriteCopy);
-        });
-
-        FavouriteEditDialogController favouriteEditDialogController =
-                new FavouriteEditDialogController(ProgData.getInstance(), listCopy);
-
-        if (favouriteEditDialogController.isOk()) {
-            for (int i = 0; i < listCopy.size(); ++i) {
-                final StationData f, fCopy;
-                f = list.get(i);
-                fCopy = listCopy.get(i);
-                f.copyToMe(fCopy);
-            }
-            ProgData.getInstance().collectionList.updateNames();//könnte ja geändert sein
-        }
+        new FavouriteAddDialogController(ProgData.getInstance(), list, false);
+        ProgData.getInstance().collectionList.updateNames();//könnte ja geändert sein
     }
 
     public static void deleteFavourite(StationData stationData) {

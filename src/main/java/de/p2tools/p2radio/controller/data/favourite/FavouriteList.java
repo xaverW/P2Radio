@@ -73,7 +73,7 @@ public class FavouriteList extends SimpleListProperty<StationData> implements PD
 
     @Override
     public synchronized boolean addAll(Collection<? extends StationData> elements) {
-        elements.stream().forEach(stationData -> {
+        elements.forEach(stationData -> {
             stationData.setFavourite(true);
             progData.collectionList.addNewName(stationData.getCollectionName());
         });

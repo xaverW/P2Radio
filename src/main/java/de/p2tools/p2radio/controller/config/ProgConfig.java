@@ -149,10 +149,12 @@ public class ProgConfig extends PDataProgConfig {
     public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDoubleProp("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty FAVOURITE_GUI_FILTER_DIVIDER_ON = addBoolProp("favourite-gui-filter-divider-on", Boolean.TRUE);
     public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStrProp("favourite-dialog-edit-size", "800:800");
-    public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStrProp("favourite-dialog-add-size", "800:800");
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
     public static DoubleProperty FAVOURITE_GUI_DIVIDER = addDoubleProp("favourite-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
     public static BooleanProperty FAVOURITE_GUI_DIVIDER_ON = addBoolProp("favourite-gui-divider-on", Boolean.TRUE);
+    public static StringProperty FAVOURITE_DIALOG_ADD_MORE_SIZE = addStrProp("favourite-dialog-add-more-size", "800:850");
+    public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStrProp("favourite-dialog-add-size", "800:800");
+
 
     public static StringProperty FAVOURITE_GUI_TABLE_WIDTH = addStrProp("favourite-gui-table-width");
     public static StringProperty FAVOURITE_GUI_TABLE_SORT = addStrProp("favourite-gui-table-sort");
