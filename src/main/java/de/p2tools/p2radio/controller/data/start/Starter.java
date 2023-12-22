@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.data.SetData;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -29,7 +29,7 @@ public class Starter {
     private final StringProperty programCallArray = new SimpleStringProperty("");
 
     private Process process = null; //Prozess des Programms (VLC)
-    private PDate startTime = null;
+    private P2Date startTime = null;
 
     private SetData setData = null;
     private StartPlayingStation startPlayingStation = null;
@@ -57,14 +57,14 @@ public class Starter {
     }
 
     public void setStartTime() {
-        setStartTime(new PDate());
+        setStartTime(new P2Date());
     }
 
-    public PDate getStartTime() {
+    public P2Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(PDate startTime) {
+    public void setStartTime(P2Date startTime) {
         this.startTime = startTime;
     }
 

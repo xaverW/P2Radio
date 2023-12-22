@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2lib.configfile.pdata.PDataList;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
-import de.p2tools.p2lib.tools.date.PLDateProperty;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -43,7 +43,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
-    private final PLDateProperty stationDate = new PLDateProperty();
+    private final P2LDateProperty stationDate = new P2LDateProperty();
     public int nr = 1;
     public String[] codecs = {""};
     public String[] countries = {""};
@@ -90,7 +90,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
     }
 
     public synchronized String getGenDate() {
-        return PLDateFactory.toString(stationDate.getValue());
+        return P2LDateFactory.toString(stationDate.getValue());
     }
 
     public synchronized void setGenDateNow() {

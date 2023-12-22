@@ -62,7 +62,7 @@ public class StationFilterController extends FilterController {
         Separator sp = new Separator();
         sp.getStyleClass().add("pseperator3");
         sp.setMinHeight(0);
-        sp.setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
+        sp.setPadding(new Insets(0, P2LibConst.PADDING, P2LibConst.PADDING, P2LibConst.PADDING));
 
 //        setSpacing(P2LibConst.DIST_BUTTON);
 
@@ -94,7 +94,7 @@ public class StationFilterController extends FilterController {
     private VBox getVBoxBottom() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("extra-pane");
-        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBox.setPadding(new Insets(P2LibConst.PADDING));
         vBox.setSpacing(P2LibConst.DIST_BUTTON);
         vBox.setMaxWidth(Double.MAX_VALUE);
         vBoxAll.getChildren().addAll(vBox);

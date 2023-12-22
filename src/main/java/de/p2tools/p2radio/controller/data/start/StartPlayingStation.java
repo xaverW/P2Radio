@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller.data.start;
 
 
-import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -192,7 +192,7 @@ public class StartPlayingStation extends Thread {
         list.add("Sender abspielen");
 
         list.add("URL: " + starter.getUrl());
-        list.add("Startzeit: " + DateFactory.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(starter.getStarter().getStartTime()));
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(starter.getStarter().getStartTime()));
         list.add("Programmaufruf: " + starter.getProgramCall());
         list.add("Programmaufruf[]: " + starter.getProgramCallArray());
 
@@ -223,8 +223,8 @@ public class StartPlayingStation extends Thread {
         final ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
         list.add("Sender abspielen beendet");
-        list.add("Startzeit: " + DateFactory.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStarter().getStartTime()));
-        list.add("Endzeit: " + DateFactory.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss.format(LocalDateTime.now()));
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStarter().getStartTime()));
+        list.add("Endzeit: " + P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss.format(LocalDateTime.now()));
 
         if (start.getStarter().getRestartCounter() > 0) {
             list.add("Restarts: " + start.getStarter().getRestartCounter());

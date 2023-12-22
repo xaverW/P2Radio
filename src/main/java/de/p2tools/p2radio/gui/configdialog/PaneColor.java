@@ -209,7 +209,7 @@ public class PaneColor {
         final VBox vBox = new VBox();
         vBox.setFillWidth(true);
         vBox.setSpacing(10);
-        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBox.setPadding(new Insets(P2LibConst.PADDING));
 
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);

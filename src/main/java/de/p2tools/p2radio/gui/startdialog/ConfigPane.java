@@ -66,7 +66,7 @@ public class ConfigPane {
     private void makeUpdate() {
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        gridPane.setPadding(new Insets(P2LibConst.PADDING));
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         //einmal am Tag Update suchen

@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.*;
 
@@ -442,7 +442,7 @@ public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
     }
 
     public void setStationDate(String date) {
-        this.stationDate = PLDateFactory.fromString(date);
+        this.stationDate = P2LDateFactory.fromString(date);
     }
 
     @Override

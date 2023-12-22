@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.gui.favouriteadd;
 
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 
 public class InitConstValues {
     AddFavouriteDto addFavouriteDto;
@@ -37,7 +37,7 @@ public class InitConstValues {
         addFavouriteDto.chkOwn.setSelected(addFavouriteDto.getAct().stationData.isOwn());
         addFavouriteDto.lblCountry.setText(addFavouriteDto.getAct().stationData.getCountry());
         addFavouriteDto.lblLanguage.setText(addFavouriteDto.getAct().stationData.getLanguage());
-        addFavouriteDto.lblGenDate.setText(PLDateFactory.toString(addFavouriteDto.getAct().stationData.getStationDate()));
+        addFavouriteDto.lblGenDate.setText(P2LDateFactory.toString(addFavouriteDto.getAct().stationData.getStationDate()));
         addFavouriteDto.lblUrl.setText(addFavouriteDto.getAct().stationData.getStationUrl());
         addFavouriteDto.lblWebsite.setText(addFavouriteDto.getAct().stationData.getWebsite());
     }

@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.radiosreadwritefile;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -54,7 +54,7 @@ public class StationSaveFactory {
 
                 //Datum der Liste
                 jsonGenerator.writeStartObject();
-                jsonGenerator.writeStringField(StationList.KEY_STATION_DATE, PLDateFactory.toString(stationList.getStationDate()));
+                jsonGenerator.writeStringField(StationList.KEY_STATION_DATE, P2LDateFactory.toString(stationList.getStationDate()));
                 jsonGenerator.writeEndObject();
 
                 //Stationen

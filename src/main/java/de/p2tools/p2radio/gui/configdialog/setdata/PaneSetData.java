@@ -80,7 +80,7 @@ public class PaneSetData extends TitledPane {
         bindProgData(controllerSet.aktSetDateProperty().getValue());
 
         VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
-        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBox.setPadding(new Insets(P2LibConst.PADDING));
         vBox.setFillWidth(true);
 
         this.setText("Set Einstellungen");

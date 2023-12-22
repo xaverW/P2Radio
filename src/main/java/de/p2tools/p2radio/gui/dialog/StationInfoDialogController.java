@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.dialog;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -246,7 +246,7 @@ public class StationInfoDialogController extends PDialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DATE_INT:
                     case StationDataXml.STATION_PROP_DATE_LONG_INT:
-                        lblCont[i].setText(PLDateFactory.toString(station.getStationDate()));
+                        lblCont[i].setText(P2LDateFactory.toString(station.getStationDate()));
                         break;
 
                     case StationDataXml.STATION_PROP_URL_INT:

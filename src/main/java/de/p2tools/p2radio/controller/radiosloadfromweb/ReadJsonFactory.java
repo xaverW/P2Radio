@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.radiosloadfromweb;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 
 import java.io.IOException;
@@ -106,9 +106,9 @@ public class ReadJsonFactory {
                         } else {
                             ld = LocalDate.MIN;
                         }
-                        stationData.setStationDate(PLDateFactory.toString(ld));
+                        stationData.setStationDate(P2LDateFactory.toString(ld));
                     } catch (Exception ex) {
-                        stationData.setStationDate(PLDateFactory.toString(LocalDate.MIN));
+                        stationData.setStationDate(P2LDateFactory.toString(LocalDate.MIN));
                     }
                     break;
             }

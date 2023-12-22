@@ -61,7 +61,7 @@ public class PaneBlack {
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        gridPane.setPadding(new Insets(P2LibConst.PADDING));
 
         TitledPane tpConfig = new TitledPane("Blacklist allgemein", gridPane);
         result.add(tpConfig);

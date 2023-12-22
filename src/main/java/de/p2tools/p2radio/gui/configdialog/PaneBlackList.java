@@ -71,7 +71,7 @@ public class PaneBlackList {
     public void makeBlackTable(Collection<TitledPane> result) {
         final VBox vBox = new VBox();
         vBox.setSpacing(10);
-        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBox.setPadding(new Insets(P2LibConst.PADDING));
 
         makeConfig(vBox);
         initTable(vBox);
@@ -233,7 +233,7 @@ public class PaneBlackList {
         gridPane.getStyleClass().add("extra-pane");
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        gridPane.setPadding(new Insets(P2LibConst.PADDING));
 
         int row = 0;
 

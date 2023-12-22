@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller;
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2lib.tools.log.PLogger;
@@ -103,8 +103,8 @@ public class ProgStartBeforeGui {
             ProgConfig.HISTORY_GUI_TABLE_ORDER.setValue("");
         }
 
-        PDate pDate = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe());
-        if (pDate.before(new PDate("20.12.2022"))) {
+        P2Date pDate = new P2Date(ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe());
+        if (pDate.before(new P2Date("20.12.2022"))) {
             //Die Sets haben sich geändert
             if (ProgData.getInstance().setDataList.isEmpty()) {
                 final SetDataList pSet = ImportSetDataFactory.getStandarset();

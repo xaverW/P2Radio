@@ -80,7 +80,7 @@ public class FavouriteAddDialogGui {
         gridPane.add(addFavouriteDto.chkCollectionAll, 4, row);
 
         // eigene Bewertung
-        HBox hBox = new HBox(P2LibConst.DIST_HBOX);
+        HBox hBox = new HBox(P2LibConst.PADDING_HBOX);
         hBox.getChildren().addAll(addFavouriteDto.chkGrade1, addFavouriteDto.chkGrade2, addFavouriteDto.chkGrade3);
         gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_OWN_GRADE + ":"), 0, ++row);
         gridPane.add(hBox, 1, row, 3, 1);

@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.radiosreadwritefile;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -147,7 +147,7 @@ public class StationLoadFactory {
 
             switch (name) {
                 case StationList.KEY_STATION_DATE:
-                    LocalDate pLocalDate = PLDateFactory.fromString(value);
+                    LocalDate pLocalDate = P2LDateFactory.fromString(value);
                     stationList.setStationDate(pLocalDate);
                     break;
             }

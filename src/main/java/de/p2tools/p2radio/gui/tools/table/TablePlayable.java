@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
 import de.p2tools.p2lib.guitools.ptable.P2CellIntNull;
 import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
 import de.p2tools.p2lib.tools.GermanStringIntSorter;
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.scene.control.SelectionMode;
@@ -110,7 +110,7 @@ public class TablePlayable<T> extends TableView<T> {
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, PDate> codecColumn = new TableColumn<>(StationDataXml.STATION_PROP_CODEC);
+        final TableColumn<T, P2Date> codecColumn = new TableColumn<>(StationDataXml.STATION_PROP_CODEC);
         codecColumn.setCellValueFactory(new PropertyValueFactory<>("codec"));
         codecColumn.getStyleClass().add("alignCenter");
 
@@ -128,11 +128,11 @@ public class TablePlayable<T> extends TableView<T> {
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
         stateColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, PDate> countryColumn = new TableColumn<>(StationDataXml.STATION_PROP_COUNTRY);
+        final TableColumn<T, P2Date> countryColumn = new TableColumn<>(StationDataXml.STATION_PROP_COUNTRY);
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         countryColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<T, PDate> countryCodeColumn = new TableColumn<>(StationDataXml.STATION_PROP_COUNTRY_CODE);
+        final TableColumn<T, P2Date> countryCodeColumn = new TableColumn<>(StationDataXml.STATION_PROP_COUNTRY_CODE);
         countryCodeColumn.setCellValueFactory(new PropertyValueFactory<>("countryCode"));
         countryCodeColumn.getStyleClass().add("alignCenter");
 

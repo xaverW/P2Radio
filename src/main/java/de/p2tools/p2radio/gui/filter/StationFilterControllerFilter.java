@@ -41,7 +41,7 @@ public class StationFilterControllerFilter extends VBox {
     public StationFilterControllerFilter() {
         super();
         progData = ProgData.getInstance();
-        setPadding(new Insets(0, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE, P2LibConst.DIST_EDGE));
+        setPadding(new Insets(0, P2LibConst.PADDING, P2LibConst.PADDING, P2LibConst.PADDING));
         setSpacing(P2LibConst.DIST_BUTTON);
 
         addSlider();

@@ -50,7 +50,7 @@ public class HistoryFilterController extends FilterController {
         this.historyFilter = progData.historyFilter;
 
         vBoxFilter = getVBoxAll();
-        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
         vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
 
         cboGenre.setMaxWidth(Double.MAX_VALUE);
