@@ -125,7 +125,7 @@ public class P2RadioController extends StackPane {
     }
 
     private void initButton() {
-        btnSmallRadio.setTooltip(new Tooltip("kleine Senderübersicht anzeigen"));
+        btnSmallRadio.setTooltip(new Tooltip("Kleine Senderübersicht anzeigen"));
         btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
         btnSmallRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
@@ -139,7 +139,7 @@ public class P2RadioController extends StackPane {
         btnFavourite.setOnAction(e -> selPanelFavourite());
         btnFavourite.setMaxWidth(Double.MAX_VALUE);
 
-        btnHistory.setTooltip(new Tooltip("zuletzt gespielte Sender anzeigen"));
+        btnHistory.setTooltip(new Tooltip("Zuletzt gespielte Sender anzeigen"));
         btnHistory.setOnAction(e -> selPanelHistory());
         btnHistory.setMaxWidth(Double.MAX_VALUE);
 

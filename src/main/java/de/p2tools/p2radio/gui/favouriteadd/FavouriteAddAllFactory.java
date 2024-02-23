@@ -79,7 +79,7 @@ public class FavouriteAddAllFactory {
     private static void addCheckAllCss(AddFavouriteDto addFavouriteDto) {
         if (isAllSelected(addFavouriteDto)) {
             final String c = P2Color.getCssColor(FavouriteAddDialogFactory.getBlue());
-            addFavouriteDto.btnAll.setStyle("-fx-text-fill: #" + c);
+            addFavouriteDto.btnAll.setStyle("-fx-text-fill: " + c);
 
         } else {
             if (ProgConfig.SYSTEM_DARK_THEME.getValue()) {
