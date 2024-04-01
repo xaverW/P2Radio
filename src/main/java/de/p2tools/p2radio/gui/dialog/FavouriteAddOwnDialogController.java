@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.data.PColorData;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -31,7 +31,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-public class FavouriteAddOwnDialogController extends PDialogExtra {
+public class FavouriteAddOwnDialogController extends P2DialogExtra {
 
     private static final PColorData FAVOURITE_ADD_DIALOG_NAME_URL_ERROR =
             new PColorData("", Color.rgb(255, 233, 233),

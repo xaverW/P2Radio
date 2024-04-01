@@ -19,7 +19,7 @@ package de.p2tools.p2radio;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -109,7 +109,7 @@ public class P2RadioController extends StackPane {
                     progData.historyGuiPack.getHistoryGuiController().selUrl();
             }
         } catch (Exception ex) {
-            PLog.errorLog(597841023, ex);
+            P2Log.errorLog(597841023, ex);
         }
     }
 

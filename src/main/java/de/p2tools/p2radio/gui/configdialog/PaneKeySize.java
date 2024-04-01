@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
@@ -60,11 +60,11 @@ public class PaneKeySize {
             if (styleProperty.get()) {
                 IoReadWriteStyle.writeStyle(ProgInfos.getStyleFile(), size);
                 P2LibInit.setStyleFile(ProgInfos.getStyleFile().toString());
-                PLog.sysLog("Schriftgröße ändern: " + size);
+                P2Log.sysLog("Schriftgröße ändern: " + size);
             } else {
                 IoReadWriteStyle.writeStyle(ProgInfos.getStyleFile(), -1);
                 P2LibInit.setStyleFile("");
-                PLog.sysLog("Schriftgröße nicht mehr ändern.");
+                P2Log.sysLog("Schriftgröße nicht mehr ändern.");
             }
             IoReadWriteStyle.readStyle(ProgInfos.getStyleFile(), progData.primaryStage.getScene());
         }

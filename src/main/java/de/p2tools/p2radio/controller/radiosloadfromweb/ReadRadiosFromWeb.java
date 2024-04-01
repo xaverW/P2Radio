@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.radiosloadfromweb;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
@@ -58,7 +58,7 @@ public class ReadRadiosFromWeb {
                 ret = true;
             }
         } catch (final Exception ex) {
-            PLog.errorLog(201020354, ex);
+            P2Log.errorLog(201020354, ex);
         }
 
         return ret;
@@ -69,7 +69,7 @@ public class ReadRadiosFromWeb {
         countAll = 0;
         List<String> logList = new ArrayList<>();
         logList.add("");
-        logList.add(PLog.LILNE2);
+        logList.add(P2Log.LILNE2);
 
 
         notifyStart(url); // für die Progressanzeige
@@ -89,12 +89,12 @@ public class ReadRadiosFromWeb {
             }
         } catch (
                 final MalformedURLException ex) {
-            PLog.errorLog(201010458, ex);
+            P2Log.errorLog(201010458, ex);
         }
 
-        logList.add(PLog.LILNE2);
+        logList.add(P2Log.LILNE2);
         logList.add("");
-        PLog.sysLog(logList);
+        P2Log.sysLog(logList);
 
         PDuration.counterStop("ReadRadioBrowser.read()");
     }
@@ -158,7 +158,7 @@ public class ReadRadiosFromWeb {
 //                }
 //            }
 //        } catch (final Exception ex) {
-//            PLog.errorLog(830214789, ex, "Senderliste: " + source);
+//            P2Log.errorLog(830214789, ex, "Senderliste: " + source);
 //            stationList.clear();
 //        }
 
@@ -192,7 +192,7 @@ public class ReadRadiosFromWeb {
                 }
             }
         } catch (final Exception ex) {
-            PLog.errorLog(830214789, ex, "Senderliste: " + source);
+            P2Log.errorLog(830214789, ex, "Senderliste: " + source);
             stationList.clear();
         }
     }

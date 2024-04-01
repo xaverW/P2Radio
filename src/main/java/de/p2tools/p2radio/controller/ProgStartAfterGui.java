@@ -20,8 +20,8 @@ import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.LogMessage;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
@@ -57,12 +57,12 @@ public class ProgStartAfterGui {
         list.add("Verzeichnisse:");
         list.add("Programmpfad: " + ProgInfos.getPathJar());
         list.add("Verzeichnis Einstellungen: " + ProgInfos.getSettingsDirectoryString());
-        list.add(PLog.LILNE2);
+        list.add(P2Log.LILNE2);
         list.add("");
         list.add("Programmsets:");
         list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
         ProgConfig.getConfigLog(list);
-        LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
+        P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 
     public static void setTitle(Stage stage) {
@@ -91,7 +91,7 @@ public class ProgStartAfterGui {
             if (updateCheckTodayDone()) {
                 list.add("  heute schon gemacht");
             }
-            PLog.sysLog(list);
+            P2Log.sysLog(list);
         }
     }
 
@@ -109,7 +109,7 @@ public class ProgStartAfterGui {
      * Senderliste beim Programmstart laden
      */
     private static void loadStationProgStart() {
-        PLog.sysLog("START: loadStationProgStart");
+        P2Log.sysLog("START: loadStationProgStart");
         final ProgData progData = ProgData.getInstance();
         PDuration.onlyPing("Programmstart Senderliste laden: start");
 
@@ -120,7 +120,7 @@ public class ProgStartAfterGui {
 
         final List<String> logList = new ArrayList<>();
         logList.add("");
-        logList.add(PLog.LILNE1);
+        logList.add(P2Log.LILNE1);
 
         if (ProgData.firstProgramStart) {
             //dann wird immer geladen
@@ -139,7 +139,7 @@ public class ProgStartAfterGui {
                                 RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
                 logList.add("Senderliste zu alt, neue Senderliste laden");
-                logList.add(PLog.LILNE3);
+                logList.add(P2Log.LILNE3);
                 progData.loadNewStationList.loadNewStationFromServer();
 
             } else {
@@ -151,7 +151,7 @@ public class ProgStartAfterGui {
                 afterLoadingStationList(logList);
                 logList.add("Liste der Radios geladen");
 
-                PLog.sysLog("START: loadStationProgStart FINISHED");
+                P2Log.sysLog("START: loadStationProgStart FINISHED");
                 progData.pEventHandler.notifyListener(
                         new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
                                 "", "", 0, false));
@@ -171,9 +171,9 @@ public class ProgStartAfterGui {
                 break;
         }
 
-        logList.add(PLog.LILNE1);
+        logList.add(P2Log.LILNE1);
         logList.add("");
-        PLog.sysLog(logList);
+        P2Log.sysLog(logList);
     }
 
     /**
@@ -187,7 +187,7 @@ public class ProgStartAfterGui {
         logList.add("  Anzahl Sender: " + progData.stationList.size());
         logList.add("  Anzahl Neue:  " + progData.stationList.countNewStations());
         logList.add("");
-        logList.add(PLog.LILNE2);
+        logList.add(P2Log.LILNE2);
         logList.add("");
 
         progData.pEventHandler.notifyListener(
@@ -206,11 +206,11 @@ public class ProgStartAfterGui {
                         "", "Blacklist filtern",
                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
         logList.add("Favoriten markieren");
         StationListFactory.findAndMarkFavouriteStations(progData);
 
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
         logList.add("Blacklist filtern");
         progData.stationList.filterListWithBlacklist(true);
 

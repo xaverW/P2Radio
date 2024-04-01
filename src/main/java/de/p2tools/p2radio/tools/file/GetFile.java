@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools.file;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,7 +34,7 @@ public class GetFile {
         try {
             return new InputStreamReader(ClassLoader.getSystemResource(PATH_PSET_LINUX).openStream(), StandardCharsets.UTF_8);
         } catch (final IOException ex) {
-            PLog.errorLog(469691002, ex);
+            P2Log.errorLog(469691002, ex);
         }
         return null;
     }
@@ -43,7 +43,7 @@ public class GetFile {
         try {
             return new InputStreamReader(ClassLoader.getSystemResource(PATH_PSET_WINDOWS).openStream(), StandardCharsets.UTF_8);
         } catch (final IOException ex) {
-            PLog.errorLog(842306087, ex);
+            P2Log.errorLog(842306087, ex);
         }
         return null;
     }

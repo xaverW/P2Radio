@@ -17,9 +17,9 @@
 
 package de.p2tools.p2radio.gui.tools;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -112,7 +112,7 @@ public class ProgTray {
         try {
             systemTray.add(trayicon);
         } catch (AWTException exception) {
-            PLog.errorLog(912547030, exception.getMessage());
+            P2Log.errorLog(912547030, exception.getMessage());
         }
     }
 
@@ -192,13 +192,13 @@ public class ProgTray {
         Platform.runLater(() -> {
             progData.primaryStage.close();
         });
-        PDialogExtra.closeAllDialog();
+        P2DialogExtra.closeAllDialog();
     }
 
     private void showDialog() {
         Platform.runLater(() -> {
             progData.primaryStage.show();
         });
-        PDialogExtra.showAllDialog();
+        P2DialogExtra.showAllDialog();
     }
 }

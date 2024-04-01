@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.dialog;
 
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -25,7 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class QuitDialogController extends PDialogExtra {
+public class QuitDialogController extends P2DialogExtra {
 
     private final StackPane stackPane = new StackPane();
     private final P2MaskerPane maskerPane = new P2MaskerPane();

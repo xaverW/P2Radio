@@ -20,7 +20,7 @@ import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -77,9 +77,9 @@ public class LoadNewStationList {
                                         "", "Sender verarbeiten",
                                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
-                        PLog.sysLog("Liste der Radios geladen");
-                        PLog.sysLog(PLog.LILNE1);
-                        PLog.sysLog("");
+                        P2Log.sysLog("Liste der Radios geladen");
+                        P2Log.sysLog(P2Log.LILNE1);
+                        P2Log.sysLog("");
 
                         PDuration.onlyPing("Sender geladen: Nachbearbeiten");
                         afterImportNewStationListFromServer(runE);
@@ -126,7 +126,7 @@ public class LoadNewStationList {
         PDuration.onlyPing("Radioliste laden: start");
         final List<String> logList = new ArrayList<>();
         logList.add("");
-        logList.add(PLog.LILNE1);
+        logList.add(P2Log.LILNE1);
         logList.add("Liste der Radios laden");
         logList.add("");
         logList.add("Alte Liste erstellt  am: " + ProgData.getInstance().stationList.getGenDate());
@@ -146,7 +146,7 @@ public class LoadNewStationList {
         progData.stationListBlackFiltered.clear();
         setStop(false);
         new ReadRadiosFromWebThread().loadNewStationList(progData.stationList);
-        PLog.sysLog(logList);
+        P2Log.sysLog(logList);
     }
 
     /**
@@ -156,7 +156,7 @@ public class LoadNewStationList {
      */
     private void afterImportNewStationListFromServer(RunEventRadio event) {
         final List<String> logList = new ArrayList<>();
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
 
         if (event.isError()) {
             // Laden war fehlerhaft
@@ -193,7 +193,7 @@ public class LoadNewStationList {
 
         ProgStartAfterGui.afterLoadingStationList(logList);
         setPropLoadStationList(false);
-        PLog.sysLog(logList);
+        P2Log.sysLog(logList);
     }
 
     private void findAndMarkNewStations(List<String> logList, StationList stationList) {
@@ -206,20 +206,20 @@ public class LoadNewStationList {
     }
 
     private void fillHash(List<String> logList, StationList stationList) {
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
         logList.add("Hash füllen, Größe vorher: " + hashSet.size());
 
         hashSet.addAll(stationList.stream().map(StationData::getStationUrl).collect(Collectors.toList()));
         logList.add("                  nachher: " + hashSet.size());
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
     }
 
     private void cleanHash(List<String> logList, StationList stationList) {
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
         logList.add("Hash bereinigen, Größe vorher: " + hashSet.size());
 
         stationList.stream().forEach(station -> hashSet.remove(station.getStationUrl()));
         logList.add("                      nachher: " + hashSet.size());
-        logList.add(PLog.LILNE3);
+        logList.add(P2Log.LILNE3);
     }
 }

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 
@@ -58,7 +58,7 @@ public class StartProgramFactory {
         try {
             buildProgParameter(start);
         } catch (final Exception ex) {
-            PLog.errorLog(825600145, ex);
+            P2Log.errorLog(825600145, ex);
         }
         return true;
     }

@@ -20,7 +20,7 @@ import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterFactory;
@@ -174,7 +174,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
             });
 
         } catch (Exception ex) {
-            PLog.errorLog(951024789, ex);
+            P2Log.errorLog(951024789, ex);
         }
         urlHashSet.clear();
         PDuration.counterStop("Sender markieren");

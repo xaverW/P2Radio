@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -25,7 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 
-public class StationFilterEditDialog extends PDialogExtra {
+public class StationFilterEditDialog extends P2DialogExtra {
 
     final ProgData progData;
 

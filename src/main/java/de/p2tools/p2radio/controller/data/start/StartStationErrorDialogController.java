@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -36,7 +36,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-public class StartStationErrorDialogController extends PDialogExtra {
+public class StartStationErrorDialogController extends P2DialogExtra {
 
     private final HBox hBoxTitle;
     private final VBox vBoxCont;

@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
@@ -103,7 +103,7 @@ public class StatusBarController extends AnchorPane {
                             setStatusbarIndex(statusbarIndex);
                         }
                     } catch (final Exception ex) {
-                        PLog.errorLog(936251087, ex);
+                        P2Log.errorLog(936251087, ex);
                     }
                 }
             }

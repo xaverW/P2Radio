@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.tools.stationlistfilter;
 
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
@@ -48,20 +48,20 @@ public class BlackFilterFactory {
             Stream<StationData> initialStream = progData.stationList.stream();
             if (progData.storedFilters.getActFilterSettings().isBlacklistOn()) {
                 //blacklist in ON
-                PLog.sysLog("StationListBlackFilter - isBlacklistOn");
+                P2Log.sysLog("StationListBlackFilter - isBlacklistOn");
                 initialStream = initialStream.filter(f -> !f.isBlackBlocked());
 
             } else if (progData.storedFilters.getActFilterSettings().isBlacklistOnly()) {
                 //blacklist in ONLY
-                PLog.sysLog("StationListBlackFilter - isBlacklistOnly");
+                P2Log.sysLog("StationListBlackFilter - isBlacklistOnly");
                 initialStream = initialStream.filter(StationDataProperty::isBlackBlocked);
 
             } else {
                 //blacklist in OFF
-                PLog.sysLog("StationListBlackFilter - isBlacklistOff");
+                P2Log.sysLog("StationListBlackFilter - isBlacklistOff");
             }
 
-            PLog.sysLog("START: BlackFilterFactory-getBlackFiltered");
+            P2Log.sysLog("START: BlackFilterFactory-getBlackFiltered");
             progData.stationListBlackFiltered.setAll(initialStream.toList());
         }
         PDuration.counterStop("StationListBlackFilter.getBlackFiltered");
@@ -74,7 +74,7 @@ public class BlackFilterFactory {
         final StationList stationList = progData.stationList;
         loadCurrentFilterSettings();
 
-        PLog.sysLog("START: markStationBlack");
+        P2Log.sysLog("START: markStationBlack");
         stationList.forEach(station -> {
             station.setBlackBlocked(checkBlock(station));
         });

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.radiosloadfromweb;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
@@ -55,13 +55,13 @@ public class ReadRadiosFromWebThread {
         private boolean runReadStationsThread(StationList stationList) {
             boolean ret;
             this.stationList.clear();
-            PLog.sysLog("komplette Liste laden");
+            P2Log.sysLog("komplette Liste laden");
 
             //und jetzt File/Url laden
             ret = new ReadRadiosFromWeb().readList(stationList);
             if (!ret || ProgData.getInstance().loadNewStationList.isStop()) {
                 // wenn abgebrochen wurde, nicht weitermachen
-                PLog.errorLog(951235497, "Es konnten keine Sender geladen werden!");
+                P2Log.errorLog(951235497, "Es konnten keine Sender geladen werden!");
                 ret = false;
             }
 

@@ -18,8 +18,8 @@ package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigWriteFile;
-import de.p2tools.p2lib.tools.log.LogMessage;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
@@ -60,7 +60,7 @@ public class ProgQuit {
         writeTableWindowSettings();
 
         saveProgConfig();
-        LogMessage.endMsg();
+        P2LogMessage.endMsg();
 
         // und dann Programm beenden
         Platform.runLater(() -> {
@@ -90,7 +90,7 @@ public class ProgQuit {
 
     private static void saveProgConfig() {
         //sind die Programmeinstellungen
-        PLog.sysLog("Alle Programmeinstellungen sichern");
+        P2Log.sysLog("Alle Programmeinstellungen sichern");
         final Path xmlFilePath = ProgInfos.getSettingsFile();
         ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true);
         ProgConfig.addConfigData(configFile);

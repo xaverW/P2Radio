@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -28,7 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class NoSetDialogController extends PDialogExtra {
+public class NoSetDialogController extends P2DialogExtra {
 
     final ProgData progData;
     Button btnCancel = new Button("_Abbrechen");

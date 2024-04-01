@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutKey;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -100,7 +100,7 @@ public class PaneShortcut {
                 btnChange.setTooltip(new Tooltip("Button klicken und dann das neue Tastenkürzel eingeben"));
                 btnChange.addEventFilter(KeyEvent.KEY_RELEASED, ke -> {
                     released = true;
-                    PLog.sysLog("Shortcut: " + pShortcut.getDescription() + " ändern von: " + pShortcut.getActShortcut() + " nach: " + newShortcutValue);
+                    P2Log.sysLog("Shortcut: " + pShortcut.getDescription() + " ändern von: " + pShortcut.getActShortcut() + " nach: " + newShortcutValue);
                     pShortcut.setActShortcut(newShortcutValue);
                 });
                 btnChange.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {

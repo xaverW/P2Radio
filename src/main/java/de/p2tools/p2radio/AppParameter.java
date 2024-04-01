@@ -17,8 +17,8 @@
 
 package de.p2tools.p2radio;
 
-import de.p2tools.p2lib.tools.log.LogMessage;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import org.apache.commons.cli.*;
@@ -55,8 +55,8 @@ public class AppParameter {
 
             if (hasOption(line, ProgParameter.VERSION)) {
                 EventQueue.invokeLater(() -> {
-                    LogMessage.startMsg(ProgConst.PROGRAM_NAME, null);
-                    LogMessage.endMsg();
+                    P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, null);
+                    P2LogMessage.endMsg();
                     System.exit(0);
                 });
             }
@@ -75,7 +75,7 @@ public class AppParameter {
             }
 
         } catch (Exception ex) {
-            PLog.errorLog(941237890, ex);
+            P2Log.errorLog(941237890, ex);
         }
     }
 
@@ -108,9 +108,9 @@ public class AppParameter {
         }
         list.add(TEXT_LINE);
 
-        PLog.emptyLine();
-        PLog.sysLog(list);
-        PLog.emptyLine();
+        P2Log.emptyLine();
+        P2Log.sysLog(list);
+        P2Log.emptyLine();
     }
 
     enum ProgParameter {

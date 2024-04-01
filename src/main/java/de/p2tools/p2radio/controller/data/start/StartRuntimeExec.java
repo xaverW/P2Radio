@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.starter.PlayerMessage;
 
 import java.io.BufferedReader;
@@ -60,16 +60,16 @@ public class StartRuntimeExec {
     public Process exec() {
         try {
             if (arrProgCallArray != null) {
-                PLog.sysLog("=====================");
-                PLog.sysLog("Starte Array: ");
-                PLog.sysLog(" -> " + strProgCallArray);
-                PLog.sysLog("=====================");
+                P2Log.sysLog("=====================");
+                P2Log.sysLog("Starte Array: ");
+                P2Log.sysLog(" -> " + strProgCallArray);
+                P2Log.sysLog("=====================");
                 process = Runtime.getRuntime().exec(arrProgCallArray);
             } else {
-                PLog.sysLog("=====================");
-                PLog.sysLog("Starte nicht als Array:");
-                PLog.sysLog(" -> " + strProgCall);
-                PLog.sysLog("=====================");
+                P2Log.sysLog("=====================");
+                P2Log.sysLog("Starte nicht als Array:");
+                P2Log.sysLog(" -> " + strProgCall);
+                P2Log.sysLog("=====================");
                 process = Runtime.getRuntime().exec(strProgCall);
             }
 
@@ -82,7 +82,7 @@ public class StartRuntimeExec {
             clearOut.setName("exec-out");
             clearOut.start();
         } catch (final Exception ex) {
-            PLog.errorLog(450028932, ex, "Fehler beim Starten");
+            P2Log.errorLog(450028932, ex, "Fehler beim Starten");
         }
         return process;
     }

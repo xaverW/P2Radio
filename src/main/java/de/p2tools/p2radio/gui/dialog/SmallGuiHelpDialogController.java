@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.dialog;
 
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class SmallGuiHelpDialogController extends PDialogExtra {
+public class SmallGuiHelpDialogController extends P2DialogExtra {
     private final Button btnOk = new Button("_Ok");
 
     public SmallGuiHelpDialogController(Stage stage) {

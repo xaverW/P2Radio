@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.smallradio;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogOnly;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.PSystemUtils;
@@ -36,7 +36,7 @@ import javafx.stage.StageStyle;
 
 import java.util.Optional;
 
-public class SmallRadioGuiController extends PDialogOnly {
+public class SmallRadioGuiController extends P2DialogOnly {
 
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;

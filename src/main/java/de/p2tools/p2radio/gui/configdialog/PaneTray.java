@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.PDirFileChooser;
+import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
@@ -69,7 +69,7 @@ public class PaneTray {
         final Button btnFile = new Button();
         btnFile.setTooltip(new Tooltip("Einen Ordner für das Logfile auswählen"));
         btnFile.setOnAction(event -> {
-            String s = PDirFileChooser.FileChooserSelect(ProgData.getInstance().primaryStage, "", "");
+            String s = P2DirFileChooser.FileChooserSelect(ProgData.getInstance().primaryStage, "", "");
             if (!s.isEmpty()) {
                 //evtl. Abbruch des FileChooser
                 txtPath.setText(s);

@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.data.start;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -84,7 +84,7 @@ public class StartPlayingStation extends Thread {
             }
         } catch (final Exception ex) {
             exMessage = ex.getLocalizedMessage();
-            PLog.errorLog(987989569, ex);
+            P2Log.errorLog(987989569, ex);
             if (start.getStarter().getRestartCounter() == 0) {
                 // nur beim ersten Mal melden -> nervt sonst
                 Platform.runLater(() -> new StartStationErrorDialogController(start, exMessage));
@@ -188,7 +188,7 @@ public class StartPlayingStation extends Thread {
 
     private void startMsg(Start starter) {
         final ArrayList<String> list = new ArrayList<>();
-        list.add(PLog.LILNE3);
+        list.add(P2Log.LILNE3);
         list.add("Sender abspielen");
 
         list.add("URL: " + starter.getUrl());
@@ -196,8 +196,8 @@ public class StartPlayingStation extends Thread {
         list.add("Programmaufruf: " + starter.getProgramCall());
         list.add("Programmaufruf[]: " + starter.getProgramCallArray());
 
-        list.add(PLog.LILNE_EMPTY);
-        PLog.sysLog(list.toArray(new String[list.size()]));
+        list.add(P2Log.LILNE_EMPTY);
+        P2Log.sysLog(list.toArray(new String[list.size()]));
     }
 
     private void finalizePlaying(Start start) {
@@ -221,7 +221,7 @@ public class StartPlayingStation extends Thread {
 
     private void finishedMsg(final Start start) {
         final ArrayList<String> list = new ArrayList<>();
-        list.add(PLog.LILNE3);
+        list.add(P2Log.LILNE3);
         list.add("Sender abspielen beendet");
         list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStarter().getStartTime()));
         list.add("Endzeit: " + P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss.format(LocalDateTime.now()));
@@ -242,8 +242,8 @@ public class StartPlayingStation extends Thread {
         list.add("Programmaufruf: " + start.getProgramCall());
         list.add("Programmaufruf[]: " + start.getProgramCallArray());
 
-        list.add(PLog.LILNE_EMPTY);
-        PLog.sysLog(list);
+        list.add(P2Log.LILNE_EMPTY);
+        P2Log.sysLog(list);
     }
 
     private void refreshTable() {

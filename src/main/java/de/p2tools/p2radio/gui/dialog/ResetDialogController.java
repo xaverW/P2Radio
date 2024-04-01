@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2radio.controller.ProgQuit;
@@ -36,7 +36,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-public class ResetDialogController extends PDialogExtra {
+public class ResetDialogController extends P2DialogExtra {
 
     final ProgData progData;
     final StackPane stackPane;

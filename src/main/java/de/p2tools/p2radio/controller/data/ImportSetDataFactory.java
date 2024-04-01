@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.tools.file.GetFile;
 
 import javax.xml.stream.XMLInputFactory;
@@ -75,7 +75,7 @@ public class ImportSetDataFactory {
             }
             in.close();
         } catch (final Exception ex) {
-            PLog.errorLog(467810360, ex);
+            P2Log.errorLog(467810360, ex);
 
             return null;
         }
@@ -115,7 +115,7 @@ public class ImportSetDataFactory {
             }
         } catch (final Exception ex) {
             ret = false;
-            PLog.errorLog(467256394, ex);
+            P2Log.errorLog(467256394, ex);
         }
         return ret;
     }

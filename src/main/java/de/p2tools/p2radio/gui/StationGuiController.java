@@ -20,7 +20,7 @@ import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -253,7 +253,7 @@ public class StationGuiController extends VBox {
             if (STRG_A.match(event)) {
                 if (tableView.getItems().size() > 3_000) {
                     // bei sehr langen Listen dauert das seeeeeehr lange
-                    PLog.sysLog("STRG-A: lange Liste -> verhindern");
+                    P2Log.sysLog("STRG-A: lange Liste -> verhindern");
                     event.consume();
                 }
             }

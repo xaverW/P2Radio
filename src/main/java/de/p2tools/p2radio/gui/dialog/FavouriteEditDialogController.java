@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
@@ -36,7 +36,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class FavouriteEditDialogController extends PDialogExtra {
+public class FavouriteEditDialogController extends P2DialogExtra {
 
     private final GridPane gridPane = new GridPane();
     private final Label[] lbl = new Label[StationDataXml.MAX_ELEM];

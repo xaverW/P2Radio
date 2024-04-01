@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
@@ -64,7 +64,7 @@ public class StationLoadFactory {
         countAll = 0;
         List<String> logList = new ArrayList<>();
         logList.add("");
-        logList.add(PLog.LILNE2);
+        logList.add(P2Log.LILNE2);
 
         stationList.clear();
         logList.add("gespeicherte Senderliste aus Datei laden: " + sourceFile);
@@ -73,9 +73,9 @@ public class StationLoadFactory {
         logList.add("   erstellt am:        " + stationList.getGenDate());
         logList.add("   Anzahl Gesamtliste: " + countAll);
         logList.add("   Anzahl verwendet:   " + stationList.size());
-        logList.add(PLog.LILNE2);
+        logList.add(P2Log.LILNE2);
         logList.add("");
-        PLog.sysLog(logList);
+        P2Log.sysLog(logList);
 
         PDuration.counterStop("LoadJsonFactory.read()");
     }
@@ -91,10 +91,10 @@ public class StationLoadFactory {
              JsonParser jp = new JsonFactory().createParser(in)) {
             readData(jp, stationList);
         } catch (final FileNotFoundException ex) {
-            PLog.errorLog(894512369, "SenderListe existiert nicht: " + source);
+            P2Log.errorLog(894512369, "SenderListe existiert nicht: " + source);
             stationList.clear();
         } catch (final Exception ex) {
-            PLog.errorLog(945123641, ex, "SenderListe: " + source);
+            P2Log.errorLog(945123641, ex, "SenderListe: " + source);
             stationList.clear();
         }
     }

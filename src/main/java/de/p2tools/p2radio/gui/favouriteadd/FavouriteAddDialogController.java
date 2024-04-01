@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.favouriteadd;
 
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -27,7 +27,7 @@ import javafx.scene.control.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteAddDialogController extends PDialogExtra {
+public class FavouriteAddDialogController extends P2DialogExtra {
 
     private final ProgData progData;
     private final Button btnOk = new Button("_Ok");

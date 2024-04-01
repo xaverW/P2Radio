@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.startdialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -32,7 +32,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 
-public class StartDialogController extends PDialogExtra {
+public class StartDialogController extends P2DialogExtra {
 
     private final ProgData progData;
     private final TilePane tilePane = new TilePane();

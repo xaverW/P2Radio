@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui.configdialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -33,7 +33,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 
-public class ConfigDialogController extends PDialogExtra {
+public class ConfigDialogController extends P2DialogExtra {
     private final ProgData progData;
     private final TabPane tabPane = new TabPane();
     private final Button btnOk = new Button("_Ok");
@@ -105,7 +105,7 @@ public class ConfigDialogController extends PDialogExtra {
                 ProgConfig.SYSTEM_CONFIG_DIALOG_TAB.setValue(newValue);
             });
         } catch (final Exception ex) {
-            PLog.errorLog(784459510, ex);
+            P2Log.errorLog(784459510, ex);
         }
     }
 }
