@@ -18,7 +18,7 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -61,7 +61,7 @@ public class FavouriteFactory {
             } else {
                 // dann ist der Sender schon in der Liste
                 if (list.size() <= 1) {
-                    PAlert.BUTTON answer = PAlert.showAlert_yes_no("Anlegen?", "Nochmal anlegen?",
+                    P2Alert.BUTTON answer = P2Alert.showAlert_yes_no("Anlegen?", "Nochmal anlegen?",
                             "Sender existiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
                                     station.getCountry() + P2LibConst.LINE_SEPARATORx2 +
                                     "Nochmal anlegen?");
@@ -75,7 +75,7 @@ public class FavouriteFactory {
                     }
 
                 } else {
-                    PAlert.BUTTON answer = PAlert.showAlert_yes_no_cancel("Anlegen?", "Nochmal anlegen?",
+                    P2Alert.BUTTON answer = P2Alert.showAlert_yes_no_cancel("Anlegen?", "Nochmal anlegen?",
                             "Sender existiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
                                     station.getCountry() + P2LibConst.LINE_SEPARATORx2 +
                                     "Nochmal anlegen (Ja / Nein)?" + P2LibConst.LINE_SEPARATOR +
@@ -148,8 +148,8 @@ public class FavouriteFactory {
     }
 
     public static void deleteFavourite(StationData stationData) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
-                "Soll der Favorite gelöscht werden?").equals(PAlert.BUTTON.YES)) {
+        if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
+                "Soll der Favorite gelöscht werden?").equals(P2Alert.BUTTON.YES)) {
             ProgData.getInstance().favouriteList.remove(stationData);
             StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
@@ -168,8 +168,8 @@ public class FavouriteFactory {
             } else {
                 text = "Sollen die Favoriten gelöscht werden?";
             }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?", text)
-                    .equals(PAlert.BUTTON.YES)) {
+            if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?", text)
+                    .equals(P2Alert.BUTTON.YES)) {
                 ProgData.getInstance().favouriteList.removeAll(list);
                 StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
             }

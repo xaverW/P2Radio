@@ -18,9 +18,9 @@
 package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PEventHandler;
+import de.p2tools.p2lib.tools.duration.P2Duration;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2EventHandler;
 import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
@@ -105,11 +105,11 @@ public class ProgData {
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
     public SetDataList setDataList;
-    public PEventHandler pEventHandler;
+    public P2EventHandler pEventHandler;
     boolean oneSecond = false;
 
     private ProgData() {
-        pEventHandler = new PEventHandler();
+        pEventHandler = new P2EventHandler();
 
         pShortcut = new P2RadioShortCuts();
         loadNewStationList = new LoadNewStationList(this);
@@ -170,10 +170,10 @@ public class ProgData {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.setDelay(Duration.seconds(5));
         timeline.play();
-        PDuration.onlyPing("Timer gestartet");
+        P2Duration.onlyPing("Timer gestartet");
     }
 
     private void doTimerWorkOneSecond() {
-        pEventHandler.notifyListener(new PEvent(Events.TIMER));
+        pEventHandler.notifyListener(new P2Event(Events.TIMER));
     }
 }

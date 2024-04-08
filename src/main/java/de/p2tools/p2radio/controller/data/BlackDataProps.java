@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.data;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_boolProp;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,7 +27,7 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class BlackDataProps extends PDataSample<BlackData> {
+public class BlackDataProps extends P2DataSample<BlackData> {
     public static final String TAG = "BlackData";
     private final StringProperty name = new SimpleStringProperty("");
     private final BooleanProperty nameExact = new SimpleBooleanProperty(true);

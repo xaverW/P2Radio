@@ -20,13 +20,13 @@ import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_boolProp;
 import de.p2tools.p2lib.configfile.config.Config_intProp;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class SelectedFilterProps extends PDataSample<SelectedFilter> {
+public class SelectedFilterProps extends P2DataSample<SelectedFilter> {
     public static final String TAG = "SelectedFilter";
 
     private final StringProperty name = new SimpleStringProperty();

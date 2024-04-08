@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -138,7 +138,7 @@ public class StationGuiController extends VBox {
         final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return ret;
     }
@@ -153,7 +153,7 @@ public class StationGuiController extends VBox {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
         } else {
             if (show) {
-                PAlert.showInfoNoSelection();
+                P2Alert.showInfoNoSelection();
             }
             return Optional.empty();
         }
@@ -195,8 +195,8 @@ public class StationGuiController extends VBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
-            public void pingGui(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+            public void pingGui(P2Event event) {
                 P2TableFactory.refreshTable(tableView);
             }
         });
@@ -204,9 +204,9 @@ public class StationGuiController extends VBox {
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();
         });
-        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
             @Override
-            public void pingGui(PEvent runEvent) {
+            public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);
             }
         });

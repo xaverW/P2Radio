@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2lib.configfile.pdata.PDataList;
-import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
+import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 @SuppressWarnings("serial")
-public class BlackDataList extends SimpleListProperty<BlackData> implements PDataList<BlackData> {
+public class BlackDataList extends SimpleListProperty<BlackData> implements P2DataList<BlackData> {
 
     public static final String TAG = "BlackDataList";
     private final ProgData progData;
@@ -88,7 +88,7 @@ public class BlackDataList extends SimpleListProperty<BlackData> implements PDat
 
     public synchronized void filterListAndNotifyListeners() {
         progData.stationList.filterListWithBlacklist(true);
-        progData.pEventHandler.notifyListener(new PEvent(Events.BLACKLIST_CHANGED));
+        progData.pEventHandler.notifyListener(new P2Event(Events.BLACKLIST_CHANGED));
     }
 
     public synchronized void clearCounter() {

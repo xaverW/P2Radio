@@ -17,11 +17,11 @@
 
 package de.p2tools.p2radio.tools.storedfilter;
 
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
-public class SelectedFilterListWorker extends SimpleListProperty<SelectedFilter> implements PDataList<SelectedFilter> {
+public class SelectedFilterListWorker extends SimpleListProperty<SelectedFilter> implements P2DataList<SelectedFilter> {
     public static final String TAG = "SelectedFilterList";
 
     public SelectedFilterListWorker() {

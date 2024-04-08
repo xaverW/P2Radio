@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartRuntimeExec;
 
@@ -59,7 +59,7 @@ public class SetFactory {
         final String PATH_WIN = "\\VideoLAN\\VLC\\vlc.exe";
         String path = "";
         try {
-            switch (ProgramToolsFactory.getOs()) {
+            switch (P2ToolsFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
                         path = PATH_FREEBSD;
@@ -155,7 +155,7 @@ public class SetFactory {
             }
             text += "++++++++++++++++++++++++++++++++++++++++++++" + "" + P2LibConst.LINE_SEPARATORx3;
         }
-        PAlert.showInfoAlert("Set", "Sets prüfen", text, true);
+        P2Alert.showInfoAlert("Set", "Sets prüfen", text, true);
         return ret;
     }
 }

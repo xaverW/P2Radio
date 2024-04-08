@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.filter;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import javafx.geometry.Insets;
@@ -73,7 +73,7 @@ public class StationFilterControllerClearFilter extends VBox {
     }
 
     private void clearFilter() {
-        PDuration.onlyPing("Filter löschen");
+        P2Duration.onlyPing("Filter löschen");
         progData.storedFilters.clearFilter();
     }
 

@@ -16,11 +16,11 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.tools.PSystemUtils;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -82,7 +82,7 @@ public class FavouriteGuiController extends VBox {
         if (favourite.isEmpty()) {
             return;
         }
-        PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
+        P2SystemUtils.copyToClipboard(favourite.get().getStationUrl());
     }
 
     private void setSelectedFavourite() {
@@ -120,7 +120,7 @@ public class FavouriteGuiController extends VBox {
         final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return ret;
     }
@@ -136,7 +136,7 @@ public class FavouriteGuiController extends VBox {
         }
 
         if (show) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return Optional.empty();
     }
@@ -161,19 +161,19 @@ public class FavouriteGuiController extends VBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.REFRESH_TABLE) {
-            public void pingGui(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+            public void pingGui(P2Event event) {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void pingGui(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.SETDATA_CHANGED) {
+            public void pingGui(P2Event event) {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
             @Override
-            public void pingGui(PEvent event) {
+            public void pingGui(P2Event event) {
                 P2TableFactory.refreshTable(tableView);
             }
         });

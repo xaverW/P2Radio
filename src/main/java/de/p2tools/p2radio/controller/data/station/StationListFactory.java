@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.station;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.SimpleListProperty;
@@ -43,7 +43,7 @@ public class StationListFactory {
         // damit werden Unicode-Zeichen korrigiert
         // gibt da einen Java-Bug
         // https://github.com/javafxports/openjdk-jfx/issues/287
-        PDuration.counterStart("cleanFaultyCharacter");
+        P2Duration.counterStart("cleanFaultyCharacter");
         StationList stationList = ProgData.getInstance().stationList;
         stationList.stream().forEach(favourite -> {
 
@@ -64,7 +64,7 @@ public class StationListFactory {
             P2Log.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
 
         }
-        PDuration.counterStop("cleanFaultyCharacter");
+        P2Duration.counterStop("cleanFaultyCharacter");
     }
 
     public static String cleanUnicode(String ret) {
@@ -101,7 +101,7 @@ public class StationListFactory {
     public static synchronized void addStationInList(SimpleListProperty<StationData> list) {
         // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
         // den Sender wieder eintragen
-        PDuration.counterStart("FavouriteList.addSenderInList");
+        P2Duration.counterStart("FavouriteList.addSenderInList");
         int counter = 50;
         for (StationData stationData : list) {
             --counter;
@@ -110,12 +110,12 @@ public class StationListFactory {
             }
             stationData.setStation(ProgData.getInstance().stationList.getSenderByUrl(stationData.getStationUrl()));
         }
-        PDuration.counterStop("FavouriteList.addSenderInList");
+        P2Duration.counterStop("FavouriteList.addSenderInList");
     }
 
     public static void findAndMarkFavouriteStations(ProgData progData) {
         // nach Programmstart oder löschen einer Sammlung/History
-        PDuration.counterStart("findAndMarkFavouriteStations");
+        P2Duration.counterStart("findAndMarkFavouriteStations");
         final HashSet<String> hashSet = new HashSet<>();
         hashSet.addAll(progData.favouriteList.stream().map(StationData::getStationUrl).toList());
 
@@ -130,6 +130,6 @@ public class StationListFactory {
                 .forEach(stationData -> stationData.setFavourite(true));
 
         hashSet.clear();
-        PDuration.counterStop("findAndMarkFavouriteStations");
+        P2Duration.counterStop("findAndMarkFavouriteStations");
     }
 }

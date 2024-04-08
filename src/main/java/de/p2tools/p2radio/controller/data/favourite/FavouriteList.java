@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data.favourite;
 
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.beans.property.SimpleListProperty;
@@ -26,7 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class FavouriteList extends SimpleListProperty<StationData> implements PDataList<StationData> {
+public class FavouriteList extends SimpleListProperty<StationData> implements P2DataList<StationData> {
 
     public static final String TAG = "FavouriteList";
     private final ProgData progData;

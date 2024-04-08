@@ -17,9 +17,9 @@
 
 package de.p2tools.p2radio.controller.config;
 
-import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.P2Event;
 
-public class RunEventRadio extends PEvent {
+public class RunEventRadio extends P2Event {
 
     public static final double PROGRESS_MIN = 0.0;
     public static final double PROGRESS_MAX = 1.0;

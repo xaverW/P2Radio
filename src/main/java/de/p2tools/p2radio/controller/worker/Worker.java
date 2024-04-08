@@ -16,8 +16,8 @@
 
 package de.p2tools.p2radio.controller.worker;
 
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
@@ -29,8 +29,8 @@ public class Worker {
     public Worker(ProgData progData) {
         this.progData = progData;
 
-        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends PEvent> void pingGui(T runEvent) {
+        progData.pEventHandler.addListener(new P2Listener(Events.LOAD_RADIO_LIST) {
+            public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 

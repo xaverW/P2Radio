@@ -18,7 +18,7 @@ package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.*;
@@ -26,7 +26,7 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class StationDataProperty<T extends PDataSample> extends PDataSample<T> {
+public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T> {
 
     public static final String TAG = "Favourite";
     private final IntegerProperty stationNo = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);

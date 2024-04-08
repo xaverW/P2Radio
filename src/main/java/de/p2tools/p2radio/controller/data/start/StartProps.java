@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_intProp;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.IntegerProperty;
@@ -30,7 +30,7 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class StartProps extends PDataSample<Start> {
+public class StartProps extends P2DataSample<Start> {
 
     private final IntegerProperty no = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
     private final IntegerProperty stationNo = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);

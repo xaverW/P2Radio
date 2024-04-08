@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import javafx.beans.property.StringProperty;
@@ -187,7 +187,7 @@ public class Table {
         }
     }
 
-    private static void initColumn(TableView<PDataSample> table) {
+    private static void initColumn(TableView<P2DataSample> table) {
         tArray = table.getColumns().toArray(TableColumn[]::new);
         table.getColumns().clear();
 

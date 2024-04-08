@@ -20,7 +20,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -59,7 +59,7 @@ public class StationLoadFactory {
 
     private static void read(String sourceFile, final StationList stationList) {
         // lokale Datei laden
-        PDuration.counterStart("LoadJsonFactory.read()");
+        P2Duration.counterStart("LoadJsonFactory.read()");
 
         countAll = 0;
         List<String> logList = new ArrayList<>();
@@ -77,7 +77,7 @@ public class StationLoadFactory {
         logList.add("");
         P2Log.sysLog(logList);
 
-        PDuration.counterStop("LoadJsonFactory.read()");
+        P2Duration.counterStop("LoadJsonFactory.read()");
     }
 
     /**

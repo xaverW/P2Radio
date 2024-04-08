@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
@@ -41,7 +41,7 @@ public class StationSaveFactory {
     }
 
     public static void saveStationListJson() {
-        PDuration.counterStart("ProgSaveFactory.saveStationListJson");
+        P2Duration.counterStart("ProgSaveFactory.saveStationListJson");
         Path file = ProgInfos.getStationFileJson();
         StationList stationList = ProgData.getInstance().stationList;
 
@@ -83,6 +83,6 @@ public class StationSaveFactory {
         } catch (Exception ex) {
             P2Log.errorLog(846930145, ex, "nach: " + file);
         }
-        PDuration.counterStop("ProgSaveFactory.saveStationListJson");
+        P2Duration.counterStop("ProgSaveFactory.saveStationListJson");
     }
 }

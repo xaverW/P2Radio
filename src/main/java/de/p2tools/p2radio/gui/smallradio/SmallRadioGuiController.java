@@ -19,9 +19,9 @@ package de.p2tools.p2radio.gui.smallradio;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.PSystemUtils;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -41,8 +41,8 @@ public class SmallRadioGuiController extends P2DialogOnly {
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
-    private final PListener listener = new PListener(Events.REFRESH_TABLE) {
-        public void pingGui(PEvent event) {
+    private final P2Listener listener = new P2Listener(Events.REFRESH_TABLE) {
+        public void pingGui(P2Event event) {
             tableRefresh();
         }
     };
@@ -139,7 +139,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         if (!favourite.isPresent()) {
             return;
         }
-        PSystemUtils.copyToClipboard(favourite.get().getStationUrl());
+        P2SystemUtils.copyToClipboard(favourite.get().getStationUrl());
     }
 
     public void playStation() {

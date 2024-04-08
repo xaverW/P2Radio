@@ -107,7 +107,7 @@ public class ProgIconsP2Radio {
             url = ProgConst.class.getResource(p);
             if (set(url, p, "ProgConst.class.getResource")) return true;
             url = ProgIconsP2Radio.class.getResource(p);
-            if (set(url, p, "ProgIconsRadio.class.getResource")) return true;
+            if (set(url, p, "ProgIconsP2Radio.class.getResource")) return true;
             url = this.getClass().getResource(p);
             if (set(url, p, "this.getClass().getResource")) return true;
 

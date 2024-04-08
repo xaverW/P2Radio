@@ -17,10 +17,11 @@
 package de.p2tools.p2radio.controller.data.history;
 
 
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 
-public class HistoryFilterXml extends PDataSample<HistoryFilter> {
+public class HistoryFilterXml extends P2DataSample<HistoryFilter> {
     public static final String TAG = "HistoryFilter";
 
     public static final int HISTORY_FILTER_GENRE = 0;

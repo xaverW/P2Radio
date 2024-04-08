@@ -17,10 +17,10 @@
 package de.p2tools.p2radio.controller.data.favourite;
 
 
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 
-public class FavouriteFilterXml extends PDataSample<FavouriteFilter> {
+public class FavouriteFilterXml extends P2DataSample<FavouriteFilter> {
     public static final String TAG = "FavouriteFilter";
 
     public static final int FAVOURITE_FILTER_COLLECTION_NAME = 0;

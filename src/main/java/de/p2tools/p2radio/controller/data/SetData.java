@@ -18,16 +18,16 @@ package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.tools.PIndex;
+import de.p2tools.p2lib.tools.P2Index;
 
 public class SetData extends SetDataProps {
 
     public SetData() {
-        setId(PIndex.getIndexStr());
+        setId(P2Index.getIndexStr());
     }
 
     public SetData(String name) {
-        setId(PIndex.getIndexStr());
+        setId(P2Index.getIndexStr());
         setVisibleName(name);
     }
 
@@ -39,7 +39,7 @@ public class SetData extends SetDataProps {
         for (int i = 0; i < configs.length; ++i) {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
-        ret.setId(PIndex.getIndexStr()); //es darf nur einen geben!
+        ret.setId(P2Index.getIndexStr()); //es darf nur einen geben!
         ret.setVisibleName("Kopie-" + getVisibleName());
 
         return ret;

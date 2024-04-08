@@ -18,8 +18,8 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -83,8 +83,8 @@ public class StationFilterController extends FilterController {
         vBoxBottom = getVBoxBottom();//zum Schluss, damit untern in der VBoxAll
         vBoxBottom.getChildren().addAll(hBox);
 
-        progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
-            public void pingGui(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.BLACKLIST_CHANGED) {
+            public void pingGui(P2Event event) {
                 setBlack();
             }
         });

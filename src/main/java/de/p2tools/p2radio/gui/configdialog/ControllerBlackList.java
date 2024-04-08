@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.configdialog;
 
-import de.p2tools.p2lib.dialogs.accordion.PAccordionPane;
+import de.p2tools.p2lib.dialogs.accordion.P2AccordionPane;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.TitledPane;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ControllerBlackList extends PAccordionPane {
+public class ControllerBlackList extends P2AccordionPane {
 
     private final BooleanProperty blackChanged;
     private final Stage stage;

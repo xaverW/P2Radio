@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.radiosloadfromweb;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -65,7 +65,7 @@ public class ReadRadiosFromWeb {
     }
 
     private void read(String url, final StationList stationList) {
-        PDuration.counterStart("ReadRadioBrowser.read()");
+        P2Duration.counterStart("ReadRadioBrowser.read()");
         countAll = 0;
         List<String> logList = new ArrayList<>();
         logList.add("");
@@ -96,7 +96,7 @@ public class ReadRadiosFromWeb {
         logList.add("");
         P2Log.sysLog(logList);
 
-        PDuration.counterStop("ReadRadioBrowser.read()");
+        P2Duration.counterStop("ReadRadioBrowser.read()");
     }
 
     /**

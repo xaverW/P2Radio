@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.SetDataList;
@@ -154,7 +154,7 @@ public class StationGuiTableContextMenu {
 
         MenuItem item;
         item = new MenuItem("Sender-URL kopieren");
-        item.setOnAction(a -> PSystemUtils.copyToClipboard(station.getStationUrl()));
+        item.setOnAction(a -> P2SystemUtils.copyToClipboard(station.getStationUrl()));
         subMenuURL.getItems().add(item);
 
         return subMenuURL;

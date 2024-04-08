@@ -17,8 +17,8 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -145,8 +145,8 @@ public class P2RadioController extends StackPane {
 
         infoPane();
 
-        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends PEvent> void pingGui(T event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.LOAD_RADIO_LIST) {
+            public <T extends P2Event> void pingGui(T event) {
                 if (event.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) event;
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {

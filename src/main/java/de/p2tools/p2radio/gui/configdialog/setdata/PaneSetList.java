@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.configdialog.setdata;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
@@ -147,7 +147,7 @@ public class PaneSetList extends TitledPane {
         btnNewSet.setTooltip(new Tooltip("Standardsets erstellen und der Liste anfügen"));
         btnNewSet.setOnAction(event -> {
             if (!SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
-                PAlert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
+                P2Alert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
             }
         });
         HBox.setHgrow(btnNewSet, Priority.ALWAYS);
@@ -170,7 +170,7 @@ public class PaneSetList extends TitledPane {
     private SetData getSelectedSelData() {
         final SetData sel = tableView.getSelectionModel().getSelectedItem();
         if (sel == null) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return sel;
     }
@@ -178,7 +178,7 @@ public class PaneSetList extends TitledPane {
     private int getSelectedLine() {
         final int sel = tableView.getSelectionModel().getSelectedIndex();
         if (sel < 0) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return sel;
     }

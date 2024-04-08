@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.controller.radiosloadfromweb;
 
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.tools.duration.P2Duration;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.config.Events;
@@ -52,8 +52,8 @@ public class LoadNewStationList {
     public LoadNewStationList(ProgData progData) {
         this.progData = progData;
 
-        progData.pEventHandler.addListener(new PListener(Events.READ_STATIONS) {
-            public <T extends PEvent> void pingGui(T runEvent) {
+        progData.pEventHandler.addListener(new P2Listener(Events.READ_STATIONS) {
+            public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
@@ -81,9 +81,9 @@ public class LoadNewStationList {
                         P2Log.sysLog(P2Log.LILNE1);
                         P2Log.sysLog("");
 
-                        PDuration.onlyPing("Sender geladen: Nachbearbeiten");
+                        P2Duration.onlyPing("Sender geladen: Nachbearbeiten");
                         afterImportNewStationListFromServer(runE);
-                        PDuration.onlyPing("Sender nachbearbeiten: Ende");
+                        P2Duration.onlyPing("Sender nachbearbeiten: Ende");
 
                         // alles fertig ans Prog melden
                         ProgData.getInstance().pEventHandler.notifyListener(
@@ -123,7 +123,7 @@ public class LoadNewStationList {
         }
 
         setPropLoadStationList(true);
-        PDuration.onlyPing("Radioliste laden: start");
+        P2Duration.onlyPing("Radioliste laden: start");
         final List<String> logList = new ArrayList<>();
         logList.add("");
         logList.add(P2Log.LILNE1);
@@ -163,7 +163,7 @@ public class LoadNewStationList {
             logList.add("");
             logList.add("Senderliste laden war fehlerhaft, alte Liste wird wieder geladen");
             final boolean stopped = isStop();
-            Platform.runLater(() -> PAlert.showErrorAlert("Senderliste laden",
+            Platform.runLater(() -> P2Alert.showErrorAlert("Senderliste laden",
                     stopped ? "Das Laden einer neuen Senderliste wurde abgebrochen!" :
                             "Das Laden einer neuen Senderliste hat nicht geklappt!")
             );

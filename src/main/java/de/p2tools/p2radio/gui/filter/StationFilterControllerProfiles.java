@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -83,7 +83,7 @@ public class StationFilterControllerProfiles extends VBox {
 
         btnSaveFilter.setOnAction(a -> {
             if (cboFilterProfiles.getSelectionModel().getSelectedItem() == null
-                    || PAlert.showAlertOkCancel("Speichern", "Filterprofil speichern",
+                    || P2Alert.showAlertOkCancel("Speichern", "Filterprofil speichern",
                     "Soll das Filterprofil überschrieben werden?")) {
                 saveFilter();
             }
@@ -204,7 +204,7 @@ public class StationFilterControllerProfiles extends VBox {
     }
 
     private void delAllFilter() {
-        if (PAlert.showAlertOkCancel("Löschen", "Filterprofile löschen",
+        if (P2Alert.showAlertOkCancel("Löschen", "Filterprofile löschen",
                 "Sollen alle Filterprofile gelöscht werden?")) {
             progData.storedFilters.removeAllStoredFilter();
             cboFilterProfiles.getSelectionModel().selectFirst();
@@ -212,7 +212,7 @@ public class StationFilterControllerProfiles extends VBox {
     }
 
     private void resetFilter() {
-        if (PAlert.showAlertOkCancel("Zurücksetzen", "Filterprofile zurücksetzen",
+        if (P2Alert.showAlertOkCancel("Zurücksetzen", "Filterprofile zurücksetzen",
                 "Sollen alle Filterprofile gelöscht " +
                         "und durch die Profile vom ersten Programmstart " +
                         "ersetzt werden?")) {

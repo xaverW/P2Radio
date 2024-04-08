@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools.stationlistfilter;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -33,7 +33,7 @@ public class BlackFilterCountHitsFactory {
         // hier wird die Blacklist gegen die Senderliste gefilter und die Treffer
         // für jeden Blacklisteintrag ermittelt
 
-        PDuration.counterStart("BlackFilterCountHitsFactory.countHits");
+        P2Duration.counterStart("BlackFilterCountHitsFactory.countHits");
         progData.blackDataList.clearCounter();
 
         final StationList stationList = progData.stationList;
@@ -41,7 +41,7 @@ public class BlackFilterCountHitsFactory {
             stationList.parallelStream().forEach(station -> applyBlacklistFilters(station, abort));
         }
 
-        PDuration.counterStop("BlackFilterCountHitsFactory.countHits");
+        P2Duration.counterStop("BlackFilterCountHitsFactory.countHits");
     }
 
 

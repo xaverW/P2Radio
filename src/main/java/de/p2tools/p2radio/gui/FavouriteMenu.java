@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui;
 
-import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
+import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
@@ -95,7 +95,7 @@ public class FavouriteMenu {
         } else {
             final MenuItem miPlay = new MenuItem("Sender abspielen");
             miPlay.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
-            PShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
+            P2ShortcutWorker.addShortCut(miPlay, P2RadioShortCuts.SHORTCUT_PLAY_STATION);
             mb.getItems().addAll(miPlay);
         }
 
@@ -104,7 +104,7 @@ public class FavouriteMenu {
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
         miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
-        PShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
+        P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().copyUrl());
@@ -117,7 +117,7 @@ public class FavouriteMenu {
         // Submenü "Favoriten"
         final MenuItem miFavouriteChange = new MenuItem("Favoriten ändern");
         miFavouriteChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
-        PShortcutWorker.addShortCut(miFavouriteChange, P2RadioShortCuts.SHORTCUT_FAVOURITE_CHANGE);
+        P2ShortcutWorker.addShortCut(miFavouriteChange, P2RadioShortCuts.SHORTCUT_FAVOURITE_CHANGE);
 
         final MenuItem miFavouriteDel = new MenuItem("Favoriten löschen");
         miFavouriteDel.setOnAction(a -> FavouriteFactory.deleteFavourite(false));

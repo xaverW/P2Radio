@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.history;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
@@ -43,8 +43,8 @@ public class HistoryFactory {
             } else {
                 text = "Sollen die " + list.size() + " markierten Sender aus der History gelöscht werden?";
             }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
-                    "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
+            if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage,
+                    "History löschen?", "History löschen?", text).equals(P2Alert.BUTTON.YES)) {
                 ProgData.getInstance().historyList.removeAll(list);
             }
 
@@ -57,8 +57,8 @@ public class HistoryFactory {
     }
 
     public static void deleteHistory(StationData stationData) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
-                "Soll der Sender aus der History gelöscht werden?").equals(PAlert.BUTTON.YES)) {
+        if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "History löschen?", "History löschen?",
+                "Soll der Sender aus der History gelöscht werden?").equals(P2Alert.BUTTON.YES)) {
             ProgData.getInstance().historyList.remove(stationData);
             StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
@@ -67,8 +67,8 @@ public class HistoryFactory {
     public static void deleteCompleteHistory() {
         final String text;
         text = "Soll die gesamte History gelöscht werden?";
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage,
-                "History löschen?", "History löschen?", text).equals(PAlert.BUTTON.YES)) {
+        if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage,
+                "History löschen?", "History löschen?", text).equals(P2Alert.BUTTON.YES)) {
             ProgData.getInstance().historyList.clear();
         }
     }

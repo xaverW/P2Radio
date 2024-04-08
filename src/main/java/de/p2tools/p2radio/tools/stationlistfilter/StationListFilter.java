@@ -17,9 +17,9 @@
 
 package de.p2tools.p2radio.tools.stationlistfilter;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.duration.P2Duration;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
@@ -50,8 +50,8 @@ public class StationListFilter {
                 filter();
             }
         }); // Senderfilter (User) haben sich geändert
-        progData.pEventHandler.addListener(new PListener(Events.LOAD_RADIO_LIST) {
-            public <T extends PEvent> void pingGui(T runEvent) {
+        progData.pEventHandler.addListener(new P2Listener(Events.LOAD_RADIO_LIST) {
+            public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 
@@ -61,8 +61,8 @@ public class StationListFilter {
                 }
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.BLACKLIST_CHANGED) {
-            public void pingGui(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.BLACKLIST_CHANGED) {
+            public void pingGui(P2Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //wird sonst eh gemacht
                     filterList();
@@ -83,9 +83,9 @@ public class StationListFilter {
             Thread th = new Thread(() -> {
                 try {
                     Platform.runLater(() -> {
-                        PDuration.counterStart("StationListFilter.filterList");
+                        P2Duration.counterStart("StationListFilter.filterList");
                         progData.stationListBlackFiltered.filteredListSetPred(progData.storedFilters.getActFilterSettings().getPredicate());
-                        PDuration.counterStop("StationListFilter.filterList");
+                        P2Duration.counterStop("StationListFilter.filterList");
                         search.set(false);
                         if (research.get()) {
                             filterList();

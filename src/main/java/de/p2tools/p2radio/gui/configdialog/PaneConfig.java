@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
-import de.p2tools.p2lib.tools.PStringUtils;
+import de.p2tools.p2lib.tools.P2StringUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -93,7 +93,7 @@ public class PaneConfig {
             }
 
             private boolean check(String text) {
-                String str = PStringUtils.convertToASCIIEncoding(text);
+                String str = P2StringUtils.convertToASCIIEncoding(text);
                 final int size = getText().length() + text.length();
 
                 return text.isEmpty() || (size < ProgConst.MAX_USER_AGENT_SIZE) && text.equals(str);

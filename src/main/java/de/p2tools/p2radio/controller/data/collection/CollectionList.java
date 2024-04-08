@@ -16,14 +16,14 @@
 
 package de.p2tools.p2radio.controller.data.collection;
 
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 @SuppressWarnings("serial")
-public class CollectionList extends SimpleListProperty<CollectionData> implements PDataList<CollectionData> {
+public class CollectionList extends SimpleListProperty<CollectionData> implements P2DataList<CollectionData> {
 
     public static final String COLLECTION_ALL = " ";
     public static final String TAG = "CollectionDataList";

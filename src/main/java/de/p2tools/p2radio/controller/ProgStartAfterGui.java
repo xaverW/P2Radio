@@ -17,9 +17,9 @@
 package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2lib.guitools.P2WindowIcon;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.*;
@@ -67,15 +67,15 @@ public class ProgStartAfterGui {
 
     public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
         }
     }
 
     private static void checkProgUpdate(ProgData progData) {
         // Prüfen obs ein Programmupdate gibt
-        PDuration.onlyPing("checkProgUpdate");
+        P2Duration.onlyPing("checkProgUpdate");
         if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
                 !updateCheckTodayDone()) {
             // nach Updates suchen
@@ -111,7 +111,7 @@ public class ProgStartAfterGui {
     private static void loadStationProgStart() {
         P2Log.sysLog("START: loadStationProgStart");
         final ProgData progData = ProgData.getInstance();
-        PDuration.onlyPing("Programmstart Senderliste laden: start");
+        P2Duration.onlyPing("Programmstart Senderliste laden: start");
 
         progData.pEventHandler.notifyListener(
                 new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,

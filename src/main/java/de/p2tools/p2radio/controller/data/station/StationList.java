@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.controller.data.station;
 
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -36,7 +36,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
-public class StationList extends SimpleListProperty<StationData> implements PDataList<StationData> {
+public class StationList extends SimpleListProperty<StationData> implements P2DataList<StationData> {
 
     public static final String TAG = "StationList";
     public static final String KEY_STATION_DATE = "stationDate";
@@ -162,7 +162,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
         // läuft direkt nach dem Laden der Senderliste!
         // doppelte Sender (URL), Geo, InFuture markieren
 
-        PDuration.counterStart("Sender markieren");
+        P2Duration.counterStart("Sender markieren");
         final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
         try {
             countDouble = 0;
@@ -177,7 +177,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
             P2Log.errorLog(951024789, ex);
         }
         urlHashSet.clear();
-        PDuration.counterStop("Sender markieren");
+        P2Duration.counterStop("Sender markieren");
 
         return countDouble;
     }
@@ -211,7 +211,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
      * Erstellt StringArrays der Codecs/Länder eines Senders.
      */
     public synchronized void loadFilterLists() {
-        PDuration.counterStart("Filter-Listen suchen");
+        P2Duration.counterStart("Filter-Listen suchen");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(21);
 
         //Codec
@@ -230,7 +230,7 @@ public class StationList extends SimpleListProperty<StationData> implements PDat
         stream().forEach((radio) -> hashSet.add(radio.getCountry()));
         countries = hashSet.toArray(new String[hashSet.size()]);
 
-        PDuration.counterStop("Filter-Listen suchen");
+        P2Duration.counterStop("Filter-Listen suchen");
     }
 
     public synchronized int countStartedAndRunningFavourites() {

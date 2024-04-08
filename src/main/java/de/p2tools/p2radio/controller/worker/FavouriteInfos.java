@@ -17,9 +17,9 @@
 
 package de.p2tools.p2radio.controller.worker;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.duration.P2Duration;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -34,8 +34,8 @@ public class FavouriteInfos {
 
     public FavouriteInfos(ProgData progData) {
         this.progData = progData;
-        progData.pEventHandler.addListener(new PListener(Events.TIMER) {
-            public void ping(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.TIMER) {
+            public void ping(P2Event event) {
                 generateFavouriteInfos();
             }
         });
@@ -60,7 +60,7 @@ public class FavouriteInfos {
             return;
         }
 
-        PDuration.counterStart("FavouriteInfos.generateInfos");
+        P2Duration.counterStart("FavouriteInfos.generateInfos");
         // generiert die Anzahl Favoriten
         clean();
         for (final StationData stationData : progData.favouriteList) {
@@ -71,7 +71,7 @@ public class FavouriteInfos {
                 ++notStarted;
             }
         }
-        PDuration.counterStop("FavouriteInfos.generateInfos");
+        P2Duration.counterStop("FavouriteInfos.generateInfos");
     }
 
     private synchronized void clean() {

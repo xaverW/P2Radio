@@ -18,7 +18,7 @@
 package de.p2tools.p2radio.gui.tools;
 
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -157,14 +157,14 @@ public class ProgTray {
         popupMenu.add(miStop);
         popupMenu.add(miInfo);
         popupMenu.add(miConfig);
-        if (!ProgramToolsFactory.getOs().equals(ProgramToolsFactory.OperatingSystemType.MAC)) {
+        if (!P2ToolsFactory.getOs().equals(P2ToolsFactory.OperatingSystemType.MAC)) {
             //machen unter MAC Probleme
             popupMenu.add(miTray);
         }
 
         popupMenu.addSeparator();
         popupMenu.add(miAbout);
-        if (!ProgramToolsFactory.getOs().equals(ProgramToolsFactory.OperatingSystemType.MAC)) {
+        if (!P2ToolsFactory.getOs().equals(P2ToolsFactory.OperatingSystemType.MAC)) {
             //machen unter MAC Probleme
             popupMenu.addSeparator();
             popupMenu.add(miQuit);

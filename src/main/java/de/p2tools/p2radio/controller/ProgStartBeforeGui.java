@@ -18,9 +18,9 @@ package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2Date;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -43,7 +43,7 @@ public class ProgStartBeforeGui {
 
     public static void workBeforeGui(ProgData progData) {
         if (!loadProgConfigData()) {
-            PDuration.onlyPing("Erster Start");
+            P2Duration.onlyPing("Erster Start");
             ProgData.firstProgramStart = true;
             UpdateConfig.setUpdateDone(); //dann ists ja kein Programmupdate
             ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.setValue(true);//den Dialog brauchts dann auch nicht
@@ -57,9 +57,9 @@ public class ProgStartBeforeGui {
     }
 
     private static void resetConfigs() {
-        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(ProgramToolsFactory.getProgVersion()) ||
-                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(ProgramToolsFactory.getBuild()) ||
-                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(ProgramToolsFactory.getCompileDate())) {
+        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(P2ToolsFactory.getProgVersion()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(P2ToolsFactory.getBuild()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(P2ToolsFactory.getCompileDate())) {
 
             //dann ist eine neue Version/Build
             P2Log.sysLog("===============================");
@@ -131,12 +131,12 @@ public class ProgStartBeforeGui {
             System.exit(0);
         }
 
-        PDuration.onlyPing("Erster Start: PSet");
+        P2Duration.onlyPing("Erster Start: PSet");
         final SetDataList pSet = ImportSetDataFactory.getStandarset();
         if (pSet != null) {
             progData.setDataList.addSetData(pSet);
         }
-        PDuration.onlyPing("Erster Start: PSet geladen");
+        P2Duration.onlyPing("Erster Start: PSet geladen");
 
         InitStoredFilter.initFilter();
     }
@@ -146,7 +146,7 @@ public class ProgStartBeforeGui {
             P2Logger.setFileHandler(ProgInfos.getLogDirectoryString());
         }
 
-        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
         if (!loadProgConfig()) {
             P2Log.sysLog("-> konnte nicht geladen werden!");
             clearTheConfigs();
@@ -161,7 +161,7 @@ public class ProgStartBeforeGui {
 
     private static boolean loadProgConfig() {
         final Path xmlFilePath = ProgInfos.getSettingsFile();
-        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
         try {
             if (!Files.exists(xmlFilePath)) {
                 //dann gibts das Konfig-File gar nicht

@@ -17,12 +17,12 @@
 package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -183,7 +183,7 @@ public class SmallRadioGuiCenter extends HBox {
         }
 
         if (show) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return Optional.empty();
     }
@@ -192,7 +192,7 @@ public class SmallRadioGuiCenter extends HBox {
         final ArrayList<StationData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return ret;
     }
@@ -217,14 +217,14 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.SETDATA_CHANGED) {
-            public void pingGui(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.SETDATA_CHANGED) {
+            public void pingGui(P2Event event) {
                 tableRefresh();
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
             @Override
-            public void pingGui(PEvent runEvent) {
+            public void pingGui(P2Event runEvent) {
                 tableRefresh();
             }
         });

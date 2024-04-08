@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.tools.stationlistfilter;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -42,7 +42,7 @@ public class BlackFilterFactory {
         // mit der Liste wird dann im TabSender weiter gearbeitet
         loadCurrentFilterSettings();
 
-        PDuration.counterStart("StationListBlackFilter.getBlackFiltered");
+        P2Duration.counterStart("StationListBlackFilter.getBlackFiltered");
         if (progData.stationList != null) {
 
             Stream<StationData> initialStream = progData.stationList.stream();
@@ -64,13 +64,13 @@ public class BlackFilterFactory {
             P2Log.sysLog("START: BlackFilterFactory-getBlackFiltered");
             progData.stationListBlackFiltered.setAll(initialStream.toList());
         }
-        PDuration.counterStop("StationListBlackFilter.getBlackFiltered");
+        P2Duration.counterStop("StationListBlackFilter.getBlackFiltered");
     }
 
     public static synchronized void markStationBlack() {
         // die Liste der Sender durchgehen und gegen die Blacklist checken
         // und geblockte Sender markieren
-        PDuration.counterStart("StationListBlackFilter.markStationBlack");
+        P2Duration.counterStart("StationListBlackFilter.markStationBlack");
         final StationList stationList = progData.stationList;
         loadCurrentFilterSettings();
 
@@ -78,7 +78,7 @@ public class BlackFilterFactory {
         stationList.forEach(station -> {
             station.setBlackBlocked(checkBlock(station));
         });
-        PDuration.counterStop("StationListBlackFilter.markStationBlack");
+        P2Duration.counterStop("StationListBlackFilter.markStationBlack");
     }
 
     /**

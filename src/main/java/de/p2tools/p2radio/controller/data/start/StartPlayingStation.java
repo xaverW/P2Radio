@@ -18,8 +18,8 @@ package de.p2tools.p2radio.controller.data.start;
 
 
 import de.p2tools.p2lib.tools.date.P2DateConst;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -56,8 +56,8 @@ public class StartPlayingStation extends Thread {
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
-        progData.pEventHandler.addListener(new PListener(Events.TIMER) {
-            public void ping(PEvent event) {
+        progData.pEventHandler.addListener(new P2Listener(Events.TIMER) {
+            public void ping(P2Event event) {
                 ++runTime;
                 if (runTime == ProgConst.START_COUNTER_MIN_TIME && stationData != null) {
                     StartProgramFactory.setStartCounter(stationData);
@@ -248,6 +248,6 @@ public class StartPlayingStation extends Thread {
 
     private void refreshTable() {
         //nicht optimal??
-        progData.pEventHandler.notifyListener(new PEvent(Events.REFRESH_TABLE));
+        progData.pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
     }
 }

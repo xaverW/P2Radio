@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.favouriteadd;
 
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -87,7 +87,7 @@ public class FavouriteAddDialogController extends P2DialogExtra {
         ok = false;
         for (AddFavouriteData d : addFavouriteDto.addFavouriteData) {
             if (d.stationData == null) {
-                PAlert.showErrorAlert("Fehlerhafter Favorite!", "Fehlerhafter Favorite!",
+                P2Alert.showErrorAlert("Fehlerhafter Favorite!", "Fehlerhafter Favorite!",
                         "Favorite konnte nicht erstellt werden.");
 
             } else {

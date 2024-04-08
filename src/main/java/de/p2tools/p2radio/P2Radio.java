@@ -16,10 +16,10 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.P2LibInit;
-import de.p2tools.p2lib.ProgIconsP2Lib;
+import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
@@ -51,7 +51,7 @@ public class P2Radio extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        PDuration.counterStart(LOG_TEXT_PROGRAM_START);
+        P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
 
@@ -62,13 +62,13 @@ public class P2Radio extends Application {
 
         ProgConfig.CONFIG_DIALOG_SET_DIVIDER.addListener((u, o, n) -> System.out.println("=============>>" + i++));
 
-        PDuration.onlyPing("Gui steht!");
-        PDuration.counterStop(LOG_TEXT_PROGRAM_START);
+        P2Duration.onlyPing("Gui steht!");
+        P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
     }
 
     private void initP2lib() {
         ProgIconsP2Radio.initIcons();
-        ProgIconsP2Lib.initIcons();
+        P2ProgIcons.initIcons();
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
                 "", ProgConfig.SYSTEM_DARK_THEME, ProgData.debug, ProgData.duration);
         //css-files in die Liste aufnehmen

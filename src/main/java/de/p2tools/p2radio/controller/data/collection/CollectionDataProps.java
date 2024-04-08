@@ -18,13 +18,13 @@ package de.p2tools.p2radio.controller.data.collection;
 
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class CollectionDataProps extends PDataSample<CollectionData> {
+public class CollectionDataProps extends P2DataSample<CollectionData> {
     public static final String TAG = "CollectionData";
     private final StringProperty name = new SimpleStringProperty("");
     private int no = 0;
