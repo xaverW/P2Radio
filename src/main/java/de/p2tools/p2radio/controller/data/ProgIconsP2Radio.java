@@ -35,6 +35,7 @@ public class ProgIconsP2Radio {
     public static P2IconInfo ICON_BUTTON_RESET = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "button-reset.png", 14, 14);
     public static P2IconInfo ICON_BUTTON_EDIT_FILTER = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "button-edit-filter.png", 16, 16);
     public static P2IconInfo ICON_BUTTON_BACKWARD = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "button-backward.png", 16, 16);
+    public static P2IconInfo ICON_BUTTON_CLEAN = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "clean_16.png", 16, 16);
     public static P2IconInfo ICON_BUTTON_FORWARD = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "button-forward.png", 16, 16);
     public static P2IconInfo ICON_BUTTON_MENU = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "button-menu.png", 18, 15);
     public static P2IconInfo ICON_BUTTON_QUIT = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "button-quit.png", 16, 16);

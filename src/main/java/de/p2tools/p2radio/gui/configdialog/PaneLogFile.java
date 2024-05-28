@@ -23,7 +23,6 @@ import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
@@ -39,21 +38,18 @@ import java.util.Collection;
 
 public class PaneLogFile {
 
-    private final P2ToggleSwitch tglSmallStation = new P2ToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
-    private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
-            ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
-    private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
     private final BooleanProperty logfileChanged = new SimpleBooleanProperty(false);
-    private final Stage stage;
+    private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
+    private final Label lblStandardLogDir = new Label("");
     private TextField txtLogFile;
+
+    private final Stage stage;
 
     public PaneLogFile(Stage stage) {
         this.stage = stage;
     }
 
     public void close() {
-        tglSmallStation.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
-        tglLoadStationList.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
         tglEnableLog.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOG_ON);
         txtLogFile.textProperty().unbindBidirectional(ProgConfig.SYSTEM_LOG_DIR);
     }
@@ -73,7 +69,7 @@ public class PaneLogFile {
                 return;
             }
             if (newValue) {
-                P2Logger.setFileHandler(ProgInfos.getLogDirectoryString());
+                P2Logger.setFileHandler(ProgInfos.getLogDirectory_String());
             } else {
                 P2Logger.removeFileHandler();
             }
@@ -83,9 +79,6 @@ public class PaneLogFile {
 
         txtLogFile = new TextField();
         txtLogFile.textProperty().bindBidirectional(ProgConfig.SYSTEM_LOG_DIR);
-        if (txtLogFile.getText().isEmpty()) {
-            txtLogFile.setText(ProgInfos.getLogDirectoryString());
-        }
 
         final Button btnFile = new Button();
         btnFile.setTooltip(new Tooltip("Einen Ordner für das Logfile auswählen"));
@@ -94,11 +87,11 @@ public class PaneLogFile {
         });
         btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
 
-        final Button btnReset = new Button();
-        btnReset.setGraphic(ProgIconsP2Radio.ICON_BUTTON_RESET.getImageView());
-        btnReset.setTooltip(new Tooltip("Standardpfad für das Logfile wieder herstellen"));
-        btnReset.setOnAction(event -> {
-            txtLogFile.setText(ProgInfos.getStandardLogDirectoryString());
+        final Button btnClear = new Button();
+        btnClear.setGraphic(ProgIconsP2Radio.ICON_BUTTON_CLEAN.getImageView());
+        btnClear.setTooltip(new Tooltip("Pfad löschen"));
+        btnClear.setOnAction(event -> {
+            txtLogFile.setText("");
         });
 
         final Button btnChange = new Button("_Pfad zum Logfile jetzt schon ändern");
@@ -107,33 +100,48 @@ public class PaneLogFile {
                 "ansonsten wird er erst beim nächsten\n" +
                 "Programmstart verwendet"));
         btnChange.setOnAction(event -> {
-            P2Logger.setFileHandler(ProgInfos.getLogDirectoryString());
+            P2Logger.setFileHandler(ProgInfos.getLogDirectory_String());
             logfileChanged.setValue(false);
         });
-        Label lblDir = new Label("Ordner:");
+
+        Label lblPath = new Label("Eigener Pfad:");
+
+        lblStandardLogDir.visibleProperty().bind(tglEnableLog.selectedProperty());
+        txtLogFile.textProperty().addListener((u, o, n) -> setLabel());
+        setLabel();
 
         int row = 0;
         gridPane.add(tglEnableLog, 0, row, 3, 1);
         gridPane.add(btnHelp, 3, row);
+        gridPane.add(lblStandardLogDir, 0, ++row, 4, 1);
 
-        ++row;
-        gridPane.add(lblDir, 0, ++row);
+        gridPane.add(new Label(""), 0, ++row);
+
+        gridPane.add(lblPath, 0, ++row);
         gridPane.add(txtLogFile, 1, row);
         gridPane.add(btnFile, 2, row);
-        gridPane.add(btnReset, 3, row);
+        gridPane.add(btnClear, 3, row);
 
-        gridPane.add(btnChange, 0, ++row, 2, 1);
+        gridPane.add(btnChange, 0, ++row, 4, 1);
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow(),
                 P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcPrefSize());
 
-        lblDir.disableProperty().bind(tglEnableLog.selectedProperty().not());
+        lblPath.disableProperty().bind(tglEnableLog.selectedProperty().not());
         txtLogFile.disableProperty().bind(tglEnableLog.selectedProperty().not());
         btnFile.disableProperty().bind(tglEnableLog.selectedProperty().not());
-        btnReset.disableProperty().bind(tglEnableLog.selectedProperty().not());
+        btnClear.disableProperty().bind(tglEnableLog.selectedProperty().not());
         btnChange.disableProperty().bind(tglEnableLog.selectedProperty().not().or(logfileChanged.not()));
 
         txtLogFile.textProperty().addListener((observable, oldValue, newValue) -> logfileChanged.setValue(true));
+    }
+
+    private void setLabel() {
+        if (txtLogFile.getText().isEmpty()) {
+            lblStandardLogDir.setText("Standard-Pfad:  " + ProgInfos.getStandardLogDirectory_String());
+        } else {
+            lblStandardLogDir.setText("");
+        }
     }
 }

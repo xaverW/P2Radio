@@ -57,7 +57,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStrProp("system-download-dir-new-version", "");
 
     // Configs zum Aktualisieren beim Programmupdate
-    public static IntegerProperty SYSTEM_UPDATE_STATE = addIntProp("system-update-state", 0);
+    public static BooleanProperty SYSTEM_CHANGE_LOG_DIR = addBoolProp("system-change-log-dir", Boolean.FALSE);
 
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStrProp("system-update-date"); // Datum der letzten Prüfung

@@ -34,6 +34,23 @@ public class ProgInfos {
         return ProgConfig.SYSTEM_USERAGENT.get();
     }
 
+    public static String getLogDirectory_String() {
+        final String logDir;
+        if (ProgConfig.SYSTEM_LOG_DIR.get().isEmpty()) {
+            logDir = getStandardLogDirectory_String();
+        } else {
+            logDir = ProgConfig.SYSTEM_LOG_DIR.get();
+        }
+        return logDir;
+    }
+
+    public static String getStandardLogDirectory_String() {
+        return Paths.get(getSettingsDirectory_String(), ProgConst.LOG_DIR).toString();
+    }
+
+    public static String getSettingsDirectory_String() {
+        return getSettingsDirectory().toString();
+    }
 
     /**
      * Retrieve the path to the program jar file.
