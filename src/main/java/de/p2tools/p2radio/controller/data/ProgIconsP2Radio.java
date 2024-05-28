@@ -68,14 +68,14 @@ public class ProgIconsP2Radio {
     public static P2IconInfo ICON_TOOLBAR_MENU_TOP = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-menu-top.png", 32, 18);
     public static P2IconInfo ICON_TOOLBAR_SMALL_RADIO_24 = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-menu-smallRadio-24.png", 24, 24);
     public static P2IconInfo ICON_TOOLBAR_SMALL_RADIO_20 = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-menu-smallRadio-20.png", 20, 20);
-    public static P2IconInfo ICON_TOOLBAR_FAVOURITE_CHANGE = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-favourite-change.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_FAVOURITE_NEW = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-favourite-new.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_FAVOURITE_DEL = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-favourite-del.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_STATION_START = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-start.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_STATION_STOP = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-stop.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_STATION_REC = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-rec.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_STATION_RANDOM = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-random.png", 32, 32);
-    public static P2IconInfo ICON_TOOLBAR_STATION_INFO = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-info.png", 32, 32);
+    public static P2IconInfo ICON_TOOLBAR_FAVOURITE_CHANGE = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-favourite-change.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_FAVOURITE_NEW = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-favourite-new.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_FAVOURITE_DEL = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-favourite-del.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_STATION_START = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-start.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_STATION_STOP = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-stop.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_STATION_REC = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-rec.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_STATION_RANDOM = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-station-random.png", 26, 26);
+    public static P2IconInfo ICON_TOOLBAR_STATION_INFO = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "toolbar-info.png", 26, 26);
 
 
     public static P2IconInfo ICON_DIALOG_EIN_SW = new P2IconInfo(ICON_PATH_LONG, ICON_PATH, "dialog-ein-sw.png", 16, 16);
