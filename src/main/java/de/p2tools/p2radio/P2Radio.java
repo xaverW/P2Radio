@@ -16,7 +16,6 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.P2LibInit;
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -68,9 +67,9 @@ public class P2Radio extends Application {
 
     private void initP2lib() {
         ProgIconsP2Radio.initIcons();
-        P2ProgIcons.initIcons();
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
-                "", ProgConfig.SYSTEM_DARK_THEME, ProgData.debug, ProgData.duration);
+                "", ProgConfig.SYSTEM_DARK_THEME, null,
+                ProgData.debug, ProgData.duration);
         //css-files in die Liste aufnehmen
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }

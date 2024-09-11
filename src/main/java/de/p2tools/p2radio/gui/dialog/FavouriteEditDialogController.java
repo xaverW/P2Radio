@@ -22,7 +22,6 @@ import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
@@ -303,7 +302,7 @@ public class FavouriteEditDialogController extends P2DialogExtra {
                 break;
             case StationDataXml.STATION_PROP_URL_INT:
                 hyperlink = new P2Hyperlink(this.getStage(), actFavourite.stationUrlProperty().getValueSafe(),
-                        ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+                        ProgConfig.SYSTEM_PROG_OPEN_URL);
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.stationUrlProperty());
                 gridPane.add(lbl[i], 0, row);
@@ -312,7 +311,7 @@ public class FavouriteEditDialogController extends P2DialogExtra {
                 break;
             case StationDataXml.STATION_PROP_WEBSITE_INT:
                 hyperlink = new P2Hyperlink(this.getStage(), actFavourite.websiteProperty().getValueSafe(),
-                        ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+                        ProgConfig.SYSTEM_PROG_OPEN_URL);
                 hyperlink.setChangeable();
                 hyperlink.textProperty().bindBidirectional(actFavourite.websiteProperty());
                 gridPane.add(lbl[i], 0, row);

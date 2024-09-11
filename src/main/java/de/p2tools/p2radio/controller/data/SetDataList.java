@@ -56,7 +56,7 @@ public class SetDataList extends SetDataListWorker {
         if (ProgConfig.SYSTEM_PATH_VLC.get().isEmpty()) {
             ProgConfig.SYSTEM_PATH_VLC.setValue(P2DialogFileChooser.showFileChooser(ProgData.getInstance().primaryStage, "VLC",
                     "VLC wird nicht gefunden.", "Bitte den Pfad zum" + P2LibConst.LINE_SEPARATOR +
-                            "VLC-Player angeben.", false, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView()));
+                            "VLC-Player angeben.", false));
         }
         return ProgConfig.SYSTEM_PATH_VLC.get();
     }

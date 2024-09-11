@@ -92,7 +92,7 @@ public class ConfigPane {
 
         P2Hyperlink hyperlink = new P2Hyperlink(stage,
                 ProgConst.URL_WEBSITE_VLC,
-                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+                ProgConfig.SYSTEM_PROG_OPEN_URL);
 
         final Button btnFind = new Button("suchen");
         btnFind.setOnAction(event -> {

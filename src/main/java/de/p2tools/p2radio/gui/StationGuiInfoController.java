@@ -20,7 +20,6 @@ import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -32,9 +31,9 @@ public class StationGuiInfoController extends P2ClosePaneH {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final P2Hyperlink hyperlinkUrl = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
 
     private final StationGuiPack stationGuiPack;
     private StationData station = null;

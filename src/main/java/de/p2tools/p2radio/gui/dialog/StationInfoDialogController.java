@@ -54,9 +54,9 @@ public class StationInfoDialogController extends P2DialogExtra {
     private final ImageView ivBlack = new ImageView();
 
     private final P2Hyperlink pHyperlinkUrl = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final P2Hyperlink pHyperlinkWebsite = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final ProgData progData;
     private StationData station;
 
