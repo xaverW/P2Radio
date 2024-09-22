@@ -18,7 +18,6 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
@@ -30,7 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class HistoryGuiInfoController extends P2ClosePaneH {
+public class PaneFavouriteInfo extends VBox {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
@@ -40,22 +39,22 @@ public class HistoryGuiInfoController extends P2ClosePaneH {
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
-    private final HistoryGuiPack historyGuiPack;
-    private StationData stationData = null;
+    private final FavouriteGuiPack favouriteGuiPack;
+    private StationData favourite = null;
 
-    public HistoryGuiInfoController(HistoryGuiPack historyGuiPack) {
-        super(ProgConfig.HISTORY_GUI_DIVIDER_ON, true);
-        this.historyGuiPack = historyGuiPack;
+    public PaneFavouriteInfo(FavouriteGuiPack favouriteGuiPack) {
+//        super(ProgConfig.FAVOURITE_GUI_DIVIDER_ON, true);
+        this.favouriteGuiPack = favouriteGuiPack;
 
         initInfo();
     }
 
     public void initInfo() {
-        historyGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
-            setStationData(historyGuiPack.stationDataObjectPropertyProperty().getValue());
+        favouriteGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
+            setStationData(favouriteGuiPack.stationDataObjectPropertyProperty().getValue());
         });
 
-        getVBoxAll().getChildren().add(gridPane);
+        getChildren().add(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
@@ -85,11 +84,11 @@ public class HistoryGuiInfoController extends P2ClosePaneH {
     }
 
     public void setStationData(StationData stationData) {
-        if (this.stationData != null) {
-            taDescription.textProperty().unbindBidirectional(this.stationData.descriptionProperty());
+        if (this.favourite != null) {
+            taDescription.textProperty().unbindBidirectional(this.favourite.descriptionProperty());
         }
 
-        this.stationData = stationData;
+        this.favourite = stationData;
         if (stationData == null) {
             lblTitle.setText("");
             hyperlinkWebsite.setUrl("");

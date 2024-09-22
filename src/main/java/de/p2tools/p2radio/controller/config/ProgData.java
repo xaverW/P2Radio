@@ -50,6 +50,8 @@ import de.p2tools.p2radio.tools.storedfilter.StoredFilters;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -70,6 +72,7 @@ public class ProgData {
     public P2RadioShortCuts pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
+
     // Gui
     public Stage primaryStage = null;
     public P2MaskerPane maskerPane = null;
@@ -91,6 +94,10 @@ public class ProgData {
     public StartFactory startFactory;
 
     // Programmdaten
+    public static BooleanProperty FAVOURITE_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
+    public static BooleanProperty STATION_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
+    public static BooleanProperty HISTORY_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
+
     public StationList stationList; //ist die komplette Senderliste
     public StationList stationListBlackFiltered; //Senderliste nach Blacklist, wie im TabSender angezeigt
 

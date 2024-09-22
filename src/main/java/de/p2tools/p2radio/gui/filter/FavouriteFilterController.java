@@ -19,7 +19,6 @@ package de.p2tools.p2radio.gui.filter;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
@@ -37,9 +36,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class FavouriteFilterController extends FilterController {
+public class FavouriteFilterController extends VBox {
 
-    private final VBox vBoxFilter;
     private final ProgData progData;
 
     private final ComboBox<CollectionData> cboCollections = new ComboBox<>();
@@ -53,13 +51,11 @@ public class FavouriteFilterController extends FilterController {
     private final FavouriteGuiPack favouriteGuiPack;
 
     public FavouriteFilterController(FavouriteGuiPack favouriteGuiPack) {
-        super(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
         this.favouriteGuiPack = favouriteGuiPack;
 
-        vBoxFilter = getVBoxAll();
-        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
-        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
+        setPadding(new Insets(P2LibConst.PADDING));
+        setSpacing(P2LibConst.DIST_BUTTON);
 
         favouriteFilter = progData.favouriteFilter;
         filteredList = progData.filteredFavoriteList;
@@ -76,14 +72,14 @@ public class FavouriteFilterController extends FilterController {
         vBoxGenre.getChildren().addAll(new Label("Genre"), cboGenre);
         VBox.setVgrow(cboGenre, Priority.ALWAYS);
 
-        vBoxFilter.getChildren().addAll(vBoxColl, vBoxGenre,
+        getChildren().addAll(vBoxColl, vBoxGenre,
                 new Label("    "), tglGrade, tglOwn);
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.setPadding(new Insets(10, 0, 0, 0));
         hBox.getChildren().add(btnClearFilter);
-        vBoxFilter.getChildren().addAll(hBox);
+        getChildren().addAll(hBox);
 
         initFilter();
     }
@@ -132,6 +128,5 @@ public class FavouriteFilterController extends FilterController {
             filteredList.setPredicate(favouriteFilter.getPredicate());
             cboCollections.getSelectionModel().select(favouriteFilter.getCollectionData());
         });
-//        btnClearFilter.getStyleClass().add("btnSmallRadio");
     }
 }

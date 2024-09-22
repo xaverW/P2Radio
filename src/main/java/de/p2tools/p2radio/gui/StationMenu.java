@@ -32,8 +32,8 @@ public class StationMenu {
     final private VBox vBox;
     final private ProgData progData;
 
-    BooleanProperty boolFilterOn = ProgConfig.STATION_GUI_FILTER_DIVIDER_ON;
-    BooleanProperty boolInfoOn = ProgConfig.STATION_GUI_DIVIDER_ON;
+    BooleanProperty boolFilterOn = ProgConfig.STATION__FILTER_IS_SHOWING;
+    BooleanProperty boolInfoOn = ProgConfig.STATION__INFO_IS_SHOWING;
 
     public StationMenu(VBox vBox) {
         this.vBox = vBox;
@@ -113,8 +113,11 @@ public class StationMenu {
         mb.getItems().addAll(miStop, miStopAll, miSave);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
+        miShowFilter.disableProperty().bind(ProgConfig.STATION__FILTER_IS_RIP);
         miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
+        miShowInfo.disableProperty().bind(ProgConfig.STATION__INFO_PANE_IS_RIP);
         miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
 
         mb.getItems().add(new SeparatorMenuItem());

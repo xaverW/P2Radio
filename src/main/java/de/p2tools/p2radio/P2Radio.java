@@ -113,7 +113,7 @@ public class P2Radio extends Application {
 
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann gleich mit smallRadio starten
-                Platform.runLater(() -> new SmallRadioGuiController());
+                Platform.runLater(SmallRadioGuiController::new);
             } else {
                 primaryStage.show();
             }

@@ -16,11 +16,16 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.filter.FavouriteFilterController;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
@@ -29,27 +34,47 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
+import java.util.ArrayList;
+
 public class FavouriteGuiPack {
 
     private final SplitPane splitPaneFilter = new SplitPane();
     private final SplitPane splitPaneInfo = new SplitPane();
 
-    private final FavouriteFilterController favouriteFilterController;
     private final FavouriteGuiController favouriteGuiController;
-    private final FavouriteGuiInfoController favouriteGuiInfoController;
+    private final FavouriteFilterController favouriteFilterController;
+    private final PaneFavouriteInfo paneFavouriteInfo;
+
+    private final P2InfoController infoControllerFilter;
+    private final P2InfoController infoControllerInfo;
 
     private final ProgData progData;
     private final ObjectProperty<StationData> stationDataObjectProperty = new SimpleObjectProperty<>(null);
-    private boolean boundFilter = false;
-    private boolean boundInfo = false;
-
+    private final BooleanProperty boundFilter = new SimpleBooleanProperty(false);
+    private final BooleanProperty boundInfo = new SimpleBooleanProperty(false);
 
     public FavouriteGuiPack() {
         progData = ProgData.getInstance();
 
         favouriteFilterController = new FavouriteFilterController(this);
-        favouriteGuiInfoController = new FavouriteGuiInfoController(this);
+        paneFavouriteInfo = new PaneFavouriteInfo(this);
         favouriteGuiController = new FavouriteGuiController(this);
+
+        ArrayList<P2InfoDto> list = new ArrayList<>();
+        P2InfoDto infoDto = new P2InfoDto(favouriteFilterController,
+                ProgConfig.FAVOURITE__FILTER_IS_RIP,
+                ProgConfig.FAVOURITE__FILTER_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
+                "Filter", "Favoriten", true);
+        list.add(infoDto);
+        infoControllerFilter = new P2InfoController(list, ProgConfig.FAVOURITE__FILTER_IS_SHOWING);
+
+        list = new ArrayList<>();
+        infoDto = new P2InfoDto(paneFavouriteInfo,
+                ProgConfig.FAVOURITE__INFO_PANE_IS_RIP,
+                ProgConfig.FAVOURITE__INFO_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
+                "Filter", "Favoriten", false);
+        list.add(infoDto);
+        infoControllerInfo = new P2InfoController(list, ProgConfig.FAVOURITE__INFO_IS_SHOWING);
 
         progData.favouriteGuiPack = this;
     }
@@ -62,35 +87,33 @@ public class FavouriteGuiPack {
         return favouriteGuiController;
     }
 
-    public FavouriteGuiInfoController getFavouriteGuiInfoController() {
-        return favouriteGuiInfoController;
-    }
-
-    public void closeSplit() {
-        ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON.setValue(!ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON.get());
+    public PaneFavouriteInfo getFavouriteGuiInfoController() {
+        return paneFavouriteInfo;
     }
 
     public Pane pack() {
-        final MenuController menuController = new MenuController(MenuController.StartupMode.FAVOURITE);
-        menuController.setId("favorite-menu-pane");
-
         //Filter
         splitPaneFilter.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(favouriteFilterController, false);
-        ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON.addListener((observable, oldValue, newValue) -> setSplitFilter());
+        SplitPane.setResizableWithParent(infoControllerFilter, false);
+
+        ProgConfig.FAVOURITE__FILTER_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitFilter());
         setSplitFilter();
 
         //Info
         splitPaneInfo.setOrientation(Orientation.VERTICAL);
-        ProgConfig.FAVOURITE_GUI_DIVIDER_ON.addListener((observable, oldValue, newValue) -> setSplitInfo());
-        SplitPane.setResizableWithParent(favouriteGuiInfoController, false);
+        ProgConfig.FAVOURITE__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitInfo());
+        SplitPane.setResizableWithParent(paneFavouriteInfo, false);
         setSplitInfo();
+
+
+        final MenuController menuController = new MenuController(MenuController.StartupMode.FAVOURITE);
+        menuController.setId("favorite-menu-pane");
 
         final HBox hBox = new HBox();
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        HBox.setHgrow(splitPaneFilter, Priority.ALWAYS);
+        HBox.setHgrow(infoControllerFilter, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPaneFilter, menuController);
 
         return hBox;
@@ -101,38 +124,15 @@ public class FavouriteGuiPack {
     }
 
     private void setSplitFilter() {
-        if (ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON.getValue()) {
-            splitPaneFilter.getItems().clear();
-            splitPaneFilter.getItems().addAll(favouriteFilterController, splitPaneInfo);
-            if (!boundFilter) {
-                boundFilter = true;
-                splitPaneFilter.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER);
-            }
-        } else {
-            if (boundFilter) {
-                boundFilter = false;
-                splitPaneFilter.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER);
-            }
-            splitPaneFilter.getItems().clear();
-            splitPaneFilter.getItems().addAll(splitPaneInfo);
-        }
+        P2ClosePaneFactory.setSplit(boundFilter, splitPaneFilter,
+                infoControllerFilter, true, splitPaneInfo,
+                ProgConfig.FAVOURITE__FILTER_DIVIDER, ProgConfig.FAVOURITE__FILTER_IS_SHOWING);
     }
 
     private void setSplitInfo() {
-        if (ProgConfig.FAVOURITE_GUI_DIVIDER_ON.getValue()) {
-            splitPaneInfo.getItems().clear();
-            splitPaneInfo.getItems().addAll(favouriteGuiController, favouriteGuiInfoController);
-            if (!boundInfo) {
-                boundInfo = true;
-                splitPaneInfo.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.FAVOURITE_GUI_DIVIDER);
-            }
-        } else {
-            if (boundInfo) {
-                boundInfo = false;
-                splitPaneInfo.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.FAVOURITE_GUI_DIVIDER);
-            }
-            splitPaneInfo.getItems().clear();
-            splitPaneInfo.getItems().add(favouriteGuiController);
-        }
+        P2ClosePaneFactory.setSplit(boundInfo, splitPaneInfo,
+                infoControllerInfo, false, favouriteGuiController,
+                ProgConfig.FAVOURITE__INFO_DIVIDER, ProgConfig.FAVOURITE__INFO_IS_SHOWING);
+
     }
 }

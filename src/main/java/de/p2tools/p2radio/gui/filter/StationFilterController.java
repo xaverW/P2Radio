@@ -21,7 +21,6 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterFactory;
@@ -33,9 +32,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class StationFilterController extends FilterController {
+public class StationFilterController extends VBox {
 
-    private final VBox vBoxAll;
     private final VBox vBoxBottom;
     private final ProgData progData;
 
@@ -47,12 +45,11 @@ public class StationFilterController extends FilterController {
     private final StationFilterControllerProfiles profiles;
 
     public StationFilterController(StationGuiPack stationGuiPack) {
-        super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON);
+//        super(ProgConfig.STATION_GUI_FILTER_DIVIDER_ON);
         progData = ProgData.getInstance();
         this.stationGuiPack = stationGuiPack;
-        this.vBoxAll = getVBoxAll();
-        this.vBoxAll.setSpacing(P2LibConst.DIST_BUTTON);
-        this.vBoxAll.setSpacing(0);
+        setSpacing(P2LibConst.DIST_BUTTON);
+        setSpacing(0);
 
         sender = new StationFilterControllerTextFilter();//hat separator am ende??
         filter = new StationFilterControllerFilter();
@@ -67,7 +64,7 @@ public class StationFilterController extends FilterController {
 //        setSpacing(P2LibConst.DIST_BUTTON);
 
         VBox.setVgrow(clearFilter, Priority.ALWAYS);
-        vBoxAll.getChildren().addAll(sender, filter, clearFilter, sp, profiles);
+        getChildren().addAll(sender, filter, clearFilter, sp, profiles);
 
         Label lblRight = new Label();
         tglBlacklist.setAllowIndeterminate(true);
@@ -97,7 +94,7 @@ public class StationFilterController extends FilterController {
         vBox.setPadding(new Insets(P2LibConst.PADDING));
         vBox.setSpacing(P2LibConst.DIST_BUTTON);
         vBox.setMaxWidth(Double.MAX_VALUE);
-        vBoxAll.getChildren().addAll(vBox);
+        getChildren().addAll(vBox);
         return vBox;
     }
 

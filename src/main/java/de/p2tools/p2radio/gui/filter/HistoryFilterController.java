@@ -18,7 +18,6 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
@@ -32,9 +31,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class HistoryFilterController extends FilterController {
+public class HistoryFilterController extends VBox {
 
-    private final VBox vBoxFilter;
     private final ProgData progData;
 
     private final ComboBox<String> cboGenre = new ComboBox<>();
@@ -44,14 +42,13 @@ public class HistoryFilterController extends FilterController {
     private final HistoryGuiPack historyGuiPack;
 
     public HistoryFilterController(HistoryGuiPack historyGuiPack) {
-        super(ProgConfig.HISTORY_GUI_FILTER_DIVIDER_ON);
+//        super(ProgConfig.HISTORY_GUI_FILTER_DIVIDER_ON);
         this.historyGuiPack = historyGuiPack;
         this.progData = ProgData.getInstance();
         this.historyFilter = progData.historyFilter;
 
-        vBoxFilter = getVBoxAll();
-        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
-        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
+        setPadding(new Insets(P2LibConst.PADDING));
+        setSpacing(P2LibConst.DIST_BUTTON);
 
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         cboGenre.setMinWidth(150);
@@ -59,13 +56,13 @@ public class HistoryFilterController extends FilterController {
         vBoxColl.getChildren().addAll(new Label("Genre"), cboGenre);
         VBox.setVgrow(cboGenre, Priority.ALWAYS);
 
-        vBoxFilter.getChildren().addAll(vBoxColl);
+        getChildren().addAll(vBoxColl);
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.setPadding(new Insets(10, 0, 0, 0));
         hBox.getChildren().add(btnClearFilter);
-        vBoxFilter.getChildren().addAll(hBox);
+        getChildren().addAll(hBox);
 
         initFilter();
     }

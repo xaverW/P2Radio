@@ -18,16 +18,16 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class StationGuiInfoController extends P2ClosePaneH {
+public class PaneStationInfo extends VBox {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
@@ -38,8 +38,8 @@ public class StationGuiInfoController extends P2ClosePaneH {
     private final StationGuiPack stationGuiPack;
     private StationData station = null;
 
-    public StationGuiInfoController(StationGuiPack stationGuiPack) {
-        super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
+    public PaneStationInfo(StationGuiPack stationGuiPack) {
+//        super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
         this.stationGuiPack = stationGuiPack;
 
         initInfo();
@@ -49,7 +49,7 @@ public class StationGuiInfoController extends P2ClosePaneH {
         stationGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
             setStation(stationGuiPack.stationDataObjectPropertyProperty().getValue());
         });
-        getVBoxAll().getChildren().addAll(gridPane);
+        getChildren().addAll(gridPane);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
         gridPane.setHgap(5);

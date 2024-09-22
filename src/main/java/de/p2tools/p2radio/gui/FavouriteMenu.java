@@ -129,9 +129,12 @@ public class FavouriteMenu {
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
-        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.FAVOURITE_GUI_FILTER_DIVIDER_ON);
+        miShowFilter.disableProperty().bind(ProgConfig.FAVOURITE__FILTER_IS_RIP);
+        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.FAVOURITE__FILTER_IS_SHOWING);
+
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
-        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.FAVOURITE_GUI_DIVIDER_ON);
+        miShowInfo.disableProperty().bind(ProgConfig.FAVOURITE__INFO_PANE_IS_RIP);
+        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.FAVOURITE__INFO_IS_SHOWING);
         mb.getItems().addAll(miShowFilter, miShowInfo);
 
         vBox.getChildren().add(mb);

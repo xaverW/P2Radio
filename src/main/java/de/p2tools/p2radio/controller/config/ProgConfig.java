@@ -107,11 +107,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_BLACKLIST_IS_WHITELIST = addBoolProp("blacklist-is-whitelist");
 
     // Gui Station
-    public static DoubleProperty STATION_GUI_FILTER_DIVIDER = addDoubleProp("station-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty STATION_GUI_FILTER_DIVIDER_ON = addBoolProp("station-gui-filter-divider-on", Boolean.TRUE);
-    public static DoubleProperty STATION_GUI_DIVIDER = addDoubleProp("station-gui-divider", ProgConst.GUI_STATION_DIVIDER_LOCATION);
-    public static BooleanProperty STATION_GUI_DIVIDER_ON = addBoolProp("station-gui-divider-on", Boolean.TRUE);
-
     public static StringProperty STATION_GUI_TABLE_WIDTH = addStrProp("station-gui-table-width");
     public static StringProperty STATION_GUI_TABLE_SORT = addStrProp("station-gui-table-sort");
     public static StringProperty STATION_GUI_TABLE_UP_DOWN = addStrProp("station-gui-table-up-down");
@@ -146,15 +141,10 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SMALL_RADIO_SELECTED_LIST = addStrProp("small-radio-selected-list", SmallRadioFactory.LIST_STATION);
 
     // Gui Favorite
-    public static DoubleProperty FAVOURITE_GUI_FILTER_DIVIDER = addDoubleProp("favourite-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty FAVOURITE_GUI_FILTER_DIVIDER_ON = addBoolProp("favourite-gui-filter-divider-on", Boolean.TRUE);
     public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStrProp("favourite-dialog-edit-size", "800:800");
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
-    public static DoubleProperty FAVOURITE_GUI_DIVIDER = addDoubleProp("favourite-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
-    public static BooleanProperty FAVOURITE_GUI_DIVIDER_ON = addBoolProp("favourite-gui-divider-on", Boolean.TRUE);
     public static StringProperty FAVOURITE_DIALOG_ADD_MORE_SIZE = addStrProp("favourite-dialog-add-more-size", "800:850");
     public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStrProp("favourite-dialog-add-size", "800:800");
-
 
     public static StringProperty FAVOURITE_GUI_TABLE_WIDTH = addStrProp("favourite-gui-table-width");
     public static StringProperty FAVOURITE_GUI_TABLE_SORT = addStrProp("favourite-gui-table-sort");
@@ -165,16 +155,48 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBoolProp("favourite-show-notification", Boolean.TRUE);
 
     // Gui History
-    public static DoubleProperty HISTORY_GUI_FILTER_DIVIDER = addDoubleProp("history-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty HISTORY_GUI_FILTER_DIVIDER_ON = addBoolProp("history-gui-filter-divider-on", Boolean.TRUE);
-    public static DoubleProperty HISTORY_GUI_DIVIDER = addDoubleProp("history-gui-divider", ProgConst.GUI_FAVOURITE_DIVIDER_LOCATION);
-    public static BooleanProperty HISTORY_GUI_DIVIDER_ON = addBoolProp("history-gui-divider-on", Boolean.TRUE);
-
     public static StringProperty HISTORY_GUI_TABLE_WIDTH = addStrProp("history-gui-table-width");
     public static StringProperty HISTORY_GUI_TABLE_SORT = addStrProp("history-gui-table-sort");
     public static StringProperty HISTORY_GUI_TABLE_UP_DOWN = addStrProp("history-gui-table-up-down");
     public static StringProperty HISTORY_GUI_TABLE_VIS = addStrProp("history-gui-table-vis");
     public static StringProperty HISTORY_GUI_TABLE_ORDER = addStrProp("history-gui-table-order");
+
+
+    // HISTORY Info
+    public static BooleanProperty HISTORY__INFO_IS_SHOWING = addBoolProp("history--info-is-showing", Boolean.TRUE);
+    public static BooleanProperty HISTORY__INFO_PANE_IS_RIP = addBoolProp("history--info-pane-is-rip", Boolean.FALSE);
+    public static StringProperty HISTORY__INFO_DIALOG_SIZE = addStrProp("history--info-dialog-size", "400:400");
+    public static DoubleProperty HISTORY__INFO_DIVIDER = addDoubleProp("history--info-divider", 0.7);
+
+    public static DoubleProperty HISTORY__FILTER_DIVIDER = addDoubleProp("history--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty HISTORY__FILTER_IS_SHOWING = addBoolProp("history--filter-is-showing", Boolean.TRUE);
+    public static BooleanProperty HISTORY__FILTER_IS_RIP = addBoolProp("history--filter-is-rip", Boolean.FALSE);
+    public static StringProperty HISTORY__FILTER_DIALOG_SIZE = addStrProp("history--filter-dialog-size", "400:600");
+
+
+    // FAVOURITE Info
+    public static BooleanProperty FAVOURITE__INFO_IS_SHOWING = addBoolProp("favourite--info-is-showing", Boolean.TRUE);
+    public static BooleanProperty FAVOURITE__INFO_PANE_IS_RIP = addBoolProp("favourite--info-pane-is-rip", Boolean.FALSE);
+    public static StringProperty FAVOURITE__INFO_DIALOG_SIZE = addStrProp("favourite--info-dialog-size", "400:400");
+    public static DoubleProperty FAVOURITE__INFO_DIVIDER = addDoubleProp("favourite--info-divider", 0.7);
+
+    public static DoubleProperty FAVOURITE__FILTER_DIVIDER = addDoubleProp("favourite--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty FAVOURITE__FILTER_IS_SHOWING = addBoolProp("favourite--filter-is-showing", Boolean.TRUE);
+    public static BooleanProperty FAVOURITE__FILTER_IS_RIP = addBoolProp("favourite--filter-is-rip", Boolean.FALSE);
+    public static StringProperty FAVOURITE__FILTER_DIALOG_SIZE = addStrProp("favourite--filter-dialog-size", "400:600");
+
+
+    // STATION Info
+    public static BooleanProperty STATION__INFO_IS_SHOWING = addBoolProp("station--info-is-showing", Boolean.TRUE);
+    public static BooleanProperty STATION__INFO_PANE_IS_RIP = addBoolProp("station--info-pane-is-rip", Boolean.FALSE);
+    public static StringProperty STATION__INFO_DIALOG_SIZE = addStrProp("station--info-dialog-size", "400:400");
+    public static DoubleProperty STATION__INFO_DIVIDER = addDoubleProp("station--info-divider", 0.7);
+
+    public static DoubleProperty STATION__FILTER_DIVIDER = addDoubleProp("station--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty STATION__FILTER_IS_SHOWING = addBoolProp("station--filter-is-showing", Boolean.TRUE);
+    public static BooleanProperty STATION__FILTER_IS_RIP = addBoolProp("station--filter-is-rip", Boolean.FALSE);
+    public static StringProperty STATION__FILTER_DIALOG_SIZE = addStrProp("station--filter-dialog-size", "400:600");
+
 
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size");

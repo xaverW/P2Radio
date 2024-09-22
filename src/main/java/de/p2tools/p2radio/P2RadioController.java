@@ -94,19 +94,22 @@ public class P2RadioController extends StackPane {
 
             initMaskerPane();
             initButton();
-            switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-                case 0:
-                default:
-                    initPanelStation();
-                    progData.stationGuiPack.getStationGuiController().selUrl();
-                    break;
-                case 1:
-                    initPanelFavourite();
-                    progData.favouriteGuiPack.getFavouriteGuiController().selUrl();
-                    break;
-                case 2:
-                    initPanelHistory();
-                    progData.historyGuiPack.getHistoryGuiController().selUrl();
+            if (!ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
+                // nur dann notwendig
+                switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                    case 0:
+                    default:
+                        initPanelStation();
+                        progData.stationGuiPack.getStationGuiController().selUrl();
+                        break;
+                    case 1:
+                        initPanelFavourite();
+                        progData.favouriteGuiPack.getFavouriteGuiController().selUrl();
+                        break;
+                    case 2:
+                        initPanelHistory();
+                        progData.historyGuiPack.getHistoryGuiController().selUrl();
+                }
             }
         } catch (Exception ex) {
             P2Log.errorLog(597841023, ex);
@@ -170,13 +173,21 @@ public class P2RadioController extends StackPane {
         });
     }
 
-    private void selPanelSmallRadio() {
+    public void selPanelSmallRadio() {
+        ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
         if (maskerPane.isVisible()) {
             return;
         }
 
         progData.primaryStage.close();
         new SmallRadioGuiController();
+    }
+
+    public void quittSmallRadio() {
+        initPanelStation();
+        progData.primaryStage.show();
     }
 
     private void selPanelStation() {
@@ -186,13 +197,18 @@ public class P2RadioController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneStation)) {
             // dann ist der 2. Klick
-            stationGuiPack.closeSplitVert();
+            if (!ProgConfig.STATION__FILTER_IS_RIP.get()) {
+                ProgConfig.STATION__FILTER_IS_SHOWING.setValue(!ProgConfig.STATION__FILTER_IS_SHOWING.get());
+            }
             return;
         }
         initPanelStation();
     }
 
     private void initPanelStation() {
+        ProgData.STATION_TAB_ON.setValue(Boolean.TRUE);
+        ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
         setButtonStyle(btnStation);
         paneStation.toFront();
         progData.stationGuiPack.getStationGuiController().isShown();
@@ -206,13 +222,18 @@ public class P2RadioController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneFavourite)) {
             // dann ist der 2. Klick
-            favouriteGuiPack.closeSplit();
+            if (!ProgConfig.FAVOURITE__FILTER_IS_RIP.get()) {
+                ProgConfig.FAVOURITE__FILTER_IS_SHOWING.setValue(!ProgConfig.FAVOURITE__FILTER_IS_SHOWING.get());
+            }
             return;
         }
         initPanelFavourite();
     }
 
     private void initPanelFavourite() {
+        ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.FAVOURITE_TAB_ON.setValue(Boolean.TRUE);
+        ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
         setButtonStyle(btnFavourite);
         paneFavourite.toFront();
         progData.favouriteGuiPack.getFavouriteGuiController().isShown();
@@ -226,13 +247,18 @@ public class P2RadioController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneHistory)) {
             // dann ist der 2. Klick
-            historyGuiPack.closeSplit();
+            if (!ProgConfig.HISTORY__FILTER_IS_RIP.get()) {
+                ProgConfig.HISTORY__FILTER_IS_SHOWING.setValue(!ProgConfig.HISTORY__FILTER_IS_SHOWING.get());
+            }
             return;
         }
         initPanelHistory();
     }
 
     private void initPanelHistory() {
+        ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.HISTORY_TAB_ON.setValue(Boolean.TRUE);
         setButtonStyle(btnHistory);
         paneHistory.toFront();
         progData.historyGuiPack.getHistoryGuiController().isShown();
@@ -246,7 +272,7 @@ public class P2RadioController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.STATION_GUI_DIVIDER_ON.setValue(!ProgConfig.STATION_GUI_DIVIDER_ON.get());
+                ProgConfig.STATION__INFO_IS_SHOWING.setValue(!ProgConfig.STATION__INFO_IS_SHOWING.get());
             }
         });
         btnFavourite.setOnMouseClicked(mouseEvent -> {
@@ -255,7 +281,7 @@ public class P2RadioController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.FAVOURITE_GUI_DIVIDER_ON.setValue(!ProgConfig.FAVOURITE_GUI_DIVIDER_ON.get());
+                ProgConfig.FAVOURITE__INFO_IS_SHOWING.setValue(!ProgConfig.FAVOURITE__INFO_IS_SHOWING.get());
             }
         });
         btnHistory.setOnMouseClicked(mouseEvent -> {
@@ -264,7 +290,7 @@ public class P2RadioController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.HISTORY_GUI_DIVIDER_ON.setValue(!ProgConfig.HISTORY_GUI_DIVIDER_ON.get());
+                ProgConfig.HISTORY__INFO_IS_SHOWING.setValue(!ProgConfig.HISTORY__INFO_IS_SHOWING.get());
             }
         });
     }

@@ -27,7 +27,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.SmallGuiHelpDialogController;
-import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -111,14 +110,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         close();
         ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
         progData.smallRadioGuiController = null;
-
-        Platform.runLater(() -> {
-                    P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                    progData.primaryStage.setWidth(P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.setHeight(P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.show();
-                }
-        );
+        progData.p2RadioController.quittSmallRadio();
     }
 
     private void saveMe() {

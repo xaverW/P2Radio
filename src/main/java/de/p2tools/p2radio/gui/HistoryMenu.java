@@ -34,8 +34,8 @@ import java.util.Optional;
 public class HistoryMenu {
     final private VBox vBox;
     final private ProgData progData;
-    BooleanProperty boolFilterOn = ProgConfig.HISTORY_GUI_FILTER_DIVIDER_ON;
-    BooleanProperty boolInfoOn = ProgConfig.HISTORY_GUI_DIVIDER_ON;
+    BooleanProperty boolFilterOn = ProgConfig.HISTORY__FILTER_IS_SHOWING;
+    BooleanProperty boolInfoOn = ProgConfig.HISTORY__INFO_IS_SHOWING;
 
     public HistoryMenu(VBox vBox) {
         this.vBox = vBox;
@@ -139,8 +139,11 @@ public class HistoryMenu {
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
+        miShowFilter.disableProperty().bind(ProgConfig.HISTORY__FILTER_IS_RIP);
         miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
+        miShowInfo.disableProperty().bind(ProgConfig.HISTORY__INFO_PANE_IS_RIP);
         miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
         mb.getItems().addAll(miShowFilter, miShowInfo);
 
