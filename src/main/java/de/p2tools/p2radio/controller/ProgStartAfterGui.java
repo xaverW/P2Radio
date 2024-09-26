@@ -61,7 +61,7 @@ public class ProgStartAfterGui {
         list.add("");
         list.add("Programmsets:");
         list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
-        ProgConfig.getConfigLog(list);
+        ProgConfig.getInstance().writeConfigs();
         P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 

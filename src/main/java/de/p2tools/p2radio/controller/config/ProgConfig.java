@@ -18,22 +18,45 @@
 package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
-import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.data.P2DataProgConfig;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
-import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioFactory;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.*;
 
-import java.util.ArrayList;
-
 public class ProgConfig extends P2DataProgConfig {
 
-    public static final String SYSTEM = "system";
+    private static ProgConfig instance;
+
+    private ProgConfig() {
+        super("ProgConfig");
+    }
+
+    public static ProgConfig getInstance() {
+        return instance == null ? instance = new ProgConfig() : instance;
+    }
+
+    public static void addConfigData(ConfigFile configFile) {
+        // Configs der Programmversion, nur damit sie (zur Update-Suche) im Config-File stehen
+        ProgConfig.SYSTEM_PROG_VERSION.set(P2ToolsFactory.getProgVersion());
+        ProgConfig.SYSTEM_PROG_BUILD_NO.set(P2ToolsFactory.getBuild());
+        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(P2ToolsFactory.getCompileDate());
+
+        configFile.addConfigs(ProgConfig.getInstance());
+        configFile.addConfigs(ProgColorList.getInstance());
+        configFile.addConfigs(ProgData.getInstance().setDataList);
+        configFile.addConfigs(ProgData.getInstance().favouriteList);
+        configFile.addConfigs(ProgData.getInstance().historyList);
+        configFile.addConfigs(ProgData.getInstance().storedFilters.getActFilterSettings());
+        configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
+        configFile.addConfigs(ProgData.getInstance().blackDataList);
+        configFile.addConfigs(ProgData.getInstance().favouriteFilter);
+        configFile.addConfigs(ProgData.getInstance().historyFilter);
+    }
+
     //Shorcuts Hauptmenü
     public static final String SHORTCUT_QUIT_PROGRAM_INIT = "Ctrl+Q";
     //Shortcuts Sendermenü
@@ -44,7 +67,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static final String SHORTCUT_FAVOURITE_START_INIT = "Ctrl+F";
     public static final String SHORTCUT_FAVOURITE_STOP_INIT = "Ctrl+T";
     public static final String SHORTCUT_FAVOURITE_CHANGE_INIT = "Ctrl+C";
-    private static final ArrayList<Config> arrayList = new ArrayList<>();
 
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt
@@ -216,51 +238,4 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SHORTCUT_FAVOURITE_START = addStrProp("SHORTCUT_FAVOURITE_START", SHORTCUT_FAVOURITE_START_INIT);
     public static StringProperty SHORTCUT_FAVOURITE_STOP = addStrProp("SHORTCUT_FAVOURITE_STOP", SHORTCUT_FAVOURITE_STOP_INIT);
     public static StringProperty SHORTCUT_FAVOURITE_CHANGE = addStrProp("SHORTCUT_FAVOURITE_CHANGE", SHORTCUT_FAVOURITE_CHANGE_INIT);
-    private static ProgConfig instance;
-
-    private ProgConfig() {
-        super("ProgConfig");
-    }
-
-    public static final ProgConfig getInstance() {
-        return instance == null ? instance = new ProgConfig() : instance;
-    }
-
-    public static void addConfigData(ConfigFile configFile) {
-        // Configs der Programmversion, nur damit sie (zur Update-Suche) im Config-File stehen
-        ProgConfig.SYSTEM_PROG_VERSION.set(P2ToolsFactory.getProgVersion());
-        ProgConfig.SYSTEM_PROG_BUILD_NO.set(P2ToolsFactory.getBuild());
-        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(P2ToolsFactory.getCompileDate());
-
-        configFile.addConfigs(ProgConfig.getInstance());
-        configFile.addConfigs(ProgColorList.getInstance());
-        configFile.addConfigs(ProgData.getInstance().setDataList);
-        configFile.addConfigs(ProgData.getInstance().favouriteList);
-        configFile.addConfigs(ProgData.getInstance().historyList);
-        configFile.addConfigs(ProgData.getInstance().storedFilters.getActFilterSettings());
-        configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
-        configFile.addConfigs(ProgData.getInstance().blackDataList);
-        configFile.addConfigs(ProgData.getInstance().favouriteFilter);
-        configFile.addConfigs(ProgData.getInstance().historyFilter);
-    }
-
-    public static void getConfigLog(ArrayList<String> list) {
-        list.add(P2Log.LILNE2);
-        list.add("Programmeinstellungen");
-        list.add("===========================");
-        arrayList.stream().forEach(c -> {
-            String s = c.getKey();
-            if (s.startsWith("_")) {
-                while (s.length() < 55) {
-                    s += " ";
-                }
-            } else {
-                while (s.length() < 35) {
-                    s += " ";
-                }
-            }
-
-            list.add(s + "  " + c.getActValueString());
-        });
-    }
 }
