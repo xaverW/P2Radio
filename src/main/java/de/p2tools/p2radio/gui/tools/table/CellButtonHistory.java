@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
@@ -62,7 +62,7 @@ public class CellButtonHistory<S, T> extends TableCell<S, T> {
                     btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.stopPlayable(stationData);
                         getTableView().getSelectionModel().clearSelection();
@@ -81,7 +81,7 @@ public class CellButtonHistory<S, T> extends TableCell<S, T> {
                     btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.playPlayable(stationData);
                         getTableView().getSelectionModel().clearSelection();
@@ -99,7 +99,7 @@ public class CellButtonHistory<S, T> extends TableCell<S, T> {
                 btnDel = new Button("");
                 btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnDel.setTooltip(new Tooltip("Sender aus History löschen"));
-                btnDel.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
+                btnDel.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     HistoryFactory.deleteHistory(stationData);
                 });

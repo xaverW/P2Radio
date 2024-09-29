@@ -24,7 +24,7 @@ import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -63,14 +63,14 @@ public class ResetDialogController extends P2DialogExtra {
         headerLabel.setStyle("-fx-font-size: 1.5em;");
 
         // Set zurücksetzen
-        P2BigButton cancelButton = new P2BigButton(ProgIconsP2Radio.ICON_BUTTON_QUIT.getImageView(),
+        P2BigButton cancelButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(),
                 "Nichts ändern", "");
         cancelButton.setOnAction(e -> close());
 
         final Button btnHelp = P2Button.helpButton(this.getStage(), "Programm zurücksetzen",
                 HelpText.RESET_DIALOG);
 
-        P2BigButton setButton = new P2BigButton(ProgIconsP2Radio.ICON_BUTTON_QUIT.getImageView(),
+        P2BigButton setButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(),
                 "Einstellungen zum Abspielen zurücksetzen",
                 "Es werden alle Programmsets (auch eigene)" + P2LibConst.LINE_SEPARATOR +
                         "gelöscht und die Standardsets" + P2LibConst.LINE_SEPARATOR +
@@ -86,7 +86,7 @@ public class ResetDialogController extends P2DialogExtra {
         });
 
         // alle Einstellungen
-        P2BigButton allButton = new P2BigButton(ProgIconsP2Radio.ICON_BUTTON_QUIT.getImageView(), "" +
+        P2BigButton allButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(), "" +
                 "Alle Einstellungen zurücksetzen!",
                 "Alle Einstellungen gehen verloren." + P2LibConst.LINE_SEPARATORx2 +
                         "ACHTUNG" + P2LibConst.LINE_SEPARATOR +
@@ -116,7 +116,7 @@ public class ResetDialogController extends P2DialogExtra {
             }
         });
 
-        gridPane.add(ProgIconsP2Radio.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
+        gridPane.add(ProgIcons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(btnHelp, 2, 1);

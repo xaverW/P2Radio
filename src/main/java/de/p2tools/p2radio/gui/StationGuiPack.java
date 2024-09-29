@@ -64,7 +64,8 @@ public class StationGuiPack {
         P2InfoDto infoDto = new P2InfoDto(stationFilterController,
                 ProgConfig.STATION__FILTER_IS_RIP,
                 ProgConfig.STATION__FILTER_DIALOG_SIZE, ProgData.STATION_TAB_ON,
-                "Filter", "Sender", true);
+                "Filter", "Sender", true,
+                progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
         infoControllerFilter = new P2InfoController(list, ProgConfig.STATION__FILTER_IS_SHOWING);
 
@@ -72,7 +73,8 @@ public class StationGuiPack {
         infoDto = new P2InfoDto(paneStationInfo,
                 ProgConfig.STATION__INFO_PANE_IS_RIP,
                 ProgConfig.STATION__INFO_DIALOG_SIZE, ProgData.STATION_TAB_ON,
-                "Filter", "Sender", false);
+                "Filter", "Sender", false,
+                progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
         infoControllerInfo = new P2InfoController(list, ProgConfig.STATION__INFO_IS_SHOWING);
 

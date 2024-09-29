@@ -27,7 +27,7 @@ import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -104,24 +104,24 @@ public class SmallRadioGuiCenter extends HBox {
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClose.setGraphic(ProgIconsP2Radio.ICON_BUTTON_STOP.getImageView());
+        btnClose.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnRadio.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
+        btnRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
 
         btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
         btnPrev.getStyleClass().add("btnSmallGui");
-        btnPrev.setGraphic(ProgIconsP2Radio.ICON_BUTTON_PREV.getImageView());
+        btnPrev.setGraphic(ProgIcons.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
             setPreviousStation();
         });
 
         btnNext.setTooltip(new Tooltip("nächsten Sender auswählen"));
         btnNext.getStyleClass().add("btnSmallGui");
-        btnNext.setGraphic(ProgIconsP2Radio.ICON_BUTTON_NEXT.getImageView());
+        btnNext.setGraphic(ProgIcons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
             setNextStation();
         });

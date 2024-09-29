@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.dialog;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -49,20 +49,20 @@ public class QuitDialogController extends P2DialogExtra {
         Label headerLabel = new Label("Es laufen noch Radiosender!");
         headerLabel.setStyle("-fx-font-size: 1.5em;");
 
-        P2BigButton cancelButton = new P2BigButton(ProgIconsP2Radio.ICON_BUTTON_QUIT.getImageView(),
+        P2BigButton cancelButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(),
                 "Nicht beenden", "");
         cancelButton.setOnAction(e -> {
             close();
         });
 
-        P2BigButton quitButton = new P2BigButton(ProgIconsP2Radio.ICON_BUTTON_QUIT.getImageView(),
+        P2BigButton quitButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(),
                 "Beenden", "Alle laufenden Sender abbrechen und das Programm beenden.");
         quitButton.setOnAction(e -> {
             canQuit = true;
             close();
         });
 
-        gridPane.add(ProgIconsP2Radio.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
+        gridPane.add(ProgIcons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(quitButton, 1, 2);

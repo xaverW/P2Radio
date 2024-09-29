@@ -64,7 +64,8 @@ public class FavouriteGuiPack {
         P2InfoDto infoDto = new P2InfoDto(favouriteFilterController,
                 ProgConfig.FAVOURITE__FILTER_IS_RIP,
                 ProgConfig.FAVOURITE__FILTER_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
-                "Filter", "Favoriten", true);
+                "Filter", "Favoriten", true,
+                progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
         infoControllerFilter = new P2InfoController(list, ProgConfig.FAVOURITE__FILTER_IS_SHOWING);
 
@@ -72,7 +73,8 @@ public class FavouriteGuiPack {
         infoDto = new P2InfoDto(paneFavouriteInfo,
                 ProgConfig.FAVOURITE__INFO_PANE_IS_RIP,
                 ProgConfig.FAVOURITE__INFO_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
-                "Filter", "Favoriten", false);
+                "Filter", "Favoriten", false,
+                progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
         infoControllerInfo = new P2InfoController(list, ProgConfig.FAVOURITE__INFO_IS_SHOWING);
 

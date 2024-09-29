@@ -17,19 +17,13 @@
 package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
-import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -44,7 +38,6 @@ public class PaneKeySize {
     private final ProgData progData;
     private final Spinner<Integer> spinnerAnz = new Spinner<>();
     boolean changed = false;
-    BooleanProperty styleProperty = ProgConfig.SYSTEM_STYLE;
 
     public PaneKeySize(Stage stage, ProgData progData) {
         this.stage = stage;
@@ -52,26 +45,22 @@ public class PaneKeySize {
     }
 
     public void close() {
-        tglStyle.selectedProperty().unbindBidirectional(styleProperty);
+        tglStyle.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_FONT_SIZE_CHANGE);
         int size = spinnerAnz.getValue();
-        ProgConfig.SYSTEM_STYLE_SIZE.setValue(size);
 
         if (changed) {
-            if (styleProperty.get()) {
-                IoReadWriteStyle.writeStyle(ProgInfos.getStyleFile(), size);
-                P2LibInit.setStyleFile(ProgInfos.getStyleFile().toString());
+            if (ProgConfig.SYSTEM_FONT_SIZE_CHANGE.get()) {
+                ProgConfig.SYSTEM_FONT_SIZE.setValue(size);
                 P2Log.sysLog("Schriftgröße ändern: " + size);
             } else {
-                IoReadWriteStyle.writeStyle(ProgInfos.getStyleFile(), -1);
-                P2LibInit.setStyleFile("");
+                ProgConfig.SYSTEM_FONT_SIZE.setValue(0);
                 P2Log.sysLog("Schriftgröße nicht mehr ändern.");
             }
-            IoReadWriteStyle.readStyle(ProgInfos.getStyleFile(), progData.primaryStage.getScene());
         }
     }
 
-    public TitledPane makeStyle(Collection<TitledPane> result) {
-        tglStyle.selectedProperty().bindBidirectional(styleProperty);
+    public void makeStyle(Collection<TitledPane> result) {
+        tglStyle.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_FONT_SIZE_CHANGE);
         final Button btnHelpStyle = P2Button.helpButton(stage, "Schriftgröße anpassen", HelpText.CONFIG_STYLE);
 
         final GridPane gridPane = new GridPane();
@@ -102,23 +91,12 @@ public class PaneKeySize {
             result.add(tpConfig);
         }
         init();
-        return tpConfig;
     }
 
     private void init() {
         spinnerAnz.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(6, 30, 1));
-        spinnerAnz.getValueFactory().setValue(ProgConfig.SYSTEM_STYLE_SIZE.get());
-        spinnerAnz.valueProperty().addListener(new ChangeListener<Integer>() {
-            @Override
-            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-                changed = true;
-            }
-        });
-        tglStyle.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                changed = true;
-            }
-        });
+        spinnerAnz.getValueFactory().setValue(ProgConfig.SYSTEM_FONT_SIZE.get() == 0 ? 14 : ProgConfig.SYSTEM_FONT_SIZE.get());
+        spinnerAnz.valueProperty().addListener((observable, oldValue, newValue) -> changed = true);
+        tglStyle.selectedProperty().addListener((observable, oldValue, newValue) -> changed = true);
     }
 }

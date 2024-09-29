@@ -20,7 +20,7 @@ import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
@@ -55,13 +55,13 @@ public class HistoryMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierten Sender abspielen", "markierten Sender abspielen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_START.getImageView());
+                "markierten Sender abspielen", "markierten Sender abspielen", ProgIcons.ICON_TOOLBAR_STATION_START.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_STOP.getImageView());
+                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", ProgIcons.ICON_TOOLBAR_STATION_STOP.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen", ProgIconsP2Radio.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
+                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen", ProgIcons.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_INFO.getImageView());
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
         btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
@@ -72,7 +72,7 @@ public class HistoryMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("History-Menü anzeigen"));
-        mb.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_MENU.getImageView());
+        mb.setGraphic(ProgIcons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-0");
 
         final boolean moreSets = progData.setDataList.size() > 1;

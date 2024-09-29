@@ -20,7 +20,7 @@ import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -51,17 +51,17 @@ public class FavouriteMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Markierten Sender abspielen", "Markierten Sender abspielen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_START.getImageView());
+                "Markierten Sender abspielen", "Markierten Sender abspielen", ProgIcons.ICON_TOOLBAR_STATION_START.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_STOP.getImageView());
+                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", ProgIcons.ICON_TOOLBAR_STATION_STOP.getImageView());
         final ToolBarButton btNew = new ToolBarButton(vBox,
-                "Eigenen Sender als Favoriten anlegen", "Eigenen Sender als Favoriten anlegen", ProgIconsP2Radio.ICON_TOOLBAR_FAVOURITE_NEW.getImageView());
+                "Eigenen Sender als Favoriten anlegen", "Eigenen Sender als Favoriten anlegen", ProgIcons.ICON_TOOLBAR_FAVOURITE_NEW.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierte Favoriten löschen", "Markierte Favoriten löschen", ProgIconsP2Radio.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
+                "Markierte Favoriten löschen", "Markierte Favoriten löschen", ProgIcons.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
         final ToolBarButton btChange = new ToolBarButton(vBox,
-                "Markierte Favoriten ändern", "Markierte Favoriten ändern", ProgIconsP2Radio.ICON_TOOLBAR_FAVOURITE_CHANGE.getImageView());
+                "Markierte Favoriten ändern", "Markierte Favoriten ändern", ProgIcons.ICON_TOOLBAR_FAVOURITE_CHANGE.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIconsP2Radio.ICON_TOOLBAR_STATION_INFO.getImageView());
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
         btStop.setOnAction(a -> progData.startFactory.stopAll());
@@ -74,7 +74,7 @@ public class FavouriteMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Favoriten-Menü anzeigen"));
-        mb.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_MENU.getImageView());
+        mb.setGraphic(ProgIcons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-0");
 
         final boolean moreSets = progData.setDataList.size() > 1;

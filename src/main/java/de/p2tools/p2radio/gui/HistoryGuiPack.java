@@ -64,7 +64,8 @@ public class HistoryGuiPack {
         P2InfoDto infoDTO = new P2InfoDto(historyFilterController,
                 ProgConfig.HISTORY__FILTER_IS_RIP,
                 ProgConfig.HISTORY__FILTER_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
-                "Filter", "History", true);
+                "Filter", "History", true,
+                progData.maskerPane.getVisibleProperty());
         list.add(infoDTO);
         infoControllerFilter = new P2InfoController(list, ProgConfig.HISTORY__FILTER_IS_SHOWING);
 
@@ -72,7 +73,8 @@ public class HistoryGuiPack {
         infoDTO = new P2InfoDto(paneHistoryInfo,
                 ProgConfig.HISTORY__INFO_PANE_IS_RIP,
                 ProgConfig.HISTORY__INFO_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
-                "Filter", "History", false);
+                "Filter", "History", false,
+                progData.maskerPane.getVisibleProperty());
         list.add(infoDTO);
         infoControllerInfo = new P2InfoController(list, ProgConfig.HISTORY__INFO_IS_SHOWING);
 

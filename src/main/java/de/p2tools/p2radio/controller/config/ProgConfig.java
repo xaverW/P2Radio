@@ -110,11 +110,14 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_LOG_ON = addBoolProp("system-log-on", Boolean.TRUE);
     public static BooleanProperty SYSTEM_LOAD_STATION_LIST_EVERY_DAYS = addBoolProp("system-load-station-list-every-days", Boolean.TRUE);
     public static BooleanProperty SYSTEM_SMALL_ROW_TABLE = addBoolProp("system-small-row-table", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_DARK_THEME = addBoolProp("system-dark-theme", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_THEME_CHANGED = addBoolProp("system-theme-changed");
     public static IntegerProperty SYSTEM_LAST_TAB_STATION = addIntProp("system-last-tab-station", 0);
     public static StringProperty SYSTEM_HISTORY = addStrProp("system-history", "");
     public static BooleanProperty SYSTEM_SHOW_MSG_SETDATA_CHANGED = addBoolProp("system-show-msg-setdata-changed", Boolean.FALSE);
+
+    public static IntegerProperty SYSTEM_FONT_SIZE = addIntProp("system-font-size", 0);
+    public static BooleanProperty SYSTEM_FONT_SIZE_CHANGE = addBoolProp("system-font-size-change", Boolean.FALSE); // für die Schriftgröße
+    public static BooleanProperty SYSTEM_DARK_THEME = addBoolProp("system-dark-theme", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_THEME_CHANGED = addBoolProp("system-theme-changed");
 
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStrProp("system-size-gui", "1000:800");

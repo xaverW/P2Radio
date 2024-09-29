@@ -19,7 +19,7 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
@@ -62,7 +62,7 @@ public class CellButtonStation<S, T> extends TableCell<S, T> {
                     final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.stopPlayable(station);
                         getTableView().getSelectionModel().clearSelection();
@@ -80,7 +80,7 @@ public class CellButtonStation<S, T> extends TableCell<S, T> {
                     final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         ProgData.getInstance().startFactory.playPlayable(station);
                         getTableView().getSelectionModel().clearSelection();
@@ -99,7 +99,7 @@ public class CellButtonStation<S, T> extends TableCell<S, T> {
                 btnFavorite.getStyleClass().addAll("btnFunction", "btnFuncTable");
 
                 btnFavorite.setTooltip(new Tooltip("Sender als Favoriten sichern"));
-                btnFavorite.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_STATION_SAVE.getImageView());
+                btnFavorite.setGraphic(ProgIcons.IMAGE_TABLE_STATION_SAVE.getImageView());
                 btnFavorite.setOnAction(event -> {
                     FavouriteFactory.favouriteStation(station);
                 });

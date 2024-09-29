@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Pos;
@@ -54,7 +54,7 @@ public class CellGrade<S, T> extends TableCell<S, T> {
                     for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
                         if (item.longValue() > i) {
                             Label l = new Label();
-                            l.setGraphic(ProgIconsP2Radio.IMAGE_TABLE_FAVOURITE_GRADE.getImageView());
+                            l.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getImageView());
                             hBox.getChildren().add(l);
                         }
                     }

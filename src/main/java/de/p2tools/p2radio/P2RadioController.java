@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio;
 
-import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -24,7 +23,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -41,7 +40,6 @@ import javafx.scene.layout.*;
 public class P2RadioController extends StackPane {
 
     private final ProgData progData;
-    private final P2MaskerPane maskerPane = new P2MaskerPane();
     Button btnSmallRadio = new Button("");
     Button btnStation = new Button("Sender");
     Button btnFavourite = new Button("Favoriten");
@@ -90,7 +88,7 @@ public class P2RadioController extends StackPane {
             borderPane.setCenter(stackPaneCont);
             borderPane.setBottom(statusBarController);
             this.setPadding(new Insets(0));
-            this.getChildren().addAll(borderPane, maskerPane);
+            this.getChildren().addAll(borderPane, progData.maskerPane);
 
             initMaskerPane();
             initButton();
@@ -117,13 +115,12 @@ public class P2RadioController extends StackPane {
     }
 
     private void initMaskerPane() {
-        StackPane.setAlignment(maskerPane, Pos.CENTER);
-        progData.maskerPane = maskerPane;
-        maskerPane.setPadding(new Insets(4, 1, 1, 1));
-        maskerPane.toFront();
-        Button btnStop = maskerPane.getButton();
-        maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIconsP2Radio.ICON_BUTTON_STOP.getImageView());
+        StackPane.setAlignment(progData.maskerPane, Pos.CENTER);
+        progData.maskerPane.setPadding(new Insets(4, 1, 1, 1));
+        progData.maskerPane.toFront();
+        Button btnStop = progData.maskerPane.getButton();
+        progData.maskerPane.setButtonText("");
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
     }
 
@@ -132,7 +129,7 @@ public class P2RadioController extends StackPane {
         btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
         btnSmallRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnSmallRadio.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
+        btnSmallRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
 
         btnStation.setTooltip(new Tooltip("Sender anzeigen"));
         btnStation.setOnAction(e -> selPanelStation());
@@ -177,7 +174,7 @@ public class P2RadioController extends StackPane {
         ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
         ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
         ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
-        if (maskerPane.isVisible()) {
+        if (progData.maskerPane.isVisible()) {
             return;
         }
 
@@ -192,7 +189,7 @@ public class P2RadioController extends StackPane {
 
     private void selPanelStation() {
         ProgConfig.SYSTEM_LAST_TAB_STATION.set(0);
-        if (maskerPane.isVisible()) {
+        if (progData.maskerPane.isVisible()) {
             return;
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneStation)) {
@@ -217,7 +214,7 @@ public class P2RadioController extends StackPane {
 
     private void selPanelFavourite() {
         ProgConfig.SYSTEM_LAST_TAB_STATION.set(1);
-        if (maskerPane.isVisible()) {
+        if (progData.maskerPane.isVisible()) {
             return;
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneFavourite)) {
@@ -242,7 +239,7 @@ public class P2RadioController extends StackPane {
 
     private void selPanelHistory() {
         ProgConfig.SYSTEM_LAST_TAB_STATION.set(2);
-        if (maskerPane.isVisible()) {
+        if (progData.maskerPane.isVisible()) {
             return;
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneHistory)) {
@@ -267,7 +264,7 @@ public class P2RadioController extends StackPane {
 
     private void infoPane() {
         btnStation.setOnMouseClicked(mouseEvent -> {
-            if (maskerPane.isVisible() ||
+            if (progData.maskerPane.isVisible() ||
                     !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneStation)) {
                 return;
             }
@@ -276,7 +273,7 @@ public class P2RadioController extends StackPane {
             }
         });
         btnFavourite.setOnMouseClicked(mouseEvent -> {
-            if (maskerPane.isVisible() ||
+            if (progData.maskerPane.isVisible() ||
                     !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneFavourite)) {
                 return;
             }
@@ -285,7 +282,7 @@ public class P2RadioController extends StackPane {
             }
         });
         btnHistory.setOnMouseClicked(mouseEvent -> {
-            if (maskerPane.isVisible() ||
+            if (progData.maskerPane.isVisible() ||
                     !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneHistory)) {
                 return;
             }

@@ -63,10 +63,12 @@ public class ProgData {
     public static boolean duration = false; // Duration ausgeben
     public static boolean reset = false; // Programm auf Starteinstellungen zurücksetzen
     public static boolean firstProgramStart = false; // ist der allererste Programmstart: Init wird gemacht
+
     // Infos
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
     private static ProgData instance;
     public final ProgTray progTray;
+
     // zentrale Klassen
     public LoadNewStationList loadNewStationList; // erledigt das laden und updaten der Radioliste
     public P2RadioShortCuts pShortcut; // verwendete Shortcuts
@@ -75,7 +77,7 @@ public class ProgData {
 
     // Gui
     public Stage primaryStage = null;
-    public P2MaskerPane maskerPane = null;
+    public P2MaskerPane maskerPane = new P2MaskerPane();
     public P2RadioController p2RadioController = null;
 
     public StationGuiPack stationGuiPack = null; // Tab mit den Sender

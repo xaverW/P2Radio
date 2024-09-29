@@ -17,13 +17,14 @@ package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2GuiSize;
-import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
-import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.config.ProgColorList;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgConst;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
@@ -36,7 +37,6 @@ public class P2Radio extends Application {
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     protected ProgData progData;
     Scene scene = null;
-    int i = 0;
     private Stage primaryStage;
 
     public static void main(String[] args) {
@@ -56,60 +56,46 @@ public class P2Radio extends Application {
 
         initP2lib();
         ProgStartBeforeGui.workBeforeGui(progData);
+
         initRootLayout();
         ProgStartAfterGui.workAfterGui(progData);
-
-        ProgConfig.CONFIG_DIALOG_SET_DIVIDER.addListener((u, o, n) -> System.out.println("=============>>" + i++));
 
         P2Duration.onlyPing("Gui steht!");
         P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
     }
 
     private void initP2lib() {
-        ProgIconsP2Radio.initIcons();
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
-                "", ProgConfig.SYSTEM_DARK_THEME, null,
+                "", ProgConfig.SYSTEM_DARK_THEME, null, ProgConfig.SYSTEM_THEME_CHANGED,
+                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_FONT_SIZE,
                 ProgData.debug, ProgData.duration);
-        //css-files in die Liste aufnehmen
-        P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }
 
     private void initRootLayout() {
         try {
-            addThemeCss(); // damit es für die 2 schon mal stimmt
             progData.stationInfoDialogController = new StationInfoDialogController(progData);
             progData.p2RadioController = new P2RadioController();
-
             scene = new Scene(progData.p2RadioController,
                     P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-
-            ProgColorList.setColorTheme();
-            addThemeCss(); //und jetzt noch für die neue Scene
-
-            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
-                ProgColorList.setColorTheme();
-                addThemeCss();
-                ProgConfig.SYSTEM_THEME_CHANGED.setValue(!ProgConfig.SYSTEM_THEME_CHANGED.get());
-            });
-
-            if (ProgConfig.SYSTEM_STYLE.get()) {
-                P2LibInit.setStyleFile(ProgInfos.getStyleFile().toString());
-                IoReadWriteStyle.readStyle(ProgInfos.getStyleFile(), scene);
-            }
 
             primaryStage.setScene(scene);
             primaryStage.setOnCloseRequest(e -> {
                 e.consume();
                 ProgQuit.quit(primaryStage, true);
             });
+
             //Pos setzen
             P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage);
-
             scene.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             scene.widthProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.xProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.yProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
+
+            P2LibInit.addP2CssToScene(scene); // und jetzt noch CSS einstellen
+            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
+                ProgColorList.setColorTheme();
+            });
 
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann gleich mit smallRadio starten
@@ -120,14 +106,5 @@ public class P2Radio extends Application {
         } catch (final Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void addThemeCss() {
-        if (ProgConfig.SYSTEM_DARK_THEME.get()) {
-            P2LibInit.addCssFile(ProgConst.CSS_FILE_DARK_THEME);
-        } else {
-            P2LibInit.removeCssFile(ProgConst.CSS_FILE_DARK_THEME);
-        }
-        P2LibInit.addP2CssToScene(scene);
     }
 }

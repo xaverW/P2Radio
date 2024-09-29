@@ -25,7 +25,7 @@ import de.p2tools.p2lib.guitools.P2Styles;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.data.ProgIconsP2Radio;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.beans.property.StringProperty;
@@ -112,7 +112,7 @@ public class PanePath {
         btnFile.setOnAction(event -> {
             P2DirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
-        btnFile.setGraphic(ProgIconsP2Radio.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
         final Button btnHelp = P2Button.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);
