@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio;
 
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -184,6 +185,7 @@ public class P2RadioController extends StackPane {
 
     public void quittSmallRadio() {
         initPanelStation();
+        P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
         progData.primaryStage.show();
     }
 
