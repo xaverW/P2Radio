@@ -55,32 +55,36 @@ public class StartPane {
                 "Sender gefiltert werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "3) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
+                "3) Hier kann die Blacklist" + P2LibConst.LINE_SEPARATOR +
+                "ein- und ausgeschaltet werden" +
+
+                P2LibConst.LINE_SEPARATORx2 +
+                "4) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
                 "der History wird hier umgeschaltet." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "4) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
+                "5) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
                 "die Programmeinstellungen." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "5) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
+                "6) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
                 "Spalten in der Tabelle" + P2LibConst.LINE_SEPARATOR +
                 "ein- und ausgeblendet werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "6) In dem Menü können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+                "7) In dem Menü können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
                 "und verarbeitet werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "7) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+                "8) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
                 "und gestoppt werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "8) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
+                "9) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
                 "den Favoriten hinzugefügt werden." +
 
                 P2LibConst.LINE_SEPARATORx2 +
-                "9) Hier kann ein zufälliger Sender" + P2LibConst.LINE_SEPARATOR +
+                "10) Hier kann ein zufälliger Sender" + P2LibConst.LINE_SEPARATOR +
                 "zum Abspielen ausgewählt werden.");
 
         hBox.getChildren().addAll(iv, text);
