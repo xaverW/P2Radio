@@ -2,6 +2,24 @@
 
 <br />
 
+**Release 7**
+
+* Gui-Elemente überarbeitet: RangeSlider
+* Gui: Einstellungen Blacklist, Sets: überarbeitet
+* Lesen und Schreiben der Einstellungen: überarbeitet
+* Neue Spalte in der Tabelle Sender: Favorite
+* Button für den Dark Mode im Progamm-Menü
+* Fehler in der Blacklist behoben
+* TrayIcon: Fehler behoben, klappt wieder
+* Dialog zum Anlegen/Ändern von Favoriten erweitert
+* Fehler bei der Beschreibung von Favoriten/History behoben
+* Fehler bei der Verwendung eines eigenen Log-Verzeichnisses behoben
+* Die Filter und die Infos unter der Tabelle: Können jetzt in einem externen Fenster angezeigt werden
+* Sicherheitslücke "XXE" behoben, Danke für den Tip
+* ...
+
+<br />
+
 **Release 6**
 
 * Das ganze Gui wurde überarbeitet

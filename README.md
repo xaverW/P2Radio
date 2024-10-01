@@ -22,7 +22,7 @@ https://www.p2tools.de/p2radio/
 ## Systemvoraussetzungen
 Unterstützt wird Windows und Linux.
 
-Das Programm benötigt unter Windows und Linux eine aktuelle Java-VM ab Version: Java 17. Für Linux-Benutzer wird OpenJDK17 empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
+Das Programm benötigt unter Windows und Linux eine aktuelle Java-VM ab Version: Java 17. Für Linux-Benutzer wird OpenJDK empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
 
 <br />
 
