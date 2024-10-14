@@ -91,28 +91,23 @@ public class StationGuiController extends VBox {
     public void playStation() {
         // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
-        if (stationSelection.isPresent()) {
-            progData.startFactory.playPlayable(stationSelection.get());
-        }
+        stationSelection.ifPresent(stationData -> progData.startFactory.playPlayable(stationData));
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.stationList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.stationList.forEach(station -> progData.startFactory.stopPlayable(station));
 
         } else {
             final Optional<StationData> station = getSel();
-            if (station.isPresent()) {
-                progData.startFactory.stopPlayable(station.get());
-            }
+            station.ifPresent(stationData -> progData.startFactory.stopPlayable(stationData));
         }
     }
 
     public void playStationWithSet(SetData psetData) {
-        //Url mit Prognr. starten
         final Optional<StationData> sel = getSel();
-        if (!sel.isPresent()) {
+        if (sel.isEmpty()) {
             return;
         }
 

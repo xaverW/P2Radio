@@ -347,20 +347,6 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
     }
 
     public String getStationUrl() {
-        //        if (!arr[STATION_URL].isEmpty()
-        //                && !arr[STATION_URL_RESOLVED].isEmpty()
-        //                && !arr[STATION_URL].equals(arr[STATION_URL_RESOLVED])) {
-        //            return "--> " + arr[STATION_URL] + " - " + arr[STATION_URL_RESOLVED];
-        //
-        //        } else {
-        //            return arr[STATION_URL];
-        //        }
-
-        //        if (arr[STATION_URL_RESOLVED].isEmpty()) {
-        //            return arr[STATION_URL];
-        //        } else {
-        //            return arr[STATION_URL_RESOLVED];
-        //        }
         return stationUrl.get();
     }
 

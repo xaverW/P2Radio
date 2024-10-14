@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -112,7 +113,10 @@ public class FavouriteMenu {
         final MenuItem miFavouriteOwn = new MenuItem("Eigenen Sender als Favoriten anlegen");
         miFavouriteOwn.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
 
-        mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl, miFavouriteOwn);
+        final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
+        miAutoStart.setOnAction(e -> AutoStartFactory.setFavouriteAutoStart());
+
+        mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl, miFavouriteOwn, miAutoStart);
 
         // Submenü "Favoriten"
         final MenuItem miFavouriteChange = new MenuItem("Favoriten ändern");

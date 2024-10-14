@@ -17,7 +17,24 @@ public class AutoStartFactory {
     }
 
     public static void setStationAutoStart() {
-        final Optional<StationData> optionalStation = ProgData.getInstance().stationGuiPack.getStationGuiController().getSel(true);
+        final Optional<StationData> optionalStation =
+                ProgData.getInstance().stationGuiPack.getStationGuiController().getSel(true);
+        set(optionalStation);
+    }
+
+    public static void setFavouriteAutoStart() {
+        final Optional<StationData> optionalStation =
+                ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel(true);
+        set(optionalStation);
+    }
+
+    public static void setHistoryAutoStart() {
+        final Optional<StationData> optionalStation =
+                ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel(true);
+        set(optionalStation);
+    }
+
+    private static void set(Optional<StationData> optionalStation) {
         StationData station;
         if (optionalStation.isPresent()) {
             station = optionalStation.get();

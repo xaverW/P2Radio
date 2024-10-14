@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -130,7 +131,12 @@ public class HistoryMenu {
                 }
             }
         });
-        mb.getItems().addAll(miAddFavourite);
+
+        final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
+        miAutoStart.setOnAction(e -> AutoStartFactory.setHistoryAutoStart());
+
+        mb.getItems().addAll(miAddFavourite, miAutoStart);
+
 
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenu = new Menu("History");

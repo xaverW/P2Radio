@@ -94,4 +94,8 @@ public final class StationData extends StationDataProperty {
         setOwnGrade(ownGrade);
         setStarts(starts);
     }
+
+    public boolean isAutoStart() {
+        return !getStationUrl().isEmpty();
+    }
 }

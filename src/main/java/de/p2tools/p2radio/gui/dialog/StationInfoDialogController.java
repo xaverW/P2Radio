@@ -154,12 +154,10 @@ public class StationInfoDialogController extends P2DialogExtra {
                     progData.historyGuiPack.getHistoryGuiController().playStation();
             }
         });
-//        btnStart.getStyleClass().add("btnSmallRadio");
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> progData.startFactory.stopAll());
-//        btnStop.getStyleClass().add("btnSmallRadio");
 
         initUrl();
         makeGridPane();

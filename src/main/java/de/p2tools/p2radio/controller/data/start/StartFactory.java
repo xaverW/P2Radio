@@ -39,17 +39,20 @@ public class StartFactory {
     }
 
     public void stopAll() {
+        progData.startFactory.stopPlayable(progData.stationLastPlayed);
+        progData.startFactory.stopPlayable(progData.stationAutoStart);
+
         stopAllStations();
         stopAllFavourites();
         stopAllHistory();
     }
 
     public void stopAllStations() {
-        progData.stationList.stream().forEach(station -> progData.startFactory.stopPlayable(station));
+        progData.stationList.forEach(station -> progData.startFactory.stopPlayable(station));
     }
 
     public void stopAllFavourites() {
-        progData.favouriteList.stream().forEach(favourite -> progData.startFactory.stopPlayable(favourite));
+        progData.favouriteList.forEach(favourite -> progData.startFactory.stopPlayable(favourite));
     }
 
     public void stopAllHistory() {

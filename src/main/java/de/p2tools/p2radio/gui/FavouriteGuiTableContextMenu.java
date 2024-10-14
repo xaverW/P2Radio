@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -47,7 +48,7 @@ public class FavouriteGuiTableContextMenu {
     }
 
     private void getMenu(ContextMenu contextMenu, StationData stationData) {
-        MenuItem miStart = new MenuItem("Sender starten");
+        MenuItem miStart = new MenuItem("Sender abspielen");
         miStart.setDisable(stationData == null);
         miStart.setOnAction(a -> favouriteGuiController.playStation());
         contextMenu.getItems().addAll(miStart);
@@ -62,6 +63,9 @@ public class FavouriteGuiTableContextMenu {
         miStop.setOnAction(a -> favouriteGuiController.stopStation(false));
         MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
         miStopAll.setOnAction(a -> favouriteGuiController.stopStation(true /* alle */));
+
+        contextMenu.getItems().addAll(miStop, miStopAll, new SeparatorMenuItem());
+
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> favouriteGuiController.copyUrl());
 
@@ -76,7 +80,12 @@ public class FavouriteGuiTableContextMenu {
         miChange.setDisable(stationData == null);
         miRemove.setDisable(stationData == null);
 
-        contextMenu.getItems().addAll(miStop, miStopAll, miCopyUrl, miChange, miRemove);
+        contextMenu.getItems().addAll(miCopyUrl, miChange, miRemove);
+
+        final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
+        miAutoStart.setOnAction(e -> AutoStartFactory.setFavouriteAutoStart());
+        contextMenu.getItems().addAll(miAutoStart);
+        miAutoStart.setDisable(stationData == null);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());

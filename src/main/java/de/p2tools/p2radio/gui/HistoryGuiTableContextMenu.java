@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
@@ -47,43 +48,53 @@ public class HistoryGuiTableContextMenu {
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, StationData data) {
-        MenuItem miStart = new MenuItem("Sender starten");
+    private void getMenu(ContextMenu contextMenu, StationData station) {
+        MenuItem miStart = new MenuItem("Sender abspielen");
         miStart.setOnAction(a -> historyGuiController.playStation());
-        miStart.setDisable(data == null);
+        miStart.setDisable(station == null);
         contextMenu.getItems().addAll(miStart);
 
-        Menu mStartStation = startStationWithSet(data); // Sender mit Set starten
+        Menu mStartStation = startStationWithSet(station); // Sender mit Set starten
         if (mStartStation != null) {
-            mStartStation.setDisable(data == null);
+            mStartStation.setDisable(station == null);
             contextMenu.getItems().add(mStartStation);
         }
 
         MenuItem miStop = new MenuItem("Sender stoppen");
         miStop.setOnAction(a -> historyGuiController.stopStation(false));
+        miStop.setDisable(station == null);
+
         MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
         miStopAll.setOnAction(a -> historyGuiController.stopStation(true /* alle */));
+        miStopAll.setDisable(station == null);
+
+        contextMenu.getItems().addAll(miStop, miStopAll);
+
         MenuItem miCopyUrl = new MenuItem("Sender (URL) kopieren");
         miCopyUrl.setOnAction(a -> historyGuiController.copyUrl());
+        miCopyUrl.setDisable(station == null);
+
         MenuItem miRemove = new MenuItem("Sender aus History löschen");
         miRemove.setOnAction(a -> HistoryFactory.deleteHistory(false));
+        miRemove.setDisable(station == null);
 
-        miStop.setDisable(data == null);
-        miStopAll.setDisable(data == null);
-        miCopyUrl.setDisable(data == null);
-        miRemove.setDisable(data == null);
-        contextMenu.getItems().addAll(miStop, miStopAll, miCopyUrl, miRemove);
+        contextMenu.getItems().addAll(new SeparatorMenuItem(), miCopyUrl, miRemove);
 
-        if (data != null) {
-            String stationUrl = data.getStationUrl();
+        if (station != null) {
+            String stationUrl = station.getStationUrl();
             StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
             if (stationData != null) {
                 MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
                 miAddFavourite.setOnAction(a -> FavouriteFactory.favouriteStation(stationData));
-                miAddFavourite.setDisable(data == null);
+                miAddFavourite.setDisable(station == null);
                 contextMenu.getItems().addAll(miAddFavourite);
             }
         }
+
+        final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
+        miAutoStart.setOnAction(e -> AutoStartFactory.setHistoryAutoStart());
+        contextMenu.getItems().addAll(miAutoStart);
+        miAutoStart.setDisable(station == null);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());
@@ -101,13 +112,12 @@ public class HistoryGuiTableContextMenu {
                 return submenuSet;
             }
 
-            list.stream().forEach(setData -> {
+            list.forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
                 item.setOnAction(event -> {
-                    final Optional<StationData> stationData = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
-                    if (stationData.isPresent()) {
-                        progData.startFactory.playPlayable(stationData.get(), setData);
-                    }
+                    final Optional<StationData> stationData =
+                            ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
+                    stationData.ifPresent(data -> progData.startFactory.playPlayable(data, setData));
                 });
                 submenuSet.getItems().add(item);
             });

@@ -18,6 +18,7 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
@@ -59,24 +60,40 @@ public class StationGuiTableContextMenu {
             mStartStation.setDisable(station == null);
         }
 
-        MenuItem miSave = new MenuItem("Sender speichern");
-        miSave.setOnAction(a -> FavouriteFactory.favouriteStationList());
-        contextMenu.getItems().addAll(miSave);
-        miSave.setDisable(station == null);
+        MenuItem miStop = new MenuItem("Sender stoppen");
+        miStop.setOnAction(a -> stationGuiController.stopStation(false));
+        miStop.setDisable(station == null);
+
+        MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
+        miStopAll.setOnAction(a -> stationGuiController.stopStation(true /* alle */));
+        miStopAll.setDisable(station == null);
+
+        contextMenu.getItems().addAll(miStop, miStopAll);
 
         Menu mFilter = addFilter(station);// Filter
-        contextMenu.getItems().add(new SeparatorMenuItem());
-        contextMenu.getItems().addAll(mFilter);
-
         Menu mBlacklist = addBlacklist(station);// Blacklist
-        Menu mCopyUrl = copyUrl(station);// URL kopieren
-        contextMenu.getItems().addAll(mBlacklist, /*mBookmark,*/ mCopyUrl);
+
+        contextMenu.getItems().addAll(new SeparatorMenuItem(), mFilter, mBlacklist);
+        contextMenu.getItems().add(new SeparatorMenuItem());
+
+        MenuItem miUrl = new MenuItem("Sender-URL kopieren");
+        miUrl.setOnAction(a -> P2SystemUtils.copyToClipboard(station.getStationUrl()));
+        miUrl.setDisable(station == null);
+        contextMenu.getItems().addAll(miUrl);
+
+        MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
+        miSave.setOnAction(a -> FavouriteFactory.favouriteStationList());
+        miSave.setDisable(station == null);
+        contextMenu.getItems().addAll(miSave);
+
+        final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
+        miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
+        miAutoStart.setDisable(station == null);
+        contextMenu.getItems().addAll(miAutoStart);
 
         MenuItem miStationInfo = new MenuItem("Senderinformation anzeigen");
         miStationInfo.setOnAction(a -> progData.stationInfoDialogController.showStationInfo());
         miStationInfo.setDisable(station == null);
-
-        contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(miStationInfo);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
@@ -143,20 +160,5 @@ public class StationGuiTableContextMenu {
 
         submenuBlacklist.getItems().addAll(miBlackChannel, miBlackTheme, miBlackChannelTheme);
         return submenuBlacklist;
-    }
-
-    private Menu copyUrl(StationData station) {
-        final Menu subMenuURL = new Menu("Sender-URL kopieren");
-        if (station == null) {
-            subMenuURL.setDisable(true);
-            return subMenuURL;
-        }
-
-        MenuItem item;
-        item = new MenuItem("Sender-URL kopieren");
-        item.setOnAction(a -> P2SystemUtils.copyToClipboard(station.getStationUrl()));
-        subMenuURL.getItems().add(item);
-
-        return subMenuURL;
     }
 }

@@ -23,6 +23,7 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
@@ -83,7 +84,7 @@ public class ProgStartAfterGui {
 
         } else {
             // will der User nicht --oder-- wurde heute schon gemacht
-            List list = new ArrayList(5);
+            List<String> list = new ArrayList<>(5);
             list.add("Kein Update-Check:");
             if (!ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get()) {
                 list.add("  der User will nicht");
@@ -174,6 +175,20 @@ public class ProgStartAfterGui {
         logList.add(P2Log.LILNE1);
         logList.add("");
         P2Log.sysLog(logList);
+
+        switch (ProgConfig.SYSTEM_AUTO_START.get()) {
+            case AutoStartFactory.AUTOSTART_LAST_PLAYED:
+                if (progData.stationLastPlayed.isAutoStart()) {
+                    progData.startFactory.playPlayable(progData.stationLastPlayed);
+                }
+                break;
+            case AutoStartFactory.AUTOSTART_AUTO:
+                if (progData.stationAutoStart.isAutoStart()) {
+                    progData.startFactory.playPlayable(progData.stationAutoStart);
+                }
+                break;
+            default:
+        }
     }
 
     /**
