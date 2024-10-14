@@ -37,9 +37,9 @@ public class PaneSetList extends TitledPane {
     static int newCounter = 1;
     private final ProgData progData;
     private final TableView<SetData> tableView = new TableView<>();
-    private final ControllerSet controllerSet;
+    private final PaneSet controllerSet;
 
-    public PaneSetList(ControllerSet controllerSet) {
+    public PaneSetList(PaneSet controllerSet) {
         this.controllerSet = controllerSet;
         this.progData = ProgData.getInstance();
 

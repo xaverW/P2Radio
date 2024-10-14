@@ -45,7 +45,6 @@ public class ProgStartBeforeGui {
             // dann ist der erste Start
             P2Duration.onlyPing("Erster Start");
             ProgData.firstProgramStart = true;
-            ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.setValue(true);//den Dialog brauchts dann auch nicht
 
             StartDialogController startDialogController = new StartDialogController();
             if (!startDialogController.isOk()) {

@@ -21,6 +21,7 @@ import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.data.P2DataProgConfig;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioFactory;
@@ -55,6 +56,8 @@ public class ProgConfig extends P2DataProgConfig {
         configFile.addConfigs(ProgData.getInstance().blackDataList);
         configFile.addConfigs(ProgData.getInstance().favouriteFilter);
         configFile.addConfigs(ProgData.getInstance().historyFilter);
+        configFile.addConfigs(ProgData.getInstance().stationAutoStart);
+        configFile.addConfigs(ProgData.getInstance().stationLastPlayed);
     }
 
     //Shorcuts Hauptmenü
@@ -95,6 +98,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_TAB = new SimpleIntegerProperty(0);
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_CONFIG = new SimpleIntegerProperty(-1);
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_BLACKLIST = new SimpleIntegerProperty(-1);
+    public static IntegerProperty SYSTEM_CONFIG_DIALOG_PLAY = new SimpleIntegerProperty(-1);
 
     // Configs
     public static BooleanProperty SYSTEM_SMALL_RADIO = addBoolProp("system-small-radio", false);
@@ -102,7 +106,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_TRAY = addBoolProp("system-tray", Boolean.FALSE);
     public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBoolProp("system-tray-own-icon", Boolean.FALSE);
     public static StringProperty SYSTEM_TRAY_ICON_PATH = addStrProp("system-tray-icon", ""); //ein eigenes Tray-Icon
-    public static StringProperty SYSTEM_USERAGENT = addStrProp("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
+    public static StringProperty SYSTEM_USERAGENT = addStrProp("system-useragent", ProgConst.USER_AGENT_DEFAULT); // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStrProp("system-prog-open-url");
     public static BooleanProperty SYSTEM_STYLE = addBoolProp("system-style", Boolean.FALSE);
     public static IntegerProperty SYSTEM_STYLE_SIZE = addIntProp("system-geo-home-place", 14);
@@ -112,7 +116,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_SMALL_ROW_TABLE = addBoolProp("system-small-row-table", Boolean.FALSE);
     public static IntegerProperty SYSTEM_LAST_TAB_STATION = addIntProp("system-last-tab-station", 0);
     public static StringProperty SYSTEM_HISTORY = addStrProp("system-history", "");
-    public static BooleanProperty SYSTEM_SHOW_MSG_SETDATA_CHANGED = addBoolProp("system-show-msg-setdata-changed", Boolean.FALSE);
+    public static IntegerProperty SYSTEM_AUTO_START = addIntProp("system-auto-start", AutoStartFactory.AUTOSTART_NOTHING);
 
     public static IntegerProperty SYSTEM_FONT_SIZE = addIntProp("system-font-size", 0);
     public static BooleanProperty SYSTEM_FONT_SIZE_CHANGE = addBoolProp("system-font-size-change", Boolean.FALSE); // für die Schriftgröße

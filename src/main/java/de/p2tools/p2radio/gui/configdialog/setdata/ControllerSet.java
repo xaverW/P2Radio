@@ -16,70 +16,40 @@
 
 package de.p2tools.p2radio.gui.configdialog.setdata;
 
+import de.p2tools.p2lib.dialogs.accordion.P2AccordionPane;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.data.SetData;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
-public class ControllerSet extends AnchorPane {
+import java.util.ArrayList;
+import java.util.Collection;
 
-    private final SplitPane splitPane = new SplitPane();
-    private final ScrollPane scrollPane = new ScrollPane();
-    private final VBox vBox = new VBox();
+public class ControllerSet extends P2AccordionPane {
+
     private final Stage stage;
-    private final PaneSetList paneSetList;
-    private final PaneSetData paneSetData;
-    private final ObjectProperty<SetData> aktSetDate = new SimpleObjectProperty<>();
+    private PaneAutoStart paneAutoStart;
+    private PaneSet paneSet;
 
     public ControllerSet(Stage stage) {
+        super(ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_PLAY);
         this.stage = stage;
-
-        paneSetList = new PaneSetList(this);
-        paneSetData = new PaneSetData(this);
-
-        AnchorPane.setLeftAnchor(splitPane, 0.0);
-        AnchorPane.setBottomAnchor(splitPane, 0.0);
-        AnchorPane.setRightAnchor(splitPane, 0.0);
-        AnchorPane.setTopAnchor(splitPane, 0.0);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-
-        VBox.setVgrow(paneSetList, Priority.ALWAYS);
-        vBox.getChildren().addAll(paneSetList);
-
-        splitPane.getItems().addAll(vBox, scrollPane);
-        SplitPane.setResizableWithParent(vBox, Boolean.FALSE);
-        getChildren().addAll(splitPane);
-
-        scrollPane.setContent(paneSetData);
-        splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
+        init();
     }
 
     public void close() {
-        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
-        paneSetData.close();
-        paneSetList.close();
+        paneAutoStart.close();
+        paneSet.close();
+        super.close();
     }
 
-    public Stage getStage() {
-        return stage;
-    }
+    public Collection<TitledPane> createPanes() {
+        Collection<TitledPane> result = new ArrayList<>();
+        paneAutoStart = new PaneAutoStart(stage);
+        paneAutoStart.makeConfig(result);
 
-    public SetData getAktSetDate() {
-        return aktSetDate.get();
-    }
+        paneSet = new PaneSet(stage);
+        paneSet.makeConfig(result);
 
-    public void setAktSetDate(SetData aktSetDate) {
-        this.aktSetDate.set(aktSetDate);
-    }
-
-    public ObjectProperty<SetData> aktSetDateProperty() {
-        return aktSetDate;
+        return result;
     }
 }

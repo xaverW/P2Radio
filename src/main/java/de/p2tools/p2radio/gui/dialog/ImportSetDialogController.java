@@ -25,7 +25,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.configdialog.PanePath;
-import de.p2tools.p2radio.gui.configdialog.setdata.ControllerSet;
+import de.p2tools.p2radio.gui.configdialog.setdata.PaneSet;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Priority;
@@ -40,7 +40,7 @@ public class ImportSetDialogController extends P2DialogExtra {
     Button btnImport = new Button("_Set importieren");
     private boolean im = false;
     private StackPane stackPane;
-    private ControllerSet controllerSet;
+    private PaneSet controllerSet;
 
 
     public ImportSetDialogController(ProgData progData) {
@@ -82,7 +82,7 @@ public class ImportSetDialogController extends P2DialogExtra {
         vBoxPath.setStyle("-fx-background-color: -fx-background;");
 
         // nach Import
-        controllerSet = new ControllerSet(P2LibConst.primaryStage);
+        controllerSet = new PaneSet(P2LibConst.primaryStage);
         controllerSet.setMaxWidth(Double.MAX_VALUE);
         controllerSet.setMaxHeight(Double.MAX_VALUE);
         controllerSet.setStyle("-fx-background-color: -fx-background;");

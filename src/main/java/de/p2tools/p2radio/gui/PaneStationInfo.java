@@ -19,8 +19,11 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -30,6 +33,8 @@ import javafx.scene.text.FontWeight;
 public class PaneStationInfo extends VBox {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
+    private final CheckBox chkAutoStart = new CheckBox();
+
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final P2Hyperlink hyperlinkUrl = new P2Hyperlink("",
@@ -37,15 +42,41 @@ public class PaneStationInfo extends VBox {
 
     private final StationGuiPack stationGuiPack;
     private StationData station = null;
+    private boolean stopListener = false;
 
     public PaneStationInfo(StationGuiPack stationGuiPack) {
-//        super(ProgConfig.STATION_GUI_DIVIDER_ON, true);
         this.stationGuiPack = stationGuiPack;
-
         initInfo();
     }
 
-    public void initInfo() {
+    public void setStation(StationData station) {
+        stopListener = true;
+        this.station = station;
+
+        chkAutoStart.setDisable(station == null);
+        if (station == null) {
+            lblTitle.setText("");
+            chkAutoStart.setSelected(false);
+            hyperlinkWebsite.setUrl("");
+            hyperlinkUrl.setUrl("");
+            stopListener = false;
+            return;
+        }
+
+        lblTitle.setText(station.getStationName() + "  -  " + station.getCountry());
+        chkAutoStart.setSelected(ProgData.getInstance().stationAutoStart.getStationUrl().equals(station.getStationUrl()));
+        hyperlinkWebsite.setUrl(station.getWebsite());
+        hyperlinkUrl.setUrl(station.getStationUrl());
+        stopListener = false;
+    }
+
+    private void initInfo() {
+        ProgData.getInstance().stationAutoStart.stationUrlProperty().addListener((u, o, n) -> setStation(station));
+        chkAutoStart.selectedProperty().addListener((u, o, n) -> {
+            if (!stopListener) {
+                AutoStartFactory.setAuto(station, chkAutoStart.isSelected());
+            }
+        });
         stationGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
             setStation(stationGuiPack.stationDataObjectPropertyProperty().getValue());
         });
@@ -67,19 +98,8 @@ public class PaneStationInfo extends VBox {
 
         gridPane.add(new Label("Sender-URL: "), 0, ++row);
         gridPane.add(hyperlinkUrl, 1, row);
-    }
 
-    public void setStation(StationData station) {
-        this.station = station;
-        if (station == null) {
-            lblTitle.setText("");
-            hyperlinkWebsite.setUrl("");
-            hyperlinkUrl.setUrl("");
-            return;
-        }
-
-        lblTitle.setText(station.getStationName() + "  -  " + station.getCountry());
-        hyperlinkWebsite.setUrl(station.getWebsite());
-        hyperlinkUrl.setUrl(station.getStationUrl());
+        gridPane.add(new Label("AutoStart: "), 0, ++row);
+        gridPane.add(chkAutoStart, 1, row);
     }
 }

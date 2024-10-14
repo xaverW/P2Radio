@@ -22,6 +22,7 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2EventHandler;
 import de.p2tools.p2radio.P2RadioController;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
@@ -110,6 +111,9 @@ public class ProgData {
     public HistoryList historyList; //Sender die zuletzt gespielt wurden
     public FilteredList<StationData> filteredHistoryList;
     public HistoryFilter historyFilter;
+
+    public StationData stationAutoStart = new StationData(AutoStartFactory.TAG_AUTOSTART);
+    public StationData stationLastPlayed = new StationData(AutoStartFactory.TAG_LAST_PLAYED);
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;

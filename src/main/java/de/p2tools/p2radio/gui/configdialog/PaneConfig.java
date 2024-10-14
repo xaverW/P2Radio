@@ -23,6 +23,7 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.P2StringUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -41,11 +42,16 @@ public class PaneConfig {
     private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
             ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
     private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
+
+    final GridPane gridPane = new GridPane();
+
     private final Stage stage;
     private TextField txtUserAgent;
+    private final ProgData progData;
 
     public PaneConfig(Stage stage) {
         this.stage = stage;
+        this.progData = ProgData.getInstance();
     }
 
     public void close() {
@@ -56,7 +62,6 @@ public class PaneConfig {
     }
 
     public void makeConfig(Collection<TitledPane> result) {
-        final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPane.setPadding(new Insets(P2LibConst.PADDING));
@@ -64,6 +69,16 @@ public class PaneConfig {
         TitledPane tpConfig = new TitledPane("Allgemein", gridPane);
         result.add(tpConfig);
 
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcPrefSize());
+
+        makeInfos();
+    }
+
+    private void makeInfos() {
         tglSmallStation.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
         final Button btnHelpLoadStationList = P2Button.helpButton(stage, "Liste der Sender aktualisieren",
@@ -73,11 +88,11 @@ public class PaneConfig {
         GridPane.setHalignment(btnHelpLoadStationList, HPos.RIGHT);
         GridPane.setHalignment(btnHelpSize, HPos.RIGHT);
 
+        // UserAgent
         final Button btnHelpUserAgent = P2Button.helpButton(stage, "User Agent festlegen",
                 HelpText.USER_AGENT);
         GridPane.setHalignment(btnHelpUserAgent, HPos.RIGHT);
         txtUserAgent = new TextField() {
-
             @Override
             public void replaceText(int start, int end, String text) {
                 if (check(text)) {
@@ -101,21 +116,17 @@ public class PaneConfig {
         };
         txtUserAgent.textProperty().bindBidirectional(ProgConfig.SYSTEM_USERAGENT);
 
-
         int row = 0;
         gridPane.add(tglLoadStationList, 0, row, 2, 1);
-        gridPane.add(btnHelpLoadStationList, 2, row);
+        gridPane.add(btnHelpLoadStationList, 4, row);
 
         ++row;
         gridPane.add(tglSmallStation, 0, ++row, 2, 1);
-        gridPane.add(btnHelpSize, 2, row);
+        gridPane.add(btnHelpSize, 4, row);
 
         ++row;
         gridPane.add(new Label("User Agent:"), 0, ++row);
         gridPane.add(txtUserAgent, 1, row);
-        gridPane.add(btnHelpUserAgent, 2, row);
-
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
+        gridPane.add(btnHelpUserAgent, 4, row);
     }
 }

@@ -183,6 +183,18 @@ public class HelpText {
             "(Es sind nur ASCII-Zeichen erlaubt und die Textlänge ist begrenzt auf 100 Zeichen)" +
             "\n";
 
+    public static final String AUTO_START = "Hier kann ausgewählt werden, ob und welcher Sender " +
+            "beim Programmstart sofort gestartet wird. " +
+            "\n\n" +
+            "\"Nichts:\" Das meint, dass kein Sender automatisch gestartet wird." +
+            "\n" +
+            "\"Letzter gespielter:\" Es wird der zuletzt gespielte Sender wieder gestartet." +
+            "\n" +
+            "\"Gewählter Autostart:\" Es kann ein Sender ausgewählt werden (in den Tabellen " +
+            "\"Sender, Favoriten, History\" " +
+            "der beim Programmstart automatisch gestartet werden soll." +
+            "\n";
+
     public static final String LOGFILE = "Hier kann ein Ordner angegeben werden " +
             "in dem ein Logfile erstellt wird. Darin wird der Programmverlauf skizziert. " +
             "Das kann hilfreich sein, wenn das Programm nicht wie erwartet funktioniert." + P2LibConst.LINE_SEPARATORx2 +

@@ -54,12 +54,12 @@ public class PaneSetData extends TitledPane {
     private final Label lblSwitch = new Label("Schalter:");
 
     private final Stage stage;
-    private final ControllerSet controllerSet;
+    private final PaneSet controllerSet;
 
     private ChangeListener<SetData> changeListener;
     private SetData setData = null;
 
-    PaneSetData(ControllerSet controllerSet) {
+    PaneSetData(PaneSet controllerSet) {
         this.controllerSet = controllerSet;
         this.stage = controllerSet.getStage();
         this.btnHelpSearch = P2Button.helpButton(stage,

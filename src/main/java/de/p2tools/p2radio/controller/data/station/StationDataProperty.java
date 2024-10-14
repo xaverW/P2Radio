@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T> {
 
-    public static final String TAG = "Favourite";
     private final IntegerProperty stationNo = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
     private final StringProperty stationName = new SimpleStringProperty("");
@@ -443,11 +442,6 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
 
     public void setStationDate(String date) {
         this.stationDate = P2LDateFactory.fromString(date);
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
     }
 
     public int compareTo(StationDataProperty arg0) {

@@ -23,15 +23,20 @@ import de.p2tools.p2radio.controller.data.start.Start;
 public final class StationData extends StationDataProperty {
 
     private Start start = null;
+    public final String TAG;
 
     public StationData() {
+        TAG = "Station" + TAGGER + "Favourite";
     }
 
-//    public StationData(StationData station, String collectionName) {
-//        setStation(station);
-//        setCollectionName(collectionName);
-//        setStationUrl(station.getStationUrl());
-//    }
+    public StationData(String tag) {
+        TAG = tag;
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
 
     //==============================================
     // Get/Set
@@ -45,7 +50,7 @@ public final class StationData extends StationDataProperty {
     }
 
     public StationData getCopy() {
-        final StationData ret = new StationData();
+        final StationData ret = new StationData(getTag());
         ret.start = start;
 
         Config[] configs = getConfigsArr();

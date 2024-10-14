@@ -32,13 +32,11 @@ public class HistoryList extends SimpleListProperty<StationData> implements P2Da
 
     public static final String TAG = "HistoryList" + P2Data.TAGGER + "LastPlayedList";
     private final ProgData progData;
-    private final HistoryStartsFactory favouriteStartsFactory;
-//    private int no = 0;
 
     public HistoryList(ProgData progData) {
         super(FXCollections.observableArrayList());
         this.progData = progData;
-        this.favouriteStartsFactory = new HistoryStartsFactory(progData, this);
+//        HistoryStartsFactory favouriteStartsFactory = new HistoryStartsFactory(progData, this);
     }
 
     @Override
@@ -69,23 +67,16 @@ public class HistoryList extends SimpleListProperty<StationData> implements P2Da
 
     @Override
     public synchronized boolean add(StationData d) {
-//        d.setStationNo(++no);
         return super.add(d);
     }
 
     @Override
     public synchronized boolean addAll(Collection<? extends StationData> elements) {
-//        elements.stream().forEach(f -> {
-//            f.setStationNo(++no);
-//        });
         return super.addAll(elements);
     }
 
     @Override
     public boolean addAll(StationData... var1) {
-//        for (StationData f : var1) {
-//            f.setStationNo(++no);
-//        }
         return super.addAll(var1);
     }
 
@@ -140,17 +131,4 @@ public class HistoryList extends SimpleListProperty<StationData> implements P2Da
         }
         return ret;
     }
-
-//    public synchronized StationData getUrlStation(String urlStation) {
-//        for (final StationData dataStationData : this) {
-//            if (dataStationData.getStationUrl().equals(urlStation)) {
-//                return dataStationData;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    public synchronized List<StationData> getListOfStartsNotFinished(String source) {
-//        return favouriteStartsFactory.getListOfStartsNotFinished(source);
-//    }
 }

@@ -17,7 +17,6 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -33,9 +32,9 @@ public class StartFactory {
         this.progData = progData;
     }
 
-    public void stopPlayable(StationData favourite) {
-        if (favourite.getStart() != null) {
-            favourite.getStart().stopStart();
+    public void stopPlayable(StationData stationData) {
+        if (stationData.getStart() != null) {
+            stationData.getStart().stopStart();
         }
     }
 
@@ -54,7 +53,7 @@ public class StartFactory {
     }
 
     public void stopAllHistory() {
-        progData.historyList.stream().forEach(stationData -> progData.startFactory.stopPlayable(stationData));
+        progData.historyList.forEach(stationData -> progData.startFactory.stopPlayable(stationData));
     }
 
     public StationData playRandomStation() {
@@ -66,17 +65,11 @@ public class StartFactory {
         return station;
     }
 
-    public void playPlayable(StationData favourite) {
-        playPlayable(favourite, null);
+    public void playPlayable(StationData stationData) {
+        playPlayable(stationData, null);
     }
 
     public void playPlayable(StationData stationData, SetData data) {
-        if (!ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.getValue()) {
-            P2Alert.showInfoAlert("Sender starten", "Änderungen beim Sender-Start",
-                    "Die Einstellungen zum Starten eines Senders haben " +
-                            "sich geändert. Wenn es Probleme gibt, bitte die Einstellungen überprüfen.");
-            ProgConfig.SYSTEM_SHOW_MSG_SETDATA_CHANGED.setValue(true);
-        }
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;
@@ -98,6 +91,8 @@ public class StartFactory {
     }
 
     private synchronized void startUrlWithProgram(StationData station, SetData setData) {
+        progData.stationLastPlayed.copyToMe(station);
+
         final String url = station.getStationUrl();
         if (!url.isEmpty()) {
             progData.historyList.addStation(station);

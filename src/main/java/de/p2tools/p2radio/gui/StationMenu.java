@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -110,7 +111,10 @@ public class StationMenu {
         miSave.setOnAction(e -> FavouriteFactory.favouriteStationList());
         P2ShortcutWorker.addShortCut(miSave, P2RadioShortCuts.SHORTCUT_SAVE_STATION);
 
-        mb.getItems().addAll(miStop, miStopAll, miSave);
+        final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
+        miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
+
+        mb.getItems().addAll(miStop, miStopAll, miSave, miAutoStart);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.disableProperty().bind(ProgConfig.STATION__FILTER_IS_RIP);

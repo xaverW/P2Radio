@@ -19,8 +19,11 @@ package de.p2tools.p2radio.gui;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
@@ -32,6 +35,7 @@ import javafx.scene.text.FontWeight;
 public class PaneHistoryInfo extends VBox {
     private final GridPane gridPane = new GridPane();
     private final Label lblTitle = new Label("");
+    private final CheckBox chkAutoStart = new CheckBox();
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final P2Hyperlink hyperlinkUrl = new P2Hyperlink("",
@@ -40,18 +44,50 @@ public class PaneHistoryInfo extends VBox {
     private final TextArea taDescription = new TextArea();
 
     private final HistoryGuiPack historyGuiPack;
-    private StationData stationData = null;
+    private StationData station = null;
+    private boolean stopListener = false;
 
     public PaneHistoryInfo(HistoryGuiPack historyGuiPack) {
-//        super(ProgConfig.HISTORY_GUI_DIVIDER_ON, true);
         this.historyGuiPack = historyGuiPack;
-
         initInfo();
     }
 
+    public void setStation(StationData station) {
+        stopListener = true;
+        if (this.station != null) {
+            taDescription.textProperty().unbindBidirectional(this.station.descriptionProperty());
+        }
+
+        this.station = station;
+        chkAutoStart.setDisable(station == null);
+        taDescription.setDisable(station == null);
+        if (station == null) {
+            lblTitle.setText("");
+            chkAutoStart.setSelected(false);
+            hyperlinkWebsite.setUrl("");
+            hyperlinkUrl.setUrl("");
+            taDescription.setText("");
+            stopListener = false;
+            return;
+        }
+
+        lblTitle.setText(station.getStationName() + "  -  " + station.getCountry());
+        chkAutoStart.setSelected(ProgData.getInstance().stationAutoStart.getStationUrl().equals(station.getStationUrl()));
+        hyperlinkWebsite.setUrl(station.getWebsite());
+        hyperlinkUrl.setUrl(station.getStationUrl());
+        taDescription.textProperty().bindBidirectional(station.descriptionProperty());
+        stopListener = false;
+    }
+
     public void initInfo() {
+        ProgData.getInstance().stationAutoStart.stationUrlProperty().addListener((u, o, n) -> setStation(station));
+        chkAutoStart.selectedProperty().addListener((u, o, n) -> {
+            if (!stopListener) {
+                AutoStartFactory.setAuto(station, chkAutoStart.isSelected());
+            }
+        });
         historyGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {
-            setStationData(historyGuiPack.stationDataObjectPropertyProperty().getValue());
+            setStation(historyGuiPack.stationDataObjectPropertyProperty().getValue());
         });
 
         getChildren().add(gridPane);
@@ -78,28 +114,11 @@ public class PaneHistoryInfo extends VBox {
         gridPane.add(new Label("Sender-URL: "), 0, ++row);
         gridPane.add(hyperlinkUrl, 1, row);
 
+        gridPane.add(new Label("AutoStart: "), 0, ++row);
+        gridPane.add(chkAutoStart, 1, row);
+
         gridPane.add(lblDescription, 0, ++row);
         gridPane.add(taDescription, 1, row);
         GridPane.setVgrow(taDescription, Priority.ALWAYS);
-    }
-
-    public void setStationData(StationData stationData) {
-        if (this.stationData != null) {
-            taDescription.textProperty().unbindBidirectional(this.stationData.descriptionProperty());
-        }
-
-        this.stationData = stationData;
-        if (stationData == null) {
-            lblTitle.setText("");
-            hyperlinkWebsite.setUrl("");
-            hyperlinkUrl.setUrl("");
-            taDescription.setText("");
-            return;
-        }
-
-        lblTitle.setText(stationData.getStationName() + "  -  " + stationData.getCountry());
-        hyperlinkWebsite.setUrl(stationData.getWebsite());
-        hyperlinkUrl.setUrl(stationData.getStationUrl());
-        taDescription.textProperty().bindBidirectional(stationData.descriptionProperty());
     }
 }
