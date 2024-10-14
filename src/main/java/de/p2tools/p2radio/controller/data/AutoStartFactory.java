@@ -1,5 +1,6 @@
 package de.p2tools.p2radio.controller.data;
 
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 
@@ -39,6 +40,7 @@ public class AutoStartFactory {
         if (optionalStation.isPresent()) {
             station = optionalStation.get();
             ProgData.getInstance().stationAutoStart.copyToMe(station);
+            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO);
         }
     }
 
@@ -46,8 +48,11 @@ public class AutoStartFactory {
         if (station != null) {
             if (set) {
                 ProgData.getInstance().stationAutoStart.copyToMe(station);
+                ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO);
+
             } else {
                 ProgData.getInstance().stationAutoStart.copyToMe(new StationData(AutoStartFactory.TAG_AUTOSTART));
+                ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
             }
         }
     }

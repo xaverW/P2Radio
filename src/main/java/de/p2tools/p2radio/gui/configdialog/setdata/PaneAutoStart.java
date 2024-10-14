@@ -127,7 +127,7 @@ public class PaneAutoStart {
         btnPlayLast.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayLast.setOnAction((ActionEvent event) -> {
             StationData station = progData.stationLastPlayed;
-            if (!station.getStationUrl().isEmpty()) {
+            if (station.isAutoStart()) {
                 progData.startFactory.playPlayable(station);
             }
         });
@@ -157,7 +157,7 @@ public class PaneAutoStart {
         btnPlayAuto.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayAuto.setOnAction((ActionEvent event) -> {
             StationData station = progData.stationAutoStart;
-            if (!station.getStationUrl().isEmpty()) {
+            if (station.isAutoStart()) {
                 progData.startFactory.playPlayable(station);
             }
         });
