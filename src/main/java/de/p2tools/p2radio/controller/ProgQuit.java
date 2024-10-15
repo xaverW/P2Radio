@@ -24,7 +24,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
-import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
@@ -41,17 +40,17 @@ public class ProgQuit {
      * @param showOptionTerminate show options dialog when stations are running
      */
     public static void quit(Stage stage, boolean showOptionTerminate) {
-        if (StartFactory.isPlaying()) {
-            if (showOptionTerminate) {
-                //dann erst mal fragen
-                QuitDialogController quitDialogController;
-                quitDialogController = new QuitDialogController(stage);
-                if (!quitDialogController.canTerminate()) {
-                    //und nicht beenden
-                    return;
-                }
-            }
-        }
+//        if (StartFactory.isPlaying()) {
+//            if (showOptionTerminate) {
+//                //dann erst mal fragen
+//                QuitDialogController quitDialogController;
+//                quitDialogController = new QuitDialogController(stage);
+//                if (!quitDialogController.canTerminate()) {
+//                    //und nicht beenden
+//                    return;
+//                }
+//            }
+//        }
 
         //dann jetzt beenden
         StartFactory.stopRunningPlayProcess();
