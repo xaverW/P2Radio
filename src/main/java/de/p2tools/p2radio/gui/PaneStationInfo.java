@@ -74,7 +74,7 @@ public class PaneStationInfo extends VBox {
         ProgData.getInstance().stationAutoStart.stationUrlProperty().addListener((u, o, n) -> setStation(station));
         chkAutoStart.selectedProperty().addListener((u, o, n) -> {
             if (!stopListener) {
-                AutoStartFactory.setAuto(station, chkAutoStart.isSelected());
+                AutoStartFactory.setAutoStart(station, chkAutoStart.isSelected());
             }
         });
         stationGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {

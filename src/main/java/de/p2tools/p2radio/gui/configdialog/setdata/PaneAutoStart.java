@@ -101,26 +101,31 @@ public class PaneAutoStart {
         lblLastPlayed.setPadding(new Insets(5));
         lblLastPlayed.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(lblLastPlayed, Priority.ALWAYS);
-        lblLastPlayed.setText(ProgData.getInstance().stationLastPlayed.getStationName() +
-                "\n" +
-                ProgData.getInstance().stationLastPlayed.getStationUrl());
+        if (ProgData.getInstance().stationLastPlayed.isAuto()) {
+            lblLastPlayed.setText(ProgData.getInstance().stationLastPlayed.getStationName() +
+                    "\n" +
+                    ProgData.getInstance().stationLastPlayed.getStationUrl());
+        }
 
         lblAuto.setStyle("-fx-border-color: black;");
         lblAuto.setPadding(new Insets(5));
         lblAuto.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(lblAuto, Priority.ALWAYS);
-        lblAuto.setText(ProgData.getInstance().stationAutoStart.getStationName() +
-                "\n" +
-                ProgData.getInstance().stationAutoStart.getStationUrl());
+        if (ProgData.getInstance().stationAutoStart.isAuto()) {
+            lblAuto.setText(ProgData.getInstance().stationAutoStart.getStationName() +
+                    "\n" +
+                    ProgData.getInstance().stationAutoStart.getStationUrl());
+        }
 
-        final Button btnClearLast = new Button("");
-        btnClearLast.setTooltip(new Tooltip("Löschen"));
-        btnClearLast.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
-        btnClearLast.setOnAction((ActionEvent event) -> {
-            lblLastPlayed.setText("");
-            progData.stationLastPlayed.switchOffAuto();
-        });
-        btnClearLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
+//        final Button btnClearLast = new Button("");
+//        btnClearLast.setTooltip(new Tooltip("Löschen"));
+//        btnClearLast.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
+//        btnClearLast.setOnAction((ActionEvent event) -> {
+//            lblLastPlayed.setText("");
+//            rbNothing.setSelected(true);
+//            AutoStartFactory.setLastPlayed(false);
+//        });
+//        btnClearLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
         final Button btnPlayLast = new Button("");
         btnPlayLast.setTooltip(new Tooltip("Sender abspielen"));
@@ -139,14 +144,15 @@ public class PaneAutoStart {
         });
         btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
-        final Button btnClearAuto = new Button("");
-        btnClearAuto.setTooltip(new Tooltip("Löschen"));
-        btnClearAuto.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
-        btnClearAuto.setOnAction((ActionEvent event) -> {
-            lblAuto.setText("");
-            progData.stationAutoStart.switchOffAuto();
-        });
-        btnClearAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
+//        final Button btnClearAuto = new Button("");
+//        btnClearAuto.setTooltip(new Tooltip("Löschen"));
+//        btnClearAuto.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
+//        btnClearAuto.setOnAction((ActionEvent event) -> {
+//            lblAuto.setText("");
+//            rbNothing.setSelected(true);
+//            AutoStartFactory.setAutoStart(false);
+//        });
+//        btnClearAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 
         final Button btnPlayAuto = new Button("");
         btnPlayAuto.setTooltip(new Tooltip("Sender abspielen"));
@@ -174,14 +180,14 @@ public class PaneAutoStart {
         gridPane.add(rbLastPlayed, 0, ++row);
         gridPane.add(lblLastPlayed, 1, row);
         HBox hBoxLast = new HBox(P2LibConst.SPACING_HBOX);
-        hBoxLast.getChildren().addAll(btnClearLast, btnPlayLast, btnStopLast);
+        hBoxLast.getChildren().addAll(/*btnClearLast,*/ btnPlayLast, btnStopLast);
         hBoxLast.setAlignment(Pos.CENTER);
         gridPane.add(hBoxLast, 2, row);
 
         gridPane.add(rbAuto, 0, ++row);
         gridPane.add(lblAuto, 1, row);
         HBox hBoxAuto = new HBox(P2LibConst.SPACING_HBOX);
-        hBoxAuto.getChildren().addAll(btnClearAuto, btnPlayAuto, btnStopAuto);
+        hBoxAuto.getChildren().addAll(/*btnClearAuto,*/ btnPlayAuto, btnStopAuto);
         hBoxAuto.setAlignment(Pos.CENTER);
         gridPane.add(hBoxAuto, 2, row);
     }

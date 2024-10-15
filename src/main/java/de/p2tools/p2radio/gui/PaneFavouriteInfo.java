@@ -83,7 +83,7 @@ public class PaneFavouriteInfo extends VBox {
         ProgData.getInstance().stationAutoStart.stationUrlProperty().addListener((u, o, n) -> setStation(station));
         chkAutoStart.selectedProperty().addListener((u, o, n) -> {
             if (!stopListener) {
-                AutoStartFactory.setAuto(station, chkAutoStart.isSelected());
+                AutoStartFactory.setAutoStart(station, chkAutoStart.isSelected());
             }
         });
         favouriteGuiPack.stationDataObjectPropertyProperty().addListener((u, o, n) -> {

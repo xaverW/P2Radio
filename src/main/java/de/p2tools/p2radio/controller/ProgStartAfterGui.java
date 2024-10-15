@@ -177,6 +177,11 @@ public class ProgStartAfterGui {
         logList.add("");
         P2Log.sysLog(logList);
 
+//        if (ProgConfig.SYSTEM_AUTO_START.get() == AutoStartFactory.AUTOSTART_AUTO &&
+//                !ProgData.getInstance().stationAutoStart.isAuto()) {
+//            // einstellen, falls nichts geht
+//            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
+//        }
         switch (ProgConfig.SYSTEM_AUTO_START.get()) {
             case AutoStartFactory.AUTOSTART_LAST_PLAYED:
                 if (progData.stationLastPlayed.isAuto()) {
