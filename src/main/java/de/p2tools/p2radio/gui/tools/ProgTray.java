@@ -129,9 +129,10 @@ public class ProgTray {
 
         miMaxMin.addActionListener(e -> Platform.runLater(() -> maxMin()));
         miStop.addActionListener(e -> {
-            progData.stationList.forEach(StartFactory::stopPlayable);
-            progData.favouriteList.forEach(StartFactory::stopPlayable);
-            progData.historyList.forEach(StartFactory::stopPlayable);
+            StartFactory.stopRunningStation();
+//            progData.stationList.forEach(StartFactory::stopPlayable);
+//            progData.favouriteList.forEach(StartFactory::stopPlayable);
+//            progData.historyList.forEach(StartFactory::stopPlayable);
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();

@@ -29,50 +29,48 @@ public class StartFactory {
     private StartFactory() {
     }
 
-    public static void stopPlayable(StationData stationData) {
-        if (stationData.getStart() != null) {
-            stationData.getStart().stopStart();
-        }
-    }
-
     public static boolean isPlaying() {
         final ProgData progData = ProgData.getInstance();
         final StationData stationData = progData.stationPlaying;
-        if (stationData.getStart() != null &&
+        return stationData.getStart() != null &&
                 (stationData.getStart().getStartStatus().isStarted() ||
-                        stationData.getStart().getStartStatus().isStateStartedRun())) {
-            return true;
-        } else {
-            return false;
+                        stationData.getStart().getStartStatus().isStateStartedRun());
+    }
+
+    public static void stopRunningPlayProcess() {
+        if (ProgData.getInstance().stationPlaying.getStart() != null &&
+                ProgData.getInstance().stationPlaying.getStart().getStarter().getProcess() != null) {
+            ProgData.getInstance().stationPlaying.getStart().getStarter().getProcess().destroy();
         }
     }
 
-    public static void stopAll() {
+    public static void stopRunningStation() {
         final ProgData progData = ProgData.getInstance();
-        stopPlayable(progData.stationPlaying);
+        if (progData.stationPlaying.getStart() != null) {
+            progData.stationPlaying.getStart().stopStart();
+        }
 
-        stopPlayable(progData.stationLastPlayed);
-        stopPlayable(progData.stationAutoStart);
-
-        stopAllStations();
-        stopAllFavourites();
-        stopAllHistory();
+//        stopPlayable(progData.stationLastPlayed);
+//        stopPlayable(progData.stationAutoStart);
+//        stopAllStations();
+//        stopAllFavourites();
+//        stopAllHistory();
     }
 
-    public static void stopAllStations() {
-        final ProgData progData = ProgData.getInstance();
-        progData.stationList.forEach(station -> stopPlayable(station));
-    }
-
-    public static void stopAllFavourites() {
-        final ProgData progData = ProgData.getInstance();
-        progData.favouriteList.forEach(favourite -> stopPlayable(favourite));
-    }
-
-    public static void stopAllHistory() {
-        final ProgData progData = ProgData.getInstance();
-        progData.historyList.forEach(stationData -> stopPlayable(stationData));
-    }
+//    public static void stopAllStations() {
+//        final ProgData progData = ProgData.getInstance();
+//        progData.stationList.forEach(station -> stopPlayable(station));
+//    }
+//
+//    public static void stopAllFavourites() {
+//        final ProgData progData = ProgData.getInstance();
+//        progData.favouriteList.forEach(favourite -> stopPlayable(favourite));
+//    }
+//
+//    public static void stopAllHistory() {
+//        final ProgData progData = ProgData.getInstance();
+//        progData.historyList.forEach(stationData -> stopPlayable(stationData));
+//    }
 
     public static StationData playRandomStation() {
         final ProgData progData = ProgData.getInstance();
@@ -111,7 +109,7 @@ public class StartFactory {
 
     private static synchronized void startUrlWithProgram(StationData station, SetData setData) {
         final ProgData progData = ProgData.getInstance();
-        stopAll();
+        stopRunningStation();
         progData.stationPlaying = station;
         progData.stationLastPlayed.copyToMe(station);
 

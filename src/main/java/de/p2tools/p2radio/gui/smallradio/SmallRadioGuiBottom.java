@@ -200,6 +200,6 @@ public class SmallRadioGuiBottom extends HBox {
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.getStyleClass().add("btnSmallGui");
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
-        btnStop.setOnAction(event -> StartFactory.stopAll());
+        btnStop.setOnAction(event -> StartFactory.stopRunningStation());
     }
 }

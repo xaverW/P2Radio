@@ -101,16 +101,17 @@ public class HistoryGuiController extends VBox {
     }
 
     public void stopStation(boolean all) {
-        // bezieht sich auf "alle" oder nur die markierten Sender
-        if (all) {
-            progData.historyList.stream().forEach(StartFactory::stopPlayable);
-
-        } else {
-            final Optional<StationData> stationData = getSel();
-            if (stationData.isPresent()) {
-                StartFactory.stopPlayable(stationData.get());
-            }
-        }
+        StartFactory.stopRunningStation();
+//        // bezieht sich auf "alle" oder nur die markierten Sender
+//        if (all) {
+//            progData.historyList.stream().forEach(StartFactory::stopPlayable);
+//
+//        } else {
+//            final Optional<StationData> stationData = getSel();
+//            if (stationData.isPresent()) {
+//                StartFactory.stopPlayable(stationData.get());
+//            }
+//        }
     }
 
     public void saveTable() {

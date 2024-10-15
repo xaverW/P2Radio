@@ -66,7 +66,7 @@ public class FavouriteMenu {
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
-        btStop.setOnAction(a -> StartFactory.stopAll());
+        btStop.setOnAction(a -> StartFactory.stopRunningStation());
         btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
         btNew.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
         btDel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
@@ -105,7 +105,7 @@ public class FavouriteMenu {
         miFavouriteStop.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> StartFactory.stopAll());
+        miStopAll.setOnAction(a -> StartFactory.stopRunningStation());
         P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");

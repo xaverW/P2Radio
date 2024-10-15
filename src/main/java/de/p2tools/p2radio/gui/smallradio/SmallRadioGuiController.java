@@ -144,16 +144,17 @@ public class SmallRadioGuiController extends P2DialogOnly {
     }
 
     public void stopStation(boolean all) {
-        // bezieht sich auf "alle" oder nur die markierten Sender
-        if (all) {
-            progData.favouriteList.stream().forEach(StartFactory::stopPlayable);
-
-        } else {
-            final Optional<StationData> favourite = getSel();
-            if (favourite.isPresent()) {
-                StartFactory.stopPlayable(favourite.get());
-            }
-        }
+        StartFactory.stopRunningStation();
+//        // bezieht sich auf "alle" oder nur die markierten Sender
+//        if (all) {
+//            progData.favouriteList.stream().forEach(StartFactory::stopPlayable);
+//
+//        } else {
+//            final Optional<StationData> favourite = getSel();
+//            if (favourite.isPresent()) {
+//                StartFactory.stopPlayable(favourite.get());
+//            }
+//        }
     }
 
     public Optional<StationData> getSel() {

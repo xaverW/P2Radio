@@ -66,7 +66,7 @@ public class HistoryMenu {
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
-        btStop.setOnAction(a -> StartFactory.stopAll());
+        btStop.setOnAction(a -> StartFactory.stopRunningStation());
         btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -103,7 +103,7 @@ public class HistoryMenu {
         miFavouriteStop.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> StartFactory.stopAll());
+        miStopAll.setOnAction(a -> StartFactory.stopRunningStation());
         P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");

@@ -155,16 +155,17 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     public void stopStation(boolean all) {
-        // bezieht sich auf "alle" oder nur die markierten Sender
-        if (all) {
-            progData.favouriteList.stream().forEach(f -> StartFactory.stopPlayable(f));
-
-        } else {
-            final Optional<StationData> favourite = getSel();
-            if (favourite.isPresent()) {
-                StartFactory.stopPlayable(favourite.get());
-            }
-        }
+        StartFactory.stopRunningStation();
+//        // bezieht sich auf "alle" oder nur die markierten Sender
+//        if (all) {
+//            progData.favouriteList.stream().forEach(f -> StartFactory.stopPlayable(f));
+//
+//        } else {
+//            final Optional<StationData> favourite = getSel();
+//            if (favourite.isPresent()) {
+//                StartFactory.stopPlayable(favourite.get());
+//            }
+//        }
     }
 
     public void saveTable() {

@@ -18,7 +18,6 @@
 package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -66,7 +65,8 @@ public class CellButtonFavourite<S extends StationData, T> extends TableCell<S, 
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
                     btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
-                        StartFactory.stopPlayable(favourite);
+                        StartFactory.stopRunningStation();
+//                        StartFactory.stopPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });

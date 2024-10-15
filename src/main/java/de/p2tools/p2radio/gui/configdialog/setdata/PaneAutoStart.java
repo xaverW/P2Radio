@@ -139,8 +139,9 @@ public class PaneAutoStart {
         btnStopLast.setTooltip(new Tooltip("Sender stoppen"));
         btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStopLast.setOnAction((ActionEvent event) -> {
-            StationData station = progData.stationLastPlayed;
-            StartFactory.stopPlayable(station);
+            StartFactory.stopRunningStation();
+//            StationData station = progData.stationLastPlayed;
+//            StartFactory.stopPlayable(station);
         });
         btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -169,8 +170,9 @@ public class PaneAutoStart {
         btnStopAuto.setTooltip(new Tooltip("Sender stoppen"));
         btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStopAuto.setOnAction((ActionEvent event) -> {
-            StationData station = progData.stationAutoStart;
-            StartFactory.stopPlayable(station);
+            StartFactory.stopRunningStation();
+//            StationData station = progData.stationAutoStart;
+//            StartFactory.stopPlayable(station);
         });
         btnStopAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 

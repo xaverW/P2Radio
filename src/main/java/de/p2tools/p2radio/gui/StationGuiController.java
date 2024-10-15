@@ -96,14 +96,15 @@ public class StationGuiController extends VBox {
     }
 
     public void stopStation(boolean all) {
-        // bezieht sich auf "alle" oder nur die markierten Sender
-        if (all) {
-            progData.stationList.forEach(StartFactory::stopPlayable);
-
-        } else {
-            final Optional<StationData> station = getSel();
-            station.ifPresent(StartFactory::stopPlayable);
-        }
+        StartFactory.stopRunningStation();
+//        // bezieht sich auf "alle" oder nur die markierten Sender
+//        if (all) {
+//            progData.stationList.forEach(StartFactory::stopPlayable);
+//
+//        } else {
+//            final Optional<StationData> station = getSel();
+//            station.ifPresent(StartFactory::stopPlayable);
+//        }
     }
 
     public void playStationWithSet(SetData psetData) {

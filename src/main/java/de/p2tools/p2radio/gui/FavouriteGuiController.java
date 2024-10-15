@@ -102,14 +102,14 @@ public class FavouriteGuiController extends VBox {
     }
 
     public void stopStation(boolean all) {
-        // bezieht sich auf "alle" oder nur die markierten Sender
-        if (all) {
-            progData.favouriteList.forEach(StartFactory::stopPlayable);
-
-        } else {
-            final Optional<StationData> favourite = getSel();
-            favourite.ifPresent(StartFactory::stopPlayable);
-        }
+        StartFactory.stopRunningStation();
+//        if (all) {
+//            progData.favouriteList.forEach(StartFactory::stopPlayable);
+//
+//        } else {
+//            final Optional<StationData> favourite = getSel();
+//            favourite.ifPresent(StartFactory::stopPlayable);
+//        }
     }
 
 

@@ -54,7 +54,7 @@ public class ProgQuit {
         }
 
         //dann jetzt beenden
-        StartFactory.stopAll();
+        StartFactory.stopRunningPlayProcess();
         writeTableWindowSettings();
 
         saveProgConfig();
