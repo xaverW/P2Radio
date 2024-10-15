@@ -25,6 +25,7 @@ import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.SmallGuiHelpDialogController;
 import javafx.scene.input.KeyCode;
@@ -138,19 +139,19 @@ public class SmallRadioGuiController extends P2DialogOnly {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
         if (favourite.isPresent()) {
-            progData.startFactory.playPlayable(favourite.get());
+            StartFactory.playPlayable(favourite.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.favouriteList.stream().forEach(StartFactory::stopPlayable);
 
         } else {
             final Optional<StationData> favourite = getSel();
             if (favourite.isPresent()) {
-                progData.startFactory.stopPlayable(favourite.get());
+                StartFactory.stopPlayable(favourite.get());
             }
         }
     }

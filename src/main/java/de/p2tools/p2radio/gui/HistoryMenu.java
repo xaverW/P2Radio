@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
@@ -65,7 +66,7 @@ public class HistoryMenu {
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
-        btStop.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        btStop.setOnAction(a -> StartFactory.stopAll());
         btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -84,7 +85,7 @@ public class HistoryMenu {
                 miStart.setOnAction(a -> {
                     final Optional<StationData> stationData = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
                     if (stationData.isPresent()) {
-                        progData.startFactory.playPlayable(stationData.get(), set);
+                        StartFactory.playPlayable(stationData.get(), set);
                     }
                 });
                 miStartWithSet.getItems().add(miStart);
@@ -102,7 +103,7 @@ public class HistoryMenu {
         miFavouriteStop.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        miStopAll.setOnAction(a -> StartFactory.stopAll());
         P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");

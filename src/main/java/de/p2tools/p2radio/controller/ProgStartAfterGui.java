@@ -24,6 +24,7 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
@@ -178,13 +179,13 @@ public class ProgStartAfterGui {
 
         switch (ProgConfig.SYSTEM_AUTO_START.get()) {
             case AutoStartFactory.AUTOSTART_LAST_PLAYED:
-                if (progData.stationLastPlayed.isAutoStart()) {
-                    progData.startFactory.playPlayable(progData.stationLastPlayed);
+                if (progData.stationLastPlayed.isAuto()) {
+                    StartFactory.playPlayable(progData.stationLastPlayed);
                 }
                 break;
             case AutoStartFactory.AUTOSTART_AUTO:
-                if (progData.stationAutoStart.isAutoStart()) {
-                    progData.startFactory.playPlayable(progData.stationAutoStart);
+                if (progData.stationAutoStart.isAuto()) {
+                    StartFactory.playPlayable(progData.stationAutoStart);
                 }
                 break;
             default:

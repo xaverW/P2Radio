@@ -24,6 +24,7 @@ import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -95,19 +96,19 @@ public class HistoryGuiController extends VBox {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> stationData = getSel();
         if (stationData.isPresent()) {
-            progData.startFactory.playPlayable(stationData.get());
+            StartFactory.playPlayable(stationData.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.historyList.stream().forEach(stationData -> progData.startFactory.stopPlayable(stationData));
+            progData.historyList.stream().forEach(StartFactory::stopPlayable);
 
         } else {
             final Optional<StationData> stationData = getSel();
             if (stationData.isPresent()) {
-                progData.startFactory.stopPlayable(stationData.get());
+                StartFactory.stopPlayable(stationData.get());
             }
         }
     }

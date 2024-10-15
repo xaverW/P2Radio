@@ -26,40 +26,56 @@ import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 import java.util.Random;
 
 public class StartFactory {
-    ProgData progData;
-
-    public StartFactory(ProgData progData) {
-        this.progData = progData;
+    private StartFactory() {
     }
 
-    public void stopPlayable(StationData stationData) {
+    public static void stopPlayable(StationData stationData) {
         if (stationData.getStart() != null) {
             stationData.getStart().stopStart();
         }
     }
 
-    public void stopAll() {
-        progData.startFactory.stopPlayable(progData.stationLastPlayed);
-        progData.startFactory.stopPlayable(progData.stationAutoStart);
+    public static boolean isPlaying() {
+        final ProgData progData = ProgData.getInstance();
+        final StationData stationData = progData.stationPlaying;
+        if (stationData.getStart() != null &&
+                (stationData.getStart().getStartStatus().isStarted() ||
+                        stationData.getStart().getStartStatus().isStateStartedRun())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void stopAll() {
+        final ProgData progData = ProgData.getInstance();
+        stopPlayable(progData.stationPlaying);
+
+        stopPlayable(progData.stationLastPlayed);
+        stopPlayable(progData.stationAutoStart);
 
         stopAllStations();
         stopAllFavourites();
         stopAllHistory();
     }
 
-    public void stopAllStations() {
-        progData.stationList.forEach(station -> progData.startFactory.stopPlayable(station));
+    public static void stopAllStations() {
+        final ProgData progData = ProgData.getInstance();
+        progData.stationList.forEach(station -> stopPlayable(station));
     }
 
-    public void stopAllFavourites() {
-        progData.favouriteList.forEach(favourite -> progData.startFactory.stopPlayable(favourite));
+    public static void stopAllFavourites() {
+        final ProgData progData = ProgData.getInstance();
+        progData.favouriteList.forEach(favourite -> stopPlayable(favourite));
     }
 
-    public void stopAllHistory() {
-        progData.historyList.forEach(stationData -> progData.startFactory.stopPlayable(stationData));
+    public static void stopAllHistory() {
+        final ProgData progData = ProgData.getInstance();
+        progData.historyList.forEach(stationData -> stopPlayable(stationData));
     }
 
-    public StationData playRandomStation() {
+    public static StationData playRandomStation() {
+        final ProgData progData = ProgData.getInstance();
         Random r = new Random();
         StationData station = progData.stationList.get(r.nextInt(progData.stationList.size()));
         if (station != null) {
@@ -68,11 +84,11 @@ public class StartFactory {
         return station;
     }
 
-    public void playPlayable(StationData stationData) {
+    public static void playPlayable(StationData stationData) {
         playPlayable(stationData, null);
     }
 
-    public void playPlayable(StationData stationData, SetData data) {
+    public static void playPlayable(StationData stationData, SetData data) {
         SetData setData = checkSetData(data);
         if (setData == null) {
             return;
@@ -81,37 +97,36 @@ public class StartFactory {
         startUrlWithProgram(stationData, setData);
     }
 
-    private SetData checkSetData(SetData setData) {
+    private static SetData checkSetData(SetData setData) {
         SetData sd = setData;
         if (sd == null) {
-            sd = ProgData.getInstance().setDataList.getSetDataPlay();
+            sd = de.p2tools.p2radio.controller.config.ProgData.getInstance().setDataList.getSetDataPlay();
         }
         if (sd == null) {
-            new NoSetDialogController(ProgData.getInstance());
+            new NoSetDialogController(de.p2tools.p2radio.controller.config.ProgData.getInstance());
         }
 
         return sd;
     }
 
-    private synchronized void startUrlWithProgram(StationData station, SetData setData) {
+    private static synchronized void startUrlWithProgram(StationData station, SetData setData) {
+        final ProgData progData = ProgData.getInstance();
+        stopAll();
+        progData.stationPlaying = station;
         progData.stationLastPlayed.copyToMe(station);
 
         final String url = station.getStationUrl();
-        if (!url.isEmpty()) {
-            progData.historyList.addStation(station);
-
-            progData.startFactory.stopAll();
-            ProgConfig.SYSTEM_HISTORY.setValue(url);
-
-            final Start start = new Start(setData, station);
-            station.setStart(start);
-            start.initStart();
-
-            startStart(start);
+        if (url.isEmpty()) {
+            return;
         }
-    }
 
-    private synchronized void startStart(Start start) {
+        progData.historyList.addStation(station);
+        ProgConfig.SYSTEM_HISTORY.setValue(url);
+
+        final Start start = new Start(setData, station);
+        station.setStart(start);
+        start.initStart();
+
         StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
         start.getStarter().setStartPlayingStation(startPlayingStation);
         startPlayingStation.start();

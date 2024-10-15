@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
@@ -117,7 +118,7 @@ public class HistoryGuiTableContextMenu {
                 item.setOnAction(event -> {
                     final Optional<StationData> stationData =
                             ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
-                    stationData.ifPresent(data -> progData.startFactory.playPlayable(data, setData));
+                    stationData.ifPresent(data -> StartFactory.playPlayable(data, setData));
                 });
                 submenuSet.getItems().add(item);
             });

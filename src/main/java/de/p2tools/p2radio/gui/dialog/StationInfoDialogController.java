@@ -23,6 +23,7 @@ import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
@@ -157,7 +158,7 @@ public class StationInfoDialogController extends P2DialogExtra {
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
-        btnStop.setOnAction(event -> progData.startFactory.stopAll());
+        btnStop.setOnAction(event -> StartFactory.stopAll());
 
         initUrl();
         makeGridPane();

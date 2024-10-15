@@ -23,7 +23,7 @@ import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -40,23 +40,21 @@ public class ProgQuit {
      *
      * @param showOptionTerminate show options dialog when stations are running
      */
-    public static boolean quit(Stage stage, boolean showOptionTerminate) {
-        if (FavouriteFactory.countStartedAndRunningFavourites() > 0 ||
-                ProgData.getInstance().stationList.countStartedAndRunningFavourites() > 0 ||
-                ProgData.getInstance().historyList.countStartedAndRunningFavourites() > 0) {
+    public static void quit(Stage stage, boolean showOptionTerminate) {
+        if (StartFactory.isPlaying()) {
             if (showOptionTerminate) {
                 //dann erst mal fragen
                 QuitDialogController quitDialogController;
                 quitDialogController = new QuitDialogController(stage);
                 if (!quitDialogController.canTerminate()) {
                     //und nicht beenden
-                    return false;
+                    return;
                 }
             }
         }
 
         //dann jetzt beenden
-        stopAllStations();
+        StartFactory.stopAll();
         writeTableWindowSettings();
 
         saveProgConfig();
@@ -68,11 +66,6 @@ public class ProgQuit {
             Platform.exit();
             System.exit(0);
         });
-        return true;
-    }
-
-    private static void stopAllStations() {
-        ProgData.getInstance().startFactory.stopAll();
     }
 
     private static void writeTableWindowSettings() {

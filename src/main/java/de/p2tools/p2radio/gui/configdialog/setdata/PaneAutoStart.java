@@ -23,6 +23,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.event.ActionEvent;
@@ -118,7 +119,7 @@ public class PaneAutoStart {
         btnClearLast.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
         btnClearLast.setOnAction((ActionEvent event) -> {
             lblLastPlayed.setText("");
-            progData.stationLastPlayed.copyToMe(new StationData(AutoStartFactory.TAG_LAST_PLAYED));
+            progData.stationLastPlayed.switchOffAuto();
         });
         btnClearLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -127,8 +128,8 @@ public class PaneAutoStart {
         btnPlayLast.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayLast.setOnAction((ActionEvent event) -> {
             StationData station = progData.stationLastPlayed;
-            if (station.isAutoStart()) {
-                progData.startFactory.playPlayable(station);
+            if (station.isAuto()) {
+                StartFactory.playPlayable(station);
             }
         });
         btnPlayLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
@@ -139,7 +140,7 @@ public class PaneAutoStart {
         btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStopLast.setOnAction((ActionEvent event) -> {
             StationData station = progData.stationLastPlayed;
-            ProgData.getInstance().startFactory.stopPlayable(station);
+            StartFactory.stopPlayable(station);
         });
         btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -148,7 +149,7 @@ public class PaneAutoStart {
         btnClearAuto.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
         btnClearAuto.setOnAction((ActionEvent event) -> {
             lblAuto.setText("");
-            progData.stationAutoStart.copyToMe(new StationData(AutoStartFactory.TAG_AUTOSTART));
+            progData.stationAutoStart.switchOffAuto();
         });
         btnClearAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 
@@ -157,8 +158,8 @@ public class PaneAutoStart {
         btnPlayAuto.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayAuto.setOnAction((ActionEvent event) -> {
             StationData station = progData.stationAutoStart;
-            if (station.isAutoStart()) {
-                progData.startFactory.playPlayable(station);
+            if (station.isAuto()) {
+                StartFactory.playPlayable(station);
             }
         });
         btnPlayAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
@@ -169,7 +170,7 @@ public class PaneAutoStart {
         btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStopAuto.setOnAction((ActionEvent event) -> {
             StationData station = progData.stationAutoStart;
-            ProgData.getInstance().startFactory.stopPlayable(station);
+            StartFactory.stopPlayable(station);
         });
         btnStopAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 

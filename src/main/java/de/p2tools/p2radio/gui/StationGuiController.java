@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -91,17 +92,17 @@ public class StationGuiController extends VBox {
     public void playStation() {
         // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
-        stationSelection.ifPresent(stationData -> progData.startFactory.playPlayable(stationData));
+        stationSelection.ifPresent(StartFactory::playPlayable);
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.stationList.forEach(station -> progData.startFactory.stopPlayable(station));
+            progData.stationList.forEach(StartFactory::stopPlayable);
 
         } else {
             final Optional<StationData> station = getSel();
-            station.ifPresent(stationData -> progData.startFactory.stopPlayable(stationData));
+            station.ifPresent(StartFactory::stopPlayable);
         }
     }
 
@@ -111,7 +112,7 @@ public class StationGuiController extends VBox {
             return;
         }
 
-        progData.startFactory.playPlayable(sel.get(), psetData);
+        StartFactory.playPlayable(sel.get(), psetData);
     }
 
 
@@ -121,7 +122,7 @@ public class StationGuiController extends VBox {
         if (station != null) {
             tableView.getSelectionModel().select(station);
             tableView.scrollTo(station);
-            progData.startFactory.playPlayable(station);
+            StartFactory.playPlayable(station);
         }
     }
 

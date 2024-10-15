@@ -20,6 +20,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
@@ -109,7 +110,7 @@ public class FavouriteGuiTableContextMenu {
                 item.setOnAction(event -> {
                     final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
                     if (favourite.isPresent()) {
-                        progData.startFactory.playPlayable(favourite.get(), setData);
+                        StartFactory.playPlayable(favourite.get(), setData);
                     }
                 });
                 submenuSet.getItems().add(item);

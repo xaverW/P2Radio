@@ -24,6 +24,7 @@ import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -70,7 +71,7 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         btPlay.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStation());
-        btStop.setOnAction(a -> progData.startFactory.stopAll());
+        btStop.setOnAction(a -> StartFactory.stopAll());
         btFavourite.setOnAction(a -> FavouriteFactory.favouriteStationList());
         btRandom.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
@@ -104,7 +105,7 @@ public class StationMenu {
         miStop.setOnAction(a -> progData.stationGuiPack.getStationGuiController().stopStation(false));
 
         final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> ProgData.getInstance().startFactory.stopAll());
+        miStopAll.setOnAction(a -> StartFactory.stopAll());
         P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miSave = new MenuItem("Sender als Favoriten speichern");

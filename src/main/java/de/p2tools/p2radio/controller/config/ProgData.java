@@ -94,7 +94,6 @@ public class ProgData {
     public FilterWorker filterWorker; // Liste aller Sender, Themen, ...
     public FavouriteInfos favouriteInfos;
     public StationInfos stationInfos;
-    public StartFactory startFactory;
 
     // Programmdaten
     public static BooleanProperty FAVOURITE_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
@@ -114,6 +113,7 @@ public class ProgData {
 
     public StationData stationAutoStart = new StationData(AutoStartFactory.TAG_AUTOSTART);
     public StationData stationLastPlayed = new StationData(AutoStartFactory.TAG_LAST_PLAYED);
+    public StationData stationPlaying = new StationData();
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
@@ -148,7 +148,6 @@ public class ProgData {
         filterWorker = new FilterWorker(this);
         favouriteInfos = new FavouriteInfos(this);
         stationInfos = new StationInfos(this);
-        startFactory = new StartFactory(this);
         progTray = new ProgTray(this);
 
         //init

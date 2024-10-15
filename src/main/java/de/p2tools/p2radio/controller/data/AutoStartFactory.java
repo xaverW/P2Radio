@@ -39,7 +39,7 @@ public class AutoStartFactory {
         StationData station;
         if (optionalStation.isPresent()) {
             station = optionalStation.get();
-            ProgData.getInstance().stationAutoStart.copyToMe(station);
+            ProgData.getInstance().stationAutoStart.switchOffAuto();
             ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO);
         }
     }
@@ -47,11 +47,11 @@ public class AutoStartFactory {
     public static void setAuto(StationData station, boolean set) {
         if (station != null) {
             if (set) {
-                ProgData.getInstance().stationAutoStart.copyToMe(station);
+                ProgData.getInstance().stationAutoStart.switchOffAuto();
                 ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO);
 
             } else {
-                ProgData.getInstance().stationAutoStart.copyToMe(new StationData(AutoStartFactory.TAG_AUTOSTART));
+                ProgData.getInstance().stationAutoStart.switchOffAuto();
                 ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
             }
         }

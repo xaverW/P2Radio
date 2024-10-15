@@ -95,7 +95,11 @@ public final class StationData extends StationDataProperty {
         setStarts(starts);
     }
 
-    public boolean isAutoStart() {
+    public void switchOffAuto() {
+        setStationUrl("");
+    }
+
+    public boolean isAuto() {
         return !getStationUrl().isEmpty();
     }
 }

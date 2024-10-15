@@ -30,6 +30,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -149,19 +150,19 @@ public class SmallRadioGuiCenter extends HBox {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
         if (favourite.isPresent()) {
-            progData.startFactory.playPlayable(favourite.get());
+            StartFactory.playPlayable(favourite.get());
         }
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.favouriteList.stream().forEach(f -> StartFactory.stopPlayable(f));
 
         } else {
             final Optional<StationData> favourite = getSel();
             if (favourite.isPresent()) {
-                progData.startFactory.stopPlayable(favourite.get());
+                StartFactory.stopPlayable(favourite.get());
             }
         }
     }
@@ -212,7 +213,7 @@ public class SmallRadioGuiCenter extends HBox {
         if (stationData != null) {
             tableView.getSelectionModel().select(stationData);
             tableView.scrollTo(stationData);
-            progData.startFactory.playPlayable(stationData);
+            StartFactory.playPlayable(stationData);
         }
     }
 

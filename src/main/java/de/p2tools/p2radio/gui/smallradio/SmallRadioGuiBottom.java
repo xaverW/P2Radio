@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -199,6 +200,6 @@ public class SmallRadioGuiBottom extends HBox {
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.getStyleClass().add("btnSmallGui");
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
-        btnStop.setOnAction(event -> progData.startFactory.stopAll());
+        btnStop.setOnAction(event -> StartFactory.stopAll());
     }
 }

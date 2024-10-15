@@ -21,6 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -65,7 +66,7 @@ public class CellButtonFavourite<S extends StationData, T> extends TableCell<S, 
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
                     btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.stopPlayable(favourite);
+                        StartFactory.stopPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -84,7 +85,7 @@ public class CellButtonFavourite<S extends StationData, T> extends TableCell<S, 
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        ProgData.getInstance().startFactory.playPlayable(favourite);
+                        StartFactory.playPlayable(favourite);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });

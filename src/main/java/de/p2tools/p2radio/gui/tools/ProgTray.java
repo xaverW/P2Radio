@@ -23,6 +23,7 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import javafx.application.Platform;
@@ -128,9 +129,9 @@ public class ProgTray {
 
         miMaxMin.addActionListener(e -> Platform.runLater(() -> maxMin()));
         miStop.addActionListener(e -> {
-            progData.stationList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
-            progData.historyList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.stationList.forEach(StartFactory::stopPlayable);
+            progData.favouriteList.forEach(StartFactory::stopPlayable);
+            progData.historyList.forEach(StartFactory::stopPlayable);
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();

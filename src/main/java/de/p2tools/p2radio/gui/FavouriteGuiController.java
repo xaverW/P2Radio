@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
@@ -97,17 +98,17 @@ public class FavouriteGuiController extends VBox {
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
-        favourite.ifPresent(stationData -> progData.startFactory.playPlayable(stationData));
+        favourite.ifPresent(StartFactory::playPlayable);
     }
 
     public void stopStation(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Sender
         if (all) {
-            progData.favouriteList.stream().forEach(f -> progData.startFactory.stopPlayable(f));
+            progData.favouriteList.forEach(StartFactory::stopPlayable);
 
         } else {
             final Optional<StationData> favourite = getSel();
-            favourite.ifPresent(stationData -> progData.startFactory.stopPlayable(stationData));
+            favourite.ifPresent(StartFactory::stopPlayable);
         }
     }
 
