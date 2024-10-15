@@ -45,32 +45,10 @@ public class StartFactory {
     }
 
     public static void stopRunningStation() {
-        final ProgData progData = ProgData.getInstance();
-        if (progData.stationPlaying.getStart() != null) {
-            progData.stationPlaying.getStart().stopStart();
+        if (ProgData.getInstance().stationPlaying.getStart() != null) {
+            ProgData.getInstance().stationPlaying.getStart().stopStart();
         }
-
-//        stopPlayable(progData.stationLastPlayed);
-//        stopPlayable(progData.stationAutoStart);
-//        stopAllStations();
-//        stopAllFavourites();
-//        stopAllHistory();
     }
-
-//    public static void stopAllStations() {
-//        final ProgData progData = ProgData.getInstance();
-//        progData.stationList.forEach(station -> stopPlayable(station));
-//    }
-//
-//    public static void stopAllFavourites() {
-//        final ProgData progData = ProgData.getInstance();
-//        progData.favouriteList.forEach(favourite -> stopPlayable(favourite));
-//    }
-//
-//    public static void stopAllHistory() {
-//        final ProgData progData = ProgData.getInstance();
-//        progData.historyList.forEach(stationData -> stopPlayable(stationData));
-//    }
 
     public static StationData playRandomStation() {
         final ProgData progData = ProgData.getInstance();
@@ -87,7 +65,7 @@ public class StartFactory {
     }
 
     public static void playPlayable(StationData stationData, SetData data) {
-        SetData setData = checkSetData(data);
+        SetData setData = getSetData(data);
         if (setData == null) {
             return;
         }
@@ -95,10 +73,10 @@ public class StartFactory {
         startUrlWithProgram(stationData, setData);
     }
 
-    private static SetData checkSetData(SetData setData) {
+    private static SetData getSetData(SetData setData) {
         SetData sd = setData;
         if (sd == null) {
-            sd = de.p2tools.p2radio.controller.config.ProgData.getInstance().setDataList.getSetDataPlay();
+            sd = ProgData.getInstance().setDataList.getSetDataPlay();
         }
         if (sd == null) {
             new NoSetDialogController(de.p2tools.p2radio.controller.config.ProgData.getInstance());

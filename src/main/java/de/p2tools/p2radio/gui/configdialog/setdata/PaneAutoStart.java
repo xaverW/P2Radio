@@ -24,7 +24,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
-import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
@@ -127,10 +126,7 @@ public class PaneAutoStart {
         btnPlayLast.setTooltip(new Tooltip("Sender abspielen"));
         btnPlayLast.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayLast.setOnAction((ActionEvent event) -> {
-            StationData station = progData.stationLastPlayed;
-            if (station.isAuto()) {
-                StartFactory.playPlayable(station);
-            }
+            StartFactory.playPlayable(progData.stationLastPlayed);
         });
         btnPlayLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -140,8 +136,6 @@ public class PaneAutoStart {
         btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStopLast.setOnAction((ActionEvent event) -> {
             StartFactory.stopRunningStation();
-//            StationData station = progData.stationLastPlayed;
-//            StartFactory.stopPlayable(station);
         });
         btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -158,10 +152,7 @@ public class PaneAutoStart {
         btnPlayAuto.setTooltip(new Tooltip("Sender abspielen"));
         btnPlayAuto.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayAuto.setOnAction((ActionEvent event) -> {
-            StationData station = progData.stationAutoStart;
-            if (station.isAuto()) {
-                StartFactory.playPlayable(station);
-            }
+            StartFactory.playPlayable(progData.stationAutoStart);
         });
         btnPlayAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 
@@ -171,8 +162,6 @@ public class PaneAutoStart {
         btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStopAuto.setOnAction((ActionEvent event) -> {
             StartFactory.stopRunningStation();
-//            StationData station = progData.stationAutoStart;
-//            StartFactory.stopPlayable(station);
         });
         btnStopAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 
@@ -195,6 +184,5 @@ public class PaneAutoStart {
         hBoxAuto.getChildren().addAll(btnClearAuto, btnPlayAuto, btnStopAuto);
         hBoxAuto.setAlignment(Pos.CENTER);
         gridPane.add(hBoxAuto, 2, row);
-
     }
 }
