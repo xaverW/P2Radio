@@ -32,6 +32,7 @@ import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.gui.TableContextMenu;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.collections.transformation.FilteredList;
@@ -149,23 +150,7 @@ public class SmallRadioGuiCenter extends HBox {
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
-        if (favourite.isPresent()) {
-            StartFactory.playPlayable(favourite.get());
-        }
-    }
-
-    public void stopStation(boolean all) {
-        StartFactory.stopRunningStation();
-//        // bezieht sich auf "alle" oder nur die markierten Sender
-//        if (all) {
-//            progData.favouriteList.stream().forEach(f -> StartFactory.stopPlayable(f));
-//
-//        } else {
-//            final Optional<StationData> favourite = getSel();
-//            if (favourite.isPresent()) {
-//                StartFactory.stopPlayable(favourite.get());
-//            }
-//        }
+        favourite.ifPresent(StartFactory::playPlayable);
     }
 
     public void saveTable() {
@@ -297,7 +282,6 @@ public class SmallRadioGuiCenter extends HBox {
 
         loadTable();
 
-//        Platform.runLater(() -> PTableFactory.refreshTable(tableView));
         tableViewStation.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
                 progData.stationInfoDialogController.showStationInfo();
@@ -306,41 +290,21 @@ public class SmallRadioGuiCenter extends HBox {
         tableViewFavourite.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
                 Optional<StationData> stationData = getSel(true);
-                if (stationData.isPresent()) {
-                    FavouriteFactory.changeFavourite(stationData.get());
-                }
+                stationData.ifPresent(FavouriteFactory::changeFavourite);
             }
         });
-        addTableListener(tableViewStation);
-        addTableListener(tableViewFavourite);
-        addTableListener(tableViewHistory);
+        addTableListener(tableViewStation, TableContextMenu.SMALL_STATION);
+        addTableListener(tableViewFavourite, TableContextMenu.SMALL_FAVOURITE);
+        addTableListener(tableViewHistory, TableContextMenu.SMALL_HISTORY);
     }
 
-    private void addTableListener(TablePlayable tableView) {
+    private void addTableListener(TablePlayable<StationData> tableView, int forWhat) {
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<StationData> optionalDownload = getSel(false);
-                StationData favourite;
-                if (optionalDownload.isPresent()) {
-                    favourite = optionalDownload.get();
-                } else {
-                    favourite = null;
-                }
-                if (tableView.equals(tableViewStation)) {
-                    ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData.smallRadioGuiController, tableView)
-                            .getContextMenuStation(favourite);
-                    tableView.setContextMenu(contextMenu);
-
-                } else if (tableView.equals(tableViewFavourite)) {
-                    ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData.smallRadioGuiController, tableView)
-                            .getContextMenuFavourite(favourite);
-                    tableView.setContextMenu(contextMenu);
-
-                } else {
-                    ContextMenu contextMenu = new SmallRadioGuiTableContextMenu(progData.smallRadioGuiController, tableView)
-                            .getContextMenuHistory(favourite);
-                    tableView.setContextMenu(contextMenu);
-                }
+                StationData stationData = getSel(false).orElse(null);
+                ContextMenu contextMenu = new TableContextMenu(progData, tableView, forWhat)
+                        .getContextMenu(stationData);
+                tableView.setContextMenu(contextMenu);
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

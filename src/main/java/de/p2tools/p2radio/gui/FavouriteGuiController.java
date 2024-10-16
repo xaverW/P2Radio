@@ -88,9 +88,6 @@ public class FavouriteGuiController extends VBox {
 
     private void setSelectedFavourite() {
         StationData stationData = tableView.getSelectionModel().getSelectedItem();
-//        if (stationData != null) {
-//        StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
-//        }
         progData.stationInfoDialogController.setStation(stationData);
         favouriteGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
@@ -100,18 +97,6 @@ public class FavouriteGuiController extends VBox {
         final Optional<StationData> favourite = getSel();
         favourite.ifPresent(StartFactory::playPlayable);
     }
-
-    public void stopStation(boolean all) {
-        StartFactory.stopRunningStation();
-//        if (all) {
-//            progData.favouriteList.forEach(StartFactory::stopPlayable);
-//
-//        } else {
-//            final Optional<StationData> favourite = getSel();
-//            favourite.ifPresent(StartFactory::stopPlayable);
-//        }
-    }
-
 
     public void saveTable() {
         new Table().saveTable(tableView, Table.TABLE_ENUM.FAVOURITE);
@@ -200,13 +185,13 @@ public class FavouriteGuiController extends VBox {
                 } else {
                     stationData = null;
                 }
-                ContextMenu contextMenu = new FavouriteGuiTableContextMenu(progData, this, tableView).getContextMenu(stationData);
+                ContextMenu contextMenu = new TableContextMenu(progData, tableView, TableContextMenu.FAVOURITE)
+                        .getContextMenu(stationData);
                 tableView.setContextMenu(contextMenu);
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(this::setSelectedFavourite);
-//            setSelectedFavourite();
         });
         tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
             if (tableView.getItems().size() == 1) {

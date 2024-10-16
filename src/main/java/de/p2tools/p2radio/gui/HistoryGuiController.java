@@ -71,10 +71,6 @@ public class HistoryGuiController extends VBox {
         setSelectedHistory();
     }
 
-    public int getFavouritesShown() {
-        return tableView.getItems().size();
-    }
-
     public void copyUrl() {
         final Optional<StationData> favourite = getSel();
         if (!favourite.isPresent()) {
@@ -98,20 +94,6 @@ public class HistoryGuiController extends VBox {
         if (stationData.isPresent()) {
             StartFactory.playPlayable(stationData.get());
         }
-    }
-
-    public void stopStation(boolean all) {
-        StartFactory.stopRunningStation();
-//        // bezieht sich auf "alle" oder nur die markierten Sender
-//        if (all) {
-//            progData.historyList.stream().forEach(StartFactory::stopPlayable);
-//
-//        } else {
-//            final Optional<StationData> stationData = getSel();
-//            if (stationData.isPresent()) {
-//                StartFactory.stopPlayable(stationData.get());
-//            }
-//        }
     }
 
     public void saveTable() {
@@ -199,7 +181,7 @@ public class HistoryGuiController extends VBox {
                 } else {
                     stationData = null;
                 }
-                ContextMenu contextMenu = new HistoryGuiTableContextMenu(progData, this, tableView).
+                ContextMenu contextMenu = new TableContextMenu(progData, tableView, TableContextMenu.HISTORY).
                         getContextMenu(stationData);
                 tableView.setContextMenu(contextMenu);
             }

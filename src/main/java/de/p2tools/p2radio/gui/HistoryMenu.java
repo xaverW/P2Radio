@@ -100,16 +100,13 @@ public class HistoryMenu {
         }
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().stopStation(false));
-
-        final MenuItem miStopAll = new MenuItem("Alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> StartFactory.stopRunningStation());
-        P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
+        miFavouriteStop.setOnAction(a -> StartFactory.stopRunningStation());
+        P2ShortcutWorker.addShortCut(miFavouriteStop, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().copyUrl());
 
-        mb.getItems().addAll(miFavouriteStop, miStopAll, miCopyUrl);
+        mb.getItems().addAll(miFavouriteStop, miCopyUrl);
 
         // Submenü
         final MenuItem miHistoryDel = new MenuItem("Sender aus History löschen");

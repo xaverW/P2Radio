@@ -16,12 +16,16 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackData;
+import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
+import de.p2tools.p2radio.controller.data.history.HistoryFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.TablePlayable;
 import javafx.scene.control.ContextMenu;
@@ -29,16 +33,25 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-public class StationGuiTableContextMenu {
+import java.util.Optional;
+
+public class TableContextMenu {
+
+    public static int STATION = 0;
+    public static int FAVOURITE = 1;
+    public static int HISTORY = 2;
+    public static int SMALL_STATION = 3;
+    public static int SMALL_FAVOURITE = 4;
+    public static int SMALL_HISTORY = 5;
+    private int forWhat = STATION;
 
     private final ProgData progData;
-    private final StationGuiController stationGuiController;
-    private final TablePlayable tableView;
+    private final TablePlayable<StationData> tableView;
 
-    public StationGuiTableContextMenu(ProgData progData, StationGuiController stationGuiController, TablePlayable tableView) {
+    public TableContextMenu(ProgData progData, TablePlayable<StationData> tableView, int forWhat) {
         this.progData = progData;
-        this.stationGuiController = stationGuiController;
         this.tableView = tableView;
+        this.forWhat = forWhat;
     }
 
     public ContextMenu getContextMenu(StationData station) {
@@ -50,7 +63,7 @@ public class StationGuiTableContextMenu {
     private void getMenu(ContextMenu contextMenu, StationData station) {
         // Start/Save
         MenuItem miStart = new MenuItem("Sender abspielen");
-        miStart.setOnAction(a -> stationGuiController.playStation());
+        miStart.setOnAction(a -> playStation());
         miStart.setDisable(station == null);
         contextMenu.getItems().addAll(miStart);
 
@@ -61,19 +74,16 @@ public class StationGuiTableContextMenu {
         }
 
         MenuItem miStop = new MenuItem("Sender stoppen");
-        miStop.setOnAction(a -> stationGuiController.stopStation(false));
+        miStop.setOnAction(a -> StartFactory.stopRunningStation());
         miStop.setDisable(station == null);
+        contextMenu.getItems().addAll(miStop);
 
-        MenuItem miStopAll = new MenuItem("Alle Sender stoppen");
-        miStopAll.setOnAction(a -> stationGuiController.stopStation(true /* alle */));
-        miStopAll.setDisable(station == null);
+        if (forWhat == STATION) {
+            Menu mFilter = addFilter(station);// Filter
+            Menu mBlacklist = addBlacklist(station);// Blacklist
+            contextMenu.getItems().addAll(new SeparatorMenuItem(), mFilter, mBlacklist);
+        }
 
-        contextMenu.getItems().addAll(miStop, miStopAll);
-
-        Menu mFilter = addFilter(station);// Filter
-        Menu mBlacklist = addBlacklist(station);// Blacklist
-
-        contextMenu.getItems().addAll(new SeparatorMenuItem(), mFilter, mBlacklist);
         contextMenu.getItems().add(new SeparatorMenuItem());
 
         MenuItem miUrl = new MenuItem("Sender-URL kopieren");
@@ -81,20 +91,78 @@ public class StationGuiTableContextMenu {
         miUrl.setDisable(station == null);
         contextMenu.getItems().addAll(miUrl);
 
-        MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
-        miSave.setOnAction(a -> FavouriteFactory.favouriteStationList());
-        miSave.setDisable(station == null);
-        contextMenu.getItems().addAll(miSave);
+        if (forWhat == STATION) {
+            MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
+            miSave.setOnAction(a -> FavouriteFactory.favouriteStationList());
+            miSave.setDisable(station == null);
+            contextMenu.getItems().addAll(miSave);
+            MenuItem miStationInfo = new MenuItem("Senderinformation anzeigen");
+            miStationInfo.setOnAction(a -> progData.stationInfoDialogController.showStationInfo());
+            miStationInfo.setDisable(station == null);
+            contextMenu.getItems().addAll(miStationInfo);
+        }
+
+        if (forWhat == SMALL_STATION) {
+            MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
+            miSave.setOnAction(a -> FavouriteFactory.favouriteStation(station));
+            miSave.setDisable(station == null);
+            contextMenu.getItems().addAll(miSave);
+        }
+
+        if (forWhat == FAVOURITE) {
+            MenuItem miChange = new MenuItem("Favorit ändern");
+            miChange.setOnAction(a -> FavouriteFactory.changeFavourite(false));
+            miChange.setDisable(station == null);
+
+            MenuItem miRemove = new MenuItem("Favoriten löschen");
+            miRemove.setOnAction(a -> FavouriteFactory.deleteFavourite(false));
+            miRemove.setDisable(station == null);
+
+            contextMenu.getItems().addAll(miChange, miRemove);
+        }
+
+        if (forWhat == SMALL_FAVOURITE) {
+            MenuItem miChange = new MenuItem("Favorit ändern");
+            miChange.setOnAction(a -> FavouriteFactory.changeFavourite(station));
+            miChange.setDisable(station == null);
+
+            MenuItem miRemove = new MenuItem("Favoriten löschen");
+            miRemove.setOnAction(a -> FavouriteFactory.deleteFavourite(station));
+            miRemove.setDisable(station == null);
+
+            contextMenu.getItems().addAll(miChange, miRemove);
+        }
+
+        if (forWhat == HISTORY || forWhat == SMALL_HISTORY) {
+            MenuItem miRemove = new MenuItem("Sender aus History löschen");
+            miRemove.setOnAction(a -> HistoryFactory.deleteHistory(false));
+            miRemove.setDisable(station == null);
+            contextMenu.getItems().addAll(miRemove);
+
+            if (station != null) {
+                String stationUrl = station.getStationUrl();
+                StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
+                if (stationData != null) {
+                    MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
+                    miAddFavourite.setOnAction(a -> FavouriteFactory.favouriteStation(stationData));
+                    contextMenu.getItems().addAll(miAddFavourite);
+                }
+            }
+        }
 
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
-        miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
+//        if (forWhat == STATION) {
+//            miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
+//        } else if (forWhat == FAVOURITE) {
+//            miAutoStart.setOnAction(e -> AutoStartFactory.setFavouriteAutoStart());
+//        } else if (forWhat == HISTORY) {
+//            miAutoStart.setOnAction(e -> AutoStartFactory.setHistoryAutoStart());
+//        } else {
+//            miAutoStart.setOnAction(e -> AutoStartFactory.setAutoStart(station));
+//        }
+        miAutoStart.setOnAction(e -> AutoStartFactory.setAutoStart(station));
         miAutoStart.setDisable(station == null);
         contextMenu.getItems().addAll(miAutoStart);
-
-        MenuItem miStationInfo = new MenuItem("Senderinformation anzeigen");
-        miStationInfo.setOnAction(a -> progData.stationInfoDialogController.showStationInfo());
-        miStationInfo.setDisable(station == null);
-        contextMenu.getItems().addAll(miStationInfo);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());
@@ -125,16 +193,16 @@ public class StationGuiTableContextMenu {
     private Menu startStationWithSet(StationData station) {
         final SetDataList list = progData.setDataList.getSetDataListButton();
         if (!list.isEmpty()) {
-            Menu submenuSet = new Menu("Sender mit Set abspielen");
+            Menu submenuSet = new Menu("Sender mit Programm abspielen");
 
             if (station == null) {
                 submenuSet.setDisable(true);
                 return submenuSet;
             }
 
-            list.stream().forEach(setData -> {
+            list.forEach(setData -> {
                 final MenuItem item = new MenuItem(setData.getVisibleName());
-                item.setOnAction(event -> stationGuiController.playStationWithSet(setData));
+                item.setOnAction(event -> playStationWithSet(setData));
                 submenuSet.getItems().add(item);
             });
 
@@ -142,6 +210,31 @@ public class StationGuiTableContextMenu {
         }
 
         return null;
+    }
+
+    private Optional<StationData> getSel() {
+        final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
+        if (selectedTableRow >= 0) {
+            return Optional.of(tableView.getSelectionModel().getSelectedItem());
+        } else {
+            P2Alert.showInfoNoSelection();
+            return Optional.empty();
+        }
+    }
+
+    private void playStation() {
+        // Menü/Button: Sender (URL) abspielen
+        final Optional<StationData> stationSelection = getSel();
+        stationSelection.ifPresent(StartFactory::playPlayable);
+    }
+
+    public void playStationWithSet(SetData psetData) {
+        final Optional<StationData> sel = getSel();
+        if (sel.isEmpty()) {
+            return;
+        }
+
+        StartFactory.playPlayable(sel.get(), psetData);
     }
 
     private Menu addBlacklist(StationData station) {

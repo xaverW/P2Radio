@@ -102,11 +102,8 @@ public class StationMenu {
 
 
         final MenuItem miStop = new MenuItem("Sender stoppen");
-        miStop.setOnAction(a -> progData.stationGuiPack.getStationGuiController().stopStation(false));
-
-        final MenuItem miStopAll = new MenuItem("alle laufenden Sender stoppen");
-        miStopAll.setOnAction(a -> StartFactory.stopRunningStation());
-        P2ShortcutWorker.addShortCut(miStopAll, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
+        miStop.setOnAction(a -> StartFactory.stopRunningStation());
+        P2ShortcutWorker.addShortCut(miStop, P2RadioShortCuts.SHORTCUT_FAVOURITE_STOP);
 
         final MenuItem miSave = new MenuItem("Sender als Favoriten speichern");
         miSave.setOnAction(e -> FavouriteFactory.favouriteStationList());
@@ -115,7 +112,7 @@ public class StationMenu {
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
         miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
 
-        mb.getItems().addAll(miStop, miStopAll, miSave, miAutoStart);
+        mb.getItems().addAll(miStop, miSave, miAutoStart);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.disableProperty().bind(ProgConfig.STATION__FILTER_IS_RIP);

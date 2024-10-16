@@ -78,11 +78,6 @@ public class StationGuiController extends VBox {
         return tableView.getItems().size();
     }
 
-    public int getSelCount() {
-        return tableView.getSelectionModel().getSelectedItems().size();
-    }
-
-
     private void setStation() {
         StationData station = tableView.getSelectionModel().getSelectedItem();
         progData.stationInfoDialogController.setStation(station);
@@ -93,18 +88,6 @@ public class StationGuiController extends VBox {
         // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
         stationSelection.ifPresent(StartFactory::playPlayable);
-    }
-
-    public void stopStation(boolean all) {
-        StartFactory.stopRunningStation();
-//        // bezieht sich auf "alle" oder nur die markierten Sender
-//        if (all) {
-//            progData.stationList.forEach(StartFactory::stopPlayable);
-//
-//        } else {
-//            final Optional<StationData> station = getSel();
-//            station.ifPresent(StartFactory::stopPlayable);
-//        }
     }
 
     public void playStationWithSet(SetData psetData) {
@@ -227,12 +210,9 @@ public class StationGuiController extends VBox {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<StationData> optionalStation = getSel(false);
                 StationData station;
-                if (optionalStation.isPresent()) {
-                    station = optionalStation.get();
-                } else {
-                    station = null;
-                }
-                ContextMenu contextMenu = new StationGuiTableContextMenu(progData, this, tableView).getContextMenu(station);
+                station = optionalStation.orElse(null);
+                ContextMenu contextMenu = new TableContextMenu(progData, tableView, TableContextMenu.STATION)
+                        .getContextMenu(station);
                 tableView.setContextMenu(contextMenu);
             }
         });

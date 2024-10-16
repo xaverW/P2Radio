@@ -39,13 +39,16 @@ public class AutoStartFactory {
         StationData station;
         if (optionalStation.isPresent()) {
             station = optionalStation.get();
-            ProgData.getInstance().stationAutoStart.switchOffAuto();
-            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO);
+            setAutoStart(station);
         }
     }
 
     public static void setAutoStart(boolean set) {
         setAutoStart(null, set);
+    }
+
+    public static void setAutoStart(StationData station) {
+        setAutoStart(station, true);
     }
 
     public static void setAutoStart(StationData station, boolean set) {
