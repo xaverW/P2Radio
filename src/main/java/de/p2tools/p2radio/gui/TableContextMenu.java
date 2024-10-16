@@ -135,10 +135,12 @@ public class TableContextMenu {
 
         if (forWhat == HISTORY || forWhat == SMALL_HISTORY) {
             MenuItem miRemove = new MenuItem("Sender aus History löschen");
-            miRemove.setOnAction(a -> HistoryFactory.deleteHistory(false));
+            miRemove.setOnAction(a -> HistoryFactory.deleteHistory(station));
             miRemove.setDisable(station == null);
             contextMenu.getItems().addAll(miRemove);
+        }
 
+        if (forWhat == HISTORY || forWhat == SMALL_HISTORY) {
             if (station != null) {
                 String stationUrl = station.getStationUrl();
                 StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
@@ -151,15 +153,6 @@ public class TableContextMenu {
         }
 
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
-//        if (forWhat == STATION) {
-//            miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
-//        } else if (forWhat == FAVOURITE) {
-//            miAutoStart.setOnAction(e -> AutoStartFactory.setFavouriteAutoStart());
-//        } else if (forWhat == HISTORY) {
-//            miAutoStart.setOnAction(e -> AutoStartFactory.setHistoryAutoStart());
-//        } else {
-//            miAutoStart.setOnAction(e -> AutoStartFactory.setAutoStart(station));
-//        }
         miAutoStart.setOnAction(e -> AutoStartFactory.setAutoStart(station));
         miAutoStart.setDisable(station == null);
         contextMenu.getItems().addAll(miAutoStart);
