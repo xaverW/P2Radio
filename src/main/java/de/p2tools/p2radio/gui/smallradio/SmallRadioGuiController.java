@@ -48,20 +48,18 @@ public class SmallRadioGuiController extends P2DialogOnly {
     };
 
     public SmallRadioGuiController() {
-        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
+        super(ProgData.primaryStage, ProgConfig.SMALL_RADIO_SIZE,
                 "Radio", false, false, true);
 
         progData = ProgData.getInstance();
-        ProgConfig.SYSTEM_SMALL_RADIO.setValue(true);
 
-        progData.smallRadioGuiController = this;
         smallRadioGuiCenter = new SmallRadioGuiCenter(this);
         smallRadioGuiBottom = new SmallRadioGuiBottom(this);
 
-        init(true);
+        init(false);
 
         if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
-            new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);
+            new SmallGuiHelpDialogController(ProgData.primaryStage);
             ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.setValue(true);
         }
     }
@@ -78,7 +76,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                changeGui();
+                close();
             }
         });
         getStage().setOnCloseRequest(e -> {
@@ -90,8 +88,13 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
     @Override
     public void close() {
-        saveMe();
+        saveTable();
+        P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
         ProgData.getInstance().pEventHandler.removeListener(listener);
+
+        progData.smallRadioGuiController = null;
+        ProgConfig.SYSTEM_SMALL_RADIO.set(false);
+//        P2Radio.selectGui();
         super.close();
     }
 
@@ -107,17 +110,19 @@ public class SmallRadioGuiController extends P2DialogOnly {
         return super.getMaskerPane();
     }
 
-    public void changeGui() {
-        close();
-        ProgConfig.SYSTEM_SMALL_RADIO.setValue(false);
-        progData.smallRadioGuiController = null;
-        progData.p2RadioController.quittSmallRadio();
-    }
+//    public void changeGui() {
+//        close();
+//        progData.smallRadioGuiController = null;
+////        progData.p2RadioController.quittSmallRadio();
+//
+//        ProgConfig.SYSTEM_SMALL_RADIO.set(false);
+//        P2Radio.selectGui();
+//    }
 
-    private void saveMe() {
-        progData.smallRadioGuiController.saveTable();
-        P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
-    }
+//    private void saveMe() {
+//        progData.smallRadioGuiController.saveTable();
+//        P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
+//    }
 
     public void saveTable() {
         smallRadioGuiCenter.saveTable();

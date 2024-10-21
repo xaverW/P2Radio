@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -45,8 +45,8 @@ public class FavouriteGuiPack {
     private final FavouriteFilterController favouriteFilterController;
     private final PaneFavouriteInfo paneFavouriteInfo;
 
-    private final P2InfoController infoControllerFilter;
-    private final P2InfoController infoControllerInfo;
+    private final P2ClosePaneController infoControllerFilter;
+    private final P2ClosePaneController infoControllerInfo;
 
     private final ProgData progData;
     private final ObjectProperty<StationData> stationDataObjectProperty = new SimpleObjectProperty<>(null);
@@ -60,23 +60,23 @@ public class FavouriteGuiPack {
         paneFavouriteInfo = new PaneFavouriteInfo(this);
         favouriteGuiController = new FavouriteGuiController(this);
 
-        ArrayList<P2InfoDto> list = new ArrayList<>();
-        P2InfoDto infoDto = new P2InfoDto(favouriteFilterController,
+        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
+        P2ClosePaneDto infoDto = new P2ClosePaneDto(favouriteFilterController,
                 ProgConfig.FAVOURITE__FILTER_IS_RIP,
                 ProgConfig.FAVOURITE__FILTER_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
                 "Filter", "Favoriten", true,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
-        infoControllerFilter = new P2InfoController(list, ProgConfig.FAVOURITE__FILTER_IS_SHOWING);
+        infoControllerFilter = new P2ClosePaneController(list, ProgConfig.FAVOURITE__FILTER_IS_SHOWING);
 
         list = new ArrayList<>();
-        infoDto = new P2InfoDto(paneFavouriteInfo,
+        infoDto = new P2ClosePaneDto(paneFavouriteInfo,
                 ProgConfig.FAVOURITE__INFO_PANE_IS_RIP,
                 ProgConfig.FAVOURITE__INFO_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
                 "Filter", "Favoriten", false,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
-        infoControllerInfo = new P2InfoController(list, ProgConfig.FAVOURITE__INFO_IS_SHOWING);
+        infoControllerInfo = new P2ClosePaneController(list, ProgConfig.FAVOURITE__INFO_IS_SHOWING);
 
         progData.favouriteGuiPack = this;
     }

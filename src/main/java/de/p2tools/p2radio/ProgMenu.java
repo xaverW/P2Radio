@@ -55,7 +55,7 @@ public class ProgMenu extends MenuButton {
         miDarkMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
 
         final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuit.quit(progData.primaryStage, true));
+        miQuit.setOnAction(e -> ProgQuit.quit(true));
         P2ShortcutWorker.addShortCut(miQuit, P2RadioShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("Über dieses Programm");

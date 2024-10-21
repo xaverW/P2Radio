@@ -25,7 +25,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.nio.file.Path;
 
@@ -39,7 +38,7 @@ public class ProgQuit {
      *
      * @param showOptionTerminate show options dialog when stations are running
      */
-    public static void quit(Stage stage, boolean showOptionTerminate) {
+    public static void quit(boolean showOptionTerminate) {
 //        if (StartFactory.isPlaying()) {
 //            if (showOptionTerminate) {
 //                //dann erst mal fragen

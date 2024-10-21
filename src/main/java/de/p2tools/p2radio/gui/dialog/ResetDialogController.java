@@ -34,7 +34,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
 public class ResetDialogController extends P2DialogExtra {
 
@@ -105,14 +104,7 @@ public class ResetDialogController extends P2DialogExtra {
                 // damit wird vor dem Beenden das Konfig-Verzeichnis umbenannt und so startet das
                 // Programm wie beim ersten Start
                 ProgData.reset = true;
-                Stage stage = null;
-                if (progData.smallRadioGuiController != null) {
-                    stage = progData.smallRadioGuiController.getStage();
-
-                } else if (progData.primaryStage.isShowing()) {
-                    stage = progData.primaryStage;
-                }
-                ProgQuit.quit(stage, false);
+                ProgQuit.quit(false);
             }
         });
 

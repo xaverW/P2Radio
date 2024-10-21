@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -45,8 +45,8 @@ public class StationGuiPack {
     private final StationGuiController stationGuiController;
     private final PaneStationInfo paneStationInfo;
 
-    private final P2InfoController infoControllerFilter;
-    private final P2InfoController infoControllerInfo;
+    private final P2ClosePaneController infoControllerFilter;
+    private final P2ClosePaneController infoControllerInfo;
 
     private final ProgData progData;
     private final ObjectProperty<StationData> stationDataObjectProperty = new SimpleObjectProperty<>(null);
@@ -60,23 +60,23 @@ public class StationGuiPack {
         stationFilterController = new StationFilterController(this);
         paneStationInfo = new PaneStationInfo(this);
 
-        ArrayList<P2InfoDto> list = new ArrayList<>();
-        P2InfoDto infoDto = new P2InfoDto(stationFilterController,
+        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
+        P2ClosePaneDto infoDto = new P2ClosePaneDto(stationFilterController,
                 ProgConfig.STATION__FILTER_IS_RIP,
                 ProgConfig.STATION__FILTER_DIALOG_SIZE, ProgData.STATION_TAB_ON,
                 "Filter", "Sender", true,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
-        infoControllerFilter = new P2InfoController(list, ProgConfig.STATION__FILTER_IS_SHOWING);
+        infoControllerFilter = new P2ClosePaneController(list, ProgConfig.STATION__FILTER_IS_SHOWING);
 
         list = new ArrayList<>();
-        infoDto = new P2InfoDto(paneStationInfo,
+        infoDto = new P2ClosePaneDto(paneStationInfo,
                 ProgConfig.STATION__INFO_PANE_IS_RIP,
                 ProgConfig.STATION__INFO_DIALOG_SIZE, ProgData.STATION_TAB_ON,
                 "Filter", "Sender", false,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
-        infoControllerInfo = new P2InfoController(list, ProgConfig.STATION__INFO_IS_SHOWING);
+        infoControllerInfo = new P2ClosePaneController(list, ProgConfig.STATION__INFO_IS_SHOWING);
 
         progData.stationGuiPack = this;
     }

@@ -27,7 +27,6 @@ import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -145,13 +144,7 @@ public class ProgTray {
 
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(ProgData.getInstance()).showDialog()));
         miQuit.addActionListener(e -> Platform.runLater(() -> {
-            Stage stage = null;
-            if (progData.smallRadioGuiController != null) {
-                stage = progData.smallRadioGuiController.getStage();
-            } else if (progData.primaryStage.isShowing()) {
-                stage = progData.primaryStage;
-            }
-            ProgQuit.quit(stage, true);
+            ProgQuit.quit(true);
         }));
 
         PopupMenu popupMenu = new PopupMenu();

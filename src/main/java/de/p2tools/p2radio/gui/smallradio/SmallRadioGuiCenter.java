@@ -102,14 +102,14 @@ public class SmallRadioGuiCenter extends HBox {
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
-            ProgQuit.quit(smallRadioGuiController.getStage(), true);
+            ProgQuit.quit(true);
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnClose.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
+        btnRadio.setOnAction(e -> smallRadioGuiController.close());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());

@@ -32,24 +32,24 @@ public class Worker {
         progData.pEventHandler.addListener(new P2Listener(Events.LOAD_RADIO_LIST) {
             public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) runEvent;
+                    RunEventRadio runEventRadio = (RunEventRadio) runEvent;
 
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
+                    if (runEventRadio.getNotify().equals(RunEventRadio.NOTIFY.START)) {
                         //ist dann die gespeicherte Senderliste
-                        PMaskerFactory.setMaskerVisible(progData, true, runE.getProgress() != RunEventRadio.PROGRESS_INDETERMINATE);
-                        PMaskerFactory.setMaskerProgress(progData, runE.getProgress(), runE.getText());
+                        PMaskerFactory.setMaskerVisible(progData, true, runEventRadio.getProgress() != RunEventRadio.PROGRESS_INDETERMINATE);
+                        PMaskerFactory.setMaskerProgress(progData, runEventRadio.getProgress(), runEventRadio.getText());
                     }
 
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.PROGRESS)) {
-                        PMaskerFactory.setMaskerProgress(progData, runE.getProgress(), runE.getText());
+                    if (runEventRadio.getNotify().equals(RunEventRadio.NOTIFY.PROGRESS)) {
+                        PMaskerFactory.setMaskerProgress(progData, runEventRadio.getProgress(), runEventRadio.getText());
                     }
 
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.LOADED)) {
+                    if (runEventRadio.getNotify().equals(RunEventRadio.NOTIFY.LOADED)) {
                         PMaskerFactory.setMaskerVisible(progData, true, false);
                         PMaskerFactory.setMaskerProgress(progData, RunEventRadio.PROGRESS_INDETERMINATE, "Senderliste verarbeiten");
                     }
 
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
+                    if (runEventRadio.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
                         PMaskerFactory.setMaskerVisible(progData, false);
                     }
                 }

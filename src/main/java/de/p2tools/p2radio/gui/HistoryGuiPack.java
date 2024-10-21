@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -45,8 +45,8 @@ public class HistoryGuiPack {
     private final HistoryFilterController historyFilterController;
     private final PaneHistoryInfo paneHistoryInfo;
 
-    private final P2InfoController infoControllerFilter;
-    private final P2InfoController infoControllerInfo;
+    private final P2ClosePaneController infoControllerFilter;
+    private final P2ClosePaneController infoControllerInfo;
 
     private final ProgData progData;
     private final ObjectProperty<StationData> stationDataObjectProperty = new SimpleObjectProperty<>(null);
@@ -60,23 +60,23 @@ public class HistoryGuiPack {
         paneHistoryInfo = new PaneHistoryInfo(this);
         historyGuiController = new HistoryGuiController(this);
 
-        ArrayList<P2InfoDto> list = new ArrayList<>();
-        P2InfoDto infoDTO = new P2InfoDto(historyFilterController,
+        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
+        P2ClosePaneDto infoDTO = new P2ClosePaneDto(historyFilterController,
                 ProgConfig.HISTORY__FILTER_IS_RIP,
                 ProgConfig.HISTORY__FILTER_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
                 "Filter", "History", true,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDTO);
-        infoControllerFilter = new P2InfoController(list, ProgConfig.HISTORY__FILTER_IS_SHOWING);
+        infoControllerFilter = new P2ClosePaneController(list, ProgConfig.HISTORY__FILTER_IS_SHOWING);
 
         list = new ArrayList<>();
-        infoDTO = new P2InfoDto(paneHistoryInfo,
+        infoDTO = new P2ClosePaneDto(paneHistoryInfo,
                 ProgConfig.HISTORY__INFO_PANE_IS_RIP,
                 ProgConfig.HISTORY__INFO_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
                 "Filter", "History", false,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDTO);
-        infoControllerInfo = new P2InfoController(list, ProgConfig.HISTORY__INFO_IS_SHOWING);
+        infoControllerInfo = new P2ClosePaneController(list, ProgConfig.HISTORY__INFO_IS_SHOWING);
 
 
         progData.historyGuiPack = this;

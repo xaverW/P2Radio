@@ -76,13 +76,16 @@ public class ProgData {
     public StationListFilter stationListFilter;
 
     // Gui
-    public Stage primaryStage = null;
+    public static Stage primaryStage = null;
+    public static Stage primaryStageBig = null;
+    public static Stage primaryStageSmall = null;
+
     public P2MaskerPane maskerPane = new P2MaskerPane();
     public P2RadioController p2RadioController = null;
+    public SmallRadioGuiController smallRadioGuiController = null;
 
     public StationGuiPack stationGuiPack = null; // Tab mit den Sender
     public FavouriteGuiPack favouriteGuiPack = null; // Tab mit den Favoriten
-    public SmallRadioGuiController smallRadioGuiController = null; // Tab mit den Favoriten
     public HistoryGuiPack historyGuiPack = null; // Tab mit den Favoriten
 
     public StationInfoDialogController stationInfoDialogController = null;
