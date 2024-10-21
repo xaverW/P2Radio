@@ -91,7 +91,6 @@ public class P2RadioController extends StackPane {
 
             initMaskerPane();
             initButton();
-//            if (!ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
             // nur dann notwendig
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
@@ -107,7 +106,6 @@ public class P2RadioController extends StackPane {
                     initPanelHistory();
                     progData.historyGuiPack.getHistoryGuiController().selUrl();
             }
-//            }
         } catch (Exception ex) {
             P2Log.errorLog(597841023, ex);
         }
@@ -178,18 +176,8 @@ public class P2RadioController extends StackPane {
         ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
         ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
 
-//        ProgConfig.SYSTEM_SMALL_RADIO.set(false);
         ProgConfig.SYSTEM_SMALL_RADIO.set(true);
-//        P2Radio.selectGui();
     }
-
-//    public void quittSmallRadio() {
-//        ProgData.setStage(P2Radio.primaryStageBig);
-//
-//        initPanelStation();
-//        P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStage);
-//        ProgData.primaryStage.show();
-//    }
 
     private void selPanelStation() {
         ProgConfig.SYSTEM_LAST_TAB_STATION.set(0);

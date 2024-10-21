@@ -33,7 +33,6 @@ import javafx.stage.Stage;
 
 public class P2Radio extends Application {
 
-
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     private ProgData progData;
 
@@ -85,18 +84,19 @@ public class P2Radio extends Application {
                 ProgQuit.quit(true);
             });
 
+            P2LibInit.addP2CssToScene(ProgData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
+
             //Pos setzen
-            P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig);
             sceneBig.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig, sceneBig));
             sceneBig.widthProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig, sceneBig));
             ProgData.primaryStageBig.xProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig, sceneBig));
             ProgData.primaryStageBig.yProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig, sceneBig));
+            P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig);
 
             ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> ProgColorList.setColorTheme());
             ProgConfig.SYSTEM_SMALL_RADIO.addListener((u, o, n) -> selectGui());
 
             selectGui();
-
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -108,7 +108,6 @@ public class P2Radio extends Application {
             ProgData.primaryStageSmall = ProgData.getInstance().smallRadioGuiController.getStage();
             ProgData.primaryStage = ProgData.primaryStageSmall;
             P2LibInit.setActStage(ProgData.primaryStageSmall);
-            P2LibInit.addP2CssToScene(ProgData.primaryStage.getScene()); // und jetzt noch CSS einstellen
 
             ProgData.primaryStageBig.close();
             ProgData.primaryStageSmall.show();
@@ -116,7 +115,6 @@ public class P2Radio extends Application {
         } else {
             ProgData.primaryStage = ProgData.primaryStageBig;
             P2LibInit.setActStage(ProgData.primaryStageBig);
-            P2LibInit.addP2CssToScene(ProgData.primaryStage.getScene()); // und jetzt noch CSS einstellen
 
             System.out.println("=========> " + ProgConfig.SYSTEM_SIZE_GUI.getValueSafe());
             P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig);
