@@ -101,6 +101,10 @@ public class StationGuiController extends VBox {
 
 
     public void playRandomStation() {
+        if (tableView.getItems().isEmpty()) {
+            return;
+        }
+
         int rInt = new Random().nextInt(tableView.getItems().size());
         StationData station = tableView.getItems().get(rInt);
         if (station != null) {

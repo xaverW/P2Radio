@@ -135,14 +135,16 @@ public class FavouriteFactory {
             list.addAll(ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSelList());
         } else {
             final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
-            if (favourite.isPresent()) {
-                list.add(favourite.get());
-            }
+            favourite.ifPresent(list::add);
         }
         changeFavourite(list);
     }
 
     private static void changeFavourite(ArrayList<StationData> list) {
+        if (list.isEmpty()) {
+            return;
+        }
+
         new FavouriteAddDialogController(ProgData.getInstance(), list, false);
         ProgData.getInstance().collectionList.updateNames();//könnte ja geändert sein
     }

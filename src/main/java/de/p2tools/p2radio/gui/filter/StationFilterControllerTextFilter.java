@@ -224,7 +224,7 @@ public class StationFilterControllerTextFilter extends VBox {
     private void addFilter() {
         VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
 
-        addTxt("Name", txtStationName, vBox, progData.storedFilters.getActFilterSettings().stationNameVisProperty());
+        addTxt("Sender", txtStationName, vBox, progData.storedFilters.getActFilterSettings().stationNameVisProperty());
         addGenre(vBox);
         addCodec(vBox);
         addCountry(vBox);
