@@ -35,22 +35,8 @@ public class ProgQuit {
 
     /**
      * Quit the application
-     *
-     * @param showOptionTerminate show options dialog when stations are running
      */
-    public static void quit(boolean showOptionTerminate) {
-//        if (StartFactory.isPlaying()) {
-//            if (showOptionTerminate) {
-//                //dann erst mal fragen
-//                QuitDialogController quitDialogController;
-//                quitDialogController = new QuitDialogController(stage);
-//                if (!quitDialogController.canTerminate()) {
-//                    //und nicht beenden
-//                    return;
-//                }
-//            }
-//        }
-
+    public static void quit() {
         //dann jetzt beenden
         StartFactory.stopRunningPlayProcess();
         writeTableWindowSettings();

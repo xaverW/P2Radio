@@ -21,10 +21,7 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
-import de.p2tools.p2radio.controller.config.ProgColorList;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
@@ -81,10 +78,11 @@ public class P2Radio extends Application {
             ProgData.primaryStageBig.setScene(sceneBig);
             ProgData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
-                ProgQuit.quit(true);
+                ProgQuit.quit();
             });
 
             P2LibInit.addP2CssToScene(ProgData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
+            PShortKeyFactory.addShortKey(ProgData.primaryStageBig.getScene());
 
             //Pos setzen
             sceneBig.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.primaryStageBig, sceneBig));
@@ -108,6 +106,7 @@ public class P2Radio extends Application {
             ProgData.primaryStageSmall = ProgData.getInstance().smallRadioGuiController.getStage();
             ProgData.primaryStage = ProgData.primaryStageSmall;
             P2LibInit.setActStage(ProgData.primaryStageSmall);
+            PShortKeyFactory.addShortKey(ProgData.primaryStageSmall.getScene());
 
             ProgData.primaryStageBig.close();
             ProgData.primaryStageSmall.show();

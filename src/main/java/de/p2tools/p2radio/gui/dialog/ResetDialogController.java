@@ -104,7 +104,7 @@ public class ResetDialogController extends P2DialogExtra {
                 // damit wird vor dem Beenden das Konfig-Verzeichnis umbenannt und so startet das
                 // Programm wie beim ersten Start
                 ProgData.reset = true;
-                ProgQuit.quit(false);
+                ProgQuit.quit();
             }
         });
 

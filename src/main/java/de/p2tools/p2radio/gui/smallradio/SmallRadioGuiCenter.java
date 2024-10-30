@@ -102,7 +102,7 @@ public class SmallRadioGuiCenter extends HBox {
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
-            ProgQuit.quit(true);
+            ProgQuit.quit();
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");

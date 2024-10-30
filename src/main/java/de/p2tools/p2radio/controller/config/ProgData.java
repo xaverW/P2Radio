@@ -24,7 +24,6 @@ import de.p2tools.p2lib.tools.events.P2EventHandler;
 import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackDataList;
-import de.p2tools.p2radio.controller.data.P2RadioShortCuts;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
@@ -71,7 +70,7 @@ public class ProgData {
 
     // zentrale Klassen
     public LoadNewStationList loadNewStationList; // erledigt das laden und updaten der Radioliste
-    public P2RadioShortCuts pShortcut; // verwendete Shortcuts
+    public PShortCut pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
 
@@ -126,7 +125,7 @@ public class ProgData {
     private ProgData() {
         pEventHandler = new P2EventHandler();
 
-        pShortcut = new P2RadioShortCuts();
+        pShortcut = new PShortCut();
         loadNewStationList = new LoadNewStationList(this);
         storedFilters = new StoredFilters(this);
         stationList = new StationList();

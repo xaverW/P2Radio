@@ -144,7 +144,7 @@ public class ProgTray {
 
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(ProgData.getInstance()).showDialog()));
         miQuit.addActionListener(e -> Platform.runLater(() -> {
-            ProgQuit.quit(true);
+            ProgQuit.quit();
         }));
 
         PopupMenu popupMenu = new PopupMenu();

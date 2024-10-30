@@ -60,16 +60,30 @@ public class ProgConfig extends P2DataProgConfig {
         configFile.addConfigs(ProgData.getInstance().stationLastPlayed);
     }
 
+    public static String SHORTCUT_CHANGE_GUI_INIT = "Ctrl+G";
+    public static StringProperty SHORTCUT_CHANGE_GUI = addStrProp("SHORTCUT_CHANGE_GUI", SHORTCUT_CHANGE_GUI_INIT);
+
+    public static String SHORTCUT_CENTER_INIT = "Ctrl+W";
+    public static StringProperty SHORTCUT_CENTER_GUI = addStrProp("SHORTCUT_CENTER_GUI", SHORTCUT_CENTER_INIT);
+
     //Shorcuts Hauptmenü
     public static final String SHORTCUT_QUIT_PROGRAM_INIT = "Ctrl+Q";
+    public static StringProperty SHORTCUT_QUIT_PROGRAM = addStrProp("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);
+
     //Shortcuts Sendermenü
     public static final String SHORTCUT_PLAY_STATION_INIT = "Ctrl+P";
+    public static StringProperty SHORTCUT_PLAY_STATION = addStrProp("SHORTCUT_PLAY_STATION", SHORTCUT_PLAY_STATION_INIT);
     public static final String SHORTCUT_SAVE_STATIION_INIT = "Ctrl+S";
-    // ===========================================
+    public static StringProperty SHORTCUT_SAVE_STATION = addStrProp("SHORTCUT_SAVE_STATION", SHORTCUT_SAVE_STATIION_INIT);
+
     // Shortcuts Favoritenmenü
     public static final String SHORTCUT_FAVOURITE_START_INIT = "Ctrl+F";
-    public static final String SHORTCUT_FAVOURITE_STOP_INIT = "Ctrl+T";
+    public static StringProperty SHORTCUT_FAVOURITE_START = addStrProp("SHORTCUT_FAVOURITE_START", SHORTCUT_FAVOURITE_START_INIT);
+    public static final String SHORTCUT_STOP_STATION_INIT = "Ctrl+T";
+    public static StringProperty SHORTCUT_STOP_STATION = addStrProp("SHORTCUT_FAVOURITE_STOP", SHORTCUT_STOP_STATION_INIT);
     public static final String SHORTCUT_FAVOURITE_CHANGE_INIT = "Ctrl+C";
+    public static StringProperty SHORTCUT_FAVOURITE_CHANGE = addStrProp("SHORTCUT_FAVOURITE_CHANGE", SHORTCUT_FAVOURITE_CHANGE_INIT);
+
 
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt
@@ -239,10 +253,4 @@ public class ProgConfig extends P2DataProgConfig {
 
     //Filter Sender
     public static IntegerProperty FILTER_STATION_SEL_FILTER = addIntProp("filter-station-sel-filter");
-    public static StringProperty SHORTCUT_QUIT_PROGRAM = addStrProp("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);
-    public static StringProperty SHORTCUT_PLAY_STATION = addStrProp("SHORTCUT_PLAY_STATION", SHORTCUT_PLAY_STATION_INIT);
-    public static StringProperty SHORTCUT_SAVE_STATION = addStrProp("SHORTCUT_SAVE_STATION", SHORTCUT_SAVE_STATIION_INIT);
-    public static StringProperty SHORTCUT_FAVOURITE_START = addStrProp("SHORTCUT_FAVOURITE_START", SHORTCUT_FAVOURITE_START_INIT);
-    public static StringProperty SHORTCUT_FAVOURITE_STOP = addStrProp("SHORTCUT_FAVOURITE_STOP", SHORTCUT_FAVOURITE_STOP_INIT);
-    public static StringProperty SHORTCUT_FAVOURITE_CHANGE = addStrProp("SHORTCUT_FAVOURITE_CHANGE", SHORTCUT_FAVOURITE_CHANGE_INIT);
 }
