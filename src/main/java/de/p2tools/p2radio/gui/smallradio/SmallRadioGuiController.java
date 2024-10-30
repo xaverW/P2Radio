@@ -48,7 +48,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
     };
 
     public SmallRadioGuiController() {
-        super(ProgData.primaryStage, ProgConfig.SMALL_RADIO_SIZE,
+        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
                 "Radio", false, false, true);
 
         progData = ProgData.getInstance();
@@ -59,7 +59,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         init(false);
 
         if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
-            new SmallGuiHelpDialogController(ProgData.primaryStage);
+            new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);
             ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.setValue(true);
         }
     }

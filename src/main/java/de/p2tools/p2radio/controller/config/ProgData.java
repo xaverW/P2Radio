@@ -75,9 +75,9 @@ public class ProgData {
     public StationListFilter stationListFilter;
 
     // Gui
-    public static Stage primaryStage = null;
-    public static Stage primaryStageBig = null;
-    public static Stage primaryStageSmall = null;
+    public Stage primaryStage = null;
+    public Stage primaryStageBig = null;
+    public Stage primaryStageSmall = null;
 
     public P2MaskerPane maskerPane = new P2MaskerPane();
     public P2RadioController p2RadioController = null;

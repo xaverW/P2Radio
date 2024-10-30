@@ -147,7 +147,7 @@ public class P2RadioController extends StackPane {
                 if (event.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) event;
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        if (stackPaneCont.getChildren().size() == 0) {
+                        if (stackPaneCont.getChildren().isEmpty()) {
                             return;
                         }
 

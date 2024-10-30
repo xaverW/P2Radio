@@ -44,7 +44,7 @@ public class ConfigDialogController extends P2DialogExtra {
     private ControllerSet controllerSet;
 
     public ConfigDialogController(ProgData progData) {
-        super(ProgData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
+        super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
                 true, false, DECO.NO_BORDER);
 
         this.progData = progData;
