@@ -23,6 +23,7 @@ import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -184,15 +185,10 @@ public class SmallRadioGuiCenter extends HBox {
         return ret;
     }
 
-    public void selLastHistoryUrl() {
-        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
-        Optional<StationData> optional = tableView.getItems().stream()
-                .filter(stationData -> stationData.getStationUrl().equals(url)).findFirst();
-        if (optional.isPresent()) {
-            tableView.getSelectionModel().select(optional.get());
-            int sel = tableView.getSelectionModel().getSelectedIndex();
-            tableView.scrollTo(sel);
-        }
+    public void selLastHistory() {
+        P2RadioFactory.selLastHistory(tableViewStation);
+        P2RadioFactory.selLastHistory(tableViewFavourite);
+        P2RadioFactory.selLastHistory(tableViewHistory);
     }
 
     public void setNextStation() {

@@ -135,8 +135,8 @@ public class SmallRadioGuiController extends P2DialogOnly {
         return smallRadioGuiCenter.getSel();
     }
 
-    public void selLastHistoryUrl() {
-        smallRadioGuiCenter.selLastHistoryUrl();
+    public void selLastHistory() {
+        smallRadioGuiCenter.selLastHistory();
     }
 
     public void playRandomStation() {

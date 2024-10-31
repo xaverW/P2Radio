@@ -114,10 +114,10 @@ public class P2Radio extends Application {
         } else {
             progData.primaryStage = progData.primaryStageBig;
             P2LibInit.setActStage(progData.primaryStageBig);
-
-            System.out.println("=========> " + ProgConfig.SYSTEM_SIZE_GUI.getValueSafe());
             P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
             progData.primaryStageBig.show();
         }
+
+        P2RadioFactory.setLastHistoryUrl();
     }
 }

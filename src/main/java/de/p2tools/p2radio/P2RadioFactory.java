@@ -19,6 +19,10 @@ package de.p2tools.p2radio;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.station.StationData;
+import javafx.scene.control.TableView;
+
+import java.util.Optional;
 
 public class P2RadioFactory {
     private P2RadioFactory() {
@@ -37,24 +41,24 @@ public class P2RadioFactory {
     }
 
     public static void setLastHistoryUrl() {
-        ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistoryUrl();
-        ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistoryUrl();
-        ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistoryUrl();
+        ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistory();
+        ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistory();
+        ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistory();
 
         if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && ProgData.getInstance().smallRadioGuiController != null) {
-            ProgData.getInstance().smallRadioGuiController.selLastHistoryUrl();
+            ProgData.getInstance().smallRadioGuiController.selLastHistory();
         }
+    }
 
-//        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-//            case 0:
-//            default:
-//                ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistoryUrl();
-//                break;
-//            case 1:
-//                ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistoryUrl();
-//                break;
-//            case 2:
-//                ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistoryUrl();
-//        }
+    public static void selLastHistory(TableView<StationData> tableView) {
+        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
+        Optional<StationData> optional = tableView.getItems().stream().
+                filter(station -> station.getStationUrl().equals(url)).findFirst();
+        if (optional.isPresent()) {
+            tableView.getSelectionModel().clearSelection();
+            tableView.getSelectionModel().select(optional.get());
+            int sel = tableView.getSelectionModel().getSelectedIndex();
+            tableView.scrollTo(sel);
+        }
     }
 }

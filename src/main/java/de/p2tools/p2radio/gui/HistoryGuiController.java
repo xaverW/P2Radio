@@ -21,8 +21,8 @@ import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.Events;
-import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -125,14 +125,8 @@ public class HistoryGuiController extends VBox {
         return Optional.empty();
     }
 
-    public void selLastHistoryUrl() {
-        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
-        Optional<StationData> optional = tableView.getItems().stream().filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();
-        if (optional.isPresent()) {
-            tableView.getSelectionModel().select(optional.get());
-            int sel = tableView.getSelectionModel().getSelectedIndex();
-            tableView.scrollTo(sel);
-        }
+    public void selLastHistory() {
+        P2RadioFactory.selLastHistory(tableView);
     }
 
     public void setNextStation() {

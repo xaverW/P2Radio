@@ -52,6 +52,7 @@ public class ProgStartAfterGui {
         progData.initProgData();
         checkProgUpdate(progData);
         loadStationProgStart();
+        loadAutoStart();
     }
 
     private static void startMsg() {
@@ -107,9 +108,6 @@ public class ProgStartAfterGui {
         new SearchProgramUpdate(progData).searchNewProgramVersion(showAlways);
     }
 
-    /**
-     * Senderliste beim Programmstart laden
-     */
     private static void loadStationProgStart() {
         P2Log.sysLog("START: loadStationProgStart");
         final ProgData progData = ProgData.getInstance();
@@ -160,23 +158,13 @@ public class ProgStartAfterGui {
             }
         }
 
-//        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-//            case 0:
-//                Platform.runLater(() -> progData.stationGuiPack.getStationGuiController().selLastHistoryUrl());
-//                break;
-//            case 1:
-//                Platform.runLater(() -> progData.favouriteGuiPack.getFavouriteGuiController().selLastHistoryUrl());
-//                break;
-//            case 2:
-//            default:
-//                Platform.runLater(() -> progData.historyGuiPack.getHistoryGuiController().selLastHistoryUrl());
-//                break;
-//        }
-
         logList.add(P2Log.LILNE1);
         logList.add("");
         P2Log.sysLog(logList);
+    }
 
+    private static void loadAutoStart() {
+        final ProgData progData = ProgData.getInstance();
         switch (ProgConfig.SYSTEM_AUTO_START.get()) {
             case AutoStartFactory.AUTOSTART_LAST_PLAYED:
                 if (progData.stationLastPlayed.isAuto()) {
@@ -190,6 +178,7 @@ public class ProgStartAfterGui {
                 break;
             default:
         }
+
         P2RadioFactory.setLastHistoryUrl();
     }
 
