@@ -95,6 +95,8 @@ public class P2Radio extends Application {
             ProgConfig.SYSTEM_SMALL_RADIO.addListener((u, o, n) -> selectGui());
 
             selectGui();
+            progData.primaryStage.setIconified(ProgData.startMinimized);
+            
         } catch (final Exception e) {
             e.printStackTrace();
         }

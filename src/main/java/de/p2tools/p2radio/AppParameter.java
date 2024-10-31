@@ -31,6 +31,29 @@ public class AppParameter {
     public static final String TEXT_LINE = "===========================================";
     private static final String ARGUMENT_PREFIX = "-";
 
+    enum ProgParameter {
+        HELP("h", "help", false, "show help"),
+        VERSION("v", "version", false, "show version"),
+        PATH("p", "path", true, "path of configuration file"),
+        START_MINIMIZED("m", "minimize", false, "start minimized"),
+        DEBUG("d", "debug", false, "show debug info"),
+        DURATION("t", "time", false, "show timekeeping info");
+
+        final String shortname;
+        final String name;
+        final boolean hasArgs;
+        final String helpText;
+
+        ProgParameter(final String shortname, final String name,
+                      final boolean hasArgs, final String helpText) {
+            this.shortname = shortname;
+            this.name = name;
+            this.hasArgs = hasArgs;
+            this.helpText = helpText;
+        }
+
+    }
+
     void processArgs(final String... arguments) {
         if (arguments == null) {
             return;
@@ -67,6 +90,10 @@ public class AppParameter {
 
             if (hasOption(line, ProgParameter.DURATION)) {
                 ProgData.duration = true;
+            }
+
+            if (hasOption(line, ProgParameter.START_MINIMIZED)) {
+                ProgData.startMinimized = true;
             }
 
             if (hasOption(line, ProgParameter.PATH)) {
@@ -112,29 +139,6 @@ public class AppParameter {
         P2Log.sysLog(list);
         P2Log.emptyLine();
     }
-
-    enum ProgParameter {
-        HELP("h", "help", false, "show help"),
-        VERSION("v", "version", false, "show version"),
-        PATH("p", "path", true, "path of configuration file"),
-        DEBUG("d", "debug", false, "show debug info"),
-        DURATION("t", "time", false, "show timekeeping info");
-
-        final String shortname;
-        final String name;
-        final boolean hasArgs;
-        final String helpText;
-
-        ProgParameter(final String shortname, final String name,
-                      final boolean hasArgs, final String helpText) {
-            this.shortname = shortname;
-            this.name = name;
-            this.hasArgs = hasArgs;
-            this.helpText = helpText;
-        }
-
-    }
-
 
     private static boolean hasOption(final CommandLine line, final ProgParameter parameter) {
         return line.hasOption(parameter.name);
