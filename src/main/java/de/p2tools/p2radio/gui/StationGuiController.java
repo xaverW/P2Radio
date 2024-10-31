@@ -143,7 +143,7 @@ public class StationGuiController extends VBox {
         }
     }
 
-    public void selUrl() {
+    public void selLastHistoryUrl() {
         final String url = ProgConfig.SYSTEM_HISTORY.getValue();
         Optional<StationData> optional = tableView.getItems().stream().
                 filter(station -> station.getStationUrl().equals(url)).findFirst();

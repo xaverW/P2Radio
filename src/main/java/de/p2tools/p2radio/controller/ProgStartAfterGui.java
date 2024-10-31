@@ -22,13 +22,13 @@ import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
+import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -160,28 +160,23 @@ public class ProgStartAfterGui {
             }
         }
 
-        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-            case 0:
-                Platform.runLater(() -> progData.stationGuiPack.getStationGuiController().selUrl());
-                break;
-            case 1:
-                Platform.runLater(() -> progData.favouriteGuiPack.getFavouriteGuiController().selUrl());
-                break;
-            case 2:
-            default:
-                Platform.runLater(() -> progData.historyGuiPack.getHistoryGuiController().selUrl());
-                break;
-        }
+//        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+//            case 0:
+//                Platform.runLater(() -> progData.stationGuiPack.getStationGuiController().selLastHistoryUrl());
+//                break;
+//            case 1:
+//                Platform.runLater(() -> progData.favouriteGuiPack.getFavouriteGuiController().selLastHistoryUrl());
+//                break;
+//            case 2:
+//            default:
+//                Platform.runLater(() -> progData.historyGuiPack.getHistoryGuiController().selLastHistoryUrl());
+//                break;
+//        }
 
         logList.add(P2Log.LILNE1);
         logList.add("");
         P2Log.sysLog(logList);
 
-//        if (ProgConfig.SYSTEM_AUTO_START.get() == AutoStartFactory.AUTOSTART_AUTO &&
-//                !ProgData.getInstance().stationAutoStart.isAuto()) {
-//            // einstellen, falls nichts geht
-//            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
-//        }
         switch (ProgConfig.SYSTEM_AUTO_START.get()) {
             case AutoStartFactory.AUTOSTART_LAST_PLAYED:
                 if (progData.stationLastPlayed.isAuto()) {
@@ -195,6 +190,7 @@ public class ProgStartAfterGui {
                 break;
             default:
         }
+        P2RadioFactory.setLastHistoryUrl();
     }
 
     /**

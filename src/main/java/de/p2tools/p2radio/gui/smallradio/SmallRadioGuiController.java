@@ -94,7 +94,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
         progData.smallRadioGuiController = null;
         ProgConfig.SYSTEM_SMALL_RADIO.set(false);
-//        P2Radio.selectGui();
         super.close();
     }
 
@@ -109,20 +108,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
     public P2MaskerPane getMaskerPane() {
         return super.getMaskerPane();
     }
-
-//    public void changeGui() {
-//        close();
-//        progData.smallRadioGuiController = null;
-////        progData.p2RadioController.quittSmallRadio();
-//
-//        ProgConfig.SYSTEM_SMALL_RADIO.set(false);
-//        P2Radio.selectGui();
-//    }
-
-//    private void saveMe() {
-//        progData.smallRadioGuiController.saveTable();
-//        P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
-//    }
 
     public void saveTable() {
         smallRadioGuiCenter.saveTable();
@@ -148,6 +133,10 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
     public Optional<StationData> getSel() {
         return smallRadioGuiCenter.getSel();
+    }
+
+    public void selLastHistoryUrl() {
+        smallRadioGuiCenter.selLastHistoryUrl();
     }
 
     public void playRandomStation() {

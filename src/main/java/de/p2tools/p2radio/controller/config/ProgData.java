@@ -114,7 +114,6 @@ public class ProgData {
 
     public StationData stationAutoStart = new StationData(AutoStartFactory.TAG_AUTOSTART);
     public StationData stationLastPlayed = new StationData(AutoStartFactory.TAG_LAST_PLAYED);
-//    public Start startPlaying = null;
 
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;

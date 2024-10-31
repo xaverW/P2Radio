@@ -91,20 +91,17 @@ public class P2RadioController extends StackPane {
 
             initMaskerPane();
             initButton();
-            // nur dann notwendig
+
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
                 default:
                     initPanelStation();
-                    progData.stationGuiPack.getStationGuiController().selUrl();
                     break;
                 case 1:
                     initPanelFavourite();
-                    progData.favouriteGuiPack.getFavouriteGuiController().selUrl();
                     break;
                 case 2:
                     initPanelHistory();
-                    progData.historyGuiPack.getHistoryGuiController().selUrl();
             }
         } catch (Exception ex) {
             P2Log.errorLog(597841023, ex);

@@ -35,4 +35,26 @@ public class P2RadioFactory {
     public static void centerGui() {
         ProgData.getInstance().primaryStage.centerOnScreen();
     }
+
+    public static void setLastHistoryUrl() {
+        ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistoryUrl();
+        ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistoryUrl();
+        ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistoryUrl();
+
+        if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && ProgData.getInstance().smallRadioGuiController != null) {
+            ProgData.getInstance().smallRadioGuiController.selLastHistoryUrl();
+        }
+
+//        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+//            case 0:
+//            default:
+//                ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistoryUrl();
+//                break;
+//            case 1:
+//                ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistoryUrl();
+//                break;
+//            case 2:
+//                ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistoryUrl();
+//        }
+    }
 }

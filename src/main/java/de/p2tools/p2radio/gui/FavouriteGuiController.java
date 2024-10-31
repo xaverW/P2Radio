@@ -127,7 +127,7 @@ public class FavouriteGuiController extends VBox {
         return Optional.empty();
     }
 
-    public void selUrl() {
+    public void selLastHistoryUrl() {
         final String url = ProgConfig.SYSTEM_HISTORY.getValue();
         Optional<StationData> optional = tableView.getItems().stream()
                 .filter(favourite -> favourite.getStationUrl().equals(url)).findFirst();

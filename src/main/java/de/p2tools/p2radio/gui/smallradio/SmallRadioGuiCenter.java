@@ -184,6 +184,17 @@ public class SmallRadioGuiCenter extends HBox {
         return ret;
     }
 
+    public void selLastHistoryUrl() {
+        final String url = ProgConfig.SYSTEM_HISTORY.getValue();
+        Optional<StationData> optional = tableView.getItems().stream()
+                .filter(stationData -> stationData.getStationUrl().equals(url)).findFirst();
+        if (optional.isPresent()) {
+            tableView.getSelectionModel().select(optional.get());
+            int sel = tableView.getSelectionModel().getSelectedIndex();
+            tableView.scrollTo(sel);
+        }
+    }
+
     public void setNextStation() {
         P2TableFactory.selectNextRow(tableView);
     }
