@@ -76,6 +76,7 @@ public class PShortCut {
     public PShortCut() {
         shortcutList.add(SHORTCUT_CHANGE_GUI);
         shortcutList.add(SHORTCUT_CENTER_GUI);
+        shortcutList.add(SHORTCUT_MINIMIZE_GUI);
 
         shortcutList.add(SHORTCUT_QUIT_PROGRAM);
         shortcutList.add(SHORTCUT_STOP_STATION);

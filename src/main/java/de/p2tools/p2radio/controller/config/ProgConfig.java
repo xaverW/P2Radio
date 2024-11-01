@@ -66,7 +66,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static String SHORTCUT_CENTER_INIT = "Ctrl+W";
     public static StringProperty SHORTCUT_CENTER_GUI = addStrProp("SHORTCUT_CENTER_GUI", SHORTCUT_CENTER_INIT);
 
-    public static String SHORTCUT_MINIMIZE_INIT = "Ctrl+M";
+    public static String SHORTCUT_MINIMIZE_INIT = "Alt+M";
     public static StringProperty SHORTCUT_MINIMIZE_GUI = addStrProp("SHORTCUT_MINIMIZE_GUI", SHORTCUT_MINIMIZE_INIT);
 
     //Shorcuts Hauptmenü
