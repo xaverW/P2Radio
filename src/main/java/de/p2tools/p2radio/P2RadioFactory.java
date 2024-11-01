@@ -40,6 +40,10 @@ public class P2RadioFactory {
         ProgData.getInstance().primaryStage.centerOnScreen();
     }
 
+    public static void minimizeGui() {
+        ProgData.getInstance().primaryStage.setIconified(true);
+    }
+
     public static void setLastHistoryUrl() {
         ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistory();
         ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistory();

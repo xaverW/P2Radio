@@ -47,6 +47,12 @@ public class PShortKeyFactory {
         rn = P2RadioFactory::centerGui;
         scene.getAccelerators().put(kc, rn);
 
+        // Minimize GUI
+        pShortcut = PShortCut.SHORTCUT_MINIMIZE_GUI;
+        kc = KeyCodeCombination.keyCombination(pShortcut.getActShortcut());
+        rn = P2RadioFactory::minimizeGui;
+        scene.getAccelerators().put(kc, rn);
+
         // Quit
         pShortcut = PShortCut.SHORTCUT_QUIT_PROGRAM;
         kc = KeyCodeCombination.keyCombination(pShortcut.getActShortcut());

@@ -33,6 +33,11 @@ public class PShortCut {
                     "Center Programm",
                     "Das Programmfenster wird auf dem Bildschirm zentriert.");
 
+    public static final P2ShortcutKey SHORTCUT_MINIMIZE_GUI =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_MINIMIZE_GUI, ProgConfig.SHORTCUT_MINIMIZE_INIT,
+                    "Programm-GUI minimieren",
+                    "Das Programmfenster wird minimiert.");
+
     // Menü
     public static final P2ShortcutKey SHORTCUT_QUIT_PROGRAM =
             new P2ShortcutKey(ProgConfig.SHORTCUT_QUIT_PROGRAM, ProgConfig.SHORTCUT_QUIT_PROGRAM_INIT,
