@@ -47,7 +47,7 @@ public class ProgStartAfterGui {
     public static void workAfterGui(ProgData progData) {
         P2WindowIcon.addWindowP2Icon(progData.primaryStage);
         startMsg();
-        setTitle(progData.primaryStage);
+        setTitle();
 
         progData.initProgData();
         checkProgUpdate(progData);
@@ -68,7 +68,9 @@ public class ProgStartAfterGui {
         P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 
-    public static void setTitle(Stage stage) {
+    private static void setTitle() {
+        // muss nur für das große GUI gesetzt werden
+        Stage stage = ProgData.getInstance().primaryStageBig;
         if (ProgData.debug) {
             stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
         } else {
