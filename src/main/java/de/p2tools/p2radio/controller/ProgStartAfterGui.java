@@ -29,6 +29,7 @@ import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -76,6 +77,11 @@ public class ProgStartAfterGui {
         } else {
             stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
         }
+
+        // das muss sein, wenn das kleine Gui als Erstes startet
+        final String path = "de/p2tools/p2radio/res/P2_24.png";
+        Image image = new Image(path);
+        stage.getIcons().add(image);
     }
 
     private static void checkProgUpdate(ProgData progData) {

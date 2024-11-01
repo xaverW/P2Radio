@@ -97,7 +97,7 @@ public class ProgTray {
             image = Toolkit.getDefaultToolkit().getImage(res);
         }
 
-        TrayIcon trayicon = new TrayIcon(image, "MTPlayer");
+        TrayIcon trayicon = new TrayIcon(image, "P2Radio");
         addMenu(trayicon);
         trayicon.setImageAutoSize(true);
         trayicon.addMouseListener(new MouseAdapter() {
