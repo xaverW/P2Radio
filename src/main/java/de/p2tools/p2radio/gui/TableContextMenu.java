@@ -143,7 +143,7 @@ public class TableContextMenu {
         if (forWhat == HISTORY || forWhat == SMALL_HISTORY) {
             if (station != null) {
                 String stationUrl = station.getStationUrl();
-                StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
+                StationData stationData = progData.stationList.getStationByUrl(stationUrl);
                 if (stationData != null) {
                     MenuItem miAddFavourite = new MenuItem("Sender als Favoriten speichern");
                     miAddFavourite.setOnAction(a -> FavouriteFactory.favouriteStation(stationData));

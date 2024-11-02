@@ -23,9 +23,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.SimpleListProperty;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class StationListFactory {
     final static String regEx1 = "[\\n\\r]";
@@ -37,6 +35,12 @@ public class StationListFactory {
 
 
     private StationListFactory() {
+    }
+
+    public static synchronized StationData getStationByUrl(List<StationData> list, final String url) {
+        final Optional<StationData> opt =
+                list.parallelStream().filter(station -> station.getStationUrl().equalsIgnoreCase(url)).findAny();
+        return opt.orElse(null);
     }
 
     public static void cleanFaultyCharacterStationList() {
@@ -108,7 +112,7 @@ public class StationListFactory {
             if (counter < 0) {
                 break;
             }
-            stationData.setStation(ProgData.getInstance().stationList.getSenderByUrl(stationData.getStationUrl()));
+            stationData.setStation(ProgData.getInstance().stationList.getStationByUrl(stationData.getStationUrl()));
         }
         P2Duration.counterStop("FavouriteList.addSenderInList");
     }

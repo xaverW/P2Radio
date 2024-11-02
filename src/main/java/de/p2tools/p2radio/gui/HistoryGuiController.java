@@ -82,7 +82,7 @@ public class HistoryGuiController extends VBox {
     private void setSelectedHistory() {
         StationData stationData = tableView.getSelectionModel().getSelectedItem();
         if (stationData != null) {
-            StationData fav = progData.stationList.getSenderByUrl(stationData.getStationUrl());
+            StationData fav = progData.stationList.getStationByUrl(stationData.getStationUrl());
             progData.stationInfoDialogController.setStation(fav);
         }
         historyGuiPack.stationDataObjectPropertyProperty().setValue(stationData);

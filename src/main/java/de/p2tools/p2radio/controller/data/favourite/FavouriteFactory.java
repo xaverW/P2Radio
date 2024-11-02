@@ -55,7 +55,7 @@ public class FavouriteFactory {
 
         for (final StationData station : list) {
             // erst mal schauen obs den schon gibt
-            StationData stationData = progData.favouriteList.getUrlStation(station.getStationUrl());
+            StationData stationData = progData.favouriteList.getStationByUrl(station.getStationUrl());
             if (stationData == null) {
                 addList.add(station);
             } else {

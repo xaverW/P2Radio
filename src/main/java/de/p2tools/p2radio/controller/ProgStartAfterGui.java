@@ -173,15 +173,22 @@ public class ProgStartAfterGui {
 
     private static void loadAutoStart() {
         final ProgData progData = ProgData.getInstance();
+
         switch (ProgConfig.SYSTEM_AUTO_START.get()) {
             case AutoStartFactory.AUTOSTART_LAST_PLAYED:
                 if (progData.stationLastPlayed.isAuto()) {
                     StartFactory.playPlayable(progData.stationLastPlayed);
+//                    setStart(progData.stationList.getStationByUrl(progData.stationLastPlayed.getStationUrl()), progData.stationLastPlayed);
+//                    setStart(progData.favouriteList.getStationByUrl(progData.stationLastPlayed.getStationUrl()), progData.stationLastPlayed);
+//                    setStart(progData.historyList.getStationByUrl(progData.stationLastPlayed.getStationUrl()), progData.stationLastPlayed);
                 }
                 break;
             case AutoStartFactory.AUTOSTART_AUTO:
                 if (progData.stationAutoStart.isAuto()) {
                     StartFactory.playPlayable(progData.stationAutoStart);
+//                    setStart(progData.stationList.getStationByUrl(progData.stationAutoStart.getStationUrl()), progData.stationAutoStart);
+//                    setStart(progData.favouriteList.getStationByUrl(progData.stationAutoStart.getStationUrl()), progData.stationAutoStart);
+//                    setStart(progData.historyList.getStationByUrl(progData.stationAutoStart.getStationUrl()), progData.stationAutoStart);
                 }
                 break;
             default:
@@ -189,6 +196,13 @@ public class ProgStartAfterGui {
 
         P2RadioFactory.setLastHistoryUrl();
     }
+
+//    private static void setStart(StationData stationDataSet, StationData stationDataGet) {
+//        if (stationDataSet == null || stationDataGet == null) {
+//            return;
+//        }
+//        stationDataSet.setStart(stationDataGet.getStart());
+//    }
 
     /**
      * alles was nach einem Neuladen oder Einlesen einer gespeicherten Senderliste ansteht

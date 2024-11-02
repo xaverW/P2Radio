@@ -21,6 +21,7 @@ import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -88,6 +89,10 @@ public class HistoryList extends SimpleListProperty<StationData> implements P2Da
             this.add(0, stationData);
         }
         reCount();
+    }
+
+    public synchronized StationData getStationByUrl(final String url) {
+        return StationListFactory.getStationByUrl(this, url);
     }
 
     private boolean checkUrl(String url) {

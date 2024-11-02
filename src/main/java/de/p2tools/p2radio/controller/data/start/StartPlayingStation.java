@@ -52,7 +52,7 @@ public class StartPlayingStation extends Thread {
         super();
         this.progData = progData;
         this.start = start;
-        stationData = start.getPlayable();
+        stationData = start.getStationData();
 
         setName("START-STATION-THREAD: " + this.start.getStationName());
         setDaemon(true);
@@ -85,7 +85,7 @@ public class StartPlayingStation extends Thread {
         } catch (final Exception ex) {
             exMessage = ex.getLocalizedMessage();
             P2Log.errorLog(987989569, ex);
-            if (start.getStarter().getRestartCounter() == 0) {
+            if (start.getRestartCounter() == 0) {
                 // nur beim ersten Mal melden -> nervt sonst
                 Platform.runLater(() -> new StartStationErrorDialogController(start, exMessage));
             }
@@ -130,11 +130,11 @@ public class StartPlayingStation extends Thread {
         //versuch das Programm zu Starten
         //die Reihenfolge: startCounter - startmeldung ist wichtig!
         int retStat;
-        start.getStarter().incStartCounter();
+        start.incStartCounter();
         startMsg(start);
         final StartRuntimeExec runtimeExec = new StartRuntimeExec(start);
         final Process process = runtimeExec.exec();
-        start.getStarter().setProcess(process);
+        start.setProcess(process);
 
         if (process != null) {
             start.getStartStatus().setStateStartedRun();
@@ -152,12 +152,12 @@ public class StartPlayingStation extends Thread {
             if (start.getStartStatus().isStateStopped()) {
                 //soll abgebrochen werden
                 retStatus = stat_finished_ok;
-                if (start.getStarter().getProcess() != null) {
-                    start.getStarter().getProcess().destroy();
+                if (start.getProcess() != null) {
+                    start.getProcess().destroy();
                 }
 
             } else {
-                final int exitV = start.getStarter().getProcess().exitValue(); //liefert ex wenn noch nicht fertig
+                final int exitV = start.getProcess().exitValue(); //liefert ex wenn noch nicht fertig
                 if (exitV != 0) {
                     retStatus = stat_restart;
                 } else {
@@ -176,7 +176,7 @@ public class StartPlayingStation extends Thread {
     private int restartProgram() {
         int retStatus;
         // counter prüfen und starten bis zu einem Maxwert, sonst endlos
-        if (start.getStarter().getStartCounter() < StartStatus.START_COUNTER_MAX) {
+        if (start.getStartCounter() < StartStatus.START_COUNTER_MAX) {
             // dann nochmal von vorne
             retStatus = stat_start;
         } else {
@@ -192,7 +192,7 @@ public class StartPlayingStation extends Thread {
         list.add("Sender abspielen");
 
         list.add("URL: " + starter.getUrl());
-        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(starter.getStarter().getStartTime()));
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(starter.getStartTime()));
         list.add("Programmaufruf: " + starter.getProgramCall());
         list.add("Programmaufruf[]: " + starter.getProgramCallArray());
 
@@ -211,8 +211,8 @@ public class StartPlayingStation extends Thread {
 
         refreshTable();
 
-        start.getStarter().setProcess(null);
-        start.getStarter().setStartTime(null);
+        start.setProcess(null);
+        start.setStartTime(null);
 
         if (stationData != null) {
             stationData.setStart(null);
@@ -223,19 +223,19 @@ public class StartPlayingStation extends Thread {
         final ArrayList<String> list = new ArrayList<>();
         list.add(P2Log.LILNE3);
         list.add("Sender abspielen beendet");
-        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStarter().getStartTime()));
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStartTime()));
         list.add("Endzeit: " + P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss.format(LocalDateTime.now()));
 
-        if (start.getStarter().getRestartCounter() > 0) {
-            list.add("Restarts: " + start.getStarter().getRestartCounter());
+        if (start.getRestartCounter() > 0) {
+            list.add("Restarts: " + start.getRestartCounter());
         }
 
-        final long dauer = start.getStarter().getStartTime().diffInMinutes();
+        final long dauer = start.getStartTime().diffInMinutes();
         if (dauer == 0) {
-            list.add("Dauer: " + start.getStarter().getStartTime().diffInSeconds() + " s");
+            list.add("Dauer: " + start.getStartTime().diffInSeconds() + " s");
             //list.add("Dauer: <1 Min.");
         } else {
-            list.add("Dauer: " + start.getStarter().getStartTime().diffInMinutes() + " Min");
+            list.add("Dauer: " + start.getStartTime().diffInMinutes() + " Min");
         }
 
         list.add("URL: " + start.getUrl());

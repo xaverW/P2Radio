@@ -32,7 +32,10 @@ import javafx.collections.transformation.SortedList;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.SimpleTimeZone;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
@@ -197,10 +200,8 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
         }
     }
 
-    public synchronized StationData getSenderByUrl(final String url) {
-        final Optional<StationData> opt =
-                parallelStream().filter(station -> station.getStationUrl().equalsIgnoreCase(url)).findAny();
-        return opt.orElse(null);
+    public synchronized StationData getStationByUrl(final String url) {
+        return StationListFactory.getStationByUrl(this, url);
     }
 
     public synchronized long countNewStations() {

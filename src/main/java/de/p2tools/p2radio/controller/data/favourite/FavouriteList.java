@@ -19,6 +19,7 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
@@ -98,13 +99,8 @@ public class FavouriteList extends SimpleListProperty<StationData> implements P2
         return super.removeAll(objects);
     }
 
-    public synchronized StationData getUrlStation(String urlStation) {
-        for (final StationData dataStationData : this) {
-            if (dataStationData.getStationUrl().equals(urlStation)) {
-                return dataStationData;
-            }
-        }
-        return null;
+    public synchronized StationData getStationByUrl(String url) {
+        return StationListFactory.getStationByUrl(this, url);
     }
 
     public synchronized List<StationData> getListOfStartsNotFinished(String source) {

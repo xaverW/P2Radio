@@ -39,8 +39,8 @@ public class StartFactory {
 
     public static void stopRunningPlayProcess() {
         if (startPlaying != null &&
-                startPlaying.getStarter().getProcess() != null) {
-            startPlaying.getStarter().getProcess().destroy();
+                startPlaying.getProcess() != null) {
+            startPlaying.getProcess().destroy();
         }
         startPlaying = null;
     }
@@ -106,7 +106,7 @@ public class StartFactory {
         start.initStart();
 
         StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
-        start.getStarter().setStartPlayingStation(startPlayingStation);
+//        start.getStarter().setStartPlayingStation(startPlayingStation);
         startPlayingStation.start();
     }
 }

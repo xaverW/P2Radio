@@ -123,7 +123,7 @@ public class HistoryMenu {
             final Optional<StationData> data = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
             if (data.isPresent()) {
                 String stationUrl = data.get().getStationUrl();
-                StationData stationData = progData.stationList.getSenderByUrl(stationUrl);
+                StationData stationData = progData.stationList.getStationByUrl(stationUrl);
                 if (stationData != null) {
                     FavouriteFactory.favouriteStation(stationData);
                 }

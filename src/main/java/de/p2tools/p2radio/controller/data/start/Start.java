@@ -18,26 +18,30 @@ package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
 
 public final class Start extends StartProps {
 
-    private final StartStatus startStatus = new StartStatus();
-    private Starter starter = new Starter(this);
+    private int startCounter = 0;
+    private int restartCounter = 0; //zählt die Anzahl der Neustarts bei einem Startfehler -> Summe Starts = erster Start + Restarts
+    private Process process = null; //Prozess des Programms (VLC)
+    private P2Date startTime = null;
 
-    private StationData playable = null;
+    private StartStatus startStatus = new StartStatus();
+    private StationData stationData = null;
     private SetData setData = null;
 
     public Start() {
     }
 
-    public Start(SetData setData, StationData playable) {
-        this.playable = playable;
-        setStationNo(playable.getStationNo());
-        setStationName(playable.getStationName());
-        setUrl(playable.getStationUrl());
+    public Start(SetData setData, StationData stationData) {
+        this.stationData = stationData;
+        setStationNo(stationData.getStationNo());
+        setStationName(stationData.getStationName());
+        setUrl(stationData.getStationUrl());
 
         setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
@@ -47,13 +51,9 @@ public final class Start extends StartProps {
         return startStatus;
     }
 
-    public Starter getStarter() {
-        return starter;
-    }
-
     public void initStart() {
-        getStarter().setStartTime();
-        getStarter().setRestartCounter(0);
+        setStartTime();
+        setRestartCounter(0);
         getStartStatus().setState(FavouriteConstants.STATE_INIT);
         getStartStatus().setErrorMessage("");
     }
@@ -71,11 +71,11 @@ public final class Start extends StartProps {
     //==============================================
 
     public String getStationUrl() {
-        return playable.getStationUrl();
+        return stationData.getStationUrl();
     }
 
-    public StationData getPlayable() {
-        return playable;
+    public StationData getStationData() {
+        return stationData;
     }
 
     public SetData getSetData() {
@@ -87,11 +87,56 @@ public final class Start extends StartProps {
         setSetDataId(setData.getId());
     }
 
+    public void setStartTime() {
+        setStartTime(new P2Date());
+    }
+
+    public P2Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(P2Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getStartCounter() {
+        return startCounter;
+    }
+
+    public void setStartCounter(int startCounter) {
+        this.startCounter = startCounter;
+    }
+
+    public void incStartCounter() {
+        ++this.startCounter;
+    }
+
+    public int getRestartCounter() {
+        return restartCounter;
+    }
+
+    public void setRestartCounter(int restartCounter) {
+        this.restartCounter = restartCounter;
+    }
+
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
+    }
+
     public Start getCopy() {
         final Start ret = new Start();
-        ret.starter = starter;
-        ret.playable = playable;
+        ret.stationData = stationData;
         ret.setData = setData;
+        ret.startStatus = startStatus;
+
+        ret.startCounter = startCounter;
+        ret.restartCounter = restartCounter;
+        ret.process = process;
+        ret.startTime = startTime;
 
         Config[] configs = getConfigsArr();
         Config[] configsCopy = ret.getConfigsArr();
@@ -102,9 +147,14 @@ public final class Start extends StartProps {
     }
 
     public void copyToMe(Start start) {
-        starter = start.starter;
-        playable = start.playable;
+        stationData = start.stationData;
         setData = start.setData;
+        startStatus = start.startStatus;
+
+        startCounter = start.startCounter;
+        restartCounter = start.restartCounter;
+        process = start.process;
+        startTime = start.startTime;
 
         Config[] configs = start.getConfigsArr();
         Config[] configsCopy = getConfigsArr();
