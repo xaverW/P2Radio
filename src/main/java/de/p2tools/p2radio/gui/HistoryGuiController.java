@@ -157,7 +157,6 @@ public class HistoryGuiController extends VBox {
         });
     }
 
-
     private void initTable() {
         Table.setTable(tableView);
 

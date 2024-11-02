@@ -35,86 +35,84 @@ import javafx.util.Callback;
 public class CellButtonFavourite<S extends StationData, T> extends TableCell<S, T> {
 
     public final Callback<TableColumn<S, Integer>, TableCell<S, Integer>> cellFactoryButton
-            = (final TableColumn<S, Integer> param) -> {
+            = (final TableColumn<S, Integer> param) -> new TableCell<>() {
 
-        final TableCell<S, Integer> cell = new TableCell<S, Integer>() {
+        @Override
+        public void updateItem(Integer item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
+            }
 
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
+            final HBox hbox = new HBox();
+            hbox.setSpacing(5);
+            hbox.setAlignment(Pos.CENTER);
+            hbox.setPadding(new Insets(0, 2, 0, 2));
 
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
+            StationData stationData = getTableView().getItems().get(getIndex());
+            // final boolean playing = favourite.getStart() != null;
+            final boolean playing = StartFactory.startPlaying != null &&
+                    StartFactory.startPlaying.getStationUrl().equals(stationData.getStationUrl());
 
-                S favourite = getTableView().getItems().get(getIndex());
-                final boolean playing = favourite.getStart() != null;
-
-                if (playing) {
-                    //dann stoppen
-                    final Button btnStop;
-                    btnStop = new Button("");
-                    btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                    btnStop.setTooltip(new Tooltip("Sender stoppen"));
-                    btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
-                    btnStop.setOnAction((ActionEvent event) -> {
-                        StartFactory.stopRunningStation();
-//                        StartFactory.stopPlayable(favourite);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnStop.setMinHeight(18);
-                        btnStop.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(btnStop);
-
-                } else {
-                    //starten, nur ein Set
-                    final Button btnPlay;
-                    btnPlay = new Button("");
-                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        StartFactory.playPlayable(favourite);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-                }
-
-                final Button btnDel;
-                btnDel = new Button("");
-                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
-
-                btnDel.setTooltip(new Tooltip("Favoriten löschen"));
-                btnDel.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
-                btnDel.setOnAction(event -> {
-                    FavouriteFactory.deleteFavourite(favourite);
+            if (playing) {
+                //dann stoppen
+                final Button btnStop;
+                btnStop = new Button("");
+                btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                btnStop.setTooltip(new Tooltip("Sender stoppen"));
+                btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                btnStop.setOnAction((ActionEvent event) -> {
+                    StartFactory.stopRunningStation();
+                    //                        StartFactory.stopPlayable(favourite);
+                    getTableView().getSelectionModel().clearSelection();
+                    getTableView().getSelectionModel().select(getIndex());
                 });
 
                 if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                    btnDel.setMinHeight(18);
-                    btnDel.setMaxHeight(18);
+                    btnStop.setMinHeight(18);
+                    btnStop.setMaxHeight(18);
                 }
-                hbox.getChildren().add(btnDel);
-                setGraphic(hbox);
+                hbox.getChildren().add(btnStop);
+
+            } else {
+                //starten, nur ein Set
+                final Button btnPlay;
+                btnPlay = new Button("");
+                btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                btnPlay.setTooltip(new Tooltip("Sender abspielen"));
+                btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
+                btnPlay.setOnAction((ActionEvent event) -> {
+                    StartFactory.playPlayable(stationData);
+                    getTableView().getSelectionModel().clearSelection();
+                    getTableView().getSelectionModel().select(getIndex());
+                });
+
+                if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
+                    btnPlay.setMinHeight(18);
+                    btnPlay.setMaxHeight(18);
+                }
+                hbox.getChildren().add(btnPlay);
             }
-        };
-        return cell;
+
+            final Button btnDel;
+            btnDel = new Button("");
+            btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
+
+            btnDel.setTooltip(new Tooltip("Favoriten löschen"));
+            btnDel.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
+            btnDel.setOnAction(event -> {
+                FavouriteFactory.deleteFavourite(stationData);
+            });
+
+            if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
+                btnDel.setMinHeight(18);
+                btnDel.setMaxHeight(18);
+            }
+            hbox.getChildren().add(btnDel);
+            setGraphic(hbox);
+        }
     };
 }

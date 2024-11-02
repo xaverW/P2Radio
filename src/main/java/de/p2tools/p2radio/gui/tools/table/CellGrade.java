@@ -30,38 +30,34 @@ import javafx.util.Callback;
 public class CellGrade<S, T> extends TableCell<S, T> {
 
     public final Callback<TableColumn<StationData, Integer>, TableCell<StationData, Integer>> cellFactoryGrade
-            = (final TableColumn<StationData, Integer> param) -> {
+            = (final TableColumn<StationData, Integer> param) -> new TableCell<>() {
 
-        final TableCell<StationData, Integer> cell = new TableCell<>() {
+        @Override
+        public void updateItem(Integer item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                if (item == 0) {
-                    setGraphic(null);
-                    setText(null);
-
-                } else {
-                    HBox hBox = new HBox(3);
-                    hBox.setAlignment(Pos.CENTER);
-                    for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
-                        if (item.longValue() > i) {
-                            Label l = new Label();
-                            l.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getImageView());
-                            hBox.getChildren().add(l);
-                        }
-                    }
-                    setGraphic(hBox);
-                }
+            if (item == null || empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
-        };
-        return cell;
+
+            if (item == 0) {
+                setGraphic(null);
+                setText(null);
+
+            } else {
+                HBox hBox = new HBox(3);
+                hBox.setAlignment(Pos.CENTER);
+                for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
+                    if (item.longValue() > i) {
+                        Label l = new Label();
+                        l.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getImageView());
+                        hBox.getChildren().add(l);
+                    }
+                }
+                setGraphic(hBox);
+            }
+        }
     };
 }

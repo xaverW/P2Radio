@@ -24,18 +24,10 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
 public class StartFactory {
-    private static Start startPlaying = null;
+    public static Start startPlaying = null;
 
     private StartFactory() {
     }
-
-//    public static boolean isPlaying() {
-//        final ProgData progData = ProgData.getInstance();
-//        final StationData stationData = progData.stationPlaying;
-//        return stationData.getStart() != null &&
-//                (stationData.getStart().getStartStatus().isStarted() ||
-//                        stationData.getStart().getStartStatus().isStateStartedRun());
-//    }
 
     public static void stopRunningPlayProcess() {
         if (startPlaying != null &&
@@ -51,16 +43,6 @@ public class StartFactory {
         }
         startPlaying = null;
     }
-
-//    public static StationData playRandomStation() {
-//        final ProgData progData = ProgData.getInstance();
-//        Random r = new Random();
-//        StationData station = progData.stationList.get(r.nextInt(progData.stationList.size()));
-//        if (station != null) {
-//            playPlayable(station);
-//        }
-//        return station;
-//    }
 
     public static void playPlayable(StationData stationData) {
         playPlayable(stationData, null);
@@ -106,7 +88,6 @@ public class StartFactory {
         start.initStart();
 
         StartPlayingStation startPlayingStation = new StartPlayingStation(progData, start);
-//        start.getStarter().setStartPlayingStation(startPlayingStation);
         startPlayingStation.start();
     }
 }

@@ -134,7 +134,7 @@ public class SmallRadioGuiCenter extends HBox {
         return smallRadioGuiController.getMaskerPane();
     }
 
-    public void tableRefresh() {
+    private void tableRefresh() {
         P2TableFactory.refreshTable(tableView);
     }
 
@@ -222,6 +222,13 @@ public class SmallRadioGuiCenter extends HBox {
                 tableRefresh();
             }
         });
+        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+            @Override
+            public void pingGui(P2Event runEvent) {
+                tableRefresh();
+            }
+        });
+
         ProgConfig.SMALL_RADIO_SELECTED_LIST.addListener((observable, oldValue, newValue) -> {
             loadTable();
         });
@@ -265,6 +272,7 @@ public class SmallRadioGuiCenter extends HBox {
             scrollPane.setContent(tableView);
         }
 
+        tableRefresh();
         setFilter();
     }
 

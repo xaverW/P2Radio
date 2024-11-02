@@ -34,71 +34,69 @@ import javafx.util.Callback;
 public class CellStartSmallRadio<S, T> extends TableCell<S, T> {
 
     public final Callback<TableColumn<StationData, Integer>, TableCell<StationData, Integer>> cellFactoryButton
-            = (final TableColumn<StationData, Integer> param) -> {
+            = (final TableColumn<StationData, Integer> param) -> new TableCell<>() {
 
-        final TableCell<StationData, Integer> cell = new TableCell<StationData, Integer>() {
+        @Override
+        public void updateItem(Integer item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                StationData favourite = getTableView().getItems().get(getIndex());
-                final boolean playing = favourite.getStart() != null;
-                final boolean error = favourite.getStart() != null && favourite.getStart().getStartStatus().isStateError();
-
-                if (playing) {
-                    //dann stoppen
-                    final Button btnPlay;
-                    btnPlay = new Button("");
-                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                    btnPlay.setTooltip(new Tooltip("Sender stoppen"));
-                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        StartFactory.stopRunningStation();
-//                        StartFactory.stopPlayable(favourite);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-
-                } else {
-                    //starten, nur ein Set
-                    final Button btnPlay;
-                    btnPlay = new Button("");
-                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                    btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
-                    btnPlay.setOnAction((ActionEvent event) -> {
-                        StartFactory.playPlayable(favourite);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
-                    }
-                    hbox.getChildren().add(btnPlay);
-                }
-                setGraphic(hbox);
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
-        };
-        return cell;
+
+            final HBox hbox = new HBox();
+            hbox.setSpacing(5);
+            hbox.setAlignment(Pos.CENTER);
+            hbox.setPadding(new Insets(0, 2, 0, 2));
+
+            StationData stationData = getTableView().getItems().get(getIndex());
+            // final boolean playing = favourite.getStart() != null;
+            final boolean playing = StartFactory.startPlaying != null &&
+                    StartFactory.startPlaying.getStationUrl().equals(stationData.getStationUrl());
+            // final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
+
+            if (playing) {
+                //dann stoppen
+                final Button btnPlay;
+                btnPlay = new Button("");
+                btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                btnPlay.setTooltip(new Tooltip("Sender stoppen"));
+                btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                btnPlay.setOnAction((ActionEvent event) -> {
+                    StartFactory.stopRunningStation();
+                    //                        StartFactory.stopPlayable(favourite);
+                    getTableView().getSelectionModel().clearSelection();
+                    getTableView().getSelectionModel().select(getIndex());
+                });
+
+                if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
+                    btnPlay.setMinHeight(18);
+                    btnPlay.setMaxHeight(18);
+                }
+                hbox.getChildren().add(btnPlay);
+
+            } else {
+                //starten, nur ein Set
+                final Button btnPlay;
+                btnPlay = new Button("");
+                btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                btnPlay.setTooltip(new Tooltip("Sender abspielen"));
+                btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
+                btnPlay.setOnAction((ActionEvent event) -> {
+                    StartFactory.playPlayable(stationData);
+                    getTableView().getSelectionModel().clearSelection();
+                    getTableView().getSelectionModel().select(getIndex());
+                });
+
+                if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
+                    btnPlay.setMinHeight(18);
+                    btnPlay.setMaxHeight(18);
+                }
+                hbox.getChildren().add(btnPlay);
+            }
+            setGraphic(hbox);
+        }
     };
 }

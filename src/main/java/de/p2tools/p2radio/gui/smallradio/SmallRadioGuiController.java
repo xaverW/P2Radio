@@ -20,9 +20,6 @@ import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.P2SystemUtils;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -41,11 +38,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
-    private final P2Listener listener = new P2Listener(Events.REFRESH_TABLE) {
-        public void pingGui(P2Event event) {
-            tableRefresh();
-        }
-    };
 
     public SmallRadioGuiController() {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_RADIO_SIZE,
@@ -83,14 +75,12 @@ public class SmallRadioGuiController extends P2DialogOnly {
             e.consume();
             close();
         });
-        progData.pEventHandler.addListener(listener);
     }
 
     @Override
     public void close() {
         saveTable();
         P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
-        ProgData.getInstance().pEventHandler.removeListener(listener);
 
         progData.smallRadioGuiController = null;
         ProgConfig.SYSTEM_SMALL_RADIO.set(false);
@@ -111,10 +101,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
     public void saveTable() {
         smallRadioGuiCenter.saveTable();
-    }
-
-    public void tableRefresh() {
-        smallRadioGuiCenter.tableRefresh();
     }
 
     public void copyUrl() {

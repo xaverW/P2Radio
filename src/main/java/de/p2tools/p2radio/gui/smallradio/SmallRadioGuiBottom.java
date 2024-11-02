@@ -42,7 +42,6 @@ public class SmallRadioGuiBottom extends HBox {
     private final RadioButton rbHistory = new RadioButton("History");
     private final SmallRadioGuiController smallRadioGuiController;
     private final HBox hBoxSearch = new HBox(P2LibConst.DIST_BUTTON);
-    //    private final Button btnRadio = new Button();
     private final ProgData progData;
 
     public SmallRadioGuiBottom(SmallRadioGuiController smallRadioGuiController) {
@@ -163,12 +162,6 @@ public class SmallRadioGuiBottom extends HBox {
     }
 
     private void initStartButton() {
-//        btnRadio.setTooltip(new Tooltip("Große Programmoberfläche anzeigen"));
-//        btnRadio.setOnAction(e -> smallRadioGuiController.changeGui());
-//        btnRadio.setMaxWidth(Double.MAX_VALUE);
-//        btnRadio.getStyleClass().add("btnTop");
-//        btnRadio.setGraphic(ProgIconsP2Radio.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
-
         btnClearFilter.setTooltip(new Tooltip("Auswahl löschen"));
         btnClearFilter.getStyleClass().add("btnSmallGui");
         btnClearFilter.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
