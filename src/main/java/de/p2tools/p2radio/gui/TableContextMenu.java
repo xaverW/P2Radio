@@ -27,7 +27,7 @@ import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.gui.tools.table.TablePlayable;
+import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -46,9 +46,9 @@ public class TableContextMenu {
     private int forWhat = STATION;
 
     private final ProgData progData;
-    private final TablePlayable<StationData> tableView;
+    private final TableStation tableView;
 
-    public TableContextMenu(ProgData progData, TablePlayable<StationData> tableView, int forWhat) {
+    public TableContextMenu(ProgData progData, TableStation tableView, int forWhat) {
         this.progData = progData;
         this.tableView = tableView;
         this.forWhat = forWhat;

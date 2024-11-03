@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -42,7 +42,11 @@ public class Table {
     private static StringProperty confVis; //Spalte ist sichtbar
     private static StringProperty confOrder; //"Reihenfolge" der Spalten
 
-    public static void setTable(TablePlayable table) {
+    public enum TABLE_ENUM {
+        STATION, FAVOURITE, HISTORY, SMALL_RADIO_STATION, SMALL_RADIO_FAVOURITE, SMALL_RADIO_HISTORY
+    }
+
+    public static void setTable(TableStation table) {
         // Tabelle setzen
         try {
             initConf(table.getETable());
@@ -78,8 +82,8 @@ public class Table {
 
                 for (int i = 0; i < arSort.length; ++i) {
                     String s = arSort[i];
-                    ObservableList<TableColumn> l = table.getColumns();
-                    TableColumn co = l.stream()
+                    ObservableList<TableColumn<StationData, ?>> l = table.getColumns();
+                    TableColumn<StationData, ?> co = l.stream()
                             .filter(c -> c.getText().equals(s))
                             .findFirst().get();
 
@@ -130,7 +134,7 @@ public class Table {
         confOrder.set(order);
     }
 
-    public static void resetTable(TablePlayable ta) {
+    public static void resetTable(TableStation ta) {
         initConf(ta.getETable());
         reset(ta);
         setTable(ta);
@@ -187,7 +191,7 @@ public class Table {
         }
     }
 
-    private static void initColumn(TableView<P2DataSample> table) {
+    private static void initColumn(TableView<StationData> table) {
         tArray = table.getColumns().toArray(TableColumn[]::new);
         table.getColumns().clear();
 
@@ -294,9 +298,5 @@ public class Table {
             arr[i] = true;
         }
         return arr;
-    }
-
-    public enum TABLE_ENUM {
-        STATION, FAVOURITE, HISTORY, SMALL_RADIO_STATION, SMALL_RADIO_FAVOURITE, SMALL_RADIO_HISTORY
     }
 }

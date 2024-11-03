@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TablePlayable;
+import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
@@ -46,7 +46,7 @@ public class StationGuiController extends VBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private final TablePlayable<StationData> tableView;
+    private final TableStation tableView;
     private final ProgData progData;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
@@ -57,7 +57,7 @@ public class StationGuiController extends VBox {
         progData = ProgData.getInstance();
         this.stationGuiPack = stationGuiPack;
 
-        tableView = new TablePlayable<>(Table.TABLE_ENUM.STATION);
+        tableView = new TableStation(Table.TABLE_ENUM.STATION);
 
         getChildren().addAll(scrollPane);
         scrollPane.setFitToHeight(true);

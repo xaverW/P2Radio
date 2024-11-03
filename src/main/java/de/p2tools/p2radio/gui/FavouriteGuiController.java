@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TablePlayable;
+import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
@@ -45,7 +45,7 @@ import java.util.Optional;
 public class FavouriteGuiController extends VBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TablePlayable<StationData> tableView;
+    private final TableStation tableView;
 
     private final ProgData progData;
     private final SortedList<StationData> sortedStationData;
@@ -54,16 +54,14 @@ public class FavouriteGuiController extends VBox {
     public FavouriteGuiController(FavouriteGuiPack favouriteGuiPack) {
         progData = ProgData.getInstance();
         this.favouriteGuiPack = favouriteGuiPack;
-
-        tableView = new TablePlayable(Table.TABLE_ENUM.FAVOURITE);
+        tableView = new TableStation(Table.TABLE_ENUM.FAVOURITE);
+        sortedStationData = new SortedList<>(progData.filteredFavoriteList);
 
         getChildren().addAll(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
-
-        sortedStationData = new SortedList<>(progData.filteredFavoriteList);
 
         initTable();
         initListener();

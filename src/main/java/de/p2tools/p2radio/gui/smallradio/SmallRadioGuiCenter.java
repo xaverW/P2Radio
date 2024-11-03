@@ -35,7 +35,7 @@ import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.TableContextMenu;
 import de.p2tools.p2radio.gui.tools.table.Table;
-import de.p2tools.p2radio.gui.tools.table.TablePlayable;
+import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
@@ -61,12 +61,12 @@ public class SmallRadioGuiCenter extends HBox {
     private final Button btnNext = new Button();
     private final Button btnClose = new Button();
     private final Button btnRadio = new Button();
-    private final TablePlayable<StationData> tableViewStation;
-    private final TablePlayable<StationData> tableViewFavourite;
-    private final TablePlayable<StationData> tableViewHistory;
+    private final TableStation tableViewStation;
+    private final TableStation tableViewFavourite;
+    private final TableStation tableViewHistory;
     private final ProgData progData;
     private final SmallRadioGuiController smallRadioGuiController;
-    private TablePlayable<StationData> tableView;
+    private TableStation tableView;
     private FilteredList<StationData> filteredListStation;
     private FilteredList<StationData> filteredListFavourite;
     private FilteredList<StationData> filteredListHistory;
@@ -74,9 +74,9 @@ public class SmallRadioGuiCenter extends HBox {
     public SmallRadioGuiCenter(SmallRadioGuiController smallRadioGuiController) {
         this.progData = ProgData.getInstance();
         this.smallRadioGuiController = smallRadioGuiController;
-        tableViewStation = new TablePlayable<>(Table.TABLE_ENUM.SMALL_RADIO_STATION);
-        tableViewFavourite = new TablePlayable<>(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE);
-        tableViewHistory = new TablePlayable<>(Table.TABLE_ENUM.SMALL_RADIO_HISTORY);
+        tableViewStation = new TableStation(Table.TABLE_ENUM.SMALL_RADIO_STATION);
+        tableViewFavourite = new TableStation(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE);
+        tableViewHistory = new TableStation(Table.TABLE_ENUM.SMALL_RADIO_HISTORY);
         tableView = tableViewStation;
         make();
         initTable();
@@ -313,7 +313,7 @@ public class SmallRadioGuiCenter extends HBox {
         addTableListener(tableViewHistory, TableContextMenu.SMALL_HISTORY);
     }
 
-    private void addTableListener(TablePlayable<StationData> tableView, int forWhat) {
+    private void addTableListener(TableStation tableView, int forWhat) {
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 StationData stationData = getSel(false).orElse(null);

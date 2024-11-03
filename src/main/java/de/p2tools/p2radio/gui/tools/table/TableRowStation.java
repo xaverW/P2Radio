@@ -21,53 +21,42 @@ import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.scene.control.Tooltip;
 
-public class TableRowPlayable<T extends StationData> extends javafx.scene.control.TableRow {
+public class TableRowStation<T extends StationData> extends javafx.scene.control.TableRow {
     Table.TABLE_ENUM table_enum;
 
-    public TableRowPlayable(Table.TABLE_ENUM table_enum) {
+    public TableRowStation(Table.TABLE_ENUM table_enum) {
         this.table_enum = table_enum;
     }
 
     @Override
-    public void updateItem(Object f, boolean empty) {
-        super.updateItem(f, empty);
+    public void updateItem(Object item, boolean empty) {
+        super.updateItem(item, empty);
 
-        StationData stationData = (StationData) f;
-        setStyle("");
-        for (int i = 0; i < getChildren().size(); i++) {
-            getChildren().get(i).setStyle("");
-        }
+        if (item == null || empty) {
+            setStyle("");
+            setTooltip(null);
 
-        if (stationData != null && !empty) {
-            final boolean fav = stationData.isFavourite();
-            final boolean playing = stationData.getStart() != null;
-            final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
-            final boolean newStation = stationData.isNewStation();
-
+        } else {
+            StationData stationData = (StationData) item;
             if (stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(stationData.getStart().getStartStatus().getErrorMessage());
                 setTooltip(tooltip);
             }
 
+            final boolean fav = stationData.isFavourite();
+            final boolean playing = stationData.getStart() != null;
+            final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
+            final boolean newStation = stationData.isNewStation();
+
             if (error) {
                 if (ProgColorList.STATION_ERROR_BG.isUse()) {
                     setStyle(ProgColorList.STATION_ERROR_BG.getCssBackground());
-                }
-                if (ProgColorList.STATION_ERROR.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.STATION_ERROR.getCssFont());
-                    }
                 }
 
             } else if (playing) {
                 if (ProgColorList.STATION_RUN_BG.isUse()) {
                     setStyle(ProgColorList.STATION_RUN_BG.getCssBackground());
-                }
-                if (ProgColorList.STATION_RUN.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.STATION_RUN.getCssFont());
-                    }
                 }
 
             } else if (newStation) {
@@ -75,20 +64,10 @@ public class TableRowPlayable<T extends StationData> extends javafx.scene.contro
                 if (ProgColorList.STATION_NEW_BG.isUse()) {
                     setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
                 }
-                if (ProgColorList.STATION_NEW.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.STATION_NEW.getCssFont());
-                    }
-                }
 
             } else if (table_enum.equals(Table.TABLE_ENUM.STATION) && fav) {
                 if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
                     setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackground());
-                }
-                if (ProgColorList.STATION_FAVOURITE.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
-                    }
                 }
             }
         }
