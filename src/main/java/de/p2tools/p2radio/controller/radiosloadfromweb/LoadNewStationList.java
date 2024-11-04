@@ -175,7 +175,7 @@ public class LoadNewStationList {
             logList.add("");
 
         } else {
-            //ann war alles OK
+            //dann war alles OK
             progData.stationList.setGenDateNow();
             findAndMarkNewStations(logList, progData.stationList);
 

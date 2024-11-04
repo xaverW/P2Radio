@@ -24,14 +24,18 @@ import javafx.scene.paint.Color;
 
 public class ProgColorList extends P2ColorList {
 
+    public synchronized static P2ColorList getInstance() {
+        return P2ColorList.getInst();
+    }
+
     public static final P2ColorData STATION_NEW_BG = addNewKey("COLOR__STATION_NEW_BG",
             Color.rgb(255, 255, 255),
             Color.rgb(255, 255, 255),
-            false, "Neuer Sender, Tabellenzeile");
+            "Neuer Sender, Tabellenzeile");
     public static final P2ColorData STATION_NEW = addNewKey("COLOR__STATION_NEW",
             Color.rgb(0, 0, 240),
             Color.rgb(0, 0, 240),
-            true, "Neuer Sender, Schriftfarbe");
+            "Neuer Sender, Schriftfarbe");
 
     public static final P2ColorData STATION_FAVOURITE_BG = addNewKey("COLOR__IS_FAVOURITE_BG",
             Color.rgb(224, 238, 255),
@@ -39,7 +43,7 @@ public class ProgColorList extends P2ColorList {
     public static final P2ColorData STATION_FAVOURITE = addNewKey("COLOR__IS_FAVOURITE",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false, "Sender ist ein Favorit, Schriftfarbe");
+            "Sender ist ein Favorit, Schriftfarbe");
 
     public static final P2ColorData STATION_RUN_BG = addNewKey("COLOR__FAVOURITE_RUN_BG",
             Color.rgb(255, 245, 176),
@@ -47,7 +51,7 @@ public class ProgColorList extends P2ColorList {
     public static final P2ColorData STATION_RUN = addNewKey("COLOR__FAVOURITE_RUN",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false, "Sender läuft, Schriftfarbe");
+            "Sender läuft, Schriftfarbe");
 
     public static final P2ColorData STATION_ERROR_BG = addNewKey("COLOR__FAVOURITE_ERROR_BG",
             Color.rgb(255, 233, 233),
@@ -55,11 +59,7 @@ public class ProgColorList extends P2ColorList {
     public static final P2ColorData STATION_ERROR = addNewKey("COLOR__FAVOURITE_ERROR",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false, "Sender ist fehlerhaft, Schriftfarbe");
-
-    public synchronized static P2ColorList getInstance() {
-        return P2ColorList.getInst();
-    }
+            "Sender ist fehlerhaft, Schriftfarbe");
 
     public static void setColorTheme() {
         final boolean dark = ProgConfig.SYSTEM_DARK_THEME.get();

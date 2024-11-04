@@ -22,7 +22,7 @@ public class TableStationFactory {
 
     }
 
-    public static void columnFactoryString(TableColumn<StationData, String> column) {
+    public static void columnFactoryString(Table.TABLE_ENUM tableEnum, TableColumn<StationData, String> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -36,12 +36,12 @@ public class TableStationFactory {
 
                 setText(item);
                 StationData data = getTableView().getItems().get(getIndex());
-                set(null, data, this);
+                set(tableEnum, data, this);
             }
         });
     }
 
-    public static void columnFactoryInteger(TableColumn<StationData, Integer> column) {
+    public static void columnFactoryInteger(Table.TABLE_ENUM tableEnum, TableColumn<StationData, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -62,12 +62,12 @@ public class TableStationFactory {
                 }
 
                 StationData data = getTableView().getItems().get(getIndex());
-                set(null, data, this);
+                set(tableEnum, data, this);
             }
         });
     }
 
-    public static void columnFactoryIntegerMax(TableColumn<StationData, Integer> column) {
+    public static void columnFactoryIntegerMax(Table.TABLE_ENUM tableEnum, TableColumn<StationData, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -88,13 +88,13 @@ public class TableStationFactory {
                 }
 
                 StationData data = getTableView().getItems().get(getIndex());
-                set(null, data, this);
+                set(tableEnum, data, this);
             }
         });
     }
 
 
-    public static void columnFactoryGrade(TableColumn<StationData, Integer> column) {
+    public static void columnFactoryGrade(Table.TABLE_ENUM tableEnum, TableColumn<StationData, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -124,12 +124,12 @@ public class TableStationFactory {
                 }
 
                 StationData data = getTableView().getItems().get(getIndex());
-                set(null, data, this);
+                set(tableEnum, data, this);
             }
         });
     }
 
-    public static void columnFactoryBoolean(TableColumn<StationData, Boolean> column) {
+    public static void columnFactoryBoolean(Table.TABLE_ENUM tableEnum, TableColumn<StationData, Boolean> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Boolean item, boolean empty) {
@@ -152,12 +152,12 @@ public class TableStationFactory {
                 setGraphic(box);
 
                 StationData data = getTableView().getItems().get(getIndex());
-                set(null, data, this);
+                set(tableEnum, data, this);
             }
         });
     }
 
-    public static void columnFactoryLocalDate(TableColumn<StationData, LocalDate> column) {
+    public static void columnFactoryLocalDate(Table.TABLE_ENUM tableEnum, TableColumn<StationData, LocalDate> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
@@ -171,7 +171,7 @@ public class TableStationFactory {
 
                 setText(P2LDateFactory.toString(item));
                 StationData data = getTableView().getItems().get(getIndex());
-                set(null, data, this);
+                set(tableEnum, data, this);
             }
         });
     }
@@ -279,10 +279,10 @@ public class TableStationFactory {
 
     private static void set(Table.TABLE_ENUM tableEnum, StationData stationData, TableCell tableCell) {
         if (stationData != null) {
-            final boolean fav = stationData.isFavourite();
-            final boolean playing = stationData.getStart() != null;
             final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
+            final boolean playing = stationData.getStart() != null;
             final boolean newStation = stationData.isNewStation();
+            final boolean fav = stationData.isFavourite();
 
             if (error) {
                 if (ProgColorList.STATION_ERROR.isUse()) {

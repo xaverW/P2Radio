@@ -65,7 +65,9 @@ public class TableRowStation<T extends StationData> extends javafx.scene.control
                     setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
                 }
 
-            } else if (table_enum.equals(Table.TABLE_ENUM.STATION) && fav) {
+            } else if ((table_enum.equals(Table.TABLE_ENUM.STATION)
+                    || table_enum.equals(Table.TABLE_ENUM.HISTORY))
+                    && fav) {
                 if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
                     setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackground());
                 }

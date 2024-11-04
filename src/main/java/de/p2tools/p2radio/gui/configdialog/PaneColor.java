@@ -41,164 +41,140 @@ import java.util.Collection;
 
 public class PaneColor {
     private final Stage stage;
-    //    BooleanProperty propDarkTheme = ProgConfig.SYSTEM_DARK_THEME;
     private final P2ToggleSwitch tglDarkTheme = new P2ToggleSwitch("Dunkles Erscheinungsbild der Programmoberfläche");
     private final Callback<TableColumn<P2ColorData, String>, TableCell<P2ColorData, String>> cellFactoryUse
-            = (final TableColumn<P2ColorData, String> param) -> {
+            = (final TableColumn<P2ColorData, String> param) -> new TableCell<>() {
 
-        final TableCell<P2ColorData, String> cell = new TableCell<P2ColorData, String>() {
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                P2ColorData pColorData = getTableView().getItems().get(getIndex());
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                final CheckBox checkBox = new CheckBox("");
-                checkBox.setSelected(pColorData.isUse());
-                checkBox.setOnAction(a -> {
-                    pColorData.setUse(checkBox.isSelected());
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
-                });
-
-                hbox.getChildren().add(checkBox);
-                setGraphic(hbox);
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
-        };
 
-        return cell;
+            P2ColorData pColorData = getTableView().getItems().get(getIndex());
+
+            final HBox hbox = new HBox();
+            hbox.setSpacing(5);
+            hbox.setAlignment(Pos.CENTER);
+            hbox.setPadding(new Insets(0, 2, 0, 2));
+
+            final CheckBox checkBox = new CheckBox("");
+            checkBox.setSelected(pColorData.isUse());
+            checkBox.setOnAction(a -> {
+                pColorData.setUse(checkBox.isSelected());
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+            });
+
+            hbox.getChildren().add(checkBox);
+            setGraphic(hbox);
+        }
     };
+
     private final Callback<TableColumn<P2ColorData, String>, TableCell<P2ColorData, String>> cellFactoryChange
-            = (final TableColumn<P2ColorData, String> param) -> {
+            = (final TableColumn<P2ColorData, String> param) -> new TableCell<>() {
 
-        final TableCell<P2ColorData, String> cell = new TableCell<P2ColorData, String>() {
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                final ColorPicker colorPicker = new ColorPicker();
-                colorPicker.getStyleClass().add("split-button");
-
-                colorPicker.setValue(PColorDataBlack.getColor());
-                colorPicker.setOnAction(a -> {
-                    Color fxColor = colorPicker.getValue();
-                    PColorDataBlack.setColor(fxColor);
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
-                });
-                hbox.getChildren().addAll(colorPicker);
-                setGraphic(hbox);
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
-        };
 
-        return cell;
+            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
+
+            final HBox hbox = new HBox();
+            hbox.setSpacing(5);
+            hbox.setAlignment(Pos.CENTER);
+            hbox.setPadding(new Insets(0, 2, 0, 2));
+
+            final ColorPicker colorPicker = new ColorPicker();
+            colorPicker.getStyleClass().add("split-button");
+
+            colorPicker.setValue(PColorDataBlack.getColor());
+            colorPicker.setOnAction(a -> {
+                Color fxColor = colorPicker.getValue();
+                PColorDataBlack.setColor(fxColor);
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+            });
+            hbox.getChildren().addAll(colorPicker);
+            setGraphic(hbox);
+        }
     };
+
     private final Callback<TableColumn<P2ColorData, Color>, TableCell<P2ColorData, Color>> cellFactoryColor
-            = (final TableColumn<P2ColorData, Color> param) -> {
+            = (final TableColumn<P2ColorData, Color> param) -> new TableCell<>() {
 
-        final TableCell<P2ColorData, Color> cell = new TableCell<P2ColorData, Color>() {
+        @Override
+        public void updateItem(Color item, boolean empty) {
+            super.updateItem(item, empty);
 
-
-            @Override
-            public void updateItem(Color item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-                setStyle("-fx-background-color:" + PColorDataBlack.getColorSelectedToWeb());
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
 
-        };
+            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
+            setStyle("-fx-background-color:" + PColorDataBlack.getColorSelectedToWeb());
+        }
 
-        return cell;
     };
+
     private final Callback<TableColumn<P2ColorData, Color>, TableCell<P2ColorData, Color>> cellFactoryColorReset
-            = (final TableColumn<P2ColorData, Color> param) -> {
+            = (final TableColumn<P2ColorData, Color> param) -> new TableCell<>() {
 
-        final TableCell<P2ColorData, Color> cell = new TableCell<P2ColorData, Color>() {
+        @Override
+        public void updateItem(Color item, boolean empty) {
+            super.updateItem(item, empty);
 
-
-            @Override
-            public void updateItem(Color item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-                setStyle("-fx-background-color:" + P2ColorFactory.getColorToWeb(PColorDataBlack.getResetColor()));
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
 
-        };
+            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
+            setStyle("-fx-background-color:" + P2ColorFactory.getColorToWeb(PColorDataBlack.getResetColor()));
+        }
 
-        return cell;
     };
+
     private final Callback<TableColumn<P2ColorData, String>, TableCell<P2ColorData, String>> cellFactoryReset
-            = (final TableColumn<P2ColorData, String> param) -> {
+            = (final TableColumn<P2ColorData, String> param) -> new TableCell<>() {
 
-        final TableCell<P2ColorData, String> cell = new TableCell<P2ColorData, String>() {
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                final Button button = new Button("Reset");
-                button.setOnAction(a -> {
-                    PColorDataBlack.resetColor();
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
-                });
-
-                hbox.getChildren().add(button);
-                setGraphic(hbox);
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
-        };
 
-        return cell;
+            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
+
+            final HBox hbox = new HBox();
+            hbox.setSpacing(5);
+            hbox.setAlignment(Pos.CENTER);
+            hbox.setPadding(new Insets(0, 2, 0, 2));
+
+            final Button button = new Button("Reset");
+            button.setOnAction(a -> {
+                PColorDataBlack.resetColor();
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+            });
+
+            hbox.getChildren().add(button);
+            setGraphic(hbox);
+        }
     };
 
     public PaneColor(Stage stage) {
@@ -214,7 +190,6 @@ public class PaneColor {
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-//        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         tglDarkTheme.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
         final Button btnHelpTheme = P2Button.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
@@ -249,7 +224,6 @@ public class PaneColor {
     }
 
     public void close() {
-//        tglDarkTheme.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
     }
 
     private void initTableColor(TableView<P2ColorData> tableView) {
@@ -285,6 +259,4 @@ public class PaneColor {
         tableView.getColumns().addAll(useColumn, textColumn, changeColumn, colorColumn, colorOrgColumn, resetColumn);
         tableView.setItems(ProgColorList.getInstance());
     }
-
-
 }

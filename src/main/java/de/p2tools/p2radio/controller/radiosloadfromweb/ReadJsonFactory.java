@@ -56,6 +56,10 @@ public class ReadJsonFactory {
                 case StationFieldNamesWeb.NAME:
                     stationData.setStationName(value);
                     break;
+                case StationFieldNamesWeb.NEW:
+                    // wird nur geschrieben, wenn NEU
+                    stationData.setNewStation(true);
+                    break;
                 case StationFieldNamesWeb.GENRE:
                     stationData.setGenre(value);
                     break;

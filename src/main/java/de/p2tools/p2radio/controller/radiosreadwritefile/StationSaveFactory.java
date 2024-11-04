@@ -57,10 +57,13 @@ public class StationSaveFactory {
                 jsonGenerator.writeStringField(StationList.KEY_STATION_DATE, P2LDateFactory.toString(stationList.getStationDate()));
                 jsonGenerator.writeEndObject();
 
-                //Stationen
+                // station
                 for (StationData station : stationList) {
                     jsonGenerator.writeStartObject();
                     jsonGenerator.writeStringField(StationFieldNamesWeb.NAME, station.getStationName());
+                    if (station.isNewStation()) {
+                        jsonGenerator.writeStringField(StationFieldNamesWeb.NEW, "true");
+                    }
                     jsonGenerator.writeStringField(StationFieldNamesWeb.GENRE, station.getGenre());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.CODEC, station.getCodec());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.BITRATE, station.getBitrateStr());

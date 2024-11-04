@@ -23,6 +23,7 @@ public class StationFieldNamesWeb {
     public final static String CHANGE_UUID = "changeuuid";
     public final static String STATION_UUID = "stationuuid";
     public final static String NAME = "name";
+    public final static String NEW = "new";
     public final static String URL = "url";
     public final static String URL_RESOLVED = "url_resolved";
     public final static String HOMEPAGE = "homepage";
