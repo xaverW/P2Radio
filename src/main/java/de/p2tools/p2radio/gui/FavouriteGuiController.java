@@ -148,12 +148,6 @@ public class FavouriteGuiController extends VBox {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
-            @Override
-            public void pingGui(P2Event event) {
-                P2TableFactory.refreshTable(tableView);
-            }
-        });
     }
 
     private void initTable() {

@@ -96,7 +96,7 @@ public class P2Radio extends Application {
 
             selectGui();
             progData.primaryStage.setIconified(ProgData.startMinimized);
-            
+
         } catch (final Exception e) {
             e.printStackTrace();
         }

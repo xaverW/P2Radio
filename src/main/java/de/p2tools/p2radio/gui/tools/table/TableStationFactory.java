@@ -278,35 +278,42 @@ public class TableStationFactory {
     }
 
     private static void set(Table.TABLE_ENUM tableEnum, StationData stationData, TableCell tableCell) {
+        tableCell.setStyle("");
         if (stationData != null) {
-            final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
-            final boolean playing = stationData.getStart() != null;
-            final boolean newStation = stationData.isNewStation();
+
+            final boolean error = stationData.getStart() != null
+                    && stationData.getStart().getStartStatus().isStateError();
+            final boolean playing = stationData.getStart() != null; // schließt error mit ein!
             final boolean fav = stationData.isFavourite();
+            final boolean newStation = stationData.isNewStation();
 
             if (error) {
-                if (ProgColorList.STATION_ERROR.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_ERROR.getCssFont());
+                if (ProgColorList.STATION_ERROR_KEY.isUse()) {
+                    tableCell.setStyle(ProgColorList.STATION_ERROR_KEY.getCssFont());
                 }
 
             } else if (playing) {
-                if (ProgColorList.STATION_RUN.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_RUN.getCssFont());
+                if (ProgColorList.STATION_RUN_KEY.isUse()) {
+                    tableCell.setStyle(ProgColorList.STATION_RUN_KEY.getCssFont());
+                }
+
+            } else if (fav
+                    && tableEnum != null
+                    && (tableEnum.equals(Table.TABLE_ENUM.STATION)
+                    || tableEnum.equals(Table.TABLE_ENUM.HISTORY)
+                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)
+                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY))
+            ) {
+
+                if (ProgColorList.STATION_FAVOURITE_KEY.isUse()) {
+                    tableCell.setStyle(ProgColorList.STATION_FAVOURITE_KEY.getCssFont());
                 }
 
             } else if (newStation) {
-                // neue Sender
-                if (ProgColorList.STATION_NEW.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_NEW.getCssFont());
+                if (ProgColorList.STATION_NEW_KEY.isUse()) {
+                    tableCell.setStyle(ProgColorList.STATION_NEW_KEY.getCssFont());
                 }
 
-            } else if (tableEnum != null && tableEnum.equals(Table.TABLE_ENUM.FAVOURITE) && fav) {
-                if (ProgColorList.STATION_FAVOURITE.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_FAVOURITE.getCssFont());
-                }
-
-            } else {
-                tableCell.setStyle("");
             }
         }
     }

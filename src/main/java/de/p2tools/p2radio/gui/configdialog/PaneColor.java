@@ -42,6 +42,7 @@ import java.util.Collection;
 public class PaneColor {
     private final Stage stage;
     private final P2ToggleSwitch tglDarkTheme = new P2ToggleSwitch("Dunkles Erscheinungsbild der Programmoberfläche");
+
     private final Callback<TableColumn<P2ColorData, String>, TableCell<P2ColorData, String>> cellFactoryUse
             = (final TableColumn<P2ColorData, String> param) -> new TableCell<>() {
 
@@ -56,7 +57,6 @@ public class PaneColor {
             }
 
             P2ColorData pColorData = getTableView().getItems().get(getIndex());
-
             final HBox hbox = new HBox();
             hbox.setSpacing(5);
             hbox.setAlignment(Pos.CENTER);
@@ -66,7 +66,8 @@ public class PaneColor {
             checkBox.setSelected(pColorData.isUse());
             checkBox.setOnAction(a -> {
                 pColorData.setUse(checkBox.isSelected());
-                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+                // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
             });
 
             hbox.getChildren().add(checkBox);
@@ -87,8 +88,7 @@ public class PaneColor {
                 return;
             }
 
-            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-
+            P2ColorData p2ColorData = getTableView().getItems().get(getIndex());
             final HBox hbox = new HBox();
             hbox.setSpacing(5);
             hbox.setAlignment(Pos.CENTER);
@@ -97,11 +97,12 @@ public class PaneColor {
             final ColorPicker colorPicker = new ColorPicker();
             colorPicker.getStyleClass().add("split-button");
 
-            colorPicker.setValue(PColorDataBlack.getColor());
+            colorPicker.setValue(p2ColorData.getColor());
             colorPicker.setOnAction(a -> {
                 Color fxColor = colorPicker.getValue();
-                PColorDataBlack.setColor(fxColor);
-                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+                p2ColorData.setColor(fxColor);
+                // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
             });
             hbox.getChildren().addAll(colorPicker);
             setGraphic(hbox);
@@ -121,10 +122,9 @@ public class PaneColor {
                 return;
             }
 
-            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-            setStyle("-fx-background-color:" + PColorDataBlack.getColorSelectedToWeb());
+            P2ColorData p2ColorData = getTableView().getItems().get(getIndex());
+            setStyle("-fx-background-color:" + p2ColorData.getColorSelectedToWeb());
         }
-
     };
 
     private final Callback<TableColumn<P2ColorData, Color>, TableCell<P2ColorData, Color>> cellFactoryColorReset
@@ -140,10 +140,9 @@ public class PaneColor {
                 return;
             }
 
-            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-            setStyle("-fx-background-color:" + P2ColorFactory.getColorToWeb(PColorDataBlack.getResetColor()));
+            P2ColorData p2ColorData = getTableView().getItems().get(getIndex());
+            setStyle("-fx-background-color:" + P2ColorFactory.getColorToWeb(p2ColorData.getResetColor()));
         }
-
     };
 
     private final Callback<TableColumn<P2ColorData, String>, TableCell<P2ColorData, String>> cellFactoryReset
@@ -159,8 +158,7 @@ public class PaneColor {
                 return;
             }
 
-            P2ColorData PColorDataBlack = getTableView().getItems().get(getIndex());
-
+            P2ColorData p2ColorData = getTableView().getItems().get(getIndex());
             final HBox hbox = new HBox();
             hbox.setSpacing(5);
             hbox.setAlignment(Pos.CENTER);
@@ -168,8 +166,9 @@ public class PaneColor {
 
             final Button button = new Button("Reset");
             button.setOnAction(a -> {
-                PColorDataBlack.resetColor();
-                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+                p2ColorData.resetColor();
+                // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
             });
 
             hbox.getChildren().add(button);
@@ -204,13 +203,13 @@ public class PaneColor {
         initTableColor(tableView);
         tglDarkTheme.selectedProperty().addListener((u, o, n) -> {
             tableView.refresh();
-            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
         });
 
         Button button = new Button("Alle _Farben zurücksetzen");
         button.setOnAction(event -> {
             ProgColorList.resetAllColor();
-            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+            // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
+            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
         });
         HBox hBox = new HBox();
         hBox.getChildren().add(button);

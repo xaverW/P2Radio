@@ -22,10 +22,10 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.scene.control.Tooltip;
 
 public class TableRowStation<T extends StationData> extends javafx.scene.control.TableRow {
-    Table.TABLE_ENUM table_enum;
+    Table.TABLE_ENUM tableEnum;
 
-    public TableRowStation(Table.TABLE_ENUM table_enum) {
-        this.table_enum = table_enum;
+    public TableRowStation(Table.TABLE_ENUM tableEnum) {
+        this.tableEnum = tableEnum;
     }
 
     @Override
@@ -44,11 +44,13 @@ public class TableRowStation<T extends StationData> extends javafx.scene.control
                 setTooltip(tooltip);
             }
 
+            final boolean error = stationData.getStart() != null
+                    && stationData.getStart().getStartStatus().isStateError();
+            final boolean playing = stationData.getStart() != null; // schießt error mit ein!
             final boolean fav = stationData.isFavourite();
-            final boolean playing = stationData.getStart() != null;
-            final boolean error = stationData.getStart() != null && stationData.getStart().getStartStatus().isStateError();
             final boolean newStation = stationData.isNewStation();
 
+            setStyle("");
             if (error) {
                 if (ProgColorList.STATION_ERROR_BG.isUse()) {
                     setStyle(ProgColorList.STATION_ERROR_BG.getCssBackground());
@@ -59,17 +61,20 @@ public class TableRowStation<T extends StationData> extends javafx.scene.control
                     setStyle(ProgColorList.STATION_RUN_BG.getCssBackground());
                 }
 
-            } else if (newStation) {
-                // neue Sender
-                if (ProgColorList.STATION_NEW_BG.isUse()) {
-                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
-                }
+            } else if (fav
+                    && (tableEnum.equals(Table.TABLE_ENUM.STATION)
+                    || tableEnum.equals(Table.TABLE_ENUM.HISTORY)
+                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)
+                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY))
+            ) {
 
-            } else if ((table_enum.equals(Table.TABLE_ENUM.STATION)
-                    || table_enum.equals(Table.TABLE_ENUM.HISTORY))
-                    && fav) {
                 if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
                     setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackground());
+                }
+
+            } else if (newStation) {
+                if (ProgColorList.STATION_NEW_BG.isUse()) {
+                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
                 }
             }
         }

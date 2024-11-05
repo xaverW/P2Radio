@@ -205,18 +205,19 @@ public class StartPlayingStation extends Thread {
         finishedMsg(start);
 
         if (start.getStartStatus().isStateError()) {
-        } else if (!start.getStartStatus().isStateInit()) {
-            //dann ist er gelaufen
+
+        } else {
+            //dann ist er gelaufen und wurde beendet (Programm hat sich beendet: durch fehlerhafte URL oder user)
+            start.setProcess(null);
+            start.setStartTime(null);
+            if (stationData != null) {
+                stationData.setStart(null);
+            }
         }
 
+        StartFactory.stopRunningStation();
+        System.out.println("refreshTable");
         refreshTable();
-
-        start.setProcess(null);
-        start.setStartTime(null);
-
-        if (stationData != null) {
-            stationData.setStart(null);
-        }
     }
 
     private void finishedMsg(final Start start) {

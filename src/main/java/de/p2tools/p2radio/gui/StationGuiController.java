@@ -181,12 +181,6 @@ public class StationGuiController extends VBox {
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();
         });
-        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
-            @Override
-            public void pingGui(P2Event runEvent) {
-                P2TableFactory.refreshTable(tableView);
-            }
-        });
     }
 
     private void initTable() {

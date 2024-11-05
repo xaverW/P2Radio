@@ -135,7 +135,9 @@ public class SmallRadioGuiCenter extends HBox {
     }
 
     private void tableRefresh() {
-        P2TableFactory.refreshTable(tableView);
+        P2TableFactory.refreshTable(tableViewStation);
+        P2TableFactory.refreshTable(tableViewFavourite);
+        P2TableFactory.refreshTable(tableViewHistory);
     }
 
     public void isShown() {
@@ -213,12 +215,6 @@ public class SmallRadioGuiCenter extends HBox {
     private void initListener() {
         progData.pEventHandler.addListener(new P2Listener(Events.SETDATA_CHANGED) {
             public void pingGui(P2Event event) {
-                tableRefresh();
-            }
-        });
-        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
-            @Override
-            public void pingGui(P2Event runEvent) {
                 tableRefresh();
             }
         });

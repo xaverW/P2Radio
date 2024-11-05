@@ -16,7 +16,9 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
+import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.GermanStringIntSorter;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.scene.control.SelectionMode;
@@ -53,6 +55,9 @@ public class TableStation extends TableView<StationData> {
         setEditable(false);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        // brauchmer auf jeden Fall fürs Umschalten dark
+        ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> P2TableFactory.refreshTable(this));
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
 
