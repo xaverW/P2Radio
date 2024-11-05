@@ -83,7 +83,8 @@ public class ProgMenu extends MenuButton {
         setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         getStyleClass().addAll("btnFunction", "btnFunc-1");
         setGraphic(ProgIcons.ICON_TOOLBAR_MENU_TOP.getImageView());
-        getItems().addAll(miConfig, miLoadStationList, miDarkMode, mHelp,
+        getItems().addAll(miConfig, new SeparatorMenuItem(),
+                miLoadStationList, miDarkMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
     }
 }

@@ -18,11 +18,8 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -172,11 +169,11 @@ public class StationGuiController extends VBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
-            public void pingGui(P2Event event) {
-                P2TableFactory.refreshTable(tableView);
-            }
-        });
+//        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+//            public void pingGui(P2Event event) {
+//                P2TableFactory.refreshTable(tableView);
+//            }
+//        });
         progData.favouriteList.addListener((observable, oldValue, newValue) -> P2TableFactory.refreshTable(tableView));
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();

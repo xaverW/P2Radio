@@ -138,11 +138,11 @@ public class FavouriteGuiController extends VBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
-            public void pingGui(P2Event event) {
-                P2TableFactory.refreshTable(tableView);
-            }
-        });
+//        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+//            public void pingGui(P2Event event) {
+//                P2TableFactory.refreshTable(tableView);
+//            }
+//        });
         progData.pEventHandler.addListener(new P2Listener(Events.SETDATA_CHANGED) {
             public void pingGui(P2Event event) {
                 P2TableFactory.refreshTable(tableView);

@@ -218,12 +218,12 @@ public class SmallRadioGuiCenter extends HBox {
                 tableRefresh();
             }
         });
-        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
-            @Override
-            public void pingGui(P2Event runEvent) {
-                tableRefresh();
-            }
-        });
+//        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+//            @Override
+//            public void pingGui(P2Event runEvent) {
+//                tableRefresh();
+//            }
+//        });
 
         ProgConfig.SMALL_RADIO_SELECTED_LIST.addListener((observable, oldValue, newValue) -> {
             loadTable();

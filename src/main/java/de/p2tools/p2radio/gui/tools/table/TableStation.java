@@ -18,7 +18,11 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.GermanStringIntSorter;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.scene.control.SelectionMode;
@@ -48,6 +52,10 @@ public class TableStation extends TableView<StationData> {
         Table.resetTable(this);
     }
 
+    private void refreshTable() {
+        P2TableFactory.refreshTable(this);
+    }
+
     private void initColumn() {
         getColumns().clear();
 
@@ -57,7 +65,14 @@ public class TableStation extends TableView<StationData> {
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         // brauchmer auf jeden Fall fürs Umschalten dark
-        ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> P2TableFactory.refreshTable(this));
+        ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> refreshTable());
+
+        ProgData.getInstance().pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+            @Override
+            public void pingGui(P2Event runEvent) {
+                refreshTable();
+            }
+        });
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
 
