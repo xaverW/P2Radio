@@ -22,7 +22,6 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
 import de.p2tools.p2radio.gui.favouriteadd.FavouriteAddDialogController;
 
@@ -152,8 +151,8 @@ public class FavouriteFactory {
     public static void deleteFavourite(StationData stationData) {
         if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?",
                 "Soll der Favorite gelöscht werden?").equals(P2Alert.BUTTON.YES)) {
+            stationData.setFavourite(false);
             ProgData.getInstance().favouriteList.remove(stationData);
-            StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
         }
     }
 
@@ -166,33 +165,19 @@ public class FavouriteFactory {
 
             final String text;
             if (list.size() == 1) {
-                text = "Soll der Favorit gelöscht werden?";
+                text = "Soll der Sender aus den Favoriten gelöscht werden?";
             } else {
-                text = "Sollen die Favoriten gelöscht werden?";
+                text = "Sollen die " + list.size() + " markierten Sender aus den Favoriten gelöscht werden?";
             }
             if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Favoriten löschen?", "Favoriten löschen?", text)
                     .equals(P2Alert.BUTTON.YES)) {
+                list.forEach(s -> s.setFavourite(false));
                 ProgData.getInstance().favouriteList.removeAll(list);
-                StationListFactory.findAndMarkFavouriteStations(ProgData.getInstance());
             }
 
         } else {
             final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
-            if (favourite.isPresent()) {
-                FavouriteFactory.deleteFavourite(favourite.get());
-            }
+            favourite.ifPresent(FavouriteFactory::deleteFavourite);
         }
-    }
-
-    public static synchronized int countStartedAndRunningFavourites() {
-        //es wird nach gestarteten und laufenden Favoriten gesucht
-        int ret = 0;
-        for (final StationData stationData : ProgData.getInstance().favouriteList) {
-            if (stationData.getStart() != null &&
-                    (stationData.getStart().getStartStatus().isStarted() || stationData.getStart().getStartStatus().isStateStartedRun())) {
-                ++ret;
-            }
-        }
-        return ret;
     }
 }

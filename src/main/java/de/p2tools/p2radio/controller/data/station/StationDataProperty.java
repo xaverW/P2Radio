@@ -50,6 +50,7 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
     private final StringProperty stationUrlResolved = new SimpleStringProperty("");
     private final BooleanProperty doubleUrl = new SimpleBooleanProperty(false);
     private final BooleanProperty favourite = new SimpleBooleanProperty(false);
+    private final BooleanProperty history = new SimpleBooleanProperty(false);
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
     private LocalDate stationDate = LocalDate.now();
@@ -82,6 +83,7 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
         list.add(new Config_stringProp("urlResolved", StationDataXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
         list.add(new Config_boolProp("doubleUrl", StationDataXml.STATION_PROP_DOUBLE_URL, doubleUrl));
         list.add(new Config_boolProp("favourite", StationDataXml.STATION_PROP_IS_FAVOURITE, favourite));
+        list.add(new Config_boolProp("favourite", StationDataXml.STATION_PROP_IS_History, history));
         list.add(new Config_boolProp("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
         list.add(new Config_stringProp("website", StationDataXml.STATION_PROP_WEBSITE, website));
         list.add(new Config_lDate("stationDate", StationDataXml.STATION_PROP_DATE, stationDate) {
@@ -404,6 +406,18 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
 
     public BooleanProperty favouriteProperty() {
         return favourite;
+    }
+
+    public boolean isHistory() {
+        return history.get();
+    }
+
+    public void setHistory(boolean history) {
+        this.history.set(history);
+    }
+
+    public BooleanProperty historyProperty() {
+        return history;
     }
 
     public String getWebsite() {

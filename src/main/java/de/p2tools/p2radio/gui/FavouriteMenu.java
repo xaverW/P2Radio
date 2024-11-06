@@ -124,10 +124,13 @@ public class FavouriteMenu {
         final MenuItem miFavouriteDel = new MenuItem("Favoriten löschen");
         miFavouriteDel.setOnAction(a -> FavouriteFactory.deleteFavourite(false));
 
+        final MenuItem miFavouriteDelSel = new MenuItem("Ale markierten Sender aus den Favoriten löschen");
+        miFavouriteDelSel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
+
         mb.getItems().add(new SeparatorMenuItem());
         Menu submenuFavourite = new Menu("Favoriten");
         mb.getItems().addAll(submenuFavourite);
-        submenuFavourite.getItems().addAll(miFavouriteChange, miFavouriteDel);
+        submenuFavourite.getItems().addAll(miFavouriteChange, miFavouriteDel, miFavouriteDelSel);
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");

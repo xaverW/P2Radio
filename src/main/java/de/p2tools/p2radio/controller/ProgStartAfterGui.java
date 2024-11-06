@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.controller;
 
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
@@ -26,6 +27,7 @@ import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
@@ -177,12 +179,24 @@ public class ProgStartAfterGui {
         switch (ProgConfig.SYSTEM_AUTO_START.get()) {
             case AutoStartFactory.AUTOSTART_LAST_PLAYED:
                 if (progData.stationLastPlayed.isAuto()) {
-                    StartFactory.playPlayable(progData.stationLastPlayed);
+                    StationData stationData = progData.stationList.getStationByUrl(progData.stationLastPlayed.getStationUrl());
+                    if (stationData != null) {
+                        StartFactory.playPlayable(stationData);
+                    } else {
+                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
+                                "in der Senderliste");
+                    }
                 }
                 break;
             case AutoStartFactory.AUTOSTART_AUTO:
                 if (progData.stationAutoStart.isAuto()) {
-                    StartFactory.playPlayable(progData.stationAutoStart);
+                    StationData stationData = progData.stationList.getStationByUrl(progData.stationAutoStart.getStationUrl());
+                    if (stationData != null) {
+                        StartFactory.playPlayable(stationData);
+                    } else {
+                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
+                                "in der Senderliste");
+                    }
                 }
                 break;
             default:

@@ -63,7 +63,7 @@ public class StartFactory {
             sd = ProgData.getInstance().setDataList.getSetDataPlay();
         }
         if (sd == null) {
-            new NoSetDialogController(de.p2tools.p2radio.controller.config.ProgData.getInstance());
+            new NoSetDialogController(ProgData.getInstance());
         }
 
         return sd;

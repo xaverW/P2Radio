@@ -118,22 +118,55 @@ public class StationListFactory {
     }
 
     public static void findAndMarkFavouriteStations(ProgData progData) {
-        // nach Programmstart oder löschen einer Sammlung/History
+        // nach Programmstart
         P2Duration.counterStart("findAndMarkFavouriteStations");
-        final HashSet<String> hashSet = new HashSet<>();
-        hashSet.addAll(progData.favouriteList.stream().map(StationData::getStationUrl).toList());
 
-        progData.stationList.stream().forEach(station -> station.setFavourite(false));
+        final HashSet<String> hashSet = new HashSet<>(100_000);
+
+        // Stationen putzen
+        Iterator<StationData> it = progData.stationList.iterator();
+        while (it.hasNext()) {
+            StationData stationData = it.next();
+            if (hashSet.contains(getHash(stationData))) {
+                it.remove();
+            } else {
+                hashSet.add(getHash(stationData));
+            }
+        }
+
+        progData.stationList.forEach(station -> {
+            station.setFavourite(false);
+            station.setHistory(false);
+        });
+
+        // favourite
+        hashSet.clear();
+        hashSet.addAll(progData.favouriteList.stream().map(StationListFactory::getHash).toList());
         progData.stationList.stream()
-                .filter(station -> hashSet.contains(station.getStationUrl()))
+                .filter(station -> hashSet.contains(getHash(station)))
                 .forEach(station -> station.setFavourite(true));
 
-        progData.historyList.stream().forEach(station -> station.setFavourite(false));
-        progData.historyList.stream()
-                .filter(station -> hashSet.contains(station.getStationUrl()))
-                .forEach(stationData -> stationData.setFavourite(true));
+        // history
+        hashSet.clear();
+        hashSet.addAll(progData.historyList.stream().map(StationListFactory::getHash).toList());
+        progData.stationList.stream()
+                .filter(station -> hashSet.contains(getHash(station)))
+                .forEach(station -> station.setHistory(true));
 
         hashSet.clear();
+        progData.favouriteList.clear();
+        progData.historyList.clear();
+        progData.stationList.stream()
+                .filter(StationDataProperty::isFavourite)
+                .forEach(station -> progData.favouriteList.add(station));
+        progData.stationList.stream()
+                .filter(StationDataProperty::isHistory)
+                .forEach(station -> progData.historyList.add(station));
+
         P2Duration.counterStop("findAndMarkFavouriteStations");
+    }
+
+    private static String getHash(StationData stationData) {
+        return stationData.getStationName() + stationData.getStationUrl();
     }
 }

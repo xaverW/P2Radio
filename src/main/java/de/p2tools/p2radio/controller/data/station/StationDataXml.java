@@ -92,18 +92,21 @@ public class StationDataXml {
     public static final int STATION_PROP_IS_FAVOURITE_INT = 22;
     public static final String STATION_PROP_IS_FAVOURITE = "Favorite";
 
-    public static final int STATION_PROP_BLACK_BLOCKED_URL_INT = 23;
+    public static final int STATION_PROP_IS_HISTORY_INT = 23;
+    public static final String STATION_PROP_IS_History = "History";
+
+    public static final int STATION_PROP_BLACK_BLOCKED_URL_INT = 24;
     public static final String STATION_PROP_BLACK_BLOCKED_URL = "BlackBlocked";
 
-    public static final int STATION_PROP_URL_RESOLVED_INT = 24;
+    public static final int STATION_PROP_URL_RESOLVED_INT = 25;
     public static final String STATION_PROP_URL_RESOLVED = "URL-resolved";
 
-    public static final int STATION_PROP_WEBSITE_INT = 25;
+    public static final int STATION_PROP_WEBSITE_INT = 26;
     public static final String STATION_PROP_WEBSITE = "Website";
 
-    public static final int STATION_PROP_BUTTON1_INT = 26;
+    public static final int STATION_PROP_BUTTON1_INT = 27;
     public static final String STATION_PROP_BUTTON1 = "";
-    public static final int STATION_PROP_BUTTON2_INT = 27;
+    public static final int STATION_PROP_BUTTON2_INT = 28;
     public static final String STATION_PROP_BUTTON2 = "";
 
     public static String[] COLUMN_NAMES = {
@@ -113,9 +116,9 @@ public class StationDataXml {
             STATION_PROP_BITRATE, STATION_PROP_OWN,
             STATION_PROP_COUNTRY, STATION_PROP_STATE, STATION_PROP_COUNTRY_CODE, STATION_PROP_LANGUAGE, STATION_PROP_VOTES,
             STATION_PROP_DESCRIPTION, STATION_PROP_DATE, STATION_PROP_DATE_LONG,
-            STATION_PROP_URL, STATION_PROP_DOUBLE_URL, STATION_PROP_IS_FAVOURITE, STATION_PROP_BLACK_BLOCKED_URL,
+            STATION_PROP_URL, STATION_PROP_DOUBLE_URL, STATION_PROP_IS_FAVOURITE, STATION_PROP_IS_History, STATION_PROP_BLACK_BLOCKED_URL,
             STATION_PROP_URL_RESOLVED, STATION_PROP_WEBSITE,
             STATION_PROP_BUTTON1, STATION_PROP_BUTTON2
     };
-    public static int MAX_ELEM = 28;
+    public static int MAX_ELEM = 29;
 }
