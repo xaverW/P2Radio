@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
 public class StartFactory {
-    public static Start startPlaying = null;
+    private static Start startPlaying = null;
 
     private StartFactory() {
     }

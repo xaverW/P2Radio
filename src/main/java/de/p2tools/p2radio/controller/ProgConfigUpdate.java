@@ -17,8 +17,10 @@
 
 package de.p2tools.p2radio.controller;
 
+import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.gui.tools.table.Table;
 
 public class ProgConfigUpdate {
     // hier werden geänderte Programmeinstellungen/Funktionen angepasst,
@@ -27,7 +29,9 @@ public class ProgConfigUpdate {
     }
 
     public static void setUpdateDone() {
-        ProgConfig.SYSTEM_CHANGE_LOG_DIR.setValue(true); // für Version 17
+        ProgConfig.SYSTEM_CHANGE_LOG_DIR.setValue(true);
+        ProgConfig.SYSTEM_CHANGE_TABLE_COLUM.setValue(true);
+        ProgConfig.SYSTEM_RESET_COLOR.setValue(true);
     }
 
     public static void update() {
@@ -40,6 +44,17 @@ public class ProgConfigUpdate {
                 ProgConfig.SYSTEM_LOG_DIR.setValue("");
             }
         }
+
+        if (!ProgConfig.SYSTEM_RESET_COLOR.getValue()) {
+            // gibt neue Farben
+            ProgColorList.resetAllColorDarkLight();
+        }
+
+        if (!ProgConfig.SYSTEM_CHANGE_TABLE_COLUM.getValue()) {
+            // haben sich die TableColum geändert
+            Table.clearConf();
+        }
+        
         setUpdateDone();
     }
 }

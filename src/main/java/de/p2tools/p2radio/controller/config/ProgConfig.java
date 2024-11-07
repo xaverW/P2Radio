@@ -100,6 +100,8 @@ public class ProgConfig extends P2DataProgConfig {
 
     // Configs zum Aktualisieren beim Programmupdate
     public static BooleanProperty SYSTEM_CHANGE_LOG_DIR = addBoolProp("system-change-log-dir", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_CHANGE_TABLE_COLUM = addBoolProp("system-change-table-colum", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_RESET_COLOR = addBoolProp("system-reset-color", Boolean.FALSE);
 
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStrProp("system-update-date"); // Datum der letzten Prüfung

@@ -21,14 +21,14 @@ public class StationDataXml {
     public static final String TAG = "STATION_PROPERTY";
 
     public static final int STATION_PROP_STATION_NO_INT = 0;
-    public static final String STATION_PROP_STATION_NO = "SenderNr";
+    public static final String STATION_PROP_STATION_NO = "Nr";
 
 
     public static final int STATION_PROP_STATION_NEW_INT = 1;
     public static final String STATION_PROP_STATION_NEW = "Neu";
 
     public static final int STATION_PROP_STATION_NAME_INT = 2;
-    public static final String STATION_PROP_STATION_NAME = "Sender";
+    public static final String STATION_PROP_STATION_NAME = "Name";
 
     public static final int STATION_PROP_COLLECTION_INT = 3;
     public static final String STATION_PROP_COLLECTION = "Sammlung";

@@ -52,6 +52,7 @@ public class StationInfoDialogController extends P2DialogExtra {
     private final ImageView ivOwn = new ImageView();
     private final ImageView ivDouble = new ImageView();
     private final ImageView ivFavourite = new ImageView();
+    private final ImageView ivHistory = new ImageView();
     private final ImageView ivBlack = new ImageView();
 
     private final P2Hyperlink pHyperlinkUrl = new P2Hyperlink("",
@@ -172,6 +173,7 @@ public class StationInfoDialogController extends P2DialogExtra {
                 ivOwn.setImage(null);
                 ivDouble.setImage(null);
                 ivFavourite.setImage(null);
+                ivHistory.setImage(null);
                 ivBlack.setImage(null);
                 pHyperlinkUrl.setUrl("");
                 pHyperlinkWebsite.setUrl("");
@@ -265,6 +267,13 @@ public class StationInfoDialogController extends P2DialogExtra {
                             ivFavourite.setImage(null);
                         }
                         break;
+                    case StationDataXml.STATION_PROP_IS_HISTORY_INT:
+                        if (station.isHistory()) {
+                            ivHistory.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                        } else {
+                            ivHistory.setImage(null);
+                        }
+                        break;
                     case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                         if (station.isBlackBlocked()) {
                             ivBlack.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
@@ -323,6 +332,7 @@ public class StationInfoDialogController extends P2DialogExtra {
                 case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
                 case StationDataXml.STATION_PROP_DATE_INT:
                 case StationDataXml.STATION_PROP_DATE_LONG_INT:
+                case StationDataXml.STATION_PROP_IS_HISTORY_INT:
                     // bis hier nicht anzeigen
                     break;
 
@@ -339,9 +349,20 @@ public class StationInfoDialogController extends P2DialogExtra {
                     gridPane.add(ivDouble, 1, row++, 3, 1);
                     break;
                 case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
-                    gridPane.add(textTitle[i], 0, row);
-                    gridPane.add(ivFavourite, 1, row++, 3, 1);
+                    gridPane.add(textTitle[StationDataXml.STATION_PROP_IS_FAVOURITE_INT], 0, row);
+                    gridPane.add(ivFavourite, 1, row);
+
+                    gridPane.add(textTitle[StationDataXml.STATION_PROP_IS_HISTORY_INT], 2, row);
+                    gridPane.add(ivHistory, 3, row++);
                     break;
+
+//                    gridPane.add(textTitle[i], 0, row);
+//                    gridPane.add(ivFavourite, 1, row++, 3, 1);
+//                    break;
+//                case StationDataXml.STATION_PROP_IS_HISTORY_INT:
+//                    gridPane.add(textTitle[i], 0, row);
+//                    gridPane.add(ivHistory, 1, row++, 3, 1);
+//                    break;
                 case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(ivBlack, 1, row++, 3, 1);

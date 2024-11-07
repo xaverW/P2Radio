@@ -29,8 +29,8 @@ public class TableStationFactory {
                 super.updateItem(item, empty);
 
                 if (item == null || empty) {
+                    setGraphic(null);
                     setText(null);
-                    setStyle("");
                     return;
                 }
 
@@ -164,8 +164,8 @@ public class TableStationFactory {
                 super.updateItem(item, empty);
 
                 if (item == null || empty) {
+                    setGraphic(null);
                     setText(null);
-                    setStyle("");
                     return;
                 }
 
@@ -194,8 +194,9 @@ public class TableStationFactory {
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
                 StationData stationData = getTableView().getItems().get(getIndex());
-                final boolean playing = StartFactory.startPlaying != null &&
-                        StartFactory.startPlaying.getStationUrl().equals(stationData.getStationUrl());
+                final boolean playing = stationData.getStart() != null && !stationData.getStart().getStartStatus().isStateError();
+//                final boolean playing = StartFactory.startPlaying != null &&
+//                        StartFactory.startPlaying.getStationUrl().equals(stationData.getStationUrl());
 
                 if (playing) {
                     //stoppen
@@ -278,42 +279,38 @@ public class TableStationFactory {
     }
 
     private static void set(Table.TABLE_ENUM tableEnum, StationData stationData, TableCell tableCell) {
+
+        final boolean error = stationData.getStart() != null
+                && stationData.getStart().getStartStatus().isStateError();
+        final boolean playing = stationData.getStart() != null; // schließt error mit ein!
+        final boolean fav = stationData.isFavourite();
+        final boolean newStation = stationData.isNewStation();
+
         tableCell.setStyle("");
-        if (stationData != null) {
+        if (error) {
+            if (ProgColorList.STATION_ERROR_KEY.isUse()) {
+                tableCell.setStyle(ProgColorList.STATION_ERROR_KEY.getCssFont());
+            }
 
-            final boolean error = stationData.getStart() != null
-                    && stationData.getStart().getStartStatus().isStateError();
-            final boolean playing = stationData.getStart() != null; // schließt error mit ein!
-            final boolean fav = stationData.isFavourite();
-            final boolean newStation = stationData.isNewStation();
+        } else if (playing) {
+            if (ProgColorList.STATION_RUN_KEY.isUse()) {
+                tableCell.setStyle(ProgColorList.STATION_RUN_KEY.getCssFont());
+            }
 
-            if (error) {
-                if (ProgColorList.STATION_ERROR_KEY.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_ERROR_KEY.getCssFont());
-                }
+        } else if (fav
+                && tableEnum != null
+                && (tableEnum.equals(Table.TABLE_ENUM.STATION)
+                || tableEnum.equals(Table.TABLE_ENUM.HISTORY)
+                || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)
+                || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY))) {
 
-            } else if (playing) {
-                if (ProgColorList.STATION_RUN_KEY.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_RUN_KEY.getCssFont());
-                }
+            if (ProgColorList.STATION_FAVOURITE_KEY.isUse()) {
+                tableCell.setStyle(ProgColorList.STATION_FAVOURITE_KEY.getCssFont());
+            }
 
-            } else if (fav
-                    && tableEnum != null
-                    && (tableEnum.equals(Table.TABLE_ENUM.STATION)
-                    || tableEnum.equals(Table.TABLE_ENUM.HISTORY)
-                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)
-                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY))
-            ) {
-
-                if (ProgColorList.STATION_FAVOURITE_KEY.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_FAVOURITE_KEY.getCssFont());
-                }
-
-            } else if (newStation) {
-                if (ProgColorList.STATION_NEW_KEY.isUse()) {
-                    tableCell.setStyle(ProgColorList.STATION_NEW_KEY.getCssFont());
-                }
-
+        } else if (newStation) {
+            if (ProgColorList.STATION_NEW_KEY.isUse()) {
+                tableCell.setStyle(ProgColorList.STATION_NEW_KEY.getCssFont());
             }
         }
     }

@@ -60,7 +60,7 @@ public class Table {
                 width = confWidth.get();
                 if (arrLesen(width, breite)) {
                     for (int i = 0; i < breite.length; ++i) {
-                        ((TableColumn) table.getColumns().get(i)).setPrefWidth(breite[i]);
+                        ((TableColumn<?, ?>) table.getColumns().get(i)).setPrefWidth(breite[i]);
                     }
                 }
             }
@@ -69,7 +69,7 @@ public class Table {
                 vis = confVis.get();
                 if (arrLesen(vis, visAr)) {
                     for (int i = 0; i < visAr.length; ++i) {
-                        ((TableColumn) table.getColumns().get(i)).setVisible(visAr[i]);
+                        ((TableColumn<?, ?>) table.getColumns().get(i)).setVisible(visAr[i]);
                     }
                 }
             }
@@ -191,6 +191,44 @@ public class Table {
         }
     }
 
+    public static void clearConf() {
+        ProgConfig.STATION_GUI_TABLE_WIDTH.set("");
+        ProgConfig.STATION_GUI_TABLE_SORT.set("");
+        ProgConfig.STATION_GUI_TABLE_UP_DOWN.set("");
+        ProgConfig.STATION_GUI_TABLE_VIS.set("");
+        ProgConfig.STATION_GUI_TABLE_ORDER.set("");
+
+        ProgConfig.FAVOURITE_GUI_TABLE_WIDTH.set("");
+        ProgConfig.FAVOURITE_GUI_TABLE_SORT.set("");
+        ProgConfig.FAVOURITE_GUI_TABLE_UP_DOWN.set("");
+        ProgConfig.FAVOURITE_GUI_TABLE_VIS.set("");
+        ProgConfig.FAVOURITE_GUI_TABLE_ORDER.set("");
+
+        ProgConfig.HISTORY_GUI_TABLE_WIDTH.set("");
+        ProgConfig.HISTORY_GUI_TABLE_SORT.set("");
+        ProgConfig.HISTORY_GUI_TABLE_UP_DOWN.set("");
+        ProgConfig.HISTORY_GUI_TABLE_VIS.set("");
+        ProgConfig.HISTORY_GUI_TABLE_ORDER.set("");
+
+        ProgConfig.SMALL_RADIO_TABLE_STATION_WIDTH.set("");
+        ProgConfig.SMALL_RADIO_TABLE_STATION_SORT.set("");
+        ProgConfig.SMALL_RADIO_TABLE_STATION_UP_DOWN.set("");
+        ProgConfig.SMALL_RADIO_TABLE_STATION_VIS.set("");
+        ProgConfig.SMALL_RADIO_TABLE_STATION_ORDER.set("");
+
+        ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_WIDTH.set("");
+        ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_SORT.set("");
+        ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_UP_DOWN.set("");
+        ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_VIS.set("");
+        ProgConfig.SMALL_RADIO_TABLE_FAVOURITE_ORDER.set("");
+
+        ProgConfig.SMALL_RADIO_TABLE_HISTORY_WIDTH.set("");
+        ProgConfig.SMALL_RADIO_TABLE_HISTORY_SORT.set("");
+        ProgConfig.SMALL_RADIO_TABLE_HISTORY_UP_DOWN.set("");
+        ProgConfig.SMALL_RADIO_TABLE_HISTORY_VIS.set("");
+        ProgConfig.SMALL_RADIO_TABLE_HISTORY_ORDER.set("");
+    }
+
     private static void initColumn(TableView<StationData> table) {
         tArray = table.getColumns().toArray(TableColumn[]::new);
         table.getColumns().clear();
@@ -215,8 +253,8 @@ public class Table {
                 }
             }
         }
-        table.getColumns().stream().forEach(c -> c.setSortable(true));
-        table.getColumns().stream().forEach(c -> c.setVisible(true));
+        table.getColumns().forEach(c -> c.setSortable(true));
+        table.getColumns().forEach(c -> c.setVisible(true));
     }
 
     private static void reset(TableView ta) {
