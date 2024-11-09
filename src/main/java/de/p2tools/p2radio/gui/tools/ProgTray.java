@@ -22,6 +22,7 @@ import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
@@ -92,8 +93,7 @@ public class ProgTray {
             String resource = ProgConfig.SYSTEM_TRAY_ICON_PATH.getValueSafe();
             image = Toolkit.getDefaultToolkit().getImage(resource);
         } else {
-            String resource = "de/p2tools/p2radio/res/P2_24.png";
-            URL res = ClassLoader.getSystemResource(resource);
+            URL res = ClassLoader.getSystemResource(ProgConst.PROGRAM_ICON);
             image = Toolkit.getDefaultToolkit().getImage(res);
         }
 

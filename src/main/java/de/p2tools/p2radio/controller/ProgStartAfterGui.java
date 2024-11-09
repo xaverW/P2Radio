@@ -81,8 +81,7 @@ public class ProgStartAfterGui {
         }
 
         // das muss sein, wenn das kleine Gui als Erstes startet
-        final String path = "de/p2tools/p2radio/res/P2_24.png";
-        Image image = new Image(path);
+        Image image = new Image(ProgConst.PROGRAM_ICON);
         stage.getIcons().add(image);
     }
 
