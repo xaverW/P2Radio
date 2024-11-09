@@ -1,6 +1,8 @@
 package de.p2tools.p2radio.gui.tools.table;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -16,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TableStationFactory {
     private TableStationFactory() {
@@ -79,7 +82,7 @@ public class TableStationFactory {
                     return;
                 }
 
-                if (item == 0) {
+                if (item == P2LibConst.NUMBER_NOT_STARTED) {
                     setGraphic(null);
                     setText(null);
                 } else {
@@ -170,6 +173,25 @@ public class TableStationFactory {
                 }
 
                 setText(P2LDateFactory.toString(item));
+                StationData data = getTableView().getItems().get(getIndex());
+                set(tableEnum, data, this);
+            }
+        });
+    }
+
+    public static void columnFactoryLocalDateTime(Table.TABLE_ENUM tableEnum, TableColumn<StationData, LocalDateTime> column) {
+        column.setCellFactory(c -> new TableCell<>() {
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setGraphic(null);
+                    setText(null);
+                    return;
+                }
+
+                setText(P2LDateTimeFactory.toString(item));
                 StationData data = getTableView().getItems().get(getIndex());
                 set(tableEnum, data, this);
             }

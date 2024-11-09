@@ -77,7 +77,7 @@ public class StationSaveFactory {
                     jsonGenerator.writeStringField(StationFieldNamesWeb.URL, station.getStationUrl());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.URL_RESOLVED, station.getStationUrlResolved());
                     jsonGenerator.writeStringField(StationFieldNamesWeb.HOMEPAGE, station.getWebsite());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.LAST_CHANGE_TIME, station.getStationDate().toString());
+                    jsonGenerator.writeStringField(StationFieldNamesWeb.LAST_CHANGE_TIME, station.getStationDateLastChange().toString());
                     jsonGenerator.writeEndObject();
                 }
 

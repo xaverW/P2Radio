@@ -29,6 +29,7 @@ public class ProgConfigUpdate {
     }
 
     public static void setUpdateDone() {
+        // Version 7 für Version 8
         ProgConfig.SYSTEM_CHANGE_LOG_DIR.setValue(true);
         ProgConfig.SYSTEM_CHANGE_TABLE_COLUM.setValue(true);
         ProgConfig.SYSTEM_RESET_COLOR.setValue(true);
@@ -54,7 +55,7 @@ public class ProgConfigUpdate {
             // haben sich die TableColum geändert
             Table.clearConf();
         }
-        
+
         setUpdateDone();
     }
 }

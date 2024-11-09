@@ -186,20 +186,6 @@ public class StartPlayingStation extends Thread {
         return retStatus;
     }
 
-    private void startMsg(Start starter) {
-        final ArrayList<String> list = new ArrayList<>();
-        list.add(P2Log.LILNE3);
-        list.add("Sender abspielen");
-
-        list.add("URL: " + starter.getUrl());
-        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(starter.getStartTime()));
-        list.add("Programmaufruf: " + starter.getProgramCall());
-        list.add("Programmaufruf[]: " + starter.getProgramCallArray());
-
-        list.add(P2Log.LILNE_EMPTY);
-        P2Log.sysLog(list.toArray(new String[list.size()]));
-    }
-
     private void finalizePlaying(Start start) {
         //Aufräumen
         finishedMsg(start);
@@ -215,9 +201,23 @@ public class StartPlayingStation extends Thread {
             }
         }
 
-        StartFactory.stopRunningStation();
+//        StartFactory.stopRunningStation();
         System.out.println("refreshTable");
         refreshTable();
+    }
+
+    private void startMsg(Start starter) {
+        final ArrayList<String> list = new ArrayList<>();
+        list.add(P2Log.LILNE3);
+        list.add("Sender abspielen");
+
+        list.add("URL: " + starter.getUrl());
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(starter.getStartTime()));
+        list.add("Programmaufruf: " + starter.getProgramCall());
+        list.add("Programmaufruf[]: " + starter.getProgramCallArray());
+
+        list.add(P2Log.LILNE_EMPTY);
+        P2Log.sysLog(list.toArray(new String[list.size()]));
     }
 
     private void finishedMsg(final Start start) {

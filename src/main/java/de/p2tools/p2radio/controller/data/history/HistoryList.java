@@ -21,13 +21,11 @@ import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 
 public class HistoryList extends SimpleListProperty<StationData> implements P2DataList<StationData> {
 
@@ -37,7 +35,6 @@ public class HistoryList extends SimpleListProperty<StationData> implements P2Da
     public HistoryList(ProgData progData) {
         super(FXCollections.observableArrayList());
         this.progData = progData;
-//        HistoryStartsFactory favouriteStartsFactory = new HistoryStartsFactory(progData, this);
     }
 
     @Override
@@ -81,59 +78,27 @@ public class HistoryList extends SimpleListProperty<StationData> implements P2Da
         return super.addAll(var1);
     }
 
-    public synchronized void addStation(StationData station) {
-        if (!checkUrl(station.getStationUrl())) {
-            //dann gibts ihn noch nicht
-            StationData stationData = new StationData();
-            stationData.setStation(station);
-            this.add(0, stationData);
+    public synchronized void addStation(StationData stationData) {
+        if (!this.contains(stationData)) {
+            //dann ist er noch nicht drin
+            this.add(stationData);
+            reCount();
         }
-        reCount();
-    }
-
-    public synchronized StationData getStationByUrl(final String url) {
-        return StationListFactory.getStationByUrl(this, url);
-    }
-
-    private boolean checkUrl(String url) {
-        boolean ret = false;
-        Optional<StationData> opt = this.stream().filter(l -> l.getStationUrl().equals(url)).findFirst();
-        if (opt.isPresent()) {
-            ret = true;
-            StationData stationData = opt.get();
-            this.remove(stationData);
-            this.add(0, stationData);
-        }
-        return ret;
     }
 
     private void reCount() {
-        for (int i = 0; i < this.size(); ++i) {
-            this.get(i).setStationNo(i + 1);
-        }
+        StationData stationData = null;
         while (this.size() > ProgConst.MAX_HISTORY_LIST_SIZE) {
-            this.remove(this.size() - 1);
-        }
-    }
-
-    public synchronized boolean remove(StationData objects) {
-        return super.remove(objects);
-    }
-
-    @Override
-    public synchronized boolean removeAll(Collection<?> objects) {
-        return super.removeAll(objects);
-    }
-
-    public synchronized int countStartedAndRunningFavourites() {
-        //es wird nach gestarteten und laufenden Favoriten gesucht
-        int ret = 0;
-        for (final StationData stationData : this) {
-            if (stationData.getStart() != null &&
-                    (stationData.getStart().getStartStatus().isStarted() || stationData.getStart().getStartStatus().isStateStartedRun())) {
-                ++ret;
+            // ältesten suchen
+            for (StationData sd : this) {
+                if (stationData == null ||
+                        stationData.getStationDateLastStart().isAfter(sd.getStationDateLastStart())) {
+                    stationData = sd;
+                }
             }
+
+            this.remove(stationData);
+            stationData = null;
         }
-        return ret;
     }
 }

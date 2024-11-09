@@ -236,20 +236,20 @@ public class ProgStartAfterGui {
                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
         logList.add(P2Log.LILNE3);
-        logList.add("Favoriten markieren");
-        StationListFactory.findAndMarkFavouriteStations(progData);
+        logList.add("Favoriten/History markieren");
+        StationListFactory.findAndMarkStations(progData);
 
         logList.add(P2Log.LILNE3);
         logList.add("Blacklist filtern");
         progData.stationList.filterListWithBlacklist(true);
 
-        progData.pEventHandler.notifyListener(
-                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-                        "", "Sender in Favoriten eingetragen",
-                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
-
-        logList.add("Sender in Favoriten eingetragen");
-        StationListFactory.addStationInList(progData.favouriteList);
-        StationListFactory.addStationInList(progData.historyList);
+//        progData.pEventHandler.notifyListener(
+//                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
+//                        "", "Sender in Favoriten eingetragen",
+//                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
+//
+//        logList.add("Sender in Favoriten eingetragen");
+//        StationListFactory.addStationInList(progData.favouriteList);
+//        StationListFactory.addStationInList(progData.historyList);
     }
 }

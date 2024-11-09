@@ -20,10 +20,12 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T> {
@@ -53,21 +55,21 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
     private final BooleanProperty history = new SimpleBooleanProperty(false);
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
     private final StringProperty website = new SimpleStringProperty("");
-    private LocalDate stationDate = LocalDate.now();
+    private LocalDate stationDateLastChange = LocalDate.now(); // last changed
+    private LocalDateTime stationDateLastStart = LocalDateTime.MIN; // last changed
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
         list.add(new Config_intProp("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
         list.add(new Config_boolProp("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
-        list.add(new Config_stringProp("station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
-        list.add(new Config_stringProp("collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
+        list.add(new Config_stringProp("stationName" + TAGGER + "station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
+        list.add(new Config_stringProp("collectionName" + TAGGER + "collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
         list.add(new Config_stringProp("genre", StationDataXml.STATION_PROP_GENRE, genre));
         list.add(new Config_stringProp("codec", StationDataXml.STATION_PROP_CODEC, codec));
         list.add(new Config_intProp("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
         list.add(new Config_intProp("votes", StationDataXml.STATION_PROP_VOTES, votes));
-        list.add(new Config_intProp("grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));//todo kommt nächste Version wieder weg
-        list.add(new Config_intProp("ownGrade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
+        list.add(new Config_intProp("ownGrade" + TAGGER + "grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
         list.add(new Config_boolProp("own", StationDataXml.STATION_PROP_OWN, own));
         list.add(new Config_intProp("starts", StationDataXml.STATION_PROP_CLICK_COUNT, starts));
         list.add(new Config_intProp("clickCount", StationDataXml.STATION_PROP_CLICK_COUNT, clickCount));
@@ -86,10 +88,16 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
         list.add(new Config_boolProp("favourite", StationDataXml.STATION_PROP_IS_History, history));
         list.add(new Config_boolProp("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
         list.add(new Config_stringProp("website", StationDataXml.STATION_PROP_WEBSITE, website));
-        list.add(new Config_lDate("stationDate", StationDataXml.STATION_PROP_DATE, stationDate) {
+        list.add(new Config_lDate("stationDateLastChange", StationDataXml.STATION_PROP_DATE, stationDateLastChange) {
             @Override
             public void setUsedValue(LocalDate act) {
-                setStationDate(act);
+                setStationDateLastChange(act);
+            }
+        });
+        list.add(new Config_lDateTime("stationDateLastStart", StationDataXml.STATION_PROP_DATE_LAST_START, stationDateLastStart) {
+            @Override
+            public void setUsedValue(LocalDateTime act) {
+                setStationDateLastStart(act);
             }
         });
 
@@ -432,16 +440,28 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
         return website;
     }
 
-    public LocalDate getStationDate() {
-        return stationDate;
+    public LocalDate getStationDateLastChange() {
+        return stationDateLastChange;
     }
 
-    public void setStationDate(LocalDate stationDate) {
-        this.stationDate = stationDate;
+    public void setStationDateLastChange(LocalDate stationDateLastChange) {
+        this.stationDateLastChange = stationDateLastChange;
     }
 
-    public void setStationDate(String date) {
-        this.stationDate = P2LDateFactory.fromString(date);
+    public void setStationDateLastChange(String date) {
+        this.stationDateLastChange = P2LDateFactory.fromString(date);
+    }
+
+    public LocalDateTime getStationDateLastStart() {
+        return stationDateLastStart;
+    }
+
+    public void setStationDateLastStart(LocalDateTime stationDateLastStart) {
+        this.stationDateLastStart = stationDateLastStart;
+    }
+
+    public void setStationDateLastStart(String date) {
+        this.stationDateLastStart = P2LDateTimeFactory.fromString(date);
     }
 
     public int compareTo(StationDataProperty arg0) {

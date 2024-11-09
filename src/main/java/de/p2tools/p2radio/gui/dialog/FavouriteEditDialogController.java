@@ -20,6 +20,7 @@ import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
@@ -320,7 +321,14 @@ public class FavouriteEditDialogController extends P2DialogExtra {
                 break;
             case StationDataXml.STATION_PROP_DATE_INT:
 //                lblCont[i].textProperty().bind(actFavourite.stationDateProperty().getPDate());
-                lblCont[i].setText(P2LDateFactory.toString(actFavourite.getStationDate()));
+                lblCont[i].setText(P2LDateFactory.toString(actFavourite.getStationDateLastChange()));
+                gridPane.add(lbl[i], 0, row);
+                gridPane.add(lblCont[i], 1, row);
+                ++row;
+                break;
+            case StationDataXml.STATION_PROP_DATE_LAST_START_INT:
+//                lblCont[i].textProperty().bind(actFavourite.stationDateProperty().getPDate());
+                lblCont[i].setText(P2LDateTimeFactory.toString(actFavourite.getStationDateLastStart()));
                 gridPane.add(lbl[i], 0, row);
                 gridPane.add(lblCont[i], 1, row);
                 ++row;

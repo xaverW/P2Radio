@@ -20,6 +20,7 @@ import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -247,7 +248,11 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DATE_INT:
                     case StationDataXml.STATION_PROP_DATE_LONG_INT:
-                        lblCont[i].setText(P2LDateFactory.toString(station.getStationDate()));
+                        lblCont[i].setText(P2LDateFactory.toString(station.getStationDateLastChange()));
+                        break;
+
+                    case StationDataXml.STATION_PROP_DATE_LAST_START_INT:
+                        lblCont[i].setText(P2LDateTimeFactory.toString(station.getStationDateLastStart()));
                         break;
 
                     case StationDataXml.STATION_PROP_URL_INT:
@@ -332,6 +337,7 @@ public class StationInfoDialogController extends P2DialogExtra {
                 case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
                 case StationDataXml.STATION_PROP_DATE_INT:
                 case StationDataXml.STATION_PROP_DATE_LONG_INT:
+                case StationDataXml.STATION_PROP_DATE_LAST_START_INT:
                 case StationDataXml.STATION_PROP_IS_HISTORY_INT:
                     // bis hier nicht anzeigen
                     break;

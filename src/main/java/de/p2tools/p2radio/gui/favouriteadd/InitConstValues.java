@@ -37,7 +37,7 @@ public class InitConstValues {
         addFavouriteDto.chkOwn.setSelected(addFavouriteDto.getAct().stationData.isOwn());
         addFavouriteDto.lblCountry.setText(addFavouriteDto.getAct().stationData.getCountry());
         addFavouriteDto.lblLanguage.setText(addFavouriteDto.getAct().stationData.getLanguage());
-        addFavouriteDto.lblGenDate.setText(P2LDateFactory.toString(addFavouriteDto.getAct().stationData.getStationDate()));
+        addFavouriteDto.lblGenDate.setText(P2LDateFactory.toString(addFavouriteDto.getAct().stationData.getStationDateLastChange()));
         addFavouriteDto.lblUrl.setText(addFavouriteDto.getAct().stationData.getStationUrl());
         addFavouriteDto.lblWebsite.setText(addFavouriteDto.getAct().stationData.getWebsite());
     }

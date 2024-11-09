@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
@@ -127,39 +126,39 @@ public final class Start extends StartProps {
         this.process = process;
     }
 
-    public Start getCopy() {
-        final Start ret = new Start();
-        ret.stationData = stationData;
-        ret.setData = setData;
-        ret.startStatus = startStatus;
+//    public Start getCopy() {
+//        final Start ret = new Start();
+//        ret.stationData = stationData;
+//        ret.setData = setData;
+//        ret.startStatus = startStatus;
+//
+//        ret.startCounter = startCounter;
+//        ret.restartCounter = restartCounter;
+//        ret.process = process;
+//        ret.startTime = startTime;
+//
+//        Config[] configs = getConfigsArr();
+//        Config[] configsCopy = ret.getConfigsArr();
+//        for (int i = 0; i < configs.length; ++i) {
+//            configsCopy[i].setActValue(configs[i].getActValueString());
+//        }
+//        return ret;
+//    }
 
-        ret.startCounter = startCounter;
-        ret.restartCounter = restartCounter;
-        ret.process = process;
-        ret.startTime = startTime;
-
-        Config[] configs = getConfigsArr();
-        Config[] configsCopy = ret.getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            configsCopy[i].setActValue(configs[i].getActValueString());
-        }
-        return ret;
-    }
-
-    public void copyToMe(Start start) {
-        stationData = start.stationData;
-        setData = start.setData;
-        startStatus = start.startStatus;
-
-        startCounter = start.startCounter;
-        restartCounter = start.restartCounter;
-        process = start.process;
-        startTime = start.startTime;
-
-        Config[] configs = start.getConfigsArr();
-        Config[] configsCopy = getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            configsCopy[i].setActValue(configs[i].getActValueString());
-        }
-    }
+//    public void copyToMe(Start start) {
+//        stationData = start.stationData;
+//        setData = start.setData;
+//        startStatus = start.startStatus;
+//
+//        startCounter = start.startCounter;
+//        restartCounter = start.restartCounter;
+//        process = start.process;
+//        startTime = start.startTime;
+//
+//        Config[] configs = start.getConfigsArr();
+//        Config[] configsCopy = getConfigsArr();
+//        for (int i = 0; i < configs.length; ++i) {
+//            configsCopy[i].setActValue(configs[i].getActValueString());
+//        }
+//    }
 }

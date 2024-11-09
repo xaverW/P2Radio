@@ -140,6 +140,7 @@ public class FavouriteAddOwnDialogController extends P2DialogExtra {
             case StationDataXml.STATION_PROP_BUTTON2_INT:
             case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
             case StationDataXml.STATION_PROP_DATE_INT:
+            case StationDataXml.STATION_PROP_DATE_LAST_START_INT:
                 // bis hier nicht anzeigen
                 break;
             case StationDataXml.STATION_PROP_STATION_NAME_INT:

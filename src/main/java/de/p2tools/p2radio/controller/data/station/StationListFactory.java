@@ -43,6 +43,13 @@ public class StationListFactory {
         return opt.orElse(null);
     }
 
+    public static synchronized StationData getStationByHash(List<StationData> list, StationData stationData) {
+        final String searchHash = getHash(stationData);
+        final Optional<StationData> opt =
+                list.parallelStream().filter(station -> getHash(station).equalsIgnoreCase(searchHash)).findAny();
+        return opt.orElse(null);
+    }
+
     public static void cleanFaultyCharacterStationList() {
         // damit werden Unicode-Zeichen korrigiert
         // gibt da einen Java-Bug
@@ -117,7 +124,7 @@ public class StationListFactory {
         P2Duration.counterStop("FavouriteList.addSenderInList");
     }
 
-    public static void findAndMarkFavouriteStations(ProgData progData) {
+    public static void findAndMarkStations(ProgData progData) {
         // nach Programmstart
         P2Duration.counterStart("findAndMarkFavouriteStations");
 
@@ -144,14 +151,26 @@ public class StationListFactory {
         hashSet.addAll(progData.favouriteList.stream().map(StationListFactory::getHash).toList());
         progData.stationList.stream()
                 .filter(station -> hashSet.contains(getHash(station)))
-                .forEach(station -> station.setFavourite(true));
+                .forEach(station -> {
+                    StationData fav = getStationByHash(progData.favouriteList, station);
+                    copyFav(station, fav);
+                    station.setFavourite(true);
+                });
+
+        // und noch die eigenen eintragen
+        progData.favouriteList.stream().filter(StationDataProperty::isOwn)
+                .forEach(stationData -> progData.stationList.add(stationData));
 
         // history
         hashSet.clear();
         hashSet.addAll(progData.historyList.stream().map(StationListFactory::getHash).toList());
         progData.stationList.stream()
                 .filter(station -> hashSet.contains(getHash(station)))
-                .forEach(station -> station.setHistory(true));
+                .forEach(station -> {
+                    StationData history = getStationByHash(progData.historyList, station);
+                    copyFav(station, history);
+                    station.setHistory(true);
+                });
 
         hashSet.clear();
         progData.favouriteList.clear();
@@ -166,7 +185,20 @@ public class StationListFactory {
         P2Duration.counterStop("findAndMarkFavouriteStations");
     }
 
-    private static String getHash(StationData stationData) {
+    public static String getHash(StationData stationData) {
         return stationData.getStationName() + stationData.getStationUrl();
+    }
+
+    private static void copyFav(StationData station, StationData fav) {
+        // nach dem Neuladen einer Radioliste, für Favourite/History
+        if (station == null || fav == null) {
+            return;
+        }
+
+        station.setCollectionName(fav.getCollectionName());
+        station.setDescription(fav.getDescription());
+        station.setOwnGrade(fav.getOwnGrade());
+        station.setStarts(fav.getStarts());
+        station.setStationDateLastStart(fav.getStationDateLastStart());
     }
 }

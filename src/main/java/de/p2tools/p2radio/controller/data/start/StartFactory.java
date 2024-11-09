@@ -23,6 +23,8 @@ import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
+import java.time.LocalDateTime;
+
 public class StartFactory {
     private static Start startPlaying = null;
 
@@ -79,6 +81,7 @@ public class StartFactory {
         final ProgData progData = ProgData.getInstance();
         progData.stationLastPlayed.copyToMe(station);
 
+        station.setStationDateLastStart(LocalDateTime.now());
         progData.historyList.addStation(station);
         ProgConfig.SYSTEM_HISTORY.setValue(url);
 

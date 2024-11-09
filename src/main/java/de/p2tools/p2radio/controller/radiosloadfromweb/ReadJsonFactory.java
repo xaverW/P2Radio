@@ -110,9 +110,9 @@ public class ReadJsonFactory {
                         } else {
                             ld = LocalDate.MIN;
                         }
-                        stationData.setStationDate(P2LDateFactory.toString(ld));
+                        stationData.setStationDateLastChange(P2LDateFactory.toString(ld));
                     } catch (Exception ex) {
-                        stationData.setStationDate(P2LDateFactory.toString(LocalDate.MIN));
+                        stationData.setStationDateLastChange(P2LDateFactory.toString(LocalDate.MIN));
                     }
                     break;
             }
