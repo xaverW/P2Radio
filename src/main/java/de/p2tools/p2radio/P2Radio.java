@@ -110,6 +110,10 @@ public class P2Radio extends Application {
             P2LibInit.setActStage(progData.primaryStageSmall);
             PShortKeyFactory.addShortKey(progData.primaryStageSmall.getScene());
 
+            ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
+            ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
+            ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
+
             progData.primaryStageBig.close();
             progData.primaryStageSmall.show();
 
@@ -117,6 +121,7 @@ public class P2Radio extends Application {
             progData.primaryStage = progData.primaryStageBig;
             P2LibInit.setActStage(progData.primaryStageBig);
             P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
+            progData.p2RadioController.initPanel();
             progData.primaryStageBig.show();
         }
 

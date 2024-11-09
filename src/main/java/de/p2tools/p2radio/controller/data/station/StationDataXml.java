@@ -84,7 +84,7 @@ public class StationDataXml {
     public static final String STATION_PROP_DATE_LONG = "DatumL";
 
     public static final int STATION_PROP_DATE_LAST_START_INT = 20;
-    public static final String STATION_PROP_DATE_LAST_START = "Datum Start";
+    public static final String STATION_PROP_DATE_LAST_START = "Letzter Start";
 
     public static final int STATION_PROP_URL_INT = 21;
     public static final String STATION_PROP_URL = "URL";

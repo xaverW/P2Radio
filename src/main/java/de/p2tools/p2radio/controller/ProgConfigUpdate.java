@@ -49,6 +49,16 @@ public class ProgConfigUpdate {
         if (!ProgConfig.SYSTEM_RESET_COLOR.getValue()) {
             // gibt neue Farben
             ProgColorList.resetAllColorDarkLight();
+
+            ProgColorList.STATION_NEW_BG.setUse(false);
+            ProgColorList.STATION_NEW_KEY.setUse(true);
+            ProgColorList.STATION_FAVOURITE_BG.setUse(false);
+            ProgColorList.STATION_FAVOURITE_KEY.setUse(true);
+
+            ProgColorList.STATION_RUN_BG.setUse(true);
+            ProgColorList.STATION_RUN_KEY.setUse(false);
+            ProgColorList.STATION_ERROR_BG.setUse(true);
+            ProgColorList.STATION_ERROR_KEY.setUse(false);
         }
 
         if (!ProgConfig.SYSTEM_CHANGE_TABLE_COLUM.getValue()) {

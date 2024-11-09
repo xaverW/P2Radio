@@ -98,8 +98,8 @@ public class ProgData {
     public StationInfos stationInfos;
 
     // Programmdaten
-    public static BooleanProperty FAVOURITE_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
     public static BooleanProperty STATION_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
+    public static BooleanProperty FAVOURITE_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
     public static BooleanProperty HISTORY_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
 
     public StationList stationList; //ist die komplette Senderliste

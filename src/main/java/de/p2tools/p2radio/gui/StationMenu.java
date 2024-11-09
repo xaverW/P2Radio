@@ -25,7 +25,6 @@ import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
-import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
@@ -33,9 +32,6 @@ import javafx.scene.layout.VBox;
 public class StationMenu {
     final private VBox vBox;
     final private ProgData progData;
-
-    BooleanProperty boolFilterOn = ProgConfig.STATION__FILTER_IS_SHOWING;
-    BooleanProperty boolInfoOn = ProgConfig.STATION__INFO_IS_SHOWING;
 
     public StationMenu(VBox vBox) {
         this.vBox = vBox;
@@ -116,11 +112,11 @@ public class StationMenu {
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.disableProperty().bind(ProgConfig.STATION__FILTER_IS_RIP);
-        miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.STATION__FILTER_IS_SHOWING);
 
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
         miShowInfo.disableProperty().bind(ProgConfig.STATION__INFO_PANE_IS_RIP);
-        miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
+        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.STATION__INFO_IS_SHOWING);
 
         mb.getItems().add(new SeparatorMenuItem());
         mb.getItems().addAll(miShowFilter, miShowInfo);
