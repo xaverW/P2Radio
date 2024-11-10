@@ -33,6 +33,9 @@ public class ProgConst {
     public static final String STATION_FILE_XML = "sender.xml";
     public static final String STATION_FILE_JSON = "radio.json";
 
+
+    // http://at1.api.radio-browser.info/json/stations
+    // public static final String STATION_LIST_URL = "http://at1.api.radio-browser.info/json/stations";
     public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
 
     public static final String CONFIG_FILE_COPY = "p2radio.xml_copy_";
@@ -40,7 +43,7 @@ public class ProgConst {
     public static final String XML_START = "P2Radio";
 
     public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/P2_24.png";
-    
+
     public static final String LOG_DIR = "Log";
     public static final String CSS_FILE = "de/p2tools/p2radio/radioFx.css";
     public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2radio/radioFx-dark.css";

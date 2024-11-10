@@ -247,8 +247,9 @@ public class StationInfoDialogController extends P2DialogExtra {
                         lblCont[i].setText(station.getDescription());
                         break;
                     case StationDataXml.STATION_PROP_DATE_INT:
-                    case StationDataXml.STATION_PROP_DATE_LONG_INT:
                         lblCont[i].setText(P2LDateFactory.toString(station.getStationDateLastChange()));
+                        break;
+                    case StationDataXml.STATION_PROP_DATE_LONG_INT:
                         break;
 
                     case StationDataXml.STATION_PROP_DATE_LAST_START_INT:
@@ -334,11 +335,11 @@ public class StationInfoDialogController extends P2DialogExtra {
                 case StationDataXml.STATION_PROP_COUNTRY_INT:
                 case StationDataXml.STATION_PROP_COUNTRY_CODE_INT:
                 case StationDataXml.STATION_PROP_STATE_INT:
+                case StationDataXml.STATION_PROP_CLICK_TREND_INT:
                 case StationDataXml.STATION_PROP_CLICK_COUNT_INT:
-                case StationDataXml.STATION_PROP_DATE_INT:
-                case StationDataXml.STATION_PROP_DATE_LONG_INT:
                 case StationDataXml.STATION_PROP_DATE_LAST_START_INT:
                 case StationDataXml.STATION_PROP_IS_HISTORY_INT:
+                case StationDataXml.STATION_PROP_DATE_LONG_INT:
                     // bis hier nicht anzeigen
                     break;
 
@@ -361,14 +362,6 @@ public class StationInfoDialogController extends P2DialogExtra {
                     gridPane.add(textTitle[StationDataXml.STATION_PROP_IS_HISTORY_INT], 2, row);
                     gridPane.add(ivHistory, 3, row++);
                     break;
-
-//                    gridPane.add(textTitle[i], 0, row);
-//                    gridPane.add(ivFavourite, 1, row++, 3, 1);
-//                    break;
-//                case StationDataXml.STATION_PROP_IS_HISTORY_INT:
-//                    gridPane.add(textTitle[i], 0, row);
-//                    gridPane.add(ivHistory, 1, row++, 3, 1);
-//                    break;
                 case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(ivBlack, 1, row++, 3, 1);
@@ -408,17 +401,33 @@ public class StationInfoDialogController extends P2DialogExtra {
                     lblCont[StationDataXml.STATION_PROP_CLICK_COUNT_INT].setOnContextMenuRequested(event ->
                             getMenu(lblCont[StationDataXml.STATION_PROP_CLICK_COUNT_INT].getText()).show(lblCont[StationDataXml.STATION_PROP_CLICK_COUNT_INT], event.getScreenX(), event.getScreenY()));
                     break;
-                case StationDataXml.STATION_PROP_CLICK_TREND_INT:
-                    gridPane.add(textTitle[StationDataXml.STATION_PROP_CLICK_TREND_INT], 0, row);
-                    gridPane.add(lblCont[StationDataXml.STATION_PROP_CLICK_TREND_INT], 1, row);
+
+
+                case StationDataXml.STATION_PROP_STARTS_INT:
+                    gridPane.add(textTitle[StationDataXml.STATION_PROP_STARTS_INT], 0, row);
+                    gridPane.add(lblCont[StationDataXml.STATION_PROP_STARTS_INT], 1, row);
+                    lblCont[StationDataXml.STATION_PROP_STARTS_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[StationDataXml.STATION_PROP_STARTS_INT].getText()).show(lblCont[StationDataXml.STATION_PROP_STARTS_INT], event.getScreenX(), event.getScreenY()));
+
+                    gridPane.add(textTitle[StationDataXml.STATION_PROP_CLICK_TREND_INT], 2, row);
+                    gridPane.add(lblCont[StationDataXml.STATION_PROP_CLICK_TREND_INT], 3, row++);
                     lblCont[StationDataXml.STATION_PROP_CLICK_TREND_INT].setOnContextMenuRequested(event ->
                             getMenu(lblCont[StationDataXml.STATION_PROP_CLICK_TREND_INT].getText()).show(lblCont[StationDataXml.STATION_PROP_CLICK_TREND_INT], event.getScreenX(), event.getScreenY()));
+                    break;
 
-                    gridPane.add(textTitle[StationDataXml.STATION_PROP_DATE_INT], 2, row);
-                    gridPane.add(lblCont[StationDataXml.STATION_PROP_DATE_INT], 3, row++);
+                case StationDataXml.STATION_PROP_DATE_INT:
+                    gridPane.add(textTitle[StationDataXml.STATION_PROP_DATE_INT], 0, row);
+                    gridPane.add(lblCont[StationDataXml.STATION_PROP_DATE_INT], 1, row);
                     lblCont[StationDataXml.STATION_PROP_DATE_INT].setOnContextMenuRequested(event ->
                             getMenu(lblCont[StationDataXml.STATION_PROP_DATE_INT].getText()).show(lblCont[StationDataXml.STATION_PROP_DATE_INT], event.getScreenX(), event.getScreenY()));
+
+                    gridPane.add(textTitle[StationDataXml.STATION_PROP_DATE_LAST_START_INT], 2, row);
+                    gridPane.add(lblCont[StationDataXml.STATION_PROP_DATE_LAST_START_INT], 3, row++);
+                    lblCont[StationDataXml.STATION_PROP_DATE_LAST_START_INT].setOnContextMenuRequested(event ->
+                            getMenu(lblCont[StationDataXml.STATION_PROP_DATE_LAST_START_INT].getText()).show(lblCont[StationDataXml.STATION_PROP_DATE_LAST_START_INT], event.getScreenX(), event.getScreenY()));
                     break;
+
+
                 case StationDataXml.STATION_PROP_URL_INT:
                     gridPane.add(textTitle[i], 0, row);
                     gridPane.add(pHyperlinkUrl, 1, row++, 3, 1);
