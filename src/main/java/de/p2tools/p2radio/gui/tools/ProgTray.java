@@ -32,6 +32,7 @@ import javafx.application.Platform;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -88,11 +89,16 @@ public class ProgTray {
             systemTray.remove(tr);
         }
 
-        Image image;
+        Image image = null;
         if (ProgConfig.SYSTEM_TRAY_USE_OWN_ICON.getValue() && !ProgConfig.SYSTEM_TRAY_ICON_PATH.getValueSafe().isEmpty()) {
-            String resource = ProgConfig.SYSTEM_TRAY_ICON_PATH.getValueSafe();
-            image = Toolkit.getDefaultToolkit().getImage(resource);
-        } else {
+            File file = new File(ProgConfig.SYSTEM_TRAY_ICON_PATH.getValueSafe());
+            if (file.exists()) {
+                String resource = ProgConfig.SYSTEM_TRAY_ICON_PATH.getValueSafe();
+                image = Toolkit.getDefaultToolkit().getImage(resource);
+            }
+        }
+
+        if (image == null) {
             URL res = ClassLoader.getSystemResource(ProgConst.PROGRAM_ICON);
             image = Toolkit.getDefaultToolkit().getImage(res);
         }
@@ -129,9 +135,6 @@ public class ProgTray {
         miMaxMin.addActionListener(e -> Platform.runLater(() -> maxMin()));
         miStop.addActionListener(e -> {
             StartFactory.stopRunningStation();
-//            progData.stationList.forEach(StartFactory::stopPlayable);
-//            progData.favouriteList.forEach(StartFactory::stopPlayable);
-//            progData.historyList.forEach(StartFactory::stopPlayable);
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();

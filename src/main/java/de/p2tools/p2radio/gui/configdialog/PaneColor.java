@@ -127,7 +127,7 @@ public class PaneColor {
         }
     };
 
-    private final Callback<TableColumn<P2ColorData, Color>, TableCell<P2ColorData, Color>> cellFactoryColorReset
+    private final Callback<TableColumn<P2ColorData, Color>, TableCell<P2ColorData, Color>> cellFactoryResetColor
             = (final TableColumn<P2ColorData, Color> param) -> new TableCell<>() {
 
         @Override
@@ -245,7 +245,7 @@ public class PaneColor {
 
         final TableColumn<P2ColorData, Color> colorOrgColumn = new TableColumn<>("Original");
         colorOrgColumn.setCellValueFactory(new PropertyValueFactory<>("resetColor"));
-        colorOrgColumn.setCellFactory(cellFactoryColorReset);
+        colorOrgColumn.setCellFactory(cellFactoryResetColor);
         colorOrgColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<P2ColorData, String> resetColumn = new TableColumn<>("Reset");
