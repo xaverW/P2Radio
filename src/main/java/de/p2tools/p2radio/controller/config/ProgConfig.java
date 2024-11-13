@@ -120,6 +120,8 @@ public class ProgConfig extends P2DataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_PLAY = new SimpleIntegerProperty(-1);
 
     // Configs
+    public static BooleanProperty SYSTEM_USE_OWN_PROGRAM_ICON = addBoolProp("system-use-own-program-icon", Boolean.FALSE);
+    public static StringProperty SYSTEM_PROGRAM_ICON_PATH = addStrProp("system-program-icon", ""); //ein eigenes Programm-Icon
     public static BooleanProperty SYSTEM_SMALL_RADIO = addBoolProp("system-small-radio", false);
     public static BooleanProperty SYSTEM_SMALL_RADIO_SHOW_START_HELP = addBoolProp("system-small-radio-show-start-help", false);
     public static BooleanProperty SYSTEM_TRAY = addBoolProp("system-tray", Boolean.FALSE);

@@ -16,15 +16,14 @@
 
 package de.p2tools.p2radio.controller;
 
+import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2Logger;
-import de.p2tools.p2radio.controller.config.ProgColorList;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.P2RadioFactory;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.gui.startdialog.StartDialogController;
@@ -41,7 +40,10 @@ public class ProgStartBeforeGui {
     }
 
     public static void workBeforeGui(ProgData progData) {
-        if (!loadAll()) {
+        boolean load = loadAll();
+        initP2lib();
+
+        if (!load) {
             // dann ist der erste Start
             P2Duration.onlyPing("Erster Start");
             ProgData.firstProgramStart = true;
@@ -66,6 +68,13 @@ public class ProgStartBeforeGui {
         ProgData.getInstance().blackDataList.sortIncCounter(false);
     }
 
+    private static void initP2lib() {
+        P2LibInit.initLib(ProgData.getInstance().primaryStageBig, ProgConst.PROGRAM_NAME,
+                "", ProgConfig.SYSTEM_DARK_THEME, null, ProgConfig.SYSTEM_THEME_CHANGED,
+                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_FONT_SIZE,
+                ProgConst.PROGRAM_ICON, P2RadioFactory.getOwnIconPath(),
+                ProgData.debug, ProgData.duration);
+    }
 
     private static boolean loadAll() {
         ArrayList<String> logList = new ArrayList<>();

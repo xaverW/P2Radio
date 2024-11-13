@@ -61,7 +61,7 @@ public class PaneUpdate {
         chkDaily.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY);
     }
 
-    public void makeUpdate(Collection<TitledPane> result) {
+    public void make(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);

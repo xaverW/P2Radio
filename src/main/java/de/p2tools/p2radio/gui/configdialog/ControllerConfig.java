@@ -34,7 +34,7 @@ public class ControllerConfig extends P2AccordionPane {
     private PaneColor paneColor;
     private PaneShortcut paneShortcut;
     private PaneKeySize paneKeySize;
-    private PaneTray paneTray;
+    private PaneIcon paneIcon;
     private PaneLogFile paneLogFile;
     private PaneProg paneProg;
 
@@ -49,7 +49,7 @@ public class ControllerConfig extends P2AccordionPane {
     public void close() {
         super.close();
         paneConfig.close();
-        paneTray.close();
+        paneIcon.close();
         paneLogFile.close();
         paneUpdate.close();
         paneColor.close();
@@ -62,28 +62,28 @@ public class ControllerConfig extends P2AccordionPane {
         Collection<TitledPane> result = new ArrayList<TitledPane>();
 
         paneConfig = new PaneConfig(stage);
-        paneConfig.makeConfig(result);
+        paneConfig.make(result);
 
-        paneTray = new PaneTray(stage);
-        paneTray.makeTray(result);
+        paneIcon = new PaneIcon(stage);
+        paneIcon.make(result);
 
         paneLogFile = new PaneLogFile(stage);
-        paneLogFile.makeLogfile(result);
+        paneLogFile.make(result);
 
         paneColor = new PaneColor(stage);
-        paneColor.makeColor(result);
+        paneColor.make(result);
 
         paneShortcut = new PaneShortcut(stage);
-        paneShortcut.makeShortcut(result);
+        paneShortcut.make(result);
 
         paneKeySize = new PaneKeySize(stage, progData);
-        paneKeySize.makeStyle(result);
+        paneKeySize.make(result);
 
         paneProg = new PaneProg(stage);
-        paneProg.makeProg(result);
+        paneProg.make(result);
 
         paneUpdate = new PaneUpdate(stage);
-        paneUpdate.makeUpdate(result);
+        paneUpdate.make(result);
         return result;
     }
 }

@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio;
 
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -26,6 +27,22 @@ import java.util.Optional;
 
 public class P2RadioFactory {
     private P2RadioFactory() {
+    }
+
+    public static String getOwnIconPath() {
+        if (ProgConfig.SYSTEM_USE_OWN_PROGRAM_ICON.getValue()) {
+            return ProgConfig.SYSTEM_PROGRAM_ICON_PATH.getValueSafe();
+        } else {
+            return "";
+        }
+    }
+
+    public static void setProgramIcon() {
+        if (ProgConfig.SYSTEM_USE_OWN_PROGRAM_ICON.getValue()) {
+            P2WindowIcon.setStageIcon(ProgConfig.SYSTEM_PROGRAM_ICON_PATH.getValueSafe());
+        } else {
+            P2WindowIcon.setStageIcon("");
+        }
     }
 
     public static void changeGui() {

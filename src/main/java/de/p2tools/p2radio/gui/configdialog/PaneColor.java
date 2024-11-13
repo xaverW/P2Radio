@@ -180,7 +180,7 @@ public class PaneColor {
         this.stage = stage;
     }
 
-    public void makeColor(Collection<TitledPane> result) {
+    public void make(Collection<TitledPane> result) {
         final VBox vBox = new VBox();
         vBox.setFillWidth(true);
         vBox.setSpacing(10);

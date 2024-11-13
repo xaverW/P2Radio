@@ -61,7 +61,7 @@ public class PaneConfig {
         tglEnableLog.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOG_ON);
     }
 
-    public void makeConfig(Collection<TitledPane> result) {
+    public void make(Collection<TitledPane> result) {
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPane.setPadding(new Insets(P2LibConst.PADDING));

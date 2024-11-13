@@ -146,7 +146,7 @@ public class PaneShortcut {
         this.doubleProperty = ProgConfig.CONFIG_DIALOG_SHORTCUT_DIVIDER;
     }
 
-    public void makeShortcut(Collection<TitledPane> result) {
+    public void make(Collection<TitledPane> result) {
         final Button btnHelp = P2Button.helpButton(stage, "Tastenkürzel ändern",
                 HelpText.SHORTCUT);
 

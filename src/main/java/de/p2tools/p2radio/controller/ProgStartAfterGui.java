@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -31,7 +30,6 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -48,7 +46,6 @@ public class ProgStartAfterGui {
      * Senderliste beim Programmstart!! laden
      */
     public static void workAfterGui(ProgData progData) {
-        P2WindowIcon.addWindowP2Icon(progData.primaryStage);
         startMsg();
         setTitle();
 
@@ -79,10 +76,6 @@ public class ProgStartAfterGui {
         } else {
             stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
         }
-
-        // das muss sein, wenn das kleine Gui als Erstes startet
-        Image image = new Image(ProgConst.PROGRAM_ICON);
-        stage.getIcons().add(image);
     }
 
     private static void checkProgUpdate(ProgData progData) {

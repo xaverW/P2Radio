@@ -21,7 +21,10 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuit;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.PShortKeyFactory;
+import de.p2tools.p2radio.controller.config.ProgColorList;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
@@ -49,20 +52,12 @@ public class P2Radio extends Application {
         progData.primaryStageBig = primaryStage;
         progData.primaryStage = primaryStage;
 
-        initP2lib();
         ProgStartBeforeGui.workBeforeGui(progData);
         initRootLayout();
         ProgStartAfterGui.workAfterGui(progData);
 
         P2Duration.onlyPing("Gui steht!");
         P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
-    }
-
-    private void initP2lib() {
-        P2LibInit.initLib(progData.primaryStageBig, ProgConst.PROGRAM_NAME,
-                "", ProgConfig.SYSTEM_DARK_THEME, null, ProgConfig.SYSTEM_THEME_CHANGED,
-                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_FONT_SIZE,
-                ProgData.debug, ProgData.duration);
     }
 
     private void initRootLayout() {
