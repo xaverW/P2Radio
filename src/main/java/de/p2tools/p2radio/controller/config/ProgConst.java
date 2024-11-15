@@ -43,7 +43,7 @@ public class ProgConst {
     public static final String XML_START = "P2Radio";
 
     // public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/P2_24.png";
-    public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/P2R_24.png";
+    public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/p2r_logo_32.png";
 
     public static final String LOG_DIR = "Log";
     public static final String CSS_FILE = "de/p2tools/p2radio/radioFx.css";
