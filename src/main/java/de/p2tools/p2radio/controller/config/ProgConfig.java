@@ -233,7 +233,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty FAVOURITE__FILTER_DIVIDER = addDoubleProp("favourite--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty FAVOURITE__FILTER_IS_SHOWING = addBoolProp("favourite--filter-is-showing", Boolean.TRUE);
     public static BooleanProperty FAVOURITE__FILTER_IS_RIP = addBoolProp("favourite--filter-is-rip", Boolean.FALSE);
-    public static StringProperty FAVOURITE__FILTER_DIALOG_SIZE = addStrProp("favourite--filter-dialog-size", "400:600");
+    public static StringProperty FAVOURITE__FILTER_DIALOG_SIZE = addStrProp("favourite--filter-dialog-size", "800:800");
 
 
     // STATION Info
@@ -249,7 +249,7 @@ public class ProgConfig extends P2DataProgConfig {
 
 
     // ConfigDialog
-    public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size");
+    public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size", "600:500");
     public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBoolProp("config_dialog-accordion", Boolean.TRUE);
     public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDoubleProp("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
     public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStrProp("config-dialog-import-set-size", "600:400");
