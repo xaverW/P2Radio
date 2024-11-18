@@ -39,15 +39,15 @@ import javafx.scene.layout.*;
 public class P2RadioController extends StackPane {
 
     private final ProgData progData;
-    Button btnSmallRadio = new Button("");
-    Button btnStation = new Button("Sender");
-    Button btnFavourite = new Button("Favoriten");
-    Button btnHistory = new Button("History");
-    BorderPane borderPane = new BorderPane();
-    StackPane stackPaneCont = new StackPane();
-    StationGuiPack stationGuiPack = new StationGuiPack();
-    FavouriteGuiPack favouriteGuiPack = new FavouriteGuiPack();
-    HistoryGuiPack historyGuiPack = new HistoryGuiPack();
+    private final Button btnSmallRadio = new Button("");
+    private final Button btnStation = new Button("Sender");
+    private final Button btnFavourite = new Button("Favoriten");
+    private final Button btnHistory = new Button("History");
+    private final BorderPane borderPane = new BorderPane();
+    private final StackPane stackPaneCont = new StackPane();
+    private final StationGuiPack stationGuiPack = new StationGuiPack();
+    private final FavouriteGuiPack favouriteGuiPack = new FavouriteGuiPack();
+    private final HistoryGuiPack historyGuiPack = new HistoryGuiPack();
     private StatusBarController statusBarController;
     private Pane paneStation;
     private Pane paneFavourite;
@@ -123,7 +123,7 @@ public class P2RadioController extends StackPane {
 
     private void initButton() {
         btnSmallRadio.setTooltip(new Tooltip("Kleine Senderübersicht anzeigen"));
-        btnSmallRadio.setOnAction(e -> selPanelSmallRadio());
+        btnSmallRadio.setOnAction(e -> P2RadioFactory.selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
         btnSmallRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnSmallRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_RADIO_24.getImageView());
@@ -165,18 +165,6 @@ public class P2RadioController extends StackPane {
                 }
             }
         });
-    }
-
-    public void selPanelSmallRadio() {
-        if (progData.maskerPane.isVisible()) {
-            return;
-        }
-
-        ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
-        ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
-        ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
-
-        ProgConfig.SYSTEM_SMALL_RADIO.set(true);
     }
 
     private void selPanelStation() {

@@ -99,7 +99,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         return super.getMaskerPane();
     }
 
-    public void saveTable() {
+    private void saveTable() {
         smallRadioGuiCenter.saveTable();
     }
 

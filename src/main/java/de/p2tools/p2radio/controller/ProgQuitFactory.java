@@ -28,9 +28,9 @@ import javafx.application.Platform;
 
 import java.nio.file.Path;
 
-public class ProgQuit {
+public class ProgQuitFactory {
 
-    private ProgQuit() {
+    private ProgQuitFactory() {
     }
 
     /**

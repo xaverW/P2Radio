@@ -19,18 +19,18 @@ package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutKey;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.ProgQuit;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
-public class PShortKeyFactory {
+public class PShortCutFactory {
 
-    private PShortKeyFactory() {
+    private PShortCutFactory() {
     }
 
-    public static void addShortKey(Scene scene) {
+    public static void addShortCut(Scene scene) {
         P2ShortcutKey pShortcut;
         KeyCombination kc;
         Runnable rn;
@@ -56,7 +56,7 @@ public class PShortKeyFactory {
         // Quit
         pShortcut = PShortCut.SHORTCUT_QUIT_PROGRAM;
         kc = KeyCodeCombination.keyCombination(pShortcut.getActShortcut());
-        rn = ProgQuit::quit;
+        rn = ProgQuitFactory::quit;
         scene.getAccelerators().put(kc, rn);
 
         // Stop Station

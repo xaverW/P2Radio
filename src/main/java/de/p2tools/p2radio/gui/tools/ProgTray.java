@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.tools;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.controller.ProgQuit;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -147,7 +147,7 @@ public class ProgTray {
 
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(ProgData.getInstance()).showDialog()));
         miQuit.addActionListener(e -> Platform.runLater(() -> {
-            ProgQuit.quit();
+            ProgQuitFactory.quit();
         }));
 
         PopupMenu popupMenu = new PopupMenu();

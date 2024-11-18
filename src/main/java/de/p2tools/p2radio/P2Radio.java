@@ -18,10 +18,10 @@ package de.p2tools.p2radio;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2radio.controller.ProgQuit;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
-import de.p2tools.p2radio.controller.config.PShortKeyFactory;
+import de.p2tools.p2radio.controller.config.PShortCutFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -49,8 +49,8 @@ public class P2Radio extends Application {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
 
         progData = ProgData.getInstance();
-        progData.primaryStageBig = primaryStage;
         progData.primaryStage = primaryStage;
+        progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
         initRootLayout();
@@ -73,11 +73,11 @@ public class P2Radio extends Application {
             progData.primaryStageBig.setScene(sceneBig);
             progData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
-                ProgQuit.quit();
+                ProgQuitFactory.quit();
             });
 
             P2LibInit.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
-            PShortKeyFactory.addShortKey(progData.primaryStageBig.getScene());
+            PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
 
             //Pos setzen
             sceneBig.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
@@ -103,7 +103,7 @@ public class P2Radio extends Application {
             progData.primaryStageSmall = ProgData.getInstance().smallRadioGuiController.getStage();
             progData.primaryStage = progData.primaryStageSmall;
             P2LibInit.setActStage(progData.primaryStageSmall);
-            PShortKeyFactory.addShortKey(progData.primaryStageSmall.getScene());
+            PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
 
             ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
             ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);

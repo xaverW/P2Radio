@@ -49,9 +49,22 @@ public class P2RadioFactory {
         if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && ProgData.getInstance().smallRadioGuiController != null) {
             ProgData.getInstance().smallRadioGuiController.close();
         } else {
-            ProgData.getInstance().p2RadioController.selPanelSmallRadio();
+            selPanelSmallRadio();
         }
     }
+
+    public static void selPanelSmallRadio() {
+        if (ProgData.getInstance().maskerPane.isVisible()) {
+            return;
+        }
+
+        ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
+
+        ProgConfig.SYSTEM_SMALL_RADIO.set(true);
+    }
+
 
     public static void centerGui() {
         ProgData.getInstance().primaryStage.centerOnScreen();

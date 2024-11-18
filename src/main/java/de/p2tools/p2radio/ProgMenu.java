@@ -18,7 +18,7 @@ package de.p2tools.p2radio;/*
 import de.p2tools.p2lib.guitools.P2Open;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
-import de.p2tools.p2radio.controller.ProgQuit;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.PShortCut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -54,7 +54,7 @@ public class ProgMenu extends MenuButton {
         miDarkMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
 
         final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuit.quit());
+        miQuit.setOnAction(e -> ProgQuitFactory.quit());
         P2ShortcutWorker.addShortCut(miQuit, PShortCut.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("Über dieses Programm");
