@@ -24,7 +24,7 @@ import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.gui.smallradio.SmallRadioFactory;
+import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.*;
 
@@ -188,7 +188,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SMALL_RADIO_SELECTED_FAVOURITE_GENRE = addStrProp("small-radio-selected-favourite-genre");
     public static StringProperty SMALL_RADIO_SELECTED_HISTORY_GENRE = addStrProp("small-radio-selected-history-genre");
     public static StringProperty SMALL_RADIO_SELECTED_COLLECTION_NAME = addStrProp("small-radio-selected-collection-name", CollectionList.COLLECTION_ALL);
-    public static StringProperty SMALL_RADIO_SELECTED_LIST = addStrProp("small-radio-selected-list", SmallRadioFactory.LIST_STATION);
+    public static StringProperty SMALL_RADIO_SELECTED_LIST = addStrProp("small-radio-selected-list", FilterFactory.LIST_STATION);
 
     // Gui Favorite
     public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStrProp("favourite-dialog-edit-size", "800:800");

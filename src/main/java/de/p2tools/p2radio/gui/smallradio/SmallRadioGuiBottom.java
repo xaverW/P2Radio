@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
+import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -59,11 +60,11 @@ public class SmallRadioGuiBottom extends HBox {
         rbSender.setToggleGroup(tg);
         rbFavourite.setToggleGroup(tg);
         rbHistory.setToggleGroup(tg);
-        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_STATION)) {
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
             rbSender.setSelected(true);
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_FAVOURITE)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
             rbFavourite.setSelected(true);
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_HISTORY)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
             rbHistory.setSelected(true);
         }
         rbSender.setOnAction(a -> {
@@ -153,11 +154,11 @@ public class SmallRadioGuiBottom extends HBox {
 
     private void setList() {
         if (rbSender.isSelected()) {
-            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(SmallRadioFactory.LIST_STATION);
+            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(FilterFactory.LIST_STATION);
         } else if (rbFavourite.isSelected()) {
-            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(SmallRadioFactory.LIST_FAVOURITE);
+            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(FilterFactory.LIST_FAVOURITE);
         } else {
-            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(SmallRadioFactory.LIST_HISTORY);
+            ProgConfig.SMALL_RADIO_SELECTED_LIST.setValue(FilterFactory.LIST_HISTORY);
         }
     }
 

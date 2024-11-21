@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.gui.dialog;
+package de.p2tools.p2radio.gui.smallradio;
 
 
 import de.p2tools.p2lib.P2LibConst;
@@ -57,12 +57,12 @@ public class SmallGuiHelpDialogController extends P2DialogExtra {
         hBox.getChildren().addAll(iv);
 
         Label text = new Label("1) Mit einem Klick auf den" + P2LibConst.LINE_SEPARATOR +
-                "oberen Rand, kann das Fenster" + P2LibConst.LINE_SEPARATOR +
+                "Rand, kann das Fenster" + P2LibConst.LINE_SEPARATOR +
                 "verschoben werden." +
                 P2LibConst.LINE_SEPARATORx2 +
 
-                "2) Ein Klick auf den" + P2LibConst.LINE_SEPARATOR +
-                "restlichen Rand, passt die" + P2LibConst.LINE_SEPARATOR +
+                "2) Ein Klick auf die" + P2LibConst.LINE_SEPARATOR +
+                "Ecken, passt die" + P2LibConst.LINE_SEPARATOR +
                 "Fenstergröße an.");
         hBox.getChildren().add(text);
         getVBoxCont().getChildren().addAll(hBox);

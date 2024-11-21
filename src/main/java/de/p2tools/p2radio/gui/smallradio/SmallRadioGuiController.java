@@ -18,13 +18,13 @@ package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.gui.dialog.SmallGuiHelpDialogController;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -58,7 +58,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
     @Override
     public void make() {
-        SmallRadioFactory.addBorderListener(getStage());
+        P2SmallGuiFactory.addBorderListener(getStage());
         getStage().initStyle(StageStyle.TRANSPARENT);
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
 

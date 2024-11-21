@@ -22,7 +22,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.gui.smallradio.SmallRadioFactory;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.function.Predicate;
@@ -30,17 +29,21 @@ import java.util.function.Predicate;
 
 public class FilterFactory {
 
+    public static final String LIST_STATION = "s";
+    public static final String LIST_FAVOURITE = "f";
+    public static final String LIST_HISTORY = "h";
+
     private FilterFactory() {
     }
 
     public static void setFilter(FilteredList<StationData> filteredList) {
-        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_STATION)) {
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
             filteredList.setPredicate(getStationPredicateSmallGui());
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_FAVOURITE)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
             filteredList.setPredicate(getFavoritePredicateSmallGui());
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(SmallRadioFactory.LIST_HISTORY)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
             filteredList.setPredicate(getHistoryPredicateSmallGui());
         }
     }
