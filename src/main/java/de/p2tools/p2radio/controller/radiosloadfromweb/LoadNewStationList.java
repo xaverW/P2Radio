@@ -138,10 +138,6 @@ public class LoadNewStationList {
         fillHash(logList, progData.stationList);
         PMaskerFactory.setMaskerButtonVisible(progData, true);
 
-        //todo
-//        if (progData.smallRadioGuiController != null) {
-//            progData.smallRadioGuiController.getMaskerPane().setButtonVisible(true);
-//        }
         progData.stationList.clear();
         progData.stationListBlackFiltered.clear();
         setStop(false);

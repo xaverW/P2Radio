@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio.controller;
 
-import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -24,9 +23,6 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.data.AutoStartFactory;
-import de.p2tools.p2radio.controller.data.start.StartFactory;
-import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
@@ -52,7 +48,6 @@ public class ProgStartAfterGui {
         progData.initProgData();
         checkProgUpdate(progData);
         loadStationProgStart();
-        loadAutoStart();
     }
 
     private static void startMsg() {
@@ -144,6 +139,8 @@ public class ProgStartAfterGui {
                 logList.add(P2Log.LILNE3);
                 progData.loadNewStationList.loadNewStationFromServer();
 
+                progData.autoStartAfterNewList = true; // dann erst nach dem Neuladen der Liste starten
+
             } else {
                 progData.pEventHandler.notifyListener(
                         new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
@@ -157,44 +154,14 @@ public class ProgStartAfterGui {
                 progData.pEventHandler.notifyListener(
                         new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
                                 "", "", 0, false));
+
+                P2RadioFactory.loadAutoStart();
             }
         }
 
         logList.add(P2Log.LILNE1);
         logList.add("");
         P2Log.sysLog(logList);
-    }
-
-    private static void loadAutoStart() {
-        final ProgData progData = ProgData.getInstance();
-
-        switch (ProgConfig.SYSTEM_AUTO_START.get()) {
-            case AutoStartFactory.AUTOSTART_LAST_PLAYED:
-                if (progData.stationLastPlayed.isAuto()) {
-                    StationData stationData = progData.stationList.getStationByUrl(progData.stationLastPlayed.getStationUrl());
-                    if (stationData != null) {
-                        StartFactory.playPlayable(stationData);
-                    } else {
-                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
-                                "in der Senderliste");
-                    }
-                }
-                break;
-            case AutoStartFactory.AUTOSTART_AUTO:
-                if (progData.stationAutoStart.isAuto()) {
-                    StationData stationData = progData.stationList.getStationByUrl(progData.stationAutoStart.getStationUrl());
-                    if (stationData != null) {
-                        StartFactory.playPlayable(stationData);
-                    } else {
-                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
-                                "in der Senderliste");
-                    }
-                }
-                break;
-            default:
-        }
-
-        P2RadioFactory.setLastHistoryUrl();
     }
 
     /**

@@ -17,9 +17,12 @@
 
 package de.p2tools.p2radio;
 
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
+import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.scene.control.TableView;
 
@@ -94,5 +97,37 @@ public class P2RadioFactory {
             int sel = tableView.getSelectionModel().getSelectedIndex();
             tableView.scrollTo(sel);
         }
+    }
+
+    public static void loadAutoStart() {
+        final ProgData progData = ProgData.getInstance();
+
+        switch (ProgConfig.SYSTEM_AUTO_START.get()) {
+            case AutoStartFactory.AUTOSTART_LAST_PLAYED:
+                if (progData.stationLastPlayed.isAuto()) {
+                    StationData stationData = progData.stationList.getStationByUrl(progData.stationLastPlayed.getStationUrl());
+                    if (stationData != null) {
+                        StartFactory.playPlayable(stationData);
+                    } else {
+                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
+                                "in der Senderliste");
+                    }
+                }
+                break;
+            case AutoStartFactory.AUTOSTART_AUTO:
+                if (progData.stationAutoStart.isAuto()) {
+                    StationData stationData = progData.stationList.getStationByUrl(progData.stationAutoStart.getStationUrl());
+                    if (stationData != null) {
+                        StartFactory.playPlayable(stationData);
+                    } else {
+                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
+                                "in der Senderliste");
+                    }
+                }
+                break;
+            default:
+        }
+
+        setLastHistoryUrl();
     }
 }

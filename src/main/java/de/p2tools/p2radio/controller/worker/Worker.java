@@ -18,6 +18,7 @@ package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
@@ -51,6 +52,10 @@ public class Worker {
 
                     if (runEventRadio.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
                         PMaskerFactory.setMaskerVisible(progData, false);
+                        if (progData.autoStartAfterNewList) {
+                            progData.autoStartAfterNewList = false;
+                            P2RadioFactory.loadAutoStart();
+                        }
                     }
                 }
             }
