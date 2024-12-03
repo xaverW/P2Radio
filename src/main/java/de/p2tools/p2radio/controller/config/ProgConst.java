@@ -71,8 +71,7 @@ public class ProgConst {
     public static final String URL_WEBSITE_VLC = "http://www.videolan.org";
 
     public static final double GUI_FILTER_DIVIDER_LOCATION = 0.3;
-    public static final double GUI_STATION_DIVIDER_LOCATION = 0.7;
-    public static final double GUI_FAVOURITE_DIVIDER_LOCATION = 0.7;
+    public static final double GUI_INFO_DIVIDER_LOCATION = 0.7;
     public static final double CONFIG_DIALOG_SET_DIVIDER = 0.2;
 
     public static final int MIN_TABLE_HEIGHT = 200;

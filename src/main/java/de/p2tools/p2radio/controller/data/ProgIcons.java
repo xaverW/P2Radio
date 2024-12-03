@@ -27,6 +27,7 @@ public class ProgIcons {
     public static P2Image ICON_BUTTON_EDIT_FILTER = new P2Image(ICON_PATH_LONG, "button-edit-filter.png", 16, 16);
     public static P2Image ICON_BUTTON_BACKWARD = new P2Image(ICON_PATH_LONG, "button-backward.png", 16, 16);
     public static P2Image ICON_BUTTON_CLEAN = new P2Image(ICON_PATH_LONG, "clean_16.png", 16, 16);
+    public static P2Image ICON_BUTTON_CLEAR_FILTER = new P2Image(ICON_PATH_LONG, "button-clear-filter.png", 25, 20);
     public static P2Image ICON_BUTTON_FORWARD = new P2Image(ICON_PATH_LONG, "button-forward.png", 16, 16);
     public static P2Image ICON_BUTTON_MENU = new P2Image(ICON_PATH_LONG, "button-menu.png", 18, 15);
     public static P2Image ICON_BUTTON_QUIT = new P2Image(ICON_PATH_LONG, "button-quit.png", 16, 16);

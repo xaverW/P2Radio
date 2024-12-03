@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
-import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.P2SystemUtils;
@@ -35,6 +34,7 @@ import java.util.Optional;
 
 public class SmallRadioGuiController extends P2DialogOnly {
 
+    final SmallRadioGuiTop smallRadioGuiTop;
     final SmallRadioGuiCenter smallRadioGuiCenter;
     final SmallRadioGuiBottom smallRadioGuiBottom;
     private final ProgData progData;
@@ -45,6 +45,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
         progData = ProgData.getInstance();
 
+        smallRadioGuiTop = new SmallRadioGuiTop(this);
         smallRadioGuiCenter = new SmallRadioGuiCenter(this);
         smallRadioGuiBottom = new SmallRadioGuiBottom(this);
 
@@ -62,7 +63,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         getStage().initStyle(StageStyle.TRANSPARENT);
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
 
-        getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiCenter, smallRadioGuiBottom);
+        getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiTop, smallRadioGuiCenter, smallRadioGuiBottom);
         VBox.setVgrow(smallRadioGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
 
@@ -80,8 +81,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
     @Override
     public void close() {
         saveTable();
-        P2GuiSize.getSizeStage(ProgConfig.SMALL_RADIO_SIZE, getStage());
-
         progData.smallRadioGuiController = null;
         ProgConfig.SYSTEM_SMALL_RADIO.set(false);
         super.close();
@@ -99,7 +98,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         return super.getMaskerPane();
     }
 
-    private void saveTable() {
+    public void saveTable() {
         smallRadioGuiCenter.saveTable();
     }
 

@@ -65,6 +65,10 @@ public class ProgStartBeforeGui {
             InitStoredFilter.initFilter();
         }
 
+        ProgData.gui = ProgConfig.SYSTEM_SIZE_GUI.getValue();
+        ProgData.small = ProgConfig.SMALL_RADIO_SIZE.getValue();
+        ProgData.dialog = ProgConfig.STATION__FILTER_DIALOG_SIZE.getValueSafe();
+
         ProgData.getInstance().blackDataList.sortIncCounter(false);
     }
 

@@ -18,6 +18,7 @@ package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigWriteFile;
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -37,12 +38,48 @@ public class ProgQuitFactory {
      * Quit the application
      */
     public static void quit() {
-        //dann jetzt beenden
+        //dann jetzt beenden, aus Button
         StartFactory.stopRunningPlayProcess();
         writeTableWindowSettings();
 
+        if (ProgData.getInstance().primaryStageBig.isShowing()) {
+            P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStageBig);
+        }
+
+        if (ProgData.getInstance().primaryStageSmall != null && ProgData.getInstance().primaryStageSmall.isShowing()) {
+            P2GuiSize.getSize(ProgConfig.SMALL_RADIO_SIZE, ProgData.getInstance().primaryStageSmall);
+        }
+
         saveProgConfig();
         P2LogMessage.endMsg();
+
+        // ============
+        if (ProgConfig.SYSTEM_SIZE_GUI.getValue().equals(ProgData.gui)) {
+            P2Log.sysLog("GUI ist gleich");
+            P2Log.sysLog("GUI: " + ProgConfig.SYSTEM_SIZE_GUI.getValue());
+        } else {
+            P2Log.sysLog("GUI: " + ProgData.gui);
+            P2Log.sysLog("GUI: " + ProgConfig.SYSTEM_SIZE_GUI.getValue());
+        }
+
+        P2Log.sysLog("");
+        if (ProgConfig.SMALL_RADIO_SIZE.getValue().equals(ProgData.small)) {
+            P2Log.sysLog("SMALL ist gleich");
+            P2Log.sysLog("SMALL: " + ProgConfig.SMALL_RADIO_SIZE.getValue());
+        } else {
+            P2Log.sysLog("SMALL: " + ProgData.small);
+            P2Log.sysLog("SMALL: " + ProgConfig.SMALL_RADIO_SIZE.getValue());
+        }
+
+        P2Log.sysLog("");
+        if (ProgConfig.STATION__FILTER_DIALOG_SIZE.getValue().equals(ProgData.dialog)) {
+            P2Log.sysLog("DIALOG ist gleich");
+            P2Log.sysLog("DIALOG: " + ProgConfig.STATION__FILTER_DIALOG_SIZE.getValue());
+        } else {
+            P2Log.sysLog("DIALOG: " + ProgData.dialog);
+            P2Log.sysLog("DIALOG: " + ProgConfig.STATION__FILTER_DIALOG_SIZE.getValue());
+        }
+        // ============
 
         // und dann Programm beenden
         Platform.runLater(() -> {
@@ -54,6 +91,9 @@ public class ProgQuitFactory {
 
     private static void writeTableWindowSettings() {
         // Tabelleneinstellungen merken
+        if (ProgData.getInstance().smallRadioGuiController != null) {
+            ProgData.getInstance().smallRadioGuiController.saveTable();
+        }
         if (ProgData.getInstance().stationGuiPack != null) {
             ProgData.getInstance().stationGuiPack.getStationGuiController().saveTable();
         }

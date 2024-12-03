@@ -18,17 +18,14 @@ package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -40,13 +37,10 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -54,13 +48,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
-public class SmallRadioGuiCenter extends HBox {
+public class SmallRadioGuiCenter extends VBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final Button btnPrev = new Button();
-    private final Button btnNext = new Button();
-    private final Button btnClose = new Button();
-    private final Button btnRadio = new Button();
     private final TableStation tableViewStation;
     private final TableStation tableViewFavourite;
     private final TableStation tableViewHistory;
@@ -85,49 +75,15 @@ public class SmallRadioGuiCenter extends HBox {
 
     private void make() {
         setSpacing(P2LibConst.DIST_BUTTON);
-        setPadding(new Insets(10, 10, 0, 10));
+        setPadding(new Insets(0, 10, 0, 10));
         setAlignment(Pos.CENTER);
+
+        this.getChildren().addAll(scrollPane);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
-
-        VBox vBoxLeft = new VBox();
-        vBoxLeft.setAlignment(Pos.CENTER);
-        VBox vBoxRight = new VBox();
-        vBoxRight.setAlignment(Pos.CENTER);
-        vBoxLeft.getChildren().addAll(btnRadio, P2GuiTools.getVBoxGrower(), btnPrev, P2GuiTools.getVBoxGrower());
-        vBoxRight.getChildren().addAll(btnClose, P2GuiTools.getVBoxGrower(), btnNext, P2GuiTools.getVBoxGrower());
-        getChildren().addAll(vBoxLeft, scrollPane, vBoxRight);
-        HBox.setHgrow(scrollPane, Priority.ALWAYS);
-
-        btnClose.setTooltip(new Tooltip("Programm beenden"));
-        btnClose.setOnAction(e -> {
-            ProgQuitFactory.quit();
-        });
-        btnClose.setMaxWidth(Double.MAX_VALUE);
-        btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClose.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
-
-        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> smallRadioGuiController.close());
-        btnRadio.setMaxWidth(Double.MAX_VALUE);
-        btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
-
-        btnPrev.setTooltip(new Tooltip("vorherigen Sender auswählen"));
-        btnPrev.getStyleClass().add("btnSmallGui");
-        btnPrev.setGraphic(ProgIcons.ICON_BUTTON_PREV.getImageView());
-        btnPrev.setOnAction(event -> {
-            setPreviousStation();
-        });
-
-        btnNext.setTooltip(new Tooltip("nächsten Sender auswählen"));
-        btnNext.getStyleClass().add("btnSmallGui");
-        btnNext.setGraphic(ProgIcons.ICON_BUTTON_NEXT.getImageView());
-        btnNext.setOnAction(event -> {
-            setNextStation();
-        });
     }
 
     public P2MaskerPane getMaskerPane() {

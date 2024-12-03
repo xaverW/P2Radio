@@ -64,6 +64,10 @@ public class ProgData {
     public static boolean firstProgramStart = false; // ist der allererste Programmstart: Init wird gemacht
     public static boolean startMinimized = false; // Minimiert starten
 
+    public static String gui = "";
+    public static String small = "";
+    public static String dialog = "";
+
     // Infos
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
     private static ProgData instance;

@@ -49,8 +49,8 @@ public class P2Radio extends Application {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
 
         progData = ProgData.getInstance();
-        progData.primaryStage = primaryStage;
         progData.primaryStageBig = primaryStage;
+        progData.primaryStage = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
         initRootLayout();
@@ -67,31 +67,25 @@ public class P2Radio extends Application {
             // bigGui
             progData.p2RadioController = new P2RadioController();
             Scene sceneBig = new Scene(progData.p2RadioController,
-                    P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
-                    P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-
+                    P2GuiSize.getStageSize(ProgConfig.SYSTEM_SIZE_GUI, true),
+                    P2GuiSize.getStageSize(ProgConfig.SYSTEM_SIZE_GUI, false));
             progData.primaryStageBig.setScene(sceneBig);
+
             progData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
                 ProgQuitFactory.quit();
             });
 
-            P2LibInit.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
-            PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
-
-            //Pos setzen
-            sceneBig.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
-            sceneBig.widthProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
-            progData.primaryStageBig.xProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
-            progData.primaryStageBig.yProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
-            P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
-
+            progData.primaryStageBig.setOnShowing(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
+            progData.primaryStageBig.setOnShown(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
             ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> ProgColorList.setColorTheme());
             ProgConfig.SYSTEM_SMALL_RADIO.addListener((u, o, n) -> selectGui());
 
+            PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
+            P2LibInit.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
+
             selectGui();
             progData.primaryStage.setIconified(ProgData.startMinimized);
-
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -99,8 +93,8 @@ public class P2Radio extends Application {
 
     private void selectGui() {
         if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
-            ProgData.getInstance().smallRadioGuiController = new SmallRadioGuiController();
-            progData.primaryStageSmall = ProgData.getInstance().smallRadioGuiController.getStage();
+            progData.smallRadioGuiController = new SmallRadioGuiController();
+            progData.primaryStageSmall = progData.smallRadioGuiController.getStage();
             progData.primaryStage = progData.primaryStageSmall;
             P2LibInit.setActStage(progData.primaryStageSmall);
             PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
@@ -109,13 +103,16 @@ public class P2Radio extends Application {
             ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
             ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
 
+            if (ProgData.getInstance().primaryStageBig.isShowing()) {
+                // nur wenn zu sehen, nicht beim Start in small!!
+                P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
+            }
             progData.primaryStageBig.close();
             progData.primaryStageSmall.show();
 
         } else {
             progData.primaryStage = progData.primaryStageBig;
             P2LibInit.setActStage(progData.primaryStageBig);
-            P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
             progData.p2RadioController.initPanel();
             progData.primaryStageBig.show();
         }
