@@ -124,7 +124,7 @@ public class ProgTray {
 
     private void addMenu(TrayIcon trayicon) {
         java.awt.MenuItem miMaxMin = new java.awt.MenuItem("Programm maximieren/minimieren");
-        java.awt.MenuItem miStop = new java.awt.MenuItem("alle laufenden Sender stoppen");
+        java.awt.MenuItem miStop = new java.awt.MenuItem("Laufenden Sender stoppen");
         java.awt.MenuItem miInfo = new java.awt.MenuItem("Sender-Info-Dialog öffnen");
         java.awt.MenuItem miConfig = new java.awt.MenuItem("Einstellungen öffnen");
         java.awt.MenuItem miTray = new java.awt.MenuItem("Tray-Icon ausblenden");

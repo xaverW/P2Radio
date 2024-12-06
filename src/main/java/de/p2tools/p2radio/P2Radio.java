@@ -49,8 +49,8 @@ public class P2Radio extends Application {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
 
         progData = ProgData.getInstance();
-        progData.primaryStageBig = primaryStage;
         progData.primaryStage = primaryStage;
+        progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
         initRootLayout();
@@ -67,8 +67,8 @@ public class P2Radio extends Application {
             // bigGui
             progData.p2RadioController = new P2RadioController();
             Scene sceneBig = new Scene(progData.p2RadioController,
-                    P2GuiSize.getStageSize(ProgConfig.SYSTEM_SIZE_GUI, true),
-                    P2GuiSize.getStageSize(ProgConfig.SYSTEM_SIZE_GUI, false));
+                    P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, true),
+                    P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, false));
             progData.primaryStageBig.setScene(sceneBig);
 
             progData.primaryStageBig.setOnCloseRequest(e -> {

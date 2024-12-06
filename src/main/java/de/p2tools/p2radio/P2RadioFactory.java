@@ -18,6 +18,7 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2radio.controller.config.ProgConfig;
@@ -112,6 +113,7 @@ public class P2RadioFactory {
 
     public static void minimizeGui() {
         ProgData.getInstance().primaryStage.setIconified(true);
+        P2DialogExtra.getDialogList().forEach(p2Dialog -> p2Dialog.getStage().setIconified(true));
     }
 
     public static void setLastHistoryUrl() {
