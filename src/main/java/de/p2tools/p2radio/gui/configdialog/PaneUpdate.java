@@ -92,7 +92,7 @@ public class PaneUpdate {
                         "Das Programm wird aber nicht ungefragt ersetzt.");
 
         //jetzt suchen
-        btnNow.setOnAction(event -> new SearchProgramUpdate(progData, stage).searchNewProgramVersion(true));
+        btnNow.setOnAction(event -> new SearchProgramUpdate(progData).searchNewProgramVersion(stage, true, false));
         checkBeta();
         tglSearch.selectedProperty().addListener((ob, ol, ne) -> checkBeta());
         tglSearchBeta.selectedProperty().addListener((ob, ol, ne) -> checkBeta());

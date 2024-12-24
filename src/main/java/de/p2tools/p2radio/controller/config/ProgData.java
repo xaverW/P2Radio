@@ -63,6 +63,7 @@ public class ProgData {
     public static boolean reset = false; // Programm auf Starteinstellungen zurücksetzen
     public static boolean firstProgramStart = false; // ist der allererste Programmstart: Init wird gemacht
     public static boolean startMinimized = false; // Minimiert starten
+    public static boolean showUpdate = false; // immer ein ProgrammUpdate anzeigen
 
     public static String gui = "";
     public static String small = "";

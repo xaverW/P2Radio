@@ -75,7 +75,7 @@ public class ProgMenu extends MenuButton {
         miReset.setOnAction(event -> new ResetDialogController(progData));
 
         final MenuItem miSearchUpdate = new MenuItem("Gibt’s ein Update?");
-        miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData, progData.primaryStage).searchNewProgramVersion(true));
+        miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData).searchNewProgramVersion(true));
 
         final Menu mHelp = new Menu("Hilfe");
         mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
@@ -86,5 +86,23 @@ public class ProgMenu extends MenuButton {
         getItems().addAll(miConfig, new SeparatorMenuItem(),
                 miLoadStationList, miDarkMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
+
+        if (ProgData.debug) {
+            final MenuItem miSearchAllUpdate = new MenuItem("Alle Programm-Downloads anzeigen");
+            miSearchAllUpdate.setOnAction(a -> new SearchProgramUpdate(progData)
+                    .searchNewProgramVersion(true, true));
+
+            final MenuItem miResetTodayDone = new MenuItem("Datum \"heute schon gemacht\" zurücksetzen");
+            miResetTodayDone.setOnAction(a -> {
+                ProgConfig.SYSTEM_SEARCH_UPDATE_TODAY_DONE.set("2020.01.01"); // heute noch nicht gemacht
+            });
+            final MenuItem miResetLastSearch = new MenuItem("Datum \"letzte Suche\" zurücksetzen");
+            miResetLastSearch.setOnAction(a -> {
+                ProgConfig.SYSTEM_SEARCH_UPDATE_LAST_DATE.set("2020.01.01"); // letztes Datum, bis zu dem geprüft wurde, wenn leer wird das buildDate genommen
+            });
+
+            mHelp.getItems().addAll(new SeparatorMenuItem(), miSearchAllUpdate,
+                    miResetTodayDone, miResetLastSearch);
+        }
     }
 }

@@ -17,9 +17,8 @@
 package de.p2tools.p2radio.tools.update;
 
 import de.p2tools.p2lib.checkforactinfos.FoundAll;
-import de.p2tools.p2lib.checkforactinfos.FoundSearchData;
+import de.p2tools.p2lib.checkforactinfos.FoundSearchDataDTO;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
-import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -33,54 +32,47 @@ public class SearchProgramUpdate {
     private static final String TITLE_TEXT_PROGRAM_VERSION_IS_UPTODATE = "Programmversion ist aktuell";
     private static final String TITLE_TEXT_PROGRAMMUPDATE_EXISTS = "Ein Programmupdate ist verfügbar";
     private final ProgData progData;
-    private final Stage stage;
     private String title = "";
 
     public SearchProgramUpdate(ProgData progData) {
         this.progData = progData;
-        this.stage = progData.primaryStage;
     }
 
-    public SearchProgramUpdate(ProgData progData, Stage stage) {
-        this.progData = progData;
-        this.stage = stage;
+    public void searchNewProgramVersion(final boolean showAlways) {
+        searchNewProgramVersion(progData.primaryStage, showAlways, false);
     }
 
-    /**
-     * @return
-     */
-    public void searchNewProgramVersion(boolean showAllways) {
+    public void searchNewProgramVersion(final boolean showAlways, boolean showAllDownloads) {
+        searchNewProgramVersion(progData.primaryStage, showAlways, showAllDownloads);
+    }
+
+    public void searchNewProgramVersion(Stage owner, final boolean showAlways, boolean showAllDownloads) {
         final String SEARCH_URL;
         final String SEARCH_URL_DOWNLOAD;
         SEARCH_URL = "https://www.p2tools.de";
         SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
 
-        final P2Date pd = new P2Date(P2ToolsFactory.getCompileDate());
-        String buildDate = pd.get_yyyy_MM_dd();
-
-        FoundSearchData foundSearchData = new FoundSearchData(
-                stage,
+        FoundSearchDataDTO foundSearchData = new FoundSearchDataDTO(
+                owner,
                 SEARCH_URL,
                 SEARCH_URL_DOWNLOAD,
 
-                ProgConfig.SYSTEM_UPDATE_SEARCH_ACT,
+                ProgConfig.SYSTEM_SEARCH_UPDATE_LAST_DATE,
+                ProgConfig.SYSTEM_SEARCH_UPDATE,
                 ProgConfig.SYSTEM_UPDATE_SEARCH_BETA,
                 ProgConfig.SYSTEM_UPDATE_SEARCH_DAILY,
-
-                ProgConfig.SYSTEM_UPDATE_LAST_INFO,
-                ProgConfig.SYSTEM_UPDATE_LAST_ACT,
-                ProgConfig.SYSTEM_UPDATE_LAST_BETA,
-                ProgConfig.SYSTEM_UPDATE_LAST_DAILY,
 
                 ProgConst.URL_WEBSITE,
                 ProgConst.URL_WEBSITE_DOWNLOAD,
                 ProgConst.PROGRAM_NAME,
+
                 P2ToolsFactory.getProgVersion(),
-                P2ToolsFactory.getBuild(),
-                buildDate,
+                P2ToolsFactory.getBuildNo(),
+                P2ToolsFactory.getBuildDateR(),
+
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
-                showAllways
-        );
+                showAlways,
+                (ProgData.showUpdate || showAllDownloads));
 
         new Thread(() -> {
             FoundAll.foundAll(foundSearchData);

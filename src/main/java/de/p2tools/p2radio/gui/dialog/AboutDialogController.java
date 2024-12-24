@@ -35,6 +35,6 @@ public class AboutDialogController extends AboutDialog {
 
     @Override
     public void runCheckButton() {
-        new SearchProgramUpdate(ProgData.getInstance(), this.getStage()).searchNewProgramVersion(true);
+        new SearchProgramUpdate(ProgData.getInstance()).searchNewProgramVersion(getStage(), true, false);
     }
 }

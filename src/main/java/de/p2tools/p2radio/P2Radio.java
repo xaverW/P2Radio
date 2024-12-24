@@ -16,6 +16,7 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
@@ -85,7 +86,10 @@ public class P2Radio extends Application {
             P2LibInit.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
 
             selectGui();
-            progData.primaryStage.setIconified(ProgData.startMinimized);
+            if (ProgData.startMinimized) {
+                progData.primaryStage.setIconified(true);
+                P2DialogExtra.getDialogList().forEach(d -> d.getStage().setIconified(true));
+            }
         } catch (final Exception e) {
             e.printStackTrace();
         }
