@@ -72,7 +72,8 @@ public class SearchProgramUpdate {
 
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAlways,
-                (ProgData.showUpdate || showAllDownloads));
+                showAllDownloads
+        );
 
         new Thread(() -> {
             FoundAll.foundAll(foundSearchData);
