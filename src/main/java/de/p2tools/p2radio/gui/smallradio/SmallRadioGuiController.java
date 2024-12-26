@@ -19,7 +19,6 @@ package de.p2tools.p2radio.gui.smallradio;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.ProgIcons;
@@ -109,13 +108,13 @@ public class SmallRadioGuiController extends P2DialogOnly {
         smallRadioGuiCenter.saveTable();
     }
 
-    public void copyUrl() {
-        final Optional<StationData> favourite = getSel();
-        if (!favourite.isPresent()) {
-            return;
-        }
-        P2SystemUtils.copyToClipboard(favourite.get().getStationUrl());
-    }
+//    public void copyUrl() {
+//        final Optional<StationData> favourite = getSel();
+//        if (favourite.isEmpty()) {
+//            return;
+//        }
+//        P2SystemUtils.copyToClipboard(favourite.get().getStationUrl());
+//    }
 
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
