@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
@@ -148,8 +149,9 @@ public class P2RadioFactory {
                     if (stationData != null) {
                         StartFactory.playPlayable(stationData);
                     } else {
-                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
-                                "in der Senderliste");
+                        P2Alert.showErrorAlert(P2LibConst.actStage,
+                                "Autostart",
+                                "Der Sender für den Autostart ist nicht mehr in der Senderliste");
                     }
                 }
                 break;
@@ -159,8 +161,9 @@ public class P2RadioFactory {
                     if (stationData != null) {
                         StartFactory.playPlayable(stationData);
                     } else {
-                        P2Alert.showErrorAlert("Autostart", "Der Sender für den Autostart ist nicht mehr " +
-                                "in der Senderliste");
+                        P2Alert.showErrorAlert(P2LibConst.actStage,
+                                "Autostart",
+                                "Der Sender für den Autostart ist nicht mehr in der Senderliste");
                     }
                 }
                 break;

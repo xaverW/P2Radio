@@ -22,8 +22,10 @@ import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -50,6 +52,11 @@ public class SmallRadioGuiController extends P2DialogOnly {
         smallRadioGuiBottom = new SmallRadioGuiBottom(this);
 
         init(false);
+
+        Button btnStop = getMaskerPane().getButton();
+        getMaskerPane().setButtonText("");
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
 
         if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
             new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);

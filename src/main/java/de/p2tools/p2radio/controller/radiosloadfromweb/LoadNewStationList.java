@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.controller.radiosloadfromweb;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.events.P2Event;
@@ -159,10 +160,12 @@ public class LoadNewStationList {
             logList.add("");
             logList.add("Senderliste laden war fehlerhaft, alte Liste wird wieder geladen");
             final boolean stopped = isStop();
-            Platform.runLater(() -> P2Alert.showErrorAlert("Senderliste laden",
-                    stopped ? "Das Laden einer neuen Senderliste wurde abgebrochen!" :
-                            "Das Laden einer neuen Senderliste hat nicht geklappt!")
-            );
+
+            Platform.runLater(() ->
+                    P2Alert.showErrorAlert(P2LibConst.actStage,
+                            "Senderliste laden",
+                            stopped ? "Das Laden einer neuen Senderliste wurde abgebrochen!" :
+                                    "Das Laden einer neuen Senderliste hat nicht geklappt!"));
 
             // dann die alte Liste wieder laden
             progData.stationList.clear();
