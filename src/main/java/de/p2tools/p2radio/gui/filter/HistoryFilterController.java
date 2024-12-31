@@ -42,7 +42,6 @@ public class HistoryFilterController extends VBox {
     private final HistoryGuiPack historyGuiPack;
 
     public HistoryFilterController(HistoryGuiPack historyGuiPack) {
-//        super(ProgConfig.HISTORY_GUI_FILTER_DIVIDER_ON);
         this.historyGuiPack = historyGuiPack;
         this.progData = ProgData.getInstance();
         this.historyFilter = progData.historyFilter;

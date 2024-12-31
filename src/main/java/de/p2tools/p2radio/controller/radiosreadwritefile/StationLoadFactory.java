@@ -125,7 +125,6 @@ public class StationLoadFactory {
                 stationList.importStationOnlyWithNr(stationData);
             }
         }
-        return;
     }
 
     private static void getMeta(StationList stationList, JsonParser jp) throws IOException {

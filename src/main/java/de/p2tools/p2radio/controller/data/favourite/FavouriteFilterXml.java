@@ -34,5 +34,4 @@ public class FavouriteFilterXml extends P2DataSample<FavouriteFilter> {
             "Grade",
             "Genre"
     };
-    public static int MAX_ELEM = COLUMN_NAMES.length;
 }

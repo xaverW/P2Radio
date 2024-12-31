@@ -18,7 +18,6 @@ package de.p2tools.p2radio.controller.data.history;
 
 
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
-import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 
 public class HistoryFilterXml extends P2DataSample<HistoryFilter> {
@@ -31,6 +30,4 @@ public class HistoryFilterXml extends P2DataSample<HistoryFilter> {
             "Genre",
             "Grade"
     };
-
-    public static int MAX_ELEM = COLUMN_NAMES.length;
 }

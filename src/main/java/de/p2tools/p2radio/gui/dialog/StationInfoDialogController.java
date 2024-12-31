@@ -94,7 +94,6 @@ public class StationInfoDialogController extends P2DialogExtra {
         getHboxLeft().getChildren().addAll(btnPrev, btnNext, new HBox(), btnStart, btnStop);
         addOkButton(btnOk);
         btnOk.setOnAction(a -> close());
-//        btnOk.getStyleClass().add("btnSmallRadio");
 
         btnPrev.setTooltip(new Tooltip("Vorherigen Sender in der Tabelle anzeigen"));
         btnPrev.setGraphic(ProgIcons.ICON_BUTTON_PREV.getImageView());
@@ -117,7 +116,6 @@ public class StationInfoDialogController extends P2DialogExtra {
                 }
             }
         });
-//        btnPrev.getStyleClass().add("btnSmallRadio");
 
         btnNext.setTooltip(new Tooltip("Nächsten Sender in der Tabelle anzeigen"));
         btnNext.setGraphic(ProgIcons.ICON_BUTTON_NEXT.getImageView());
@@ -140,7 +138,6 @@ public class StationInfoDialogController extends P2DialogExtra {
                 }
             }
         });
-//        btnNext.getStyleClass().add("btnSmallRadio");
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
         btnStart.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());

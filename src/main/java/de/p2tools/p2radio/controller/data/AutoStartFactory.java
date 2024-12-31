@@ -43,10 +43,6 @@ public class AutoStartFactory {
         }
     }
 
-    public static void setAutoStart(boolean set) {
-        setAutoStart(null, set);
-    }
-
     public static void setAutoStart(StationData station) {
         setAutoStart(station, true);
     }
@@ -60,23 +56,6 @@ public class AutoStartFactory {
 
         } else {
             ProgData.getInstance().stationAutoStart.switchOffAuto();
-            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
-        }
-    }
-
-    public static void setLastPlayed(boolean set) {
-        setLastPlayed(null, set);
-    }
-
-    public static void setLastPlayed(StationData station, boolean set) {
-        if (set) {
-            if (station != null) {
-                ProgData.getInstance().stationLastPlayed.copyToMe(station);
-            }
-            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LAST_PLAYED);
-
-        } else {
-            ProgData.getInstance().stationLastPlayed.switchOffAuto();
             ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
         }
     }

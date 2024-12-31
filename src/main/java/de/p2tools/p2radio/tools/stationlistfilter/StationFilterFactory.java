@@ -124,7 +124,5 @@ public class StationFilterFactory {
         }
         // wenn einer passt, dann ists gut
         return im.toLowerCase().contains(filter);
-
-        // nix wars
     }
 }

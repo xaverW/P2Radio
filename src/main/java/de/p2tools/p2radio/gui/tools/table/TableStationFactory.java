@@ -217,8 +217,6 @@ public class TableStationFactory {
 
                 StationData stationData = getTableView().getItems().get(getIndex());
                 final boolean playing = stationData.getStart() != null && !stationData.getStart().getStartStatus().isStateError();
-//                final boolean playing = StartFactory.startPlaying != null &&
-//                        StartFactory.startPlaying.getStationUrl().equals(stationData.getStationUrl());
 
                 if (playing) {
                     //stoppen

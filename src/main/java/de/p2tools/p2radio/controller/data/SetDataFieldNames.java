@@ -28,17 +28,6 @@ public class SetDataFieldNames {
     public static final String PROGRAMSET_PROGRAM_SWITCH = "progSwitch";
     public static final String PROGRAMSET_DESCRIPTION = "description";
 
-    public static final int PROGRAMSET_ID_INT = 0;
-    public static final int PROGRAMSET_NAME_INT = 1;
-    public static final int PROGRAMSET_PROGRAM_PATH_INT = 2;
-    public static final int PROGRAMSET_PROGRAM_SWITCH_INT = 3;
-    public static final int PROGRAMSET_DESCRIPTION_INT = 4;
-
-    public static final int MAX_ELEM = 5;
-    public static final String[] COLUMN_NAMES = {PROGRAMSET_ID, PROGRAMSET_NAME,
-            PROGRAMSET_PROGRAM_PATH, PROGRAMSET_PROGRAM_SWITCH,
-            PROGRAMSET_DESCRIPTION};
-
     private SetDataFieldNames() {
     }
 }

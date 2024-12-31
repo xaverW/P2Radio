@@ -169,11 +169,6 @@ public class StationGuiController extends VBox {
     }
 
     private void initListener() {
-//        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
-//            public void pingGui(P2Event event) {
-//                P2TableFactory.refreshTable(tableView);
-//            }
-//        });
         progData.favouriteList.addListener((observable, oldValue, newValue) -> P2TableFactory.refreshTable(tableView));
         progData.stationListBlackFiltered.getSortedList().addListener((ListChangeListener<StationData>) c -> {
             selectStation();

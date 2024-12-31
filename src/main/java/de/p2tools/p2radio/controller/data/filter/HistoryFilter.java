@@ -45,8 +45,6 @@ public class HistoryFilter extends HistoryFilterXml {
         }
         // wenn einer passt, dann ists gut
         return im.toLowerCase().contains(filter);
-
-        // nix wars
     }
 
     @Override

@@ -67,7 +67,6 @@ public class StationFilterControllerClearFilter extends VBox {
 
         HBox hBox = new HBox(P2LibConst.DIST_BUTTON);
         hBox.setAlignment(Pos.CENTER_RIGHT);
-//        hBox.setPadding(new Insets(5, 0, 0, 0));
         hBox.getChildren().addAll(btnEditFilter, P2GuiTools.getHBoxGrower(), btnGoBack, btnGoForward, btnClearFilter);
         getChildren().addAll(hBox);
     }

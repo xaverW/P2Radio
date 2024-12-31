@@ -21,7 +21,6 @@ public class ProgConst {
     public static final String PROGRAM_NAME = "P2Radio";
     public static final String USER_AGENT_DEFAULT = PROGRAM_NAME;
     public static final int MAX_USER_AGENT_SIZE = 100;
-    public static final int SYSTEM_UPDATE_SATE = 0;
     public static final int LOAD_STATION_LIST_EVERY_DAYS = 7;
     public static final int START_COUNTER_MIN_TIME = 60; //nach 1 Minute gilt der Sender als gespielt
     public static final int MAX_HISTORY_LIST_SIZE = ProgData.debug ? 5 : 50;
@@ -35,12 +34,9 @@ public class ProgConst {
 
 
     // http://at1.api.radio-browser.info/json/stations
-    // public static final String STATION_LIST_URL = "http://at1.api.radio-browser.info/json/stations";
     public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
 
-    public static final String CONFIG_FILE_COPY = "p2radio.xml_copy_";
     public static final String CONFIG_DIRECTORY = "p2Radio"; // im Homeverzeichnis
-    public static final String XML_START = "P2Radio";
 
     // public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/P2_24.png";
     public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/p2r_logo_32.png";
@@ -52,20 +48,10 @@ public class ProgConst {
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
 
-    // prüfen ob es eine neue Senderliste gibt: alle ... Min. oder ... nach dem Programmstart
-    public static final int CHECK_STATION_LIST_UPDATE = 30 * 60; // 30 Minuten
-    public static final int CHECK_STATIIONLIST_UPDATE_PROGRAMSTART = CHECK_STATION_LIST_UPDATE - 5 * 60; // 5 Minuten, Startwert beim Programmstart
-
-
     // Website
     public static final String URL_WEBSITE = "https://www.p2tools.de/";
     public static final String URL_WEBSITE_DOWNLOAD = "https://www.p2tools.de/p2radio/download.html";
     public static final String URL_WEBSITE_HELP = "https://www.p2tools.de/p2radio/manual/";
-    public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate.html";
-
-    // die URL der Sets, nicht mehr mit jeder Programmversion hochzählen, nur noch wenn notwendig
-    public static final String URL_WEB_CONFIG_DIRECTORY = "https://www.p2tools.de/extra/p2radio/v-1/";
-    public static final String URL_WEB_PROGRAM_SETS = URL_WEB_CONFIG_DIRECTORY + "pset-templates.xml";
 
     // ProgrammUrls
     public static final String URL_WEBSITE_VLC = "http://www.videolan.org";

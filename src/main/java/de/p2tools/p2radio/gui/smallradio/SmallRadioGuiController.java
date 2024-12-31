@@ -108,14 +108,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
         smallRadioGuiCenter.saveTable();
     }
 
-//    public void copyUrl() {
-//        final Optional<StationData> favourite = getSel();
-//        if (favourite.isEmpty()) {
-//            return;
-//        }
-//        P2SystemUtils.copyToClipboard(favourite.get().getStationUrl());
-//    }
-
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();

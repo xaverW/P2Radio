@@ -117,16 +117,6 @@ public class PaneAutoStart {
                     ProgData.getInstance().stationAutoStart.getStationUrl());
         }
 
-//        final Button btnClearLast = new Button("");
-//        btnClearLast.setTooltip(new Tooltip("Löschen"));
-//        btnClearLast.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
-//        btnClearLast.setOnAction((ActionEvent event) -> {
-//            lblLastPlayed.setText("");
-//            rbNothing.setSelected(true);
-//            AutoStartFactory.setLastPlayed(false);
-//        });
-//        btnClearLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
-
         final Button btnPlayLast = new Button("");
         btnPlayLast.setTooltip(new Tooltip("Sender abspielen"));
         btnPlayLast.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
@@ -143,16 +133,6 @@ public class PaneAutoStart {
             StartFactory.stopRunningStation();
         });
         btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
-
-//        final Button btnClearAuto = new Button("");
-//        btnClearAuto.setTooltip(new Tooltip("Löschen"));
-//        btnClearAuto.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
-//        btnClearAuto.setOnAction((ActionEvent event) -> {
-//            lblAuto.setText("");
-//            rbNothing.setSelected(true);
-//            AutoStartFactory.setAutoStart(false);
-//        });
-//        btnClearAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 
         final Button btnPlayAuto = new Button("");
         btnPlayAuto.setTooltip(new Tooltip("Sender abspielen"));

@@ -18,9 +18,6 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import javafx.geometry.Insets;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -49,20 +46,5 @@ public class FilterController extends VBox {
         vBox.setSpacing(FILTER_SPACING_TEXTFILTER);
         getChildren().addAll(vBox);
         return vBox;
-    }
-
-    public void addCont(String txt, Control control, VBox vBox) {
-        control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        VBox v = new VBox(2);
-        Label label = new Label(txt);
-        v.getChildren().addAll(label, control);
-        vBox.getChildren().add(v);
-    }
-
-    public void addCont(HBox txt, Control control, VBox vBox) {
-        control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        VBox v = new VBox(2);
-        v.getChildren().addAll(txt, control);
-        vBox.getChildren().add(v);
     }
 }

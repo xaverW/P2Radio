@@ -37,7 +37,7 @@ public class CollectionDataProps extends P2DataSample<CollectionData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new Config_stringProp("name", ConfigDataFieldNames.NAME, name));
+        list.add(new Config_stringProp("name", name));
         return list.toArray(new Config[]{});
     }
 

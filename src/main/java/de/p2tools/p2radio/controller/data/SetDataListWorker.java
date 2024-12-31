@@ -24,7 +24,6 @@ import javafx.collections.FXCollections;
 
 import java.util.Collection;
 
-@SuppressWarnings("serial")
 public class SetDataListWorker extends SimpleListProperty<SetData> implements P2DataList<SetData> {
     // Liste aller Programmsets
     public static final String PATTERN_PATH_VLC = "PFAD_VLC";

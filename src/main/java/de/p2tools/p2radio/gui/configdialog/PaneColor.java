@@ -167,7 +167,6 @@ public class PaneColor {
             final Button button = new Button("Reset");
             button.setOnAction(a -> {
                 p2ColorData.resetColor();
-                // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
                 ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
             });
 
@@ -208,7 +207,6 @@ public class PaneColor {
         Button button = new Button("Alle _Farben zurücksetzen");
         button.setOnAction(event -> {
             ProgColorList.resetAllColor();
-            // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
             ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
         });
         HBox hBox = new HBox();

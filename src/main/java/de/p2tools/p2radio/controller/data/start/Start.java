@@ -125,40 +125,4 @@ public final class Start extends StartProps {
     public void setProcess(Process process) {
         this.process = process;
     }
-
-//    public Start getCopy() {
-//        final Start ret = new Start();
-//        ret.stationData = stationData;
-//        ret.setData = setData;
-//        ret.startStatus = startStatus;
-//
-//        ret.startCounter = startCounter;
-//        ret.restartCounter = restartCounter;
-//        ret.process = process;
-//        ret.startTime = startTime;
-//
-//        Config[] configs = getConfigsArr();
-//        Config[] configsCopy = ret.getConfigsArr();
-//        for (int i = 0; i < configs.length; ++i) {
-//            configsCopy[i].setActValue(configs[i].getActValueString());
-//        }
-//        return ret;
-//    }
-
-//    public void copyToMe(Start start) {
-//        stationData = start.stationData;
-//        setData = start.setData;
-//        startStatus = start.startStatus;
-//
-//        startCounter = start.startCounter;
-//        restartCounter = start.restartCounter;
-//        process = start.process;
-//        startTime = start.startTime;
-//
-//        Config[] configs = start.getConfigsArr();
-//        Config[] configsCopy = getConfigsArr();
-//        for (int i = 0; i < configs.length; ++i) {
-//            configsCopy[i].setActValue(configs[i].getActValueString());
-//        }
-//    }
 }

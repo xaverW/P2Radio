@@ -233,17 +233,4 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
 
         P2Duration.counterStop("Filter-Listen suchen");
     }
-
-    public synchronized int countStartedAndRunningFavourites() {
-        //es wird nach gestarteten und laufenden Stationen gesucht
-        int ret = 0;
-        for (final StationData station : this) {
-            if (station.getStart() != null &&
-                    (station.getStart().getStartStatus().isStarted() || station.getStart().getStartStatus().isStateStartedRun())) {
-                ++ret;
-            }
-        }
-        return ret;
-    }
-
 }

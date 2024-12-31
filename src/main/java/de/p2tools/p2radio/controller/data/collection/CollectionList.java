@@ -22,7 +22,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-@SuppressWarnings("serial")
 public class CollectionList extends SimpleListProperty<CollectionData> implements P2DataList<CollectionData> {
 
     public static final String COLLECTION_ALL = " ";

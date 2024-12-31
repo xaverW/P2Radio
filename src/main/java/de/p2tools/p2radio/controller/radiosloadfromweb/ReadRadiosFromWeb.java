@@ -45,9 +45,7 @@ public class ReadRadiosFromWeb {
     private double progress = 0;
     private int countAll = 0;
 
-    /*
-    Hier wird die Liste tatsächlich geladen (von URL)
-     */
+    // Hier wird die Liste tatsächlich geladen (von URL)
     public boolean readList(final StationList stationList) {
         boolean ret = false;
         try {
@@ -161,7 +159,6 @@ public class ReadRadiosFromWeb {
                 //}
 
                 ++countAll;
-//                station.init(); // damit wird auch das Datum! gesetzt
                 stationList.importStationOnlyWithNr(station);
             }
         }
