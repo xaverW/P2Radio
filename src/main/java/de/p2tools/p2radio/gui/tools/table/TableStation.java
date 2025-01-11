@@ -185,7 +185,7 @@ public class TableStation extends TableView<StationData> {
         final TableColumn<StationData, String> websiteColumn = new TableColumn<>(StationDataXml.STATION_PROP_WEBSITE);
         websiteColumn.setCellValueFactory(new PropertyValueFactory<>("website"));
         websiteColumn.getStyleClass().add("alignCenterLeft");
-        TableStationFactory.columnFactoryString(this.table_enum, websiteColumn);
+        TableStationFactory.columnFactoryHyperLink(this.table_enum, websiteColumn);
 
         final TableColumn<StationData, String> stationUrlColumn = new TableColumn<>(StationDataXml.STATION_PROP_URL);
         stationUrlColumn.setCellValueFactory(new PropertyValueFactory<>("stationUrl"));
@@ -195,8 +195,11 @@ public class TableStation extends TableView<StationData> {
         stationNoColumn.setPrefWidth(70);
         stationNameColumn.setPrefWidth(150);
         genreColumn.setPrefWidth(100);
-        languageColumn.setPrefWidth(100);
         stateColumn.setPrefWidth(100);
+        countryColumn.setPrefWidth(100);
+        languageColumn.setPrefWidth(100);
+        websiteColumn.setPrefWidth(200);
+        stationUrlColumn.setPrefWidth(200);
 
         setRowFactory(tv -> new TableRowStation<>(table_enum));
 
@@ -234,7 +237,7 @@ public class TableStation extends TableView<StationData> {
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
                     /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
-                    stationDateColumn, stationDateLastStartColumn, websiteColumn, stationUrlColumn*/);
+                    stationDateColumn, stationDateLastStartColumn,*/, websiteColumn /*stationUrlColumn*/);
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE)) {
             getColumns().addAll(
@@ -243,7 +246,7 @@ public class TableStation extends TableView<StationData> {
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
                     /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
-                    stationDateColumns, tationDateLastStartColumn, websiteColumn, stationUrlColumn*/);
+                    stationDateColumns, tationDateLastStartColumn,*/, websiteColumn /*stationUrlColumn*/);
 
         } else if (this.table_enum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY)) {
             getColumns().addAll(
@@ -252,7 +255,7 @@ public class TableStation extends TableView<StationData> {
                     /*clickCountColumn, clickTrendColumn, votesColumn,*/
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
                     /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
-                    stationDateColumn, stationDateLastStartColumn, websiteColumn, stationUrlColumn*/);
+                    stationDateColumn, stationDateLastStartColumn,*/, websiteColumn /*stationUrlColumn*/);
         }
     }
 }

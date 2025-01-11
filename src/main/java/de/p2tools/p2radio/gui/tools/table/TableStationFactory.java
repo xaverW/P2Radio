@@ -1,6 +1,7 @@
 package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
@@ -23,6 +24,30 @@ import java.time.LocalDateTime;
 public class TableStationFactory {
     private TableStationFactory() {
 
+    }
+
+    public static void columnFactoryHyperLink(Table.TABLE_ENUM tableEnum, TableColumn<StationData, String> column) {
+        column.setCellFactory(c -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setGraphic(null);
+                    setText(null);
+                    return;
+                }
+
+                StationData data = getTableView().getItems().get(getIndex());
+                HBox hBox = new HBox(3);
+                hBox.setAlignment(Pos.CENTER);
+                P2Hyperlink hyperlinkWebsite = new P2Hyperlink(data.getWebsite(), ProgConfig.SYSTEM_PROG_OPEN_URL);
+                hBox.getChildren().add(hyperlinkWebsite);
+                setGraphic(hBox);
+
+                set(tableEnum, data, this);
+            }
+        });
     }
 
     public static void columnFactoryString(Table.TABLE_ENUM tableEnum, TableColumn<StationData, String> column) {
