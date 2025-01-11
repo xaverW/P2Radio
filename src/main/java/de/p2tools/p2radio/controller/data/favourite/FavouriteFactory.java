@@ -20,6 +20,7 @@ package de.p2tools.p2radio.controller.data.favourite;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
@@ -121,6 +122,7 @@ public class FavouriteFactory {
             ProgData.getInstance().stationList.add(stationData);
             ProgData.getInstance().favouriteList.add(stationData);
             ProgData.getInstance().collectionList.updateNames(); // könnte ja geändert sein
+            ProgQuitFactory.saveProgConfig();
         }
     }
 
@@ -155,6 +157,7 @@ public class FavouriteFactory {
                 "Soll der Favorite gelöscht werden?").equals(P2Alert.BUTTON.YES)) {
             stationData.setFavourite(false);
             ProgData.getInstance().favouriteList.remove(stationData);
+            ProgQuitFactory.saveProgConfig();
         }
     }
 
@@ -175,6 +178,7 @@ public class FavouriteFactory {
                     .equals(P2Alert.BUTTON.YES)) {
                 list.forEach(s -> s.setFavourite(false));
                 ProgData.getInstance().favouriteList.removeAll(list);
+                ProgQuitFactory.saveProgConfig();
             }
 
         } else {

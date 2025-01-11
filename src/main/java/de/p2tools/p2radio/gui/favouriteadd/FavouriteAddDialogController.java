@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui.favouriteadd;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -111,6 +112,7 @@ public class FavouriteAddDialogController extends P2DialogExtra {
             changeFavourite();
         }
 
+        ProgQuitFactory.saveProgConfig();
         close();
     }
 

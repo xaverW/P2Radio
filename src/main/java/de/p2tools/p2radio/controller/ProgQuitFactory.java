@@ -105,7 +105,7 @@ public class ProgQuitFactory {
         }
     }
 
-    private static void saveProgConfig() {
+    public static void saveProgConfig() {
         //sind die Programmeinstellungen
         P2Log.sysLog("Alle Programmeinstellungen sichern");
         final Path xmlFilePath = ProgInfos.getSettingsFile();
