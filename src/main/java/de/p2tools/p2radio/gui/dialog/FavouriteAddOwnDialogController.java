@@ -20,6 +20,7 @@ import de.p2tools.p2lib.data.P2ColorData;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
@@ -84,7 +85,12 @@ public class FavouriteAddOwnDialogController extends P2DialogExtra {
     private void initButton() {
         btnOk.disableProperty().bind(stationData.stationUrlProperty().isEmpty().or(stationData.stationNameProperty().isEmpty()));
         btnOk.setOnAction(event -> {
-            saveAct();
+            stationData.setCollectionName(cboCollection.getValue());
+            progData.stationList.add(stationData);
+            progData.favouriteList.add(stationData);
+            progData.collectionList.updateNames(); // könnte ja geändert sein
+            ProgQuitFactory.saveProgConfig();
+
             ok = true;
             close();
         });
@@ -92,10 +98,6 @@ public class FavouriteAddOwnDialogController extends P2DialogExtra {
             ok = false;
             close();
         });
-    }
-
-    private void saveAct() {
-        stationData.setCollectionName(cboCollection.getValue());
     }
 
     private void initGridPane() {

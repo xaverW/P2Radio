@@ -115,15 +115,13 @@ public class FavouriteFactory {
         stationData.setOwn(true);
         stationData.setStationDateLastChange(P2LDateFactory.toString(LocalDate.now()));
 
-        FavouriteAddOwnDialogController favouriteEditDialogController =
-                new FavouriteAddOwnDialogController(ProgData.getInstance(), stationData);
-
-        if (favouriteEditDialogController.isOk()) {
-            ProgData.getInstance().stationList.add(stationData);
-            ProgData.getInstance().favouriteList.add(stationData);
-            ProgData.getInstance().collectionList.updateNames(); // könnte ja geändert sein
-            ProgQuitFactory.saveProgConfig();
-        }
+        new FavouriteAddOwnDialogController(ProgData.getInstance(), stationData);
+//        if (favouriteEditDialogController.isOk()) {
+//            ProgData.getInstance().stationList.add(stationData);
+//            ProgData.getInstance().favouriteList.add(stationData);
+//            ProgData.getInstance().collectionList.updateNames(); // könnte ja geändert sein
+//            ProgQuitFactory.saveProgConfig();
+//        }
     }
 
     public static void changeFavourite(StationData stationData) {
