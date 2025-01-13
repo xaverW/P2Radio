@@ -118,17 +118,16 @@ public class StatusBarController extends AnchorPane {
         switch (statusbarIndex) {
             case STATION:
                 stationPane.toFront();
-                setText();
                 break;
             case FAVOURITE:
                 favouritePane.toFront();
-                setText();
                 break;
             case NONE:
             default:
                 nonePane.toFront();
                 break;
         }
+        setText();
     }
 
     private void setText() {

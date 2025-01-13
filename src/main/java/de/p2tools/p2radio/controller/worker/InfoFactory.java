@@ -65,7 +65,7 @@ public class InfoFactory {
             } else {
                 textLinks += progData.favouriteInfos.getAmount() + " Favoriten";
             }
-            textLinks += getRunningInfos();
+//            textLinks += getRunningInfos();
         }
 
         return textLinks;
@@ -89,29 +89,29 @@ public class InfoFactory {
             textLinks += ")";
         }
 
-        if (progData.favouriteInfos.getAmount() > 0) {
-            // nur wenn ein Favorite läuft, wartet, ..
-            textLinks += getRunningInfos();
-        }
+//        if (progData.favouriteInfos.getAmount() > 0) {
+//            // nur wenn ein Favorite läuft, wartet, ..
+//            textLinks += getRunningInfos();
+//        }
 
         return textLinks;
     }
 
-    private static synchronized String getRunningInfos() {
-        String textLinks = " || ";
-        int running = 0;
-        running = progData.favouriteInfos.getStarted();
-        running += progData.stationInfos.getStarted();
-        if (running == 0) {
-            textLinks = "";
-
-        } else if (running == 1) {
-            textLinks += "1 Sender läuft";
-
-        } else {
-            textLinks += running + " Sender laufen";
-        }
-
-        return textLinks;
-    }
+//    private static synchronized String getRunningInfos() {
+//        String textLinks = " || ";
+//        int running = 0;
+//        running = progData.favouriteInfos.getStarted();
+//        running += progData.stationInfos.getStarted();
+//        if (running == 0) {
+//            textLinks = "";
+//
+//        } else if (running == 1) {
+//            textLinks += "1 Sender läuft";
+//
+//        } else {
+//            textLinks += running + " Sender laufen";
+//        }
+//
+//        return textLinks;
+//    }
 }
