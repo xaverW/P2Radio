@@ -1,4 +1,4 @@
-package de.p2tools.p2radio.controller.starter;
+package de.p2tools.p2radio.controller.data.start;
 
 /*
  * P2tools Copyright (C) 2021 W. Xaver W.Xaver[at]googlemail.com
@@ -17,6 +17,7 @@ package de.p2tools.p2radio.controller.starter;
  */
 
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2radio.controller.config.ProgData;
 
 /**
  * das sind die Meldungen die externe Programme liefern (z.B.: VLC)
@@ -33,23 +34,17 @@ public class PlayerMessage {
 
     private static String getNr(int nr) {
         final int MAX_STELLEN = 5;
-        final String FUELL_ZEICHEN = "0";
-        String str = String.valueOf(nr);
+        final String FILL_SIGN = "0";
+        StringBuilder str = new StringBuilder(String.valueOf(nr));
         while (str.length() < MAX_STELLEN) {
-            str = FUELL_ZEICHEN + str;
+            str.insert(0, FILL_SIGN);
         }
-        return str;
+        return str.toString();
     }
 
     public synchronized void playerMessage(String text) {
-        playerMessage(new String[]{text});
-    }
-
-    private void playerMessage(String[] texte) {
-        final String noStr = getNr(lineNo);
-
-        for (int i = 0; i < texte.length; ++i) {
-            final String z = "[" + noStr + "] >> " + texte[0];
+        if (ProgData.debug) {
+            final String z = "[" + getNr(lineNo) + "] >> " + text;
             P2Log.extToolLog(z);
         }
     }

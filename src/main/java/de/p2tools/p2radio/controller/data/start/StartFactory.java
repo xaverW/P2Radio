@@ -36,6 +36,7 @@ public class StartFactory {
                 startPlaying.getProcess() != null) {
             startPlaying.getProcess().destroy();
         }
+        PlayingTitle.stopNowPlaying();
         startPlaying = null;
     }
 
@@ -43,6 +44,7 @@ public class StartFactory {
         if (startPlaying != null) {
             startPlaying.stopStart();
         }
+        PlayingTitle.stopNowPlaying();
         startPlaying = null;
     }
 

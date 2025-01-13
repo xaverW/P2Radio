@@ -188,6 +188,7 @@ public class StartPlayingStation extends Thread {
 
     private void finalizePlaying(Start start) {
         //Aufräumen
+        PlayingTitle.stopNowPlaying();
         finishedMsg(start);
 
         if (start.getStartStatus().isStateError()) {

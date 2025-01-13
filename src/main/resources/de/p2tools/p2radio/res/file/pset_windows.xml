@@ -4,14 +4,14 @@
     <programSet>
         <name>Abspielen</name>
         <progPath>PFAD_VLC</progPath>
-        <progSwitch>%f --play-and-exit :http-user-agent="Mozilla/5.0"</progSwitch>
+        <progSwitch>%f -vvv</progSwitch>
         <description>Standardset zum Abspielen der Sender</description>
     </programSet>
 
     <programSet>
         <name>Abspielen dummy</name>
         <progPath>PFAD_VLC</progPath>
-        <progSwitch>%f --play-and-exit :http-user-agent="Mozilla/5.0" -I dummy</progSwitch>
+        <progSwitch>%f -vvv -I dummy</progSwitch>
         <description>Set zum Abspielen der Sender, VLC ohne grafische Oberfläche</description>
     </programSet>
 

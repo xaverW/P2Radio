@@ -16,12 +16,14 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
+import de.p2tools.p2radio.controller.data.start.PlayingTitle;
 import de.p2tools.p2radio.controller.worker.InfoFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,6 +35,8 @@ public class StatusBarController extends AnchorPane {
     private final StackPane stackPane = new StackPane();
     //Sender
     private final Label lblLeftStation = new Label();
+    private final Label lblNowPlayingStation = new Label();
+    private final Label lblNowPlayingFavourite = new Label();
     private final Label lblRightStation = new Label();
     //Favoriten
     private final Label lblLeftFavourite = new Label();
@@ -41,7 +45,6 @@ public class StatusBarController extends AnchorPane {
     private final Pane stationPane;
     private final Pane favouritePane;
     private final ProgData progData;
-    private final boolean loadList = false;
     private StatusbarIndex statusbarIndex = StatusbarIndex.NONE;
     private boolean stopTimer = false;
 
@@ -54,22 +57,21 @@ public class StatusBarController extends AnchorPane {
         AnchorPane.setRightAnchor(stackPane, 0.0);
         AnchorPane.setTopAnchor(stackPane, 0.0);
         nonePane = new HBox();
-        stationPane = getHbox(lblLeftStation, lblRightStation);
-        favouritePane = getHbox(lblLeftFavourite, lblRightFavourite);
+        stationPane = getHbox(lblLeftStation, lblNowPlayingStation, lblRightStation);
+        favouritePane = getHbox(lblLeftFavourite, lblNowPlayingFavourite, lblRightFavourite);
         make();
     }
 
-    private HBox getHbox(Label lblLeft, Label lblRight) {
+    private HBox getHbox(Label lblLeft, Label lblNowPlaying, Label lblRight) {
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(2, 5, 2, 5));
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
-        lblLeft.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(lblLeft, Priority.ALWAYS);
-
-        hBox.getChildren().addAll(lblLeft, lblRight);
-        hBox.setStyle("-fx-background-color: -fx-background ;");
+        lblNowPlaying.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(lblNowPlaying, Priority.ALWAYS);
+        hBox.getChildren().addAll(lblLeft, P2GuiTools.getVDistance(20), lblNowPlaying, lblRight);
+        hBox.setStyle("-fx-background-color: -fx-background;");
         return hBox;
     }
 
@@ -116,13 +118,11 @@ public class StatusBarController extends AnchorPane {
         switch (statusbarIndex) {
             case STATION:
                 stationPane.toFront();
-                setInfoStation();
-                setRightText();
+                setText();
                 break;
             case FAVOURITE:
                 favouritePane.toFront();
-                setInfoFavourite();
-                setRightText();
+                setText();
                 break;
             case NONE:
             default:
@@ -131,15 +131,13 @@ public class StatusBarController extends AnchorPane {
         }
     }
 
-    private void setInfoStation() {
+    private void setText() {
         lblLeftStation.setText(InfoFactory.getInfosStations());
-    }
+        lblNowPlayingStation.setText(PlayingTitle.nowPlaying.isEmpty() ? "" : PlayingTitle.nowPlaying);
 
-    private void setInfoFavourite() {
         lblLeftFavourite.setText(InfoFactory.getInfosFavourites());
-    }
+        lblNowPlayingFavourite.setText(PlayingTitle.nowPlaying.isEmpty() ? "" : PlayingTitle.nowPlaying);
 
-    private void setRightText() {
         // Text rechts: alter/neuladenIn anzeigen
         String strText = "Senderliste geladen: ";
         strText += progData.stationList.getGenDate();

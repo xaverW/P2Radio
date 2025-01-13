@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.controller.starter.PlayerMessage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,7 +36,8 @@ public class StartRuntimeExec {
     private final String strProgCall;
     private String[] arrProgCallArray = null;
     private String strProgCallArray = "";
-    private PlayerMessage playerMessage = new PlayerMessage();
+    private final PlayerMessage playerMessage = new PlayerMessage();
+    private final PlayingTitle playingTitle = new PlayingTitle();
 
     public StartRuntimeExec(Start start) {
         this.start = start;
@@ -123,6 +123,7 @@ public class StartRuntimeExec {
                 String inStr;
                 while ((inStr = buff.readLine()) != null) {
                     playerMessage.playerMessage(title + ": " + inStr);
+                    playingTitle.setNowPlaying(inStr, start);
                 }
             } catch (final IOException ignored) {
             } finally {
