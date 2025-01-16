@@ -1,5 +1,6 @@
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.controller.config.Events;
@@ -30,22 +31,30 @@ public class PlayingTitle {
         nowPlaying = "";
     }
 
-    public void setNowPlaying(String nowPlaying, Start start) {
-        if (start.getSetData().getProgPath().contains("vlc")) {
-            checkVlc(nowPlaying);
-        }
+    public void setNowPlaying(String nowPlaying) {
+        P2Duration.counterStart("setNowPlaying");
+        check(nowPlaying);
+        P2Duration.counterStop("setNowPlaying");
     }
 
-    private void checkVlc(String line) {
-        // vlc
-        // [0000750694001600] http stream debug: New Icy-Title=Battlelore - We Are the Legions
-        final String search = "Icy-Title=";
-        if (line.contains(search)) {
-            String title = line.substring(line.indexOf(search) + search.length());
-            Platform.runLater(() -> {
-                PlayingTitle.nowPlaying = title;
-                count = 0;
-            });
+    private void check(String line) {
+        // --> vlc
+        // Meta-Info: icy-description: RADIO BOB - AC/DC Collection
+        // http stream debug: Icy-Name: RADIO BOB - AC/DC
+        // --> ffplay
+        // icy-name        : RADIO BOB - AC/DC Collection
+        // --> audacious
+        // audacious-title: RADIO BOB - Best of Rock Nirvana - Lithium
+
+        final String[] searchArr = {"Icy-Title=", "Icy-Name:", "icy-name        :", "p2radio:"};
+        for (String s : searchArr) {
+            if (line.contains(s)) {
+                String title = line.substring(line.indexOf(s) + s.length()).trim();
+                Platform.runLater(() -> {
+                    PlayingTitle.nowPlaying = title;
+                    count = 0;
+                });
+            }
         }
     }
 }

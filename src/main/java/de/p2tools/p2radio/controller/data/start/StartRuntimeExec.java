@@ -123,7 +123,7 @@ public class StartRuntimeExec {
                 String inStr;
                 while ((inStr = buff.readLine()) != null) {
                     playerMessage.playerMessage(title + ": " + inStr);
-                    playingTitle.setNowPlaying(inStr, start);
+                    playingTitle.setNowPlaying(inStr);
                 }
             } catch (final IOException ignored) {
             } finally {
