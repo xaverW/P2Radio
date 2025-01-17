@@ -27,21 +27,17 @@ public class HelpTextPset {
                     "ist es immer das Standardset. " +
                     "Das Standardset wird beim Start eines Senders über die Buttons zum Abspielen verwendet. " +
                     "Sind weitere Sets vorhanden, " +
-                    "können über das Menü damit Sender gestartet werden. " +
+                    "können diese über das Menü gestartet werden. " +
                     "\n" +
                     "\n" +
                     "==================================================" +
-                    "\n" +
                     "\n" +
                     "Set Einstellungen: " +
                     "\n" +
                     "\n" +
                     "\"Name\"\n" +
-                    "Hier kann ein Name für das Set angegeben werden. Er ist nur zur eigenen Info." +
-                    "\n" +
-                    "\n" +
                     "\"Beschreibung\"\n" +
-                    "Hier können Infos zum Set angegeben werden die auch nur zur eigenen Info dienen." +
+                    "Hier können Infos zum Set angegeben werden, sie dienen nur der eigenen Info." +
                     "\n" +
                     "\n" +
                     "\"Programm\"\n" +
@@ -56,20 +52,31 @@ public class HelpTextPset {
                     "\n" +
                     "==================================================" +
                     "\n" +
-                    "\n" +
                     "Beispiel für den VLC:" +
                     "\n" +
-                    "\n" +
                     "Programm (Linux):  \"/usr/bin/vlc\"\n" +
-                    "Programm (Windows):  \"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"" +
-                    "\n" +
-                    "\n" +
-                    "Schalter: \"%f --play-and-exit :http-user-agent=\"Mozilla/5.0\"" +
+                    "Programm (Windows):  \"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\"\n" +
+                    "Schalter: \"%f -vvv\"" +
                     "\n" +
                     "\n" +
                     "Hier wird %f durch die URL des Senders ersetzt. Der Programmaufruf sieht dann so aus:" +
                     "\n" +
+                    "/usr/bin/vlc SENDER-URL -vvv" +
                     "\n" +
-                    "/usr/bin/vlc SENDER-URL --play-and-exit :http-user-agent=\"Mozilla/5.0\"" +
+                    "\n" +
+                    "==================================================" +
+                    "\n" +
+                    "Viele Radiosender (aber nicht alle!) schicken Infos (Titel, Interpret) " +
+                    "in ihrem Stream mit. P2Radio kann diese Infos (Titel, Interpret) aus den " +
+                    "Programmausgaben folgender Programme auslesen: \n" +
+                    "VLC, ffplay und audacious\n" +
+                    "\n" +
+                    "VLC muss mit dem Parameter \"-vvv\" gestartet werden." +
+                    "\n" +
+                    "\n" +
+                    "Im Programm audacious muss im PlugIn \"Titelwechsel\" eine Zeile:\n" +
+                    "echo p2radio: PARAMETER >&2\n" +
+                    "z.B.: echo p2radio: %a - %T >&2\n" +
+                    "eingetragen sein. Dann erzeugt audacious eine Ausgabe die P2Radio verarbeiten kann." +
                     "\n";
 }
