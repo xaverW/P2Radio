@@ -73,7 +73,7 @@ public class HistoryGuiPack {
         infoDTO = new P2ClosePaneDto(paneHistoryInfo,
                 ProgConfig.HISTORY__INFO_PANE_IS_RIP,
                 ProgConfig.HISTORY__INFO_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
-                "Filter", "History", false,
+                "Info", "History", false,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDTO);
         infoControllerInfo = new P2ClosePaneController(list, ProgConfig.HISTORY__INFO_IS_SHOWING);

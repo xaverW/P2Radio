@@ -73,7 +73,7 @@ public class FavouriteGuiPack {
         infoDto = new P2ClosePaneDto(paneFavouriteInfo,
                 ProgConfig.FAVOURITE__INFO_PANE_IS_RIP,
                 ProgConfig.FAVOURITE__INFO_DIALOG_SIZE, ProgData.FAVOURITE_TAB_ON,
-                "Filter", "Favoriten", false,
+                "Info", "Favoriten", false,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
         infoControllerInfo = new P2ClosePaneController(list, ProgConfig.FAVOURITE__INFO_IS_SHOWING);

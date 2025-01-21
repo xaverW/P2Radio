@@ -73,7 +73,7 @@ public class StationGuiPack {
         infoDto = new P2ClosePaneDto(paneStationInfo,
                 ProgConfig.STATION__INFO_PANE_IS_RIP,
                 ProgConfig.STATION__INFO_DIALOG_SIZE, ProgData.STATION_TAB_ON,
-                "Filter", "Sender", false,
+                "Info", "Sender", false,
                 progData.maskerPane.getVisibleProperty());
         list.add(infoDto);
         infoControllerInfo = new P2ClosePaneController(list, ProgConfig.STATION__INFO_IS_SHOWING);
