@@ -129,8 +129,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SYSTEM_TRAY_ICON_PATH = addStrProp("system-tray-icon", ""); //ein eigenes Tray-Icon
     public static StringProperty SYSTEM_USERAGENT = addStrProp("system-useragent", ProgConst.USER_AGENT_DEFAULT); // Useragent für direkte Downloads
     public static StringProperty SYSTEM_PROG_OPEN_URL = addStrProp("system-prog-open-url");
-    public static BooleanProperty SYSTEM_STYLE = addBoolProp("system-style", Boolean.FALSE);
-    public static IntegerProperty SYSTEM_STYLE_SIZE = addIntProp("system-geo-home-place", 14);
     public static StringProperty SYSTEM_LOG_DIR = addStrProp("system-log-dir", "");
     public static BooleanProperty SYSTEM_LOG_ON = addBoolProp("system-log-on", Boolean.TRUE);
     public static BooleanProperty SYSTEM_LOAD_STATION_LIST_EVERY_DAYS = addBoolProp("system-load-station-list-every-days", Boolean.TRUE);
@@ -142,7 +140,10 @@ public class ProgConfig extends P2DataProgConfig {
     public static IntegerProperty SYSTEM_FONT_SIZE = addIntProp("system-font-size", 0);
     public static BooleanProperty SYSTEM_FONT_SIZE_CHANGE = addBoolProp("system-font-size-change", Boolean.FALSE); // für die Schriftgröße
     public static BooleanProperty SYSTEM_DARK_THEME = addBoolProp("system-dark-theme", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_BLACK_WHITE_ICON = addBoolProp("system-black-white-icon", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBoolProp("system-theme-changed");
+    public static BooleanProperty SYSTEM_DARK_THEME_START = addBoolProp("system-dark-theme-start", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_BLACK_WHITE_ICON_START = addBoolProp("system-black-white-icon-start", Boolean.FALSE);
 
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStrProp("system-size-gui", "1000:800");

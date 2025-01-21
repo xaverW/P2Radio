@@ -42,6 +42,97 @@ import java.util.Collection;
 public class PaneColor {
     private final Stage stage;
     private final P2ToggleSwitch tglDarkTheme = new P2ToggleSwitch("Dunkles Erscheinungsbild der Programmoberfläche");
+    private final P2ToggleSwitch tglBlackWhiteIcon = new P2ToggleSwitch("Schwarz-Weiße Icons");
+
+    public PaneColor(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void close() {
+        tglDarkTheme.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
+        tglBlackWhiteIcon.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_BLACK_WHITE_ICON);
+    }
+
+    public void make(Collection<TitledPane> result) {
+        final VBox vBox = new VBox();
+        vBox.setFillWidth(true);
+        vBox.setSpacing(10);
+        vBox.setPadding(new Insets(P2LibConst.PADDING));
+
+        final GridPane gridPane = new GridPane();
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+
+        tglDarkTheme.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
+        final Button btnHelpTheme = P2Button.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
+                HelpText.DARK_THEME);
+        tglBlackWhiteIcon.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_BLACK_WHITE_ICON);
+        final Button btnHelpIcon = P2Button.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
+                HelpText.BLACK_WHITE_ICON);
+
+        gridPane.add(tglDarkTheme, 0, 0);
+        gridPane.add(btnHelpTheme, 1, 0);
+        gridPane.add(tglBlackWhiteIcon, 0, 1);
+        gridPane.add(btnHelpIcon, 1, 1);
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
+
+        TableView<P2ColorData> tableView = new TableView<>();
+        VBox.setVgrow(tableView, Priority.ALWAYS);
+        initTableColor(tableView);
+        ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
+            ProgColorList.setColorTheme();
+            tableView.refresh();
+        });
+
+        Button button = new Button("Alle _Farben zurücksetzen");
+        button.setOnAction(event -> {
+            ProgColorList.resetAllColor();
+            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
+        });
+        HBox hBox = new HBox();
+        hBox.getChildren().add(button);
+        hBox.setPadding(new Insets(0));
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+
+        vBox.getChildren().addAll(gridPane, tableView, hBox);
+
+        TitledPane tpColor = new TitledPane("Farben", vBox);
+        result.add(tpColor);
+    }
+
+    private void initTableColor(TableView<P2ColorData> tableView) {
+        final TableColumn<P2ColorData, String> useColumn = new TableColumn<>("Verwenden");
+        useColumn.setCellFactory(cellFactoryUse);
+        useColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<P2ColorData, String> textColumn = new TableColumn<>("Beschreibung");
+        textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
+        textColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<P2ColorData, String> changeColumn = new TableColumn<>("Farbe");
+        changeColumn.setCellFactory(cellFactoryChange);
+        changeColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<P2ColorData, Color> colorColumn = new TableColumn<>("Farbe");
+        colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
+        colorColumn.setCellFactory(cellFactoryColor);
+        colorColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<P2ColorData, Color> colorOrgColumn = new TableColumn<>("Original");
+        colorOrgColumn.setCellValueFactory(new PropertyValueFactory<>("resetColor"));
+        colorOrgColumn.setCellFactory(cellFactoryResetColor);
+        colorOrgColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<P2ColorData, String> resetColumn = new TableColumn<>("Reset");
+        resetColumn.setCellFactory(cellFactoryReset);
+        resetColumn.getStyleClass().add("alignCenter");
+
+        tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
+        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        tableView.getColumns().addAll(useColumn, textColumn, changeColumn, colorColumn, colorOrgColumn, resetColumn);
+        tableView.setItems(ProgColorList.getInstance());
+    }
 
     private final Callback<TableColumn<P2ColorData, String>, TableCell<P2ColorData, String>> cellFactoryUse
             = (final TableColumn<P2ColorData, String> param) -> new TableCell<>() {
@@ -174,86 +265,4 @@ public class PaneColor {
             setGraphic(hbox);
         }
     };
-
-    public PaneColor(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void make(Collection<TitledPane> result) {
-        final VBox vBox = new VBox();
-        vBox.setFillWidth(true);
-        vBox.setSpacing(10);
-        vBox.setPadding(new Insets(P2LibConst.PADDING));
-
-        final GridPane gridPane = new GridPane();
-        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
-        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-
-        tglDarkTheme.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
-        final Button btnHelpTheme = P2Button.helpButton(stage, "Erscheinungsbild der Programmoberfläche",
-                HelpText.DARK_THEME);
-
-        gridPane.add(tglDarkTheme, 0, 0);
-        gridPane.add(btnHelpTheme, 1, 0);
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
-
-        TableView<P2ColorData> tableView = new TableView<>();
-        VBox.setVgrow(tableView, Priority.ALWAYS);
-        initTableColor(tableView);
-        tglDarkTheme.selectedProperty().addListener((u, o, n) -> {
-            tableView.refresh();
-        });
-
-        Button button = new Button("Alle _Farben zurücksetzen");
-        button.setOnAction(event -> {
-            ProgColorList.resetAllColor();
-            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
-        });
-        HBox hBox = new HBox();
-        hBox.getChildren().add(button);
-        hBox.setPadding(new Insets(0));
-        hBox.setAlignment(Pos.CENTER_RIGHT);
-
-        vBox.getChildren().addAll(gridPane, tableView, hBox);
-
-        TitledPane tpColor = new TitledPane("Farben", vBox);
-        result.add(tpColor);
-    }
-
-    public void close() {
-    }
-
-    private void initTableColor(TableView<P2ColorData> tableView) {
-        final TableColumn<P2ColorData, String> useColumn = new TableColumn<>("Verwenden");
-        useColumn.setCellFactory(cellFactoryUse);
-        useColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<P2ColorData, String> textColumn = new TableColumn<>("Beschreibung");
-        textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
-        textColumn.getStyleClass().add("alignCenterLeft");
-
-        final TableColumn<P2ColorData, String> changeColumn = new TableColumn<>("Farbe");
-        changeColumn.setCellFactory(cellFactoryChange);
-        changeColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<P2ColorData, Color> colorColumn = new TableColumn<>("Farbe");
-        colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
-        colorColumn.setCellFactory(cellFactoryColor);
-        colorColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<P2ColorData, Color> colorOrgColumn = new TableColumn<>("Original");
-        colorOrgColumn.setCellValueFactory(new PropertyValueFactory<>("resetColor"));
-        colorOrgColumn.setCellFactory(cellFactoryResetColor);
-        colorOrgColumn.getStyleClass().add("alignCenter");
-
-        final TableColumn<P2ColorData, String> resetColumn = new TableColumn<>("Reset");
-        resetColumn.setCellFactory(cellFactoryReset);
-        resetColumn.getStyleClass().add("alignCenter");
-
-        tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
-        tableView.getColumns().addAll(useColumn, textColumn, changeColumn, colorColumn, colorOrgColumn, resetColumn);
-        tableView.setItems(ProgColorList.getInstance());
-    }
 }

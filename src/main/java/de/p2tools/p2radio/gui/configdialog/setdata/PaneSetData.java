@@ -23,7 +23,7 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Styles;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;

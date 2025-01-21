@@ -21,8 +21,8 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.event.ActionEvent;
@@ -128,7 +128,7 @@ public class PaneAutoStart {
         final Button btnStopLast;
         btnStopLast = new Button("");
         btnStopLast.setTooltip(new Tooltip("Sender stoppen"));
-        btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_BOOLEAN_IS_ON.getImageView());
         btnStopLast.setOnAction((ActionEvent event) -> {
             StartFactory.stopRunningStation();
         });
@@ -145,7 +145,7 @@ public class PaneAutoStart {
         final Button btnStopAuto;
         btnStopAuto = new Button("");
         btnStopAuto.setTooltip(new Tooltip("Sender stoppen"));
-        btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_BOOLEAN_IS_ON.getImageView());
         btnStopAuto.setOnAction((ActionEvent event) -> {
             StartFactory.stopRunningStation();
         });

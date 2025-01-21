@@ -20,8 +20,8 @@ import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.PShortCut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
-import de.p2tools.p2radio.controller.data.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -61,7 +61,7 @@ public class FavouriteMenu {
         final ToolBarButton btDel = new ToolBarButton(vBox,
                 "Markierte Favoriten löschen", "Markierte Favoriten löschen", ProgIcons.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
         final ToolBarButton btChange = new ToolBarButton(vBox,
-                "Markierte Favoriten ändern", "Markierte Favoriten ändern", ProgIcons.ICON_TOOLBAR_FAVOURITE_CHANGE.getImageView());
+                "Markierte Favoriten ändern", "Markierte Favoriten ändern", ProgIcons.ICON_TOOLBAR_FAVOURITE_CONFIG.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 

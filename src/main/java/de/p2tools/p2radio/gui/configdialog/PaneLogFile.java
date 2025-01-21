@@ -25,7 +25,7 @@ import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

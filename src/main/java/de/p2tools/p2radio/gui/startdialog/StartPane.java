@@ -162,17 +162,17 @@ public class StartPane {
     }
 
     private javafx.scene.image.Image getHelpScreen1() {
-        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-1.png";
+        final String path = "/de/p2tools/p2radio/res/startdialog/p2Radio-startdialog-1.png";
         return new Image(path, 600, 600, true, true);
     }
 
     private javafx.scene.image.Image getHelpScreen2() {
-        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-2.png";
+        final String path = "/de/p2tools/p2radio/res/startdialog/p2Radio-startdialog-2.png";
         return new Image(path, 600, 600, true, true);
     }
 
     private javafx.scene.image.Image getHelpScreen3() {
-        final String path = "/de/p2tools/p2radio/res/p2Radio-startpage-3.png";
+        final String path = "/de/p2tools/p2radio/res/startdialog/p2Radio-startdialog-3.png";
         return new Image(path, 600, 600, true, true);
     }
 }

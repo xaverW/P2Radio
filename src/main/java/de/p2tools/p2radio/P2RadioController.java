@@ -19,11 +19,7 @@ package de.p2tools.p2radio;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.controller.config.Events;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.RunEventRadio;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -117,7 +113,7 @@ public class P2RadioController extends StackPane {
         progData.maskerPane.toFront();
         Button btnStop = progData.maskerPane.getButton();
         progData.maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_CLEAR.getImageView());
         btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
     }
 

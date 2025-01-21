@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import javafx.geometry.Insets;
@@ -65,7 +65,7 @@ public class SmallRadioGuiTop extends HBox {
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClose.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnClose.setGraphic(ProgIcons.ICON_BUTTON_CLEAR.getImageView());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> smallRadioGuiController.close());

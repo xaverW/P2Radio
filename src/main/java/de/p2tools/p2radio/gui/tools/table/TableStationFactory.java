@@ -6,7 +6,7 @@ import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
@@ -144,7 +144,7 @@ public class TableStationFactory {
                     for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
                         if (item.longValue() > i) {
                             Label l = new Label();
-                            l.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_GRADE.getImageView());
+                            l.setGraphic(ProgIcons.IMAGE_TABLE_GRADE.getImageView());
                             hBox.getChildren().add(l);
                         }
                     }
@@ -248,7 +248,7 @@ public class TableStationFactory {
                     final Button btnStop = new Button("");
                     btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
-                    btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STATION_STOP_PLAY.getImageView());
+                    btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STOP.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
                         StartFactory.stopRunningStation();
                         getTableView().getSelectionModel().clearSelection();
@@ -266,7 +266,7 @@ public class TableStationFactory {
                     final Button btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_STATION_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         StartFactory.playPlayable(stationData);
                         getTableView().getSelectionModel().clearSelection();
@@ -297,14 +297,14 @@ public class TableStationFactory {
 
                     } else if (tableEnum.equals(Table.TABLE_ENUM.FAVOURITE)) {
                         btn.setTooltip(new Tooltip("Favoriten löschen"));
-                        btn.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
+                        btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                         btn.setOnAction(event -> {
                             FavouriteFactory.deleteFavourite(stationData);
                         });
 
                     } else if (tableEnum.equals(Table.TABLE_ENUM.HISTORY)) {
                         btn.setTooltip(new Tooltip("Sender aus History löschen"));
-                        btn.setGraphic(ProgIcons.IMAGE_TABLE_FAVOURITE_DEL.getImageView());
+                        btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                         btn.setOnAction(event -> {
                             HistoryFactory.deleteHistory(stationData);
                         });

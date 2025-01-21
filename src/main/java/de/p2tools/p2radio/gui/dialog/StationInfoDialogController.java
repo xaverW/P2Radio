@@ -23,7 +23,7 @@ import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
@@ -156,7 +156,7 @@ public class StationInfoDialogController extends P2DialogExtra {
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_BOOLEAN_IS_ON.getImageView());
         btnStop.setOnAction(event -> StartFactory.stopRunningStation());
 
         initUrl();
@@ -182,7 +182,7 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_STATION_NEW_INT:
                         if (station.isNewStation()) {
-                            ivNew.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                            ivNew.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
                         } else {
                             ivNew.setImage(null);
                         }
@@ -218,7 +218,7 @@ public class StationInfoDialogController extends P2DialogExtra {
 
                     case StationDataXml.STATION_PROP_OWN_INT:
                         if (station.isOwn()) {
-                            ivOwn.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                            ivOwn.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
                         } else {
                             ivOwn.setImage(null);
                         }
@@ -258,28 +258,28 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DOUBLE_URL_INT:
                         if (station.isDoubleUrl()) {
-                            ivDouble.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                            ivDouble.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
                         } else {
                             ivDouble.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
                         if (station.isFavourite()) {
-                            ivFavourite.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                            ivFavourite.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
                         } else {
                             ivFavourite.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_HISTORY_INT:
                         if (station.isHistory()) {
-                            ivHistory.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                            ivHistory.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
                         } else {
                             ivHistory.setImage(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                         if (station.isBlackBlocked()) {
-                            ivBlack.setImage(ProgIcons.ICON_DIALOG_EIN_SW.getImage());
+                            ivBlack.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
                         } else {
                             ivBlack.setImage(null);
                         }

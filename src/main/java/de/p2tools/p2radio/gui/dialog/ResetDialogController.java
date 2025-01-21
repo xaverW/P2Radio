@@ -24,7 +24,7 @@ import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -108,7 +108,7 @@ public class ResetDialogController extends P2DialogExtra {
             }
         });
 
-        gridPane.add(ProgIcons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
+        gridPane.add(ProgIcons.IMAGE_ATTENTION_64.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(btnHelp, 2, 1);

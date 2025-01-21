@@ -18,8 +18,7 @@ package de.p2tools.p2radio.gui.startdialog;
 
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -34,14 +33,13 @@ import javafx.scene.layout.VBox;
 
 public class StartDialogController extends P2DialogExtra {
 
-    private final ProgData progData;
     private final TilePane tilePane = new TilePane();
     private final Button btnStart1 = new Button("Infos");
     private final Button btnStart2 = new Button("Infos");
     private final Button btnStart3 = new Button("Infos");
+    private final Button btnColor = new Button("Farbe");
     private final Button btnConfig = new Button("Einstellungen");
     private boolean ok = false;
-    private StackPane stackpane;
     private Button btnOk, btnCancel;
     private Button btnPrev, btnNext;
     private State aktState = State.START_1;
@@ -49,17 +47,18 @@ public class StartDialogController extends P2DialogExtra {
     private TitledPane tStart1;
     private TitledPane tStart2;
     private TitledPane tStart3;
+    private TitledPane tColor;
     private TitledPane tConfig;
 
     private StartPane startPane1;
     private StartPane startPane2;
     private StartPane startPane3;
+    private StartPaneColorMode startPaneColorMode;
     private ConfigPane configPane;
 
     public StartDialogController() {
         super(null, null, "Starteinstellungen", true, false);
 
-        this.progData = ProgData.getInstance();
         init(true);
     }
 
@@ -77,6 +76,7 @@ public class StartDialogController extends P2DialogExtra {
         startPane1.close();
         startPane2.close();
         startPane3.close();
+        startPaneColorMode.close();
         configPane.close();
         super.close();
     }
@@ -87,7 +87,7 @@ public class StartDialogController extends P2DialogExtra {
 
     private void initTopButton() {
         getVBoxCont().getChildren().add(tilePane);
-        tilePane.getChildren().addAll(btnStart1, btnStart2, btnStart3, btnConfig);
+        tilePane.getChildren().addAll(btnStart1, btnStart2, btnStart3, btnColor, btnConfig);
         tilePane.setAlignment(Pos.CENTER);
         tilePane.setPadding(new Insets(10, 10, 20, 10));
         tilePane.setHgap(10);
@@ -96,6 +96,7 @@ public class StartDialogController extends P2DialogExtra {
         initTopButton(btnStart1, State.START_1);
         initTopButton(btnStart2, State.START_2);
         initTopButton(btnStart3, State.START_3);
+        initTopButton(btnColor, State.COLOR);
         initTopButton(btnConfig, State.CONFIG);
     }
 
@@ -110,7 +111,7 @@ public class StartDialogController extends P2DialogExtra {
     }
 
     private void initStack() {
-        stackpane = new StackPane();
+        StackPane stackpane = new StackPane();
         VBox.setVgrow(stackpane, Priority.ALWAYS);
         getVBoxCont().getChildren().add(stackpane);
 
@@ -132,13 +133,19 @@ public class StartDialogController extends P2DialogExtra {
         tStart3.setMaxHeight(Double.MAX_VALUE);
         tStart3.setCollapsible(false);
 
+        //color
+        startPaneColorMode = new StartPaneColorMode(getStage());
+        tColor = startPaneColorMode.make();
+        tColor.setMaxHeight(Double.MAX_VALUE);
+        tColor.setCollapsible(false);
+
         //updatePane
         configPane = new ConfigPane(getStage());
         tConfig = configPane.makeStart();
         tConfig.setMaxHeight(Double.MAX_VALUE);
         tConfig.setCollapsible(false);
 
-        stackpane.getChildren().addAll(tStart1, tStart2, tStart3, tConfig);
+        stackpane.getChildren().addAll(tStart1, tStart2, tStart3, tColor, tConfig);
     }
 
     private void initButton() {
@@ -161,6 +168,9 @@ public class StartDialogController extends P2DialogExtra {
                     aktState = State.START_3;
                     break;
                 case START_3:
+                    aktState = State.COLOR;
+                    break;
+                case COLOR:
                     aktState = State.CONFIG;
                     break;
                 case CONFIG:
@@ -179,8 +189,11 @@ public class StartDialogController extends P2DialogExtra {
                 case START_3:
                     aktState = State.START_2;
                     break;
-                case CONFIG:
+                case COLOR:
                     aktState = State.START_3;
+                    break;
+                case CONFIG:
+                    aktState = State.COLOR;
                     break;
             }
             selectActPane();
@@ -214,6 +227,12 @@ public class StartDialogController extends P2DialogExtra {
                 tStart3.toFront();
                 setActButtonStyle(btnStart3);
                 break;
+            case COLOR:
+                btnPrev.setDisable(false);
+                btnNext.setDisable(false);
+                tColor.toFront();
+                setActButtonStyle(btnColor);
+                break;
             case CONFIG:
                 btnPrev.setDisable(false);
                 btnNext.setDisable(true);
@@ -230,6 +249,7 @@ public class StartDialogController extends P2DialogExtra {
         btnStart1.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
         btnStart2.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
         btnStart3.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnColor.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
         btnConfig.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
         btnSel.getStyleClass().setAll("btnFunction", "btnFuncStartDialogSel");
     }
@@ -238,6 +258,7 @@ public class StartDialogController extends P2DialogExtra {
         btnStart1.setTooltip(new Tooltip("Infos über das Programm"));
         btnStart2.setTooltip(new Tooltip("Infos über das Programm"));
         btnStart3.setTooltip(new Tooltip("Infos über das Programm"));
+        btnColor.setTooltip(new Tooltip("Wie soll die Programmoberfläche aussehen?"));
         btnConfig.setTooltip(new Tooltip("Einstellungen des Programms?"));
 
         btnOk.setTooltip(new Tooltip("Programm mit den gewählten Einstellungen starten"));
@@ -247,5 +268,5 @@ public class StartDialogController extends P2DialogExtra {
         btnPrev.setTooltip(new Tooltip("Vorherige Einstellmöglichkeit"));
     }
 
-    private enum State {START_1, START_2, START_3, CONFIG}
+    private enum State {START_1, START_2, START_3, COLOR, CONFIG}
 }

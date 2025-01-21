@@ -25,7 +25,7 @@ import de.p2tools.p2lib.guitools.P2Styles;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.beans.property.StringProperty;

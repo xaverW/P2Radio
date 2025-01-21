@@ -121,6 +121,11 @@ public class P2Radio extends Application {
             progData.primaryStageBig.show();
         }
 
+        if (ProgData.firstProgramStart) {
+            // dann gabs den Startdialog
+            ProgConfig.SYSTEM_DARK_THEME.set(ProgConfig.SYSTEM_DARK_THEME_START.get());
+            ProgConfig.SYSTEM_BLACK_WHITE_ICON.set(ProgConfig.SYSTEM_BLACK_WHITE_ICON_START.get());
+        }
         P2RadioFactory.setLastHistoryUrl();
     }
 }

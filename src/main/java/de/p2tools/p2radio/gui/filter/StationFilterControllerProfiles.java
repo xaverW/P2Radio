@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.storedfilter.InitStoredFilter;
 import de.p2tools.p2radio.tools.storedfilter.SelectedFilter;
@@ -76,7 +76,7 @@ public class StationFilterControllerProfiles extends VBox {
     private void initButton() {
         btnLoadFilter.setOnAction(a -> loadFilter());
         btnLoadFilter.disableProperty().bind(cboFilterProfiles.getSelectionModel().selectedItemProperty().isNull());
-        btnLoadFilter.setGraphic(ProgIcons.ICON_FILTER_STATION_LOAD.getImageView());
+        btnLoadFilter.setGraphic(ProgIcons.ICON_FILTER_LOAD.getImageView());
         btnLoadFilter.setText("");
         btnLoadFilter.setTooltip(new Tooltip("Filterprofil wieder laden"));
 
@@ -87,12 +87,12 @@ public class StationFilterControllerProfiles extends VBox {
                 saveFilter();
             }
         });
-        btnSaveFilter.setGraphic(ProgIcons.ICON_FILTER_STATION_SAVE.getImageView());
+        btnSaveFilter.setGraphic(ProgIcons.ICON_FILTER_SAVE.getImageView());
         btnSaveFilter.setText("");
         btnSaveFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als Filterprofil speichern"));
 
         btnNewFilter.setOnAction(a -> newFilter());
-        btnNewFilter.setGraphic(ProgIcons.ICON_FILTER_STATION_NEW.getImageView());
+        btnNewFilter.setGraphic(ProgIcons.ICON_FILTER_NEW.getImageView());
         btnNewFilter.setText("");
         btnNewFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als neues Filterprofil anlegen"));
     }
@@ -143,7 +143,7 @@ public class StationFilterControllerProfiles extends VBox {
         final MenuItem miReset = new MenuItem("alle Filterprofile wieder herstellen");
         miReset.setOnAction(e -> resetFilter());
 
-        mbFilterTools.setGraphic(ProgIcons.ICON_BUTTON_MENU.getImageView());
+        mbFilterTools.setGraphic(ProgIcons.ICON_TOOLBAR_MENU.getImageView());
         mbFilterTools.getItems().addAll(miLoad, miRename, miDel, miDelAll, miSave, miNew, /*miAbo,*/ new SeparatorMenuItem(), miReset);
         mbFilterTools.setTooltip(new Tooltip("Gespeicherte Filterprofile bearbeiten"));
 

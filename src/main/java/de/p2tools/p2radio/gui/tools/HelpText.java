@@ -178,6 +178,12 @@ public class HelpText {
             "geändert werden, kann ein Programmneustart notwendig sein." +
             "\n";
 
+    public static final String BLACK_WHITE_ICON =
+            "Die Programmicons werden in Schwarz-Weiß angezeigt. " +
+                    "Für einige Elemente kann ein " +
+                    "Programmneustart notwendig sein." +
+                    "\n";
+
     public static final String USER_AGENT = "Hier kann ein User Agent angegeben werden. " +
             "Beim Laden der Senderliste wird er dann als Absender verwendet. " +
             "Es sollte der Name des Programms " +

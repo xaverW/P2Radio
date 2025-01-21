@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.BlackData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.application.Platform;

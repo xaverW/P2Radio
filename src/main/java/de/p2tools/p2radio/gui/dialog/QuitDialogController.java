@@ -20,7 +20,7 @@ package de.p2tools.p2radio.gui.dialog;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -62,7 +62,7 @@ public class QuitDialogController extends P2DialogExtra {
             close();
         });
 
-        gridPane.add(ProgIcons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
+        gridPane.add(ProgIcons.IMAGE_ATTENTION_64.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(quitButton, 1, 2);

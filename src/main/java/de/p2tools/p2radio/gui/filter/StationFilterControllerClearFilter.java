@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.ProgIcons;
+import de.p2tools.p2radio.controller.config.ProgIcons;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -61,7 +61,7 @@ public class StationFilterControllerClearFilter extends VBox {
 
         btnClearFilter.setOnAction(a -> clearFilter());
 
-        btnEditFilter.setGraphic(ProgIcons.ICON_BUTTON_EDIT_FILTER.getImageView());
+        btnEditFilter.setGraphic(ProgIcons.ICON_BUTTON_EDIT.getImageView());
         btnEditFilter.setOnAction(a -> editFilter());
         btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
 
