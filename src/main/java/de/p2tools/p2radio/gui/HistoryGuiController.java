@@ -71,6 +71,10 @@ public class HistoryGuiController extends VBox {
         setSelectedHistory();
     }
 
+    public int getHistoryShown() {
+        return tableView.getItems().size();
+    }
+
     public void copyUrl() {
         final Optional<StationData> favourite = getSel();
         if (!favourite.isPresent()) {

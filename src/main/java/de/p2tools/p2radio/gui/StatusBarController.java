@@ -33,19 +33,26 @@ import javafx.scene.layout.*;
 public class StatusBarController extends AnchorPane {
 
     private final StackPane stackPane = new StackPane();
-    //Sender
-    private final Label lblLeftStation = new Label();
+
     private final Label lblNowPlayingStation = new Label();
     private final Label lblNowPlayingFavourite = new Label();
+    private final Label lblNowPlayingHistory = new Label();
+
+    // Sender
+    private final Label lblLeftStation = new Label();
     private final Label lblRightStation = new Label();
-    //Favoriten
+    // Favoriten
     private final Label lblLeftFavourite = new Label();
     private final Label lblRightFavourite = new Label();
-    private final Pane nonePane;
+    // History
+    private final Label lblLeftHistory = new Label();
+    private final Label lblRightHistory = new Label();
+
     private final Pane stationPane;
     private final Pane favouritePane;
+    private final Pane historyPane;
     private final ProgData progData;
-    private StatusbarIndex statusbarIndex = StatusbarIndex.NONE;
+    private StatusbarIndex statusbarIndex = StatusbarIndex.STATION;
     private boolean stopTimer = false;
 
     public StatusBarController(ProgData progData) {
@@ -56,9 +63,9 @@ public class StatusBarController extends AnchorPane {
         AnchorPane.setBottomAnchor(stackPane, 0.0);
         AnchorPane.setRightAnchor(stackPane, 0.0);
         AnchorPane.setTopAnchor(stackPane, 0.0);
-        nonePane = new HBox();
         stationPane = getHbox(lblLeftStation, lblNowPlayingStation, lblRightStation);
         favouritePane = getHbox(lblLeftFavourite, lblNowPlayingFavourite, lblRightFavourite);
+        historyPane = getHbox(lblLeftHistory, lblNowPlayingHistory, lblRightHistory);
         make();
     }
 
@@ -76,9 +83,9 @@ public class StatusBarController extends AnchorPane {
     }
 
     private void make() {
-        stackPane.getChildren().addAll(nonePane, stationPane, favouritePane);
+        stackPane.getChildren().addAll(stationPane, favouritePane, historyPane);
         stackPane.setPadding(new Insets(2, 5, 2, 5));
-        nonePane.toFront();
+        stackPane.toFront();
 
         progData.pEventHandler.addListener(new P2Listener(Events.LOAD_RADIO_LIST) {
             public <T extends P2Event> void pingGui(T runEvent) {
@@ -116,26 +123,23 @@ public class StatusBarController extends AnchorPane {
         this.statusbarIndex = statusbarIndex;
 
         switch (statusbarIndex) {
-            case STATION:
-                stationPane.toFront();
-                break;
-            case FAVOURITE:
-                favouritePane.toFront();
-                break;
-            case NONE:
-            default:
-                nonePane.toFront();
-                break;
+            case STATION -> stationPane.toFront();
+            case FAVOURITE -> favouritePane.toFront();
+            case HISTORY -> historyPane.toFront();
+            default -> stackPane.toFront();
         }
         setText();
     }
 
     private void setText() {
         lblLeftStation.setText(InfoFactory.getInfosStations());
-        lblNowPlayingStation.setText(PlayingTitle.nowPlaying.isEmpty() ? "" : PlayingTitle.nowPlaying);
+        lblNowPlayingStation.setText(PlayingTitle.nowPlaying);
 
         lblLeftFavourite.setText(InfoFactory.getInfosFavourites());
-        lblNowPlayingFavourite.setText(PlayingTitle.nowPlaying.isEmpty() ? "" : PlayingTitle.nowPlaying);
+        lblNowPlayingFavourite.setText(PlayingTitle.nowPlaying);
+
+        lblLeftHistory.setText(InfoFactory.getInfosHistory());
+        lblNowPlayingHistory.setText(PlayingTitle.nowPlaying);
 
         // Text rechts: alter/neuladenIn anzeigen
         String strText = "Senderliste geladen: ";
@@ -153,7 +157,8 @@ public class StatusBarController extends AnchorPane {
         // Infopanel setzen
         lblRightStation.setText(strText);
         lblRightFavourite.setText(strText);
+        lblRightHistory.setText(strText);
     }
 
-    public enum StatusbarIndex {NONE, STATION, FAVOURITE, HISTORY}
+    public enum StatusbarIndex {STATION, FAVOURITE, HISTORY}
 }

@@ -65,7 +65,6 @@ public class InfoFactory {
             } else {
                 textLinks += progData.favouriteInfos.getAmount() + " Favoriten";
             }
-//            textLinks += getRunningInfos();
         }
 
         return textLinks;
@@ -88,30 +87,26 @@ public class InfoFactory {
             textLinks += " (Insgesamt: " + sumFavouriteListStr;
             textLinks += ")";
         }
-
-//        if (progData.favouriteInfos.getAmount() > 0) {
-//            // nur wenn ein Favorite läuft, wartet, ..
-//            textLinks += getRunningInfos();
-//        }
-
         return textLinks;
     }
 
-//    private static synchronized String getRunningInfos() {
-//        String textLinks = " || ";
-//        int running = 0;
-//        running = progData.favouriteInfos.getStarted();
-//        running += progData.stationInfos.getStarted();
-//        if (running == 0) {
-//            textLinks = "";
-//
-//        } else if (running == 1) {
-//            textLinks += "1 Sender läuft";
-//
-//        } else {
-//            textLinks += running + " Sender laufen";
-//        }
-//
-//        return textLinks;
-//    }
+    public static String getInfosHistory() {
+        String textLinks;
+        String sumFavouriteListStr = numberFormat.format(progData.historyList.size());
+        String sumFavouritesShownStr = numberFormat.format(progData.historyGuiPack.getHistoryGuiController().getHistoryShown());
+
+        // Anzahl der History
+        if (progData.historyGuiPack.getHistoryGuiController().getHistoryShown() == 1) {
+            textLinks = "1 History";
+        } else {
+            textLinks = sumFavouritesShownStr + " Historys";
+        }
+
+        // weitere Infos anzeigen
+        if (progData.historyList.size() != progData.historyGuiPack.getHistoryGuiController().getHistoryShown()) {
+            textLinks += " (Insgesamt: " + sumFavouriteListStr;
+            textLinks += ")";
+        }
+        return textLinks;
+    }
 }
