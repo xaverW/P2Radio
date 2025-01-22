@@ -36,10 +36,30 @@ public class FavouriteAddDialogFactory {
         }
     }
 
-    public static Text getText(String text) {
+    public static Text getTextBold(String text) {
         Text t = new Text(text);
         t.setFont(Font.font(null, FontWeight.BOLD, -1));
         t.setFill(getBlue());
         return t;
+    }
+
+    public static Text makeTextBold(String text) {
+        Text txt = new Text(text);
+        makeTextBold(txt, false);
+        return txt;
+    }
+
+    public static void makeTextBold(Text text, boolean bold) {
+        if (bold) {
+            text.setFont(Font.font(null, FontWeight.BOLD, -1));
+            text.setFill(getBlue());
+        } else {
+            text.setFont(Font.font(null, FontWeight.NORMAL, -1));
+            if (ProgConfig.SYSTEM_DARK_THEME.getValue()) {
+                text.setFill(Color.WHITE);
+            } else {
+                text.setFill(Color.BLACK);
+            }
+        }
     }
 }

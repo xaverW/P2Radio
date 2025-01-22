@@ -22,7 +22,6 @@ import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -66,67 +65,75 @@ public class FavouriteAddDialogGui {
         }
 
         // Nr
-        gridPane.add(new Label(StationDataXml.STATION_PROP_STATION_NO + ":"), 0, row);
+        gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_STATION_NO + ":"), 0, row);
         gridPane.add(addFavouriteDto.lblStationNo, 1, row, 3, 1);
 
         // Name
-        gridPane.add(new Label(StationDataXml.STATION_PROP_STATION_NAME + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.textStationName, 0, ++row);
         gridPane.add(addFavouriteDto.lblStationName, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.txtStationName, 1, row, 3, 1);
 
         // Sammlung
         addFavouriteDto.cboCollection.setMaxWidth(Double.MAX_VALUE);
-        gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_COLLECTION + ":"), 0, ++row);
+        gridPane.add(FavouriteAddDialogFactory.getTextBold(StationDataXml.STATION_PROP_COLLECTION + ":"), 0, ++row);
         gridPane.add(addFavouriteDto.cboCollection, 1, row, 3, 1);
         gridPane.add(addFavouriteDto.chkCollectionAll, 4, row);
 
         // eigene Bewertung
         HBox hBox = new HBox(P2LibConst.PADDING_HBOX);
         hBox.getChildren().addAll(addFavouriteDto.chkGrade1, addFavouriteDto.chkGrade2, addFavouriteDto.chkGrade3);
-        gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_OWN_GRADE + ":"), 0, ++row);
+        gridPane.add(FavouriteAddDialogFactory.getTextBold(StationDataXml.STATION_PROP_OWN_GRADE + ":"), 0, ++row);
         gridPane.add(hBox, 1, row, 3, 1);
         gridPane.add(addFavouriteDto.chkGradeAll, 4, row);
 
         // Genre
-        gridPane.add(new Label(StationDataXml.STATION_PROP_GENRE + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.textGenre, 0, ++row);
         gridPane.add(addFavouriteDto.lblGenre, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.txtGenre, 1, row, 3, 1);
 
         // Codec
-        gridPane.add(new Label(StationDataXml.STATION_PROP_CODEC + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.textCodec, 0, ++row);
         gridPane.add(addFavouriteDto.lblCodec, 1, row);
+        gridPane.add(addFavouriteDto.txtCodec, 1, row);
         // Bitrate
-        gridPane.add(new Label(StationDataXml.STATION_PROP_BITRATE + ":"), 2, row);
+        gridPane.add(addFavouriteDto.textBitrate, 2, row);
         gridPane.add(addFavouriteDto.lblBitrate, 3, row);
+        gridPane.add(addFavouriteDto.txtBitrate, 3, row);
 
         // Clicks
-        gridPane.add(new Label(StationDataXml.STATION_PROP_CLICK_COUNT + ":"), 0, ++row);
+        gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_CLICK_COUNT + ":"), 0, ++row);
         gridPane.add(addFavouriteDto.lblClicks, 1, row);
         // Eigener
-        gridPane.add(new Label(StationDataXml.STATION_PROP_OWN + ":"), 2, row);
+        gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_OWN + ":"), 2, row);
         gridPane.add(addFavouriteDto.chkOwn, 3, row);
 
         // Land
-        gridPane.add(new Label(StationDataXml.STATION_PROP_COUNTRY + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.textCountry, 0, ++row);
         gridPane.add(addFavouriteDto.lblCountry, 1, row);
+        gridPane.add(addFavouriteDto.txtCountry, 1, row);
         // Sprache
-        gridPane.add(new Label(StationDataXml.STATION_PROP_LANGUAGE + ":"), 2, row);
+        gridPane.add(addFavouriteDto.textLanguage, 2, row);
         gridPane.add(addFavouriteDto.lblLanguage, 3, row);
+        gridPane.add(addFavouriteDto.txtLanguage, 3, row);
 
         // Beschreibung
-        gridPane.add(FavouriteAddDialogFactory.getText(StationDataXml.STATION_PROP_DESCRIPTION + ":"), 0, ++row);
+        gridPane.add(FavouriteAddDialogFactory.getTextBold(StationDataXml.STATION_PROP_DESCRIPTION + ":"), 0, ++row);
         gridPane.add(addFavouriteDto.taDescription, 1, row, 3, 1);
         gridPane.add(addFavouriteDto.chkDescriptionAll, 4, row);
 
         // GenDate
-        gridPane.add(new Label(StationDataXml.STATION_PROP_DATE + ":"), 0, ++row);
+        gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_DATE + ":"), 0, ++row);
         gridPane.add(addFavouriteDto.lblGenDate, 1, row, 3, 1);
 
         // URL
-        gridPane.add(new Label(StationDataXml.STATION_PROP_URL + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.textUrl, 0, ++row);
         gridPane.add(addFavouriteDto.lblUrl, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.txtUrl, 1, row, 3, 1);
 
         // Website
-        gridPane.add(new Label(StationDataXml.STATION_PROP_WEBSITE + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.textWebsite, 0, ++row);
         gridPane.add(addFavouriteDto.lblWebsite, 1, row, 3, 1);
+        gridPane.add(addFavouriteDto.txtWebsite, 1, row, 3, 1);
 
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow(),

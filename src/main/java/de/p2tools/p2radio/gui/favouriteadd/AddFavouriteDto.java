@@ -19,9 +19,11 @@ package de.p2tools.p2radio.gui.favouriteadd;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -51,34 +53,53 @@ public class AddFavouriteDto {
     // Sender
     public final Label lblStationNo = new Label();
     public final Label lblStationName = new Label();
+    public final TextField txtStationName = new TextField();
+    public final Text textStationName = new Text(StationDataXml.STATION_PROP_STATION_NAME + ":");
+
     // Sammlung
     public final ComboBox<String> cboCollection = new ComboBox<>();
+
     // Bewertung
     public final CheckBox chkGrade1 = new CheckBox();
     public final CheckBox chkGrade2 = new CheckBox();
     public final CheckBox chkGrade3 = new CheckBox();
+
     // Genre
     public final Label lblGenre = new Label();
+    public final TextField txtGenre = new TextField();
+    public final Text textGenre = new Text(StationDataXml.STATION_PROP_GENRE + ":");
     // Codec
     public final Label lblCodec = new Label();
+    public final TextField txtCodec = new TextField();
+    public final Text textCodec = new Text(StationDataXml.STATION_PROP_CODEC + ":");
     // Bitrate
     public final Label lblBitrate = new Label();
+    public final TextField txtBitrate = new TextField();
+    public final Text textBitrate = new Text(StationDataXml.STATION_PROP_BITRATE + ":");
     // Klicks
     public final Label lblClicks = new Label();
     // Eigener
     public final CheckBox chkOwn = new CheckBox();
     // Land
     public final Label lblCountry = new Label();
+    public final TextField txtCountry = new TextField();
+    public final Text textCountry = new Text(StationDataXml.STATION_PROP_COUNTRY + ":");
     // Sprache
     public final Label lblLanguage = new Label();
+    public final TextField txtLanguage = new TextField();
+    public final Text textLanguage = new Text(StationDataXml.STATION_PROP_LANGUAGE + ":");
     // Beschreibung
     public final TextArea taDescription = new TextArea();
     // GenDate
     public final Label lblGenDate = new Label();
     // URL
     public final Label lblUrl = new Label();
+    public final TextField txtUrl = new TextField();
+    public final Text textUrl = new Text(StationDataXml.STATION_PROP_URL + ":");
     // URL Website
     public final Label lblWebsite = new Label();
+    public final TextField txtWebsite = new TextField();
+    public final Text textWebsite = new Text(StationDataXml.STATION_PROP_WEBSITE + ":");
 
 
     public AddFavouriteDto(ProgData progData, ArrayList<StationData> data, boolean addNew) {

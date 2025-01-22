@@ -52,9 +52,9 @@ public class InitCollection {
         addFavouriteDto.cboCollection.setItems(collectionList);
 
         addFavouriteDto.cboCollection.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Collection: " + addFavouriteDto.cboCollection.getEditor().getText());
+//            System.out.println("Collection: " + addFavouriteDto.cboCollection.getEditor().getText());
             if (!addFavouriteDto.cboCollection.isFocused()) {
-                System.out.println("not");
+//                System.out.println("not");
                 return;
             }
             if (oldValue != null && newValue != null && !oldValue.equals(newValue)) {

@@ -24,7 +24,6 @@ import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
-import de.p2tools.p2radio.gui.dialog.FavouriteAddOwnDialogController;
 import de.p2tools.p2radio.gui.favouriteadd.FavouriteAddDialogController;
 
 import java.time.LocalDate;
@@ -114,14 +113,8 @@ public class FavouriteFactory {
         StationData stationData = new StationData();
         stationData.setOwn(true);
         stationData.setStationDateLastChange(P2LDateFactory.toString(LocalDate.now()));
-
-        new FavouriteAddOwnDialogController(ProgData.getInstance(), stationData);
-//        if (favouriteEditDialogController.isOk()) {
-//            ProgData.getInstance().stationList.add(stationData);
-//            ProgData.getInstance().favouriteList.add(stationData);
-//            ProgData.getInstance().collectionList.updateNames(); // könnte ja geändert sein
-//            ProgQuitFactory.saveProgConfig();
-//        }
+        favouriteStation(stationData);
+//        new FavouriteAddOwnDialogController(ProgData.getInstance(), stationData);
     }
 
     public static void changeFavourite(StationData stationData) {
