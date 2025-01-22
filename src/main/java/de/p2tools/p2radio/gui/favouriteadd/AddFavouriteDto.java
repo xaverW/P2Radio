@@ -77,7 +77,7 @@ public class AddFavouriteDto {
     public final TextField txtBitrate = new TextField();
     public final Text textBitrate = new Text(StationDataXml.STATION_PROP_BITRATE + ":");
     // Klicks
-    public final Label lblClicks = new Label();
+    public final Label lblStarts = new Label();
     // Eigener
     public final CheckBox chkOwn = new CheckBox();
     // Land

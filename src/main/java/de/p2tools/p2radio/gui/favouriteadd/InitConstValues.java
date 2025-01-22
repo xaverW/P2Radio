@@ -74,7 +74,7 @@ public class InitConstValues {
         set(own, addFavouriteDto.getAct().stationData.getBitrateStr(),
                 addFavouriteDto.lblBitrate, addFavouriteDto.txtBitrate);
 
-        addFavouriteDto.lblClicks.setText(addFavouriteDto.getAct().stationData.getClickCount() + "");
+        addFavouriteDto.lblStarts.setText(addFavouriteDto.getAct().stationData.getStarts() + "");
         addFavouriteDto.chkOwn.setSelected(addFavouriteDto.getAct().stationData.isOwn());
 
         // country

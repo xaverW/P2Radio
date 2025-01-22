@@ -101,8 +101,8 @@ public class FavouriteAddDialogGui {
         gridPane.add(addFavouriteDto.txtBitrate, 3, row);
 
         // Clicks
-        gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_CLICK_COUNT + ":"), 0, ++row);
-        gridPane.add(addFavouriteDto.lblClicks, 1, row);
+        gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_STARTS + ":"), 0, ++row);
+        gridPane.add(addFavouriteDto.lblStarts, 1, row);
         // Eigener
         gridPane.add(FavouriteAddDialogFactory.makeTextBold(StationDataXml.STATION_PROP_OWN + ":"), 2, row);
         gridPane.add(addFavouriteDto.chkOwn, 3, row);
