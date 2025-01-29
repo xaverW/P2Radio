@@ -29,7 +29,6 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
@@ -49,12 +48,12 @@ public class StationInfoDialogController extends P2DialogExtra {
     private final Button btnStart = new Button("");
     private final Button btnStop = new Button("");
     private final Button btnOk = new Button("_Ok");
-    private final ImageView ivNew = new ImageView();
-    private final ImageView ivOwn = new ImageView();
-    private final ImageView ivDouble = new ImageView();
-    private final ImageView ivFavourite = new ImageView();
-    private final ImageView ivHistory = new ImageView();
-    private final ImageView ivBlack = new ImageView();
+    private final Label ivNew = new Label();
+    private final Label ivOwn = new Label();
+    private final Label ivDouble = new Label();
+    private final Label ivFavourite = new Label();
+    private final Label ivHistory = new Label();
+    private final Label ivBlack = new Label();
 
     private final P2Hyperlink pHyperlinkUrl = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL);
@@ -167,12 +166,12 @@ public class StationInfoDialogController extends P2DialogExtra {
         for (int i = 0; i < StationDataXml.MAX_ELEM; ++i) {
             if (station == null) {
                 lblCont[i].setText("");
-                ivNew.setImage(null);
-                ivOwn.setImage(null);
-                ivDouble.setImage(null);
-                ivFavourite.setImage(null);
-                ivHistory.setImage(null);
-                ivBlack.setImage(null);
+                ivNew.setGraphic(null);
+                ivOwn.setGraphic(null);
+                ivDouble.setGraphic(null);
+                ivFavourite.setGraphic(null);
+                ivHistory.setGraphic(null);
+                ivBlack.setGraphic(null);
                 pHyperlinkUrl.setUrl("");
                 pHyperlinkWebsite.setUrl("");
             } else {
@@ -182,9 +181,9 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_STATION_NEW_INT:
                         if (station.isNewStation()) {
-                            ivNew.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
+                            ivNew.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
                         } else {
-                            ivNew.setImage(null);
+                            ivNew.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_STATION_NAME_INT:
@@ -218,9 +217,9 @@ public class StationInfoDialogController extends P2DialogExtra {
 
                     case StationDataXml.STATION_PROP_OWN_INT:
                         if (station.isOwn()) {
-                            ivOwn.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
+                            ivOwn.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
                         } else {
-                            ivOwn.setImage(null);
+                            ivOwn.setGraphic(null);
                         }
                         break;
 
@@ -258,30 +257,30 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DOUBLE_URL_INT:
                         if (station.isDoubleUrl()) {
-                            ivDouble.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
+                            ivDouble.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
                         } else {
-                            ivDouble.setImage(null);
+                            ivDouble.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
                         if (station.isFavourite()) {
-                            ivFavourite.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
+                            ivFavourite.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
                         } else {
-                            ivFavourite.setImage(null);
+                            ivFavourite.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_HISTORY_INT:
                         if (station.isHistory()) {
-                            ivHistory.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
+                            ivHistory.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
                         } else {
-                            ivHistory.setImage(null);
+                            ivHistory.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                         if (station.isBlackBlocked()) {
-                            ivBlack.setImage(ProgIcons.ICON_DIALOG_ON.getImage());
+                            ivBlack.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
                         } else {
-                            ivBlack.setImage(null);
+                            ivBlack.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_URL_RESOLVED_INT:
