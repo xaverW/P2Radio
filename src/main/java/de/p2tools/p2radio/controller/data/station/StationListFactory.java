@@ -146,11 +146,11 @@ public class StationListFactory {
             station.setHistory(false);
         });
 
-        // favourite
+        // favourite markieren
         hashSet.clear();
         hashSet.addAll(progData.favouriteList.stream().map(StationListFactory::getHash).toList());
         progData.stationList.stream()
-                .filter(station -> hashSet.contains(getHash(station)))
+                .filter(station -> hashSet.contains(getHash(station))) // nur station die im Hash (Favoriten) sind
                 .forEach(station -> {
                     StationData fav = getStationByHash(progData.favouriteList, station);
                     copyFav(station, fav);

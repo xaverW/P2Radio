@@ -104,8 +104,8 @@ public class FavouriteAddDialogController extends P2DialogExtra {
             return;
         }
 
-        if (addFavouriteDto.addNewDownloads) {
-            // dann neue Downloads anlegen
+        if (addFavouriteDto.addNewFavourite) {
+            // dann neue anlegen
             addNewFavourite();
         } else {
             // oder die bestehenden ändern
@@ -123,6 +123,7 @@ public class FavouriteAddDialogController extends P2DialogExtra {
             list.add(stationData);
         }
         progData.favouriteList.addAll(list);
+        progData.stationList.addAll(list); // damit sie gleich verfügbar sind
     }
 
     private void changeFavourite() {

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class AddFavouriteDto {
 
-    public boolean addNewDownloads = true;
+    public boolean addNewFavourite = true;
 
     public InitConstValues initConstValues;
     public InitCollection initCollection;
@@ -109,7 +109,7 @@ public class AddFavouriteDto {
         if (addNew) {
             addFavouriteData = InitAddArray.initInfoArrayNewFavourite(data);
         } else {
-            this.addNewDownloads = false;
+            this.addNewFavourite = false;
             addFavouriteData = InitAddArray.initInfoArrayFavourite(data);
         }
 
