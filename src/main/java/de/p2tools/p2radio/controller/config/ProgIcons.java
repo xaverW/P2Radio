@@ -34,6 +34,7 @@ public class ProgIcons {
     public static P2Image ICON_BUTTON_QUIT = new P2Image(ICON_PATH_LONG, "button-quit.png", 16, 16);
     public static P2Image ICON_BUTTON_FILE_OPEN = new P2Image(ICON_PATH_LONG, "button-file-open.png", 16, 16);
     public static P2Image ICON_BUTTON_PLAY = new P2Image(ICON_PATH_LONG, "button-play.png", 16, 16);
+    public static P2Image ICON_BUTTON_STOP = new P2Image(ICON_PATH_LONG, "button-stop.png", 16, 16);
     public static P2Image ICON_BUTTON_BOOLEAN_IS_ON = new P2Image(ICON_PATH_LONG, "boolean-is-on.png", 16, 16);
     public static P2Image ICON_BUTTON_CLEAR = new P2Image(ICON_PATH_LONG, "button-clear.png", 16, 16);
     public static P2Image ICON_BUTTON_NEXT = new P2Image(ICON_PATH_LONG, "button-next.png", 16, 16);
