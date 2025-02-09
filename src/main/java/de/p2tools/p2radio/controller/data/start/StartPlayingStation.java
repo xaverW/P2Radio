@@ -203,7 +203,7 @@ public class StartPlayingStation extends Thread {
         }
 
 //        StartFactory.stopRunningStation();
-        System.out.println("refreshTable");
+//        System.out.println("refreshTable");
         refreshTable();
     }
 
