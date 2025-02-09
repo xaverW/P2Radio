@@ -128,7 +128,7 @@ public class PaneAutoStart {
         final Button btnStopLast;
         btnStopLast = new Button("");
         btnStopLast.setTooltip(new Tooltip("Sender stoppen"));
-        btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_BOOLEAN_IS_ON.getImageView());
+        btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStopLast.setOnAction((ActionEvent event) -> {
             StartFactory.stopRunningStation();
         });
@@ -145,7 +145,7 @@ public class PaneAutoStart {
         final Button btnStopAuto;
         btnStopAuto = new Button("");
         btnStopAuto.setTooltip(new Tooltip("Sender stoppen"));
-        btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_BOOLEAN_IS_ON.getImageView());
+        btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStopAuto.setOnAction((ActionEvent event) -> {
             StartFactory.stopRunningStation();
         });
