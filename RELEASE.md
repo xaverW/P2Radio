@@ -2,6 +2,30 @@
 
 <br />
 
+**Version 8**
+
+* Die Funktion "Autostart" wurde hinzugefügt (Einstellungen->Abspielen). Es kann ein Sender ausgewählt werden, der beim Programmstart sofort gestartet wird. Die Auswahl ist über das Kontextmenü in den Sender-Tabellen möglich. Es ist auch möglich, dass der zuletzt gespielte Sender wieder gestartet wird.
+* Das Beenden des laufenden Senders wurde überarbeitet
+* Beim Start wird der zuletzt gespielte Sender in den Tabellen angezeigt
+* Neues ShortCut: Ctrl+G: GUI big/small umschalten
+* Neues ShortCut: CTRL+W: GUI Zentrieren
+* Neues ShortCut: Alt+M: GUI minimieren
+* Neuer Startparameter: -m: Programm startet minimiert
+* Der Status "neu" eines Senders bleibt jetzt nach einem Programmneustart erhalten
+* Doppelte Sender werden aussortiert (Sendername/URL ist gleich)
+* Neue Tabellenspalte: "Letzter Start" in Favoriten/History
+* Das Programm hat jetzt ein neues Programmicon: "P2R"
+* Das Programmicon kann jetzt in den Einstellungen geändert werden, es kann ein eigenes Icon gesetzt werden
+* SmallGui überarbeitet
+* Die Links "Website" in der Tabelle können angeklickt werden
+* Nach dem Ändern eines Favoriten werden die Programmeinstellungen gespeichert
+* Wenn der Sender die Titel-Infos mitschickt, werden sie in der Statusleiste angezeigt (zum Abspielen muss der VLC in den Standard-Einstellungen mit dem Parameter -vvv verwendet werden: "%f -vvv" ODER "%f -vvv -I dummy" ) -> Infos in der Anleitung oder Hilfe zum Set
+* Programm-Icons können auf Schwarz/Weiß geändert werden
+* Das Anlegen/Ändern eines eigenen Senders in den Favoriten wurde überarbeitet
+* ...
+
+<br />
+
 **Release 7**
 
 * Gui-Elemente überarbeitet: RangeSlider
