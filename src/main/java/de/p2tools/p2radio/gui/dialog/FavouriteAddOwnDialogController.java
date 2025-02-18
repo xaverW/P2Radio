@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.dialog;
 
-import de.p2tools.p2lib.data.P2ColorData;
+import de.p2tools.p2lib.colordata.P2ColorData;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
