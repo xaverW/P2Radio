@@ -70,6 +70,7 @@ public class SearchProgramUpdate {
                 P2ToolsFactory.getBuildNo(),
                 P2ToolsFactory.getBuildDateR(),
 
+                new String[]{}, // welche Downloads angezeigt werden sollen
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAlways,
                 showAllDownloads

@@ -63,7 +63,8 @@ public class ProgData {
     public static boolean reset = false; // Programm auf Starteinstellungen zurücksetzen
     public static boolean firstProgramStart = false; // ist der allererste Programmstart: Init wird gemacht
     public static boolean startMinimized = false; // Minimiert starten
-    
+    public static boolean raspberry = false; // läuft auf einem Raspberry
+
     public static String gui = "";
     public static String small = "";
     public static String dialog = "";
