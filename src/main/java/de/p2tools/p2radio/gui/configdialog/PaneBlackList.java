@@ -21,14 +21,14 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.RunEventRadio;
-import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.data.BlackData;
+import de.p2tools.p2radio.controller.p2event.P2Event;
+import de.p2tools.p2radio.controller.p2event.P2Listener;
+import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.application.Platform;
@@ -60,7 +60,7 @@ public class PaneBlackList {
     private final BooleanProperty blackChanged;
     private final Stage stage;
     BooleanProperty propWhite = ProgConfig.SYSTEM_BLACKLIST_IS_WHITELIST;
-    P2Listener listener;
+    de.p2tools.p2radio.controller.p2event.P2Listener listener;
     private BlackData blackData = null;
 
     public PaneBlackList(Stage stage, BooleanProperty blackChanged) {
@@ -191,7 +191,7 @@ public class PaneBlackList {
             tableView.refresh();
         });
 
-        listener = new P2Listener(Events.LOAD_RADIO_LIST) {
+        listener = new P2Listener(PEvents.LOAD_RADIO_LIST) {
             public <T extends P2Event> void ping(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;

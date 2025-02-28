@@ -19,17 +19,17 @@ package de.p2tools.p2radio.controller.radiosloadfromweb;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
+import de.p2tools.p2radio.controller.p2event.P2Event;
+import de.p2tools.p2radio.controller.p2event.P2Listener;
+import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
 import de.p2tools.p2radio.controller.radiosreadwritefile.StationSaveFactory;
 import de.p2tools.p2radio.controller.worker.PMaskerFactory;
@@ -53,7 +53,7 @@ public class LoadNewStationList {
     public LoadNewStationList(ProgData progData) {
         this.progData = progData;
 
-        progData.pEventHandler.addListener(new P2Listener(Events.READ_STATIONS) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.READ_STATIONS) {
             public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
@@ -61,20 +61,20 @@ public class LoadNewStationList {
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
                         //Start ans Prog melden
                         ProgData.getInstance().pEventHandler.notifyListener(
-                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
+                                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
                                         runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
                     }
 
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.PROGRESS)) {
                         ProgData.getInstance().pEventHandler.notifyListener(
-                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
+                                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
                                         runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
                     }
 
                     if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
                         // Laden ist durch
                         ProgData.getInstance().pEventHandler.notifyListener(
-                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
+                                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
                                         "", "Sender verarbeiten",
                                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
@@ -88,7 +88,7 @@ public class LoadNewStationList {
 
                         // alles fertig ans Prog melden
                         ProgData.getInstance().pEventHandler.notifyListener(
-                                new RunEventRadio(Events.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
+                                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
                                         runE.getUrl(), runE.getText(), runE.getProgress(), runE.isError()));
                     }
                 }

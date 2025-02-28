@@ -16,59 +16,81 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.date.P2Date;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.p2event.P2Event;
+import de.p2tools.p2radio.controller.pevent.PEvents;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class Start extends StartProps {
 
-    private int startCounter = 0;
-    private int restartCounter = 0; //zählt die Anzahl der Neustarts bei einem Startfehler -> Summe Starts = erster Start + Restarts
+    // Stati
+    public static final int STATE_INIT = 0; //nicht gestart
+    public static final int STATE_STARTED_RUN = 1; //läuft
+    public static final int STATE_STOPPED = 2; //abgebrochen
+    public static final int STATE_ERROR = 3; //fehlerhaft
+
+    //Sender wird so oft gestartet, falls es beim ersten Mal nicht gelingt
+    public static final int START_COUNTER_MAX = 3;
+    private final IntegerProperty state = new SimpleIntegerProperty(STATE_INIT);
+
+    private int startCounter = 0; // Anzahl der Startversuche
     private Process process = null; //Prozess des Programms (VLC)
     private P2Date startTime = null;
-
-    private StartStatus startStatus = new StartStatus();
     private StationData stationData = null;
     private SetData setData = null;
-
-    public Start() {
-    }
+    private PlayingThread playingThread = null;
+    private final AtomicBoolean running = new AtomicBoolean(true);
 
     public Start(SetData setData, StationData stationData) {
         this.stationData = stationData;
-        setStationNo(stationData.getStationNo());
-        setStationName(stationData.getStationName());
-        setUrl(stationData.getStationUrl());
-
         setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
     }
 
-    public StartStatus getStartStatus() {
-        return startStatus;
-    }
-
     public void initStart() {
-        setStartTime();
-        setRestartCounter(0);
-        getStartStatus().setState(FavouriteConstants.STATE_INIT);
-        getStartStatus().setErrorMessage("");
+        setStartTime(new P2Date());
+        state.set(FavouriteConstants.STATE_INIT);
+
+        playingThread = new PlayingThread(ProgData.getInstance(), this);
+        playingThread.start();
+
+        StartFactory.startMsg(this);
+        ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
     }
 
-    public void stopStart() {
-        if (!getStartStatus().isStateError()) {
-            getStartStatus().setStateStopped();
-        }
-
-        setNo(P2LibConst.NUMBER_NOT_STARTED);
+    // STATE
+    public void setState(int state) {
+        this.state.set(state);
     }
 
-    //==============================================
-    // Get/Set
-    //==============================================
+    public void setStateError() {
+        this.state.set(Start.STATE_ERROR);
+    }
 
+    public boolean isStateError() {
+        return state.get() == Start.STATE_ERROR;
+    }
+
+    public boolean isStateStopped() {
+        return state.get() == Start.STATE_STOPPED;
+    }
+
+    public void setStateStartedRun() {
+        state.set(Start.STATE_STARTED_RUN);
+    }
+
+    public boolean isStateStartedRun() {
+        return state.get() == Start.STATE_STARTED_RUN;
+    }
+
+    //=============
     public String getStationUrl() {
         return stationData.getStationUrl();
     }
@@ -83,11 +105,6 @@ public final class Start extends StartProps {
 
     public void setSetData(SetData setData) {
         this.setData = setData;
-        setSetDataId(setData.getId());
-    }
-
-    public void setStartTime() {
-        setStartTime(new P2Date());
     }
 
     public P2Date getStartTime() {
@@ -110,19 +127,19 @@ public final class Start extends StartProps {
         ++this.startCounter;
     }
 
-    public int getRestartCounter() {
-        return restartCounter;
-    }
-
-    public void setRestartCounter(int restartCounter) {
-        this.restartCounter = restartCounter;
-    }
-
     public Process getProcess() {
         return process;
     }
 
     public void setProcess(Process process) {
         this.process = process;
+    }
+
+    public boolean getRunning() {
+        return running.get();
+    }
+
+    public void setRunning(boolean running) {
+        this.running.set(running);
     }
 }

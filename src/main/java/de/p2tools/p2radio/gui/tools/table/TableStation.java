@@ -18,13 +18,13 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.GermanStringIntSorter;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
+import de.p2tools.p2radio.controller.p2event.P2Event;
+import de.p2tools.p2radio.controller.p2event.P2Listener;
+import de.p2tools.p2radio.controller.pevent.PEvents;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -68,7 +68,7 @@ public class TableStation extends TableView<StationData> {
         // brauchmer auf jeden Fall fürs Umschalten dark
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> refreshTable());
 
-        ProgData.getInstance().pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+        ProgData.getInstance().pEventHandler.addListener(new P2Listener(PEvents.REFRESH_TABLE) {
             @Override
             public void pingGui(P2Event runEvent) {
                 refreshTable();

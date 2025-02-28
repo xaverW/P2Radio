@@ -18,9 +18,6 @@
 package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2EventHandler;
 import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackDataList;
@@ -32,6 +29,7 @@ import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
+import de.p2tools.p2radio.controller.p2event.P2EventHandler;
 import de.p2tools.p2radio.controller.radiosloadfromweb.LoadNewStationList;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
@@ -46,14 +44,10 @@ import de.p2tools.p2radio.gui.tools.ProgTray;
 import de.p2tools.p2radio.tools.stationlistfilter.StationListFilter;
 import de.p2tools.p2radio.tools.storedfilter.FilterWorker;
 import de.p2tools.p2radio.tools.storedfilter.StoredFilters;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class ProgData {
 
@@ -125,7 +119,7 @@ public class ProgData {
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
     public SetDataList setDataList;
-    public P2EventHandler pEventHandler;
+    public de.p2tools.p2radio.controller.p2event.P2EventHandler pEventHandler;
     boolean oneSecond = false;
 
     private ProgData() {
@@ -162,37 +156,18 @@ public class ProgData {
         stationListFilter.init();
     }
 
-    public synchronized static final ProgData getInstance(String dir) {
+    public synchronized static ProgData getInstance(String dir) {
         if (!dir.isEmpty()) {
             configDir = dir;
         }
         return getInstance();
     }
 
-    public synchronized static final ProgData getInstance() {
+    public synchronized static ProgData getInstance() {
         return instance == null ? instance = new ProgData() : instance;
     }
 
     public void initProgData() {
-        startTimer();
         progTray.initProgTray();
-    }
-
-    private void startTimer() {
-        // extra starten, damit er im Einrichtungsdialog nicht dazwischen funkt
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> {
-            oneSecond = !oneSecond;
-            if (oneSecond) {
-                doTimerWorkOneSecond();
-            }
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.setDelay(Duration.seconds(5));
-        timeline.play();
-        P2Duration.onlyPing("Timer gestartet");
-    }
-
-    private void doTimerWorkOneSecond() {
-        pEventHandler.notifyListener(new P2Event(Events.TIMER));
     }
 }

@@ -21,9 +21,13 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.ProgConst;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
+import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
 import de.p2tools.p2radio.tools.MLHttpClient;
 import de.p2tools.p2radio.tools.ProgressMonitorInputStream;
@@ -168,7 +172,7 @@ public class ReadRadiosFromWeb {
     private void notifyStart(String url) {
         progress = 0;
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.READ_STATIONS, RunEventRadio.NOTIFY.START,
+                new RunEventRadio(PEvents.READ_STATIONS, RunEventRadio.NOTIFY.START,
                         url, "Senderliste downloaden", 0, false));
     }
 
@@ -178,7 +182,7 @@ public class ReadRadiosFromWeb {
             progress = RunEventRadio.PROGRESS_MAX;
         }
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.READ_STATIONS, RunEventRadio.NOTIFY.PROGRESS,
+                new RunEventRadio(PEvents.READ_STATIONS, RunEventRadio.NOTIFY.PROGRESS,
                         url, "Senderliste downloaden", progress, false));
     }
 }

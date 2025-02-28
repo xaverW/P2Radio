@@ -20,7 +20,6 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
-import javafx.beans.property.SimpleListProperty;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -107,21 +106,6 @@ public class StationListFactory {
             }
         }
         return test;
-    }
-
-    public static synchronized void addStationInList(SimpleListProperty<StationData> list) {
-        // bei Favoriten nach einem Programmstart/Neuladen der Senderliste
-        // den Sender wieder eintragen
-        P2Duration.counterStart("FavouriteList.addSenderInList");
-        int counter = 50;
-        for (StationData stationData : list) {
-            --counter;
-            if (counter < 0) {
-                break;
-            }
-            stationData.setStation(ProgData.getInstance().stationList.getStationByUrl(stationData.getStationUrl()));
-        }
-        P2Duration.counterStop("FavouriteList.addSenderInList");
     }
 
     public static void findAndMarkStations(ProgData progData) {

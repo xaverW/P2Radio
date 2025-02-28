@@ -19,9 +19,9 @@ package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.p2event.P2Listener;
+import de.p2tools.p2radio.controller.pevent.PEvents;
 
 public class StationInfos {
 
@@ -34,7 +34,7 @@ public class StationInfos {
     public StationInfos(ProgData progData) {
         this.progData = progData;
 
-        progData.pEventHandler.addListener(new P2Listener(Events.TIMER) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
             public void ping(P2Event event) {
                 if (!progData.loadNewStationList.getPropLoadStationList()) {
                     //dann wird die Liste neu gebaut

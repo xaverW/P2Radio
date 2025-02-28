@@ -20,12 +20,12 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.p2event.P2Listener;
+import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.application.Platform;
@@ -143,7 +143,7 @@ public class HistoryGuiController extends VBox {
 
     private void initListener() {
         progData.favouriteList.addListener((observable, oldValue, newValue) -> tableView.refresh());
-        progData.pEventHandler.addListener(new P2Listener(Events.SETDATA_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.SETDATA_CHANGED) {
             public void pingGui(P2Event event) {
                 P2TableFactory.refreshTable(tableView);
             }

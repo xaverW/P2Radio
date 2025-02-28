@@ -15,9 +15,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.config;
+package de.p2tools.p2radio.controller.pevent;
 
-import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2radio.controller.p2event.P2Event;
 
 public class RunEventRadio extends P2Event {
 
@@ -27,7 +27,6 @@ public class RunEventRadio extends P2Event {
 
     // meldet eine Änderung
     private final double progress;
-    private int max;
     private String url = "";
     private boolean error = false;
     private final NOTIFY notify;
@@ -39,17 +38,12 @@ public class RunEventRadio extends P2Event {
         setEventNo(eventNo);
         this.notify = notify;
         this.progress = progress;
-        this.max = max;
         this.url = url;
         this.error = error;
     }
 
     public double getProgress() {
         return progress;
-    }
-
-    public int getMax() {
-        return max;
     }
 
     public String getUrl() {

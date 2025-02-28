@@ -54,6 +54,7 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
     private final BooleanProperty favourite = new SimpleBooleanProperty(false);
     private final BooleanProperty history = new SimpleBooleanProperty(false);
     private final BooleanProperty blackBlocked = new SimpleBooleanProperty(false);
+    private final BooleanProperty error = new SimpleBooleanProperty(false); // wenn beim Start ein Fehler auftritt
     private final StringProperty website = new SimpleStringProperty("");
     private LocalDate stationDateLastChange = LocalDate.now(); // last changed
     private LocalDateTime stationDateLastStart = LocalDateTime.MIN; // last changed
@@ -402,6 +403,18 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
 
     public BooleanProperty blackBlockedProperty() {
         return blackBlocked;
+    }
+
+    public boolean isError() {
+        return error.get();
+    }
+
+    public void setError(boolean error) {
+        this.error.set(error);
+    }
+
+    public BooleanProperty errorProperty() {
+        return error;
     }
 
     public boolean isFavourite() {

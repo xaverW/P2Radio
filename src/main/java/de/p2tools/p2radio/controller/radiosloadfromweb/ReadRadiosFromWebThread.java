@@ -17,10 +17,10 @@
 package de.p2tools.p2radio.controller.radiosloadfromweb;
 
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.RunEventRadio;
 import de.p2tools.p2radio.controller.data.station.StationList;
+import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 
 public class ReadRadiosFromWebThread {
 
@@ -36,7 +36,7 @@ public class ReadRadiosFromWebThread {
 
     private synchronized void reportFinished(boolean ok) {
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(Events.READ_STATIONS, RunEventRadio.NOTIFY.FINISHED,
+                new RunEventRadio(PEvents.READ_STATIONS, RunEventRadio.NOTIFY.FINISHED,
                         "", "Senderliste geladen", 0, !ok));
     }
 

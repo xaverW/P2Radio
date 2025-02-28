@@ -37,6 +37,14 @@ public class P2RadioFactory {
     private P2RadioFactory() {
     }
 
+    public static void pause(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            System.err.format("InterruptedException : %s%n", e);
+        }
+    }
+
     public static void addSizeListener(Stage stage, StringProperty sizeConfiguration) {
         if (sizeConfiguration == null) {
             return;

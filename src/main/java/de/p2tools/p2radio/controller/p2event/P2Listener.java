@@ -1,5 +1,5 @@
 /*
- * P2tools Copyright (C) 2022 W. Xaver W.Xaver[at]googlemail.com
+ * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -14,15 +14,29 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
+package de.p2tools.p2radio.controller.p2event;
 
-package de.p2tools.p2radio.controller.config;
+import javafx.application.Platform;
 
-public class Events {
-    private static int count = 0;
-    public static int TIMER = ++count;
-    public static int READ_STATIONS = ++count;
-    public static int LOAD_RADIO_LIST = ++count;
-    public static int BLACKLIST_CHANGED = ++count;
-    public static int SETDATA_CHANGED = ++count;
-    public static int REFRESH_TABLE = ++count;
+public class P2Listener {
+    private final int eventNo;
+
+    public P2Listener(int eventNo) {
+        this.eventNo = eventNo;
+    }
+
+    public int getEventNo() {
+        return eventNo;
+    }
+
+    public synchronized <T extends P2Event> void notify(T event) {
+        ping(event);
+        Platform.runLater(() -> pingGui(event));
+    }
+
+    public <T extends P2Event> void ping(T event) {
+    }
+
+    public <T extends P2Event> void pingGui(T event) {
+    }
 }

@@ -16,12 +16,12 @@
 
 package de.p2tools.p2radio.controller.worker;
 
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.config.Events;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.RunEventRadio;
+import de.p2tools.p2radio.controller.p2event.P2Event;
+import de.p2tools.p2radio.controller.p2event.P2Listener;
+import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 
 public class Worker {
 
@@ -30,7 +30,7 @@ public class Worker {
     public Worker(ProgData progData) {
         this.progData = progData;
 
-        progData.pEventHandler.addListener(new P2Listener(Events.LOAD_RADIO_LIST) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
             public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runEventRadio = (RunEventRadio) runEvent;

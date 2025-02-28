@@ -42,7 +42,7 @@ public class FavouriteStartsFactory {
         final List<StationData> activeStationData = new ArrayList<>();
 
         activeStationData.addAll(favouriteList.stream()
-                .filter(favourite -> favourite.getStart() != null && favourite.getStart().getStartStatus().isStateStartedRun())
+                .filter(favourite -> favourite.getStart() != null && favourite.getStart().isStateStartedRun())
                 .filter(download -> source.equals(FavouriteConstants.ALL) /*|| download.getSource().equals(source)*/)
                 .collect(Collectors.toList()));
 
