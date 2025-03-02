@@ -21,12 +21,12 @@ import de.p2tools.p2lib.colordata.P2ColorData;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.P2ColorFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.geometry.Insets;
@@ -91,7 +91,7 @@ public class PaneColor {
         Button button = new Button("Alle _Farben zurücksetzen");
         button.setOnAction(event -> {
             ProgColorList.resetAllColor();
-            ProgData.getInstance().pEventHandler.notifyListener(new de.p2tools.p2radio.controller.p2event.P2Event(PEvents.REFRESH_TABLE));
+            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
         });
         HBox hBox = new HBox();
         hBox.getChildren().add(button);
@@ -162,7 +162,7 @@ public class PaneColor {
             checkBox.setOnAction(a -> {
                 pColorData.setUse(checkBox.isSelected());
                 // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
-                ProgData.getInstance().pEventHandler.notifyListener(new de.p2tools.p2radio.controller.p2event.P2Event(PEvents.REFRESH_TABLE));
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
             });
 
             hbox.getChildren().add(checkBox);
@@ -197,7 +197,7 @@ public class PaneColor {
                 Color fxColor = colorPicker.getValue();
                 p2ColorData.setColor(fxColor);
                 // ProgConfig.SYSTEM_THEME_CHANGED.set(!ProgConfig.SYSTEM_THEME_CHANGED.get()); entweder / oder direkt
-                ProgData.getInstance().pEventHandler.notifyListener(new de.p2tools.p2radio.controller.p2event.P2Event(PEvents.REFRESH_TABLE));
+                ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
             });
             hbox.getChildren().addAll(colorPicker);
             setGraphic(hbox);

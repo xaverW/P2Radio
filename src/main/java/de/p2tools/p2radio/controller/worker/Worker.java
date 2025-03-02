@@ -16,10 +16,10 @@
 
 package de.p2tools.p2radio.controller.worker;
 
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
-import de.p2tools.p2radio.controller.p2event.P2Listener;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 

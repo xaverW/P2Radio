@@ -16,9 +16,9 @@
 
 package de.p2tools.p2radio.tools.storedfilter;
 
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
-import de.p2tools.p2radio.controller.p2event.P2Listener;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import javafx.collections.FXCollections;

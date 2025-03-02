@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.pevent;
 
-import de.p2tools.p2radio.controller.p2event.P2Events;
+import de.p2tools.p2lib.p2event.P2Events;
 
 public class PEvents extends P2Events {
     // Prog zählt vorwärts

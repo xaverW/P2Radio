@@ -17,12 +17,12 @@
 
 package de.p2tools.p2radio.controller.worker;
 
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Events;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
-import de.p2tools.p2radio.controller.p2event.P2Events;
-import de.p2tools.p2radio.controller.p2event.P2Listener;
 
 public class FavouriteInfos {
 

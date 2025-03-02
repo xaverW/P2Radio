@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
@@ -24,7 +25,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 

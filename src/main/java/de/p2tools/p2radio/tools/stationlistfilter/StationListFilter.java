@@ -17,10 +17,10 @@
 
 package de.p2tools.p2radio.tools.stationlistfilter;
 
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
-import de.p2tools.p2radio.controller.p2event.P2Listener;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import javafx.application.Platform;
@@ -50,8 +50,8 @@ public class StationListFilter {
                 filter();
             }
         }); // Senderfilter (User) haben sich geändert
-        progData.pEventHandler.addListener(new de.p2tools.p2radio.controller.p2event.P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends de.p2tools.p2radio.controller.p2event.P2Event> void pingGui(T runEvent) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
+            public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 

@@ -18,6 +18,7 @@
 package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
+import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackDataList;
@@ -29,7 +30,6 @@ import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.p2event.P2EventHandler;
 import de.p2tools.p2radio.controller.radiosloadfromweb.LoadNewStationList;
 import de.p2tools.p2radio.controller.worker.FavouriteInfos;
 import de.p2tools.p2radio.controller.worker.StationInfos;
@@ -119,7 +119,7 @@ public class ProgData {
     public CollectionList collectionList; //Liste der Sender-Sammlungen
     public BlackDataList blackDataList;
     public SetDataList setDataList;
-    public de.p2tools.p2radio.controller.p2event.P2EventHandler pEventHandler;
+    public P2EventHandler pEventHandler;
     boolean oneSecond = false;
 
     private ProgData() {

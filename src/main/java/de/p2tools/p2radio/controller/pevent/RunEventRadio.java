@@ -17,7 +17,7 @@
 
 package de.p2tools.p2radio.controller.pevent;
 
-import de.p2tools.p2radio.controller.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Event;
 
 public class RunEventRadio extends P2Event {
 

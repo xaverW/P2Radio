@@ -16,12 +16,12 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -21,12 +21,12 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.BlackData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
-import de.p2tools.p2radio.controller.p2event.P2Listener;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -60,7 +60,7 @@ public class PaneBlackList {
     private final BooleanProperty blackChanged;
     private final Stage stage;
     BooleanProperty propWhite = ProgConfig.SYSTEM_BLACKLIST_IS_WHITELIST;
-    de.p2tools.p2radio.controller.p2event.P2Listener listener;
+    P2Listener listener;
     private BlackData blackData = null;
 
     public PaneBlackList(Stage stage, BooleanProperty blackChanged) {

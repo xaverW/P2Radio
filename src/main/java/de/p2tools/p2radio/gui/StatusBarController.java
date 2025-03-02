@@ -17,11 +17,11 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.PlayingTitle;
-import de.p2tools.p2radio.controller.p2event.P2Listener;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.controller.worker.InfoFactory;
@@ -87,8 +87,8 @@ public class StatusBarController extends AnchorPane {
         stackPane.setPadding(new Insets(2, 5, 2, 5));
         stackPane.toFront();
 
-        progData.pEventHandler.addListener(new de.p2tools.p2radio.controller.p2event.P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends de.p2tools.p2radio.controller.p2event.P2Event> void pingGui(T runEvent) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
+            public <T extends P2Event> void pingGui(T runEvent) {
                 if (runEvent.getClass().equals(RunEventRadio.class)) {
                     RunEventRadio runE = (RunEventRadio) runEvent;
 

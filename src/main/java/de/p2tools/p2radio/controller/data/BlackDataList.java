@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2lib.configfile.pdata.P2DataList;
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.p2event.P2Event;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.beans.property.SimpleListProperty;
