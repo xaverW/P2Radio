@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.P2Styles;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgIcons;
@@ -65,7 +65,7 @@ public class PanePath {
         btnEmpty.setVisible(false);
         gridPane.add(btnEmpty, 2, row);
 
-        switch (P2ToolsFactory.getOs()) {
+        switch (P2InfoFactory.getOs()) {
             case WIN32:
             case WIN64:
                 // da wird nur der VLC gebraucht, der Rest wird mitgeliefert

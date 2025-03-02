@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.tools.file.GetFile;
 
@@ -35,7 +35,7 @@ public class ImportSetDataFactory {
         // dann nehmen wir halt die im jar-File
         // liefert das Standard Programmset für das entsprechende BS
         InputStreamReader inReader;
-        switch (P2ToolsFactory.getOs()) {
+        switch (P2InfoFactory.getOs()) {
             case LINUX:
                 inReader = new GetFile().getPsetTamplateLinux();
                 break;

@@ -18,9 +18,9 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -44,7 +44,10 @@ public class StartFactory {
         playPlayable(stationData, null);
     }
 
-    public static void playPlayable(StationData stationData, SetData setData) {
+    public synchronized static void playPlayable(StationData stationData, SetData setData) {
+        P2Log.sysLog("====================================");
+        P2Log.sysLog("Sender starten: " + stationData.getStationName());
+
         if (setData == null) {
             setData = ProgData.getInstance().setDataList.getSetDataPlay();
         }
@@ -53,18 +56,26 @@ public class StartFactory {
             return;
         }
 
-        // und starten
+        // erst mal alles stoppen
+        stopRunningStation();
+
+        if (nowPlayingStart != null) {
+            // dann wurde nicht beendet
+            P2Log.errorLog(958584587, "Konnte Sender nicht stoppen: " + stationData.getStationName());
+            nowPlayingStart = null;
+        }
+
+        // und jetzt starten
         startUrlWithProgram(stationData, setData);
     }
 
-    private static synchronized void startUrlWithProgram(StationData station, SetData setData) {
+    private static void startUrlWithProgram(StationData station, SetData setData) {
         // hier (und nur hier) wird der Sender gestartet
         final String url = station.getStationUrl();
         if (url.isEmpty()) {
+            P2Log.sysLog("Sender hat keine URL: " + station.getStationName());
             return;
         }
-
-        stopRunningStation();
 
         station.setStationDateLastStart(LocalDateTime.now());
         ProgData.getInstance().stationLastPlayed.copyToMe(station);
@@ -83,34 +94,38 @@ public class StartFactory {
         stopRunningStation(true);
     }
 
+    static synchronized boolean isProcess() {
+        return nowPlayingStart != null &&
+                nowPlayingStart.getProcess() != null &&
+                nowPlayingStart.getProcess().isAlive();
+    }
+
     public static void stopRunningStation(boolean wait) {
-        if (nowPlayingStart != null) {
-            nowPlayingStart.setRunning(false);
+        System.out.println("stopRunningStation");
 
-            if (nowPlayingStart.getProcess() != null) {
-                nowPlayingStart.getProcess().destroy();
+        if (nowPlayingStart == null) {
+            System.out.println("stopRunningStation - nix");
+            return;
+        }
 
-                if (wait) {
-                    int count = 0;
-                    while (nowPlayingStart.getProcess() != null) {
-                        count += 1;
-                        if (count > 8 /* sind 2 Sekunden */) {
-                            // kann nicht ewig hier festhängen
-                            break;
-                        }
+        nowPlayingStart.setStopFromButton(true);
 
-                        P2RadioFactory.pause(250);
-                        System.out.println("wait to end");
-                    }
-                }
+        if (nowPlayingStart.getProcess() != null) {
+            nowPlayingStart.getProcess().destroy();
+
+            if (wait) {
+                P2ToolsFactory.waitWhile(3_000, (a) -> isProcess());
             }
         }
 
         finalizePlaying(nowPlayingStart);
+        nowPlayingStart = null;
     }
 
     private static void finalizePlaying(Start start) {
         // Aufräumen
+        System.out.println("finalizePlaying");
+
         if (start == null) {
             return;
         }
@@ -118,14 +133,11 @@ public class StartFactory {
         if (start.getStationData() != null) {
             start.getStationData().setError(start.isStateError());
             start.getStationData().setStart(null);
-        } else {
-            System.out.println("finalizePlaying: no stationData");
         }
 
         PlayingTitle.stopNowPlaying();
         StartFactory.finishedMsg(start);
         ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
-        nowPlayingStart = null;
     }
 
     // ========
@@ -152,10 +164,6 @@ public class StartFactory {
         list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStartTime()));
         list.add("Endzeit: " + P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss.format(LocalDateTime.now()));
 
-        if (start.getStartCounter() > 0) {
-            list.add("Restarts: " + start.getStartCounter());
-        }
-
         final long dauer = start.getStartTime().diffInMinutes();
         if (dauer == 0) {
             list.add("Dauer: " + start.getStartTime().diffInSeconds() + " s");
@@ -171,5 +179,4 @@ public class StartFactory {
         list.add(P2Log.LILNE_EMPTY);
         P2Log.sysLog(list);
     }
-
 }

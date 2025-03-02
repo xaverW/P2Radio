@@ -18,7 +18,7 @@ package de.p2tools.p2radio.tools.update;
 
 import de.p2tools.p2lib.checkforactinfos.FoundAll;
 import de.p2tools.p2lib.checkforactinfos.FoundSearchDataDTO;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
@@ -66,9 +66,9 @@ public class SearchProgramUpdate {
                 ProgConst.URL_WEBSITE_DOWNLOAD,
                 ProgConst.PROGRAM_NAME,
 
-                P2ToolsFactory.getProgVersion(),
-                P2ToolsFactory.getBuildNo(),
-                P2ToolsFactory.getBuildDateR(),
+                P2InfoFactory.getProgVersion(),
+                P2InfoFactory.getBuildNo(),
+                P2InfoFactory.getBuildDateR(),
 
                 new String[]{}, // welche Downloads angezeigt werden sollen
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,

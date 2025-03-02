@@ -17,52 +17,51 @@
 package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-public final class Start extends StartProps {
-
+public final class Start {
     // Stati
-    public static final int STATE_INIT = 0; //nicht gestart
+    public static final int STATE_INIT = 0; //nicht gestartet
     public static final int STATE_STARTED_RUN = 1; //läuft
     public static final int STATE_STOPPED = 2; //abgebrochen
     public static final int STATE_ERROR = 3; //fehlerhaft
-
-    //Sender wird so oft gestartet, falls es beim ersten Mal nicht gelingt
-    public static final int START_COUNTER_MAX = 3;
     private final IntegerProperty state = new SimpleIntegerProperty(STATE_INIT);
 
-    private int startCounter = 0; // Anzahl der Startversuche
+    private final StringProperty programCall = new SimpleStringProperty("");
+    private final StringProperty programCallArray = new SimpleStringProperty("");
+
     private Process process = null; //Prozess des Programms (VLC)
-    private P2Date startTime = null;
-    private StationData stationData = null;
-    private SetData setData = null;
-    private PlayingThread playingThread = null;
-    private final AtomicBoolean running = new AtomicBoolean(true);
+    private final StationData stationData;
+    private final P2Date startTime;
+    private final SetData setData;
+    private final BooleanProperty isStarting = new SimpleBooleanProperty(true); // PlayingThread meldet, wenn gestartet
+    private final BooleanProperty stopFromButton = new SimpleBooleanProperty(false); // Wenn dur Button gestoppt, nicht durch Beenden VLC
 
     public Start(SetData setData, StationData stationData) {
         this.stationData = stationData;
-        setSetData(setData);
+        this.startTime = new P2Date();
+        this.setData = setData;
         StartProgramFactory.makeProgParameter(this);
     }
 
     public void initStart() {
-        setStartTime(new P2Date());
         state.set(FavouriteConstants.STATE_INIT);
 
-        playingThread = new PlayingThread(ProgData.getInstance(), this);
+        PlayingThread playingThread = new PlayingThread(ProgData.getInstance(), this);
         playingThread.start();
+
+        P2ToolsFactory.waitWhile(3_000, isStarting);
 
         StartFactory.startMsg(this);
         ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
+        setStarting(false);
     }
 
     // STATE
@@ -91,10 +90,6 @@ public final class Start extends StartProps {
     }
 
     //=============
-    public String getStationUrl() {
-        return stationData.getStationUrl();
-    }
-
     public StationData getStationData() {
         return stationData;
     }
@@ -103,28 +98,8 @@ public final class Start extends StartProps {
         return setData;
     }
 
-    public void setSetData(SetData setData) {
-        this.setData = setData;
-    }
-
     public P2Date getStartTime() {
         return startTime;
-    }
-
-    public void setStartTime(P2Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public int getStartCounter() {
-        return startCounter;
-    }
-
-    public void setStartCounter(int startCounter) {
-        this.startCounter = startCounter;
-    }
-
-    public void incStartCounter() {
-        ++this.startCounter;
     }
 
     public Process getProcess() {
@@ -135,11 +110,48 @@ public final class Start extends StartProps {
         this.process = process;
     }
 
-    public boolean getRunning() {
-        return running.get();
+    public boolean isStarting() {
+        return isStarting.get();
     }
 
-    public void setRunning(boolean running) {
-        this.running.set(running);
+    public void setStarting(boolean set) {
+        isStarting.set(set);
+    }
+
+    public boolean isStopFromButton() {
+        return stopFromButton.get();
+    }
+
+    public void setStopFromButton(boolean set) {
+        stopFromButton.set(set);
+    }
+
+    public BooleanProperty stopFromButtonProperty() {
+        return stopFromButton;
+    }
+
+    //=================
+    public String getProgramCall() {
+        return programCall.get();
+    }
+
+    public void setProgramCall(String programCall) {
+        this.programCall.set(programCall);
+    }
+
+    public StringProperty programCallProperty() {
+        return programCall;
+    }
+
+    public String getProgramCallArray() {
+        return programCallArray.get();
+    }
+
+    public void setProgramCallArray(String programCallArray) {
+        this.programCallArray.set(programCallArray);
+    }
+
+    public StringProperty programCallArrayProperty() {
+        return programCallArray;
     }
 }

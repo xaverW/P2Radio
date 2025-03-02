@@ -20,7 +20,7 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
-import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -80,7 +80,7 @@ public class HistoryGuiController extends VBox {
         if (!favourite.isPresent()) {
             return;
         }
-        P2SystemUtils.copyToClipboard(favourite.get().getStationUrl());
+        P2ToolsFactory.copyToClipboard(favourite.get().getStationUrl());
     }
 
     private void setSelectedHistory() {

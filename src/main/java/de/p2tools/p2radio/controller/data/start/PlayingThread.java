@@ -19,31 +19,28 @@ package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 
-/**
- * Start Station via an external program.
- */
 public class PlayingThread extends Thread {
 
     private final int stat_start = 0;
     private final int stat_running = 1;
     private final int stat_restart = 3;
     private final int stat_end = 99;
+
     private Start start;
-    private final StationData stationData;
-    private String exMessage = "";
     private int runTime = 0;
+    private int startCounter = 0; // Anzahl der Startversuche
+    private static final int START_COUNTER_MAX = 3;
 
 
     public PlayingThread(ProgData progData, Start start) {
         super();
         this.start = start;
-        stationData = start.getStationData();
 
         setName("START-STATION-THREAD: " + this.start.getStationData().getStationName());
         setDaemon(true);
@@ -51,8 +48,8 @@ public class PlayingThread extends Thread {
             public void ping(P2Event event) {
                 // wenn der Sender mind. 60s läuft, wird der Start-Counter hochgesetzt
                 ++runTime;
-                if (runTime == ProgConst.START_COUNTER_MIN_TIME && stationData != null) {
-                    StartProgramFactory.setStartCounter(stationData);
+                if (runTime == ProgConst.START_COUNTER_MIN_TIME && start.getStationData() != null) {
+                    StartProgramFactory.setStartCounter(start.getStationData());
                 }
             }
         });
@@ -68,12 +65,11 @@ public class PlayingThread extends Thread {
             }
 
         } catch (final Exception ex) {
-            exMessage = ex.getLocalizedMessage();
             P2Log.errorLog(987989569, ex);
             start.setStateError();
         }
 
-        if (start.getRunning()) {
+        if (!start.isStopFromButton()) {
             // nur dann muss es gemacht werden, sonst machts START selbst
             StartFactory.stopRunningStation(false); // Prozess ist dann ja schon beendet
         }
@@ -89,7 +85,7 @@ public class PlayingThread extends Thread {
                 break;
 
             case stat_running:
-                // hier läuft der Download bis zum Abbruch oder Ende
+                // hier läuft es bis zum Abbruch
                 stat = runProgram();
                 break;
 
@@ -104,13 +100,14 @@ public class PlayingThread extends Thread {
     private int startProgram() {
         //versuch das Programm zu Starten
         //die Reihenfolge: startCounter - startmeldung ist wichtig!
-        start.incStartCounter();
+        ++startCounter;
         final StartRuntimeExec runtimeExec = new StartRuntimeExec(start);
         final Process process = runtimeExec.exec();
         start.setProcess(process);
 
         if (process != null) {
             start.setStateStartedRun();
+            start.setStarting(false);
             return stat_running;
 
         } else {
@@ -124,23 +121,22 @@ public class PlayingThread extends Thread {
         try {
             final int exitV = start.getProcess().exitValue(); //liefert ex wenn noch nicht fertig
             if (exitV != 0) {
+                // <> 0 -> Fehler
                 retStatus = stat_restart;
 
             } else {
+                // 0 -> beendet
                 retStatus = stat_end;
             }
         } catch (final Exception ex) {
-            try {
-                this.wait(1000);
-            } catch (final InterruptedException ignored) {
-            }
+            P2ToolsFactory.pause(1_000);
         }
         return retStatus;
     }
 
     private int restartProgram() {
         // counter prüfen und starten bis zu einem Maxwert, sonst endlos
-        if (start.getStartCounter() < Start.START_COUNTER_MAX) {
+        if (startCounter < START_COUNTER_MAX) {
             // dann nochmal von vorne
             return stat_start;
 
