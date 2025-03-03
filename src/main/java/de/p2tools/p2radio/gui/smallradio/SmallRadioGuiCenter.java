@@ -109,7 +109,7 @@ public class SmallRadioGuiCenter extends VBox {
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
-        favourite.ifPresent(StartFactory::playPlayable);
+        favourite.ifPresent(StartFactory::startStation);
     }
 
     public void saveTable() {
@@ -164,7 +164,7 @@ public class SmallRadioGuiCenter extends VBox {
         if (stationData != null) {
             tableView.getSelectionModel().select(stationData);
             tableView.scrollTo(stationData);
-            StartFactory.playPlayable(stationData);
+            StartFactory.startStation(stationData);
         }
     }
 

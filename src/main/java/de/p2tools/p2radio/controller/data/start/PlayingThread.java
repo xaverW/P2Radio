@@ -17,13 +17,16 @@
 package de.p2tools.p2radio.controller.data.start;
 
 
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.pevent.PEvents;
+import javafx.application.Platform;
 
 public class PlayingThread extends Thread {
 
@@ -32,24 +35,23 @@ public class PlayingThread extends Thread {
     private final int stat_restart = 3;
     private final int stat_end = 99;
 
-    private Start start;
+    private final StartDto startDto;
     private int runTime = 0;
     private int startCounter = 0; // Anzahl der Startversuche
     private static final int START_COUNTER_MAX = 3;
 
-
-    public PlayingThread(ProgData progData, Start start) {
+    public PlayingThread(ProgData progData, StartDto startDto) {
         super();
-        this.start = start;
+        this.startDto = startDto;
 
-        setName("START-STATION-THREAD: " + this.start.getStationData().getStationName());
+        setName("PlayingThread: " + this.startDto.getStationData().getStationName());
         setDaemon(true);
         progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
             public void ping(P2Event event) {
                 // wenn der Sender mind. 60s läuft, wird der Start-Counter hochgesetzt
                 ++runTime;
-                if (runTime == ProgConst.START_COUNTER_MIN_TIME && start.getStationData() != null) {
-                    StartProgramFactory.setStartCounter(start.getStationData());
+                if (runTime == ProgConst.START_COUNTER_MIN_TIME && startDto.getStationData() != null) {
+                    StartProgramFactory.setStartCounter(startDto.getStationData());
                 }
             }
         });
@@ -57,57 +59,38 @@ public class PlayingThread extends Thread {
 
     @Override
     public synchronized void run() {
-        int stat = stat_start;
-
         try {
+            int stat = stat_start;
             while (stat < stat_end) {
-                stat = runningLoop(stat);
+                stat = switch (stat) {
+                    case stat_start -> startProgram(); // starten
+                    case stat_running -> runProgram(); // läuft bis zum Abbruch
+                    case stat_restart -> restartProgram();
+                    default -> stat;
+                };
             }
 
         } catch (final Exception ex) {
             P2Log.errorLog(987989569, ex);
-            start.setStateError();
+            startDto.setStateError();
         }
 
-        if (!start.isStopFromButton()) {
+        if (!startDto.isStopFromButton()) {
             // nur dann muss es gemacht werden, sonst machts START selbst
-            StartFactory.stopRunningStation(false); // Prozess ist dann ja schon beendet
+            StartFactory.stopStation(false); // Prozess ist dann ja schon beendet
         }
-        start = null;
-    }
-
-    private int runningLoop(int stat) {
-        // läuft, solange der Sender läuft
-        switch (stat) {
-            case stat_start:
-                // Versuch, das Programm zu Starten
-                stat = startProgram();
-                break;
-
-            case stat_running:
-                // hier läuft es bis zum Abbruch
-                stat = runProgram();
-                break;
-
-            case stat_restart:
-                stat = restartProgram();
-                break;
-        }
-
-        return stat;
     }
 
     private int startProgram() {
-        //versuch das Programm zu Starten
-        //die Reihenfolge: startCounter - startmeldung ist wichtig!
+        // versuch das Programm zu Starten
         ++startCounter;
-        final StartRuntimeExec runtimeExec = new StartRuntimeExec(start);
+        final StartRuntimeExec runtimeExec = new StartRuntimeExec(startDto);
         final Process process = runtimeExec.exec();
-        start.setProcess(process);
+        startDto.setProcess(process);
 
         if (process != null) {
-            start.setStateStartedRun();
-            start.setStarting(false);
+            startDto.setStateStartedRun();
+            startDto.setStarting(false);
             return stat_running;
 
         } else {
@@ -116,10 +99,10 @@ public class PlayingThread extends Thread {
     }
 
     private int runProgram() {
-        //hier läufts bis zum Abbruch oder Ende
+        // hier läufts bis zum Abbruch
         int retStatus = stat_running;
         try {
-            final int exitV = start.getProcess().exitValue(); //liefert ex wenn noch nicht fertig
+            final int exitV = startDto.getProcess().exitValue(); //liefert ex wenn noch nicht fertig
             if (exitV != 0) {
                 // <> 0 -> Fehler
                 retStatus = stat_restart;
@@ -135,14 +118,29 @@ public class PlayingThread extends Thread {
     }
 
     private int restartProgram() {
-        // counter prüfen und starten bis zu einem Maxwert, sonst endlos
+        // counter prüfen und starten bis zu einem Maxwert
         if (startCounter < START_COUNTER_MAX) {
             // dann nochmal von vorne
             return stat_start;
 
         } else {
             // dann wars das
-            start.setStateError();
+            startDto.setStateError();
+            startDto.setStarting(false);
+
+            if (SetFactory.checkProgram(startDto.getSetData().getProgPath())) {
+                // Programm passt
+                Platform.runLater(() -> {
+                    P2Alert.showErrorAlert("Sender starten", "Der Sender konnte nicht gestartet werden.");
+                });
+
+            } else {
+                // dann kann das Programm nicht gestartet werden
+                Platform.runLater(() -> {
+                    P2Alert.showErrorAlert("Sender starten", "Das Programm konnte nicht gestartet werden.");
+                });
+            }
+
             return stat_end;
         }
     }

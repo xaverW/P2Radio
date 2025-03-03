@@ -39,7 +39,7 @@ public class ProgQuitFactory {
      */
     public static void quit() {
         //dann jetzt beenden, aus Button
-        StartFactory.stopRunningStation(false);
+        StartFactory.stopStation(false);
         writeTableWindowSettings();
 
         if (ProgData.getInstance().primaryStageBig.isShowing()) {

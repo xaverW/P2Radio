@@ -74,7 +74,7 @@ public class TableContextMenu {
         }
 
         MenuItem miStop = new MenuItem("Sender stoppen");
-        miStop.setOnAction(a -> StartFactory.stopRunningStation());
+        miStop.setOnAction(a -> StartFactory.stopStation());
         miStop.setDisable(station == null);
         contextMenu.getItems().addAll(miStop);
 
@@ -218,7 +218,7 @@ public class TableContextMenu {
     private void playStation() {
         // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
-        stationSelection.ifPresent(StartFactory::playPlayable);
+        stationSelection.ifPresent(StartFactory::startStation);
     }
 
     public void playStationWithSet(SetData psetData) {
@@ -227,7 +227,7 @@ public class TableContextMenu {
             return;
         }
 
-        StartFactory.playPlayable(sel.get(), psetData);
+        StartFactory.startStation(sel.get(), psetData);
     }
 
     private Menu addBlacklist(StationData station) {

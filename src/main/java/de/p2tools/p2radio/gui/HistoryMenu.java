@@ -20,8 +20,8 @@ import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.PShortCut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
@@ -66,7 +66,7 @@ public class HistoryMenu {
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
-        btStop.setOnAction(a -> StartFactory.stopRunningStation());
+        btStop.setOnAction(a -> StartFactory.stopStation());
         btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
@@ -85,7 +85,7 @@ public class HistoryMenu {
                 miStart.setOnAction(a -> {
                     final Optional<StationData> stationData = ProgData.getInstance().historyGuiPack.getHistoryGuiController().getSel();
                     if (stationData.isPresent()) {
-                        StartFactory.playPlayable(stationData.get(), set);
+                        StartFactory.startStation(stationData.get(), set);
                     }
                 });
                 miStartWithSet.getItems().add(miStart);
@@ -100,7 +100,7 @@ public class HistoryMenu {
         }
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> StartFactory.stopRunningStation());
+        miFavouriteStop.setOnAction(a -> StartFactory.stopStation());
         P2ShortcutWorker.addShortCut(miFavouriteStop, PShortCut.SHORTCUT_STOP_STATION);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");

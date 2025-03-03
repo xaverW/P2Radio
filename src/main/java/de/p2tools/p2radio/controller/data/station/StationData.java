@@ -18,11 +18,11 @@ package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2radio.controller.data.start.Start;
+import de.p2tools.p2radio.controller.data.start.StartDto;
 
 public final class StationData extends StationDataProperty {
 
-    private Start start = null;
+    private StartDto startDto = null;
     public final String TAG;
 
     public StationData() {
@@ -41,17 +41,17 @@ public final class StationData extends StationDataProperty {
     //==============================================
     // Get/Set
     //==============================================
-    public Start getStart() {
-        return start;
+    public StartDto getStart() {
+        return startDto;
     }
 
-    public void setStart(Start start) {
-        this.start = start;
+    public void setStart(StartDto startDto) {
+        this.startDto = startDto;
     }
 
     public StationData getCopy() {
         final StationData ret = new StationData(getTag());
-        ret.start = start;
+        ret.startDto = startDto;
 
         Config[] configs = getConfigsArr();
         Config[] configsCopy = ret.getConfigsArr();
@@ -62,7 +62,7 @@ public final class StationData extends StationDataProperty {
     }
 
     public void copyToMe(StationData stationData) {
-        start = stationData.getStart();
+        startDto = stationData.getStart();
 
         Config[] configs = stationData.getConfigsArr();
         Config[] configsCopy = getConfigsArr();

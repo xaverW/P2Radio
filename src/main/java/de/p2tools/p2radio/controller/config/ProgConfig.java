@@ -21,7 +21,6 @@ import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.configfile.pdata.P2DataProgConfig;
 import de.p2tools.p2lib.tools.P2InfoFactory;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
@@ -255,9 +254,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDoubleProp("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
     public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStrProp("config-dialog-import-set-size", "600:400");
     public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDoubleProp("config-dialog-shortcut-divider", 0.1);
-
-    //StartDialog
-    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", P2ToolsFactory.getStandardDownloadPath());
 
     //Filter Sender
     public static IntegerProperty FILTER_STATION_SEL_FILTER = addIntProp("filter-station-sel-filter");

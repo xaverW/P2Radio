@@ -84,7 +84,7 @@ public class StationGuiController extends VBox {
     public void playStation() {
         // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
-        stationSelection.ifPresent(StartFactory::playPlayable);
+        stationSelection.ifPresent(StartFactory::startStation);
     }
 
     public void playStationWithSet(SetData psetData) {
@@ -93,7 +93,7 @@ public class StationGuiController extends VBox {
             return;
         }
 
-        StartFactory.playPlayable(sel.get(), psetData);
+        StartFactory.startStation(sel.get(), psetData);
     }
 
 
@@ -107,7 +107,7 @@ public class StationGuiController extends VBox {
         if (station != null) {
             tableView.getSelectionModel().select(station);
             tableView.scrollTo(station);
-            StartFactory.playPlayable(station);
+            StartFactory.startStation(station);
         }
     }
 

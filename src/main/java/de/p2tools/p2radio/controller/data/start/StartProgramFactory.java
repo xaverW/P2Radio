@@ -54,23 +54,23 @@ public class StartProgramFactory {
         }
     }
 
-    public static boolean makeProgParameter(Start start) {
+    public static boolean makeProgParameter(StartDto startDto) {
         try {
-            buildProgParameter(start);
+            buildProgParameter(startDto);
         } catch (final Exception ex) {
             P2Log.errorLog(825600145, ex);
         }
         return true;
     }
 
-    private static void buildProgParameter(Start start) {
-        String prog = start.getSetData().getProgPath() + " " + start.getSetData().getProgSwitch();
-        prog = replaceExec(start, prog);
-        start.setProgramCall(prog);
+    private static void buildProgParameter(StartDto startDto) {
+        String prog = startDto.getSetData().getProgPath() + " " + startDto.getSetData().getProgSwitch();
+        prog = replaceExec(startDto, prog);
+        startDto.setProgramCall(prog);
 
-        String progArray = getProgrammAufrufArray(start.getSetData().getProgPath(), start.getSetData().getProgSwitch());
-        progArray = replaceExec(start, progArray);
-        start.setProgramCallArray(progArray);
+        String progArray = getProgrammAufrufArray(startDto.getSetData().getProgPath(), startDto.getSetData().getProgSwitch());
+        progArray = replaceExec(startDto, progArray);
+        startDto.setProgramCallArray(progArray);
     }
 
     private static String getProgrammAufrufArray(String progPath, String progSwitch) {
@@ -83,8 +83,8 @@ public class StartProgramFactory {
         return ret;
     }
 
-    private static String replaceExec(Start start, String execString) {
-        execString = execString.replace("%f", start.getStationData().getStationUrl());
+    private static String replaceExec(StartDto startDto, String execString) {
+        execString = execString.replace("%f", startDto.getStationData().getStationUrl());
         return execString;
     }
 }

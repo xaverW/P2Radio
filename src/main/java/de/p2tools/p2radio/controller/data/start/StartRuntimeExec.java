@@ -28,21 +28,17 @@ public class StartRuntimeExec {
     public static final String TRENNER_PROG_ARRAY = "<>";
     private static final int INPUT = 1;
     private static final int ERROR = 2;
-    Thread clearIn;
-    Thread clearOut;
     private Process process = null;
 
-    private Start start = null;
     private final String strProgCall;
     private String[] arrProgCallArray = null;
     private String strProgCallArray = "";
     private final PlayerMessage playerMessage = new PlayerMessage();
     private final PlayingTitle playingTitle = new PlayingTitle();
 
-    public StartRuntimeExec(Start start) {
-        this.start = start;
-        this.strProgCall = start.getProgramCall();
-        this.strProgCallArray = start.getProgramCallArray();
+    public StartRuntimeExec(StartDto startDto) {
+        this.strProgCall = startDto.getProgramCall();
+        this.strProgCallArray = startDto.getProgramCallArray();
 
         arrProgCallArray = strProgCallArray.split(TRENNER_PROG_ARRAY);
         if (arrProgCallArray.length <= 1) {
@@ -51,6 +47,7 @@ public class StartRuntimeExec {
     }
 
     public StartRuntimeExec(String p) {
+        // wird aufgerufen zum Prüfen ob Programm gestartet werden kann
         strProgCall = p;
     }
 
@@ -73,8 +70,8 @@ public class StartRuntimeExec {
                 process = Runtime.getRuntime().exec(strProgCall);
             }
 
-            clearIn = new Thread(new ClearInOut(INPUT, process));
-            clearOut = new Thread(new ClearInOut(ERROR, process));
+            Thread clearIn = new Thread(new ClearInOut(INPUT, process));
+            Thread clearOut = new Thread(new ClearInOut(ERROR, process));
 
             clearIn.setName("exec-in");
             clearIn.start();

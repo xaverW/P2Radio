@@ -250,7 +250,7 @@ public class TableStationFactory {
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
                     btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STOP.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
-                        StartFactory.stopRunningStation();
+                        StartFactory.stopStation();
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -268,7 +268,7 @@ public class TableStationFactory {
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
                     btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
-                        StartFactory.playPlayable(stationData);
+                        StartFactory.startStation(stationData);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });

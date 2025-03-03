@@ -147,7 +147,7 @@ public class P2RadioFactory {
                 if (progData.stationLastPlayed.isAuto()) {
                     StationData stationData = progData.stationList.getStationByUrl(progData.stationLastPlayed.getStationUrl());
                     if (stationData != null) {
-                        StartFactory.playPlayable(stationData);
+                        StartFactory.startStation(stationData);
                     } else {
                         P2Alert.showErrorAlert(P2LibConst.actStage,
                                 "Autostart",
@@ -159,7 +159,7 @@ public class P2RadioFactory {
                 if (progData.stationAutoStart.isAuto()) {
                     StationData stationData = progData.stationList.getStationByUrl(progData.stationAutoStart.getStationUrl());
                     if (stationData != null) {
-                        StartFactory.playPlayable(stationData);
+                        StartFactory.startStation(stationData);
                     } else {
                         P2Alert.showErrorAlert(P2LibConst.actStage,
                                 "Autostart",

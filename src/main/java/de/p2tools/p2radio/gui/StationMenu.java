@@ -20,8 +20,8 @@ import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.PShortCut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
@@ -67,7 +67,7 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         btPlay.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStation());
-        btStop.setOnAction(a -> StartFactory.stopRunningStation());
+        btStop.setOnAction(a -> StartFactory.stopStation());
         btFavourite.setOnAction(a -> FavouriteFactory.favouriteStationList());
         btRandom.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
@@ -98,7 +98,7 @@ public class StationMenu {
 
 
         final MenuItem miStop = new MenuItem("Sender stoppen");
-        miStop.setOnAction(a -> StartFactory.stopRunningStation());
+        miStop.setOnAction(a -> StartFactory.stopStation());
         P2ShortcutWorker.addShortCut(miStop, PShortCut.SHORTCUT_STOP_STATION);
 
         final MenuItem miSave = new MenuItem("Sender als Favoriten speichern");

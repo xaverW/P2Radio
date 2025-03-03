@@ -93,7 +93,7 @@ public class FavouriteGuiController extends VBox {
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
-        favourite.ifPresent(StartFactory::playPlayable);
+        favourite.ifPresent(StartFactory::startStation);
     }
 
     public void saveTable() {

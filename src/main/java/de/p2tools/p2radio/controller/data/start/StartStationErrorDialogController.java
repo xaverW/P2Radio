@@ -41,7 +41,7 @@ public class StartStationErrorDialogController extends P2DialogExtra {
     private final HBox hBoxTitle;
     private final VBox vBoxCont;
     private final String message;
-    private final Start start;
+    private final StartDto startDto;
     private final Label lblHeader = new Label("Downloadfehler");
     private final Button btnOk = new Button("_Ok");
     private final Label lblStationTitle = new Label("ARD: Tatort, ..");
@@ -53,11 +53,11 @@ public class StartStationErrorDialogController extends P2DialogExtra {
     private Timeline timeline = null;
     private Integer timeSeconds = ProgConfig.SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND.get();
 
-    public StartStationErrorDialogController(Start start, String message) {
+    public StartStationErrorDialogController(StartDto startDto, String message) {
         super(ProgData.getInstance().primaryStage, ProgConfig.START_STATION_ERROR_DIALOG_SIZE,
                 "Fehler", true, false);
 
-        this.start = start;
+        this.startDto = startDto;
         this.message = message;
 
         hBoxTitle = getHBoxTitle();
@@ -70,9 +70,9 @@ public class StartStationErrorDialogController extends P2DialogExtra {
         initCont();
 
         lblStationTitle.setStyle("-fx-font-weight: bold;");
-        lblStationTitle.setText(start.getStationData().getStationName());
+        lblStationTitle.setText(startDto.getStationData().getStationName());
 
-        lblUrl.setText(start.getStationData().getStationUrl());
+        lblUrl.setText(startDto.getStationData().getStationUrl());
 
         txtCont.setEditable(false);
         txtCont.setText(message);

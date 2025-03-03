@@ -66,7 +66,7 @@ public class FavouriteMenu {
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
 
         btStart.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().playStation());
-        btStop.setOnAction(a -> StartFactory.stopRunningStation());
+        btStop.setOnAction(a -> StartFactory.stopStation());
         btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
         btNew.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
         btDel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
@@ -87,7 +87,7 @@ public class FavouriteMenu {
                 miStart.setOnAction(a -> {
                     final Optional<StationData> favourite = ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().getSel();
                     if (favourite.isPresent()) {
-                        StartFactory.playPlayable(favourite.get(), set);
+                        StartFactory.startStation(favourite.get(), set);
                     }
                 });
                 miStartWithSet.getItems().add(miStart);
@@ -102,7 +102,7 @@ public class FavouriteMenu {
         }
 
         final MenuItem miFavouriteStop = new MenuItem("Sender stoppen");
-        miFavouriteStop.setOnAction(a -> StartFactory.stopRunningStation());
+        miFavouriteStop.setOnAction(a -> StartFactory.stopStation());
         P2ShortcutWorker.addShortCut(miFavouriteStop, PShortCut.SHORTCUT_STOP_STATION);
 
         MenuItem miCopyUrl = new MenuItem("Sender-URL kopieren");

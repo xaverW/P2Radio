@@ -62,7 +62,7 @@ public class PShortCutFactory {
         // Stop Station
         pShortcut = PShortCut.SHORTCUT_STOP_STATION;
         kc = KeyCodeCombination.keyCombination(pShortcut.getActShortcut());
-        rn = StartFactory::stopRunningStation;
+        rn = StartFactory::stopStation;
         scene.getAccelerators().put(kc, rn);
     }
 }

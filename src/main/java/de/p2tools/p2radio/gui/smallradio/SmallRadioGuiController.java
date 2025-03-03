@@ -111,7 +111,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();
-        favourite.ifPresent(StartFactory::playPlayable);
+        favourite.ifPresent(StartFactory::startStation);
     }
 
     public Optional<StationData> getSel() {

@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class StartFactory {
-    private static Start nowPlayingStart = null; // ist der aktuell laufende START
+    private static StartDto nowPlayingStartDto = null; // ist der aktuell laufende START
 
     private StartFactory() {
     }
@@ -40,11 +40,11 @@ public class StartFactory {
     // ============
     // Starten
     // ============
-    public static void playPlayable(StationData stationData) {
-        playPlayable(stationData, null);
+    public static void startStation(StationData stationData) {
+        startStation(stationData, null);
     }
 
-    public synchronized static void playPlayable(StationData stationData, SetData setData) {
+    public synchronized static void startStation(StationData stationData, SetData setData) {
         P2Log.sysLog("====================================");
         P2Log.sysLog("Sender starten: " + stationData.getStationName());
 
@@ -57,12 +57,12 @@ public class StartFactory {
         }
 
         // erst mal alles stoppen
-        stopRunningStation();
+        stopStation();
 
-        if (nowPlayingStart != null) {
+        if (nowPlayingStartDto != null) {
             // dann wurde nicht beendet
             P2Log.errorLog(958584587, "Konnte Sender nicht stoppen: " + stationData.getStationName());
-            nowPlayingStart = null;
+            nowPlayingStartDto = null;
         }
 
         // und jetzt starten
@@ -82,99 +82,108 @@ public class StartFactory {
         ProgData.getInstance().historyList.addStation(station);
         ProgConfig.SYSTEM_HISTORY.setValue(url);
 
-        nowPlayingStart = new Start(setData, station);
-        station.setStart(nowPlayingStart);
-        nowPlayingStart.initStart();
+        nowPlayingStartDto = new StartDto(setData, station);
+        station.setStart(nowPlayingStartDto);
+
+        PlayingThread playingThread = new PlayingThread(ProgData.getInstance(), nowPlayingStartDto);
+        playingThread.start();
+        P2ToolsFactory.waitWhile(3_000, nowPlayingStartDto.getIsStartingProperty());
+
+        if (nowPlayingStartDto != null) {
+            // wenn der Start nicht klappt, dann ist DTO schon null
+            StartFactory.startMsg(nowPlayingStartDto);
+            nowPlayingStartDto.setStarting(false);
+        }
+        ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
     }
 
     // ============
     // Beenden
     // ============
-    public static void stopRunningStation() {
-        stopRunningStation(true);
+    public static void stopStation() {
+        stopStation(true);
     }
 
-    static synchronized boolean isProcess() {
-        return nowPlayingStart != null &&
-                nowPlayingStart.getProcess() != null &&
-                nowPlayingStart.getProcess().isAlive();
-    }
-
-    public static void stopRunningStation(boolean wait) {
+    public static void stopStation(boolean wait) {
         System.out.println("stopRunningStation");
 
-        if (nowPlayingStart == null) {
+        if (nowPlayingStartDto == null) {
             System.out.println("stopRunningStation - nix");
             return;
         }
 
-        nowPlayingStart.setStopFromButton(true);
-
-        if (nowPlayingStart.getProcess() != null) {
-            nowPlayingStart.getProcess().destroy();
+        nowPlayingStartDto.setStopFromButton(true);
+        if (nowPlayingStartDto.getProcess() != null) {
+            nowPlayingStartDto.getProcess().destroy();
 
             if (wait) {
-                P2ToolsFactory.waitWhile(3_000, (a) -> isProcess());
+                P2ToolsFactory.waitWhile(3_000, (a) -> isProcessAlive());
             }
         }
 
-        finalizePlaying(nowPlayingStart);
-        nowPlayingStart = null;
+        finalizePlaying(nowPlayingStartDto);
+        nowPlayingStartDto = null;
     }
 
-    private static void finalizePlaying(Start start) {
+    private static synchronized boolean isProcessAlive() {
+        return nowPlayingStartDto != null &&
+                nowPlayingStartDto.getProcess() != null &&
+                nowPlayingStartDto.getProcess().isAlive();
+    }
+
+    private static void finalizePlaying(StartDto startDto) {
         // Aufräumen
         System.out.println("finalizePlaying");
 
-        if (start == null) {
+        if (startDto == null) {
             return;
         }
 
-        if (start.getStationData() != null) {
-            start.getStationData().setError(start.isStateError());
-            start.getStationData().setStart(null);
+        if (startDto.getStationData() != null) {
+            startDto.getStationData().setError(startDto.isStateError());
+            startDto.getStationData().setStart(null);
         }
 
         PlayingTitle.stopNowPlaying();
-        StartFactory.finishedMsg(start);
+        StartFactory.finishedMsg(startDto);
         ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
     }
 
     // ========
     // Melden
     // ========
-    public static void startMsg(Start start) {
+    public static void startMsg(StartDto startDto) {
         final ArrayList<String> list = new ArrayList<>();
         list.add(P2Log.LILNE3);
         list.add("Sender abspielen");
 
-        list.add("URL: " + start.getStationData().getStationUrl());
-        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStartTime()));
-        list.add("Programmaufruf: " + start.getProgramCall());
-        list.add("Programmaufruf[]: " + start.getProgramCallArray());
+        list.add("URL: " + startDto.getStationData().getStationUrl());
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(startDto.getStartTime()));
+        list.add("Programmaufruf: " + startDto.getProgramCall());
+        list.add("Programmaufruf[]: " + startDto.getProgramCallArray());
 
         list.add(P2Log.LILNE_EMPTY);
         P2Log.sysLog(list.toArray(new String[list.size()]));
     }
 
-    public static void finishedMsg(Start start) {
+    public static void finishedMsg(StartDto startDto) {
         final ArrayList<String> list = new ArrayList<>();
         list.add(P2Log.LILNE3);
         list.add("Sender abspielen beendet");
-        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(start.getStartTime()));
+        list.add("Startzeit: " + P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(startDto.getStartTime()));
         list.add("Endzeit: " + P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss.format(LocalDateTime.now()));
 
-        final long dauer = start.getStartTime().diffInMinutes();
+        final long dauer = startDto.getStartTime().diffInMinutes();
         if (dauer == 0) {
-            list.add("Dauer: " + start.getStartTime().diffInSeconds() + " s");
+            list.add("Dauer: " + startDto.getStartTime().diffInSeconds() + " s");
             //list.add("Dauer: <1 Min.");
         } else {
-            list.add("Dauer: " + start.getStartTime().diffInMinutes() + " Min");
+            list.add("Dauer: " + startDto.getStartTime().diffInMinutes() + " Min");
         }
 
-        list.add("URL: " + start.getStationData().getStationUrl());
-        list.add("Programmaufruf: " + start.getProgramCall());
-        list.add("Programmaufruf[]: " + start.getProgramCallArray());
+        list.add("URL: " + startDto.getStationData().getStationUrl());
+        list.add("Programmaufruf: " + startDto.getProgramCall());
+        list.add("Programmaufruf[]: " + startDto.getProgramCallArray());
 
         list.add(P2Log.LILNE_EMPTY);
         P2Log.sysLog(list);

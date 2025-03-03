@@ -96,7 +96,7 @@ public class HistoryGuiController extends VBox {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> stationData = getSel();
         if (stationData.isPresent()) {
-            StartFactory.playPlayable(stationData.get());
+            StartFactory.startStation(stationData.get());
         }
     }
 

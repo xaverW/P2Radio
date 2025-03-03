@@ -121,7 +121,7 @@ public class PaneAutoStart {
         btnPlayLast.setTooltip(new Tooltip("Sender abspielen"));
         btnPlayLast.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayLast.setOnAction((ActionEvent event) -> {
-            StartFactory.playPlayable(progData.stationLastPlayed);
+            StartFactory.startStation(progData.stationLastPlayed);
         });
         btnPlayLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -130,7 +130,7 @@ public class PaneAutoStart {
         btnStopLast.setTooltip(new Tooltip("Sender stoppen"));
         btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStopLast.setOnAction((ActionEvent event) -> {
-            StartFactory.stopRunningStation();
+            StartFactory.stopStation();
         });
         btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
 
@@ -138,7 +138,7 @@ public class PaneAutoStart {
         btnPlayAuto.setTooltip(new Tooltip("Sender abspielen"));
         btnPlayAuto.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
         btnPlayAuto.setOnAction((ActionEvent event) -> {
-            StartFactory.playPlayable(progData.stationAutoStart);
+            StartFactory.startStation(progData.stationAutoStart);
         });
         btnPlayAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 
@@ -147,7 +147,7 @@ public class PaneAutoStart {
         btnStopAuto.setTooltip(new Tooltip("Sender stoppen"));
         btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStopAuto.setOnAction((ActionEvent event) -> {
-            StartFactory.stopRunningStation();
+            StartFactory.stopStation();
         });
         btnStopAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
 

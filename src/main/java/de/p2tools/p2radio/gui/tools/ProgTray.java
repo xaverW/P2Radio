@@ -134,7 +134,7 @@ public class ProgTray {
 
         miMaxMin.addActionListener(e -> Platform.runLater(() -> maxMin()));
         miStop.addActionListener(e -> {
-            StartFactory.stopRunningStation();
+            StartFactory.stopStation();
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.stationInfoDialogController.toggleShowInfo();

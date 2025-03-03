@@ -94,22 +94,23 @@ public class SetFactory {
         return ProgData.getInstance().setDataList.addSetData(pSet);
     }
 
-    public static boolean checkPathWritable(String path) {
-        boolean ret = false;
-        final File testPath = new File(path);
-        try {
-            if (!testPath.exists()) {
-                testPath.mkdirs();
+    public static boolean checkProgram(String prog) {
+        // prüfen ob die eingestellten Programmsets passen
+        boolean ret = true;
+
+        if (!new File(prog).canExecute()) {
+            // dann noch mit RuntimeExec versuchen
+            final StartRuntimeExec r = new StartRuntimeExec(prog);
+            final Process pr = r.exec();
+            if (pr != null) {
+                // dann passts ja
+                pr.destroy();
+            } else {
+                // läßt sich nicht starten
+                ret = false;
             }
-            if (path.isEmpty()) {
-            } else if (!testPath.isDirectory()) {
-            } else if (testPath.canWrite()) {
-                final File tmpFile = File.createTempFile("p2radio", "tmp", testPath);
-                tmpFile.delete();
-                ret = true;
-            }
-        } catch (final Exception ignored) {
         }
+
         return ret;
     }
 

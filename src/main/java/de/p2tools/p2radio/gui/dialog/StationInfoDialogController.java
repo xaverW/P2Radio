@@ -156,7 +156,7 @@ public class StationInfoDialogController extends P2DialogExtra {
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_BOOLEAN_IS_ON.getImageView());
-        btnStop.setOnAction(event -> StartFactory.stopRunningStation());
+        btnStop.setOnAction(event -> StartFactory.stopStation());
 
         initUrl();
         makeGridPane();
