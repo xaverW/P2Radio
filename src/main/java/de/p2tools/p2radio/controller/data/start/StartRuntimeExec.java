@@ -36,9 +36,9 @@ public class StartRuntimeExec {
     private final PlayerMessage playerMessage = new PlayerMessage();
     private final PlayingTitle playingTitle = new PlayingTitle();
 
-    public StartRuntimeExec(StartDto startDto) {
-        this.strProgCall = startDto.getProgramCall();
-        this.strProgCallArray = startDto.getProgramCallArray();
+    public StartRuntimeExec(PlayingThread playingThread) {
+        this.strProgCall = playingThread.getProgramCall();
+        this.strProgCallArray = playingThread.getProgramCallArray();
 
         arrProgCallArray = strProgCallArray.split(TRENNER_PROG_ARRAY);
         if (arrProgCallArray.length <= 1) {

@@ -54,23 +54,22 @@ public class StartProgramFactory {
         }
     }
 
-    public static boolean makeProgParameter(StartDto startDto) {
+    public static void makeProgParameter(PlayingThread playingThread) {
         try {
-            buildProgParameter(startDto);
+            buildProgParameter(playingThread);
         } catch (final Exception ex) {
             P2Log.errorLog(825600145, ex);
         }
-        return true;
     }
 
-    private static void buildProgParameter(StartDto startDto) {
-        String prog = startDto.getSetData().getProgPath() + " " + startDto.getSetData().getProgSwitch();
-        prog = replaceExec(startDto, prog);
-        startDto.setProgramCall(prog);
+    private static void buildProgParameter(PlayingThread playingThread) {
+        String prog = playingThread.getSetData().getProgPath() + " " + playingThread.getSetData().getProgSwitch();
+        prog = replaceExec(playingThread, prog);
+        playingThread.setProgramCall(prog);
 
-        String progArray = getProgrammAufrufArray(startDto.getSetData().getProgPath(), startDto.getSetData().getProgSwitch());
-        progArray = replaceExec(startDto, progArray);
-        startDto.setProgramCallArray(progArray);
+        String progArray = getProgrammAufrufArray(playingThread.getSetData().getProgPath(), playingThread.getSetData().getProgSwitch());
+        progArray = replaceExec(playingThread, progArray);
+        playingThread.setProgramCallArray(progArray);
     }
 
     private static String getProgrammAufrufArray(String progPath, String progSwitch) {
@@ -83,8 +82,8 @@ public class StartProgramFactory {
         return ret;
     }
 
-    private static String replaceExec(StartDto startDto, String execString) {
-        execString = execString.replace("%f", startDto.getStationData().getStationUrl());
+    private static String replaceExec(PlayingThread playingThread, String execString) {
+        execString = execString.replace("%f", playingThread.getStationData().getStationUrl());
         return execString;
     }
 }

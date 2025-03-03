@@ -241,7 +241,7 @@ public class TableStationFactory {
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
                 StationData stationData = getTableView().getItems().get(getIndex());
-                final boolean playing = stationData.getStart() != null;
+                final boolean playing = stationData.getPlayingThread() != null;
 
                 if (playing) {
                     //stoppen
@@ -326,7 +326,7 @@ public class TableStationFactory {
     private static void set(Table.TABLE_ENUM tableEnum, StationData stationData, TableCell tableCell) {
 
         final boolean error = stationData.isError();
-        final boolean playing = stationData.getStart() != null;
+        final boolean playing = stationData.getPlayingThread() != null;
         final boolean fav = stationData.isFavourite();
         final boolean newStation = stationData.isNewStation();
 

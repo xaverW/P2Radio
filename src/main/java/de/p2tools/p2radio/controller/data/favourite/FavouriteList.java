@@ -24,18 +24,15 @@ import javafx.collections.FXCollections;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class FavouriteList extends SimpleListProperty<StationData> implements P2DataList<StationData> {
 
     public static final String TAG = "FavouriteList";
     private final ProgData progData;
-    private final FavouriteStartsFactory favouriteStartsFactory;
 
     public FavouriteList(ProgData progData) {
         super(FXCollections.observableArrayList());
         this.progData = progData;
-        this.favouriteStartsFactory = new FavouriteStartsFactory(progData, this);
     }
 
     @Override
@@ -96,9 +93,5 @@ public class FavouriteList extends SimpleListProperty<StationData> implements P2
     @Override
     public synchronized boolean removeAll(Collection<?> objects) {
         return super.removeAll(objects);
-    }
-
-    public synchronized List<StationData> getListOfStartsNotFinished(String source) {
-        return favouriteStartsFactory.getListOfRunningStations(source);
     }
 }

@@ -65,7 +65,7 @@ public class FavouriteInfos {
         clean();
         for (final StationData stationData : progData.favouriteList) {
             ++amount;
-            if (stationData.getStart() != null) {
+            if (stationData.getPlayingThread() != null) {
                 ++started;
             } else {
                 ++notStarted;

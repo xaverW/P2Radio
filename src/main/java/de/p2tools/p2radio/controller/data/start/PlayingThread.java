@@ -21,37 +21,58 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetFactory;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import javafx.application.Platform;
+import javafx.beans.property.*;
+
+import java.time.LocalDateTime;
 
 public class PlayingThread extends Thread {
+    public static final int STATE_INIT = 0; // nicht gestartet
+    public static final int STATE_RESTART = 1; // startet
+    public static final int STATE_STARTED_RUN = 2; // läuft
+    public static final int STATE_END = 3; // beendet, OK
+    public static final int STATE_ERROR = 4; // beendet, fehlerhaft
 
-    private final int stat_start = 0;
-    private final int stat_running = 1;
-    private final int stat_restart = 3;
-    private final int stat_end = 99;
+    private final StationData stationData;
+    private final P2Date startTime;
+    private final SetData setData;
 
-    private final StartDto startDto;
+    private final StringProperty programCall = new SimpleStringProperty("");
+    private final StringProperty programCallArray = new SimpleStringProperty("");
+
+    private final IntegerProperty runningState = new SimpleIntegerProperty(STATE_INIT);
     private int runTime = 0;
     private int startCounter = 0; // Anzahl der Startversuche
     private static final int START_COUNTER_MAX = 3;
 
-    public PlayingThread(ProgData progData, StartDto startDto) {
-        super();
-        this.startDto = startDto;
+    private Process process = null; //Prozess des Programms (VLC)
+    private final BooleanProperty isStarting = new SimpleBooleanProperty(true); // PlayingThread meldet, wenn Start fertig
+    private final BooleanProperty isRunning = new SimpleBooleanProperty(true); // meldet, solange er läuft
 
-        setName("PlayingThread: " + this.startDto.getStationData().getStationName());
+    public PlayingThread(SetData setData, StationData stationData) {
+        super();
+
+        this.stationData = stationData;
+        this.startTime = new P2Date();
+        this.setData = setData;
+        StartProgramFactory.makeProgParameter(this);
+
+        setName("PlayingThread: " + getStationData().getStationName());
         setDaemon(true);
-        progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
+        ProgData.getInstance().pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
             public void ping(P2Event event) {
                 // wenn der Sender mind. 60s läuft, wird der Start-Counter hochgesetzt
                 ++runTime;
-                if (runTime == ProgConst.START_COUNTER_MIN_TIME && startDto.getStationData() != null) {
-                    StartProgramFactory.setStartCounter(startDto.getStationData());
+                if (runTime == ProgConst.START_COUNTER_MIN_TIME && getStationData() != null) {
+                    StartProgramFactory.setStartCounter(getStationData());
                 }
             }
         });
@@ -60,75 +81,77 @@ public class PlayingThread extends Thread {
     @Override
     public synchronized void run() {
         try {
-            int stat = stat_start;
-            while (stat < stat_end) {
-                stat = switch (stat) {
-                    case stat_start -> startProgram(); // starten
-                    case stat_running -> runProgram(); // läuft bis zum Abbruch
-                    case stat_restart -> restartProgram();
-                    default -> stat;
-                };
+            stationData.setPlayingThread(this);
+            stationData.setStationDateLastStart(LocalDateTime.now());
+
+            while (runningState.get() < STATE_END) {
+                switch (runningState.get()) {
+                    case STATE_INIT -> startProgram(); // starten
+                    case STATE_STARTED_RUN -> runProgram(); // läuft bis zum Abbruch
+                    case STATE_RESTART -> restartProgram();
+                    default -> runningState.set(STATE_INIT);
+                }
             }
 
         } catch (final Exception ex) {
             P2Log.errorLog(987989569, ex);
-            startDto.setStateError();
+            runningState.set(STATE_ERROR);
         }
 
-        if (!startDto.isStopFromButton()) {
-            // nur dann muss es gemacht werden, sonst machts START selbst
-            StartFactory.stopStation(false); // Prozess ist dann ja schon beendet
-        }
+        StartFactory.finalizePlaying(this);
+        isStarting.set(false); // falls der Start schief ging
+        isRunning.set(false);
     }
 
-    private int startProgram() {
+    // *************************************
+    private void startProgram() {
         // versuch das Programm zu Starten
         ++startCounter;
-        final StartRuntimeExec runtimeExec = new StartRuntimeExec(startDto);
-        final Process process = runtimeExec.exec();
-        startDto.setProcess(process);
+        final StartRuntimeExec runtimeExec = new StartRuntimeExec(this);
+        process = runtimeExec.exec();
+
 
         if (process != null) {
-            startDto.setStateStartedRun();
-            startDto.setStarting(false);
-            return stat_running;
+            runningState.set(STATE_STARTED_RUN);
+            StartFactory.startMsg(this);
+            isStarting.set(false);
 
         } else {
-            return stat_restart;
+            runningState.set(STATE_RESTART);
         }
     }
 
-    private int runProgram() {
+    // *************************************
+    private void runProgram() {
         // hier läufts bis zum Abbruch
-        int retStatus = stat_running;
         try {
-            final int exitV = startDto.getProcess().exitValue(); //liefert ex wenn noch nicht fertig
+            final int exitV = process.exitValue(); //liefert ex wenn noch nicht fertig
             if (exitV != 0) {
                 // <> 0 -> Fehler
-                retStatus = stat_restart;
+                runningState.set(STATE_RESTART);
 
             } else {
                 // 0 -> beendet
-                retStatus = stat_end;
+                runningState.set(STATE_END);
             }
         } catch (final Exception ex) {
+            runningState.set(STATE_STARTED_RUN);
             P2ToolsFactory.pause(1_000);
         }
-        return retStatus;
     }
 
-    private int restartProgram() {
+    // *************************************
+    private void restartProgram() {
         // counter prüfen und starten bis zu einem Maxwert
         if (startCounter < START_COUNTER_MAX) {
             // dann nochmal von vorne
-            return stat_start;
+            runningState.set(STATE_INIT);
 
         } else {
             // dann wars das
-            startDto.setStateError();
-            startDto.setStarting(false);
+            runningState.set(STATE_ERROR);
 
-            if (SetFactory.checkProgram(startDto.getSetData().getProgPath())) {
+            if (SetFactory.checkProgram(getSetData().getProgPath())) {
                 // Programm passt
                 Platform.runLater(() -> {
                     P2Alert.showErrorAlert("Sender starten", "Der Sender konnte nicht gestartet werden.");
@@ -140,8 +163,77 @@ public class PlayingThread extends Thread {
                     P2Alert.showErrorAlert("Sender starten", "Das Programm konnte nicht gestartet werden.");
                 });
             }
-
-            return stat_end;
         }
+    }
+
+    //=======================================
+    public StationData getStationData() {
+        return stationData;
+    }
+
+    public SetData getSetData() {
+        return setData;
+    }
+
+    public P2Date getStartTime() {
+        return startTime;
+    }
+
+    //=======================================
+    public String getProgramCall() {
+        return programCall.get();
+    }
+
+    public void setProgramCall(String programCall) {
+        this.programCall.set(programCall);
+    }
+
+    public String getProgramCallArray() {
+        return programCallArray.get();
+    }
+
+    public void setProgramCallArray(String programCallArray) {
+        this.programCallArray.set(programCallArray);
+    }
+
+    //=======================================
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
+    }
+
+    public boolean isStarting() {
+        return isStarting.get();
+    }
+
+    public BooleanProperty isStartingProperty() {
+        return isStarting;
+    }
+
+    public boolean isEndet() {
+        return isRunning.get();
+    }
+
+    public BooleanProperty isRunningProperty() {
+        return isRunning;
+    }
+
+    public int getRunningState() {
+        return runningState.get();
+    }
+
+    public IntegerProperty runningStateProperty() {
+        return runningState;
+    }
+
+    public boolean isStateError() {
+        return runningState.get() == STATE_ERROR;
+    }
+
+    public boolean isStateStartedRun() {
+        return runningState.get() == STATE_STARTED_RUN;
     }
 }

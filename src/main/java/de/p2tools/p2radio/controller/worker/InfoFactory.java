@@ -18,7 +18,6 @@
 package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -36,7 +35,6 @@ public class InfoFactory {
         String textLinks;
         final int sumStationList = progData.stationList.size();
         final int sumStationsShown = progData.stationGuiPack.getStationGuiController().getStationCount();
-        final int runs = progData.favouriteList.getListOfStartsNotFinished(FavouriteConstants.SRC_BUTTON).size();
 
         String sumStationListStr = numberFormat.format(sumStationsShown);
         String sumStationsShownStr = numberFormat.format(sumStationList);
@@ -45,14 +43,6 @@ public class InfoFactory {
         textLinks = sumStationListStr + " Sender";
         if (sumStationList != sumStationsShown) {
             textLinks += " (Insgesamt: " + sumStationsShownStr + " )";
-        }
-        // laufende Programme
-        if (runs == 1) {
-            textLinks += SEPARATOR;
-            textLinks += (runs + " laufender Sender");
-        } else if (runs > 1) {
-            textLinks += SEPARATOR;
-            textLinks += (runs + " laufende Sender");
         }
 
         // auch die Favoriten anzeigen

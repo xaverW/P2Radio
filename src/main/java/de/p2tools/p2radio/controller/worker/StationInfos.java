@@ -69,7 +69,7 @@ public class StationInfos {
         clean();
         progData.stationList.stream().forEach(station -> {
             ++amount;
-            if (station.getStart() != null) {
+            if (station.getPlayingThread() != null) {
                 ++started;
             } else {
                 ++notStarted;
