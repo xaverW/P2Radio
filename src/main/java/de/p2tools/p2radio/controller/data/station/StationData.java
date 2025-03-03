@@ -18,11 +18,10 @@ package de.p2tools.p2radio.controller.data.station;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2radio.controller.data.start.PlayingThread;
 
 public final class StationData extends StationDataProperty {
 
-    private PlayingThread playingThread = null;
+    private boolean nowPlaying = false;
     public final String TAG;
 
     public StationData() {
@@ -41,17 +40,19 @@ public final class StationData extends StationDataProperty {
     //==============================================
     // Get/Set
     //==============================================
-    public PlayingThread getPlayingThread() {
-        return playingThread;
+
+
+    public boolean isNowPlaying() {
+        return nowPlaying;
     }
 
-    public void setPlayingThread(PlayingThread playingThread) {
-        this.playingThread = playingThread;
+    public void setNowPlaying(boolean nowPlaying) {
+        this.nowPlaying = nowPlaying;
     }
 
     public StationData getCopy() {
         final StationData ret = new StationData(getTag());
-        ret.playingThread = playingThread;
+        ret.nowPlaying = nowPlaying;
 
         Config[] configs = getConfigsArr();
         Config[] configsCopy = ret.getConfigsArr();
@@ -62,7 +63,7 @@ public final class StationData extends StationDataProperty {
     }
 
     public void copyToMe(StationData stationData) {
-        playingThread = stationData.getPlayingThread();
+        nowPlaying = stationData.nowPlaying;
 
         Config[] configs = stationData.getConfigsArr();
         Config[] configsCopy = getConfigsArr();

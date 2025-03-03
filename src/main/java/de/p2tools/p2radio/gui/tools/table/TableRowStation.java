@@ -38,7 +38,7 @@ public class TableRowStation<T extends StationData> extends javafx.scene.control
         } else {
             StationData stationData = (StationData) item;
             final boolean error = stationData.isError();
-            final boolean playing = stationData.getPlayingThread() != null; // schließt error mit ein!
+            final boolean playing = stationData.isNowPlaying();
             final boolean fav = stationData.isFavourite();
             final boolean newStation = stationData.isNewStation();
 

@@ -31,8 +31,6 @@ import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.radiosloadfromweb.LoadNewStationList;
-import de.p2tools.p2radio.controller.worker.FavouriteInfos;
-import de.p2tools.p2radio.controller.worker.StationInfos;
 import de.p2tools.p2radio.controller.worker.Worker;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
@@ -93,8 +91,6 @@ public class ProgData {
     // Worker
     public Worker worker; // Liste aller Sender, Themen, ...
     public FilterWorker filterWorker; // Liste aller Sender, Themen, ...
-    public FavouriteInfos favouriteInfos;
-    public StationInfos stationInfos;
 
     // Programmdaten
     public static BooleanProperty STATION_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
@@ -120,7 +116,6 @@ public class ProgData {
     public BlackDataList blackDataList;
     public SetDataList setDataList;
     public P2EventHandler pEventHandler;
-    boolean oneSecond = false;
 
     private ProgData() {
         pEventHandler = new P2EventHandler();
@@ -147,8 +142,6 @@ public class ProgData {
 
         worker = new Worker(this);
         filterWorker = new FilterWorker(this);
-        favouriteInfos = new FavouriteInfos(this);
-        stationInfos = new StationInfos(this);
         progTray = new ProgTray(this);
 
         //init

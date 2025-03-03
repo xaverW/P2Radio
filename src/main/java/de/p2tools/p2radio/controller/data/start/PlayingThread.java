@@ -81,7 +81,7 @@ public class PlayingThread extends Thread {
     @Override
     public synchronized void run() {
         try {
-            stationData.setPlayingThread(this);
+            stationData.setNowPlaying(true);
             stationData.setStationDateLastStart(LocalDateTime.now());
 
             while (runningState.get() < STATE_END) {

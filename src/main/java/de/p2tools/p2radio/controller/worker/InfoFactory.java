@@ -46,14 +46,14 @@ public class InfoFactory {
         }
 
         // auch die Favoriten anzeigen
-        if (progData.favouriteInfos.getAmount() > 0) {
+        if (!progData.favouriteList.isEmpty()) {
             textLinks += SEPARATOR;
 
             // Anzahl der Favoriten
-            if (progData.favouriteInfos.getAmount() == 1) {
+            if (progData.favouriteList.size() == 1) {
                 textLinks += "1 Favorit";
             } else {
-                textLinks += progData.favouriteInfos.getAmount() + " Favoriten";
+                textLinks += progData.favouriteList.size() + " Favoriten";
             }
         }
 

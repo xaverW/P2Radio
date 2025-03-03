@@ -62,7 +62,7 @@ public class StartFactory {
         if (nowPlayingThread != null) {
             // dann wurde nicht beendet
             P2Log.errorLog(958584587, "Konnte Sender nicht stoppen: " + nowPlayingThread.getStationData().getStationName());
-            nowPlayingThread.getStationData().setPlayingThread(null);
+            nowPlayingThread.getStationData().setNowPlaying(false);
             nowPlayingThread = null;
         }
 
@@ -137,7 +137,7 @@ public class StartFactory {
 
         if (playingThread.getStationData() != null) {
             playingThread.getStationData().setError(playingThread.isStateError());
-            playingThread.getStationData().setPlayingThread(null);
+            playingThread.getStationData().setNowPlaying(false);
         }
 
         PlayingTitle.stopNowPlaying();
