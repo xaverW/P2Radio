@@ -59,13 +59,6 @@ public class StartFactory {
         // erst mal alles stoppen
         stopStation();
 
-        if (nowPlayingThread != null) {
-            // dann wurde nicht beendet
-            P2Log.errorLog(958584587, "Konnte Sender nicht stoppen: " + nowPlayingThread.getStationData().getStationName());
-            nowPlayingThread.getStationData().setNowPlaying(false);
-            nowPlayingThread = null;
-        }
-
         // und jetzt starten
         startUrlWithProgram(stationData, setData);
     }
@@ -97,52 +90,19 @@ public class StartFactory {
     }
 
     public static void stopStation(boolean wait) {
-        System.out.println("stopRunningStation");
-
+        System.out.println("stopStation");
         if (nowPlayingThread == null) {
-            System.out.println("stopRunningStation - nix");
+            System.out.println("stopStation - nix");
             return;
         }
 
-        if (nowPlayingThread.getProcess() != null) {
-            nowPlayingThread.getProcess().destroy();
-
+        if (nowPlayingThread.isRunning()) {
+            nowPlayingThread.killProcess();
             if (wait) {
-                System.out.println("isProcessAlive");
-                P2ToolsFactory.waitWhile(3_000, (a) -> isProcessAlive());
+                System.out.println("stopStation - wait");
+                P2ToolsFactory.waitWhile(3_000, nowPlayingThread.isRunningProperty());
             }
         }
-
-        System.out.println("isRunningProperty");
-        P2ToolsFactory.waitWhile(3_000, nowPlayingThread.isRunningProperty());
-
-        finalizePlaying(nowPlayingThread);
-        nowPlayingThread = null;
-    }
-
-    private static synchronized boolean isProcessAlive() {
-        return nowPlayingThread != null &&
-                nowPlayingThread.getProcess() != null &&
-                nowPlayingThread.getProcess().isAlive();
-    }
-
-    public static void finalizePlaying(PlayingThread playingThread) {
-        // Aufräumen
-        System.out.println("finalizePlaying");
-
-        if (playingThread == null) {
-            System.out.println("finalizePlaying -- null");
-            return;
-        }
-
-        if (playingThread.getStationData() != null) {
-            playingThread.getStationData().setError(playingThread.isStateError());
-            playingThread.getStationData().setNowPlaying(false);
-        }
-
-        PlayingTitle.stopNowPlaying();
-        StartFactory.finishedMsg(playingThread);
-        ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
     }
 
     // ========
@@ -172,7 +132,6 @@ public class StartFactory {
         final long dauer = playingThread.getStartTime().diffInMinutes();
         if (dauer == 0) {
             list.add("Dauer: " + playingThread.getStartTime().diffInSeconds() + " s");
-            //list.add("Dauer: <1 Min.");
         } else {
             list.add("Dauer: " + playingThread.getStartTime().diffInMinutes() + " Min");
         }

@@ -71,11 +71,10 @@ public class StartRuntimeExec {
             }
 
             Thread clearIn = new Thread(new ClearInOut(INPUT, process));
-            Thread clearOut = new Thread(new ClearInOut(ERROR, process));
-
             clearIn.setName("exec-in");
             clearIn.start();
 
+            Thread clearOut = new Thread(new ClearInOut(ERROR, process));
             clearOut.setName("exec-out");
             clearOut.start();
         } catch (final Exception ex) {

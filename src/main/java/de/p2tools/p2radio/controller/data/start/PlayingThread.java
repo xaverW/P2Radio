@@ -38,8 +38,9 @@ public class PlayingThread extends Thread {
     public static final int STATE_INIT = 0; // nicht gestartet
     public static final int STATE_RESTART = 1; // startet
     public static final int STATE_STARTED_RUN = 2; // läuft
-    public static final int STATE_END = 3; // beendet, OK
-    public static final int STATE_ERROR = 4; // beendet, fehlerhaft
+    public static final int STATE_KILL = 3; // beendet, OK
+    public static final int STATE_END = 4; // beendet, OK
+    public static final int STATE_ERROR = 5; // beendet, fehlerhaft
 
     private final StationData stationData;
     private final P2Date startTime;
@@ -81,6 +82,7 @@ public class PlayingThread extends Thread {
     @Override
     public synchronized void run() {
         try {
+            stationData.setError(false); // falls sie ERROR schon hatte
             stationData.setNowPlaying(true);
             stationData.setStationDateLastStart(LocalDateTime.now());
 
@@ -89,6 +91,7 @@ public class PlayingThread extends Thread {
                     case STATE_INIT -> startProgram(); // starten
                     case STATE_STARTED_RUN -> runProgram(); // läuft bis zum Abbruch
                     case STATE_RESTART -> restartProgram();
+                    case STATE_KILL -> killProgram();
                     default -> runningState.set(STATE_INIT);
                 }
             }
@@ -98,18 +101,34 @@ public class PlayingThread extends Thread {
             runningState.set(STATE_ERROR);
         }
 
-        StartFactory.finalizePlaying(this);
-        isStarting.set(false); // falls der Start schief ging
+        quitt();
+    }
+
+    public void killProcess() {
+        runningState.set(STATE_KILL);
+        this.interrupt();
+    }
+
+    private void quitt() {
+        System.out.println("PlayingThread - quitt");
+
+        stationData.setError(isStateError());
+        stationData.setNowPlaying(false);
+
+        isStarting.set(false); // falls der Start schiefging
         isRunning.set(false);
+
+        PlayingTitle.stopNowPlaying();
+        StartFactory.finishedMsg(this);
+        ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
     }
 
     // *************************************
     private void startProgram() {
         // versuch das Programm zu Starten
         ++startCounter;
-        final StartRuntimeExec runtimeExec = new StartRuntimeExec(this);
-        process = runtimeExec.exec();
-
+        final StartRuntimeExec startRuntimeExec = new StartRuntimeExec(this);
+        process = startRuntimeExec.exec();
 
         if (process != null) {
             runningState.set(STATE_STARTED_RUN);
@@ -166,6 +185,18 @@ public class PlayingThread extends Thread {
         }
     }
 
+    private void killProgram() {
+        System.out.println("PlayingThread - killProgram");
+        if (process != null) {
+            process.destroy();
+        }
+
+        // damit das Programm auch wirklich geschlossen ist
+        P2ToolsFactory.waitWhile(3_000, (a) ->
+                (process != null && process.isAlive()));
+        runningState.set(STATE_END);
+    }
+
     //=======================================
     public StationData getStationData() {
         return stationData;
@@ -197,14 +228,6 @@ public class PlayingThread extends Thread {
     }
 
     //=======================================
-    public Process getProcess() {
-        return process;
-    }
-
-    public void setProcess(Process process) {
-        this.process = process;
-    }
-
     public boolean isStarting() {
         return isStarting.get();
     }
@@ -213,20 +236,12 @@ public class PlayingThread extends Thread {
         return isStarting;
     }
 
-    public boolean isEndet() {
+    public boolean isRunning() {
         return isRunning.get();
     }
 
     public BooleanProperty isRunningProperty() {
         return isRunning;
-    }
-
-    public int getRunningState() {
-        return runningState.get();
-    }
-
-    public IntegerProperty runningStateProperty() {
-        return runningState;
     }
 
     public boolean isStateError() {
