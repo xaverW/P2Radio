@@ -19,11 +19,7 @@ import de.p2tools.p2lib.guitools.P2Open;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
-import de.p2tools.p2radio.controller.config.PShortCut;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
@@ -92,6 +88,11 @@ public class ProgMenu extends MenuButton {
             miSearchAllUpdate.setOnAction(a -> new SearchProgramUpdate(progData)
                     .searchNewProgramVersion(true, true));
 
+            final MenuItem miResetAll = new MenuItem("DATUM und GEMACHT zurücksetzen");
+            miResetAll.setOnAction(a -> {
+                ProgConfig.SYSTEM_SEARCH_UPDATE_TODAY_DONE.set("2020.01.01"); // heute noch nicht gemacht
+                ProgConfig.SYSTEM_SEARCH_UPDATE_LAST_DATE.set("2020.01.01"); // letztes Datum, bis zu dem geprüft wurde, wenn leer wird das buildDate genommen
+            });
             final MenuItem miResetTodayDone = new MenuItem("Datum \"heute schon gemacht\" zurücksetzen");
             miResetTodayDone.setOnAction(a -> {
                 ProgConfig.SYSTEM_SEARCH_UPDATE_TODAY_DONE.set("2020.01.01"); // heute noch nicht gemacht
@@ -102,7 +103,7 @@ public class ProgMenu extends MenuButton {
             });
 
             mHelp.getItems().addAll(new SeparatorMenuItem(), miSearchAllUpdate,
-                    miResetTodayDone, miResetLastSearch);
+                    miResetAll, miResetTodayDone, miResetLastSearch);
         }
     }
 }

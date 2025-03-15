@@ -51,6 +51,8 @@ public class SearchProgramUpdate {
         final String SEARCH_URL_DOWNLOAD;
         SEARCH_URL = "https://www.p2tools.de";
         SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
+//        SEARCH_URL = "http://localhost:1313";
+//        SEARCH_URL_DOWNLOAD = "http://localhost:1313/download/";
 
         FoundSearchDataDTO foundSearchData = new FoundSearchDataDTO(
                 owner,
@@ -71,6 +73,7 @@ public class SearchProgramUpdate {
                 P2InfoFactory.getBuildDateR(),
 
                 new String[]{}, // welche Downloads angezeigt werden sollen
+//                new String[]{"windows"},
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAlways,
                 showAllDownloads
