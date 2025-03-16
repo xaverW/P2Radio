@@ -17,8 +17,6 @@
 
 package de.p2tools.p2radio.tools.storedfilter;
 
-import java.util.ArrayList;
-
 public class SelectedFilterFactory {
 
     public static SelectedFilter getFilterCopy(SelectedFilter sfFrom) {
@@ -79,41 +77,5 @@ public class SelectedFilterFactory {
         }
 
         return true;
-    }
-
-    public static ArrayList<String> printFilter(SelectedFilter sf) {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("getName " + sf.getName());
-
-        list.add("");
-        list.add("isCodecVis " + sf.isCodecVis());
-        list.add("getCodec " + sf.getCodec());
-        list.add("isGenre " + sf.isGenreVis());
-        list.add("getGenre " + sf.getGenre());
-        list.add("isCountryVis " + sf.isCountryVis());
-        list.add("getCountry " + sf.getCountry());
-        list.add("isStationNameVis " + sf.isStationNameVis());
-        list.add("getStationName " + sf.getStationName());
-        list.add("isUrlVis " + sf.isUrlVis());
-        list.add("getUrl " + sf.getUrl());
-        list.add("isSomewhereVis " + sf.isSomewhereVis());
-        list.add("getSomewhere " + sf.getSomewhere());
-
-        list.add("");
-        list.add("isMinMaxBitVis " + sf.isMinMaxBitVis());
-        list.add("getMinBit " + sf.getMinBit());
-        list.add("getMaxBit " + sf.getMaxBit());
-
-        list.add("");
-        list.add("isOnlyVis " + sf.isOnlyVis());
-        list.add("isOnlyNew " + sf.isOnlyNew());
-        list.add("isNoFavourites " + sf.isNoFavourites());
-        list.add("isNoDoubles " + sf.isNoDoubles());
-
-        list.add("");
-        list.add("isBlacklistOn " + sf.isBlacklistOn());
-        list.add("isBlacklistOnly " + sf.isBlacklistOnly());
-
-        return list;
     }
 }

@@ -191,8 +191,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SMALL_RADIO_SELECTED_LIST = addStrProp("small-radio-selected-list", FilterFactory.LIST_STATION);
 
     // Gui Favorite
-    public static StringProperty FAVOURITE_DIALOG_EDIT_SIZE = addStrProp("favourite-dialog-edit-size", "800:800");
-    public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
     public static StringProperty FAVOURITE_DIALOG_ADD_MORE_SIZE = addStrProp("favourite-dialog-add-more-size", "800:850");
     public static StringProperty FAVOURITE_DIALOG_ADD_SIZE = addStrProp("favourite-dialog-add-size", "800:800");
 
@@ -201,8 +199,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty FAVOURITE_GUI_TABLE_UP_DOWN = addStrProp("favourite-gui-table-up-down");
     public static StringProperty FAVOURITE_GUI_TABLE_VIS = addStrProp("favourite-gui-table-vis");
     public static StringProperty FAVOURITE_GUI_TABLE_ORDER = addStrProp("favourite-gui-table-order");
-
-    public static BooleanProperty FAVOURITE_SHOW_NOTIFICATION = addBoolProp("favourite-show-notification", Boolean.TRUE);
 
     // Gui History
     public static StringProperty HISTORY_GUI_TABLE_WIDTH = addStrProp("history-gui-table-width");

@@ -20,55 +20,18 @@ package de.p2tools.p2radio;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
-import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 import java.util.Optional;
 
 public class P2RadioFactory {
     private P2RadioFactory() {
-    }
-
-    public static void addSizeListener(Stage stage, StringProperty sizeConfiguration) {
-        if (sizeConfiguration == null) {
-            return;
-        }
-
-        stage.widthProperty().addListener((v, o, n) -> {
-            if (isOk(stage)) {
-                P2GuiSize.getSize(sizeConfiguration, stage);
-            }
-        });
-        stage.heightProperty().addListener((v, o, n) -> {
-            if (isOk(stage)) {
-                P2GuiSize.getSize(sizeConfiguration, stage);
-            }
-        });
-        stage.xProperty().addListener((v, o, n) -> {
-            if (isOk(stage)) {
-                P2GuiSize.getSize(sizeConfiguration, stage);
-            }
-        });
-        stage.yProperty().addListener((v, o, n) -> {
-            if (isOk(stage)) {
-                P2GuiSize.getSize(sizeConfiguration, stage);
-            }
-        });
-    }
-
-    private static boolean isOk(Stage stage) {
-        if (stage == null || stage.getScene() == null) {
-            return false;
-        }
-        return stage.isShowing();
     }
 
     public static String getOwnIconPath() {

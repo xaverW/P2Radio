@@ -25,7 +25,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
-@SuppressWarnings("serial")
 public class SetDataList extends SetDataListWorker {
 
     public static boolean progReplacePattern(SetDataList list) {

@@ -38,7 +38,6 @@ import java.util.LinkedHashSet;
 import java.util.SimpleTimeZone;
 import java.util.function.Predicate;
 
-@SuppressWarnings("serial")
 public class StationList extends SimpleListProperty<StationData> implements P2DataList<StationData> {
 
     public static final String TAG = "StationList";

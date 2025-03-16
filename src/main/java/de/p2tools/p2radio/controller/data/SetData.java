@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.tools.P2Index;
 
@@ -42,20 +41,6 @@ public class SetData extends SetDataProps {
         ret.setId(P2Index.getIndexStr()); //es darf nur einen geben!
         ret.setVisibleName("Kopie-" + getVisibleName());
 
-        return ret;
-    }
-
-    public String setDataToString() {
-        String ret = "";
-        ret += "================================================" + P2LibConst.LINE_SEPARATOR;
-        ret += "| Programmset" + P2LibConst.LINE_SEPARATOR;
-
-        Config[] configs = getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            ret += "     | " + configs[i].getName() + ": " + configs[i].getActValueString() + P2LibConst.LINE_SEPARATOR;
-        }
-
-        ret += "     |_______________________________________________" + P2LibConst.LINE_SEPARATOR;
         return ret;
     }
 }

@@ -19,9 +19,9 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
+import de.p2tools.p2lib.tools.GermanStringSorter;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
-import de.p2tools.p2radio.tools.Data;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
@@ -479,7 +479,7 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
 
     public int compareTo(StationDataProperty arg0) {
         int ret;
-        if ((ret = Data.sorter.compare(getStationName(), arg0.getStationName())) == 0) {
+        if ((ret = GermanStringSorter.getInstance().compare(getStationName(), arg0.getStationName())) == 0) {
             return getStationUrl().compareTo(arg0.getStationUrl());
         }
         return ret;

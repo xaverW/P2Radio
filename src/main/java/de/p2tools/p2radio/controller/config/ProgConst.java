@@ -62,7 +62,4 @@ public class ProgConst {
 
     public static final int MIN_TABLE_HEIGHT = 200;
     public static final int MIN_TEXTAREA_HEIGHT_LOW = 50;
-
-    //Nummer wird nicht angezeigt
-    public static final int NUMBER_DONT_USED = Integer.MAX_VALUE;
 }
