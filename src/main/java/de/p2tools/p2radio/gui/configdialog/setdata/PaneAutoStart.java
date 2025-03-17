@@ -19,6 +19,7 @@ package de.p2tools.p2radio.gui.configdialog.setdata;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
@@ -40,8 +41,13 @@ import java.util.Collection;
 public class PaneAutoStart {
 
     private final RadioButton rbNothing = new RadioButton("Keinen starten");
-    private final RadioButton rbLastPlayed = new RadioButton("Letzter gespielter");
+    private final RadioButton rbLastPlayed = new RadioButton("Zuletzt gespielter");
     private final RadioButton rbAuto = new RadioButton("Gewählter Autostart");
+    private final RadioButton rbList = new RadioButton("Zufälliger Sender");
+    private final RadioButton rbListStation = new RadioButton("Sender");
+    private final RadioButton rbListFavourite = new RadioButton("Favoriten");
+    private final RadioButton rbListHistory = new RadioButton("History");
+    private final RadioButton rbListOwn = new RadioButton("Autostart-Liste");
 
     private final GridPane gridPane = new GridPane();
     private final Stage stage;
@@ -79,23 +85,47 @@ public class PaneAutoStart {
         rbNothing.setToggleGroup(tg);
         rbLastPlayed.setToggleGroup(tg);
         rbAuto.setToggleGroup(tg);
-        switch (ProgConfig.SYSTEM_AUTO_START.get()) {
-            case AutoStartFactory.AUTOSTART_LAST_PLAYED:
-                rbLastPlayed.setSelected(true);
-                break;
-            case AutoStartFactory.AUTOSTART_AUTO:
-                rbAuto.setSelected(true);
-                break;
-            default:
-                rbNothing.setSelected(true);
-        }
-        rbNothing.setOnAction(a -> ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING));
-        rbLastPlayed.setOnAction(a -> ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LAST_PLAYED));
-        rbAuto.setOnAction(a -> ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO));
+        rbList.setToggleGroup(tg);
+
+        ToggleGroup tgList = new ToggleGroup();
+        rbListStation.setToggleGroup(tgList);
+        rbListFavourite.setToggleGroup(tgList);
+        rbListHistory.setToggleGroup(tgList);
+        rbListOwn.setToggleGroup(tgList);
+        rbListStation.disableProperty().bind(rbList.selectedProperty().not());
+        rbListFavourite.disableProperty().bind(rbList.selectedProperty().not());
+        rbListHistory.disableProperty().bind(rbList.selectedProperty().not());
+        rbListOwn.disableProperty().bind(rbList.selectedProperty().not());
+
+        setSelected();
+        rbNothing.setOnAction(a -> getSelected());
+        rbLastPlayed.setOnAction(a -> getSelected());
+        rbAuto.setOnAction(a -> getSelected());
+        rbList.setOnAction(a -> getSelected());
+        rbListStation.setOnAction(a -> getSelected());
+        rbListFavourite.setOnAction(a -> getSelected());
+        rbListHistory.setOnAction(a -> getSelected());
+        rbListOwn.setOnAction(a -> getSelected());
 
         final Button btnHelpAutoStart = P2Button.helpButton(stage, "Sender AutoStart",
                 HelpText.AUTO_START);
         GridPane.setHalignment(btnHelpAutoStart, HPos.RIGHT);
+
+        final Button btnPlay = new Button("");
+        btnPlay.setTooltip(new Tooltip("Sender abspielen"));
+        btnPlay.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
+        btnPlay.setOnAction((ActionEvent event) -> {
+            P2RadioFactory.loadAutoStart();
+        });
+        btnPlay.disableProperty().bind(rbNothing.selectedProperty());
+
+        final Button btnStop;
+        btnStop = new Button("");
+        btnStop.setTooltip(new Tooltip("Sender stoppen"));
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setOnAction((ActionEvent event) -> {
+            StartFactory.stopStation();
+        });
 
         lblLastPlayed.setStyle("-fx-border-color: black;");
         lblLastPlayed.setPadding(new Insets(5));
@@ -117,58 +147,79 @@ public class PaneAutoStart {
                     ProgData.getInstance().stationAutoStart.getStationUrl());
         }
 
-        final Button btnPlayLast = new Button("");
-        btnPlayLast.setTooltip(new Tooltip("Sender abspielen"));
-        btnPlayLast.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
-        btnPlayLast.setOnAction((ActionEvent event) -> {
-            StartFactory.startStation(progData.stationLastPlayed);
-        });
-        btnPlayLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
-
-        final Button btnStopLast;
-        btnStopLast = new Button("");
-        btnStopLast.setTooltip(new Tooltip("Sender stoppen"));
-        btnStopLast.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
-        btnStopLast.setOnAction((ActionEvent event) -> {
-            StartFactory.stopStation();
-        });
-        btnStopLast.disableProperty().bind(lblLastPlayed.textProperty().isEmpty());
-
-        final Button btnPlayAuto = new Button("");
-        btnPlayAuto.setTooltip(new Tooltip("Sender abspielen"));
-        btnPlayAuto.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
-        btnPlayAuto.setOnAction((ActionEvent event) -> {
-            StartFactory.startStation(progData.stationAutoStart);
-        });
-        btnPlayAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
-
-        final Button btnStopAuto;
-        btnStopAuto = new Button("");
-        btnStopAuto.setTooltip(new Tooltip("Sender stoppen"));
-        btnStopAuto.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
-        btnStopAuto.setOnAction((ActionEvent event) -> {
-            StartFactory.stopStation();
-        });
-        btnStopAuto.disableProperty().bind(lblAuto.textProperty().isEmpty());
-
         int row = 0;
         gridPane.add(new Label("Sender beim Programmstart starten:"), 0, row, 2, 1);
-        gridPane.add(btnHelpAutoStart, 4, row);
+        HBox hBox = new HBox(P2LibConst.SPACING_HBOX);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.getChildren().addAll(btnPlay, btnStop, btnHelpAutoStart);
+        gridPane.add(hBox, 2, row);
+        GridPane.setHalignment(hBox, HPos.RIGHT);
 
         gridPane.add(rbNothing, 0, ++row);
 
         gridPane.add(rbLastPlayed, 0, ++row);
-        gridPane.add(lblLastPlayed, 1, row);
-        HBox hBoxLast = new HBox(P2LibConst.SPACING_HBOX);
-        hBoxLast.getChildren().addAll(/*btnClearLast,*/ btnPlayLast, btnStopLast);
-        hBoxLast.setAlignment(Pos.CENTER);
-        gridPane.add(hBoxLast, 2, row);
+        gridPane.add(lblLastPlayed, 1, row, 2, 1);
 
         gridPane.add(rbAuto, 0, ++row);
-        gridPane.add(lblAuto, 1, row);
-        HBox hBoxAuto = new HBox(P2LibConst.SPACING_HBOX);
-        hBoxAuto.getChildren().addAll(/*btnClearAuto,*/ btnPlayAuto, btnStopAuto);
-        hBoxAuto.setAlignment(Pos.CENTER);
-        gridPane.add(hBoxAuto, 2, row);
+        gridPane.add(lblAuto, 1, row, 2, 1);
+
+        gridPane.add(rbList, 0, ++row);
+        HBox hBoxList = new HBox(P2LibConst.SPACING_HBOX);
+        hBoxList.getChildren().addAll(rbListStation, rbListFavourite, rbListHistory, rbListOwn);
+        hBoxList.setAlignment(Pos.CENTER_LEFT);
+        gridPane.add(hBoxList, 1, row, 2, 1);
+    }
+
+    private void setSelected() {
+        rbListStation.setSelected(true);
+        switch (ProgConfig.SYSTEM_AUTO_START.get()) {
+            case AutoStartFactory.AUTOSTART_LAST_PLAYED:
+                rbLastPlayed.setSelected(true);
+                break;
+            case AutoStartFactory.AUTOSTART_AUTO:
+                rbAuto.setSelected(true);
+                break;
+            case AutoStartFactory.AUTOSTART_LIST_STATION:
+                rbList.setSelected(true);
+                rbListStation.setSelected(true);
+                break;
+            case AutoStartFactory.AUTOSTART_LIST_FAVOURITE:
+                rbList.setSelected(true);
+                rbListFavourite.setSelected(true);
+                break;
+            case AutoStartFactory.AUTOSTART_LIST_HISTORY:
+                rbList.setSelected(true);
+                rbListHistory.setSelected(true);
+                break;
+            case AutoStartFactory.AUTOSTART_LIST_OWN:
+                rbList.setSelected(true);
+                rbListOwn.setSelected(true);
+                break;
+            default:
+                rbNothing.setSelected(true);
+        }
+    }
+
+    private void getSelected() {
+        if (rbNothing.isSelected()) {
+            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_NOTHING);
+
+        } else if (rbLastPlayed.isSelected()) {
+            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LAST_PLAYED);
+
+        } else if (rbAuto.isSelected()) {
+            ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_AUTO);
+
+        } else if (rbList.isSelected()) {
+            if (rbListStation.isSelected()) {
+                ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LIST_STATION);
+            } else if (rbListFavourite.isSelected()) {
+                ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LIST_FAVOURITE);
+            } else if (rbListHistory.isSelected()) {
+                ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LIST_HISTORY);
+            } else {
+                ProgConfig.SYSTEM_AUTO_START.set(AutoStartFactory.AUTOSTART_LIST_OWN);
+            }
+        }
     }
 }

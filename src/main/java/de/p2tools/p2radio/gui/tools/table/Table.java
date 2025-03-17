@@ -43,7 +43,7 @@ public class Table {
     private static StringProperty confOrder; //"Reihenfolge" der Spalten
 
     public enum TABLE_ENUM {
-        STATION, FAVOURITE, HISTORY, SMALL_RADIO_STATION, SMALL_RADIO_FAVOURITE, SMALL_RADIO_HISTORY
+        STATION, FAVOURITE, HISTORY, SMALL_RADIO_STATION, SMALL_RADIO_FAVOURITE, SMALL_RADIO_HISTORY, OWN_AUTOSTART
     }
 
     public static void setTable(TableStation table) {
@@ -188,6 +188,13 @@ public class Table {
                 confVis = ProgConfig.SMALL_RADIO_TABLE_HISTORY_VIS;
                 confOrder = ProgConfig.SMALL_RADIO_TABLE_HISTORY_ORDER;
                 break;
+            case OWN_AUTOSTART:
+                confWidth = ProgConfig.OWN_AUTOSTART_TABLE_WIDTH;
+                confSort = ProgConfig.OWN_AUTOSTART_TABLE_SORT;
+                confUpDown = ProgConfig.OWN_AUTOSTART_TABLE_UP_DOWN;
+                confVis = ProgConfig.OWN_AUTOSTART_TABLE_VIS;
+                confOrder = ProgConfig.OWN_AUTOSTART_TABLE_ORDER;
+                break;
         }
     }
 
@@ -227,6 +234,12 @@ public class Table {
         ProgConfig.SMALL_RADIO_TABLE_HISTORY_UP_DOWN.set("");
         ProgConfig.SMALL_RADIO_TABLE_HISTORY_VIS.set("");
         ProgConfig.SMALL_RADIO_TABLE_HISTORY_ORDER.set("");
+
+        ProgConfig.OWN_AUTOSTART_TABLE_WIDTH.set("");
+        ProgConfig.OWN_AUTOSTART_TABLE_SORT.set("");
+        ProgConfig.OWN_AUTOSTART_TABLE_UP_DOWN.set("");
+        ProgConfig.OWN_AUTOSTART_TABLE_VIS.set("");
+        ProgConfig.OWN_AUTOSTART_TABLE_ORDER.set("");
     }
 
     private static void initColumn(TableView<StationData> table) {

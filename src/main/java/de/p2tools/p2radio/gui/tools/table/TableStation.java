@@ -256,6 +256,15 @@ public class TableStation extends TableView<StationData> {
                     genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
                     /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
                     stationDateColumn, stationDateLastStartColumn,*/, websiteColumn /*stationUrlColumn*/);
+
+        } else if (this.table_enum.equals(Table.TABLE_ENUM.OWN_AUTOSTART)) {
+            getColumns().addAll(
+                    stationNoColumn, stationNameColumn, favouriteColumn, /* isNewStation, collectionNameColumn,*/ startButtonColumn,
+                    /*ownGradeColumn,*/ startsColumn,
+                    /*clickCountColumn, clickTrendColumn, votesColumn,*/
+                    genreColumn, codecColumn, bitrateColumn, /*ownColumn,*/
+                    /*stateColumn, countryColumn,*/ countryCodeColumn, languageColumn/*,
+                    stationDateColumn, stationDateLastStartColumn,*/, websiteColumn /*stationUrlColumn*/);
         }
     }
 }

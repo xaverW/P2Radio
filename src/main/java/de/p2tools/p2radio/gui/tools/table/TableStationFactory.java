@@ -6,6 +6,7 @@ import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
@@ -282,7 +283,8 @@ public class TableStationFactory {
 
                 if (tableEnum.equals(Table.TABLE_ENUM.STATION) ||
                         tableEnum.equals(Table.TABLE_ENUM.FAVOURITE) ||
-                        tableEnum.equals(Table.TABLE_ENUM.HISTORY)) {
+                        tableEnum.equals(Table.TABLE_ENUM.HISTORY) ||
+                        tableEnum.equals(Table.TABLE_ENUM.OWN_AUTOSTART)) {
 
                     final Button btn;
                     btn = new Button("");
@@ -307,6 +309,13 @@ public class TableStationFactory {
                         btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                         btn.setOnAction(event -> {
                             HistoryFactory.deleteHistory(stationData);
+                        });
+
+                    } else if (tableEnum.equals(Table.TABLE_ENUM.OWN_AUTOSTART)) {
+                        btn.setTooltip(new Tooltip("Sender aus der Autostart-Liste löschen"));
+                        btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
+                        btn.setOnAction(event -> {
+                            ProgData.getInstance().ownAutoStartList.remove(stationData);
                         });
                     }
 

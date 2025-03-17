@@ -118,6 +118,7 @@ public class P2RadioFactory {
                     }
                 }
                 break;
+
             case AutoStartFactory.AUTOSTART_AUTO:
                 if (progData.stationAutoStart.isAuto()) {
                     StationData stationData = progData.stationList.getStationByUrl(progData.stationAutoStart.getStationUrl());
@@ -130,6 +131,30 @@ public class P2RadioFactory {
                     }
                 }
                 break;
+
+            case AutoStartFactory.AUTOSTART_LIST_STATION:
+            case AutoStartFactory.AUTOSTART_LIST_FAVOURITE:
+            case AutoStartFactory.AUTOSTART_LIST_HISTORY:
+            case AutoStartFactory.AUTOSTART_LIST_OWN:
+                StationData stationAuto = AutoStartFactory.getRandomStation();
+                if (stationAuto == null) {
+                    P2Alert.showErrorAlert(P2LibConst.actStage,
+                            "Autostart",
+                            "Der Sender für den Autostart ist nicht mehr in der Senderliste");
+                    break;
+                }
+
+                StationData stationData = progData.stationList.getStationByUrl(stationAuto.getStationUrl());
+                if (stationData == null) {
+                    P2Alert.showErrorAlert(P2LibConst.actStage,
+                            "Autostart",
+                            "Der Sender für den Autostart ist nicht mehr in der Senderliste");
+                    break;
+                }
+
+                StartFactory.startStation(stationData);
+                break;
+
             default:
         }
 

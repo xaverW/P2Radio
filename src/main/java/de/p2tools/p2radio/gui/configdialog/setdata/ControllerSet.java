@@ -28,6 +28,7 @@ public class ControllerSet extends P2AccordionPane {
 
     private final Stage stage;
     private PaneAutoStart paneAutoStart;
+    private PaneOwnAutostart paneOwnAutostart;
     private PaneSet paneSet;
 
     public ControllerSet(Stage stage) {
@@ -38,6 +39,7 @@ public class ControllerSet extends P2AccordionPane {
 
     public void close() {
         paneAutoStart.close();
+        paneOwnAutostart.close();
         paneSet.close();
         super.close();
     }
@@ -46,6 +48,9 @@ public class ControllerSet extends P2AccordionPane {
         Collection<TitledPane> result = new ArrayList<>();
         paneAutoStart = new PaneAutoStart(stage);
         paneAutoStart.makeConfig(result);
+
+        paneOwnAutostart = new PaneOwnAutostart(stage);
+        paneOwnAutostart.makeConfig(result);
 
         paneSet = new PaneSet(stage);
         paneSet.makeConfig(result);

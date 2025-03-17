@@ -114,7 +114,7 @@ public class StationListFactory {
 
         final HashSet<String> hashSet = new HashSet<>(100_000);
 
-        // Stationen putzen
+        // Stationen putzen, doppelte rauswerfen
         Iterator<StationData> it = progData.stationList.iterator();
         while (it.hasNext()) {
             StationData stationData = it.next();
@@ -125,6 +125,7 @@ public class StationListFactory {
             }
         }
 
+        // favourite/history zurücksetzen
         progData.stationList.forEach(station -> {
             station.setFavourite(false);
             station.setHistory(false);
@@ -134,10 +135,11 @@ public class StationListFactory {
         hashSet.clear();
         hashSet.addAll(progData.favouriteList.stream().map(StationListFactory::getHash).toList());
         progData.stationList.stream()
-                .filter(station -> hashSet.contains(getHash(station))) // nur station die im Hash (Favoriten) sind
+                .filter(station -> hashSet.contains(getHash(station))) // nur Sender die im Hash (Favoriten) sind
                 .forEach(station -> {
+                    // damit gespeicherte Infos nicht verloren gehen
                     StationData fav = getStationByHash(progData.favouriteList, station);
-                    copyFav(station, fav);
+                    copyStation(station, fav);
                     station.setFavourite(true);
                 });
 
@@ -151,12 +153,13 @@ public class StationListFactory {
         progData.stationList.stream()
                 .filter(station -> hashSet.contains(getHash(station)))
                 .forEach(station -> {
+                    // damit gespeicherte Infos nicht verloren gehen
                     StationData history = getStationByHash(progData.historyList, station);
-                    copyFav(station, history);
+                    copyStation(station, history);
                     station.setHistory(true);
                 });
 
-        hashSet.clear();
+        // favorite/history löschen und dann wieder mit den stations füllen
         progData.favouriteList.clear();
         progData.historyList.clear();
         progData.stationList.stream()
@@ -166,6 +169,16 @@ public class StationListFactory {
                 .filter(StationDataProperty::isHistory)
                 .forEach(station -> progData.historyList.add(station));
 
+
+        // ownAutoStartListe
+        hashSet.clear();
+        hashSet.addAll(progData.ownAutoStartList.stream().map(StationListFactory::getHash).toList());
+        progData.ownAutoStartList.clear();
+        progData.stationList.stream()
+                .filter(station -> hashSet.contains(getHash(station)))
+                .forEach(station -> progData.ownAutoStartList.add(station));
+
+        hashSet.clear();
         P2Duration.counterStop("findAndMarkFavouriteStations");
     }
 
@@ -173,16 +186,16 @@ public class StationListFactory {
         return stationData.getStationName() + stationData.getStationUrl();
     }
 
-    private static void copyFav(StationData station, StationData fav) {
-        // nach dem Neuladen einer Radioliste, für Favourite/History
-        if (station == null || fav == null) {
+    private static void copyStation(StationData station, StationData copy) {
+        // nach dem Neuladen einer Radioliste, für Favourite/History/OwnAutoStart
+        if (station == null || copy == null) {
             return;
         }
 
-        station.setCollectionName(fav.getCollectionName());
-        station.setDescription(fav.getDescription());
-        station.setOwnGrade(fav.getOwnGrade());
-        station.setStarts(fav.getStarts());
-        station.setStationDateLastStart(fav.getStationDateLastStart());
+        station.setCollectionName(copy.getCollectionName());
+        station.setDescription(copy.getDescription());
+        station.setOwnGrade(copy.getOwnGrade());
+        station.setStarts(copy.getStarts());
+        station.setStationDateLastStart(copy.getStationDateLastStart());
     }
 }

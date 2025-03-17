@@ -105,10 +105,13 @@ public class StationMenu {
         miSave.setOnAction(e -> FavouriteFactory.favouriteStationList());
         P2ShortcutWorker.addShortCut(miSave, PShortCut.SHORTCUT_SAVE_STATION);
 
+        final Menu meAutostart = new Menu("Autostart");
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
         miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
-
-        mb.getItems().addAll(miStop, miSave, miAutoStart);
+        final MenuItem miOwnAutoStart = new MenuItem("Sender in die AutoStart-Liste kopieren");
+        miOwnAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStartOwnList());
+        meAutostart.getItems().addAll(miAutoStart, miOwnAutoStart);
+        mb.getItems().addAll(miStop, miSave, meAutostart);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.disableProperty().bind(ProgConfig.STATION__FILTER_IS_RIP);

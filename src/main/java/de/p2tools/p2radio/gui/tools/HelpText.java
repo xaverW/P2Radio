@@ -193,15 +193,31 @@ public class HelpText {
             "\n";
 
     public static final String AUTO_START = "Hier kann ausgewählt werden, ob und welcher Sender " +
-            "beim Programmstart sofort gestartet wird. " +
+            "beim Programmstart sofort gestartet wird." +
             "\n\n" +
-            "\"Nichts:\" Das meint, dass kein Sender automatisch gestartet wird." +
+            "\"Keinen starten\"\n" +
+            "Beim Start wird kein Sender gestartet." +
             "\n" +
-            "\"Letzter gespielter:\" Es wird der zuletzt gespielte Sender wieder gestartet." +
             "\n" +
-            "\"Gewählter Autostart:\" Es kann ein Sender ausgewählt werden (in den Tabellen " +
-            "\"Sender, Favoriten, History\" " +
-            "der beim Programmstart automatisch gestartet werden soll." +
+            "\"Zuletzt gespielter\"\n" +
+            "Es wird der zuletzt abgespielte Sender, wieder gestartet." +
+            "\n" +
+            "\n" +
+            "\"Gewählter Autostart\"\n" +
+            "Es kann ein Sender ausgewählt werden (in den Tabellen " +
+            "Sender, Favoriten, History) " +
+            "der beim Programmstart dann automatisch gestartet werden soll." +
+            "\n" +
+            "\n" +
+            "\"Zufälliger Sender\"\n" +
+            "Hier wird ein zufälliger Sender gestartet. Es kann ausgewählt werden, " +
+            "wo der zufällige Sender gesucht werden soll. \"Sender\", \"Favoriten\" oder \"History\" meint die " +
+            "Sender in der entsprechenden Liste: Sender, Favoriten oder History. \n" +
+            "\"Autostart-Liste\" sind die Sender, " +
+            "die in der Autostart-Liste liegen. Die Liste kann über das Menü/Kontext-Menü der Tabellen gefüllt werden: " +
+            "\"Sender in die AutoStart-Liste kopieren\".\n" +
+            "Ist eine Liste gewählt, die leer ist, wird ein Sender aus allen " +
+            "gewählt." +
             "\n";
 
     public static final String LOGFILE = "Hier kann ein Ordner angegeben werden " +

@@ -51,6 +51,7 @@ public class ProgConfig extends P2DataProgConfig {
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().favouriteList);
         configFile.addConfigs(ProgData.getInstance().historyList);
+        configFile.addConfigs(ProgData.getInstance().ownAutoStartList);
         configFile.addConfigs(ProgData.getInstance().storedFilters.getActFilterSettings());
         configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
         configFile.addConfigs(ProgData.getInstance().blackDataList);
@@ -155,6 +156,14 @@ public class ProgConfig extends P2DataProgConfig {
     public static IntegerProperty SYSTEM_BLACKLIST_MIN_BITRATE = addIntProp("blacklist-min-bitrate", 0);
     public static IntegerProperty SYSTEM_BLACKLIST_MAX_BITRATE = addIntProp("blacklist-max-bitrate", StationFilterFactory.FILTER_BITRATE_MAX);
     public static BooleanProperty SYSTEM_BLACKLIST_IS_WHITELIST = addBoolProp("blacklist-is-whitelist");
+
+    // OwnAutoStartLIst
+    public static StringProperty OWN_AUTOSTART_TABLE_WIDTH = addStrProp("own-autostart-table-width", "");
+    public static StringProperty OWN_AUTOSTART_TABLE_SORT = addStrProp("own-autostart-table-sort");
+    public static StringProperty OWN_AUTOSTART_TABLE_UP_DOWN = addStrProp("own-autostart-table-up-down");
+    public static StringProperty OWN_AUTOSTART_TABLE_VIS = addStrProp("own-autostart-table-vis", "");
+    public static StringProperty OWN_AUTOSTART_TABLE_ORDER = addStrProp("own-autostart-table-order", "");
+
 
     // Gui Station
     public static StringProperty STATION_GUI_TABLE_WIDTH = addStrProp("station-gui-table-width");

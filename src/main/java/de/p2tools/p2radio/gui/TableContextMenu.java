@@ -152,10 +152,18 @@ public class TableContextMenu {
             }
         }
 
+        final Menu meAutostart = new Menu("Autostart");
+
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
         miAutoStart.setOnAction(e -> AutoStartFactory.setAutoStart(station));
         miAutoStart.setDisable(station == null);
-        contextMenu.getItems().addAll(miAutoStart);
+        meAutostart.getItems().addAll(miAutoStart);
+
+        final MenuItem miAutoStartOwn = new MenuItem("Sender in die AutoStart-Liste kopieren");
+        miAutoStartOwn.setOnAction(e -> AutoStartFactory.setAutoStartOwnList(station));
+        miAutoStartOwn.setDisable(station == null);
+        meAutostart.getItems().addAll(miAutoStartOwn);
+        contextMenu.getItems().addAll(meAutostart);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());

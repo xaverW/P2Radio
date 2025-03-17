@@ -108,6 +108,8 @@ public class ProgData {
     public FilteredList<StationData> filteredHistoryList;
     public HistoryFilter historyFilter;
 
+    public StationList ownAutoStartList; // Liste der eigenen Autostarts
+
     public StationData stationAutoStart = new StationData(AutoStartFactory.TAG_AUTOSTART);
     public StationData stationLastPlayed = new StationData(AutoStartFactory.TAG_LAST_PLAYED);
     public boolean autoStartAfterNewList = false;
@@ -136,6 +138,8 @@ public class ProgData {
         historyList = new HistoryList(this);
         filteredHistoryList = new FilteredList<>(historyList, p -> true);
         historyFilter = new HistoryFilter();
+
+        ownAutoStartList = new StationList();
 
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);
