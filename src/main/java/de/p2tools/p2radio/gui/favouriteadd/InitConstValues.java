@@ -76,7 +76,8 @@ public class InitConstValues {
 
         addFavouriteDto.lblStarts.setText(addFavouriteDto.getAct().stationData.getStarts() + "");
         addFavouriteDto.chkOwn.setSelected(addFavouriteDto.getAct().stationData.isOwn());
-
+        addFavouriteDto.btnSetOwn.setDisable(own);
+        
         // country
         set(own, addFavouriteDto.getAct().stationData.getCountry(),
                 addFavouriteDto.lblCountry, addFavouriteDto.txtCountry);

@@ -100,6 +100,8 @@ public class AddFavouriteDto {
     public final Label lblWebsite = new Label();
     public final TextField txtWebsite = new TextField();
     public final Text textWebsite = new Text(StationDataXml.STATION_PROP_WEBSITE + ":");
+    // Set Own
+    public final Button btnSetOwn = new Button("Als eigenen Sender speichern");
 
 
     public AddFavouriteDto(ProgData progData, ArrayList<StationData> data, boolean addNew) {

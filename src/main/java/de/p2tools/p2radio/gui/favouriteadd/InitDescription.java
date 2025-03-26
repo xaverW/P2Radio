@@ -36,7 +36,6 @@ public class InitDescription {
     }
 
     public void setDescription() {
-        // website
         if (addFavouriteDto.chkDescriptionAll.isSelected()) {
             Arrays.stream(addFavouriteDto.addFavouriteData).forEach(addPodcastData ->
                     addPodcastData.stationData.setDescription(addFavouriteDto.taDescription.getText()));

@@ -19,14 +19,12 @@ package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.gui.favouriteadd.FavouriteAddDialogController;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -111,10 +109,8 @@ public class FavouriteFactory {
 
     public static void addOwnStationAsFavourite() {
         StationData stationData = new StationData();
-        stationData.setOwn(true);
-        stationData.setStationDateLastChange(P2LDateFactory.toString(LocalDate.now()));
+        stationData.setOwn();
         favouriteStation(stationData);
-//        new FavouriteAddOwnDialogController(ProgData.getInstance(), stationData);
     }
 
     public static void changeFavourite(StationData stationData) {

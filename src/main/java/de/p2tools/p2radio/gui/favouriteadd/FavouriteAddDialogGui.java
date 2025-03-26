@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -36,9 +37,11 @@ public class FavouriteAddDialogGui {
     public FavouriteAddDialogGui(AddFavouriteDto addFavouriteDto, VBox vBoxCont) {
         this.addFavouriteDto = addFavouriteDto;
         this.vBoxCont = vBoxCont;
+        addCont();
+        init();
     }
 
-    public void addCont() {
+    private void addCont() {
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPane.setPadding(new Insets(5));
@@ -135,6 +138,10 @@ public class FavouriteAddDialogGui {
         gridPane.add(addFavouriteDto.lblWebsite, 1, row, 3, 1);
         gridPane.add(addFavouriteDto.txtWebsite, 1, row, 3, 1);
 
+        // setOwn
+        gridPane.add(new Label(""), 0, ++row);
+        gridPane.add(addFavouriteDto.btnSetOwn, 0, ++row, 3, 1);
+
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow(),
                 P2ColumnConstraints.getCcPrefSize(),
@@ -144,7 +151,7 @@ public class FavouriteAddDialogGui {
         vBoxCont.getChildren().add(gridPane);
     }
 
-    public void init() {
+    private void init() {
         if (addFavouriteDto.addFavouriteData.length == 1) {
             // wenns nur einen Download gibt, macht dann keinen Sinn
             hBoxTop.setVisible(false);

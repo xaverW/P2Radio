@@ -58,9 +58,7 @@ public class FavouriteAddDialogController extends P2DialogExtra {
     }
 
     private void initGui() {
-        FavouriteAddDialogGui favouriteAddDialogGui = new FavouriteAddDialogGui(addFavouriteDto, getVBoxCont());
-        favouriteAddDialogGui.addCont();
-        favouriteAddDialogGui.init();
+        new FavouriteAddDialogGui(addFavouriteDto, getVBoxCont());
         addOkCancelButtons(btnOk, btnCancel);
     }
 
@@ -71,6 +69,10 @@ public class FavouriteAddDialogController extends P2DialogExtra {
         });
         addFavouriteDto.btnNext.setOnAction(event -> {
             addFavouriteDto.actIsShown.setValue(addFavouriteDto.actIsShown.getValue() + 1);
+            addFavouriteDto.updateAct();
+        });
+        addFavouriteDto.btnSetOwn.setOnAction(event -> {
+            addFavouriteDto.getAct().stationData.setOwn();
             addFavouriteDto.updateAct();
         });
         btnOk.setOnAction(event -> {
