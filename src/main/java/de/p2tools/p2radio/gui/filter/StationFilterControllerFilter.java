@@ -27,9 +27,6 @@ import javafx.scene.layout.VBox;
 
 public class StationFilterControllerFilter extends VBox {
 
-    private final P2RangeBox slBitrate = new P2RangeBox("", true, 0, StationFilterFactory.FILTER_BITRATE_MAX);
-    private final Label lblBitrate = new Label("Bitrate:");
-
     private final Label lblOnly = new Label("anzeigen");
     private final P2CheckComboBox checkOnly = new P2CheckComboBox();
     private final String ONLY_NEW = "nur neue";
@@ -49,17 +46,18 @@ public class StationFilterControllerFilter extends VBox {
     }
 
     private void addSlider() {
+        // MinMax Bitrate
+        final P2RangeBox slBitrate = new P2RangeBox("Bitrate:", true, 0, StationFilterFactory.FILTER_BITRATE_MAX);
+        slBitrate.getSlider().setMinorTickCount(4);
+        slBitrate.getSlider().setMajorTickUnit(100);
+        slBitrate.getSlider().setSnapToTicks(true);
+
+        slBitrate.setUnitSuffix("kbit/s");
         slBitrate.minValueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().minBitProperty());
         slBitrate.maxValueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().maxBitProperty());
-// todo        slBitrate.setValuePrefix("");
-//        slBitrate.setUnitSuffix(" Bit");
-
-        // MinMax Bitrate
-        VBox vBox = new VBox(3);
-        vBox.getChildren().addAll(lblBitrate, slBitrate);
-        vBox.visibleProperty().bind(progData.storedFilters.getActFilterSettings().minMaxBitVisProperty());
-        vBox.managedProperty().bind(progData.storedFilters.getActFilterSettings().minMaxBitVisProperty());
-        getChildren().addAll(vBox);
+        slBitrate.visibleProperty().bind(progData.storedFilters.getActFilterSettings().minMaxBitVisProperty());
+        slBitrate.managedProperty().bind(progData.storedFilters.getActFilterSettings().minMaxBitVisProperty());
+        getChildren().addAll(slBitrate);
     }
 
     private void addCheckFilter() {
