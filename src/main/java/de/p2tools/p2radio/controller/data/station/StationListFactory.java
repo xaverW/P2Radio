@@ -133,7 +133,7 @@ public class StationListFactory {
 
         // favourite markieren
         hashSet.clear();
-        hashSet.addAll(progData.favouriteList.stream().map(StationListFactory::getHash).toList());
+        hashSet.addAll(progData.favouriteList.stream().filter(f -> !f.isOwn()).map(StationListFactory::getHash).toList());
         progData.stationList.stream()
                 .filter(station -> hashSet.contains(getHash(station))) // nur Sender die im Hash (Favoriten) sind
                 .forEach(station -> {
@@ -144,7 +144,7 @@ public class StationListFactory {
                 });
 
         // und noch die eigenen eintragen
-        progData.favouriteList.stream().filter(StationDataProperty::isOwn)
+        progData.favouriteList.stream().filter(StationData::isOwn)
                 .forEach(stationData -> progData.stationList.add(stationData));
 
         // history

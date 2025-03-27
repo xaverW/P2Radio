@@ -189,7 +189,7 @@ public class ProgStartAfterGui {
                         RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
 
         logList.add("Sender markieren");
-        final int count = progData.stationList.markStations();
+        final int count = progData.stationList.markDoubleStations();
         logList.add("Anzahl doppelte Sender: " + count);
         logList.add("Tags suchen");
         progData.stationList.loadFilterLists();

@@ -160,7 +160,7 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
         return super.add(station);
     }
 
-    public synchronized int markStations() {
+    public synchronized int markDoubleStations() {
         // läuft direkt nach dem Laden der Senderliste!
         // doppelte Sender (URL), Geo, InFuture markieren
 
@@ -168,7 +168,7 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
         final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
         try {
             countDouble = 0;
-            this.stream().forEach(station -> {
+            this.forEach(station -> {
                 if (!urlHashSet.add(station.getStationUrl())) {
                     ++countDouble;
                     station.setDoubleUrl(true);
@@ -216,7 +216,7 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
 
         //Codec
         hashSet.add(""); //der erste ist ""
-        stream().forEach((radio) -> {
+        this.forEach((radio) -> {
             String[] codecArr = radio.getCodec().split(",");
             for (String s : codecArr) {
                 hashSet.add(s);
