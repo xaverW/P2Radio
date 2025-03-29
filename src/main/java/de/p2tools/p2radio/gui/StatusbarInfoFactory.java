@@ -15,20 +15,20 @@
  */
 
 
-package de.p2tools.p2radio.controller.worker;
+package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class InfoFactory {
+public class StatusbarInfoFactory {
 
     private static final String SEPARATOR = "  ||  ";
     private static final NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
     private static final ProgData progData = ProgData.getInstance();
 
-    private InfoFactory() {
+    private StatusbarInfoFactory() {
     }
 
     public static synchronized String getInfosStations() {

@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.worker;
+package de.p2tools.p2radio.controller.stationload;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 

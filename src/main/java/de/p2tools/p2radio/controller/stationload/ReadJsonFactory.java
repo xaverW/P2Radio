@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.station;
+package de.p2tools.p2radio.controller.stationload;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -53,53 +53,53 @@ public class ReadJsonFactory {
             value = value.trim();
 
             switch (name) {
-                case StationFieldNamesWeb.NAME:
+                case StationFieldNames.NAME:
                     stationData.setStationName(value);
                     break;
-                case StationFieldNamesWeb.NEW:
+                case StationFieldNames.NEW:
                     // wird nur geschrieben, wenn NEU
                     stationData.setNewStation(true);
                     break;
-                case StationFieldNamesWeb.GENRE:
+                case StationFieldNames.GENRE:
                     stationData.setGenre(value);
                     break;
-                case StationFieldNamesWeb.CODEC:
+                case StationFieldNames.CODEC:
                     stationData.setCodec(value);
                     break;
-                case StationFieldNamesWeb.BITRATE:
+                case StationFieldNames.BITRATE:
                     stationData.setBitrate(value);
                     break;
-                case StationFieldNamesWeb.COUNTRY:
+                case StationFieldNames.COUNTRY:
                     stationData.setCountry(value);
                     break;
-                case StationFieldNamesWeb.COUNTRY_CODE:
+                case StationFieldNames.COUNTRY_CODE:
                     stationData.setCountryCode(value);
                     break;
-                case StationFieldNamesWeb.STATE:
+                case StationFieldNames.STATE:
                     stationData.setState(value);
                     break;
-                case StationFieldNamesWeb.LANGUAGE:
+                case StationFieldNames.LANGUAGE:
                     stationData.setLanguage(value);
                     break;
-                case StationFieldNamesWeb.VOTES:
+                case StationFieldNames.VOTES:
                     stationData.setVotes(value);
                     break;
-                case StationFieldNamesWeb.CLICK_COUNT:
+                case StationFieldNames.CLICK_COUNT:
                     stationData.setClickCount(value);
                     break;
-                case StationFieldNamesWeb.CLICK_TREND:
+                case StationFieldNames.CLICK_TREND:
                     stationData.setClickTrend(value);
                     break;
-                case StationFieldNamesWeb.URL:
+                case StationFieldNames.URL:
                     stationData.setStationUrl(value);
                     break;
-                case StationFieldNamesWeb.URL_RESOLVED:
+                case StationFieldNames.URL_RESOLVED:
                     stationData.setStationUrlResolved(value);
                     break;
-                case StationFieldNamesWeb.HOMEPAGE:
+                case StationFieldNames.HOMEPAGE:
                     stationData.setWebsite(value);
                     break;
-                case StationFieldNamesWeb.LAST_CHANGE_TIME:
+                case StationFieldNames.LAST_CHANGE_TIME:
                     //"lastchangetime" : "2022-12-23"
                     try {
                         LocalDate ld;

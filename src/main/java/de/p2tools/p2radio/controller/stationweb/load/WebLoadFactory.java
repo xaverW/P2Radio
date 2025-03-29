@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.station.ReadJsonFactory;
+import de.p2tools.p2radio.controller.stationload.ReadJsonFactory;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
 import de.p2tools.p2radio.tools.MLHttpClient;
 import de.p2tools.p2radio.tools.ProgressMonitorInputStream;

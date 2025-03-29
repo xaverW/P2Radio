@@ -23,7 +23,6 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.PlayingTitle;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.worker.InfoFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -127,13 +126,13 @@ public class StatusBarController extends AnchorPane {
     }
 
     private void setText() {
-        lblLeftStation.setText(InfoFactory.getInfosStations());
+        lblLeftStation.setText(StatusbarInfoFactory.getInfosStations());
         lblNowPlayingStation.setText(PlayingTitle.nowPlaying);
 
-        lblLeftFavourite.setText(InfoFactory.getInfosFavourites());
+        lblLeftFavourite.setText(StatusbarInfoFactory.getInfosFavourites());
         lblNowPlayingFavourite.setText(PlayingTitle.nowPlaying);
 
-        lblLeftHistory.setText(InfoFactory.getInfosHistory());
+        lblLeftHistory.setText(StatusbarInfoFactory.getInfosHistory());
         lblNowPlayingHistory.setText(PlayingTitle.nowPlaying);
 
         // Text rechts: alter/neuladenIn anzeigen

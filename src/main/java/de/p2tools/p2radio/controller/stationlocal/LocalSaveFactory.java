@@ -27,7 +27,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.station.StationFieldNamesWeb;
+import de.p2tools.p2radio.controller.stationload.StationFieldNames;
 
 import java.io.FileOutputStream;
 import java.nio.file.Path;
@@ -60,24 +60,24 @@ public class LocalSaveFactory {
                 // station
                 for (StationData station : stationList) {
                     jsonGenerator.writeStartObject();
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.NAME, station.getStationName());
+                    jsonGenerator.writeStringField(StationFieldNames.NAME, station.getStationName());
                     if (station.isNewStation()) {
-                        jsonGenerator.writeStringField(StationFieldNamesWeb.NEW, "true");
+                        jsonGenerator.writeStringField(StationFieldNames.NEW, "true");
                     }
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.GENRE, station.getGenre());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.CODEC, station.getCodec());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.BITRATE, station.getBitrateStr());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY, station.getCountry());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.COUNTRY_CODE, station.getCountryCode());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.STATE, station.getState());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.LANGUAGE, station.getLanguage());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.VOTES, station.getVotes() + "");
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_COUNT, station.getClickCount() + "");
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.CLICK_TREND, station.getClickTrend() + "");
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL, station.getStationUrl());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.URL_RESOLVED, station.getStationUrlResolved());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.HOMEPAGE, station.getWebsite());
-                    jsonGenerator.writeStringField(StationFieldNamesWeb.LAST_CHANGE_TIME, station.getStationDateLastChange().toString());
+                    jsonGenerator.writeStringField(StationFieldNames.GENRE, station.getGenre());
+                    jsonGenerator.writeStringField(StationFieldNames.CODEC, station.getCodec());
+                    jsonGenerator.writeStringField(StationFieldNames.BITRATE, station.getBitrateStr());
+                    jsonGenerator.writeStringField(StationFieldNames.COUNTRY, station.getCountry());
+                    jsonGenerator.writeStringField(StationFieldNames.COUNTRY_CODE, station.getCountryCode());
+                    jsonGenerator.writeStringField(StationFieldNames.STATE, station.getState());
+                    jsonGenerator.writeStringField(StationFieldNames.LANGUAGE, station.getLanguage());
+                    jsonGenerator.writeStringField(StationFieldNames.VOTES, station.getVotes() + "");
+                    jsonGenerator.writeStringField(StationFieldNames.CLICK_COUNT, station.getClickCount() + "");
+                    jsonGenerator.writeStringField(StationFieldNames.CLICK_TREND, station.getClickTrend() + "");
+                    jsonGenerator.writeStringField(StationFieldNames.URL, station.getStationUrl());
+                    jsonGenerator.writeStringField(StationFieldNames.URL_RESOLVED, station.getStationUrlResolved());
+                    jsonGenerator.writeStringField(StationFieldNames.HOMEPAGE, station.getWebsite());
+                    jsonGenerator.writeStringField(StationFieldNames.LAST_CHANGE_TIME, station.getStationDateLastChange().toString());
                     jsonGenerator.writeEndObject();
                 }
 

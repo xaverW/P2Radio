@@ -15,9 +15,9 @@
  */
 
 
-package de.p2tools.p2radio.controller.station;
+package de.p2tools.p2radio.controller.stationload;
 
-public class StationFieldNamesWeb {
+public class StationFieldNames {
 
     //sind die Felder der Online-Senderliste
     public final static String CHANGE_UUID = "changeuuid";
@@ -46,6 +46,6 @@ public class StationFieldNamesWeb {
     public final static String CLICK_COUNT = "clickcount";
     public final static String CLICK_TREND = "clicktrend";
 
-    private StationFieldNamesWeb() {
+    private StationFieldNames() {
     }
 }

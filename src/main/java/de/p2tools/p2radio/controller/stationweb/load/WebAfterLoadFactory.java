@@ -11,7 +11,7 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.station.LoadStationFactory;
+import de.p2tools.p2radio.controller.stationload.LoadStationFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalSaveFactory;
 import javafx.application.Platform;

@@ -27,7 +27,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.station.ReadJsonFactory;
+import de.p2tools.p2radio.controller.stationload.ReadJsonFactory;
 import org.tukaani.xz.XZInputStream;
 
 import java.io.FileInputStream;

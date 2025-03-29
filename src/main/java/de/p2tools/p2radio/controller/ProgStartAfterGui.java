@@ -29,7 +29,7 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.station.LoadStationFactory;
+import de.p2tools.p2radio.controller.stationload.LoadStationFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
