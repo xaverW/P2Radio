@@ -55,7 +55,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         Button btnStop = getMaskerPane().getButton();
         getMaskerPane().setButtonText("");
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_CLEAR.getImageView());
-        btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
+        btnStop.setOnAction(a -> progData.webLoad.setStop(true));
 
         if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
             new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);

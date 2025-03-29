@@ -20,7 +20,6 @@ import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -37,26 +36,21 @@ public class FilterWorker {
 
     public FilterWorker(ProgData progData) {
         this.progData = progData;
-
-        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends P2Event> void pingGui(T runEvent) {
-                if (runEvent.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) runEvent;
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
-                        // the station combo will be resetted, therefore save the filter
-                        saveFilter();
-                    }
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        createFilterLists();
-                        // activate the saved filter
-                        resetFilter();
-                    }
-                }
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_START) {
+            @Override
+            public void pingGui(P2Event event) {
+                // the station combo will be resetted, therefore save the filter
+                saveFilter();
             }
         });
-
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_FINISHED) {
+            @Override
+            public void pingGui(P2Event event) {
+                createFilterLists();
+                // activate the saved filter
+                resetFilter();
+            }
+        });
         allGenreList.addAll("70s", "80s", "90s", "classic", "classic rock", "dance",
                 "deutschrock", "chillout", "disco", "electro", "electronic",
                 "hard rock", "metal", "house", "jazz", "oldies", "pop", "rock",

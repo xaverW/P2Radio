@@ -14,11 +14,12 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.radiosloadfromweb;
+package de.p2tools.p2radio.controller.stationweb.load;
 
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
@@ -27,7 +28,7 @@ import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
+import de.p2tools.p2radio.controller.station.ReadJsonFactory;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
 import de.p2tools.p2radio.tools.MLHttpClient;
 import de.p2tools.p2radio.tools.ProgressMonitorInputStream;
@@ -44,17 +45,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-public class ReadRadiosFromWeb {
+public class WebLoadFactory {
 
-    private double progress = 0;
-    private int countAll = 0;
+    public static final double PROGRESS_MIN = 0.0;
+    public static final double PROGRESS_MAX = 1.0;
+    public static final double PROGRESS_INDETERMINATE = -1.0;
 
-    // Hier wird die Liste tatsächlich geladen (von URL)
-    public boolean readList(final StationList stationList) {
+    private WebLoadFactory() {
+    }
+
+    private static double progress = 0;
+    private static int countAll = 0;
+
+    // Hier wird die Liste tatsächlich geladen
+    // meldet PROGRESS
+    public static boolean loadList(final StationList stationList) {
         boolean ret = false;
         try {
-            String updateUrl = ProgConst.STATION_LIST_URL;
-            read(updateUrl, stationList);
+            load(ProgConst.STATION_LIST_URL, stationList);
             if (!stationList.isEmpty()) {
                 //dann hats geklappt
                 ret = true;
@@ -66,21 +74,24 @@ public class ReadRadiosFromWeb {
         return ret;
     }
 
-    private void read(String url, final StationList stationList) {
+    private static void load(String url, final StationList stationList) {
         P2Duration.counterStart("ReadRadioBrowser.read()");
         countAll = 0;
+        stationList.clear();
+
         List<String> logList = new ArrayList<>();
         logList.add("");
         logList.add(P2Log.LILNE2);
 
+        // für die Progressanzeige
+        ProgData.getInstance().pEventHandler.notifyListener(
+                new P2Event(PEvents.LOAD_RADIO_LIST_START, "Senderliste downloaden"));
 
-        notifyStart(url); // für die Progressanzeige
-        stationList.clear();
         try {
             logList.add("Senderliste aus URL laden: " + url);
             processFromWeb(new URL(url), stationList);
 
-            if (ProgData.getInstance().loadNewStationList.isStop()) {
+            if (ProgData.getInstance().webLoad.isStop()) {
                 logList.add(" -> Senderliste laden abgebrochen");
                 stationList.clear();
 
@@ -107,7 +118,7 @@ public class ReadRadiosFromWeb {
      * @param source      source url as string
      * @param stationList the list to read to
      */
-    private void processFromWeb(URL source, StationList stationList) {
+    private static void processFromWeb(URL source, StationList stationList) {
         final Request.Builder builder = new Request.Builder().url(source);
         builder.addHeader("User-Agent", ProgInfos.getUserAgent());
 
@@ -120,7 +131,7 @@ public class ReadRadiosFromWeb {
                 final int iProgress = (int) (bytesRead * 100/* zum Runden */ / size);
                 if (iProgress != oldProgress) {
                     oldProgress = iProgress;
-                    notifyProgress(source.toString(), 1.0 * iProgress / 100);
+                    notifyProgress(1.0 * iProgress / 100);
                 }
             }
         };
@@ -128,10 +139,14 @@ public class ReadRadiosFromWeb {
         try (Response response = MLHttpClient.getInstance().getHttpClient().newCall(builder.build()).execute();
              ResponseBody body = response.body()) {
             if (body != null && response.isSuccessful()) {
+                System.out.println("===============");
+                System.out.println("LENGTH: " + body.contentLength());
+                System.out.println("===============0");
+
                 try (InputStream input = new ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
                     try (InputStream is = selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {
-                        readData(jp, stationList);
+                        loadData(jp, stationList);
                     }
                 }
             }
@@ -141,7 +156,7 @@ public class ReadRadiosFromWeb {
         }
     }
 
-    private InputStream selectDecompressor(String source, InputStream in) throws Exception {
+    private static InputStream selectDecompressor(String source, InputStream in) throws Exception {
         if (source.endsWith(ProgConst.FORMAT_XZ)) {
             in = new XZInputStream(in);
         } else if (source.endsWith(ProgConst.FORMAT_ZIP)) {
@@ -152,8 +167,8 @@ public class ReadRadiosFromWeb {
         return in;
     }
 
-    private void readData(JsonParser jp, StationList stationList) throws IOException {
-        while (!ProgData.getInstance().loadNewStationList.isStop() && (jp.nextToken()) != null) {
+    private static void loadData(JsonParser jp, StationList stationList) throws IOException {
+        while (!ProgData.getInstance().webLoad.isStop() && (jp.nextToken()) != null) {
             if (jp.isExpectedStartObjectToken()) {
                 final StationData station = new StationData();
                 ReadJsonFactory.readJsonValue(station, jp);
@@ -166,23 +181,14 @@ public class ReadRadiosFromWeb {
                 stationList.importStationOnlyWithNr(station);
             }
         }
-        return;
     }
 
-    private void notifyStart(String url) {
-        progress = 0;
-        ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(PEvents.READ_STATIONS, RunEventRadio.NOTIFY.START,
-                        url, "Senderliste downloaden", 0, false));
-    }
-
-    private void notifyProgress(String url, double iProgress) {
+    private static void notifyProgress(double iProgress) {
         progress = iProgress;
-        if (progress > RunEventRadio.PROGRESS_MAX) {
-            progress = RunEventRadio.PROGRESS_MAX;
+        if (progress > PROGRESS_MAX) {
+            progress = PROGRESS_MAX;
         }
         ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(PEvents.READ_STATIONS, RunEventRadio.NOTIFY.PROGRESS,
-                        url, "Senderliste downloaden", progress, false));
+                new P2Event(PEvents.LOAD_RADIO_LIST_PROGRESS, "Senderliste downloaden", progress));
     }
 }

@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.radiosloadfromweb;
+package de.p2tools.p2radio.controller.station;
 
 public class StationFieldNamesWeb {
 

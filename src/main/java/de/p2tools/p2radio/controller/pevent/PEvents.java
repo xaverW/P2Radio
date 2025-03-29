@@ -22,9 +22,12 @@ import de.p2tools.p2lib.p2event.P2Events;
 public class PEvents extends P2Events {
     // Prog zählt vorwärts
     private static int count = 0;
-    public static int READ_STATIONS = ++count;
-    public static int LOAD_RADIO_LIST = ++count;
     public static int BLACKLIST_CHANGED = ++count;
     public static int SETDATA_CHANGED = ++count;
     public static int REFRESH_TABLE = ++count;
+
+    public static int LOAD_RADIO_LIST_START = ++count;
+    public static int LOAD_RADIO_LIST_PROGRESS = ++count;
+    public static int LOAD_RADIO_LIST_LOADED = ++count;
+    public static int LOAD_RADIO_LIST_FINISHED = ++count;
 }

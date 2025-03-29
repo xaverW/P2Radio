@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.radiosreadwritefile;
+package de.p2tools.p2radio.controller.stationlocal;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,7 +27,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.radiosloadfromweb.ReadJsonFactory;
+import de.p2tools.p2radio.controller.station.ReadJsonFactory;
 import org.tukaani.xz.XZInputStream;
 
 import java.io.FileInputStream;
@@ -39,11 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-public class StationLoadFactory {
+public class LocalReadFactory {
 
     private static int countAll = 0;
 
     public static boolean readList() {
+        // beim Programmstart oder wenn das Neuladen einer Liste nicht geklappt hat
+        // keine Events
         boolean ret = false;
 
         final String pathJson = ProgInfos.getStationFileJsonString();
@@ -113,7 +115,7 @@ public class StationLoadFactory {
 
     private static void readData(JsonParser jp, StationList stationList) throws IOException {
         boolean meta = false;
-        while (!ProgData.getInstance().loadNewStationList.isStop() && (jp.nextToken()) != null) {
+        while (!ProgData.getInstance().webLoad.isStop() && (jp.nextToken()) != null) {
             if (!meta && jp.isExpectedStartObjectToken()) {
                 getMeta(stationList, jp);
                 meta = true;

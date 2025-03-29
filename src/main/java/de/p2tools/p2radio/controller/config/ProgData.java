@@ -30,8 +30,7 @@ import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.radiosloadfromweb.LoadNewStationList;
-import de.p2tools.p2radio.controller.worker.Worker;
+import de.p2tools.p2radio.controller.stationweb.WebLoad;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -45,6 +44,7 @@ import de.p2tools.p2radio.tools.storedfilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Worker;
 import javafx.stage.Stage;
 
 public class ProgData {
@@ -67,7 +67,7 @@ public class ProgData {
     public final ProgTray progTray;
 
     // zentrale Klassen
-    public LoadNewStationList loadNewStationList; // erledigt das laden und updaten der Radioliste
+    public WebLoad webLoad; // erledigt das laden und updaten der Radioliste
     public PShortCut pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
@@ -123,7 +123,7 @@ public class ProgData {
         pEventHandler = new P2EventHandler();
 
         pShortcut = new PShortCut();
-        loadNewStationList = new LoadNewStationList(this);
+        webLoad = new WebLoad(this);
         storedFilters = new StoredFilters(this);
         stationList = new StationList();
         stationListBlackFiltered = new StationList();
@@ -144,7 +144,6 @@ public class ProgData {
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);
 
-        worker = new Worker(this);
         filterWorker = new FilterWorker(this);
         progTray = new ProgTray(this);
 

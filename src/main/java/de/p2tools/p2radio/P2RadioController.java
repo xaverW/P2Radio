@@ -23,7 +23,6 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -118,7 +117,7 @@ public class P2RadioController extends StackPane {
         Button btnStop = progData.maskerPane.getButton();
         progData.maskerPane.setButtonText("");
         btnStop.setGraphic(ProgIcons.ICON_BUTTON_CLEAR.getImageView());
-        btnStop.setOnAction(a -> progData.loadNewStationList.setStop(true));
+        btnStop.setOnAction(a -> progData.webLoad.setStop(true));
     }
 
     private void initButton() {
@@ -142,26 +141,22 @@ public class P2RadioController extends StackPane {
 
         infoPane();
 
-        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends P2Event> void pingGui(T event) {
-                if (event.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) event;
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        if (stackPaneCont.getChildren().isEmpty()) {
-                            return;
-                        }
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_FINISHED) {
+            @Override
+            public void pingGui(P2Event event) {
+                if (stackPaneCont.getChildren().isEmpty()) {
+                    return;
+                }
 
-                        Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                        if (node != null && node == paneStation) {
-                            progData.stationGuiPack.getStationGuiController().isShown();
-                        }
-                        if (node != null && node == paneFavourite) {
-                            progData.favouriteGuiPack.getFavouriteGuiController().isShown();
-                        }
-                        if (node != null && node == paneHistory) {
-                            progData.historyGuiPack.getHistoryGuiController().isShown();
-                        }
-                    }
+                Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+                if (node != null && node == paneStation) {
+                    progData.stationGuiPack.getStationGuiController().isShown();
+                }
+                if (node != null && node == paneFavourite) {
+                    progData.favouriteGuiPack.getFavouriteGuiController().isShown();
+                }
+                if (node != null && node == paneHistory) {
+                    progData.historyGuiPack.getHistoryGuiController().isShown();
                 }
             }
         });

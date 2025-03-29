@@ -28,7 +28,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.application.Platform;
@@ -60,7 +59,8 @@ public class PaneBlackList {
     private final BooleanProperty blackChanged;
     private final Stage stage;
     BooleanProperty propWhite = ProgConfig.SYSTEM_BLACKLIST_IS_WHITELIST;
-    P2Listener listener;
+    P2Listener listenerStart;
+    P2Listener listenerFinished;
     private BlackData blackData = null;
 
     public PaneBlackList(Stage stage, BooleanProperty blackChanged) {
@@ -84,7 +84,8 @@ public class PaneBlackList {
 
     public void close() {
         rbWhite.selectedProperty().unbindBidirectional(propWhite);
-        ProgData.getInstance().pEventHandler.removeListener(listener);
+        ProgData.getInstance().pEventHandler.removeListener(listenerStart);
+        ProgData.getInstance().pEventHandler.removeListener(listenerFinished);
     }
 
     private void makeConfig(VBox vBox) {
@@ -191,24 +192,22 @@ public class PaneBlackList {
             tableView.refresh();
         });
 
-        listener = new P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends P2Event> void ping(T runEvent) {
-                if (runEvent.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) runEvent;
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
-                        btnSortList.setDisable(true);
-                        btnCountHits.setDisable(true);
-                    }
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        btnSortList.setDisable(false);
-                        btnCountHits.setDisable(false);
-                    }
-                }
+        listenerStart = new P2Listener(PEvents.LOAD_RADIO_LIST_START) {
+            @Override
+            public void pingGui(P2Event event) {
+                btnSortList.setDisable(true);
+                btnCountHits.setDisable(true);
             }
         };
-        ProgData.getInstance().pEventHandler.addListener(listener);
+        listenerFinished = new P2Listener(PEvents.LOAD_RADIO_LIST_FINISHED) {
+            @Override
+            public void pingGui(P2Event event) {
+                btnSortList.setDisable(false);
+                btnCountHits.setDisable(false);
+            }
+        };
+        ProgData.getInstance().pEventHandler.addListener(listenerStart);
+        ProgData.getInstance().pEventHandler.addListener(listenerFinished);
 
         HBox hBoxCount = new HBox(P2LibConst.DIST_BUTTON);
         hBoxCount.setAlignment(Pos.CENTER_RIGHT);

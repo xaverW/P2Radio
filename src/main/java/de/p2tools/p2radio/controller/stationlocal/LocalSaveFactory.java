@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.radiosreadwritefile;
+package de.p2tools.p2radio.controller.stationlocal;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -27,14 +27,14 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.radiosloadfromweb.StationFieldNamesWeb;
+import de.p2tools.p2radio.controller.station.StationFieldNamesWeb;
 
 import java.io.FileOutputStream;
 import java.nio.file.Path;
 
-public class StationSaveFactory {
+public class LocalSaveFactory {
 
-    private StationSaveFactory() {
+    private LocalSaveFactory() {
         //Json war schneller, beim Lesen und besonders beim Schreiben!
         //ProgSaveFactory.saveStationListXml();//370ms
         //SenderSaveFactory.saveStationListJson();//90ms

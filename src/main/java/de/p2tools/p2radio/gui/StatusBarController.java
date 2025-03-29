@@ -23,7 +23,6 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.start.PlayingTitle;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import de.p2tools.p2radio.controller.worker.InfoFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -87,26 +86,22 @@ public class StatusBarController extends AnchorPane {
         stackPane.setPadding(new Insets(2, 5, 2, 5));
         stackPane.toFront();
 
-        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends P2Event> void pingGui(T runEvent) {
-                if (runEvent.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) runEvent;
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.START)) {
-                        stopTimer = true;
-                    }
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        stopTimer = false;
-                        setStatusbarIndex(statusbarIndex);
-                    }
-                }
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_START) {
+            @Override
+            public void pingGui(P2Event event) {
+                stopTimer = true;
             }
         });
-
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_FINISHED) {
+            @Override
+            public void pingGui(P2Event event) {
+                stopTimer = false;
+                setStatusbarIndex(statusbarIndex);
+            }
+        });
         progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
             public void pingGui(P2Event event) {
-                if (!progData.loadNewStationList.getPropLoadStationList()) {
+                if (!progData.webLoad.getPropLoadWeb()) {
                     try {
                         if (!stopTimer) {
                             setStatusbarIndex(statusbarIndex);

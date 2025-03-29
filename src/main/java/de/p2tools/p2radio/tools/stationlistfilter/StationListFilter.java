@@ -22,7 +22,6 @@ import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -50,20 +49,15 @@ public class StationListFilter {
                 filter();
             }
         }); // Senderfilter (User) haben sich geändert
-        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST) {
-            public <T extends P2Event> void pingGui(T runEvent) {
-                if (runEvent.getClass().equals(RunEventRadio.class)) {
-                    RunEventRadio runE = (RunEventRadio) runEvent;
-
-                    if (runE.getNotify().equals(RunEventRadio.NOTIFY.FINISHED)) {
-                        filterList();
-                    }
-                }
+        progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_FINISHED) {
+            @Override
+            public void pingGui(P2Event event) {
+                filterList();
             }
         });
         progData.pEventHandler.addListener(new P2Listener(PEvents.BLACKLIST_CHANGED) {
             public void pingGui(P2Event event) {
-                if (!progData.loadNewStationList.getPropLoadStationList()) {
+                if (!progData.webLoad.getPropLoadWeb()) {
                     //wird sonst eh gemacht
                     filterList();
                 }

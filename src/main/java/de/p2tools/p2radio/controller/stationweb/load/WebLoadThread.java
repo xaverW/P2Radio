@@ -14,59 +14,48 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.radiosloadfromweb;
+package de.p2tools.p2radio.controller.stationweb.load;
 
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
+import de.p2tools.p2radio.controller.stationweb.WebFactory;
 
-public class ReadRadiosFromWebThread {
+public class WebLoadThread {
 
-    public ReadRadiosFromWebThread() {
+    private WebLoadThread() {
     }
 
-    public void loadNewStationList(StationList stationList) {
+    public static void loadStationList(StationList stationList) {
         // Senderliste importieren, URL automatisch wählen
-        Thread th = new Thread(new ReadStationsThread(stationList));
+        Thread th = new Thread(new LoadStationThread(stationList));
         th.setName("ReadStationsThread");
         th.start();
     }
 
-    private synchronized void reportFinished(boolean ok) {
-        ProgData.getInstance().pEventHandler.notifyListener(
-                new RunEventRadio(PEvents.READ_STATIONS, RunEventRadio.NOTIFY.FINISHED,
-                        "", "Senderliste geladen", 0, !ok));
-    }
-
-    private class ReadStationsThread implements Runnable {
+    private static class LoadStationThread implements Runnable {
         private final StationList stationList;
 
-        public ReadStationsThread(StationList stationList) {
+        public LoadStationThread(StationList stationList) {
             this.stationList = stationList;
         }
 
         @Override
         public void run() {
-            runReadStationsThread(stationList);
-        }
-
-        private boolean runReadStationsThread(StationList stationList) {
-            boolean ret;
+            boolean ok;
             this.stationList.clear();
             P2Log.sysLog("komplette Liste laden");
 
             //und jetzt File/Url laden
-            ret = new ReadRadiosFromWeb().readList(stationList);
-            if (!ret || ProgData.getInstance().loadNewStationList.isStop()) {
+            ok = WebLoadFactory.loadList(stationList);
+            if (!ok || ProgData.getInstance().webLoad.isStop()) {
                 // wenn abgebrochen wurde, nicht weitermachen
                 P2Log.errorLog(951235497, "Es konnten keine Sender geladen werden!");
-                ret = false;
+                ok = false;
             }
 
-            reportFinished(ret);
-            return ret;
+            // Laden ist durch
+            WebFactory.afterWebLoad(!ok);
         }
     }
 }

@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio.controller;
 
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
@@ -27,10 +28,10 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.pevent.PEvents;
-import de.p2tools.p2radio.controller.pevent.RunEventRadio;
-import de.p2tools.p2radio.controller.radiosreadwritefile.StationLoadFactory;
+import de.p2tools.p2radio.controller.station.LoadStationFactory;
+import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
+import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
 import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.stage.Stage;
 
@@ -115,10 +116,9 @@ public class ProgStartAfterGui {
         final ProgData progData = ProgData.getInstance();
         P2Duration.onlyPing("Programmstart Senderliste laden: start");
 
-        progData.pEventHandler.notifyListener(
-                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.START,
-                        "", "gespeicherte Senderliste laden",
-                        RunEventRadio.PROGRESS_INDETERMINATE, false));
+        progData.pEventHandler.notifyListener(new P2Event(PEvents.LOAD_RADIO_LIST_START,
+                "gespeicherte Senderliste laden",
+                WebLoadFactory.PROGRESS_INDETERMINATE));
 
         final List<String> logList = new ArrayList<>();
         logList.add("");
@@ -127,39 +127,33 @@ public class ProgStartAfterGui {
         if (ProgData.firstProgramStart) {
             //dann wird immer geladen
             logList.add("erster Programmstart: Neue Senderliste laden");
-            progData.loadNewStationList.loadNewStationFromServer();
+            progData.webLoad.loadFromWeb();
 
         } else {
             // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen
             logList.add("Programmstart, gespeicherte Senderliste laden");
-            boolean loadOk = StationLoadFactory.readList();
+            boolean loadOk = LocalReadFactory.readList(); // meldet nix
+
             if (!loadOk || progData.stationList.isTooOld() && ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS.get()) {
                 //wenn die gespeicherte zu alt ist
-                progData.pEventHandler.notifyListener(
-                        new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.PROGRESS,
-                                "", "Senderliste zu alt, neue Senderliste laden",
-                                RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
+                progData.pEventHandler.notifyListener(new P2Event(PEvents.LOAD_RADIO_LIST_PROGRESS,
+                        "Senderliste zu alt, neue Senderliste laden",
+                        WebLoadFactory.PROGRESS_INDETERMINATE));
 
                 logList.add("Senderliste zu alt, neue Senderliste laden");
                 logList.add(P2Log.LILNE3);
-                progData.loadNewStationList.loadNewStationFromServer();
+                progData.webLoad.loadFromWeb();
 
                 progData.autoStartAfterNewList = true; // dann erst nach dem Neuladen der Liste starten
 
             } else {
-                progData.pEventHandler.notifyListener(
-                        new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-                                "", "Senderliste verarbeiten",
-                                RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
+                progData.pEventHandler.notifyListener(new P2Event(PEvents.LOAD_RADIO_LIST_LOADED,
+                        "Senderliste verarbeiten",
+                        WebLoadFactory.PROGRESS_INDETERMINATE));
 
-                afterLoadingStationList(logList);
                 logList.add("Liste der Radios geladen");
-
-                P2Log.sysLog("START: loadStationProgStart FINISHED");
-                progData.pEventHandler.notifyListener(
-                        new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.FINISHED,
-                                "", "", 0, false));
-
+                LoadStationFactory.afterLoadingStationList(logList);
+                progData.pEventHandler.notifyListener(new P2Event(PEvents.LOAD_RADIO_LIST_FINISHED));
                 P2RadioFactory.loadAutoStart();
             }
         }
@@ -167,44 +161,5 @@ public class ProgStartAfterGui {
         logList.add(P2Log.LILNE1);
         logList.add("");
         P2Log.sysLog(logList);
-    }
-
-    /**
-     * alles was nach einem Neuladen oder Einlesen einer gespeicherten Senderliste ansteht
-     */
-    public static void afterLoadingStationList(List<String> logList) {
-        final ProgData progData = ProgData.getInstance();
-
-        logList.add("");
-        logList.add("Jetzige Liste erstellt am: " + progData.stationList.getGenDate());
-        logList.add("  Anzahl Sender: " + progData.stationList.size());
-        logList.add("  Anzahl Neue:  " + progData.stationList.countNewStations());
-        logList.add("");
-        logList.add(P2Log.LILNE2);
-        logList.add("");
-
-        progData.pEventHandler.notifyListener(
-                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-                        "", "Sender markieren",
-                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
-
-        logList.add("Sender markieren");
-        final int count = progData.stationList.markDoubleStations();
-        logList.add("Anzahl doppelte Sender: " + count);
-        logList.add("Tags suchen");
-        progData.stationList.loadFilterLists();
-
-        progData.pEventHandler.notifyListener(
-                new RunEventRadio(PEvents.LOAD_RADIO_LIST, RunEventRadio.NOTIFY.LOADED,
-                        "", "Blacklist filtern",
-                        RunEventRadio.PROGRESS_INDETERMINATE, false/* Fehler */));
-
-        logList.add(P2Log.LILNE3);
-        logList.add("Favoriten/History markieren");
-        StationListFactory.findAndMarkStations(progData);
-
-        logList.add(P2Log.LILNE3);
-        logList.add("Blacklist filtern");
-        progData.stationList.filterListWithBlacklist(true);
     }
 }
