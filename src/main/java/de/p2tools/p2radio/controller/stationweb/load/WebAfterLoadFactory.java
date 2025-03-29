@@ -1,4 +1,4 @@
-package de.p2tools.p2radio.controller.stationweb;
+package de.p2tools.p2radio.controller.stationweb.load;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
@@ -14,19 +14,18 @@ import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.station.LoadStationFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalSaveFactory;
-import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class WebFactory {
+public class WebAfterLoadFactory {
 
     private static final HashSet<String> hashSet = new HashSet<>();
     private static int count = 0;
 
-    private WebFactory() {
+    private WebAfterLoadFactory() {
     }
 
     public static void fillHash() {
@@ -52,7 +51,7 @@ public class WebFactory {
             // Laden war fehlerhaft
             logList.add("");
             logList.add("Senderliste laden war fehlerhaft, alte Liste wird wieder geladen");
-            final boolean stopped = ProgData.getInstance().webLoad.isStop();
+            final boolean stopped = ProgData.getInstance().webWorker.isStop();
 
             Platform.runLater(() -> P2Alert.showErrorAlert(P2LibConst.actStage,
                     "Senderliste laden",
@@ -61,7 +60,7 @@ public class WebFactory {
 
             // dann die alte Liste wieder laden
             ProgData.getInstance().stationList.clear();
-            ProgData.getInstance().webLoad.setStop(false);
+            ProgData.getInstance().webWorker.setStop(false);
             LocalReadFactory.readList(); // meldet nix
             logList.add("");
 
@@ -83,7 +82,7 @@ public class WebFactory {
         }
 
         LoadStationFactory.afterLoadingStationList(logList);
-        ProgData.getInstance().webLoad.setPropLoadWeb(false);
+        ProgData.getInstance().webWorker.setPropLoadWeb(false);
 
         P2Log.sysLog(logList);
         P2Duration.onlyPing("Sender nachbearbeiten: Ende");

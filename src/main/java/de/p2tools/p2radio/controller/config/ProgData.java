@@ -30,7 +30,7 @@ import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.stationweb.WebLoad;
+import de.p2tools.p2radio.controller.stationweb.WebWorker;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -67,7 +67,7 @@ public class ProgData {
     public final ProgTray progTray;
 
     // zentrale Klassen
-    public WebLoad webLoad; // erledigt das laden und updaten der Radioliste
+    public WebWorker webWorker; // erledigt das laden und updaten der Radioliste
     public PShortCut pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
@@ -123,7 +123,7 @@ public class ProgData {
         pEventHandler = new P2EventHandler();
 
         pShortcut = new PShortCut();
-        webLoad = new WebLoad(this);
+        webWorker = new WebWorker(this);
         storedFilters = new StoredFilters(this);
         stationList = new StationList();
         stationListBlackFiltered = new StationList();

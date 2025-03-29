@@ -91,7 +91,7 @@ public class WebLoadFactory {
             logList.add("Senderliste aus URL laden: " + url);
             processFromWeb(new URL(url), stationList);
 
-            if (ProgData.getInstance().webLoad.isStop()) {
+            if (ProgData.getInstance().webWorker.isStop()) {
                 logList.add(" -> Senderliste laden abgebrochen");
                 stationList.clear();
 
@@ -168,7 +168,7 @@ public class WebLoadFactory {
     }
 
     private static void loadData(JsonParser jp, StationList stationList) throws IOException {
-        while (!ProgData.getInstance().webLoad.isStop() && (jp.nextToken()) != null) {
+        while (!ProgData.getInstance().webWorker.isStop() && (jp.nextToken()) != null) {
             if (jp.isExpectedStartObjectToken()) {
                 final StationData station = new StationData();
                 ReadJsonFactory.readJsonValue(station, jp);

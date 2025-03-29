@@ -19,7 +19,6 @@ package de.p2tools.p2radio.controller.stationweb.load;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.stationweb.WebFactory;
 
 public class WebLoadThread {
 
@@ -48,14 +47,14 @@ public class WebLoadThread {
 
             //und jetzt File/Url laden
             ok = WebLoadFactory.loadList(stationList);
-            if (!ok || ProgData.getInstance().webLoad.isStop()) {
+            if (!ok || ProgData.getInstance().webWorker.isStop()) {
                 // wenn abgebrochen wurde, nicht weitermachen
                 P2Log.errorLog(951235497, "Es konnten keine Sender geladen werden!");
                 ok = false;
             }
 
             // Laden ist durch
-            WebFactory.afterWebLoad(!ok);
+            WebAfterLoadFactory.afterWebLoad(!ok);
         }
     }
 }

@@ -23,6 +23,7 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.stationweb.load.WebAfterLoadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadThread;
 import de.p2tools.p2radio.controller.worker.PMaskerFactory;
@@ -30,18 +31,16 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class WebLoad {
+public class WebWorker {
 
     private static final AtomicBoolean stop = new AtomicBoolean(false); //damit kann das Laden gestoppt werden
     private final ProgData progData;
-    private final HashSet<String> hashSet = new HashSet<>();
     private final BooleanProperty propLoadWeb = new SimpleBooleanProperty(false);
 
-    public WebLoad(ProgData progData) {
+    public WebWorker(ProgData progData) {
         this.progData = progData;
 
         progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_START) {
@@ -100,7 +99,7 @@ public class WebLoad {
         logList.add(" ");
 
         // Hash mit URLs füllen
-        WebFactory.fillHash();
+        WebAfterLoadFactory.fillHash();
 
         progData.stationList.clear();
         progData.stationListBlackFiltered.clear();

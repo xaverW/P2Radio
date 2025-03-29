@@ -57,7 +57,7 @@ public class StationListFilter {
         });
         progData.pEventHandler.addListener(new P2Listener(PEvents.BLACKLIST_CHANGED) {
             public void pingGui(P2Event event) {
-                if (!progData.webLoad.getPropLoadWeb()) {
+                if (!progData.webWorker.getPropLoadWeb()) {
                     //wird sonst eh gemacht
                     filterList();
                 }
