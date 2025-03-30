@@ -35,6 +35,7 @@ public class ProgConst {
 
     // http://at1.api.radio-browser.info/json/stations
     public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
+//    public static final String STATION_LIST_URL = "https://atlist.de/stations";
 
     public static final String CONFIG_DIRECTORY = "p2Radio"; // im Homeverzeichnis
 

@@ -129,6 +129,7 @@ public class StationListFactory {
         progData.stationList.forEach(station -> {
             station.setFavourite(false);
             station.setHistory(false);
+            station.setOwn(false);
         });
 
         // favourite markieren

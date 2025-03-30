@@ -54,7 +54,7 @@ public class WebLoadThread {
             }
 
             // Laden ist durch
-            WebAfterLoadFactory.afterWebLoad(!ok);
+            WebAfterLoadFactory.afterWebLoad(ok);
         }
     }
 }

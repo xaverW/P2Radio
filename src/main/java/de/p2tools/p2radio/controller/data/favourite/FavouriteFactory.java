@@ -53,9 +53,10 @@ public class FavouriteFactory {
 
         for (final StationData station : list) {
             // erst mal schauen obs den schon gibt
-            StationData stationData = StationListFactory.getStationByUrl(progData.favouriteList, station.getStationUrl());
-            if (stationData == null) {
+            StationData favourite = StationListFactory.getStationByUrl(progData.favouriteList, station.getStationUrl());
+            if (favourite == null) {
                 addList.add(station);
+
             } else {
                 // dann ist der Sender schon in der Liste
                 if (list.size() <= 1) {
@@ -96,10 +97,11 @@ public class FavouriteFactory {
             addList.forEach(stationData -> {
                 StationData newStationData = new StationData();
                 newStationData.copyToMe(stationData);
+                newStationData.setOwn(false); // falls ein "eigener" geklickt ist
                 newFavourites.add(newStationData);
             });
 
-            new FavouriteAddDialogController(ProgData.getInstance(), addList, true);
+            new FavouriteAddDialogController(ProgData.getInstance(), newFavourites, true);
 
             //Favoriten markieren und Filter anstoßen
             addList.forEach(stationData -> stationData.setFavourite(true));

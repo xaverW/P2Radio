@@ -242,6 +242,10 @@ public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T>
         this.stationDateLastChange = LocalDate.now();
     }
 
+    public void setOwn(boolean set) {
+        this.own.set(set);
+    }
+
     public BooleanProperty ownProperty() {
         return own;
     }
