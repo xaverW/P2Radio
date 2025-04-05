@@ -26,7 +26,6 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FavouriteAddDialogController extends P2DialogExtra {
 
@@ -72,7 +71,9 @@ public class FavouriteAddDialogController extends P2DialogExtra {
             addFavouriteDto.updateAct();
         });
         addFavouriteDto.btnSetOwn.setOnAction(event -> {
+            addFavouriteDto.getAct().addNewFavourite = true;
             addFavouriteDto.getAct().stationData.setOwn();
+            addFavouriteDto.getAct().stationData.setStationNo(progData.stationList.getNextNo());
             addFavouriteDto.updateAct();
         });
         btnOk.setOnAction(event -> {
@@ -106,31 +107,52 @@ public class FavouriteAddDialogController extends P2DialogExtra {
             return;
         }
 
-        if (addFavouriteDto.addNewFavourite) {
-            // dann neue anlegen
-            addNewFavourite();
-        } else {
-            // oder die bestehenden ändern
-            changeFavourite();
+        boolean changeBlack = false;
+        for (AddFavouriteData addFavouriteData : addFavouriteDto.addFavouriteData) {
+            if (addFavouriteData.addNewFavourite) {
+                // dann ein neuer
+                final StationData stationData = addFavouriteData.stationData;
+                progData.favouriteList.addAll(stationData);
+                if (stationData.isOwn()) {
+                    // nur eigene müsen eingefügt werden, damit sie sofort verfügbar sind
+                    progData.stationList.addAll(stationData);
+                    changeBlack = true;
+                }
+            } else {
+                // Änderung
+                addFavouriteData.stationDataOrg.copyToMe(addFavouriteData.stationData);
+            }
         }
+
+        if (changeBlack) {
+            progData.storedFilters.getActFilterSettings().reportBlacklistChange();
+        }
+
+//        if (addFavouriteDto.addNewFavourite) {
+//            // dann neue anlegen
+//            addNewFavourite();
+//        } else {
+//            // oder die bestehenden ändern
+//            changeFavourite();
+//        }
 
         ProgQuitFactory.saveProgConfig();
         close();
     }
 
-    private void addNewFavourite() {
-        List<StationData> list = new ArrayList<>();
-        for (AddFavouriteData addFavouriteData : addFavouriteDto.addFavouriteData) {
-            final StationData stationData = addFavouriteData.stationData;
-            list.add(stationData);
-        }
-        progData.favouriteList.addAll(list);
-        progData.stationList.addAll(list); // damit sie gleich verfügbar sind
-    }
-
-    private void changeFavourite() {
-        for (AddFavouriteData addFavouriteData : addFavouriteDto.addFavouriteData) {
-            addFavouriteData.stationDataOrg.copyToMe(addFavouriteData.stationData);
-        }
-    }
+//    private void addNewFavourite() {
+//        List<StationData> list = new ArrayList<>();
+//        for (AddFavouriteData addFavouriteData : addFavouriteDto.addFavouriteData) {
+//            final StationData stationData = addFavouriteData.stationData;
+//            list.add(stationData);
+//        }
+//        progData.favouriteList.addAll(list);
+//        progData.stationList.addAll(list); // damit sie gleich verfügbar sind
+//    }
+//
+//    private void changeFavourite() {
+//        for (AddFavouriteData addFavouriteData : addFavouriteDto.addFavouriteData) {
+//            addFavouriteData.stationDataOrg.copyToMe(addFavouriteData.stationData);
+//        }
+//    }
 }

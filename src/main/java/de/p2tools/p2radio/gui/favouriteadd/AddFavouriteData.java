@@ -23,6 +23,7 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 public class AddFavouriteData {
     StationData stationData; // ist der neu angelegte / Kopie vom Org
     StationData stationDataOrg = null; // ist der Org der geändert werden soll
+    boolean addNewFavourite = true; // ist ein neuer
 
     public AddFavouriteData() {
     }

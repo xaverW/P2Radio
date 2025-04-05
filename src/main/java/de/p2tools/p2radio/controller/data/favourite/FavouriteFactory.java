@@ -97,7 +97,7 @@ public class FavouriteFactory {
             addList.forEach(stationData -> {
                 StationData newStationData = new StationData();
                 newStationData.copyToMe(stationData);
-                newStationData.setOwn(false); // falls ein "eigener" geklickt ist
+//                newStationData.setOwn(false); // falls ein "eigener" geklickt ist
                 newFavourites.add(newStationData);
             });
 
@@ -112,6 +112,7 @@ public class FavouriteFactory {
     public static void addOwnStationAsFavourite() {
         StationData stationData = new StationData();
         stationData.setOwn();
+        stationData.setStationNo(ProgData.getInstance().stationList.getNextNo());
         favouriteStation(stationData);
     }
 

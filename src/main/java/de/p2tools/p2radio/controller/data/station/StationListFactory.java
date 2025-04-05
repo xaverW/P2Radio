@@ -146,7 +146,10 @@ public class StationListFactory {
 
         // und noch die eigenen eintragen
         progData.favouriteList.stream().filter(StationData::isOwn)
-                .forEach(stationData -> progData.stationList.add(stationData));
+                .forEach(stationData -> {
+                    stationData.setStationNo(progData.stationList.getNextNo());
+                    progData.stationList.add(stationData);
+                });
 
         // history
         hashSet.clear();
@@ -183,20 +186,21 @@ public class StationListFactory {
         P2Duration.counterStop("findAndMarkFavouriteStations");
     }
 
-    public static String getHash(StationData stationData) {
-        return stationData.getStationName() + stationData.getStationUrl();
+    private static String getHash(StationData stationData) {
+        // Name/URL kann bei STATION und OWN-STATION gleich sein
+        return stationData.getStationName() + stationData.getStationUrl() + stationData.isOwn();
     }
 
-    private static void copyStation(StationData station, StationData copy) {
+    private static void copyStation(StationData toStation, StationData fromStation) {
         // nach dem Neuladen einer Radioliste, für Favourite/History/OwnAutoStart
-        if (station == null || copy == null) {
+        if (toStation == null || fromStation == null) {
             return;
         }
 
-        station.setCollectionName(copy.getCollectionName());
-        station.setDescription(copy.getDescription());
-        station.setOwnGrade(copy.getOwnGrade());
-        station.setStarts(copy.getStarts());
-        station.setStationDateLastStart(copy.getStationDateLastStart());
+        toStation.setCollectionName(fromStation.getCollectionName());
+        toStation.setDescription(fromStation.getDescription());
+        toStation.setOwnGrade(fromStation.getOwnGrade());
+        toStation.setStarts(fromStation.getStarts());
+        toStation.setStationDateLastStart(fromStation.getStationDateLastStart());
     }
 }

@@ -31,6 +31,7 @@ public class InitAddArray {
         AddFavouriteData[] addFavouriteData = new AddFavouriteData[list.size()];
         for (int i = 0; i < list.size(); ++i) {
             addFavouriteData[i] = new AddFavouriteData();
+            addFavouriteData[i].addNewFavourite = true;
             addFavouriteData[i].stationData = list.get(i); // das sind ja schon Kopien
         }
         return addFavouriteData;
@@ -42,6 +43,7 @@ public class InitAddArray {
         AddFavouriteData[] addFavouriteData = new AddFavouriteData[podcastArrayList.size()];
         for (int i = 0; i < podcastArrayList.size(); ++i) {
             addFavouriteData[i] = new AddFavouriteData();
+            addFavouriteData[i].addNewFavourite = false;
             addFavouriteData[i].stationData = podcastArrayList.get(i).getCopy();
             addFavouriteData[i].stationDataOrg = podcastArrayList.get(i);
         }

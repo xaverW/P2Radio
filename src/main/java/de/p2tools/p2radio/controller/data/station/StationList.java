@@ -46,7 +46,7 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
     private final P2LDateProperty stationDate = new P2LDateProperty();
-    public int nr = 1;
+    public int no = 1;
     public String[] codecs = {""};
     public String[] countries = {""};
     int countDouble = 0;
@@ -156,8 +156,12 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
     public synchronized boolean importStationOnlyWithNr(StationData station) {
         // hier nur beim Laden aus einer fertigen Senderliste mit der GUI
         // die Sender sind schon sortiert, nur die Nummer muss noch ergänzt werden
-        station.setStationNo(nr++);
+        station.setStationNo(no++);
         return super.add(station);
+    }
+
+    public synchronized int getNextNo() {
+        return no++;
     }
 
     public synchronized int markDoubleStations() {
@@ -186,7 +190,7 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
 
     @Override
     public synchronized void clear() {
-        nr = 1;
+        no = 1;
         super.clear();
     }
 
