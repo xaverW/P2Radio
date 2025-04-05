@@ -23,7 +23,6 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -48,11 +47,9 @@ public class FavouriteFilterController extends VBox {
 
     private final FavouriteFilter favouriteFilter;
     private final FilteredList<StationData> filteredList;
-    private final FavouriteGuiPack favouriteGuiPack;
 
-    public FavouriteFilterController(FavouriteGuiPack favouriteGuiPack) {
+    public FavouriteFilterController() {
         progData = ProgData.getInstance();
-        this.favouriteGuiPack = favouriteGuiPack;
 
         setPadding(new Insets(P2LibConst.PADDING));
         setSpacing(P2LibConst.DIST_BUTTON);

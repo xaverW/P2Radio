@@ -32,9 +32,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-
-import java.util.ArrayList;
 
 public class StationGuiPack {
 
@@ -55,28 +52,24 @@ public class StationGuiPack {
 
     public StationGuiPack() {
         progData = ProgData.getInstance();
-        stationGuiController = new StationGuiController(this);
 
-        stationFilterController = new StationFilterController(this);
+        stationGuiController = new StationGuiController(this);
+        stationFilterController = new StationFilterController();
         paneStationInfo = new PaneStationInfo(this);
 
-        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
         P2ClosePaneDto infoDto = new P2ClosePaneDto(stationFilterController,
                 ProgConfig.STATION__FILTER_IS_RIP,
                 ProgConfig.STATION__FILTER_DIALOG_SIZE, ProgData.STATION_TAB_ON,
                 "Filter", "Sender", true,
                 progData.maskerPane.getVisibleProperty());
-        list.add(infoDto);
-        infoControllerFilter = new P2ClosePaneController(list, ProgConfig.STATION__FILTER_IS_SHOWING);
+        infoControllerFilter = new P2ClosePaneController(infoDto, ProgConfig.STATION__FILTER_IS_SHOWING);
 
-        list = new ArrayList<>();
         infoDto = new P2ClosePaneDto(paneStationInfo,
                 ProgConfig.STATION__INFO_PANE_IS_RIP,
                 ProgConfig.STATION__INFO_DIALOG_SIZE, ProgData.STATION_TAB_ON,
                 "Info", "Sender", false,
                 progData.maskerPane.getVisibleProperty());
-        list.add(infoDto);
-        infoControllerInfo = new P2ClosePaneController(list, ProgConfig.STATION__INFO_IS_SHOWING);
+        infoControllerInfo = new P2ClosePaneController(infoDto, ProgConfig.STATION__INFO_IS_SHOWING);
 
         progData.stationGuiPack = this;
     }
@@ -95,16 +88,14 @@ public class StationGuiPack {
 
     public Pane pack() {
         //Filter
-        splitPaneFilter.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         SplitPane.setResizableWithParent(infoControllerFilter, false);
-
         ProgConfig.STATION__FILTER_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitFilter());
         setSplitFilter();
 
         //Info
         splitPaneInfo.setOrientation(Orientation.VERTICAL);
-        ProgConfig.STATION__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitInfo());
         SplitPane.setResizableWithParent(paneStationInfo, false);
+        ProgConfig.STATION__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitInfo());
         setSplitInfo();
 
 
@@ -112,10 +103,7 @@ public class StationGuiPack {
         menuController.setId("station-menu-pane");
 
         final HBox hBox = new HBox();
-        hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        hBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        HBox.setHgrow(infoControllerFilter, Priority.ALWAYS);
+        HBox.setHgrow(splitPaneFilter, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPaneFilter, menuController);
 
         return hBox;

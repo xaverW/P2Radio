@@ -20,7 +20,6 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
-import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,10 +38,8 @@ public class HistoryFilterController extends VBox {
     private final Button btnClearFilter = P2ButtonClearFilterFactory.getPButtonClear();
 
     private final HistoryFilter historyFilter;
-    private final HistoryGuiPack historyGuiPack;
 
-    public HistoryFilterController(HistoryGuiPack historyGuiPack) {
-        this.historyGuiPack = historyGuiPack;
+    public HistoryFilterController() {
         this.progData = ProgData.getInstance();
         this.historyFilter = progData.historyFilter;
 

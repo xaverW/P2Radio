@@ -32,9 +32,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-
-import java.util.ArrayList;
 
 public class HistoryGuiPack {
 
@@ -56,28 +53,23 @@ public class HistoryGuiPack {
     public HistoryGuiPack() {
         progData = ProgData.getInstance();
 
-        historyFilterController = new HistoryFilterController(this);
+        historyFilterController = new HistoryFilterController();
         paneHistoryInfo = new PaneHistoryInfo(this);
         historyGuiController = new HistoryGuiController(this);
 
-        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
         P2ClosePaneDto infoDTO = new P2ClosePaneDto(historyFilterController,
                 ProgConfig.HISTORY__FILTER_IS_RIP,
                 ProgConfig.HISTORY__FILTER_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
                 "Filter", "History", true,
                 progData.maskerPane.getVisibleProperty());
-        list.add(infoDTO);
-        infoControllerFilter = new P2ClosePaneController(list, ProgConfig.HISTORY__FILTER_IS_SHOWING);
+        infoControllerFilter = new P2ClosePaneController(infoDTO, ProgConfig.HISTORY__FILTER_IS_SHOWING);
 
-        list = new ArrayList<>();
         infoDTO = new P2ClosePaneDto(paneHistoryInfo,
                 ProgConfig.HISTORY__INFO_PANE_IS_RIP,
                 ProgConfig.HISTORY__INFO_DIALOG_SIZE, ProgData.HISTORY_TAB_ON,
                 "Info", "History", false,
                 progData.maskerPane.getVisibleProperty());
-        list.add(infoDTO);
-        infoControllerInfo = new P2ClosePaneController(list, ProgConfig.HISTORY__INFO_IS_SHOWING);
-
+        infoControllerInfo = new P2ClosePaneController(infoDTO, ProgConfig.HISTORY__INFO_IS_SHOWING);
 
         progData.historyGuiPack = this;
     }
@@ -96,26 +88,21 @@ public class HistoryGuiPack {
 
     public Pane pack() {
         //Filter
-        splitPaneFilter.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         SplitPane.setResizableWithParent(infoControllerFilter, false);
-
         ProgConfig.HISTORY__FILTER_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitFilter());
         setSplitFilter();
 
         //Info
         splitPaneInfo.setOrientation(Orientation.VERTICAL);
-        ProgConfig.HISTORY__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitInfo());
         SplitPane.setResizableWithParent(paneHistoryInfo, false);
+        ProgConfig.HISTORY__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplitInfo());
         setSplitInfo();
 
         final MenuController menuController = new MenuController(MenuController.StartupMode.HISTORY);
         menuController.setId("history-menu-pane");
 
         final HBox hBox = new HBox();
-        hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        hBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        HBox.setHgrow(infoControllerFilter, Priority.ALWAYS);
+        HBox.setHgrow(splitPaneFilter, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPaneFilter, menuController);
 
         return hBox;

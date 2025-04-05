@@ -16,7 +16,6 @@
 
 package de.p2tools.p2radio.gui.filter;
 
-import de.p2tools.p2radio.gui.StationGuiPack;
 import javafx.scene.layout.VBox;
 
 public class StationFilterController extends FilterController {
@@ -27,8 +26,7 @@ public class StationFilterController extends FilterController {
     private final StationFilterControllerProfiles profiles;
     private final StationFilterBlackList blackList;
 
-    public StationFilterController(StationGuiPack stationGuiPack) {
-
+    public StationFilterController() {
         sender = new StationFilterControllerTextFilter();//hat separator am ende??
         filter = new StationFilterControllerFilter();
         clearFilter = new StationFilterControllerClearFilter();
