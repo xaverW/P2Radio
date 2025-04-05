@@ -65,6 +65,7 @@ public class ProgStartBeforeGui {
             P2Duration.onlyPing("Erster Start: PSet geladen");
 
             InitStoredFilter.initFilter();
+            ProgConfigUpdate.setUpdateDone(); // brauchts dann ja nicht
         }
 
         ProgData.gui = ProgConfig.SYSTEM_SIZE_GUI.getValue();

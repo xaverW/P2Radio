@@ -139,10 +139,6 @@ public class WebLoadFactory {
         try (Response response = MLHttpClient.getInstance().getHttpClient().newCall(builder.build()).execute();
              ResponseBody body = response.body()) {
             if (body != null && response.isSuccessful()) {
-                System.out.println("===============");
-                System.out.println("LENGTH: " + body.contentLength());
-                System.out.println("===============0");
-
                 try (InputStream input = new ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
                     try (InputStream is = selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {

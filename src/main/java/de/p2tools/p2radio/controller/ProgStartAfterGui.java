@@ -128,6 +128,7 @@ public class ProgStartAfterGui {
             //dann wird immer geladen
             logList.add("erster Programmstart: Neue Senderliste laden");
             progData.webWorker.loadFromWeb();
+            ProgQuitFactory.saveProgConfig(); // und schon mal speichern
 
         } else {
             // gespeicherte Senderliste laden, gibt keine Fortschrittsanzeige und kein Abbrechen

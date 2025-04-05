@@ -40,7 +40,6 @@ public class ProgQuitFactory {
     public static void quit() {
         //dann jetzt beenden, aus Button
         StartFactory.stopStation(false);
-        writeTableWindowSettings();
 
         if (ProgData.getInstance().primaryStageBig.isShowing()) {
             P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStageBig);
@@ -89,6 +88,18 @@ public class ProgQuitFactory {
         });
     }
 
+    public static void saveProgConfig() {
+        // Tabellen holen
+        writeTableWindowSettings();
+
+        // sind die Programmeinstellungen
+        P2Log.sysLog("Alle Programmeinstellungen sichern");
+        final Path xmlFilePath = ProgInfos.getSettingsFile();
+        ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true);
+        ProgConfig.addConfigData(configFile);
+        ConfigWriteFile.writeConfigFile(configFile);
+    }
+
     private static void writeTableWindowSettings() {
         // Tabelleneinstellungen merken
         if (ProgData.getInstance().smallRadioGuiController != null) {
@@ -103,14 +114,5 @@ public class ProgQuitFactory {
         if (ProgData.getInstance().historyGuiPack != null) {
             ProgData.getInstance().historyGuiPack.getHistoryGuiController().saveTable();
         }
-    }
-
-    public static void saveProgConfig() {
-        //sind die Programmeinstellungen
-        P2Log.sysLog("Alle Programmeinstellungen sichern");
-        final Path xmlFilePath = ProgInfos.getSettingsFile();
-        ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true);
-        ProgConfig.addConfigData(configFile);
-        ConfigWriteFile.writeConfigFile(configFile);
     }
 }
