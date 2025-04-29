@@ -63,7 +63,11 @@ public class WebLoadFactory {
         boolean ret = false;
         try {
             load(ProgConst.STATION_LIST_URL, stationList);
-            if (!stationList.isEmpty()) {
+//            if (!stationList.isEmpty()) {
+//                dann hats geklappt
+//                ret = true;
+//            }
+            if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
                 //dann hats geklappt
                 ret = true;
             }

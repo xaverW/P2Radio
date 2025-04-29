@@ -20,6 +20,7 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -151,6 +152,26 @@ public class StationListFactory {
                     progData.stationList.add(stationData);
                 });
 
+        // favorite löschen und dann wieder mit den stations füllen
+        FavouriteList tmp = new FavouriteList(progData);
+        tmp.addAll(progData.favouriteList);
+
+        progData.favouriteList.clear();
+        progData.stationList.stream()
+                .filter(StationDataProperty::isFavourite)
+                .forEach(station -> progData.favouriteList.add(station));
+
+        // favoriten ohne Film eintragen
+        hashSet.clear();
+        hashSet.addAll(progData.favouriteList.stream().map(StationListFactory::getHash).toList());
+        tmp.stream()
+                .filter(f -> !hashSet.contains(StationListFactory.getHash(f)))
+                .forEach(f -> {
+                    f.setStationNo(progData.stationList.getNextNo());
+                    progData.stationList.add(f);
+                    progData.favouriteList.add(f);
+                });
+
         // history
         hashSet.clear();
         hashSet.addAll(progData.historyList.stream().map(StationListFactory::getHash).toList());
@@ -163,16 +184,11 @@ public class StationListFactory {
                     station.setHistory(true);
                 });
 
-        // favorite/history löschen und dann wieder mit den stations füllen
-        progData.favouriteList.clear();
+        // history löschen und dann wieder mit den stations füllen
         progData.historyList.clear();
-        progData.stationList.stream()
-                .filter(StationDataProperty::isFavourite)
-                .forEach(station -> progData.favouriteList.add(station));
         progData.stationList.stream()
                 .filter(StationDataProperty::isHistory)
                 .forEach(station -> progData.historyList.add(station));
-
 
         // ownAutoStartListe
         hashSet.clear();

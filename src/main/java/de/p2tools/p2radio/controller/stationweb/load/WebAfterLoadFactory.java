@@ -65,7 +65,7 @@ public class WebAfterLoadFactory {
             logList.add("");
 
         } else {
-            //dann war alles OK
+            //dann war alles OK und die Liste hat > STATION_LIST_MIN_SIZE
             ProgData.getInstance().stationList.setGenDateNow();
             findAndMarkNewStations(logList, ProgData.getInstance().stationList);
 

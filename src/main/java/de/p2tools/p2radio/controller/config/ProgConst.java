@@ -35,6 +35,14 @@ public class ProgConst {
 
     // http://at1.api.radio-browser.info/json/stations
     public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
+//    public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100";
+
+//    public static final String STATION_LIST_URL = "https://atlist.de/radio.json";
+//    public static final String STATION_LIST_URL = "https://atlist.de/radio_middle.json";
+//    public static final String STATION_LIST_URL = "https://atlist.de/radio_small.json";
+
+    public static int STATION_LIST_MIN_SIZE = 5_000; // die mind. Größe die geladen werden muss damit OK
+
 //    public static final String STATION_LIST_URL = "https://atlist.de/stations";
 
     public static final String CONFIG_DIRECTORY = "p2Radio"; // im Homeverzeichnis
