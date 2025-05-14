@@ -50,6 +50,9 @@ public class SmallRadioGuiBottom extends HBox {
         initStartButton();
     }
 
+    public void isShown() {
+    }
+
     private void initBottom() {
         setPadding(new Insets(0, 10, 10, 10));
 

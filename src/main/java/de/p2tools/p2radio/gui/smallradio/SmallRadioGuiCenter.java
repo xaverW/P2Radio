@@ -35,6 +35,7 @@ import de.p2tools.p2radio.gui.TableContextMenu;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TableRowStation;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
+import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
@@ -179,15 +180,19 @@ public class SmallRadioGuiCenter extends VBox {
         ProgConfig.SMALL_RADIO_SELECTED_LIST.addListener((observable, oldValue, newValue) -> {
             loadTable();
         });
-        ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME.addListener((observable, oldValue, newValue) -> {
+
+        // station
+        ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.addListener((observable, oldValue, newValue) -> {
             setFilter();
         });
-        ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.addListener((observable, oldValue, newValue) -> {
+        // favourite
+        ProgConfig.SMALL_RADIO_SELECTED_COLLECTION_NAME.addListener((observable, oldValue, newValue) -> {
             setFilter();
         });
         ProgConfig.SMALL_RADIO_SELECTED_FAVOURITE_GENRE.addListener((observable, oldValue, newValue) -> {
             setFilter();
         });
+        // history
         ProgConfig.SMALL_RADIO_SELECTED_HISTORY_GENRE.addListener((observable, oldValue, newValue) -> {
             setFilter();
         });
@@ -203,25 +208,6 @@ public class SmallRadioGuiCenter extends VBox {
         } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
             filteredListHistory.setPredicate(FilterFactory.getHistoryPredicateSmallGui());
         }
-    }
-
-    private void loadTable() {
-        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
-            tableView = tableViewStation;
-            scrollPane.setContent(tableView);
-
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
-            tableView = tableViewFavourite;
-            scrollPane.setContent(tableView);
-
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
-            tableView = tableViewHistory;
-            scrollPane.setContent(tableView);
-        }
-
-        tableRefresh();
-        setFilter();
-        setInfoSelected(tableView.getSelectionModel().getSelectedItem());
     }
 
     private void initTable() {
@@ -255,6 +241,25 @@ public class SmallRadioGuiCenter extends VBox {
         loadTable();
     }
 
+    private void loadTable() {
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
+            tableView = tableViewStation;
+            scrollPane.setContent(tableView);
+
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
+            tableView = tableViewFavourite;
+            scrollPane.setContent(tableView);
+
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
+            tableView = tableViewHistory;
+            scrollPane.setContent(tableView);
+        }
+
+        tableRefresh();
+        setFilter();
+        setInfoSelected(tableView.getSelectionModel().getSelectedItem());
+    }
+
     private void addTableListener(TableStation tableView, int forWhat, Table.TABLE_ENUM tableEnum) {
         tableView.setRowFactory(new P2RowFactory<>(tv -> {
             TableRowStation<StationData> row = new TableRowStation<>(tableEnum);
@@ -273,6 +278,12 @@ public class SmallRadioGuiCenter extends VBox {
                 setInfoSelected(tableView.getSelectionModel().getSelectedItem());
             }
         });
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                //wird auch durch FilmlistenUpdate ausgelöst
+                Platform.runLater(() -> {
+                    setInfoSelected(tableView.getSelectionModel().getSelectedItem());
+                }));
 
         if (tableEnum == Table.TABLE_ENUM.SMALL_RADIO_STATION ||
                 tableEnum == Table.TABLE_ENUM.SMALL_RADIO_HISTORY) {

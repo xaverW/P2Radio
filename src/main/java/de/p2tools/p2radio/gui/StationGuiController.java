@@ -185,14 +185,14 @@ public class StationGuiController extends VBox {
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
 
 
-        tableView.setRowFactory(new P2RowFactory<>(tableView -> {
+        tableView.setRowFactory(new P2RowFactory<>(tv -> {
             TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
             row.hoverProperty().addListener((observable) -> {
                 final StationData stationData = row.getItem();
                 if (row.isHover() && stationData != null) { // null bei den leeren Zeilen unterhalb
                     setStation(stationData);
                 } else if (stationData == null) {
-                    setStation(tableView.getSelectionModel().getSelectedItem());
+                    setStation(tv.getSelectionModel().getSelectedItem());
                 }
             });
             return row;
