@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.guitools.P2RowFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
@@ -28,9 +29,8 @@ import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableRowStation;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
-import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
@@ -69,7 +69,7 @@ public class FavouriteGuiController extends VBox {
 
     public void isShown() {
         tableView.requestFocus();
-        setSelectedFavourite();
+        setSelectedFavourite(tableView.getSelectionModel().getSelectedItem());
     }
 
     public int getFavouritesShown() {
@@ -84,8 +84,7 @@ public class FavouriteGuiController extends VBox {
         P2ToolsFactory.copyToClipboard(favourite.get().getStationUrl());
     }
 
-    private void setSelectedFavourite() {
-        StationData stationData = tableView.getSelectionModel().getSelectedItem();
+    private void setSelectedFavourite(StationData stationData) {
         progData.stationInfoDialogController.setStation(stationData);
         favouriteGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
@@ -151,6 +150,24 @@ public class FavouriteGuiController extends VBox {
         tableView.setItems(sortedStationData);
         sortedStationData.comparatorProperty().bind(tableView.comparatorProperty());
 
+        tableView.setRowFactory(new P2RowFactory<>(tv -> {
+            TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
+            row.hoverProperty().addListener((observable) -> {
+                final StationData stationData = row.getItem();
+                if (row.isHover() && stationData != null) { // null bei den leeren Zeilen unterhalb
+                    setSelectedFavourite(stationData);
+                } else if (stationData == null) {
+                    setSelectedFavourite(tv.getSelectionModel().getSelectedItem());
+                }
+            });
+            return row;
+        }));
+        tableView.hoverProperty().addListener((o) -> {
+            if (!tableView.isHover()) {
+                setSelectedFavourite(tableView.getSelectionModel().getSelectedItem());
+            }
+        });
+
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
                 FavouriteFactory.changeFavourite(false);
@@ -160,23 +177,10 @@ public class FavouriteGuiController extends VBox {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<StationData> optionalDownload = getSel(false);
                 StationData stationData;
-                if (optionalDownload.isPresent()) {
-                    stationData = optionalDownload.get();
-                } else {
-                    stationData = null;
-                }
-                ContextMenu contextMenu = new TableContextMenu(progData, tableView, TableContextMenu.FAVOURITE)
-                        .getContextMenu(stationData);
+                stationData = optionalDownload.orElse(null);
+                ContextMenu contextMenu = new TableContextMenu(progData, tableView,
+                        TableContextMenu.FAVOURITE).getContextMenu(stationData);
                 tableView.setContextMenu(contextMenu);
-            }
-        });
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(this::setSelectedFavourite);
-        });
-        tableView.getItems().addListener((ListChangeListener<StationData>) c -> {
-            if (tableView.getItems().size() == 1) {
-                // wenns nur eine Zeile gibt, dann gleich selektieren
-                tableView.getSelectionModel().select(0);
             }
         });
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {

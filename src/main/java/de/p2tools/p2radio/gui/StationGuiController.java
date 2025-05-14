@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.guitools.P2RowFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
@@ -25,6 +26,7 @@ import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableRowStation;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -68,15 +70,14 @@ public class StationGuiController extends VBox {
 
     public void isShown() {
         tableView.requestFocus();
-        setStation();
+        setStation(tableView.getSelectionModel().getSelectedItem());
     }
 
     public int getStationCount() {
         return tableView.getItems().size();
     }
 
-    private void setStation() {
-        StationData station = tableView.getSelectionModel().getSelectedItem();
+    private void setStation(StationData station) {
         progData.stationInfoDialogController.setStation(station);
         stationGuiPack.stationDataObjectPropertyProperty().setValue(station);
     }
@@ -154,7 +155,7 @@ public class StationGuiController extends VBox {
 
     private void selectStation() {
         Platform.runLater(() -> {
-            if ((tableView.getItems().size() == 0)) {
+            if ((tableView.getItems().isEmpty())) {
                 return;
             }
 
@@ -176,19 +177,38 @@ public class StationGuiController extends VBox {
     }
 
     private void initTable() {
-        new Table().setTable(tableView);
+        Table.setTable(tableView);
         tableView.setTableMenuButtonVisible(true);
 
         SortedList<StationData> sortedList = progData.stationListBlackFiltered.getSortedList();
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
 
+
+        tableView.setRowFactory(new P2RowFactory<>(tableView -> {
+            TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
+            row.hoverProperty().addListener((observable) -> {
+                final StationData stationData = row.getItem();
+                if (row.isHover() && stationData != null) { // null bei den leeren Zeilen unterhalb
+                    setStation(stationData);
+                } else if (stationData == null) {
+                    setStation(tableView.getSelectionModel().getSelectedItem());
+                }
+            });
+            return row;
+        }));
+        tableView.hoverProperty().addListener((o) -> {
+            if (!tableView.isHover()) {
+                setStation(tableView.getSelectionModel().getSelectedItem());
+            }
+        });
+
+
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
                 progData.stationInfoDialogController.showStationInfo();
             }
         });
-
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<StationData> optionalStation = getSel(false);
@@ -218,9 +238,5 @@ public class StationGuiController extends VBox {
                 }
             }
         });
-
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                Platform.runLater(this::setStation)
-        );
     }
 }

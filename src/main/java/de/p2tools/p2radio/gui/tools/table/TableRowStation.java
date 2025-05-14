@@ -19,8 +19,9 @@ package de.p2tools.p2radio.gui.tools.table;
 
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import javafx.scene.control.TableRow;
 
-public class TableRowStation<T extends StationData> extends javafx.scene.control.TableRow {
+public class TableRowStation<T extends StationData> extends TableRow<T> {
     Table.TABLE_ENUM tableEnum;
 
     public TableRowStation(Table.TABLE_ENUM tableEnum) {
@@ -28,7 +29,7 @@ public class TableRowStation<T extends StationData> extends javafx.scene.control
     }
 
     @Override
-    public void updateItem(Object item, boolean empty) {
+    public void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);
 
         if (item == null || empty) {
@@ -36,7 +37,7 @@ public class TableRowStation<T extends StationData> extends javafx.scene.control
             setTooltip(null);
 
         } else {
-            StationData stationData = (StationData) item;
+            StationData stationData = item;
             final boolean error = stationData.isError();
             final boolean playing = stationData.isNowPlaying();
             final boolean fav = stationData.isFavourite();

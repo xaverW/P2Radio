@@ -18,6 +18,7 @@ package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.guitools.P2RowFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.p2event.P2Event;
@@ -32,6 +33,7 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.TableContextMenu;
 import de.p2tools.p2radio.gui.tools.table.Table;
+import de.p2tools.p2radio.gui.tools.table.TableRowStation;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -39,6 +41,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Priority;
@@ -98,11 +101,10 @@ public class SmallRadioGuiCenter extends VBox {
 
     public void isShown() {
         tableView.requestFocus();
-        setSelectedFavourite();
+        setInfoSelected(tableView.getSelectionModel().getSelectedItem());
     }
 
-    private void setSelectedFavourite() {
-        StationData stationData = tableView.getSelectionModel().getSelectedItem();
+    private void setInfoSelected(StationData stationData) {
         progData.stationInfoDialogController.setStation(stationData);
     }
 
@@ -219,12 +221,18 @@ public class SmallRadioGuiCenter extends VBox {
 
         tableRefresh();
         setFilter();
+        setInfoSelected(tableView.getSelectionModel().getSelectedItem());
     }
 
     private void initTable() {
         Table.setTable(tableViewStation);
         Table.setTable(tableViewFavourite);
         Table.setTable(tableViewHistory);
+
+        tableViewStation.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableViewFavourite.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableViewHistory.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         filteredListStation = new FilteredList<>(progData.stationList, p -> true);
         SortedList<StationData> sortedList = new SortedList<>(filteredListStation);
         tableViewStation.setItems(sortedList);
@@ -240,25 +248,48 @@ public class SmallRadioGuiCenter extends VBox {
         tableViewHistory.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableViewHistory.comparatorProperty());
 
-        loadTable();
+        addTableListener(tableViewStation, TableContextMenu.SMALL_STATION, Table.TABLE_ENUM.SMALL_RADIO_STATION);
+        addTableListener(tableViewFavourite, TableContextMenu.SMALL_FAVOURITE, Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE);
+        addTableListener(tableViewHistory, TableContextMenu.SMALL_HISTORY, Table.TABLE_ENUM.SMALL_RADIO_HISTORY);
 
-        tableViewStation.setOnMouseClicked(m -> {
-            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
-                progData.stationInfoDialogController.showStationInfo();
-            }
-        });
-        tableViewFavourite.setOnMouseClicked(m -> {
-            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
-                Optional<StationData> stationData = getSel(true);
-                stationData.ifPresent(FavouriteFactory::changeFavourite);
-            }
-        });
-        addTableListener(tableViewStation, TableContextMenu.SMALL_STATION);
-        addTableListener(tableViewFavourite, TableContextMenu.SMALL_FAVOURITE);
-        addTableListener(tableViewHistory, TableContextMenu.SMALL_HISTORY);
+        loadTable();
     }
 
-    private void addTableListener(TableStation tableView, int forWhat) {
+    private void addTableListener(TableStation tableView, int forWhat, Table.TABLE_ENUM tableEnum) {
+        tableView.setRowFactory(new P2RowFactory<>(tv -> {
+            TableRowStation<StationData> row = new TableRowStation<>(tableEnum);
+            row.hoverProperty().addListener((observable) -> {
+                final StationData stationData = row.getItem();
+                if (row.isHover() && stationData != null) { // null bei den leeren Zeilen unterhalb
+                    setInfoSelected(stationData);
+                } else if (stationData == null) {
+                    setInfoSelected(tv.getSelectionModel().getSelectedItem());
+                }
+            });
+            return row;
+        }));
+        tableView.hoverProperty().addListener((o) -> {
+            if (!tableView.isHover()) {
+                setInfoSelected(tableView.getSelectionModel().getSelectedItem());
+            }
+        });
+
+        if (tableEnum == Table.TABLE_ENUM.SMALL_RADIO_STATION ||
+                tableEnum == Table.TABLE_ENUM.SMALL_RADIO_HISTORY) {
+            tableView.setOnMouseClicked(m -> {
+                if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+                    progData.stationInfoDialogController.showStationInfo();
+                }
+            });
+        } else if (tableEnum == Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE) {
+            tableView.setOnMouseClicked(m -> {
+                if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+                    Optional<StationData> stationData = getSel(true);
+                    stationData.ifPresent(FavouriteFactory::changeFavourite);
+                }
+            });
+        }
+
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 StationData stationData = getSel(false).orElse(null);
@@ -267,9 +298,7 @@ public class SmallRadioGuiCenter extends VBox {
                 tableView.setContextMenu(contextMenu);
             }
         });
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            setSelectedFavourite();
-        });
+
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (P2TableFactory.SPACE.match(event)) {
                 P2TableFactory.scrollVisibleRangeDown(tableView);
