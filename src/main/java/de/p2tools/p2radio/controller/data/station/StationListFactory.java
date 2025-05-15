@@ -111,9 +111,8 @@ public class StationListFactory {
 
     public static void findAndMarkStations(ProgData progData) {
         // nach Programmstart
-        P2Duration.counterStart("findAndMarkFavouriteStations");
-
         final HashSet<String> hashSet = new HashSet<>(100_000);
+        P2Duration.counterStart("findAndMarkFavouriteStations");
 
         // Stationen putzen, doppelte rauswerfen
         Iterator<StationData> it = progData.stationList.iterator();
@@ -134,6 +133,11 @@ public class StationListFactory {
         });
 
         // favourite markieren
+        int count = -1;
+        for (StationData s : progData.favouriteList) {
+            s.setFavouriteNo(++count);
+        }
+
         hashSet.clear();
         hashSet.addAll(progData.favouriteList.stream().filter(f -> !f.isOwn()).map(StationListFactory::getHash).toList());
         progData.stationList.stream()
@@ -152,6 +156,7 @@ public class StationListFactory {
                     progData.stationList.add(stationData);
                 });
 
+        // ========
         // favorite löschen und dann wieder mit den stations füllen
         FavouriteList tmp = new FavouriteList(progData);
         tmp.addAll(progData.favouriteList);
@@ -171,7 +176,9 @@ public class StationListFactory {
                     progData.stationList.add(f);
                     progData.favouriteList.add(f);
                 });
+        progData.favouriteList.sort(Comparator.comparingInt(StationData::getFavouriteNo));
 
+        // ========
         // history
         hashSet.clear();
         hashSet.addAll(progData.historyList.stream().map(StationListFactory::getHash).toList());
@@ -190,6 +197,7 @@ public class StationListFactory {
                 .filter(StationDataProperty::isHistory)
                 .forEach(station -> progData.historyList.add(station));
 
+        // ========
         // ownAutoStartListe
         hashSet.clear();
         hashSet.addAll(progData.ownAutoStartList.stream().map(StationListFactory::getHash).toList());
@@ -218,5 +226,6 @@ public class StationListFactory {
         toStation.setOwnGrade(fromStation.getOwnGrade());
         toStation.setStarts(fromStation.getStarts());
         toStation.setStationDateLastStart(fromStation.getStationDateLastStart());
+        toStation.setFavouriteNo(fromStation.getFavouriteNo());
     }
 }

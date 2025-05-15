@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2RowFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
@@ -31,6 +30,8 @@ import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TableRowStation;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
@@ -44,7 +45,6 @@ import java.util.Optional;
 
 public class FavouriteGuiController extends VBox {
 
-    private final ScrollPane scrollPane = new ScrollPane();
     private final TableStation tableView;
 
     private final ProgData progData;
@@ -57,6 +57,7 @@ public class FavouriteGuiController extends VBox {
         tableView = new TableStation(Table.TABLE_ENUM.FAVOURITE);
         sortedStationData = new SortedList<>(progData.filteredFavoriteList);
 
+        ScrollPane scrollPane = new ScrollPane();
         getChildren().addAll(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
         scrollPane.setFitToHeight(true);
@@ -146,22 +147,76 @@ public class FavouriteGuiController extends VBox {
 
     private void initTable() {
         Table.setTable(tableView);
-
         tableView.setItems(sortedStationData);
         sortedStationData.comparatorProperty().bind(tableView.comparatorProperty());
 
-        tableView.setRowFactory(new P2RowFactory<>(tv -> {
-            TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
+        IntegerProperty startPos = new SimpleIntegerProperty();
+        tableView.setRowFactory(table -> {
+            TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.FAVOURITE);
+
             row.hoverProperty().addListener((observable) -> {
                 final StationData stationData = row.getItem();
                 if (row.isHover() && stationData != null) { // null bei den leeren Zeilen unterhalb
                     setSelectedFavourite(stationData);
                 } else if (stationData == null) {
-                    setSelectedFavourite(tv.getSelectionModel().getSelectedItem());
+                    setSelectedFavourite(table.getSelectionModel().getSelectedItem());
                 }
             });
+
+            // =======
+            // start
+            row.setOnDragDetected(event -> {
+                row.startFullDrag();
+                table.getSelectionModel().clearSelection();
+                table.getSelectionModel().select(row.getItem());
+            });
+
+            // =======
+            // select
+            row.setOnMouseDragEntered(event -> {
+                if (!event.isControlDown()) {
+                    table.getSelectionModel().select(row.getItem());
+                }
+            });
+
+            // =======
+            // move
+            row.setOnMouseDragged(event -> {
+                if (event.isControlDown()) {
+                    startPos.set(row.getIndex());
+                }
+            });
+            row.setOnMouseDragReleased(event -> {
+                if (event.isControlDown()) {
+                    int destPos = row.getIndex();
+                    StationData stationMove = tableView.getItems().get(startPos.get());
+                    if (stationMove != null) {
+                        StationData stationDest = tableView.getItems().get(destPos);
+                        progData.favouriteList.remove(stationMove);
+
+                        int pos;
+                        if (startPos.get() > destPos) {
+                            pos = 0; // nach oben -> wird davor eingesetzt
+                        } else {
+                            pos = 1; // nach unten -> wird danach eingesetzt
+                        }
+                        for (StationData s : progData.favouriteList) {
+                            if (!s.equals(stationDest)) {
+                                ++pos;
+                            } else {
+                                break;
+                            }
+                        }
+                        progData.favouriteList.add(pos, stationMove);
+                        table.getSelectionModel().clearSelection();
+                        table.getSelectionModel().select(stationMove);
+                    }
+                }
+            });
+
             return row;
-        }));
+        });
+
         tableView.hoverProperty().addListener((o) -> {
             if (!tableView.isHover()) {
                 setSelectedFavourite(tableView.getSelectionModel().getSelectedItem());

@@ -28,7 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class StationDataProperty<T extends P2DataSample> extends P2DataSample<T> {
+public class StationDataProperty<T extends P2DataSample<T>> extends P2DataSample<T> {
 
     private final IntegerProperty stationNo = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);

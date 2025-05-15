@@ -19,10 +19,12 @@ package de.p2tools.p2radio.controller.data.station;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
 
-public final class StationData extends StationDataProperty {
+public final class StationData extends StationDataProperty<StationData> {
 
     private boolean nowPlaying = false;
+    private int favouriteNo = 0;
     public final String TAG;
+
 
     public StationData() {
         TAG = "Station" + TAGGER + "Favourite";
@@ -48,28 +50,6 @@ public final class StationData extends StationDataProperty {
 
     public void setNowPlaying(boolean nowPlaying) {
         this.nowPlaying = nowPlaying;
-    }
-
-    public StationData getCopy() {
-        final StationData ret = new StationData(getTag());
-        ret.nowPlaying = nowPlaying;
-
-        Config[] configs = getConfigsArr();
-        Config[] configsCopy = ret.getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            configsCopy[i].setActValue(configs[i].getActValueString());
-        }
-        return ret;
-    }
-
-    public void copyToMe(StationData stationData) {
-        nowPlaying = stationData.nowPlaying;
-
-        Config[] configs = stationData.getConfigsArr();
-        Config[] configsCopy = getConfigsArr();
-        for (int i = 0; i < configs.length; ++i) {
-            configsCopy[i].setActValue(configs[i].getActValueString());
-        }
     }
 
     public void setStation(StationData station) {
@@ -102,5 +82,35 @@ public final class StationData extends StationDataProperty {
 
     public boolean isAuto() {
         return !getStationUrl().isEmpty();
+    }
+
+    public int getFavouriteNo() {
+        return favouriteNo;
+    }
+
+    public void setFavouriteNo(int favouriteNo) {
+        this.favouriteNo = favouriteNo;
+    }
+
+    public StationData getCopy() {
+        final StationData ret = new StationData(getTag());
+        ret.nowPlaying = nowPlaying;
+
+        Config[] configs = getConfigsArr();
+        Config[] configsCopy = ret.getConfigsArr();
+        for (int i = 0; i < configs.length; ++i) {
+            configsCopy[i].setActValue(configs[i].getActValueString());
+        }
+        return ret;
+    }
+
+    public void copyToMe(StationData stationData) {
+        nowPlaying = stationData.nowPlaying;
+
+        Config[] configs = stationData.getConfigsArr();
+        Config[] configsCopy = getConfigsArr();
+        for (int i = 0; i < configs.length; ++i) {
+            configsCopy[i].setActValue(configs[i].getActValueString());
+        }
     }
 }
