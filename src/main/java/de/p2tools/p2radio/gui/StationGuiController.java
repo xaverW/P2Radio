@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2RowFactory;
+import de.p2tools.p2lib.guitools.P2RowMoveFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
@@ -185,7 +185,7 @@ public class StationGuiController extends VBox {
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
 
 
-        tableView.setRowFactory(new P2RowFactory<>(tv -> {
+        tableView.setRowFactory(new P2RowMoveFactory<>(tv -> {
             TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
             row.hoverProperty().addListener((observable) -> {
                 final StationData stationData = row.getItem();

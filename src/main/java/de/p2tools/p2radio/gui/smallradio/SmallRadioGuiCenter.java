@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2RowFactory;
+import de.p2tools.p2lib.guitools.P2RowMoveFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.p2event.P2Event;
@@ -36,8 +36,6 @@ import de.p2tools.p2radio.gui.tools.table.Table;
 import de.p2tools.p2radio.gui.tools.table.TableRowStation;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
@@ -263,9 +261,8 @@ public class SmallRadioGuiCenter extends VBox {
     }
 
     private void addTableListener(TableStation tableView, int forWhat, Table.TABLE_ENUM tableEnum) {
-        IntegerProperty startPos = new SimpleIntegerProperty();
-
-        tableView.setRowFactory(new P2RowFactory<>(tv -> {
+        // nur eine Zeile kann markiert werden!
+        tableView.setRowFactory(new P2RowMoveFactory<>(tv -> {
             TableRowStation<StationData> row = new TableRowStation<>(tableEnum);
             row.hoverProperty().addListener((observable) -> {
                 final StationData stationData = row.getItem();
@@ -275,54 +272,9 @@ public class SmallRadioGuiCenter extends VBox {
                     setInfoSelected(tv.getSelectionModel().getSelectedItem());
                 }
             });
-
-            if (tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE)) {
-                // =======
-                // start
-                row.setOnDragDetected(event -> {
-                    row.startFullDrag();
-                    tableView.getSelectionModel().clearSelection();
-                    tableView.getSelectionModel().select(row.getItem());
-                });
-
-                // =======
-                // move
-                row.setOnMouseDragged(event -> {
-                    if (event.isControlDown()) {
-                        startPos.set(row.getIndex());
-                    }
-                });
-                row.setOnMouseDragReleased(event -> {
-                    if (event.isControlDown()) {
-                        int destPos = row.getIndex();
-                        StationData stationMove = tableView.getItems().get(startPos.get());
-                        if (stationMove != null) {
-                            StationData stationDest = tableView.getItems().get(destPos);
-                            progData.favouriteList.remove(stationMove);
-
-                            int pos;
-                            if (startPos.get() > destPos) {
-                                pos = 0; // nach oben -> wird davor eingesetzt
-                            } else {
-                                pos = 1; // nach unten -> wird danach eingesetzt
-                            }
-                            for (StationData s : progData.favouriteList) {
-                                if (!s.equals(stationDest)) {
-                                    ++pos;
-                                } else {
-                                    break;
-                                }
-                            }
-                            progData.favouriteList.add(pos, stationMove);
-                            tableView.getSelectionModel().clearSelection();
-                            tableView.getSelectionModel().select(stationMove);
-                        }
-                    }
-                });
-            }
-
             return row;
-        }));
+        }, (tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_FAVOURITE) ? progData.favouriteList : null)));
+
         tableView.hoverProperty().addListener((o) -> {
             if (!tableView.isHover()) {
                 setInfoSelected(tableView.getSelectionModel().getSelectedItem());

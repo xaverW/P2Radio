@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2RowFactory;
+import de.p2tools.p2lib.guitools.P2RowMoveFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
@@ -158,7 +158,7 @@ public class HistoryGuiController extends VBox {
         sortedHistoryList.comparatorProperty().bind(tableView.comparatorProperty());
         Platform.runLater(() -> P2TableFactory.refreshTable(tableView));
 
-        tableView.setRowFactory(new P2RowFactory<>(tv -> {
+        tableView.setRowFactory(new P2RowMoveFactory<>(tv -> {
             TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
             row.hoverProperty().addListener((observable) -> {
                 final StationData stationData = row.getItem();
@@ -170,6 +170,7 @@ public class HistoryGuiController extends VBox {
             });
             return row;
         }));
+
         tableView.hoverProperty().addListener((o) -> {
             if (!tableView.isHover()) {
                 setSelectedHistory(tableView.getSelectionModel().getSelectedItem());
