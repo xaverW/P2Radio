@@ -38,6 +38,7 @@ import java.util.Collection;
 
 public class PaneConfig {
 
+    private final P2ToggleSwitch tglOnlyOneInstance = new P2ToggleSwitch("Nur eine Instanz des Programms öffnen");
     private final P2ToggleSwitch tglSmallStation = new P2ToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
     private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
             ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
@@ -55,6 +56,7 @@ public class PaneConfig {
     }
 
     public void close() {
+        tglOnlyOneInstance.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_ONLY_ONE_INSTANCE);
         tglSmallStation.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
         txtUserAgent.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
@@ -62,23 +64,18 @@ public class PaneConfig {
     }
 
     public void make(Collection<TitledPane> result) {
-        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
-        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-        gridPane.setPadding(new Insets(P2LibConst.PADDING));
-
         TitledPane tpConfig = new TitledPane("Allgemein", gridPane);
         result.add(tpConfig);
-
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
-                P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcPrefSize());
 
         makeInfos();
     }
 
     private void makeInfos() {
+        tglOnlyOneInstance.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_ONLY_ONE_INSTANCE);
+        final Button btnHelpOnlyOneInstance = P2Button.helpButton(stage, "Nur eine Instanz des Programms öffnen",
+                HelpText.ONLY_ONE_INSTANCE);
+        GridPane.setHalignment(btnHelpOnlyOneInstance, HPos.RIGHT);
+
         tglSmallStation.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
         final Button btnHelpLoadStationList = P2Button.helpButton(stage, "Liste der Sender aktualisieren",
@@ -116,17 +113,27 @@ public class PaneConfig {
         };
         txtUserAgent.textProperty().bindBidirectional(ProgConfig.SYSTEM_USERAGENT);
 
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.PADDING));
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize());
+
         int row = 0;
-        gridPane.add(tglLoadStationList, 0, row, 2, 1);
-        gridPane.add(btnHelpLoadStationList, 4, row);
+        gridPane.add(tglOnlyOneInstance, 0, row, 2, 1);
+        gridPane.add(btnHelpOnlyOneInstance, 2, row);
+
+        gridPane.add(tglLoadStationList, 0, ++row, 2, 1);
+        gridPane.add(btnHelpLoadStationList, 2, row);
 
         ++row;
         gridPane.add(tglSmallStation, 0, ++row, 2, 1);
-        gridPane.add(btnHelpSize, 4, row);
+        gridPane.add(btnHelpSize, 2, row);
 
         ++row;
         gridPane.add(new Label("User Agent:"), 0, ++row);
         gridPane.add(txtUserAgent, 1, row);
-        gridPane.add(btnHelpUserAgent, 4, row);
+        gridPane.add(btnHelpUserAgent, 2, row);
     }
 }

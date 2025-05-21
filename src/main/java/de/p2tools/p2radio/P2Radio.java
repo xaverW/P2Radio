@@ -18,14 +18,12 @@ package de.p2tools.p2radio;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.tools.P2Lock;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.ProgStartAfterGui;
 import de.p2tools.p2radio.controller.ProgStartBeforeGui;
-import de.p2tools.p2radio.controller.config.PShortCutFactory;
-import de.p2tools.p2radio.controller.config.ProgColorList;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
@@ -54,6 +52,14 @@ public class P2Radio extends Application {
         progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
+
+        //wenn gewünscht, Lock-File prüfen
+        final String xmlFilePath = ProgInfos.getLockFileStr();
+        if (ProgConfig.SYSTEM_ONLY_ONE_INSTANCE.getValue() && !P2Lock.getLockInstance(xmlFilePath)) {
+            //dann kann man sich den Rest sparen
+            return;
+        }
+
         initRootLayout();
         ProgStartAfterGui.workAfterGui(progData);
 

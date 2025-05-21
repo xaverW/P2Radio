@@ -160,4 +160,9 @@ public class ProgInfos {
         return getSettingsDirectory().toString();
     }
 
+    public static String getLockFileStr() {
+        return SettingsDirectory.getSettingsFile(ProgData.configDir,
+                ProgConst.CONFIG_DIRECTORY,
+                "p2radio.lock").toString();
+    }
 }

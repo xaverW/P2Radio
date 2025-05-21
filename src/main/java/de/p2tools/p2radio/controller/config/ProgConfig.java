@@ -132,6 +132,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SYSTEM_LOG_DIR = addStrProp("system-log-dir", "");
     public static BooleanProperty SYSTEM_LOG_ON = addBoolProp("system-log-on", Boolean.TRUE);
     public static BooleanProperty SYSTEM_LOAD_STATION_LIST_EVERY_DAYS = addBoolProp("system-load-station-list-every-days", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_ONLY_ONE_INSTANCE = addBoolProp("system-only-one-instance", Boolean.FALSE);
     public static BooleanProperty SYSTEM_SMALL_ROW_TABLE = addBoolProp("system-small-row-table", Boolean.FALSE);
     public static IntegerProperty SYSTEM_LAST_TAB_STATION = addIntProp("system-last-tab-station", 0);
     public static StringProperty SYSTEM_HISTORY = addStrProp("system-history", "");
