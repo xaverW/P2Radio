@@ -150,7 +150,10 @@ public class StationList extends SimpleListProperty<StationData> implements P2Da
     }
 
     public synchronized void filteredListSetPred(Predicate<StationData> predicate) {
-        filteredList.setPredicate(predicate);
+        if (filteredList != null) {
+            // beim Start lock-file abfrage todo
+            filteredList.setPredicate(predicate);
+        }
     }
 
     public synchronized boolean importStationOnlyWithNr(StationData station) {
