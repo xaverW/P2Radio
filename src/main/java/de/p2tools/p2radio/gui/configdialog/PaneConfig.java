@@ -39,7 +39,6 @@ import java.util.Collection;
 public class PaneConfig {
 
     private final P2ToggleSwitch tglOnlyOneInstance = new P2ToggleSwitch("Nur eine Instanz des Programms öffnen");
-    private final P2ToggleSwitch tglSmallStation = new P2ToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
     private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
             ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
     private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
@@ -57,7 +56,6 @@ public class PaneConfig {
 
     public void close() {
         tglOnlyOneInstance.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_ONLY_ONE_INSTANCE);
-        tglSmallStation.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
         txtUserAgent.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
         tglEnableLog.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOG_ON);
@@ -76,7 +74,6 @@ public class PaneConfig {
                 HelpText.ONLY_ONE_INSTANCE);
         GridPane.setHalignment(btnHelpOnlyOneInstance, HPos.RIGHT);
 
-        tglSmallStation.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         tglLoadStationList.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
         final Button btnHelpLoadStationList = P2Button.helpButton(stage, "Liste der Sender aktualisieren",
                 HelpText.LOAD_STATION_LIST_EVERY_DAYS);
@@ -126,10 +123,6 @@ public class PaneConfig {
 
         gridPane.add(tglLoadStationList, 0, ++row, 2, 1);
         gridPane.add(btnHelpLoadStationList, 2, row);
-
-        ++row;
-        gridPane.add(tglSmallStation, 0, ++row, 2, 1);
-        gridPane.add(btnHelpSize, 2, row);
 
         ++row;
         gridPane.add(new Label("User Agent:"), 0, ++row);
