@@ -67,7 +67,7 @@ public class TableStation extends TableView<StationData> {
 
         // brauchmer auf jeden Fall fürs Umschalten dark
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> refreshTable());
-
+        ProgConfig.SYSTEM_SMALL_ROW_TABLE.addListener((observableValue, s, t1) -> refresh());
         ProgData.getInstance().pEventHandler.addListener(new P2Listener(PEvents.REFRESH_TABLE) {
             @Override
             public void pingGui(P2Event runEvent) {

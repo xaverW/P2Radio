@@ -40,9 +40,14 @@ public class TableStationFactory {
                 }
 
                 StationData data = getTableView().getItems().get(getIndex());
-                HBox hBox = new HBox(3);
+                HBox hBox = new HBox();
                 hBox.setAlignment(Pos.CENTER);
-                P2Hyperlink hyperlinkWebsite = new P2Hyperlink(data.getWebsite(), ProgConfig.SYSTEM_PROG_OPEN_URL);
+                P2Hyperlink hyperlinkWebsite;
+                if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
+                    hyperlinkWebsite = new P2Hyperlink(data.getWebsite(), ProgConfig.SYSTEM_PROG_OPEN_URL, false);
+                } else {
+                    hyperlinkWebsite = new P2Hyperlink(data.getWebsite(), ProgConfig.SYSTEM_PROG_OPEN_URL);
+                }
                 hBox.getChildren().add(hyperlinkWebsite);
                 setGraphic(hBox);
 

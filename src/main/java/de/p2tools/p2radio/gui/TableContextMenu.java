@@ -18,6 +18,7 @@ package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackData;
@@ -28,10 +29,7 @@ import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.tools.table.TableStation;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.*;
 
 import java.util.Optional;
 
@@ -165,10 +163,12 @@ public class TableContextMenu {
         meAutostart.getItems().addAll(miAutoStartOwn);
         contextMenu.getItems().addAll(meAutostart);
 
+        contextMenu.getItems().add(new SeparatorMenuItem());
+        CheckMenuItem smallTableRow = new CheckMenuItem("Nur kleine Button anzeigen");
+        smallTableRow.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());
-        contextMenu.getItems().add(new SeparatorMenuItem());
-        contextMenu.getItems().addAll(resetTable);
+        contextMenu.getItems().addAll(smallTableRow, resetTable);
     }
 
     private Menu addFilter(StationData station) {

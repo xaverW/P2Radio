@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 public class StartPane {
     private final Stage stage;
-    final int dist = 5;
+    final int dist = 10;
 
     public StartPane(Stage stage) {
         this.stage = stage;
@@ -58,8 +58,8 @@ public class StartPane {
                 "Sender gefiltert werden."));
 
         vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("3) Hier kann die Blacklist" + P2LibConst.LINE_SEPARATOR +
-                "ein- und ausgeschaltet werden"));
+        vBox.getChildren().add(new Label("3) Die Blacklist kann man" + P2LibConst.LINE_SEPARATOR +
+                "hier ein- und ausschalten"));
 
         vBox.getChildren().add(P2GuiTools.getHDistance(dist));
         vBox.getChildren().add(new Label("4) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
@@ -75,20 +75,8 @@ public class StartPane {
                 "ein- und ausgeblendet werden."));
 
         vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("7) In dem Menü können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
-                "und verarbeitet werden."));
-
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("8) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+        vBox.getChildren().add(new Label("7) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
                 "und gestoppt werden."));
-
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("9) Damit können Sender zu" + P2LibConst.LINE_SEPARATOR +
-                "den Favoriten hinzugefügt werden."));
-
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("10) Hier kann ein zufälliger Sender" + P2LibConst.LINE_SEPARATOR +
-                "zum Abspielen ausgewählt werden."));
 
         hBox.getChildren().addAll(iv, vBox);
         return new TitledPane("Infos zur Programmoberfläche", hBox);
@@ -121,9 +109,6 @@ public class StartPane {
         vBox.getChildren().add(new Label("4) Damit kann ein eigener Sender zu" + P2LibConst.LINE_SEPARATOR +
                 "den Favoriten hinzugefügt werden."));
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("5) Hier können die Favoriten" + P2LibConst.LINE_SEPARATOR +
-                "geändert oder gelöscht (\"X\") werden."));
         hBox.getChildren().add(vBox);
 
         return new TitledPane("Infos zu den Favoriten", hBox);
@@ -140,7 +125,6 @@ public class StartPane {
         iv.setImage(im);
         hBox.getChildren().addAll(iv);
 
-        final int dist = 5;
         VBox vBox = new VBox();
         vBox.getChildren().add(new Label("1) Damit können die Sender in" + P2LibConst.LINE_SEPARATOR +
                 "der History gefiltert werden."));
@@ -151,11 +135,9 @@ public class StartPane {
 
         vBox.getChildren().add(P2GuiTools.getHDistance(dist));
         vBox.getChildren().add(new Label("3) Damit werden die Sender" + P2LibConst.LINE_SEPARATOR +
-                "gestartet und gestoppt"));
+                "gestartet, gestoppt und\n" +
+                "aus der History gelöscht"));
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("4) Hier können Sender aus der History" + P2LibConst.LINE_SEPARATOR +
-                "     gelöscht werden."));
         hBox.getChildren().add(vBox);
 
         return new TitledPane("Infos zur History", hBox);
