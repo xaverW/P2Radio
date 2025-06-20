@@ -32,7 +32,7 @@ import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.stationload.LoadStationFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
-import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
+import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;

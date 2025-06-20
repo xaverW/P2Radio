@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.tools.update;
+package de.p2tools.p2radio.controller.update;
 
 import de.p2tools.p2lib.checkforactinfos.FoundAll;
 import de.p2tools.p2lib.checkforactinfos.FoundSearchDataDTO;

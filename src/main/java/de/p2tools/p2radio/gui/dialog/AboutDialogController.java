@@ -21,7 +21,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
-import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
+import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 
 public class AboutDialogController extends AboutDialog {
 

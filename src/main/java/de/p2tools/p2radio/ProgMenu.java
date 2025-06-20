@@ -20,10 +20,10 @@ import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
-import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 

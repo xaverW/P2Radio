@@ -24,7 +24,7 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.update.SearchProgramUpdate;
+import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
