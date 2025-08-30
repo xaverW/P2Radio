@@ -48,8 +48,6 @@ public class P2Radio extends Application {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
 
         progData = ProgData.getInstance();
-        progData.primaryStage = primaryStage;
-        progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
 
@@ -60,14 +58,15 @@ public class P2Radio extends Application {
             return;
         }
 
-        initRootLayout();
+        initRootLayout(primaryStage);
+
         ProgStartAfterGui.workAfterGui(progData);
 
         P2Duration.onlyPing("Gui steht!");
         P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
     }
 
-    private void initRootLayout() {
+    private void initRootLayout(Stage primaryStage) {
         try {
             progData.stationInfoDialogController = new StationInfoDialogController(progData);
 
@@ -76,6 +75,8 @@ public class P2Radio extends Application {
             Scene sceneBig = new Scene(progData.p2RadioController,
                     P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, true),
                     P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, false));
+            progData.primaryStage = primaryStage; // kann erst ab da genutzt werden! Fehlermeldung SetData!!
+            progData.primaryStageBig = primaryStage;
             progData.primaryStageBig.setScene(sceneBig);
 
             progData.primaryStageBig.setOnCloseRequest(e -> {
