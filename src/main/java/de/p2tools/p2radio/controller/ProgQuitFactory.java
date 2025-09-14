@@ -52,34 +52,6 @@ public class ProgQuitFactory {
         saveProgConfig();
         P2LogMessage.endMsg();
 
-        // ============
-        if (ProgConfig.SYSTEM_SIZE_GUI.getValue().equals(ProgData.gui)) {
-            P2Log.sysLog("GUI ist gleich");
-            P2Log.sysLog("GUI: " + ProgConfig.SYSTEM_SIZE_GUI.getValue());
-        } else {
-            P2Log.sysLog("GUI: " + ProgData.gui);
-            P2Log.sysLog("GUI: " + ProgConfig.SYSTEM_SIZE_GUI.getValue());
-        }
-
-        P2Log.sysLog("");
-        if (ProgConfig.SMALL_RADIO_SIZE.getValue().equals(ProgData.small)) {
-            P2Log.sysLog("SMALL ist gleich");
-            P2Log.sysLog("SMALL: " + ProgConfig.SMALL_RADIO_SIZE.getValue());
-        } else {
-            P2Log.sysLog("SMALL: " + ProgData.small);
-            P2Log.sysLog("SMALL: " + ProgConfig.SMALL_RADIO_SIZE.getValue());
-        }
-
-        P2Log.sysLog("");
-        if (ProgConfig.STATION__FILTER_DIALOG_SIZE.getValue().equals(ProgData.dialog)) {
-            P2Log.sysLog("DIALOG ist gleich");
-            P2Log.sysLog("DIALOG: " + ProgConfig.STATION__FILTER_DIALOG_SIZE.getValue());
-        } else {
-            P2Log.sysLog("DIALOG: " + ProgData.dialog);
-            P2Log.sysLog("DIALOG: " + ProgConfig.STATION__FILTER_DIALOG_SIZE.getValue());
-        }
-        // ============
-
         // und dann Programm beenden
         Platform.runLater(() -> {
             // dann jetzt beenden -> Tschüss
