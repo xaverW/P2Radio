@@ -31,7 +31,7 @@ public class SmallGuiHelpDialogController extends P2DialogExtra {
     private final Button btnOk = new Button("_Ok");
 
     public SmallGuiHelpDialogController(Stage stage) {
-        super(stage, null, "Kleines Radio", true, false);
+        super(stage, null, "Kleines Radio");
         init(true);
     }
 

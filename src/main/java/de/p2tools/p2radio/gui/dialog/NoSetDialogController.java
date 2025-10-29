@@ -36,7 +36,7 @@ public class NoSetDialogController extends P2DialogExtra {
 
     public NoSetDialogController(ProgData progData) {
         super(progData.primaryStage, null,
-                "Kein Videoplayer!", true, false, DECO.BORDER_SMALL);
+                "Kein Videoplayer!", true, false, false, DECO.BORDER_SMALL);
 
         this.progData = progData;
         init(true);

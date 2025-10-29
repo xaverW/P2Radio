@@ -31,7 +31,7 @@ public class StationFilterEditDialog extends P2DialogExtra {
 
     public StationFilterEditDialog(ProgData progData) {
         super(progData.primaryStage, null, "Filter ein- und ausschalten",
-                true, true, DECO.BORDER_SMALL);
+                true, false, false, DECO.BORDER_SMALL);
         this.progData = progData;
 
         init(true);

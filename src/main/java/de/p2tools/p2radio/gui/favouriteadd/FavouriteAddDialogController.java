@@ -40,7 +40,7 @@ public class FavouriteAddDialogController extends P2DialogExtra {
         super(progData.primaryStage,
                 list.size() > 1 ? ProgConfig.FAVOURITE_DIALOG_ADD_MORE_SIZE :
                         ProgConfig.FAVOURITE_DIALOG_ADD_SIZE,
-                addNew ? "Favoriten anlegen" : "Favoriten ändern", true, false, DECO.BORDER_SMALL);
+                addNew ? "Favoriten anlegen" : "Favoriten ändern", true, true, true, DECO.BORDER_SMALL);
 
         // neue Podcast anlegen / ändern
         this.progData = progData;

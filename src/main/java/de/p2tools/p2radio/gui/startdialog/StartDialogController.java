@@ -57,7 +57,7 @@ public class StartDialogController extends P2DialogExtra {
     private ConfigPane configPane;
 
     public StartDialogController() {
-        super(null, null, "Starteinstellungen", true, false);
+        super(null, null, "Starteinstellungen");
 
         init(true);
     }

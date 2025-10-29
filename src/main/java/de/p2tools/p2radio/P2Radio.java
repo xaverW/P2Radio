@@ -79,6 +79,8 @@ public class P2Radio extends Application {
             progData.primaryStageBig = primaryStage;
             progData.primaryStageBig.setScene(sceneBig);
 
+            progData.p2RadioController.init();
+
             progData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
                 ProgQuitFactory.quit();

@@ -44,9 +44,9 @@ public class P2RadioController extends StackPane {
     private final Button btnHistory = new Button("History");
     private final BorderPane borderPane = new BorderPane();
     private final StackPane stackPaneCont = new StackPane();
-    private final StationGuiPack stationGuiPack = new StationGuiPack();
-    private final FavouriteGuiPack favouriteGuiPack = new FavouriteGuiPack();
-    private final HistoryGuiPack historyGuiPack = new HistoryGuiPack();
+    private StationGuiPack stationGuiPack;
+    private FavouriteGuiPack favouriteGuiPack;
+    private HistoryGuiPack historyGuiPack;
     private StatusBarController statusBarController;
     private Pane paneStation;
     private Pane paneFavourite;
@@ -54,10 +54,13 @@ public class P2RadioController extends StackPane {
 
     public P2RadioController() {
         progData = ProgData.getInstance();
-        init();
+//        init();
     }
 
-    private void init() {
+    public void init() {
+        stationGuiPack = new StationGuiPack();
+        favouriteGuiPack = new FavouriteGuiPack();
+        historyGuiPack = new HistoryGuiPack();
         try {
             // Toolbar
             HBox hBoxTop = new HBox();
