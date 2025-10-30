@@ -15,6 +15,7 @@
  */
 package de.p2tools.p2radio;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
@@ -79,6 +80,7 @@ public class P2Radio extends Application {
             progData.primaryStageBig = primaryStage;
             progData.primaryStageBig.setScene(sceneBig);
 
+            P2LibConst.primaryStage = primaryStage;
             progData.p2RadioController.init();
 
             progData.primaryStageBig.setOnCloseRequest(e -> {

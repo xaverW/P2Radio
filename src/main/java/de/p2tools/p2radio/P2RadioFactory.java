@@ -112,7 +112,7 @@ public class P2RadioFactory {
                     if (stationData != null) {
                         StartFactory.startStation(stationData);
                     } else {
-                        P2Alert.showErrorAlert(P2LibConst.actStage,
+                        P2Alert.showErrorAlert(P2LibConst.primaryStage,
                                 "Autostart",
                                 "Der Sender für den Autostart ist nicht mehr in der Senderliste");
                     }
@@ -125,7 +125,7 @@ public class P2RadioFactory {
                     if (stationData != null) {
                         StartFactory.startStation(stationData);
                     } else {
-                        P2Alert.showErrorAlert(P2LibConst.actStage,
+                        P2Alert.showErrorAlert(P2LibConst.primaryStage,
                                 "Autostart",
                                 "Der Sender für den Autostart ist nicht mehr in der Senderliste");
                     }
@@ -138,7 +138,7 @@ public class P2RadioFactory {
             case AutoStartFactory.AUTOSTART_LIST_OWN:
                 StationData stationAuto = AutoStartFactory.getRandomStation();
                 if (stationAuto == null) {
-                    P2Alert.showErrorAlert(P2LibConst.actStage,
+                    P2Alert.showErrorAlert(P2LibConst.primaryStage,
                             "Autostart",
                             "Der Sender für den Autostart ist nicht mehr in der Senderliste");
                     break;
@@ -146,7 +146,7 @@ public class P2RadioFactory {
 
                 StationData stationData = progData.stationList.getStationByUrl(stationAuto.getStationUrl());
                 if (stationData == null) {
-                    P2Alert.showErrorAlert(P2LibConst.actStage,
+                    P2Alert.showErrorAlert(P2LibConst.primaryStage,
                             "Autostart",
                             "Der Sender für den Autostart ist nicht mehr in der Senderliste");
                     break;

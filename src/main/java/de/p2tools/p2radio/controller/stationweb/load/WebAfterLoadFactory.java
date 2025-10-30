@@ -53,7 +53,7 @@ public class WebAfterLoadFactory {
             logList.add("Senderliste laden war fehlerhaft, alte Liste wird wieder geladen");
             final boolean stopped = ProgData.getInstance().webWorker.isStop();
 
-            Platform.runLater(() -> P2Alert.showErrorAlert(P2LibConst.actStage,
+            Platform.runLater(() -> P2Alert.showErrorAlert(P2LibConst.primaryStage,
                     "Senderliste laden",
                     stopped ? "Das Laden einer neuen Senderliste wurde abgebrochen!" :
                             "Das Laden einer neuen Senderliste hat nicht geklappt!"));
