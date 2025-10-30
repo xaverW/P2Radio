@@ -15,7 +15,6 @@
  */
 package de.p2tools.p2radio;
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
@@ -35,6 +34,7 @@ public class P2Radio extends Application {
 
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     private ProgData progData;
+    private Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
@@ -48,7 +48,10 @@ public class P2Radio extends Application {
     public void start(Stage primaryStage) {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
 
+        this.primaryStage = primaryStage;
         progData = ProgData.getInstance();
+        progData.primaryStage = primaryStage;
+        progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
 
@@ -59,7 +62,7 @@ public class P2Radio extends Application {
             return;
         }
 
-        initRootLayout(primaryStage);
+        initRootLayout();
 
         ProgStartAfterGui.workAfterGui(progData);
 
@@ -67,22 +70,16 @@ public class P2Radio extends Application {
         P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
     }
 
-    private void initRootLayout(Stage primaryStage) {
+    private void initRootLayout() {
         try {
             progData.stationInfoDialogController = new StationInfoDialogController(progData);
+            progData.p2RadioController = new P2RadioController(); // bigGui
 
-            // bigGui
-            progData.p2RadioController = new P2RadioController();
             Scene sceneBig = new Scene(progData.p2RadioController,
                     P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, true),
                     P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, false));
-            progData.primaryStage = primaryStage; // kann erst ab da genutzt werden! Fehlermeldung SetData!!
-            progData.primaryStageBig = primaryStage;
+
             progData.primaryStageBig.setScene(sceneBig);
-
-            P2LibConst.primaryStage = primaryStage;
-            progData.p2RadioController.init();
-
             progData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
                 ProgQuitFactory.quit();

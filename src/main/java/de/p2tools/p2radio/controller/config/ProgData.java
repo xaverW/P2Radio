@@ -57,10 +57,6 @@ public class ProgData {
     public static boolean startMinimized = false; // Minimiert starten
     public static boolean raspberry = false; // läuft auf einem Raspberry
 
-    public static String gui = "";
-    public static String small = "";
-    public static String dialog = "";
-
     // Infos
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
     private static ProgData instance;
@@ -161,9 +157,5 @@ public class ProgData {
 
     public synchronized static ProgData getInstance() {
         return instance == null ? instance = new ProgData() : instance;
-    }
-
-    public void initProgData() {
-        progTray.initProgTray();
     }
 }

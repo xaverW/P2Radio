@@ -52,7 +52,7 @@ public class ProgStartAfterGui {
         startMsg();
         setTitle();
 
-        progData.initProgData();
+        progData.progTray.initProgTray();
         checkProgUpdate();
         loadStationProgStart();
     }

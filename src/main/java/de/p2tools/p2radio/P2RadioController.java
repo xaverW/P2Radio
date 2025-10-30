@@ -54,10 +54,10 @@ public class P2RadioController extends StackPane {
 
     public P2RadioController() {
         progData = ProgData.getInstance();
-//        init();
+        init();
     }
 
-    public void init() {
+    private void init() {
         stationGuiPack = new StationGuiPack();
         favouriteGuiPack = new FavouriteGuiPack();
         historyGuiPack = new HistoryGuiPack();
