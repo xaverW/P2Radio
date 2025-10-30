@@ -25,8 +25,6 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import java.io.InputStreamReader;
 
-
-@SuppressWarnings("serial")
 public class ImportSetDataFactory {
     private ImportSetDataFactory() {
     }
@@ -38,6 +36,9 @@ public class ImportSetDataFactory {
         switch (P2InfoFactory.getOs()) {
             case LINUX:
                 inReader = new GetFile().getPsetTamplateLinux();
+                break;
+            case MAC:
+                inReader = new GetFile().getPsetTemplateMac();
                 break;
             default:
                 inReader = new GetFile().getPsetTemplateWindows();

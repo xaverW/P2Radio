@@ -29,6 +29,7 @@ public class GetFile {
 
     public static final String PATH_PSET_LINUX = "de/p2tools/p2radio/res/file/pset_linux.xml";
     public static final String PATH_PSET_WINDOWS = "de/p2tools/p2radio/res/file/pset_windows.xml";
+    public static final String PATH_PSET_MAC = "de/p2tools/p2radio/res/file/pset_mac.xml";
 
     public InputStreamReader getPsetTamplateLinux() {
         try {
@@ -42,6 +43,15 @@ public class GetFile {
     public InputStreamReader getPsetTemplateWindows() {
         try {
             return new InputStreamReader(ClassLoader.getSystemResource(PATH_PSET_WINDOWS).openStream(), StandardCharsets.UTF_8);
+        } catch (final IOException ex) {
+            P2Log.errorLog(842306087, ex);
+        }
+        return null;
+    }
+
+    public InputStreamReader getPsetTemplateMac() {
+        try {
+            return new InputStreamReader(ClassLoader.getSystemResource(PATH_PSET_MAC).openStream(), StandardCharsets.UTF_8);
         } catch (final IOException ex) {
             P2Log.errorLog(842306087, ex);
         }

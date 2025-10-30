@@ -53,10 +53,11 @@ public class SetFactory {
 
     public static String getTemplatePathVlc() {
         // liefert den Standardpfad für das entsprechende BS
-        // Programm muss auf dem Rechner instelliert sein
+        // Programm muss auf dem Rechner installiert sein
         final String PATH_LINUX_VLC = "/usr/bin/vlc";
         final String PATH_FREEBSD = "/usr/local/bin/vlc";
         final String PATH_WIN = "\\VideoLAN\\VLC\\vlc.exe";
+        final String PATH_MAC = "/Applications/VLC.app/Contents/MacOS/VLC";
         String path = "";
         try {
             switch (P2InfoFactory.getOs()) {
@@ -66,6 +67,9 @@ public class SetFactory {
                     } else {
                         path = PATH_LINUX_VLC;
                     }
+                    break;
+                case MAC:
+                    path = PATH_MAC;
                     break;
                 default:
                     setWinProgPath();
