@@ -81,11 +81,13 @@ public class P2RadioFactory {
     }
 
     public static void setLastHistoryUrl() {
-        ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistory();
-        ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistory();
-        ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistory();
+        if (ProgData.getInstance().p2RadioController != null) {
+            ProgData.getInstance().stationGuiPack.getStationGuiController().selLastHistory();
+            ProgData.getInstance().favouriteGuiPack.getFavouriteGuiController().selLastHistory();
+            ProgData.getInstance().historyGuiPack.getHistoryGuiController().selLastHistory();
+        }
 
-        if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && ProgData.getInstance().smallRadioGuiController != null) {
+        if (ProgData.getInstance().smallRadioGuiController != null) {
             ProgData.getInstance().smallRadioGuiController.selLastHistory();
         }
     }

@@ -41,11 +41,13 @@ public class ProgQuitFactory {
         //dann jetzt beenden, aus Button
         StartFactory.stopStation(false);
 
-        if (ProgData.getInstance().primaryStageBig.isShowing()) {
+        if (ProgData.getInstance().primaryStageBig != null &&
+                ProgData.getInstance().primaryStageBig.isShowing()) {
             P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStageBig);
         }
 
-        if (ProgData.getInstance().primaryStageSmall != null && ProgData.getInstance().primaryStageSmall.isShowing()) {
+        if (ProgData.getInstance().primaryStageSmall != null &&
+                ProgData.getInstance().primaryStageSmall.isShowing()) {
             P2GuiSize.getSize(ProgConfig.SMALL_RADIO_SIZE, ProgData.getInstance().primaryStageSmall);
         }
 

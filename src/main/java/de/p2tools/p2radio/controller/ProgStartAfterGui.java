@@ -17,7 +17,6 @@
 package de.p2tools.p2radio.controller;
 
 import de.p2tools.p2lib.p2event.P2Event;
-import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -33,7 +32,6 @@ import de.p2tools.p2radio.controller.stationload.LoadStationFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
 import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +48,6 @@ public class ProgStartAfterGui {
      */
     public static void workAfterGui(ProgData progData) {
         startMsg();
-        setTitle();
 
         progData.progTray.initProgTray();
         checkProgUpdate();
@@ -70,15 +67,15 @@ public class ProgStartAfterGui {
         P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 
-    private static void setTitle() {
-        // muss nur für das große GUI gesetzt werden
-        Stage stage = ProgData.getInstance().primaryStageBig;
-        if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2InfoFactory.getProgVersion() + " / DEBUG");
-        } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2InfoFactory.getProgVersion());
-        }
-    }
+//    private static void setTitle() {
+//        // muss nur für das große GUI gesetzt werden
+//        Stage stage = ProgData.getInstance().primaryStageBig;
+//        if (ProgData.debug) {
+//            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2InfoFactory.getProgVersion() + " / DEBUG");
+//        } else {
+//            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2InfoFactory.getProgVersion());
+//        }
+//    }
 
     private static void checkProgUpdate() {
         // Prüfen obs ein Programmupdate gibt

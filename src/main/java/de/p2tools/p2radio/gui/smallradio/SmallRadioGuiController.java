@@ -56,7 +56,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         btnStop.setOnAction(a -> progData.webWorker.setStop(true));
 
         if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
-            new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);
+            new SmallGuiHelpDialogController(progData.primaryStage);
             ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.setValue(true);
         }
     }

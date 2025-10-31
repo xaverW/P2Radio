@@ -18,6 +18,7 @@ package de.p2tools.p2radio;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.P2Lock;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
@@ -34,6 +35,8 @@ public class P2Radio extends Application {
 
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     private ProgData progData;
+    private boolean bigDone = false;
+    private boolean smallDown = false;
     private Stage primaryStage;
 
     public static void main(String[] args) {
@@ -47,11 +50,10 @@ public class P2Radio extends Application {
     @Override
     public void start(Stage primaryStage) {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
-
         this.primaryStage = primaryStage;
+
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
-        progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui(progData);
 
@@ -73,13 +75,36 @@ public class P2Radio extends Application {
     private void initRootLayout() {
         try {
             progData.stationInfoDialogController = new StationInfoDialogController(progData);
-            progData.p2RadioController = new P2RadioController(); // bigGui
 
+            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> ProgColorList.setColorTheme());
+            ProgConfig.SYSTEM_SMALL_RADIO.addListener((u, o, n) -> selectGui());
+
+            selectGui();
+            if (ProgData.startMinimized) {
+                progData.primaryStage.setIconified(true);
+                P2DialogExtra.getDialogList().forEach(d -> d.getStage().setIconified(true));
+            }
+
+            if (ProgData.firstProgramStart) {
+                // dann gabs den Startdialog
+                ProgConfig.SYSTEM_DARK_THEME.set(ProgConfig.SYSTEM_DARK_THEME_START.get());
+                ProgConfig.SYSTEM_BLACK_WHITE_ICON.set(ProgConfig.SYSTEM_BLACK_WHITE_ICON_START.get());
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initBigLayout(Stage stage) {
+        try {
+            progData.p2RadioController = new P2RadioController(); // bigGui
             Scene sceneBig = new Scene(progData.p2RadioController,
                     P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, true),
                     P2GuiSize.getSceneSize(ProgConfig.SYSTEM_SIZE_GUI, false));
 
+            progData.primaryStageBig = stage;
             progData.primaryStageBig.setScene(sceneBig);
+
             progData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
                 ProgQuitFactory.quit();
@@ -87,17 +112,37 @@ public class P2Radio extends Application {
 
             progData.primaryStageBig.setOnShowing(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
             progData.primaryStageBig.setOnShown(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
-            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> ProgColorList.setColorTheme());
-            ProgConfig.SYSTEM_SMALL_RADIO.addListener((u, o, n) -> selectGui());
 
-            PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
             P2LibInit.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
+            PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
+            setTitle();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            selectGui();
-            if (ProgData.startMinimized) {
-                progData.primaryStage.setIconified(true);
-                P2DialogExtra.getDialogList().forEach(d -> d.getStage().setIconified(true));
-            }
+    private static void setTitle() {
+        // muss nur für das große GUI gesetzt werden
+        Stage stage = ProgData.getInstance().primaryStageBig;
+        if (ProgData.debug) {
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2InfoFactory.getProgVersion() + " / DEBUG");
+        } else {
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2InfoFactory.getProgVersion());
+        }
+    }
+
+    private void initSmallLayout() {
+        try {
+            progData.smallRadioGuiController = new SmallRadioGuiController();
+            progData.primaryStageSmall = progData.smallRadioGuiController.getStage();
+            progData.primaryStageSmall.setOnCloseRequest(e -> {
+                //beim Beenden
+                e.consume();
+                ProgQuitFactory.quit();
+            });
+
+            P2LibInit.addP2CssToScene(progData.primaryStageSmall.getScene()); // und jetzt noch CSS einstellen
+            PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -105,34 +150,40 @@ public class P2Radio extends Application {
 
     private void selectGui() {
         if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
-            progData.smallRadioGuiController = new SmallRadioGuiController();
-            progData.primaryStageSmall = progData.smallRadioGuiController.getStage();
-            progData.primaryStage = progData.primaryStageSmall;
-            P2LibInit.setActStage(progData.primaryStageSmall);
-            PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
-
+            if (!smallDown) {
+                smallDown = true;
+                initSmallLayout();
+            }
             ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
             ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
             ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
-
-            if (ProgData.getInstance().primaryStageBig.isShowing()) {
+            if (progData.primaryStageBig != null &&
+                    ProgData.getInstance().primaryStageBig.isShowing()) {
                 // nur wenn zu sehen, nicht beim Start in small!!
                 P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
+                progData.primaryStageBig.close();
             }
-            progData.primaryStageBig.close();
+
+            progData.primaryStage = progData.primaryStageSmall;
+            P2LibInit.setActStage(progData.primaryStageSmall);
             progData.primaryStageSmall.show();
 
         } else {
+            if (!bigDone) {
+                bigDone = true;
+                initBigLayout(primaryStage);
+            }
+            if (progData.smallRadioGuiController != null &&
+                    ProgData.getInstance().primaryStageSmall.isShowing()) {
+                // nur wenn zu sehen, nicht beim Start in small!!
+                P2GuiSize.getSize(ProgConfig.SMALL_RADIO_SIZE, progData.primaryStageSmall);
+                progData.primaryStageSmall.close();
+            }
+
             progData.primaryStage = progData.primaryStageBig;
             P2LibInit.setActStage(progData.primaryStageBig);
             progData.p2RadioController.initPanel();
             progData.primaryStageBig.show();
-        }
-
-        if (ProgData.firstProgramStart) {
-            // dann gabs den Startdialog
-            ProgConfig.SYSTEM_DARK_THEME.set(ProgConfig.SYSTEM_DARK_THEME_START.get());
-            ProgConfig.SYSTEM_BLACK_WHITE_ICON.set(ProgConfig.SYSTEM_BLACK_WHITE_ICON_START.get());
         }
         P2RadioFactory.setLastHistoryUrl();
     }
