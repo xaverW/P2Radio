@@ -71,7 +71,7 @@ public class SmallRadioGuiTop extends HBox {
         btnRadio.setOnAction(e -> smallRadioGuiController.close());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_RADIO_20.getImageView());
+        btnRadio.setGraphic(ProgIcons.ICON_BUTTON_SMALL_GUI_20.getImageView());
 
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
         btnClearFilter.getStyleClass().addAll("btnFunction", "btnFunc-2");

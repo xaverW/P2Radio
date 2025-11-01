@@ -60,8 +60,6 @@ public class ProgIcons {
     //toolBar
     public static P2Image ICON_TOOLBAR_MENU = new P2Image(ICON_PATH_LONG, "toolbar-menu.png", 18, 15);
     public static P2Image ICON_TOOLBAR_MENU_TOP = new P2Image(ICON_PATH_LONG, "toolbar-menu-top.png", 32, 18);
-    public static P2Image ICON_TOOLBAR_SMALL_RADIO_24 = new P2Image(ICON_PATH_LONG, "toolbar-menu-smallRadio-24.png", 24, 24);
-    public static P2Image ICON_TOOLBAR_SMALL_RADIO_20 = new P2Image(ICON_PATH_LONG, "toolbar-menu-smallRadio-20.png", 20, 20);
 
     public static P2Image ICON_TOOLBAR_FAVOURITE_CONFIG = new P2Image(ICON_PATH_LONG, "toolbar-config.png", 26, 26);
     public static P2Image ICON_TOOLBAR_FAVOURITE_DEL = new P2Image(ICON_PATH_LONG, "toolbar-del.png", 26, 26);
@@ -71,4 +69,8 @@ public class ProgIcons {
     public static P2Image ICON_TOOLBAR_STATION_REC = new P2Image(ICON_PATH_LONG, "toolbar-rec.png", 26, 26);
     public static P2Image ICON_TOOLBAR_STATION_RANDOM = new P2Image(ICON_PATH_LONG, "toolbar-random.png", 26, 26);
     public static P2Image ICON_TOOLBAR_STATION_INFO = new P2Image(ICON_PATH_LONG, "toolbar-info.png", 26, 26);
+
+    public static P2Image ICON_BUTTON_SMALL_GUI_20 = new P2Image(ICON_PATH_LONG, "button-small-gui-20.png", 20, 20);
+    public static P2Image ICON_BUTTON_SMALL_GUI_25 = new P2Image(ICON_PATH_LONG, "button-small-gui-25.png", 25, 25);
+
 }

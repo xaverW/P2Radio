@@ -75,7 +75,9 @@ public class ProgStartBeforeGui {
         P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, "",
                 ProgConfig.SYSTEM_DARK_THEME, ProgConfig.SYSTEM_BLACK_WHITE_ICON, ProgConfig.SYSTEM_THEME_CHANGED,
                 null,
-                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_FONT_SIZE,
+                new String[]{ProgConst.CSS_FILE},
+                new String[]{ProgConst.CSS_FILE_DARK_THEME},
+                ProgConfig.SYSTEM_FONT_SIZE,
                 ProgConst.PROGRAM_ICON, P2RadioFactory.getOwnIconPath(),
                 ProgData.debug, ProgData.duration);
     }
