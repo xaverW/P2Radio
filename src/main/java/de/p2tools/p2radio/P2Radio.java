@@ -16,6 +16,7 @@
 package de.p2tools.p2radio;
 
 import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.css.P2CssFactory;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.P2InfoFactory;
@@ -113,7 +114,7 @@ public class P2Radio extends Application {
             progData.primaryStageBig.setOnShowing(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
             progData.primaryStageBig.setOnShown(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
 
-            P2LibInit.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
+            P2CssFactory.addP2CssToScene(progData.primaryStageBig.getScene()); // und jetzt noch CSS einstellen
             PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
             setTitle();
         } catch (final Exception e) {
@@ -141,7 +142,7 @@ public class P2Radio extends Application {
                 ProgQuitFactory.quit();
             });
 
-            P2LibInit.addP2CssToScene(progData.primaryStageSmall.getScene()); // und jetzt noch CSS einstellen
+            P2CssFactory.addP2CssToScene(progData.primaryStageSmall.getScene()); // und jetzt noch CSS einstellen
             PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
         } catch (final Exception e) {
             e.printStackTrace();
