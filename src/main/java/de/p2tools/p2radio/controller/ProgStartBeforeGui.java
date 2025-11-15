@@ -73,13 +73,15 @@ public class ProgStartBeforeGui {
 
     private static void initP2lib() {
         P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, "",
-                ProgConfig.SYSTEM_DARK_THEME, ProgConfig.SYSTEM_BLACK_WHITE_ICON, ProgConfig.SYSTEM_THEME_CHANGED,
-                null,
-                new String[]{ProgConst.CSS_FILE},
-                new String[]{ProgConst.CSS_FILE_DARK_THEME},
+                ProgConfig.SYSTEM_THEME_CHANGED, ProgConfig.SYSTEM_DARK_THEME, ProgConfig.SYSTEM_BLACK_WHITE_ICON,
+                "de/p2tools/p2radio/css/",
+                ProgData.getInstance().cssProp,
                 ProgConfig.SYSTEM_FONT_SIZE,
+
+                null,
                 ProgConst.PROGRAM_ICON, P2RadioFactory.getOwnIconPath(),
                 ProgData.debug, ProgData.duration);
+
     }
 
     private static boolean loadAll() {

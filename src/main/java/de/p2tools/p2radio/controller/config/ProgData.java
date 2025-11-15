@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.config;
 
+import de.p2tools.p2lib.css.P2CssFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2radio.P2RadioController;
@@ -42,7 +43,9 @@ import de.p2tools.p2radio.tools.stationlistfilter.StationListFilter;
 import de.p2tools.p2radio.tools.storedfilter.FilterWorker;
 import de.p2tools.p2radio.tools.storedfilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Worker;
 import javafx.stage.Stage;
@@ -74,6 +77,7 @@ public class ProgData {
     public Stage primaryStageSmall = null;
     public P2RadioController p2RadioController = null;
     public SmallRadioGuiController smallRadioGuiController = null;
+    public ObjectProperty<P2CssFactory.CSS> cssProp = new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_1);
 
     public P2MaskerPane maskerPane = new P2MaskerPane();
 
