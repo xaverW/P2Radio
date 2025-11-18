@@ -51,8 +51,8 @@ public class ProgConst {
     public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/p2r_logo_32.png";
 
     public static final String LOG_DIR = "Log";
-    public static final String CSS_FILE = "de/p2tools/p2radio/radioFx.css";
-    public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2radio/radioFx-dark.css";
+    public static final String CSS_FILE = "de/p2tools/p2radio/css/css_0/radio.css";
+    public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2radio/css/css_0/radio__dark.css";
 
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
