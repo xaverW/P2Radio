@@ -49,10 +49,10 @@ public class SearchProgramUpdate {
     public void searchNewProgramVersion(Stage owner, final boolean showAlways, boolean showAllDownloads) {
         final String SEARCH_URL;
         final String SEARCH_URL_DOWNLOAD;
-        SEARCH_URL = "https://www.p2tools.de";
-        SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
-//        SEARCH_URL = "http://localhost:1313";
-//        SEARCH_URL_DOWNLOAD = "http://localhost:1313/download/";
+//        SEARCH_URL = "https://www.p2tools.de";
+//        SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
+        SEARCH_URL = "http://localhost:1313";
+        SEARCH_URL_DOWNLOAD = "http://localhost:1313/download/";
 
         FoundSearchDataDTO foundSearchData = new FoundSearchDataDTO(
                 owner,
@@ -72,8 +72,10 @@ public class SearchProgramUpdate {
                 P2InfoFactory.getBuildNo(),
                 P2InfoFactory.getBuildDateR(),
 
-                new String[]{}, // welche Downloads angezeigt werden sollen
 //                new String[]{"windows"},
+//                new String[]{"mac"},
+                new String[]{}, // welche Downloads angezeigt werden sollen, wenn leer wirds automatisch gesetzt
+
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAlways,
                 showAllDownloads
