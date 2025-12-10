@@ -18,9 +18,9 @@ package de.p2tools.p2radio.gui.smallradio;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2RowMoveFactory;
-import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
+import de.p2tools.p2lib.guitools.ptable.P2TableFactory;
+import de.p2tools.p2lib.guitools.table.P2RowMoveFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2radio.P2RadioFactory;

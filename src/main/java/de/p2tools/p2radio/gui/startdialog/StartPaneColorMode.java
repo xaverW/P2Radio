@@ -18,7 +18,7 @@ package de.p2tools.p2radio.gui.startdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.gui.tools.HelpText;
@@ -90,8 +90,8 @@ public class StartPaneColorMode {
         gridPane.add(btnHelpIcon, 1, row);
         GridPane.setHalignment(btnHelpIcon, HPos.RIGHT);
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(),
-                P2ColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcComputedSizeAndHgrow(),
+                P2GridConstraints.getCcPrefSize());
         vBox.getChildren().add(gridPane);
 
         final GridPane gridPaneGui = new GridPane();
@@ -104,8 +104,8 @@ public class StartPaneColorMode {
         gridPaneGui.add(hBoxImage2, 0, 1);
         gridPaneGui.add(hBoxImage3, 1, 1);
 
-        gridPaneGui.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcPrefSize());
+        gridPaneGui.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcPrefSize());
 
         HBox hBoxColor = new HBox();
         hBoxColor.setAlignment(Pos.CENTER);

@@ -20,8 +20,8 @@ package de.p2tools.p2radio.gui.configdialog.setdata;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Styles;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
@@ -129,8 +129,8 @@ public class PaneSetData extends TitledPane {
         gridPane.add(txtProgSwitch, 1, row, 4, 1);
 
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow());
         vBox.getChildren().add(gridPane);
 
         final Button btnHelp = P2Button.helpButton(stage, "Set", HelpTextPset.HELP_PSET);

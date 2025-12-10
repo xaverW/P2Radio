@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.pcheckcombobox.P2CheckComboBox;
+import de.p2tools.p2lib.guitools.pcbo.P2CboCheckBoxBool;
 import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
@@ -28,7 +28,7 @@ import javafx.scene.layout.VBox;
 public class StationFilterControllerFilter extends VBox {
 
     private final Label lblOnly = new Label("anzeigen");
-    private final P2CheckComboBox checkOnly = new P2CheckComboBox();
+    private final P2CboCheckBoxBool checkOnly = new P2CboCheckBoxBool();
     private final String ONLY_NEW = "nur neue";
     private final String NOT_FAVOURITES = "keine Favoriten";
     private final String NOT_DOUBLE = "keine doppelten";

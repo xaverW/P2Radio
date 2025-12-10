@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.ptable.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.GermanStringIntSorter;

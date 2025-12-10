@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.guitools.P2RowMoveFactory;
-import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.ptable.P2TableFactory;
+import de.p2tools.p2lib.guitools.table.P2RowMoveFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgData;

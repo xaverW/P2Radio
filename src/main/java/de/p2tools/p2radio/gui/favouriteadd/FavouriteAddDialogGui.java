@@ -17,7 +17,7 @@
 package de.p2tools.p2radio.gui.favouriteadd;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -142,11 +142,11 @@ public class FavouriteAddDialogGui {
         gridPane.add(new Label(""), 0, ++row);
         gridPane.add(addFavouriteDto.btnSetOwn, 0, ++row, 3, 1);
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
-                P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
-                P2ColumnConstraints.getCcPrefSizeCenter());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow(),
+                P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow(),
+                P2GridConstraints.getCcPrefSizeCenter());
 
         vBoxCont.getChildren().add(gridPane);
     }
