@@ -27,6 +27,7 @@ import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -57,13 +58,17 @@ public class HistoryMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierten Sender abspielen", "markierten Sender abspielen", ProgIcons.ICON_TOOLBAR_STATION_START.getImageView());
+                "markierten Sender abspielen", "markierten Sender abspielen",
+                PIconFactory.PICON.TOOLBAR_BTN_PLAY.getFontIcon());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen", ProgIcons.ICON_TOOLBAR_STATION_STOP.getImageView());
+                "alle laufenden Sender stoppen", "alle laufenden Sender stoppen",
+                PIconFactory.PICON.TOOLBAR_BTN_STOP.getFontIcon());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen", ProgIcons.ICON_TOOLBAR_FAVOURITE_DEL.getImageView());
+                "markierte Sender aus der History löschen", "markierte Sender aus der History löschen",
+                PIconFactory.PICON.TOOLBAR_BTN_ABO_DEL.getFontIcon());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen",
+                PIconFactory.PICON.TOOLBAR_BTN_INFO.getFontIcon());
 
         btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
         btStop.setOnAction(a -> StartFactory.stopStation());

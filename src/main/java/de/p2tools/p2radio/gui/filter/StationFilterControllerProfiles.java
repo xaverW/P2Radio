@@ -23,6 +23,7 @@ import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.tools.storedfilter.InitStoredFilter;
 import de.p2tools.p2radio.tools.storedfilter.SelectedFilter;
@@ -76,7 +77,7 @@ public class StationFilterControllerProfiles extends VBox {
     private void initButton() {
         btnLoadFilter.setOnAction(a -> loadFilter());
         btnLoadFilter.disableProperty().bind(cboFilterProfiles.getSelectionModel().selectedItemProperty().isNull());
-        btnLoadFilter.setGraphic(ProgIcons.ICON_FILTER_LOAD.getImageView());
+        btnLoadFilter.setGraphic(PIconFactory.PICON.OWN_FILTER_LOAD.getFontIcon());
         btnLoadFilter.setText("");
         btnLoadFilter.setTooltip(new Tooltip("Filterprofil wieder laden"));
 
@@ -87,12 +88,12 @@ public class StationFilterControllerProfiles extends VBox {
                 saveFilter();
             }
         });
-        btnSaveFilter.setGraphic(ProgIcons.ICON_FILTER_SAVE.getImageView());
+        btnSaveFilter.setGraphic(PIconFactory.PICON.OWN_FILTER_SAVE.getFontIcon());
         btnSaveFilter.setText("");
         btnSaveFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als Filterprofil speichern"));
 
         btnNewFilter.setOnAction(a -> newFilter());
-        btnNewFilter.setGraphic(ProgIcons.ICON_FILTER_NEW.getImageView());
+        btnNewFilter.setGraphic(PIconFactory.PICON.OWN_FILTER_NEW.getFontIcon());
         btnNewFilter.setText("");
         btnNewFilter.setTooltip(new Tooltip("Aktuelle Filtereinstellung als neues Filterprofil anlegen"));
     }

@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
@@ -51,15 +52,20 @@ public class StationMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btPlay = new ToolBarButton(vBox,
-                "Markierten Sender abspielen", "Markierten Sender abspielen", ProgIcons.ICON_TOOLBAR_STATION_START.getImageView());
+                "Markierten Sender abspielen", "Markierten Sender abspielen",
+                PIconFactory.PICON.TOOLBAR_BTN_PLAY.getFontIcon());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen", ProgIcons.ICON_TOOLBAR_STATION_STOP.getImageView());
+                "Alle laufenden Sender stoppen", "Alle laufenden Sender stoppen",
+                PIconFactory.PICON.TOOLBAR_BTN_STOP.getFontIcon());
         final ToolBarButton btFavourite = new ToolBarButton(vBox,
-                "Markierte Sender als Favoriten speichern", "Markierte Sender als Favoriten speichern", ProgIcons.ICON_TOOLBAR_STATION_REC.getImageView());
+                "Markierte Sender als Favoriten speichern", "Markierte Sender als Favoriten speichern",
+                PIconFactory.PICON.TOOLBAR_BTN_RECORDE.getFontIcon());
         final ToolBarButton btRandom = new ToolBarButton(vBox,
-                "Einen Sender per Zufall starten", "Einen Sender per Zufall starten", ProgIcons.ICON_TOOLBAR_STATION_RANDOM.getImageView());
+                "Einen Sender per Zufall starten", "Einen Sender per Zufall starten",
+                PIconFactory.PICON.TOOLBAR_BTN_RANDOM.getFontIcon());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_STATION_INFO.getImageView());
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen",
+                PIconFactory.PICON.TOOLBAR_BTN_INFO.getFontIcon());
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);

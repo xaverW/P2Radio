@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -49,19 +49,19 @@ public class StationFilterControllerClearFilter extends VBox {
     }
 
     private void addButton() {
-        btnGoBack.setGraphic(ProgIcons.ICON_BUTTON_BACKWARD.getImageView());
+        btnGoBack.setGraphic(PIconFactory.PICON.BTN_BACK.getFontIcon());
         btnGoBack.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnGoForward.setGraphic(ProgIcons.ICON_BUTTON_FORWARD.getImageView());
+        btnGoForward.setGraphic(PIconFactory.PICON.BTN_FORWARD.getFontIcon());
         btnGoForward.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
         btnClearFilter.setOnAction(a -> clearFilter());
 
-        btnEditFilter.setGraphic(ProgIcons.ICON_BUTTON_EDIT.getImageView());
+        btnEditFilter.setGraphic(PIconFactory.PICON.BTN_EDIT.getFontIcon());
         btnEditFilter.setOnAction(a -> editFilter());
         btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
 

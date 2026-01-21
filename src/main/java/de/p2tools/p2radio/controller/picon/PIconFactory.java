@@ -84,7 +84,10 @@ public class PIconFactory {
         TABLE_DOWNLOAD_STOP_BIG("gmi-pause", 22),
         TABLE_DOWNLOAD_OPEN_DIR_BIG("mdi2f-folder-open-outline", 22),
 
+        TOOLBAR_BTN_STOP("mdmz-stop", 25),
         TOOLBAR_BTN_PLAY("mdmz-play_arrow", 25),
+        TOOLBAR_BTN_RANDOM("mdi-rotate-3d", 25),
+        TOOLBAR_BTN_INFO("mdoal-info", 25),
         TOOLBAR_BTN_PLAY_ALL("gmi-fast-forward", 25),
         TOOLBAR_BTN_RECORDE("gmi-fiber-manual-record", 25),
         TOOLBAR_BTN_DOWNLOAD_CLEAN("mdoal-cleaning_services", 25),
