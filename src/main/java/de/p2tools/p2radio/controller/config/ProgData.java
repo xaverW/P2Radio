@@ -32,6 +32,7 @@ import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
 import de.p2tools.p2radio.controller.stationweb.WebWorker;
+import de.p2tools.p2radio.controller.worker.ColorWorker;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -118,6 +119,7 @@ public class ProgData {
     public BlackDataList blackDataList;
     public SetDataList setDataList;
     public P2EventHandler pEventHandler;
+    public ColorWorker colorWorker = null;
 
     private ProgData() {
         pEventHandler = new P2EventHandler();
@@ -146,6 +148,7 @@ public class ProgData {
 
         filterWorker = new FilterWorker(this);
         progTray = new ProgTray(this);
+        colorWorker = new ColorWorker(this);
 
         //init
         storedFilters.init();
