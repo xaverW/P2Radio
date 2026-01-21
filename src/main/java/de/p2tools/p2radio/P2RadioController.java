@@ -16,6 +16,7 @@
 
 package de.p2tools.p2radio;
 
+import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -23,10 +24,12 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.pevent.PEvents;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.gui.StatusBarController;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -38,7 +41,7 @@ import javafx.scene.layout.*;
 public class P2RadioController extends StackPane {
 
     private final ProgData progData;
-    private final Button btnSmallRadio = new Button("");
+    private final Button btnSmallRadio = P2Button.getButton(PIconFactory.PICON.SMALL_ICON_BIG.getFontIcon(), "Kleine Senderübersicht anzeigen");
     private final Button btnStation = new Button("Sender");
     private final Button btnFavourite = new Button("Favoriten");
     private final Button btnHistory = new Button("History");
@@ -62,23 +65,43 @@ public class P2RadioController extends StackPane {
         favouriteGuiPack = new FavouriteGuiPack();
         historyGuiPack = new HistoryGuiPack();
         try {
-            // Toolbar
-            HBox hBoxTop = new HBox();
-            hBoxTop.setPadding(new Insets(10));
-            hBoxTop.setSpacing(20);
-            hBoxTop.setAlignment(Pos.CENTER);
+            final Button btnSize = new Button("Favoriten");
+            btnSize.setVisible(false);
+            btnSize.getStyleClass().add("btnSize");
+            Platform.runLater(() -> {
+                double sizeW = btnSize.getWidth();
+                btnStation.setMinWidth(sizeW);
+                btnFavourite.setMinWidth(sizeW);
+                btnHistory.setMinWidth(sizeW);
+            });
 
-            TilePane tilePaneStationFavourite = new TilePane();
-            tilePaneStationFavourite.setHgap(20);
-            tilePaneStationFavourite.setAlignment(Pos.CENTER);
-            tilePaneStationFavourite.getChildren().addAll(btnStation, btnFavourite, btnHistory);
-            HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnSmallRadio, tilePaneStationFavourite, new ProgMenu());
+            HBox hBoxBtn = new HBox(5);
+            hBoxBtn.setAlignment(Pos.BOTTOM_CENTER);
+            hBoxBtn.setPadding(new Insets(10, 0, 0, 0));
+            hBoxBtn.getChildren().addAll(btnStation, btnFavourite, btnHistory);
+
+            StackPane stackPaneTitleButton = new StackPane();
+            stackPaneTitleButton.setAlignment(Pos.BOTTOM_CENTER);
+            stackPaneTitleButton.setPadding(new Insets(0));
+            stackPaneTitleButton.getChildren().addAll(btnSize, hBoxBtn);
+            HBox.setHgrow(stackPaneTitleButton, Priority.ALWAYS);
+
+            HBox hBoxTop = new HBox();
+            hBoxTop.setPadding(new Insets(0, 10, 0, 10));
+            hBoxTop.setSpacing(5);
+            hBoxTop.setAlignment(Pos.CENTER);
+            hBoxTop.getChildren().addAll(btnSmallRadio, stackPaneTitleButton, new ProgMenu());
+            HBox.setHgrow(stackPaneTitleButton, Priority.ALWAYS);
 
             // Center
             paneStation = stationGuiPack.pack();
             paneFavourite = favouriteGuiPack.pack();
             paneHistory = historyGuiPack.pack();
+
+            paneStation.getStyleClass().add("splitPaneTab");
+            paneFavourite.getStyleClass().add("splitPaneTab");
+            paneHistory.getStyleClass().add("splitPaneTab");
+
             stackPaneCont.getChildren().addAll(paneStation, paneFavourite, paneHistory);
 
             // Statusbar
@@ -99,20 +122,6 @@ public class P2RadioController extends StackPane {
         }
     }
 
-    public void initPanel() {
-        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
-            case 0:
-            default:
-                initPanelStation();
-                break;
-            case 1:
-                initPanelFavourite();
-                break;
-            case 2:
-                initPanelHistory();
-        }
-    }
-
     private void initMaskerPane() {
         StackPane.setAlignment(progData.maskerPane, Pos.CENTER);
         progData.maskerPane.setPadding(new Insets(4, 1, 1, 1));
@@ -124,11 +133,9 @@ public class P2RadioController extends StackPane {
     }
 
     private void initButton() {
-        btnSmallRadio.setTooltip(new Tooltip("Kleine Senderübersicht anzeigen"));
         btnSmallRadio.setOnAction(e -> P2RadioFactory.selPanelSmallRadio());
         btnSmallRadio.setMaxWidth(Double.MAX_VALUE);
-        btnSmallRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnSmallRadio.setGraphic(ProgIcons.ICON_BUTTON_SMALL_GUI_25.getImageView());
+        btnSmallRadio.getStyleClass().addAll("changeGuiBtn");
 
         btnStation.setTooltip(new Tooltip("Sender anzeigen"));
         btnStation.setOnAction(e -> selPanelStation());
@@ -141,6 +148,10 @@ public class P2RadioController extends StackPane {
         btnHistory.setTooltip(new Tooltip("Zuletzt gespielte Sender anzeigen"));
         btnHistory.setOnAction(e -> selPanelHistory());
         btnHistory.setMaxWidth(Double.MAX_VALUE);
+
+        btnStation.getStyleClass().addAll("pFuncBtn", "pFuncBtnTitleBar");
+        btnFavourite.getStyleClass().addAll("pFuncBtn", "pFuncBtnTitleBar");
+        btnHistory.getStyleClass().addAll("pFuncBtn", "pFuncBtnTitleBar");
 
         infoPane();
 
@@ -163,6 +174,20 @@ public class P2RadioController extends StackPane {
                 }
             }
         });
+    }
+
+    public void initPanel() {
+        switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+            case 0:
+            default:
+                initPanelStation();
+                break;
+            case 1:
+                initPanelFavourite();
+                break;
+            case 2:
+                initPanelHistory();
+        }
     }
 
     private void selPanelStation() {
@@ -271,24 +296,20 @@ public class P2RadioController extends StackPane {
     }
 
     private void setButtonStyle(Button btnSel) {
-        btnStation.getStyleClass().clear();
-        btnFavourite.getStyleClass().clear();
-        btnHistory.getStyleClass().clear();
-
         if (btnSel.equals(btnStation)) {
-            btnStation.getStyleClass().add("btnTabTop-sel");
+            btnStation.getStyleClass().addAll("pFuncBtnTitleBarSel");
         } else {
-            btnStation.getStyleClass().add("btnTabTop");
+            btnStation.getStyleClass().remove("pFuncBtnTitleBarSel");
         }
         if (btnSel.equals(btnFavourite)) {
-            btnFavourite.getStyleClass().add("btnTabTop-sel");
+            btnFavourite.getStyleClass().addAll("pFuncBtnTitleBarSel");
         } else {
-            btnFavourite.getStyleClass().add("btnTabTop");
+            btnFavourite.getStyleClass().remove("pFuncBtnTitleBarSel");
         }
         if (btnSel.equals(btnHistory)) {
-            btnHistory.getStyleClass().add("btnTabTop-sel");
+            btnHistory.getStyleClass().addAll("pFuncBtnTitleBarSel");
         } else {
-            btnHistory.getStyleClass().add("btnTabTop");
+            btnHistory.getStyleClass().remove("pFuncBtnTitleBarSel");
         }
     }
 }

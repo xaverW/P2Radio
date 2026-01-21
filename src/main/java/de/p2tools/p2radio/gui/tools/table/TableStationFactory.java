@@ -13,11 +13,13 @@ import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -249,12 +251,13 @@ public class TableStationFactory {
                 StationData stationData = getTableView().getItems().get(getIndex());
                 final boolean playing = stationData.isNowPlaying();
 
+
                 if (playing) {
                     //stoppen
                     final Button btnStop = new Button("");
-                    btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                    btnStop.getStyleClass().addAll("pFuncBtn", "btnTable");
+                    btnStop.setGraphic(PIconFactory.PICON.TABLE_DOWNLOAD_STOP.getFontIcon());
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
-                    btnStop.setGraphic(ProgIcons.IMAGE_TABLE_STOP.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
                         StartFactory.stopStation();
                         getTableView().getSelectionModel().clearSelection();
@@ -262,17 +265,22 @@ public class TableStationFactory {
                     });
 
                     if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnStop.setMaxHeight(18);
-                        btnStop.setMinHeight(18);
+                        btnStop.setMaxHeight(Table.ROW_HEIGHT_MIN);
+                        btnStop.setMinHeight(Table.ROW_HEIGHT_MIN);
+                    } else {
+                        btnStop.setMaxHeight(Table.ROW_HEIGHT_MAX);
+                        btnStop.setMinHeight(Table.ROW_HEIGHT_MAX);
+                        btnStop.setGraphic(PIconFactory.PICON.TABLE_DOWNLOAD_DEL_BIG.getFontIcon());
                     }
+
                     hbox.getChildren().add(btnStop);
 
                 } else {
                     //starten
                     final Button btnPlay = new Button("");
-                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                    btnPlay.getStyleClass().addAll("pFuncBtn", "btnTable");
                     btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-                    btnPlay.setGraphic(ProgIcons.IMAGE_TABLE_PLAY.getImageView());
+                    btnPlay.setGraphic(PIconFactory.PICON.TABLE_FILM_PLAY.getFontIcon());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         StartFactory.startStation(stationData);
                         getTableView().getSelectionModel().clearSelection();
@@ -280,9 +288,14 @@ public class TableStationFactory {
                     });
 
                     if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btnPlay.setMaxHeight(18);
-                        btnPlay.setMinHeight(18);
+                        btnPlay.setMaxHeight(Table.ROW_HEIGHT_MIN);
+                        btnPlay.setMinHeight(Table.ROW_HEIGHT_MIN);
+                    } else {
+                        btnPlay.setMaxHeight(Table.ROW_HEIGHT_MAX);
+                        btnPlay.setMinHeight(Table.ROW_HEIGHT_MAX);
+                        btnPlay.setGraphic(PIconFactory.PICON.TABLE_FILM_PLAY_BIG.getFontIcon());
                     }
+
                     hbox.getChildren().add(btnPlay);
                 }
 
@@ -291,44 +304,52 @@ public class TableStationFactory {
                         tableEnum.equals(Table.TABLE_ENUM.HISTORY) ||
                         tableEnum.equals(Table.TABLE_ENUM.OWN_AUTOSTART)) {
 
-                    final Button btn;
-                    btn = new Button("");
-                    btn.getStyleClass().addAll("btnFunction", "btnFuncTable");
+                    FontIcon fontIconSave = PIconFactory.PICON.TABLE_FILM_SAVE.getFontIcon();
+                    FontIcon fontIconDel = PIconFactory.PICON.TABLE_ABO_DEL.getFontIcon();
+                    final Button btnStop;
+                    btnStop = new Button("");
+                    btnStop.getStyleClass().addAll("pFuncBtn", "btnTable");
 
                     if (tableEnum.equals(Table.TABLE_ENUM.STATION)) {
-                        btn.setTooltip(new Tooltip("Sender als Favoriten sichern"));
-                        btn.setGraphic(ProgIcons.IMAGE_TABLE_STATION_SAVE.getImageView());
-                        btn.setOnAction(event -> {
+                        btnStop.setTooltip(new Tooltip("Sender als Favoriten sichern"));
+                        btnStop.setGraphic(fontIconSave);
+                        btnStop.setOnAction(event -> {
                             FavouriteFactory.favouriteStation(stationData);
                         });
 
                     } else if (tableEnum.equals(Table.TABLE_ENUM.FAVOURITE)) {
-                        btn.setTooltip(new Tooltip("Favoriten löschen"));
-                        btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
-                        btn.setOnAction(event -> {
+                        btnStop.setTooltip(new Tooltip("Favoriten löschen"));
+                        btnStop.setGraphic(fontIconDel);
+                        btnStop.setOnAction(event -> {
                             FavouriteFactory.deleteFavourite(stationData);
                         });
 
                     } else if (tableEnum.equals(Table.TABLE_ENUM.HISTORY)) {
-                        btn.setTooltip(new Tooltip("Sender aus History löschen"));
-                        btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
-                        btn.setOnAction(event -> {
+                        btnStop.setTooltip(new Tooltip("Sender aus History löschen"));
+                        btnStop.setGraphic(fontIconDel);
+                        btnStop.setOnAction(event -> {
                             HistoryFactory.deleteHistory(stationData);
                         });
 
                     } else if (tableEnum.equals(Table.TABLE_ENUM.OWN_AUTOSTART)) {
-                        btn.setTooltip(new Tooltip("Sender aus der Autostart-Liste löschen"));
-                        btn.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
-                        btn.setOnAction(event -> {
+                        btnStop.setTooltip(new Tooltip("Sender aus der Autostart-Liste löschen"));
+                        btnStop.setGraphic(fontIconDel);
+                        btnStop.setOnAction(event -> {
                             ProgData.getInstance().ownAutoStartList.remove(stationData);
                         });
                     }
 
                     if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
-                        btn.setMinHeight(18);
-                        btn.setMaxHeight(18);
+                        btnStop.setMaxHeight(Table.ROW_HEIGHT_MIN);
+                        btnStop.setMinHeight(Table.ROW_HEIGHT_MIN);
+                    } else {
+                        btnStop.setMaxHeight(Table.ROW_HEIGHT_MAX);
+                        btnStop.setMinHeight(Table.ROW_HEIGHT_MAX);
+                        fontIconSave.setIconSize(22);
+                        fontIconDel.setIconSize(22);
                     }
-                    hbox.getChildren().add(btn);
+
+                    hbox.getChildren().add(btnStop);
                 }
 
                 setGraphic(hbox);

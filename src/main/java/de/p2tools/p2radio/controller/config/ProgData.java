@@ -78,7 +78,7 @@ public class ProgData {
     public Stage primaryStageSmall = null;
     public P2RadioController p2RadioController = null;
     public SmallRadioGuiController smallRadioGuiController = null;
-    public ObjectProperty<P2CssFactory.CSS> cssProp = new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_0);
+    public ObjectProperty<P2CssFactory.CSS> cssProp = new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_1);
 
     public P2MaskerPane maskerPane = new P2MaskerPane();
 

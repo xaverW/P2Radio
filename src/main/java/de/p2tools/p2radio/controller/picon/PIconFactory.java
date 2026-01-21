@@ -56,6 +56,9 @@ public class PIconFactory {
 
         ICON_BOOLEAN_ON("mdral-done_outline", 20),
 
+        SMALL_ICON_BIG("gmi-blur-on", 25),
+        SMALL_ICON_SMALL("gmi-blur-on", 20),
+
         TABLE_ABO_ON("gmi-play-arrow", 18),
         TABLE_ABO_OFF("gmi-pause", 18),
         TABLE_ABO_DEL("gmi-clear", 18),

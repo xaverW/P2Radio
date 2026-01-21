@@ -31,21 +31,14 @@ public class ProgMenu extends MenuButton {
     public ProgMenu() {
         makeMenu();
         setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                if (!ProgConfig.SYSTEM_DARK_THEME.get() && !ProgConfig.SYSTEM_BLACK_WHITE_ICON.get()) {
-                    ProgConfig.SYSTEM_DARK_THEME.set(true);
-
-                } else if (ProgConfig.SYSTEM_DARK_THEME.get() && !ProgConfig.SYSTEM_BLACK_WHITE_ICON.get()) {
-                    ProgConfig.SYSTEM_DARK_THEME.set(false);
-                    ProgConfig.SYSTEM_BLACK_WHITE_ICON.set(true);
-
-                } else if (!ProgConfig.SYSTEM_DARK_THEME.get() && ProgConfig.SYSTEM_BLACK_WHITE_ICON.get()) {
-                    ProgConfig.SYSTEM_DARK_THEME.set(true);
-
-                } else if (ProgConfig.SYSTEM_DARK_THEME.get() && ProgConfig.SYSTEM_BLACK_WHITE_ICON.get()) {
-                    ProgConfig.SYSTEM_DARK_THEME.set(false);
-                    ProgConfig.SYSTEM_BLACK_WHITE_ICON.set(false);
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() > 1) {
+                    ProgConfig.SYSTEM_GUI_THEME_1.set(!ProgConfig.SYSTEM_GUI_THEME_1.get());
                 }
+            }
+
+            if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                ProgConfig.SYSTEM_DARK_THEME.set(!ProgConfig.SYSTEM_DARK_THEME.get());
             }
         });
     }

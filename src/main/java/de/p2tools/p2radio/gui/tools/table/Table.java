@@ -25,6 +25,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class Table {
+    public static int ROW_HEIGHT_MIN = 18;
+    public static final int ROW_HEIGHT_MAX = 22;
+
     private static final String SORT_ASCENDING = "ASCENDING";
     private static final String SORT_DESCENDING = "DESCENDING";
     private static String width = "";

@@ -79,8 +79,22 @@ public class ProgStartBeforeGui {
                 ProgConfig.SYSTEM_ICON_COLOR,
                 ProgConfig.SYSTEM_CSS_ADDER,
 
-                new String[]{ProgConst.CSS_FILE},
-                new String[]{ProgConst.CSS_FILE_DARK_THEME},
+                new String[]{
+                        "de/p2tools/p2radio/css/mtfx.css",
+                        "de/p2tools/p2radio/css/pFuncBtn.css",
+                        "de/p2tools/p2radio/css/pFuncMenu.css",
+                        "de/p2tools/p2radio/css/pFuncTitleBar.css",
+                        "de/p2tools/p2radio/css/pFuncTable.css",
+                        "de/p2tools/p2radio/css/pFuncToolBar.css",
+                        "de/p2tools/p2radio/css/pFuncTips.css",
+                        "de/p2tools/p2radio/css/pFuncStartDialog.css",
+                        "de/p2tools/p2radio/css/smallGui.css"
+                },
+
+                new String[]{
+                        "de/p2tools/p2radio/css/mtfx-dark.css"
+                },
+
                 ProgData.getInstance().cssProp,
                 ProgConfig.SYSTEM_FONT_SIZE,
 
