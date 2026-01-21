@@ -34,16 +34,16 @@ public class ProgConst {
 
 
     // http://at1.api.radio-browser.info/json/stations
-    public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
+//    public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
+    public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100000";
 //    public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100";
 
 //    public static final String STATION_LIST_URL = "https://atlist.de/radio.json";
 //    public static final String STATION_LIST_URL = "https://atlist.de/radio_middle.json";
 //    public static final String STATION_LIST_URL = "https://atlist.de/radio_small.json";
-
-    public static int STATION_LIST_MIN_SIZE = 5_000; // die mind. Größe die geladen werden muss damit OK
-
 //    public static final String STATION_LIST_URL = "https://atlist.de/stations";
+
+    public static int STATION_LIST_MIN_SIZE = 5000; // die mind. Größe die geladen werden muss damit OK
 
     public static final String CONFIG_DIRECTORY = "p2Radio"; // im Homeverzeichnis
 
@@ -71,4 +71,46 @@ public class ProgConst {
 
     public static final int MIN_TABLE_HEIGHT = 200;
     public static final int MIN_TEXTAREA_HEIGHT_LOW = 50;
+
+    public static final String ICON_COLOR_DARK_1 = "#ffffff";
+    public static final String ICON_COLOR_DARK_2 = "#000080";
+    public static final String ICON_COLOR_LIGHT_1 = "#333333";
+    public static final String ICON_COLOR_LIGHT_2 = "#4d66cc";
+
+    public static final String GUI_COLOR_DARK_1 = "#cccccc";
+    public static final String GUI_COLOR_DARK_2 = "#000080";
+    public static final String GUI_COLOR_LIGHT_1 = "#666666";
+    public static final String GUI_COLOR_LIGHT_2 = "#4d66cc";
+
+    public static final String GUI_BACKGROUND_DARK_1 = "#333333";
+    public static final String GUI_BACKGROUND_DARK_2 = "#a1a1a1";
+    public static final String GUI_BACKGROUND_LIGHT_1 = "#cccccc";
+    public static final String GUI_BACKGROUND_LIGHT_2 = "#d8d8d8";
+
+    public static final String GUI_TITLE_BAR_DARK_1 = "#666666";
+    public static final String GUI_TITLE_BAR_DARK_2 = "#000080";
+    public static final String GUI_TITLE_BAR_LIGHT_1 = "#d8d8d8";
+    public static final String GUI_TITLE_BAR_LIGHT_2 = "#99b3ff";
+
+    public static final String GUI_TITLE_BAR_SEL_DARK_1 = "#333333";
+    public static final String GUI_TITLE_BAR_SEL_DARK_2 = "#414180";
+    public static final String GUI_TITLE_BAR_SEL_LIGHT_1 = "#999999";
+    public static final String GUI_TITLE_BAR_SEL_LIGHT_2 = "#4d66cc";
+
+    public static final boolean GUI_BACKGROUND_TRANSPARENT_DARK_1 = true;
+    public static final boolean GUI_BACKGROUND_TRANSPARENT_DARK_2 = false;
+    public static final boolean GUI_BACKGROUND_TRANSPARENT_LIGHT_1 = true;
+    public static final boolean GUI_BACKGROUND_TRANSPARENT_LIGHT_2 = false;
+
+    public static final boolean GUI_TITLE_BAR_TRANSPARENT_DARK_1 = true;
+    public static final boolean GUI_TITLE_BAR_TRANSPARENT_DARK_2 = false;
+    public static final boolean GUI_TITLE_BAR_TRANSPARENT_LIGHT_1 = true;
+    public static final boolean GUI_TITLE_BAR_TRANSPARENT_LIGHT_2 = false;
+
+    public static final boolean GUI_TITLE_BAR_SEL_TRANSPARENT_DARK_1 = false;
+    public static final boolean GUI_TITLE_BAR_SEL_TRANSPARENT_DARK_2 = false;
+    public static final boolean GUI_TITLE_BAR_SEL_TRANSPARENT_LIGHT_1 = false;
+    public static final boolean GUI_TITLE_BAR_SEL_TRANSPARENT_LIGHT_2 = false;
+
+
 }
