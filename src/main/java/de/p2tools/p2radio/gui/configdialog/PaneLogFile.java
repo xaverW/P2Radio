@@ -24,8 +24,8 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -85,10 +85,10 @@ public class PaneLogFile {
         btnFile.setOnAction(event -> {
             P2DirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtLogFile);
         });
-        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(PIconFactory.PICON.BTN_DIR_OPEN.getFontIcon());
 
         final Button btnClear = new Button();
-        btnClear.setGraphic(ProgIcons.ICON_BUTTON_CLEAN.getImageView());
+        btnClear.setGraphic(PIconFactory.PICON.BTN_CLEAN.getFontIcon());
         btnClear.setTooltip(new Tooltip("Pfad löschen"));
         btnClear.setOnAction(event -> {
             txtLogFile.setText("");

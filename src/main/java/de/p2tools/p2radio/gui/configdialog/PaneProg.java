@@ -20,11 +20,9 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -35,10 +33,6 @@ import java.util.Collection;
 
 public class PaneProg {
 
-    private final P2ToggleSwitch tglSmallStation = new P2ToggleSwitch("In den Tabellen nur kleine Button anzeigen:");
-    private final P2ToggleSwitch tglLoadStationList = new P2ToggleSwitch("Die Senderliste automatisch alle " +
-            ProgConst.LOAD_STATION_LIST_EVERY_DAYS + " Tage aktualisieren");
-    private final P2ToggleSwitch tglEnableLog = new P2ToggleSwitch("Ein Logfile anlegen:");
     private final Stage stage;
     private TextField txtFileManagerWeb;
 
@@ -47,9 +41,6 @@ public class PaneProg {
     }
 
     public void close() {
-        tglSmallStation.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_SMALL_ROW_TABLE);
-        tglLoadStationList.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS);
-        tglEnableLog.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_LOG_ON);
         txtFileManagerWeb.textProperty().unbindBidirectional(ProgConfig.SYSTEM_PROG_OPEN_URL);
     }
 
@@ -75,7 +66,7 @@ public class PaneProg {
         btnFile.setOnAction(event -> {
             P2DirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtFileManagerWeb);
         });
-        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(PIconFactory.PICON.BTN_DIR_OPEN.getFontIcon());
         btnFile.setTooltip(new Tooltip("Einen Webbrowser zum Öffnen von URLs auswählen"));
 
         final Button btnHelp = P2Button.helpButton(stage, "Webbrowser", HelpText.WEBBROWSER);

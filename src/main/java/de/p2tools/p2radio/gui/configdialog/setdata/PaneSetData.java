@@ -23,9 +23,9 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2Styles;
 import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.SetFactory;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import de.p2tools.p2radio.gui.tools.HelpTextPset;
 import javafx.beans.value.ChangeListener;
@@ -89,7 +89,7 @@ public class PaneSetData extends TitledPane {
         this.setMaxHeight(Double.MAX_VALUE);
 
         btnFile.setOnAction(event -> P2DirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtProgPath));
-        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(PIconFactory.PICON.BTN_DIR_OPEN.getFontIcon());
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
 
         txtProgPath.textProperty().addListener((observable, oldValue, newValue) -> {

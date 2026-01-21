@@ -22,9 +22,9 @@ import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
@@ -113,7 +113,7 @@ public class PaneAutoStart {
 
         final Button btnPlay = new Button("");
         btnPlay.setTooltip(new Tooltip("Sender abspielen"));
-        btnPlay.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
+        btnPlay.setGraphic(PIconFactory.PICON.BTN_PLAY.getFontIcon());
         btnPlay.setOnAction((ActionEvent event) -> {
             P2RadioFactory.loadAutoStart();
         });
@@ -122,7 +122,7 @@ public class PaneAutoStart {
         final Button btnStop;
         btnStop = new Button("");
         btnStop.setTooltip(new Tooltip("Sender stoppen"));
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setGraphic(PIconFactory.PICON.BTN_STOP_PLAY.getFontIcon());
         btnStop.setOnAction((ActionEvent event) -> {
             StartFactory.stopStation();
         });

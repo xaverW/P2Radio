@@ -20,12 +20,15 @@ import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
+import de.p2tools.p2radio.controller.picon.PIconShow;
 import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
 import de.p2tools.p2radio.gui.dialog.ResetDialogController;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class ProgMenu extends MenuButton {
     public ProgMenu() {
@@ -83,8 +86,10 @@ public class ProgMenu extends MenuButton {
         mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
 
         setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
-        getStyleClass().addAll("btnFunction", "btnFunc-1");
-        setGraphic(ProgIcons.ICON_TOOLBAR_MENU_TOP.getImageView());
+        getStyleClass().addAll("pFuncBtn", "btnProgMenu");
+        FontIcon node = PIconFactory.PICON.PROG_MENU.getFontIcon();
+        node.setScaleX(1.5);
+        setGraphic(node);
         getItems().addAll(miConfig, new SeparatorMenuItem(),
                 miLoadStationList, miDarkMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
@@ -93,6 +98,9 @@ public class ProgMenu extends MenuButton {
             final MenuItem miSearchAllUpdate = new MenuItem("Alle Programm-Downloads anzeigen");
             miSearchAllUpdate.setOnAction(a -> new SearchProgramUpdate(progData)
                     .searchNewProgramVersion(true, true));
+
+            final MenuItem miIcon = new MenuItem("Icons");
+            miIcon.setOnAction(a -> new PIconShow());
 
             final MenuItem miResetAll = new MenuItem("DATUM und GEMACHT zurücksetzen");
             miResetAll.setOnAction(a -> {
@@ -108,7 +116,7 @@ public class ProgMenu extends MenuButton {
                 ProgConfig.SYSTEM_SEARCH_UPDATE_LAST_DATE.set("2020.01.01"); // letztes Datum, bis zu dem geprüft wurde, wenn leer wird das buildDate genommen
             });
 
-            mHelp.getItems().addAll(new SeparatorMenuItem(), miSearchAllUpdate,
+            mHelp.getItems().addAll(new SeparatorMenuItem(), miSearchAllUpdate, miIcon,
                     miResetAll, miResetTodayDone, miResetLastSearch);
         }
     }

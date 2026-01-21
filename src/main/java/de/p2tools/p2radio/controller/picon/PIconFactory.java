@@ -44,6 +44,8 @@ public class PIconFactory {
         BTN_UP("mdoal-arrow_upward", 20),
         BTN_DOWN("mdoal-arrow_downward", 20),
         BTN_BOTTOM("gmi-vertical-align-bottom", 20),
+        BTN_CLEAN("mdoal-cleaning_services", 20),
+        BTN_STOP_PLAY("mdmz-stop", 20),
 
         BTN_TIP_FIRST("mdi-chevron-double-left", 18),
         BTN_TIP_LAST("mdi-chevron-double-right", 18),

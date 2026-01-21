@@ -80,7 +80,7 @@ public class HistoryMenu {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("History-Menü anzeigen"));
         mb.setGraphic(ProgIcons.ICON_TOOLBAR_MENU.getImageView());
-        mb.getStyleClass().addAll("btnFunction", "btnFunc-0");
+        mb.getStyleClass().addAll("pFuncBtn", "btnProgMenu", "btnProgMenuSmall");
 
         final boolean moreSets = progData.setDataList.size() > 1;
         if (moreSets) {

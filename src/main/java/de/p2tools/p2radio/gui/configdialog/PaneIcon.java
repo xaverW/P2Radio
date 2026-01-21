@@ -24,7 +24,7 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -91,7 +91,7 @@ public class PaneIcon {
                 txtProgIconPath.setText(s);
             }
         });
-        btnProgIconFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnProgIconFile.setGraphic(PIconFactory.PICON.BTN_DIR_OPEN.getFontIcon());
         txtProgIconPath.textProperty().bindBidirectional(ProgConfig.SYSTEM_PROGRAM_ICON_PATH);
         tglOwnProgIcon.selectedProperty().addListener((v, o, n) -> {
             P2RadioFactory.setProgramIcon();
@@ -139,7 +139,7 @@ public class PaneIcon {
                 txtTrayIconPath.setText(s);
             }
         });
-        btnTrayFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnTrayFile.setGraphic(PIconFactory.PICON.BTN_DIR_OPEN.getFontIcon());
         btnTrayFile.disableProperty().bind(tglOwnTrayIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
         txtTrayIconPath.textProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY_ICON_PATH);
