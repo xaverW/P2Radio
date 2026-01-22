@@ -195,6 +195,7 @@ public class TableStation extends TableView<StationData> {
         stationNoColumn.setPrefWidth(70);
         stationNameColumn.setPrefWidth(150);
         genreColumn.setPrefWidth(100);
+        startButtonColumn.setPrefWidth(100);
         stateColumn.setPrefWidth(100);
         countryColumn.setPrefWidth(100);
         languageColumn.setPrefWidth(100);

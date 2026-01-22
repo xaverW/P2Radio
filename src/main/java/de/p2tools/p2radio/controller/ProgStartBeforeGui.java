@@ -24,7 +24,10 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgConst;
+import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.gui.startdialog.StartDialogController;
@@ -101,6 +104,8 @@ public class ProgStartBeforeGui {
                 null,
                 ProgConst.PROGRAM_ICON, P2RadioFactory.getOwnIconPath(),
                 ProgData.debug, ProgData.duration);
+
+        P2RadioFactory.setProgramIcon();
     }
 
     private static boolean loadAll() {
@@ -159,9 +164,7 @@ public class ProgStartBeforeGui {
     private static void initAfterLoad() {
         //dann hat das Laden geklappt :)
         ProgData.getInstance().blackDataList.sortIncCounter(false);
-
         ProgConfigUpdate.update(); // falls es ein Programmupdate gab, Configs anpassen
-        ProgColorList.setColorTheme(); // Farben einrichten
     }
 
     private static void clearTheConfigs() {

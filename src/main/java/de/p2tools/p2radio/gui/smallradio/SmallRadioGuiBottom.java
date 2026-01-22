@@ -106,7 +106,7 @@ public class SmallRadioGuiBottom extends HBox {
     private void initStartButton() {
         btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallGui");
-        btnRandom.setGraphic(PIconFactory.PICON.TOOLBAR_BTN_RANDOM.getFontIcon());
+        btnRandom.setGraphic(PIconFactory.PICON.BTN_RANDOM.getFontIcon());
         btnRandom.setOnAction(event -> {
             smallRadioGuiController.playRandomStation();
         });

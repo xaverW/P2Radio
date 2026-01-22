@@ -77,36 +77,68 @@
     -fx-font-size: 1em;
 }
 
+/* Button zum Ausschalten */
+.switchOffBtn{
+    -fx-padding: 2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20;
+    -fx-border-color: #004a6c;
+    -fx-background-color: transparent;
+}
+.switchOffBtn:focused{
+    -fx-padding: 2;
+    -fx-border-width: 1px;
+    -fx-border-color: #004a6c;
+    -fx-background-color: transparent;
+}
+.switchOffBtn:hover{
+    -fx-padding: 1;
+    -fx-border-width: 2px;
+    -fx-border-color: #00344c;
+    -fx-background-color: transparent;
+}
+.switchOffBtn:focused:hover{
+    -fx-padding: 1;
+    -fx-border-width: 2px;
+    -fx-border-color: #00344c;
+    -fx-background-color: transparent;
+ }
+.switchOffBtn:pressed:focused:hover{
+    -fx-padding: 0;
+    -fx-border-width: 3px;
+    -fx-border-color: #004a6c;
+    -fx-background-color: transparent;
+}
 
 
 /* Button zum Umschalte */
 .changeGuiBtn{
-    -fx-padding: 3;
+    -fx-padding: 2;
     -fx-border-width: 1px;
     -fx-border-radius: 20;
     -fx-border-color: #004a6c;
     -fx-background-color: transparent;
 }
 .changeGuiBtn:focused{
-    -fx-padding: 3;
+    -fx-padding: 2;
     -fx-border-width: 1px;
     -fx-border-color: #004a6c;
     -fx-background-color: transparent;
 }
 .changeGuiBtn:hover{
-    -fx-padding: 2;
+    -fx-padding: 1;
     -fx-border-width: 2px;
     -fx-border-color: #00344c;
     -fx-background-color: transparent;
 }
 .changeGuiBtn:focused:hover{
-    -fx-padding: 2;
+    -fx-padding: 1;
     -fx-border-width: 2px;
     -fx-border-color: #00344c;
     -fx-background-color: transparent;
  }
 .changeGuiBtn:pressed:focused:hover{
-    -fx-padding: 1;
+    -fx-padding: 0;
     -fx-border-width: 3px;
     -fx-border-color: #004a6c;
     -fx-background-color: transparent;

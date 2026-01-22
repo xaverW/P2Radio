@@ -255,7 +255,7 @@ public class TableStationFactory {
                     //stoppen
                     final Button btnStop = new Button("");
                     btnStop.getStyleClass().addAll("pFuncBtn", "btnTable");
-                    btnStop.setGraphic(PIconFactory.PICON.TABLE_DOWNLOAD_STOP.getFontIcon());
+                    btnStop.setGraphic(PIconFactory.PICON.TABLE_STOP_PLAY.getFontIcon());
                     btnStop.setTooltip(new Tooltip("Sender stoppen"));
                     btnStop.setOnAction((ActionEvent event) -> {
                         StartFactory.stopStation();

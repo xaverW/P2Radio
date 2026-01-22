@@ -46,6 +46,7 @@ public class PIconFactory {
         BTN_CLEAN("mdoal-cleaning_services", 20),
         BTN_PLAY("gmi-play-arrow", 18),
         BTN_STOP_PLAY("mdmz-stop", 18),
+        BTN_RANDOM("mdi-rotate-3d", 18),
 
         BTN_TIP_FIRST("mdi-chevron-double-left", 18),
         BTN_TIP_LAST("mdi-chevron-double-right", 18),
@@ -58,10 +59,12 @@ public class PIconFactory {
 
         //        ICON_BOOLEAN_ON("gmi-done", 20),
         ICON_BOOLEAN_ON("gmi-done-outline", 18),
+        BTn_SWITCH_OFF("mdi2c-close-circle", 20),
 
-        SMALL_ICON_BIG("gmi-blur-on", 25),
-        SMALL_ICON_SMALL("gmi-blur-on", 20),
+        SMALL_ICON_BIG("mdmz-sports_basketball", 30),
+        SMALL_ICON_SMALL("mdmz-sports_basketball", 25),
 
+        TABLE_STOP_PLAY("mdmz-stop", 18),
         TABLE_GRADE("gmi-grade", 18),
         TABLE_ABO_ON("gmi-play-arrow", 18),
         TABLE_ABO_OFF("gmi-pause", 18),
@@ -91,7 +94,7 @@ public class PIconFactory {
         TOOLBAR_BTN_STOP("mdmz-stop", 25),
         TOOLBAR_BTN_PLAY("mdmz-play_arrow", 25),
         TOOLBAR_BTN_RANDOM("mdi-rotate-3d", 25),
-        TOOLBAR_BTN_INFO("mdoal-info", 25),
+        TOOLBAR_BTN_INFO("mdi-information-variant", 25),
         TOOLBAR_BTN_PLAY_ALL("gmi-fast-forward", 25),
         TOOLBAR_BTN_RECORDE("gmi-fiber-manual-record", 25),
         TOOLBAR_BTN_DOWNLOAD_CLEAN("mdoal-cleaning_services", 25),

@@ -23,10 +23,7 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.P2RadioFactory;
-import de.p2tools.p2radio.controller.config.ProgConfig;
-import de.p2tools.p2radio.controller.config.ProgConst;
-import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.stationload.LoadStationFactory;
 import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
@@ -49,9 +46,13 @@ public class ProgStartAfterGui {
     public static void workAfterGui(ProgData progData) {
         startMsg();
 
+        ProgData.getInstance().pEventHandler.startTimer();
         progData.progTray.initProgTray();
         checkProgUpdate();
         loadStationProgStart();
+
+        ProgColorList.setColorTheme(); // Farben einrichten
+        ProgData.getInstance().colorWorker.setColor(); // Farben einrichten
     }
 
     private static void startMsg() {

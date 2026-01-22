@@ -58,8 +58,11 @@ public class ProgMenu extends MenuButton {
         final MenuItem miLoadStationList = new MenuItem("Neue Senderliste laden");
         miLoadStationList.setOnAction(e -> progData.webWorker.loadFromWeb());
 
-        final CheckMenuItem miDarkMode = new CheckMenuItem("Dark Mode");
+        final CheckMenuItem miDarkMode = new CheckMenuItem("Dunkle Oberfläche");
         miDarkMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
+
+        final CheckMenuItem miColorMode = new CheckMenuItem("Farb-Modus-1");
+        miColorMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_GUI_THEME_1);
 
         final MenuItem miQuit = new MenuItem("Beenden");
         miQuit.setOnAction(e -> ProgQuitFactory.quit());
@@ -94,7 +97,7 @@ public class ProgMenu extends MenuButton {
         node.setScaleX(1.5);
         setGraphic(node);
         getItems().addAll(miConfig, new SeparatorMenuItem(),
-                miLoadStationList, miDarkMode, mHelp,
+                miLoadStationList, miDarkMode, miColorMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
 
         if (ProgData.debug) {
