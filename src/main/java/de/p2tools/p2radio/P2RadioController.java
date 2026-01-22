@@ -22,7 +22,6 @@ import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
@@ -128,7 +127,7 @@ public class P2RadioController extends StackPane {
         progData.maskerPane.toFront();
         Button btnStop = progData.maskerPane.getButton();
         progData.maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_CLEAR.getImageView());
+        btnStop.setGraphic(PIconFactory.PICON.BTN_CLEAR.getFontIcon());
         btnStop.setOnAction(a -> progData.webWorker.setStop(true));
     }
 

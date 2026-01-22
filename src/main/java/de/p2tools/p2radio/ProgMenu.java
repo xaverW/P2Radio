@@ -19,7 +19,10 @@ import de.p2tools.p2lib.guitools.P2Open;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
-import de.p2tools.p2radio.controller.config.*;
+import de.p2tools.p2radio.controller.config.PShortCut;
+import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.controller.config.ProgConst;
+import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.controller.picon.PIconShow;
 import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
@@ -73,7 +76,7 @@ public class ProgMenu extends MenuButton {
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
             P2Open.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+                    ProgConfig.SYSTEM_PROG_OPEN_URL, PIconFactory.PICON.BTN_DIR_OPEN.getFontIcon());
         });
 
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");

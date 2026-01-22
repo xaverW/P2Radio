@@ -7,7 +7,6 @@ import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
@@ -152,7 +151,7 @@ public class TableStationFactory {
                     for (int i = 0; i < FavouriteConstants.MAX_FAVOURITE_GRADE; ++i) {
                         if (item.longValue() > i) {
                             Label l = new Label();
-                            l.setGraphic(ProgIcons.IMAGE_TABLE_GRADE.getImageView());
+                            l.setGraphic(PIconFactory.PICON.TABLE_GRADE.getFontIcon());
                             hBox.getChildren().add(l);
                         }
                     }

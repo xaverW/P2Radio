@@ -33,7 +33,6 @@ public class PIconFactory {
         BTN_BACK("gmi-arrow-back-ios", 20),
         BTN_FORWARD("gmi-arrow-forward-ios", 20),
         BTN_QUIT_DIALOG("mdoal-forward", 20),
-        BTN_PLAY("gmi-play-arrow", 20),
         BTN_UP_DOWN_H("mdi2p-pan-horizontal", 20),
         BTN_STOP("gmi-clear", 20),
         BTN_MINUS("mdmz-minus", 20),
@@ -45,7 +44,8 @@ public class PIconFactory {
         BTN_DOWN("mdoal-arrow_downward", 20),
         BTN_BOTTOM("gmi-vertical-align-bottom", 20),
         BTN_CLEAN("mdoal-cleaning_services", 20),
-        BTN_STOP_PLAY("mdmz-stop", 20),
+        BTN_PLAY("gmi-play-arrow", 18),
+        BTN_STOP_PLAY("mdmz-stop", 18),
 
         BTN_TIP_FIRST("mdi-chevron-double-left", 18),
         BTN_TIP_LAST("mdi-chevron-double-right", 18),
@@ -56,11 +56,13 @@ public class PIconFactory {
         BTN_ALERT_FILM_PLAY("gmi-play-arrow", 14),
         BTN_ALERT_DOWNLOAD_OPEN_DIR("mdi2f-folder-open-outline", 14),
 
-        ICON_BOOLEAN_ON("mdral-done_outline", 20),
+        //        ICON_BOOLEAN_ON("gmi-done", 20),
+        ICON_BOOLEAN_ON("gmi-done-outline", 18),
 
         SMALL_ICON_BIG("gmi-blur-on", 25),
         SMALL_ICON_SMALL("gmi-blur-on", 20),
 
+        TABLE_GRADE("gmi-grade", 18),
         TABLE_ABO_ON("gmi-play-arrow", 18),
         TABLE_ABO_OFF("gmi-pause", 18),
         TABLE_ABO_DEL("gmi-clear", 18),

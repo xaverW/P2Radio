@@ -20,9 +20,9 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -106,21 +106,21 @@ public class SmallRadioGuiBottom extends HBox {
     private void initStartButton() {
         btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallGui");
-        btnRandom.setGraphic(ProgIcons.ICON_BUTTON_RANDOM.getImageView());
+        btnRandom.setGraphic(PIconFactory.PICON.TOOLBAR_BTN_RANDOM.getFontIcon());
         btnRandom.setOnAction(event -> {
             smallRadioGuiController.playRandomStation();
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
         btnStart.getStyleClass().add("btnSmallGui");
-        btnStart.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
+        btnStart.setGraphic(PIconFactory.PICON.BTN_PLAY.getFontIcon());
         btnStart.setOnAction(event -> {
             smallRadioGuiController.playStation();
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
         btnStop.getStyleClass().add("btnSmallGui");
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setGraphic(PIconFactory.PICON.BTN_STOP_PLAY.getFontIcon());
         btnStop.setOnAction(event -> StartFactory.stopStation());
     }
 }

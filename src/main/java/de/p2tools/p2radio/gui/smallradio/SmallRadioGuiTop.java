@@ -22,9 +22,9 @@ import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FilterFactory;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -65,17 +65,17 @@ public class SmallRadioGuiTop extends HBox {
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClose.setGraphic(ProgIcons.ICON_BUTTON_CLEAR.getImageView());
+        btnClose.setGraphic(PIconFactory.PICON.BTN_CLEAR.getFontIcon());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> smallRadioGuiController.close());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnRadio.setGraphic(ProgIcons.ICON_BUTTON_SMALL_GUI_20.getImageView());
+        btnRadio.setGraphic(PIconFactory.PICON.SMALL_ICON_SMALL.getFontIcon());
 
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
         btnClearFilter.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClearFilter.setGraphic(ProgIcons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        btnClearFilter.setGraphic(PIconFactory.PICON.BTN_QUIT_DIALOG.getFontIcon());
         btnClearFilter.setOnAction(event -> {
             if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
                 cboGenre.getSelectionModel().select(0);

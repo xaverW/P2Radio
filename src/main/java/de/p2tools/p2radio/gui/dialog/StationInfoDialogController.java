@@ -23,10 +23,10 @@ import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.config.ProgIcons;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataXml;
+import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
@@ -95,7 +95,7 @@ public class StationInfoDialogController extends P2DialogExtra {
         btnOk.setOnAction(a -> close());
 
         btnPrev.setTooltip(new Tooltip("Vorherigen Sender in der Tabelle anzeigen"));
-        btnPrev.setGraphic(ProgIcons.ICON_BUTTON_PREV.getImageView());
+        btnPrev.setGraphic(PIconFactory.PICON.BTN_PREV.getFontIcon());
         btnPrev.setOnAction(event -> {
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann ist das kleine Fenster offen
@@ -117,7 +117,7 @@ public class StationInfoDialogController extends P2DialogExtra {
         });
 
         btnNext.setTooltip(new Tooltip("Nächsten Sender in der Tabelle anzeigen"));
-        btnNext.setGraphic(ProgIcons.ICON_BUTTON_NEXT.getImageView());
+        btnNext.setGraphic(PIconFactory.PICON.BTN_NEXT.getFontIcon());
         btnNext.setOnAction(event -> {
             if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
                 //dann ist das kleine Fenster offen
@@ -139,7 +139,7 @@ public class StationInfoDialogController extends P2DialogExtra {
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
-        btnStart.setGraphic(ProgIcons.ICON_BUTTON_PLAY.getImageView());
+        btnStart.setGraphic(PIconFactory.PICON.BTN_PLAY.getFontIcon());
         btnStart.setOnAction(event -> {
             switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
                 case 0:
@@ -155,7 +155,7 @@ public class StationInfoDialogController extends P2DialogExtra {
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnStop.setGraphic(PIconFactory.PICON.BTN_STOP_PLAY.getFontIcon());
         btnStop.setOnAction(event -> StartFactory.stopStation());
 
         initUrl();
@@ -181,7 +181,7 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_STATION_NEW_INT:
                         if (station.isNewStation()) {
-                            ivNew.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
+                            ivNew.setGraphic(PIconFactory.PICON.ICON_BOOLEAN_ON.getFontIcon());
                         } else {
                             ivNew.setGraphic(null);
                         }
@@ -217,7 +217,7 @@ public class StationInfoDialogController extends P2DialogExtra {
 
                     case StationDataXml.STATION_PROP_OWN_INT:
                         if (station.isOwn()) {
-                            ivOwn.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
+                            ivOwn.setGraphic(PIconFactory.PICON.ICON_BOOLEAN_ON.getFontIcon());
                         } else {
                             ivOwn.setGraphic(null);
                         }
@@ -257,28 +257,28 @@ public class StationInfoDialogController extends P2DialogExtra {
                         break;
                     case StationDataXml.STATION_PROP_DOUBLE_URL_INT:
                         if (station.isDoubleUrl()) {
-                            ivDouble.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
+                            ivDouble.setGraphic(PIconFactory.PICON.ICON_BOOLEAN_ON.getFontIcon());
                         } else {
                             ivDouble.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_FAVOURITE_INT:
                         if (station.isFavourite()) {
-                            ivFavourite.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
+                            ivFavourite.setGraphic(PIconFactory.PICON.ICON_BOOLEAN_ON.getFontIcon());
                         } else {
                             ivFavourite.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_IS_HISTORY_INT:
                         if (station.isHistory()) {
-                            ivHistory.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
+                            ivHistory.setGraphic(PIconFactory.PICON.ICON_BOOLEAN_ON.getFontIcon());
                         } else {
                             ivHistory.setGraphic(null);
                         }
                         break;
                     case StationDataXml.STATION_PROP_BLACK_BLOCKED_URL_INT:
                         if (station.isBlackBlocked()) {
-                            ivBlack.setGraphic(ProgIcons.ICON_DIALOG_ON.getImageView());
+                            ivBlack.setGraphic(PIconFactory.PICON.ICON_BOOLEAN_ON.getFontIcon());
                         } else {
                             ivBlack.setGraphic(null);
                         }
