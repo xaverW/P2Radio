@@ -105,21 +105,18 @@ public class SmallRadioGuiBottom extends HBox {
 
     private void initStartButton() {
         btnRandom.setTooltip(new Tooltip("Einen Sender per Zufall starten"));
-        btnRandom.getStyleClass().add("btnSmallGui");
         btnRandom.setGraphic(PIconFactory.PICON.BTN_RANDOM.getFontIcon());
         btnRandom.setOnAction(event -> {
             smallRadioGuiController.playRandomStation();
         });
 
         btnStart.setTooltip(new Tooltip("Sender abspielen"));
-        btnStart.getStyleClass().add("btnSmallGui");
         btnStart.setGraphic(PIconFactory.PICON.BTN_PLAY.getFontIcon());
         btnStart.setOnAction(event -> {
             smallRadioGuiController.playStation();
         });
 
         btnStop.setTooltip(new Tooltip("alle laufenden Sender stoppen"));
-        btnStop.getStyleClass().add("btnSmallGui");
         btnStop.setGraphic(PIconFactory.PICON.BTN_STOP_PLAY.getFontIcon());
         btnStop.setOnAction(event -> StartFactory.stopStation());
     }

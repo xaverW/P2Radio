@@ -75,12 +75,12 @@ public class P2RadioController extends StackPane {
             });
 
             HBox hBoxBtn = new HBox(5);
-            hBoxBtn.setAlignment(Pos.BOTTOM_CENTER);
+            hBoxBtn.setAlignment(Pos.CENTER);
             hBoxBtn.setPadding(new Insets(10, 0, 0, 0));
             hBoxBtn.getChildren().addAll(btnStation, btnFavourite, btnHistory);
 
             StackPane stackPaneTitleButton = new StackPane();
-            stackPaneTitleButton.setAlignment(Pos.BOTTOM_CENTER);
+            stackPaneTitleButton.setAlignment(Pos.CENTER);
             stackPaneTitleButton.setPadding(new Insets(0));
             stackPaneTitleButton.getChildren().addAll(btnSize, hBoxBtn);
             HBox.setHgrow(stackPaneTitleButton, Priority.ALWAYS);
@@ -88,6 +88,7 @@ public class P2RadioController extends StackPane {
             HBox hBoxTop = new HBox();
             hBoxTop.setPadding(new Insets(0, 10, 0, 10));
             hBoxTop.setSpacing(5);
+//            hBoxTop.getStyleClass().add("splitPaneTab");
             hBoxTop.setAlignment(Pos.CENTER);
             hBoxTop.getChildren().addAll(btnSmallRadio, stackPaneTitleButton, new ProgMenu());
             HBox.setHgrow(stackPaneTitleButton, Priority.ALWAYS);

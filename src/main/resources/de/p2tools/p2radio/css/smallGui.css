@@ -9,20 +9,20 @@
 }
 
 /* ScrollPane */
-.smallGuiScrollPane{
+/*.smallGuiScrollPane{
     -fx-background-color: transparent;
-}
+}*/
 
 /* HBox mit den Button */
-.smallGuiBtnBox{
+/*.smallGuiBtnBox{
     -fx-padding: 5 0 0 0;
     -fx-border-width: 2px;
     -fx-border-color:  grey transparent transparent transparent;
     -fx-background-color: transparent;
-}
+}*/
 
 /* Backup-Name OK */
-.smallGuiNameRun{
+/*.smallGuiNameRun{
     -fx-background-radius: 20;
     -fx-background-color: #004691;
 }
@@ -33,10 +33,10 @@
 .smallGuiNameError{
     -fx-background-radius: 20;
     -fx-background-color: #c80000;
-}
+}*/
 
 /* Button zu Beenden */
-.smallGuiBtn{
+/*.smallGuiBtn{
     -fx-padding: 4 10 4 10;
     -fx-border-radius: 5;
     -fx-border-width: 1px;
@@ -44,9 +44,9 @@
     -fx-background-color: transparent;
     -fx-font-size: 1em;
     -fx-font-style: italic;
-/*
+*//*
     -fx-font-weight: bold;
-*/
+*//*
 }
 .smallGuiBtn:focused{
     -fx-padding: 4 10 4 10;
@@ -75,7 +75,7 @@
     -fx-border-color: #004a6c;
     -fx-background-color: #d5d5d5;
     -fx-font-size: 1em;
-}
+}*/
 
 /* Button zum Ausschalten */
 .switchOffBtn{
