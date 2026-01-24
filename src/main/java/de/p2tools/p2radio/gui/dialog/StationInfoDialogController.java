@@ -72,7 +72,7 @@ public class StationInfoDialogController extends P2DialogExtra {
 
     public void toggleShowInfo() {
         if (getStage().isShowing()) {
-            close();
+            hide();
         } else {
             showStationInfo();
         }
@@ -88,11 +88,21 @@ public class StationInfoDialogController extends P2DialogExtra {
     }
 
     @Override
+    public void close() {
+        super.close();
+    }
+
+    @Override
+    public void hide() {
+        super.saveDialog();
+        super.hide();
+    }
+
+    @Override
     public void make() {
-        ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
         getHboxLeft().getChildren().addAll(btnPrev, btnNext, new HBox(), btnStart, btnStop);
         addOkButton(btnOk);
-        btnOk.setOnAction(a -> close());
+        btnOk.setOnAction(a -> hide());
 
         btnPrev.setTooltip(new Tooltip("Vorherigen Sender in der Tabelle anzeigen"));
         btnPrev.setGraphic(PIconFactory.PICON.BTN_PREV.getFontIcon());

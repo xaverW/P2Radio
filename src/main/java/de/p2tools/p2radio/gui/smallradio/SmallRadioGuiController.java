@@ -69,7 +69,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
 
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                close();
+                hide();
             }
         });
         getStage().setOnCloseRequest(e -> {
@@ -84,6 +84,14 @@ public class SmallRadioGuiController extends P2DialogOnly {
         progData.smallRadioGuiController = null;
         ProgConfig.SYSTEM_SMALL_RADIO.set(false);
         super.close();
+    }
+
+    @Override
+    public void hide() {
+        saveTable();
+        progData.smallRadioGuiController = null;
+        ProgConfig.SYSTEM_SMALL_RADIO.set(false);
+        super.hide();
     }
 
     public void setNextStation() {

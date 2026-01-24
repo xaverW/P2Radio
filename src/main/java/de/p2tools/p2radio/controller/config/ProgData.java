@@ -74,7 +74,6 @@ public class ProgData {
 
     // Gui
     public Stage primaryStage = null;
-    public Stage primaryStageBig = null;
     public Stage primaryStageSmall = null;
     public P2RadioController p2RadioController = null;
     public SmallRadioGuiController smallRadioGuiController = null;

@@ -52,7 +52,7 @@ public class P2RadioFactory {
 
     public static void changeGui() {
         if (ProgConfig.SYSTEM_SMALL_RADIO.getValue() && ProgData.getInstance().smallRadioGuiController != null) {
-            ProgData.getInstance().smallRadioGuiController.close();
+            ProgData.getInstance().smallRadioGuiController.hide();
         } else {
             selPanelSmallRadio();
         }

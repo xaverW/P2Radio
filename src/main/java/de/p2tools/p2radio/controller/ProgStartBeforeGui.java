@@ -95,7 +95,8 @@ public class ProgStartBeforeGui {
                 },
 
                 new String[]{
-                        "de/p2tools/p2radio/css/mtfx-dark.css"
+                        "de/p2tools/p2radio/css/mtfx-dark.css",
+                        "de/p2tools/p2radio/css/smallGui-dark.css"
                 },
 
                 ProgData.getInstance().cssProp,

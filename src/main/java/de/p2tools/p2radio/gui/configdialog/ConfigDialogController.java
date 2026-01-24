@@ -60,7 +60,7 @@ public class ConfigDialogController extends P2DialogExtra {
         addOkButton(btnOk);
         btnOk.setOnAction(a -> close());
 
-        ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
+//        ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
         initPanel();
     }
 

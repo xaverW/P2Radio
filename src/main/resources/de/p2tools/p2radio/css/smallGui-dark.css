@@ -1,0 +1,9 @@
+
+/*SmallGui DARK*/
+
+/*ist der ganze Dialog*/
+.smallGui{
+    -fx-background-color: #3e3e3e, #004a6c, #578cce, #4c4c4c; /* dark muss angepasst werden!*/
+    -fx-background-insets: 0, 2, 10, 13;
+    -fx-background-radius: 0, 2, 20, 20;
+}
