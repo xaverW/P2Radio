@@ -56,6 +56,9 @@ public class ReadJsonFactory {
                 case StationFieldNames.NAME:
                     stationData.setStationName(value);
                     break;
+                case StationFieldNames.STATION_UUID:
+                    stationData.setStationUuid(value);
+                    break;
                 case StationFieldNames.NEW:
                     // wird nur geschrieben, wenn NEU
                     stationData.setNewStation(true);

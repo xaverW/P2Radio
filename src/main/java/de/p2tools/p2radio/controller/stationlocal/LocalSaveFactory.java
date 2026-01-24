@@ -61,6 +61,7 @@ public class LocalSaveFactory {
                 for (StationData station : stationList) {
                     jsonGenerator.writeStartObject();
                     jsonGenerator.writeStringField(StationFieldNames.NAME, station.getStationName());
+                    jsonGenerator.writeStringField(StationFieldNames.STATION_UUID, station.getStationUuid());
                     if (station.isNewStation()) {
                         jsonGenerator.writeStringField(StationFieldNames.NEW, "true");
                     }

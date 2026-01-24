@@ -32,28 +32,21 @@ public class ProgConst {
     public static final String STATION_FILE_XML = "sender.xml";
     public static final String STATION_FILE_JSON = "radio.json";
 
-
-    // http://at1.api.radio-browser.info/json/stations
-//    public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
     public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100000";
-//    public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100";
+    // public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
+    // public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100";
 
-//    public static final String STATION_LIST_URL = "https://atlist.de/radio.json";
-//    public static final String STATION_LIST_URL = "https://atlist.de/radio_middle.json";
-//    public static final String STATION_LIST_URL = "https://atlist.de/radio_small.json";
-//    public static final String STATION_LIST_URL = "https://atlist.de/stations";
+    // http://all.api.radio-browser.info/json/url/stationuuid
+    public static final String STATION_CLICK_COUNT_URL = "http://all.api.radio-browser.info/json/url/";
+
 
     public static int STATION_LIST_MIN_SIZE = 5000; // die mind. Größe die geladen werden muss damit OK
 
     public static final String CONFIG_DIRECTORY = "p2Radio"; // im Homeverzeichnis
 
-    // public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/P2_24.png";
     public static final String PROGRAM_ICON = "de/p2tools/p2radio/res/p2r_logo_32.png";
 
     public static final String LOG_DIR = "Log";
-    public static final String CSS_FILE = "de/p2tools/p2radio/css/css/radio.css";
-    public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2radio/css/css/radio__dark.css";
-
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
 

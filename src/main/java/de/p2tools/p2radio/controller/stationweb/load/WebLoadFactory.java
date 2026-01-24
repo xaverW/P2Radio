@@ -22,12 +22,12 @@ import com.fasterxml.jackson.core.JsonParser;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.controller.stationload.ReadJsonFactory;
 import de.p2tools.p2radio.tools.InputStreamProgressMonitor;
 import de.p2tools.p2radio.tools.MLHttpClient;
@@ -63,10 +63,6 @@ public class WebLoadFactory {
         boolean ret = false;
         try {
             load(ProgConst.STATION_LIST_URL, stationList);
-//            if (!stationList.isEmpty()) {
-//                dann hats geklappt
-//                ret = true;
-//            }
             if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
                 //dann hats geklappt
                 ret = true;

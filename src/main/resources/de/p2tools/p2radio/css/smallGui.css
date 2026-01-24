@@ -8,105 +8,37 @@
     -fx-background-radius: 0, 2, 20, 20;
 }
 
-/* ScrollPane */
-/*.smallGuiScrollPane{
-    -fx-background-color: transparent;
-}*/
-
-/* HBox mit den Button */
-/*.smallGuiBtnBox{
-    -fx-padding: 5 0 0 0;
-    -fx-border-width: 2px;
-    -fx-border-color:  grey transparent transparent transparent;
-    -fx-background-color: transparent;
-}*/
-
-/* Backup-Name OK */
-/*.smallGuiNameRun{
-    -fx-background-radius: 20;
-    -fx-background-color: #004691;
-}
-.smallGuiNameOk{
-    -fx-background-radius: 20;
-    -fx-background-color: #09b300;
-}
-.smallGuiNameError{
-    -fx-background-radius: 20;
-    -fx-background-color: #c80000;
-}*/
-
-/* Button zu Beenden */
-/*.smallGuiBtn{
-    -fx-padding: 4 10 4 10;
-    -fx-border-radius: 5;
-    -fx-border-width: 1px;
-    -fx-border-color: grey;
-    -fx-background-color: transparent;
-    -fx-font-size: 1em;
-    -fx-font-style: italic;
-*//*
-    -fx-font-weight: bold;
-*//*
-}
-.smallGuiBtn:focused{
-    -fx-padding: 4 10 4 10;
-    -fx-border-width: 1px;
-    -fx-border-color: grey;
-    -fx-background-color: transparent;
-    -fx-font-size: 1em;
-}
-.smallGuiBtn:hover{
-    -fx-padding: 3 9 3 9;
-    -fx-border-width: 2px;
-    -fx-border-color: #00344c;
-    -fx-background-color: #d5d5d5;
-    -fx-font-size: 1em;
-}
-.smallGuiBtn:focused:hover{
-    -fx-padding: 3 9 3 9;
-    -fx-border-width: 2px;
-    -fx-border-color: #00344c;
-    -fx-background-color: #d5d5d5;
-    -fx-font-size: 1em;
-}
-.smallGuiBtn:pressed:focused:hover{
-    -fx-padding: 2 8 2 8;
-    -fx-border-width: 3px;
-    -fx-border-color: #004a6c;
-    -fx-background-color: #d5d5d5;
-    -fx-font-size: 1em;
-}*/
 
 /* Button zum Ausschalten */
 .switchOffBtn{
     -fx-padding: 2;
     -fx-border-width: 1px;
     -fx-border-radius: 20;
-    -fx-border-color: #004a6c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 .switchOffBtn:focused{
     -fx-padding: 2;
     -fx-border-width: 1px;
-    -fx-border-color: #004a6c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 .switchOffBtn:hover{
     -fx-padding: 1;
     -fx-border-width: 2px;
-    -fx-border-color: #00344c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 .switchOffBtn:focused:hover{
     -fx-padding: 1;
     -fx-border-width: 2px;
-    -fx-border-color: #00344c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
  }
 .switchOffBtn:pressed:focused:hover{
     -fx-padding: 0;
     -fx-border-width: 3px;
-    -fx-border-color: #004a6c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 
@@ -116,30 +48,30 @@
     -fx-padding: 2;
     -fx-border-width: 1px;
     -fx-border-radius: 20;
-    -fx-border-color: #004a6c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 .changeGuiBtn:focused{
     -fx-padding: 2;
     -fx-border-width: 1px;
-    -fx-border-color: #004a6c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 .changeGuiBtn:hover{
     -fx-padding: 1;
     -fx-border-width: 2px;
-    -fx-border-color: #00344c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }
 .changeGuiBtn:focused:hover{
     -fx-padding: 1;
     -fx-border-width: 2px;
-    -fx-border-color: #00344c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
- }
+}
 .changeGuiBtn:pressed:focused:hover{
     -fx-padding: 0;
     -fx-border-width: 3px;
-    -fx-border-color: #004a6c;
+    -fx-background-radius: 20;
     -fx-background-color: transparent;
 }

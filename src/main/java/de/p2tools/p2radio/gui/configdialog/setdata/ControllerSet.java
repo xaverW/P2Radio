@@ -18,6 +18,7 @@ package de.p2tools.p2radio.gui.configdialog.setdata;
 
 import de.p2tools.p2lib.dialogs.accordion.P2AccordionPane;
 import de.p2tools.p2radio.controller.config.ProgConfig;
+import de.p2tools.p2radio.gui.configdialog.PaneClickCount;
 import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
@@ -27,6 +28,7 @@ import java.util.Collection;
 public class ControllerSet extends P2AccordionPane {
 
     private final Stage stage;
+    private PaneClickCount paneClickCount;
     private PaneAutoStart paneAutoStart;
     private PaneOwnAutostart paneOwnAutostart;
     private PaneSet paneSet;
@@ -38,6 +40,7 @@ public class ControllerSet extends P2AccordionPane {
     }
 
     public void close() {
+        paneClickCount.close();
         paneAutoStart.close();
         paneOwnAutostart.close();
         paneSet.close();
@@ -46,11 +49,14 @@ public class ControllerSet extends P2AccordionPane {
 
     public Collection<TitledPane> createPanes() {
         Collection<TitledPane> result = new ArrayList<>();
+        paneClickCount = new PaneClickCount(stage);
+        paneClickCount.make(result);
+
         paneAutoStart = new PaneAutoStart(stage);
-        paneAutoStart.makeConfig(result);
+        paneAutoStart.make(result);
 
         paneOwnAutostart = new PaneOwnAutostart(stage);
-        paneOwnAutostart.makeConfig(result);
+        paneOwnAutostart.make(result);
 
         paneSet = new PaneSet(stage);
         paneSet.makeConfig(result);

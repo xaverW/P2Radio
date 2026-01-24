@@ -40,7 +40,7 @@ public class StationDataXml {
     public static final String STATION_PROP_STARTS = "Starts";
 
     public static final int STATION_PROP_CLICK_COUNT_INT = 6;
-    public static final String STATION_PROP_CLICK_COUNT = "Clicks";
+    public static final String STATION_PROP_CLICK_COUNT = "Klicks";
 
     public static final int STATION_PROP_CLICK_TREND_INT = 7;
     public static final String STATION_PROP_CLICK_TREND = "Trend";

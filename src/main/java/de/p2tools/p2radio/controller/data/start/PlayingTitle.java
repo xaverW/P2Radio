@@ -3,8 +3,8 @@ package de.p2tools.p2radio.controller.data.start;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.duration.P2Duration;
+import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.pevent.PEvents;
 import javafx.application.Platform;
 
 public class PlayingTitle {

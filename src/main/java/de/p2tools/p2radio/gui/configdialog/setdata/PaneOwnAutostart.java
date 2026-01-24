@@ -42,7 +42,7 @@ public class PaneOwnAutostart {
         tableView = new TableStation(Table.TABLE_ENUM.OWN_AUTOSTART);
     }
 
-    public void makeConfig(Collection<TitledPane> result) {
+    public void make(Collection<TitledPane> result) {
         final VBox vBox = new VBox();
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(P2LibConst.PADDING));

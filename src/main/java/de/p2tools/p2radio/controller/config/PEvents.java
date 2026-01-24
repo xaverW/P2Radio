@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.pevent;
+package de.p2tools.p2radio.controller.config;
 
 import de.p2tools.p2lib.p2event.P2Events;
 

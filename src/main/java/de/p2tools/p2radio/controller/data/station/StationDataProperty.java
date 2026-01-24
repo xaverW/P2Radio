@@ -33,6 +33,7 @@ public class StationDataProperty<T extends P2DataSample<T>> extends P2DataSample
     private final IntegerProperty stationNo = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
     private final BooleanProperty newStation = new SimpleBooleanProperty(false);
     private final StringProperty stationName = new SimpleStringProperty("");
+    private final StringProperty stationUuid = new SimpleStringProperty("");
     private final StringProperty collectionName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty codec = new SimpleStringProperty("");
@@ -62,40 +63,41 @@ public class StationDataProperty<T extends P2DataSample<T>> extends P2DataSample
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new Config_intProp("stationNo", StationDataXml.STATION_PROP_STATION_NO, stationNo));
-        list.add(new Config_boolProp("newStation", StationDataXml.STATION_PROP_STATION_NEW, newStation));
-        list.add(new Config_stringProp("stationName" + TAGGER + "station", StationDataXml.STATION_PROP_STATION_NAME, stationName));
-        list.add(new Config_stringProp("collectionName" + TAGGER + "collection", StationDataXml.STATION_PROP_COLLECTION, collectionName));
-        list.add(new Config_stringProp("genre", StationDataXml.STATION_PROP_GENRE, genre));
-        list.add(new Config_stringProp("codec", StationDataXml.STATION_PROP_CODEC, codec));
-        list.add(new Config_intProp("bitrate", StationDataXml.STATION_PROP_BITRATE, bitrate));
-        list.add(new Config_intProp("votes", StationDataXml.STATION_PROP_VOTES, votes));
-        list.add(new Config_intProp("ownGrade" + TAGGER + "grade", StationDataXml.STATION_PROP_OWN_GRADE, ownGrade));
-        list.add(new Config_boolProp("own", StationDataXml.STATION_PROP_OWN, own));
-        list.add(new Config_intProp("starts", StationDataXml.STATION_PROP_CLICK_COUNT, starts));
-        list.add(new Config_intProp("clickCount", StationDataXml.STATION_PROP_CLICK_COUNT, clickCount));
-        list.add(new Config_intProp("clickTrend", StationDataXml.STATION_PROP_CLICK_TREND, clickTrend));
+        list.add(new Config_intProp("stationNo", stationNo));
+        list.add(new Config_boolProp("newStation", newStation));
+        list.add(new Config_stringProp("stationName" + TAGGER + "station", stationName));
+        list.add(new Config_stringProp("stationUuid", stationUuid));
+        list.add(new Config_stringProp("collectionName" + TAGGER + "collection", collectionName));
+        list.add(new Config_stringProp("genre", genre));
+        list.add(new Config_stringProp("codec", codec));
+        list.add(new Config_intProp("bitrate", bitrate));
+        list.add(new Config_intProp("votes", votes));
+        list.add(new Config_intProp("ownGrade" + TAGGER + "grade", ownGrade));
+        list.add(new Config_boolProp("own", own));
+        list.add(new Config_intProp("starts", starts));
+        list.add(new Config_intProp("clickCount", clickCount));
+        list.add(new Config_intProp("clickTrend", clickTrend));
 
-        list.add(new Config_stringProp("country", StationDataXml.STATION_PROP_COUNTRY, country));
-        list.add(new Config_stringProp("state", StationDataXml.STATION_PROP_STATE, state));
-        list.add(new Config_stringProp("countryCode", StationDataXml.STATION_PROP_COUNTRY_CODE, countryCode));
-        list.add(new Config_stringProp("language", StationDataXml.STATION_PROP_LANGUAGE, language));
-        list.add(new Config_stringProp("description", StationDataXml.STATION_PROP_DESCRIPTION, description));
+        list.add(new Config_stringProp("country", country));
+        list.add(new Config_stringProp("state", state));
+        list.add(new Config_stringProp("countryCode", countryCode));
+        list.add(new Config_stringProp("language", language));
+        list.add(new Config_stringProp("description", description));
 
-        list.add(new Config_stringProp("url", StationDataXml.STATION_PROP_URL, stationUrl));
-        list.add(new Config_stringProp("urlResolved", StationDataXml.STATION_PROP_URL_RESOLVED, stationUrlResolved));
-        list.add(new Config_boolProp("doubleUrl", StationDataXml.STATION_PROP_DOUBLE_URL, doubleUrl));
-        list.add(new Config_boolProp("favourite", StationDataXml.STATION_PROP_IS_FAVOURITE, favourite));
-        list.add(new Config_boolProp("favourite", StationDataXml.STATION_PROP_IS_History, history));
-        list.add(new Config_boolProp("blackBlocked", StationDataXml.STATION_PROP_BLACK_BLOCKED_URL, blackBlocked));
-        list.add(new Config_stringProp("website", StationDataXml.STATION_PROP_WEBSITE, website));
-        list.add(new Config_lDate("stationDateLastChange", StationDataXml.STATION_PROP_DATE, stationDateLastChange) {
+        list.add(new Config_stringProp("url", stationUrl));
+        list.add(new Config_stringProp("urlResolved", stationUrlResolved));
+        list.add(new Config_boolProp("doubleUrl", doubleUrl));
+        list.add(new Config_boolProp("favourite", favourite));
+        list.add(new Config_boolProp("favourite", history));
+        list.add(new Config_boolProp("blackBlocked", blackBlocked));
+        list.add(new Config_stringProp("website", website));
+        list.add(new Config_lDate("stationDateLastChange", stationDateLastChange) {
             @Override
             public void setUsedValue(LocalDate act) {
                 setStationDateLastChange(act);
             }
         });
-        list.add(new Config_lDateTime("stationDateLastStart", StationDataXml.STATION_PROP_DATE_LAST_START, stationDateLastStart) {
+        list.add(new Config_lDateTime("stationDateLastStart", stationDateLastStart) {
             @Override
             public void setUsedValue(LocalDateTime act) {
                 setStationDateLastStart(act);
@@ -129,6 +131,7 @@ public class StationDataProperty<T extends P2DataSample<T>> extends P2DataSample
         return newStation;
     }
 
+
     public String getStationName() {
         return stationName.get();
     }
@@ -139,6 +142,19 @@ public class StationDataProperty<T extends P2DataSample<T>> extends P2DataSample
 
     public StringProperty stationNameProperty() {
         return stationName;
+    }
+
+
+    public String getStationUuid() {
+        return stationUuid.get();
+    }
+
+    public void setStationUuid(String stationUuid) {
+        this.stationUuid.set(stationUuid);
+    }
+
+    public StringProperty stationUuidProperty() {
+        return stationUuid;
     }
 
     public String getCollectionName() {

@@ -21,11 +21,11 @@ import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.pevent.PEvents;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
 
 import java.time.LocalDateTime;
@@ -74,6 +74,8 @@ public class StartFactory {
         ProgData.getInstance().stationLastPlayed.copyToMe(station);
         ProgData.getInstance().historyList.addStation(station);
         ProgConfig.SYSTEM_HISTORY.setValue(url);
+
+        ClickCounterFactory.countClick(station);
 
         nowPlayingThread = new PlayingThread(setData, station);
         nowPlayingThread.start();

@@ -192,7 +192,7 @@ public class HelpText {
                     "können hier eingestellt werden. Getrennt für das Dark-Theme und " +
                     "das Light-Theme." +
                     "\n";
-    
+
     public static final String DARK_THEME =
             "Das Programm kann damit mit einer dunklen oder hellen Programmoberfläche " +
                     "angezeigt werden.\n" +
@@ -293,4 +293,18 @@ public class HelpText {
                     "und muss neu gestartet werden. Der neue Start beginnt " +
                     "mit dem Einrichtungsdialog." +
                     P2LibConst.LINE_SEPARATOR;
+
+    public static final String CLICK_COUNT =
+            "Die Klicks eines Radiosenders ist die Anzahl der Starts " +
+                    "dieses Senders. " +
+                    "Dazu schickt jeder User beim Start dieses Senders " +
+                    "ein Ping zum Anbieter dieser Radioliste. So kann man sehen, " +
+                    "wie beliebt ein Sender ist." +
+                    "\n\n" +
+                    "Dazu wird die Website:" +
+                    "\n\n" +
+                    ProgConst.STATION_CLICK_COUNT_URL + "[ID des Senders]" +
+                    "\n\n" +
+                    "aufgerufen. Es werden darüber hinaus keine weitern Daten " +
+                    "gesendet.";
 }
