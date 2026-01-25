@@ -24,8 +24,6 @@ import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -53,7 +51,7 @@ public class SmallRadioGuiController extends P2DialogOnly {
         Button btnStop = getMaskerPane().getButton();
         getMaskerPane().setButtonText("");
         btnStop.setGraphic(PIconFactory.PICON.BTN_CLEAR.getFontIcon());
-        btnStop.setOnAction(a -> progData.webWorker.setStop(true));
+        btnStop.setOnAction(a -> progData.worker.setStop(true));
 
         if (!ProgConfig.SYSTEM_SMALL_RADIO_SHOW_START_HELP.getValue()) {
             new SmallGuiHelpDialogController(progData.primaryStage);
@@ -66,16 +64,6 @@ public class SmallRadioGuiController extends P2DialogOnly {
         getVBoxCompleteDialog().getChildren().addAll(smallRadioGuiTop, smallRadioGuiCenter, smallRadioGuiBottom);
         VBox.setVgrow(smallRadioGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
-
-        getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                hide();
-            }
-        });
-        getStage().setOnCloseRequest(e -> {
-            e.consume();
-            close();
-        });
     }
 
     @Override

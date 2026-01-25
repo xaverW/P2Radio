@@ -51,7 +51,7 @@ public class WebAfterLoadFactory {
             // Laden war fehlerhaft
             logList.add("");
             logList.add("Senderliste laden war fehlerhaft, alte Liste wird wieder geladen");
-            final boolean stopped = ProgData.getInstance().webWorker.isStop();
+            final boolean stopped = ProgData.getInstance().worker.isStop();
 
             Platform.runLater(() -> P2Alert.showErrorAlert(P2LibConst.primaryStage,
                     "Senderliste laden",
@@ -60,7 +60,7 @@ public class WebAfterLoadFactory {
 
             // dann die alte Liste wieder laden
             ProgData.getInstance().stationList.clear();
-            ProgData.getInstance().webWorker.setStop(false);
+            ProgData.getInstance().worker.setStop(false);
             LocalReadFactory.readList(); // meldet nix
             logList.add("");
 
@@ -82,7 +82,7 @@ public class WebAfterLoadFactory {
         }
 
         LoadStationFactory.afterLoadingStationList(logList);
-        ProgData.getInstance().webWorker.setPropLoadWeb(false);
+        ProgData.getInstance().worker.setPropLoadWeb(false);
 
         P2Log.sysLog(logList);
         P2Duration.onlyPing("Sender nachbearbeiten: Ende");

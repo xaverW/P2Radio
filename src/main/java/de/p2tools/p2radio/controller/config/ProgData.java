@@ -31,8 +31,9 @@ import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
 import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.stationweb.WebWorker;
 import de.p2tools.p2radio.controller.worker.ColorWorker;
+import de.p2tools.p2radio.controller.worker.FilterWorker;
+import de.p2tools.p2radio.controller.worker.Worker;
 import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
@@ -41,14 +42,12 @@ import de.p2tools.p2radio.gui.filter.StationFilterControllerClearFilter;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import de.p2tools.p2radio.gui.tools.ProgTray;
 import de.p2tools.p2radio.tools.stationlistfilter.StationListFilter;
-import de.p2tools.p2radio.tools.storedfilter.FilterWorker;
 import de.p2tools.p2radio.tools.storedfilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
-import javafx.concurrent.Worker;
 import javafx.stage.Stage;
 
 public class ProgData {
@@ -67,7 +66,6 @@ public class ProgData {
     public final ProgTray progTray;
 
     // zentrale Klassen
-    public WebWorker webWorker; // erledigt das laden und updaten der Radioliste
     public PShortCut pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
@@ -89,8 +87,8 @@ public class ProgData {
     public StationFilterControllerClearFilter stationFilterControllerClearFilter = null;
 
     // Worker
-    public Worker worker; // Liste aller Sender, Themen, ...
     public FilterWorker filterWorker; // Liste aller Sender, Themen, ...
+    public Worker worker; // erledigt das laden und updaten der Radioliste und was sonst zu tun ist
 
     // Programmdaten
     public static BooleanProperty STATION_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
@@ -124,7 +122,7 @@ public class ProgData {
         pEventHandler = new P2EventHandler();
 
         pShortcut = new PShortCut();
-        webWorker = new WebWorker(this);
+        worker = new Worker(this);
         storedFilters = new StoredFilters(this);
         stationList = new StationList();
         stationListBlackFiltered = new StationList();

@@ -56,7 +56,7 @@ public class ProgMenu extends MenuButton {
         miConfig.setOnAction(e -> new ConfigDialogController(progData));
 
         final MenuItem miLoadStationList = new MenuItem("Neue Senderliste laden");
-        miLoadStationList.setOnAction(e -> progData.webWorker.loadFromWeb());
+        miLoadStationList.setOnAction(e -> progData.worker.loadFromWeb());
 
         final CheckMenuItem miDarkMode = new CheckMenuItem("Dunkle Oberfläche");
         miDarkMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);

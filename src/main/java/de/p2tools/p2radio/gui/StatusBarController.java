@@ -100,7 +100,7 @@ public class StatusBarController extends AnchorPane {
         });
         progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
             public void pingGui(P2Event event) {
-                if (!progData.webWorker.getPropLoadWeb()) {
+                if (!progData.worker.getPropLoadWeb()) {
                     try {
                         if (!stopTimer) {
                             setStatusbarIndex(statusbarIndex);

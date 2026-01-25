@@ -47,7 +47,7 @@ public class WebLoadThread {
 
             //und jetzt File/Url laden
             ok = WebLoadFactory.loadList(stationList);
-            if (!ok || ProgData.getInstance().webWorker.isStop()) {
+            if (!ok || ProgData.getInstance().worker.isStop()) {
                 // wenn abgebrochen wurde, nicht weitermachen
                 P2Log.errorLog(951235497, "Es konnten keine Sender geladen werden!");
                 ok = false;

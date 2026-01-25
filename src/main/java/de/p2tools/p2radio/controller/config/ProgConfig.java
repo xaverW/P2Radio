@@ -88,6 +88,9 @@ public class ProgConfig extends P2DataProgConfig {
     public static final String SHORTCUT_FAVOURITE_CHANGE_INIT = "Ctrl+C";
     public static StringProperty SHORTCUT_FAVOURITE_CHANGE = addStrProp("SHORTCUT_FAVOURITE_CHANGE", SHORTCUT_FAVOURITE_CHANGE_INIT);
 
+    public static BooleanProperty SYSTEM_SHOW_TIPS = addBoolProp("system-show-tips", Boolean.TRUE); // Dialog Tips wurde schon mal gezeigt
+    public static StringProperty TIPS_DIALOG_SIZE = addStrProp("tips-dialog-size", "800:600");
+
 
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt

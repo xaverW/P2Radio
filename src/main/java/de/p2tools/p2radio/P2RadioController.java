@@ -129,7 +129,7 @@ public class P2RadioController extends StackPane {
         Button btnStop = progData.maskerPane.getButton();
         progData.maskerPane.setButtonText("");
         btnStop.setGraphic(PIconFactory.PICON.BTN_CLEAR.getFontIcon());
-        btnStop.setOnAction(a -> progData.webWorker.setStop(true));
+        btnStop.setOnAction(a -> progData.worker.setStop(true));
     }
 
     private void initButton() {

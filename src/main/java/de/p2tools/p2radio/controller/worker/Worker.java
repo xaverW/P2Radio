@@ -14,19 +14,22 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.stationweb;
+package de.p2tools.p2radio.controller.worker;
 
 import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Events;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.PEvents;
+import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.stationload.PMaskerFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebAfterLoadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
 import de.p2tools.p2radio.controller.stationweb.load.WebLoadThread;
+import de.p2tools.p2radio.controller.tips.TipsDialog;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -34,14 +37,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class WebWorker {
+public class Worker {
 
     private static final AtomicBoolean stop = new AtomicBoolean(false); //damit kann das Laden gestoppt werden
     private final ProgData progData;
     private final BooleanProperty propLoadWeb = new SimpleBooleanProperty(false);
 
-    public WebWorker(ProgData progData) {
+    public Worker(ProgData progData) {
         this.progData = progData;
+
+        progData.pEventHandler.addListener(new P2Listener(P2Events.EVENT_TIMER_ONE_MINUTE) {
+            @Override
+            public void pingGui() {
+                // startet alles das einmal nach dem Start laufen soll
+                if (ProgConfig.SYSTEM_SHOW_TIPS.get() && !TipsDialog.TIPS_DIALOG_OPEN) {
+                    // dann sollen Tipps angezeigt werden, und nur wenn noch nicht offen
+                    new TipsDialog(progData);
+                }
+            }
+        });
 
         progData.pEventHandler.addListener(new P2Listener(PEvents.LOAD_RADIO_LIST_START) {
             @Override

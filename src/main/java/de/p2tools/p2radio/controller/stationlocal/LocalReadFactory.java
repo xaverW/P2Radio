@@ -115,7 +115,7 @@ public class LocalReadFactory {
 
     private static void readData(JsonParser jp, StationList stationList) throws IOException {
         boolean meta = false;
-        while (!ProgData.getInstance().webWorker.isStop() && (jp.nextToken()) != null) {
+        while (!ProgData.getInstance().worker.isStop() && (jp.nextToken()) != null) {
             if (!meta && jp.isExpectedStartObjectToken()) {
                 getMeta(stationList, jp);
                 meta = true;

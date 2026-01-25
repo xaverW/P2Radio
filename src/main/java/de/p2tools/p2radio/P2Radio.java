@@ -35,9 +35,7 @@ public class P2Radio extends Application {
 
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     private ProgData progData;
-    private boolean bigDone = false;
     private boolean smallInitDone = false;
-    private Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +48,6 @@ public class P2Radio extends Application {
     @Override
     public void start(Stage primaryStage) {
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
-        this.primaryStage = primaryStage;
 
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
@@ -136,8 +133,6 @@ public class P2Radio extends Application {
                 e.consume();
                 ProgQuitFactory.quit();
             });
-
-//            P2CssFactory.addP2CssToScene(progData.primaryStageSmall.getScene()); // und jetzt noch CSS einstellen
             PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
         } catch (final Exception e) {
             e.printStackTrace();
@@ -157,9 +152,8 @@ public class P2Radio extends Application {
             if (progData.primaryStage.isShowing()) {
                 // nur wenn zu sehen, nicht beim Start in small!!
                 P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                progData.primaryStage.close();
+                progData.primaryStage.hide();
             }
-
             progData.primaryStageSmall.show();
 
         } else {
@@ -168,9 +162,8 @@ public class P2Radio extends Application {
                     ProgData.getInstance().primaryStageSmall.isShowing()) {
                 // nur wenn zu sehen, nicht beim Start in small!!
                 P2GuiSize.getSize(ProgConfig.SMALL_RADIO_SIZE, progData.primaryStageSmall);
-                progData.primaryStageSmall.close();
+                progData.primaryStageSmall.hide();
             }
-
             progData.p2RadioController.initPanel();
             progData.primaryStage.show();
         }

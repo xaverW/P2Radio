@@ -124,7 +124,7 @@ public class ProgStartAfterGui {
         if (ProgData.firstProgramStart) {
             //dann wird immer geladen
             logList.add("erster Programmstart: Neue Senderliste laden");
-            progData.webWorker.loadFromWeb();
+            progData.worker.loadFromWeb();
             ProgQuitFactory.saveProgConfig(); // und schon mal speichern
 
         } else {
@@ -140,7 +140,7 @@ public class ProgStartAfterGui {
 
                 logList.add("Senderliste zu alt, neue Senderliste laden");
                 logList.add(P2Log.LILNE3);
-                progData.webWorker.loadFromWeb();
+                progData.worker.loadFromWeb();
 
                 progData.autoStartAfterNewList = true; // dann erst nach dem Neuladen der Liste starten
 
