@@ -28,6 +28,7 @@ import de.p2tools.p2radio.controller.config.*;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -149,18 +150,17 @@ public class P2Radio extends Application {
             ProgData.STATION_TAB_ON.setValue(Boolean.FALSE);
             ProgData.FAVOURITE_TAB_ON.setValue(Boolean.FALSE);
             ProgData.HISTORY_TAB_ON.setValue(Boolean.FALSE);
+            progData.primaryStageSmall.show();
             if (progData.primaryStage.isShowing()) {
                 // nur wenn zu sehen, nicht beim Start in small!!
                 P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                progData.primaryStage.hide();
+                Platform.runLater(() -> progData.primaryStage.close()); // kann erst geschlossen werden, wenn SMAL steht!!
             }
-            progData.primaryStageSmall.show();
 
         } else {
             // BIG anzeigen
             if (progData.smallRadioGuiController != null &&
                     ProgData.getInstance().primaryStageSmall.isShowing()) {
-                // nur wenn zu sehen, nicht beim Start in small!!
                 P2GuiSize.getSize(ProgConfig.SMALL_RADIO_SIZE, progData.primaryStageSmall);
                 progData.primaryStageSmall.hide();
             }
