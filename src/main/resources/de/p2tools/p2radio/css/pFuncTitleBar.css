@@ -15,14 +15,14 @@
  */
 
 .btnSize{
-    -fx-padding: 8 25;
-    -fx-border-width: 5 5 0 5;
+    -fx-padding: 7 25;
+    -fx-border-width: 6 0 6 0;
     -fx-font-weight: bold;
     -fx-font-size: 1.3em;
 }
 
 .pFuncBtnTitleBar{
-    -fx-padding: 5 25;
+    -fx-padding: 7 25;
     -fx-border-width: 4 0 4 0;
     -fx-border-color: -pTitleBarBorderColor;
     -fx-border-radius: 0;
@@ -31,36 +31,36 @@
     -fx-text-fill: -pTitleBarText;
 }
 .pFuncBtnTitleBar:focused{
-    -fx-padding: 5 25;
+    -fx-padding: 7 25;
     -fx-border-width: 4 0 4 0;
     -fx-border-color: -pTitleBarBorderColor;
     -fx-background-color: -pTitleBarColor;
     -fx-text-fill: -pTitleBarText;
 }
 .pFuncBtnTitleBar:pressed{
-    -fx-padding: 7 27;
-    -fx-border-width: 2 0 2 0;
+    -fx-padding: 8 25;
+    -fx-border-width: 3 0 3 0;
     -fx-border-color: -pTitleBarBorderColor;
     -fx-background-color: -pTitleBarColor;
     -fx-text-fill: -pTitleBarText;
 }
 .pFuncBtnTitleBar:hover{
-    -fx-padding: 4 24;
-    -fx-border-width: 5 0 5 0;
+    -fx-padding: 9 25;
+    -fx-border-width: 2 0 2 0;
     -fx-border-color: -pTitleBarBorderColor;
     -fx-background-color: -pTitleBarColor;
     -fx-text-fill: -pTitleBarText;
 }
 .pFuncBtnTitleBar:focused:hover{
-    -fx-padding: 4 24;
-    -fx-border-width: 5 0 5 0;
+    -fx-padding: 9 25;
+    -fx-border-width: 2 0 2 0;
     -fx-border-color: -pTitleBarBorderColor;
     -fx-background-color: -pTitleBarColor;
     -fx-text-fill: -pTitleBarText;
  }
 .pFuncBtnTitleBar:pressed:focused:hover{
-    -fx-padding: 7 27;
-    -fx-border-width: 2 0 2 0;
+    -fx-padding: 8 25;
+    -fx-border-width: 3 0 3 0;
     -fx-border-color: -pTitleBarBorderColor;
     -fx-background-color: -pTitleBarColor;
     -fx-text-fill: -pTitleBarText;
@@ -68,43 +68,43 @@
 
 
 .pFuncBtnTitleBarSel{
-    -fx-padding: 8 25;
-    -fx-border-width: 5 0 5 0;
+    -fx-padding: 7 25;
+    -fx-border-width: 6 0 6 0;
     -fx-background-color: -pTitleBarSelColor;
     -fx-font-size: 1.3em;
     -fx-text-fill: -pTitleBarSelText;
 }
 .pFuncBtnTitleBarSel:focused{
+    -fx-padding: 7 25;
+    -fx-border-width: 6 0 6 0;
+    -fx-background-color: -pTitleBarSelColor;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: -pTitleBarSelText;
+}
+.pFuncBtnTitleBarSel:pressed{
     -fx-padding: 8 25;
     -fx-border-width: 5 0 5 0;
     -fx-background-color: -pTitleBarSelColor;
     -fx-font-size: 1.3em;
     -fx-text-fill: -pTitleBarSelText;
 }
-.pFuncBtnTitleBarSel:pressed{
-    -fx-padding: 6 23;
-    -fx-border-width: 7 0 7 0;
-    -fx-background-color: -pTitleBarSelColor;
-    -fx-font-size: 1.3em;
-    -fx-text-fill: -pTitleBarSelText;
-}
 .pFuncBtnTitleBarSel:hover{
-    -fx-padding: 7 24;
-    -fx-border-width: 6 0 6 0;
+    -fx-padding: 9 25;
+    -fx-border-width: 4 0 4 0;
     -fx-background-color: -pTitleBarSelColor;
     -fx-font-size: 1.3em;
     -fx-text-fill: -pTitleBarSelText;
 }
 .pFuncBtnTitleBarSel:focused:hover{
-    -fx-padding: 7 24;
-    -fx-border-width: 6 0 6 0;
+    -fx-padding: 9 25;
+    -fx-border-width: 4 0 4 0;
     -fx-background-color: -pTitleBarSelColor;
     -fx-font-size: 1.3em;
     -fx-text-fill: -pTitleBarSelText;
  }
 .pFuncBtnTitleBarSel:pressed:focused:hover{
-    -fx-padding: 6 23;
-    -fx-border-width: 7 0 7 0;
+    -fx-padding: 10 25;
+    -fx-border-width: 3 0 3 0;
     -fx-background-color: -pTitleBarSelColor;
     -fx-font-size: 1.3em;
     -fx-text-fill: -pTitleBarSelText;
