@@ -19,6 +19,8 @@ package de.p2tools.p2radio.controller.stationweb.load;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
+import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
+import de.p2tools.p2lib.mediathek.storedradiolist.StoredRadioDataFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -62,25 +64,51 @@ public class WebLoadFactory {
     public static boolean loadList(final StationList stationList) {
         boolean ret = false;
         try {
-            load(ProgConst.STATION_LIST_URL_1, stationList);
+            String url = StoredRadioDataFactory.getStoredRadioList();
+            load(url, stationList);
             if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
                 //dann hats geklappt
-                ret = true;
-
+                return true;
             } else {
-                // dann nochmal damit
-                P2Log.errorLog(645121547, "Laden von URL_1 hat nicht geklappt");
-                stationList.clear(); // und den Rest wieder löschen
-                load(ProgConst.STATION_LIST_URL_2, stationList);
-                if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
-                    //dann hats geklappt
-                    ret = true;
-                } else {
-                    P2Log.errorLog(451212547, "Laden von URL_2 hat auch nicht geklappt");
-                }
+                P2Log.errorLog(645121547, "Laden von " + url + " hat nicht geklappt");
             }
+
+            // dann nochmal damit
+            stationList.clear(); // und den Rest wieder löschen
+            load(P2LoadConst.RADIO_LIST_URL_1, stationList);
+            if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
+                //dann hats geklappt
+                return true;
+            } else {
+                P2Log.errorLog(451212547, "Laden von " + P2LoadConst.RADIO_LIST_URL_1 +
+                        " hat auch nicht geklappt");
+            }
+
+            // und dann nochmal damit
+            stationList.clear(); // und den Rest wieder löschen
+            load(P2LoadConst.RADIO_LIST_URL_2, stationList);
+            if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
+                //dann hats geklappt
+                return true;
+            } else {
+                P2Log.errorLog(451212547, "Laden von " + P2LoadConst.RADIO_LIST_URL_2 +
+                        " hat auch nicht geklappt");
+            }
+
+            // und dann nochmal damit
+            stationList.clear(); // und den Rest wieder löschen
+            load(P2LoadConst.RADIO_LIST_URL_3, stationList);
+            if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
+                //dann hats geklappt
+                return true;
+            } else {
+                P2Log.errorLog(951245789, "Laden von " + P2LoadConst.RADIO_LIST_URL_3 +
+                        " hat auch nicht geklappt");
+            }
+
+            P2Log.errorLog(365236587, "==> Laden hat nicht geklappt");
         } catch (final Exception ex) {
-            P2Log.errorLog(201020354, ex);
+            P2Log.errorLog(753215698, ex);
         }
 
         return ret;
