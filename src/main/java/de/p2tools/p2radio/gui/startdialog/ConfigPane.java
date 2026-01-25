@@ -20,6 +20,7 @@ package de.p2tools.p2radio.gui.startdialog;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
@@ -31,31 +32,43 @@ import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ConfigPane {
-    private final Stage stage;
+public class ConfigPane extends VBox {
     private final P2ToggleSwitch tglSearch = new P2ToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
     private final GridPane gridPane = new GridPane();
     private final TextField txtPlayer = new TextField();
     private int row = 0;
+    private final Stage stage;
 
     public ConfigPane(Stage stage) {
         this.stage = stage;
     }
 
-    public TitledPane makeStart() {
+    public void make() {
         makeUpdate();
         makePath();
 
-        TitledPane tpConfig = new TitledPane("Programmeinstellungen", gridPane);
-        return tpConfig;
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("startInfo_2");
+        hBox.setPadding(new Insets(P2LibConst.PADDING));
+        Label lbl = new Label("Hier kann die Update-Suche und " +
+                "das Programm zum Abspielen der Radiosender, eingestellt werden.");
+        lbl.setWrapText(true);
+        lbl.setPrefWidth(500);
+        hBox.getChildren().add(lbl);
+        getChildren().addAll(StartFactory.getTitle("Programmeinstellungen"), hBox, P2GuiTools.getHDistance(20));
+        getChildren().add(gridPane);
     }
 
     public void close() {

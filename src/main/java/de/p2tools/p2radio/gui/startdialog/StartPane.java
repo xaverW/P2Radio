@@ -18,143 +18,127 @@ package de.p2tools.p2radio.gui.startdialog;
 
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.P2GuiTools;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class StartPane {
-    private final Stage stage;
-    final int dist = 10;
+public class StartPane extends VBox {
+    final int picSize = 450;
 
-    public StartPane(Stage stage) {
-        this.stage = stage;
+    public StartPane() {
     }
 
     public void close() {
     }
 
-    public TitledPane makeStart1() {
+    public void makeStart1() {
         HBox hBox = new HBox();
         hBox.setSpacing(25);
-        hBox.setPadding(new Insets(20));
+        hBox.setPadding(new Insets(20, 10, 0, 10));
 
         ImageView iv = new ImageView();
         Image im = getHelpScreen1();
         iv.setSmooth(true);
         iv.setImage(im);
 
-        VBox vBox = new VBox();
-        vBox.getChildren().add(new Label("1)  Hier kann eine verkleinerte Ansicht" + P2LibConst.LINE_SEPARATOR +
-                "des Radios eingestellt werden."));
+        Label text = new Label("1)  Hier kann eine verkleinerte Ansicht" + P2LibConst.LINE_SEPARATOR +
+                "des Radios eingestellt werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("2) Hier kann die Liste der" + P2LibConst.LINE_SEPARATOR +
-                "Sender gefiltert werden."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "2) Hier kann die Liste der" + P2LibConst.LINE_SEPARATOR +
+                "Sender gefiltert werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("3) Die Blacklist kann man" + P2LibConst.LINE_SEPARATOR +
-                "hier ein- und ausschalten"));
+                P2LibConst.LINE_SEPARATORx2 +
+                "3) Die Blacklist kann man" + P2LibConst.LINE_SEPARATOR +
+                "hier ein- und ausschalten" +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("4) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
-                "der History wird hier umgeschaltet."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "4) Die Ansicht der Sender, Favoriten und" + P2LibConst.LINE_SEPARATOR +
+                "der History wird hier umgeschaltet." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("5) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
-                "die Programmeinstellungen."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "5) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
+                "und gestoppt werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("6) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
-                "Spalten in der Tabelle" + P2LibConst.LINE_SEPARATOR +
-                "ein- und ausgeblendet werden."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "6) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
+                "die Programmeinstellungen.");
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("7) Damit können Sender gestartet" + P2LibConst.LINE_SEPARATOR +
-                "und gestoppt werden."));
-
-        hBox.getChildren().addAll(iv, vBox);
-        return new TitledPane("Infos zur Programmoberfläche", hBox);
+        hBox.getChildren().addAll(iv, text);
+        getChildren().addAll(StartFactory.getTitle("Infos zur Programmoberfläche"), hBox);
     }
 
-    public TitledPane makeStart2() {
+    public void makeStart2() {
         HBox hBox = new HBox();
         hBox.setSpacing(25);
-        hBox.setPadding(new Insets(20));
+        hBox.setPadding(new Insets(20, 10, 0, 10));
 
         ImageView iv = new ImageView();
         Image im = getHelpScreen2();
         iv.setSmooth(true);
         iv.setImage(im);
-        hBox.getChildren().addAll(iv);
 
-        VBox vBox = new VBox();
-        vBox.getChildren().add(new Label("1) Damit können die Favoriten" + P2LibConst.LINE_SEPARATOR +
-                "gefiltert werden."));
+        Label text = new Label("1) Damit können die Favoriten" + P2LibConst.LINE_SEPARATOR +
+                "gefiltert werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("2) In dem Menü können die Favoriten" + P2LibConst.LINE_SEPARATOR +
-                "bearbeitet werden."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "2) In dem Menü können die Favoriten" + P2LibConst.LINE_SEPARATOR +
+                "bearbeitet werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("3) Damit werden die Favoriten" + P2LibConst.LINE_SEPARATOR +
-                "gestartet und gestoppt"));
+                P2LibConst.LINE_SEPARATORx2 +
+                "3) Damit können die Favoriten" + P2LibConst.LINE_SEPARATOR +
+                "gestartet, gestoppt und" + P2LibConst.LINE_SEPARATOR +
+                "gelöscht werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("4) Damit kann ein eigener Sender zu" + P2LibConst.LINE_SEPARATOR +
-                "den Favoriten hinzugefügt werden."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "4) Hier kann ein eigener Sender zu" + P2LibConst.LINE_SEPARATOR +
+                "den Favoriten hinzugefügt werden.");
 
-        hBox.getChildren().add(vBox);
-
-        return new TitledPane("Infos zu den Favoriten", hBox);
+        hBox.getChildren().addAll(iv, text);
+        getChildren().addAll(StartFactory.getTitle("Infos zu den Favoriten"), hBox);
     }
 
-    public TitledPane makeStart3() {
+    public void makeStart3() {
         HBox hBox = new HBox();
         hBox.setSpacing(25);
-        hBox.setPadding(new Insets(20));
+        hBox.setPadding(new Insets(20, 10, 0, 10));
 
         ImageView iv = new ImageView();
         Image im = getHelpScreen3();
         iv.setSmooth(true);
         iv.setImage(im);
-        hBox.getChildren().addAll(iv);
 
-        VBox vBox = new VBox();
-        vBox.getChildren().add(new Label("1) Damit können die Sender in" + P2LibConst.LINE_SEPARATOR +
-                "der History gefiltert werden."));
+        Label text = new Label("1) Damit können die Sender in" + P2LibConst.LINE_SEPARATOR +
+                "der History gefiltert werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("2) In dem Menü kann die History" + P2LibConst.LINE_SEPARATOR +
-                "bearbeitet werden."));
+                P2LibConst.LINE_SEPARATORx2 +
+                "2) In dem Menü kann die History" + P2LibConst.LINE_SEPARATOR +
+                "bearbeitet werden." +
 
-        vBox.getChildren().add(P2GuiTools.getHDistance(dist));
-        vBox.getChildren().add(new Label("3) Damit werden die Sender" + P2LibConst.LINE_SEPARATOR +
-                "gestartet, gestoppt und\n" +
-                "aus der History gelöscht"));
+                P2LibConst.LINE_SEPARATORx2 +
+                "3) Hiermit werden die Sender" + P2LibConst.LINE_SEPARATOR +
+                "gestartet, gestoppt und" + P2LibConst.LINE_SEPARATOR +
+                "aus der History gelöscht");
 
-        hBox.getChildren().add(vBox);
-
-        return new TitledPane("Infos zur History", hBox);
+        hBox.getChildren().addAll(iv, text);
+        getChildren().addAll(StartFactory.getTitle("Infos zur History"), hBox);
     }
 
-    private javafx.scene.image.Image getHelpScreen1() {
+    private Image getHelpScreen1() {
         final String path = "/de/p2tools/p2radio/res/startdialog/p2Radio-startdialog-1.png";
-        return new Image(path, 600, 600, true, true);
+        return new Image(path, picSize, picSize, true, true);
     }
 
-    private javafx.scene.image.Image getHelpScreen2() {
+    private Image getHelpScreen2() {
         final String path = "/de/p2tools/p2radio/res/startdialog/p2Radio-startdialog-2.png";
-        return new Image(path, 600, 600, true, true);
+        return new javafx.scene.image.Image(path, picSize, picSize, true, true);
     }
 
-    private javafx.scene.image.Image getHelpScreen3() {
+    private Image getHelpScreen3() {
         final String path = "/de/p2tools/p2radio/res/startdialog/p2Radio-startdialog-3.png";
-        return new Image(path, 600, 600, true, true);
+        return new Image(path, picSize, picSize, true, true);
     }
 }
