@@ -32,8 +32,8 @@ public class ProgConst {
     public static final String STATION_FILE_XML = "sender.xml";
     public static final String STATION_FILE_JSON = "radio.json";
 
-    public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100000";
-    // public static final String STATION_LIST_URL = "http://all.api.radio-browser.info/json/stations";
+    public static final String STATION_LIST_URL_1 = "https://de2.api.radio-browser.info/json/stations?limit=100000";
+    public static final String STATION_LIST_URL_2 = "http://all.api.radio-browser.info/json/stations?limit=100000";
     // public static final String STATION_LIST_URL = "https://de2.api.radio-browser.info/json/stations?limit=100";
 
     // http://all.api.radio-browser.info/json/url/stationuuid

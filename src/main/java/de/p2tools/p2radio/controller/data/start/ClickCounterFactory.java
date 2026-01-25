@@ -23,15 +23,17 @@ public class ClickCounterFactory {
 
     public static void countClick(StationData stationData) {
         if (stationData.getStationUuid().isEmpty()) {
+            // dann gehts eh nicht
             return;
         }
 
-        if (!ProgConfig.SYSTEM_ASK_COUNT_CLICKS.get()) {
-            // dann noch nicht gefragt
+        if (ProgConfig.SYSTEM_ASK_COUNT_CLICKS.get()) {
+            // dann vorher fragen
             new CountClickDialogController(ProgData.getInstance());
         }
 
         if (!ProgConfig.SYSTEM_COUNT_CLICKS.get()) {
+            // und nur, wenn er will
             return;
         }
 
@@ -52,14 +54,12 @@ public class ClickCounterFactory {
                     InputStream input = body.byteStream();
                     BufferedReader buff = new BufferedReader(new InputStreamReader(input));
                     String inStr;
-                    P2Log.sysLog("=========================");
-                    P2Log.sysLog("=========================");
-                    P2Log.sysLog("  Click melden");
+                    P2Log.sysLog("");
+                    P2Log.sysLog("=== Click melden ========");
                     P2Log.sysLog(stationData.getStationName());
                     while ((inStr = buff.readLine()) != null) {
                         P2Log.sysLog(inStr.trim());
                     }
-                    P2Log.sysLog("=========================");
                     P2Log.sysLog("=========================");
                 }
             } catch (final Exception ex) {

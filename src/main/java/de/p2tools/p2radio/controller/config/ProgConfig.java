@@ -215,8 +215,8 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_BLACKLIST_IS_WHITELIST = addBoolProp("blacklist-is-whitelist");
 
     // ClickCounter
-    public static BooleanProperty SYSTEM_ASK_COUNT_CLICKS = addBoolProp("system-ask-count-clicks", false);
-    public static BooleanProperty SYSTEM_COUNT_CLICKS = addBoolProp("system-count-clicks", false);
+    public static BooleanProperty SYSTEM_COUNT_CLICKS = addBoolProp("system-count-clicks", true);
+    public static BooleanProperty SYSTEM_ASK_COUNT_CLICKS = addBoolProp("system-ask-count-clicks", true);
     // OwnAutoStartLIst
     public static StringProperty OWN_AUTOSTART_TABLE_WIDTH = addStrProp("own-autostart-table-width", "");
     public static StringProperty OWN_AUTOSTART_TABLE_SORT = addStrProp("own-autostart-table-sort");

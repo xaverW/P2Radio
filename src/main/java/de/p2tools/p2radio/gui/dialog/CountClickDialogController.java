@@ -22,6 +22,7 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -31,33 +32,41 @@ import javafx.scene.text.Text;
 
 public class CountClickDialogController extends P2DialogExtra {
 
-    final ProgData progData;
-    Button btnOk = new Button("_OK");
-    Button btnCancel = new Button("_Nein");
+    private final ProgData progData;
+    private final Button btnYes = new Button("_Ja");
+    private final Button btnNo = new Button("_Nein");
+    private final CheckBox chkAsk = new CheckBox("Vorher immer fragen");
 
     public CountClickDialogController(ProgData progData) {
         super(progData.primaryStage, null,
                 "Klicks zählen", true, false, false, DECO.BORDER_SMALL);
 
         this.progData = progData;
-        ProgConfig.SYSTEM_ASK_COUNT_CLICKS.set(true);
         init(true);
     }
 
+    @Override
+    public void close() {
+        chkAsk.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_ASK_COUNT_CLICKS);
+        super.close();
+    }
 
     @Override
     public void make() {
-        btnCancel.setOnAction(a -> {
+        chkAsk.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_ASK_COUNT_CLICKS);
+        btnNo.setOnAction(a -> {
+            // dann nicht zählen
             ProgConfig.SYSTEM_COUNT_CLICKS.set(false);
             close();
         });
-        btnOk.setOnAction(a -> {
+        btnYes.setOnAction(a -> {
+            // dann zählen
             ProgConfig.SYSTEM_COUNT_CLICKS.set(true);
             close();
         });
+
         final Button btnHelp = P2Button.helpButton(getStage(), "Klicks zählen",
                 HelpText.CLICK_COUNT);
-
 
         Text textHeaderPlay = new Text("Sollen die Klicks gezählt werden?");
         textHeaderPlay.setFont(Font.font(null, FontWeight.BOLD, -1));
@@ -78,7 +87,8 @@ public class CountClickDialogController extends P2DialogExtra {
                 "\n\n" +
                 "In den Einstellungen kann das auch wieder geändert werden.");
 
-        addOkCancelButtons(btnOk, btnCancel);
+        addOkCancelButtons(btnYes, btnNo);
         addHlpButton(btnHelp);
+        getHBoxOverButtons().getChildren().add(chkAsk);
     }
 }

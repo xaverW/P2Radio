@@ -62,10 +62,22 @@ public class WebLoadFactory {
     public static boolean loadList(final StationList stationList) {
         boolean ret = false;
         try {
-            load(ProgConst.STATION_LIST_URL, stationList);
+            load(ProgConst.STATION_LIST_URL_1, stationList);
             if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
                 //dann hats geklappt
                 ret = true;
+
+            } else {
+                // dann nochmal damit
+                P2Log.errorLog(645121547, "Laden von URL_1 hat nicht geklappt");
+                stationList.clear(); // und den Rest wieder löschen
+                load(ProgConst.STATION_LIST_URL_2, stationList);
+                if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
+                    //dann hats geklappt
+                    ret = true;
+                } else {
+                    P2Log.errorLog(451212547, "Laden von URL_2 hat auch nicht geklappt");
+                }
             }
         } catch (final Exception ex) {
             P2Log.errorLog(201020354, ex);

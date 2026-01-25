@@ -18,15 +18,14 @@ package de.p2tools.p2radio.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.gui.tools.HelpText;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.Collection;
@@ -35,7 +34,8 @@ public class PaneClickCount {
 
     private final ProgData progData;
 
-    private final P2ToggleSwitch tglSearch = new P2ToggleSwitch("Start eines Senders melden (um Klicks zu zählen)");
+    private final P2ToggleSwitch tglClick = new P2ToggleSwitch("Start eines Senders melden (um Klicks zu zählen)");
+    private final P2ToggleSwitch tglAsk = new P2ToggleSwitch("Vorher immer fragen");
     private final Stage stage;
 
     public PaneClickCount(Stage stage) {
@@ -44,20 +44,24 @@ public class PaneClickCount {
     }
 
     public void close() {
-        tglSearch.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_COUNT_CLICKS);
+        tglClick.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_COUNT_CLICKS);
+        tglAsk.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_ASK_COUNT_CLICKS);
     }
 
     public void make(Collection<TitledPane> result) {
-        VBox vBox = new VBox(P2LibConst.PADDING_VBOX);
-        HBox hBox = new HBox(P2LibConst.SPACING_HBOX);
-        vBox.getChildren().add(hBox);
-        TitledPane tpConfig = new TitledPane("Klicks zählen", vBox);
-        result.add(tpConfig);
+        tglClick.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_COUNT_CLICKS);
+        tglAsk.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_ASK_COUNT_CLICKS);
 
-        tglSearch.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_COUNT_CLICKS);
         final Button btnHelp = P2Button.helpButton(stage, "Klicks zählen",
                 HelpText.CLICK_COUNT);
-        hBox.getChildren().addAll(tglSearch, btnHelp);
-        HBox.setHgrow(tglSearch, Priority.ALWAYS);
+
+        GridPane gridPane = new GridPane(P2LibConst.DIST_GRIDPANE_VGAP, P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcComputedSizeAndHgrow(), P2GridConstraints.getCcPrefSize());
+        gridPane.add(tglClick, 0, 0);
+        gridPane.add(btnHelp, 1, 0);
+        gridPane.add(tglAsk, 0, 1);
+
+        TitledPane tpConfig = new TitledPane("Klicks zählen", gridPane);
+        result.add(tpConfig);
     }
 }

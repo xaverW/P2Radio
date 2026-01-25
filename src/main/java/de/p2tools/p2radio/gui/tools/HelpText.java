@@ -298,7 +298,7 @@ public class HelpText {
             "Die Klicks eines Radiosenders ist die Anzahl der Starts " +
                     "dieses Senders. " +
                     "Dazu schickt jeder User beim Start dieses Senders " +
-                    "ein Ping zum Anbieter dieser Radioliste. So kann man sehen, " +
+                    "einen Ping zum Anbieter dieser Radioliste. So kann man sehen, " +
                     "wie beliebt ein Sender ist." +
                     "\n\n" +
                     "Dazu wird die Website:" +
