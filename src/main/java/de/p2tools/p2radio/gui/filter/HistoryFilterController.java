@@ -18,14 +18,17 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
+import de.p2tools.p2lib.guitools.P2GuiTools;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2lib.mediathek.filter.FilterCheckRegEx;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
-import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -35,6 +38,7 @@ public class HistoryFilterController extends VBox {
     private final ProgData progData;
 
     private final ComboBox<String> cboGenre = new ComboBox<>();
+    private final P2ToggleSwitch tglGrade = new P2ToggleSwitch("Positiv bewertete Sender");
     private final Button btnClearFilter = P2ButtonClearFilterFactory.getPButtonClear();
 
     private final HistoryFilter historyFilter;
@@ -52,8 +56,7 @@ public class HistoryFilterController extends VBox {
         vBoxColl.getChildren().addAll(new Label("Genre"), cboGenre);
         VBox.setVgrow(cboGenre, Priority.ALWAYS);
 
-        getChildren().addAll(vBoxColl);
-
+        getChildren().addAll(vBoxColl, P2GuiTools.getHDistance(15), tglGrade);
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.setPadding(new Insets(10, 0, 0, 0));
@@ -64,14 +67,13 @@ public class HistoryFilterController extends VBox {
     }
 
     private void initFilter() {
-        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
+        new FilterCheckRegEx(cboGenre.getEditor());
         cboGenre.editableProperty().set(true);
         cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         cboGenre.setVisibleRowCount(25);
         cboGenre.valueProperty().bindBidirectional(historyFilter.genreFilterProperty());
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
-                fN.checkPattern();
                 historyFilter.setGenreFilter(newValue);
                 progData.filteredHistoryList.setPredicate(historyFilter.getPredicate());
             }
@@ -81,5 +83,12 @@ public class HistoryFilterController extends VBox {
         btnClearFilter.setOnAction(event -> {
             progData.filteredHistoryList.setPredicate(historyFilter.clearFilter());
         });
+
+        tglGrade.setTooltip(new Tooltip("Nur positiv bewertete Sender anzeigen"));
+        tglGrade.selectedProperty().bindBidirectional(historyFilter.gradeFilterProperty());
+        tglGrade.selectedProperty().addListener((u, o, n) -> {
+            progData.filteredHistoryList.setPredicate(historyFilter.getPredicate());
+        });
+
     }
 }

@@ -18,12 +18,13 @@ package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2lib.mediathek.filter.FilterCheckRegEx;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -69,8 +70,8 @@ public class FavouriteFilterController extends VBox {
         vBoxGenre.getChildren().addAll(new Label("Genre"), cboGenre);
         VBox.setVgrow(cboGenre, Priority.ALWAYS);
 
-        getChildren().addAll(vBoxColl, vBoxGenre,
-                new Label("    "), tglGrade, tglOwn);
+        getChildren().addAll(vBoxColl, vBoxGenre, P2GuiTools.getHDistance(15),
+                tglGrade, tglOwn);
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -94,14 +95,13 @@ public class FavouriteFilterController extends VBox {
             filteredList.setPredicate(favouriteFilter.getPredicate());
         });
 
-        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
+        new FilterCheckRegEx(cboGenre.getEditor());
         cboGenre.editableProperty().set(true);
         cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         cboGenre.setVisibleRowCount(25);
         cboGenre.valueProperty().bindBidirectional(favouriteFilter.genreFilterProperty());
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (/*oldValue != null &&*/ newValue != null) {
-                fN.checkPattern();
                 favouriteFilter.setGenreFilter(newValue);
                 filteredList.setPredicate(favouriteFilter.getPredicate());
             }

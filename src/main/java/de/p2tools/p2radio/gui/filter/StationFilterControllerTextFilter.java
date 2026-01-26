@@ -17,8 +17,8 @@
 package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.mediathek.filter.FilterCheckRegEx;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.storedfilter.FilterCheckRegEx;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -154,14 +154,13 @@ public class StationFilterControllerTextFilter extends VBox {
     }
 
     private void initGenreFilter() {
-        FilterCheckRegEx fN = new FilterCheckRegEx(cboGenre.getEditor());
+        new FilterCheckRegEx(cboGenre.getEditor());
         cboGenre.editableProperty().set(true);
         cboGenre.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         cboGenre.setVisibleRowCount(25);
         cboGenre.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreProperty());
         cboGenre.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
-                fN.checkPattern();
                 progData.storedFilters.getActFilterSettings().setGenre(newValue);
             }
         });
@@ -210,15 +209,9 @@ public class StationFilterControllerTextFilter extends VBox {
         txtStationName.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().stationNameProperty());
         txtUrl.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().urlProperty());
         txtSomewhere.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().somewhereProperty());
-
-        FilterCheckRegEx fN = new FilterCheckRegEx(txtStationName);
-        txtStationName.textProperty().addListener((observable, oldValue, newValue) -> fN.checkPattern());
-
-        FilterCheckRegEx fU = new FilterCheckRegEx(txtUrl);
-        txtUrl.textProperty().addListener((observable, oldValue, newValue) -> fU.checkPattern());
-
-        FilterCheckRegEx fs = new FilterCheckRegEx(txtSomewhere);
-        txtSomewhere.textProperty().addListener((observable, oldValue, newValue) -> fs.checkPattern());
+        new FilterCheckRegEx(txtStationName);
+        new FilterCheckRegEx(txtUrl);
+        new FilterCheckRegEx(txtSomewhere);
     }
 
     private void addFilter() {

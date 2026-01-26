@@ -46,13 +46,16 @@ public class FavouriteFilter extends FavouriteFilterXml {
     private static boolean check(String filter, String im) {
         if (Filter.isPattern(filter)) {
             Pattern pattern = Filter.makePattern(filter);
+            if (pattern == null) {
+                return im.toLowerCase().contains(filter);
+            }
+
             // dann ists eine RegEx
             return (pattern.matcher(im).matches());
         }
+
         // wenn einer passt, dann ists gut
         return im.toLowerCase().contains(filter);
-
-        // nix wars
     }
 
     public void clearFilter() {

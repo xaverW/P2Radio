@@ -40,9 +40,14 @@ public class HistoryFilter extends HistoryFilterXml {
     private static boolean check(String filter, String im) {
         if (Filter.isPattern(filter)) {
             Pattern pattern = Filter.makePattern(filter);
+            if (pattern == null) {
+                return im.toLowerCase().contains(filter);
+            }
+
             // dann ists eine RegEx
             return (pattern.matcher(im).matches());
         }
+
         // wenn einer passt, dann ists gut
         return im.toLowerCase().contains(filter);
     }
@@ -67,13 +72,13 @@ public class HistoryFilter extends HistoryFilterXml {
     }
 
     public Predicate<StationData> getPredicate() {
-        Predicate<StationData> predicate = favourite -> true;
+        Predicate<StationData> predicate = stationData -> true;
 
         if (gradeFilter.get()) {
-            predicate = predicate.and(favourite -> favourite.getOwnGrade() > 0);
+            predicate = predicate.and(stationData -> stationData.getOwnGrade() > 0);
         }
         if (!genreFilter.get().isEmpty()) {
-            predicate = predicate.and(favourite -> check(genreFilter.get(), favourite.getGenre()));
+            predicate = predicate.and(stationData -> check(genreFilter.get(), stationData.getGenre()));
         }
         return predicate;
     }
