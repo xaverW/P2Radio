@@ -25,6 +25,7 @@ import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.controller.picon.PIconShow;
+import de.p2tools.p2radio.controller.tips.TipsDialog;
 import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 import de.p2tools.p2radio.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2radio.gui.dialog.AboutDialogController;
@@ -76,6 +77,9 @@ public class ProgMenu extends MenuButton {
             P2Logger.openLogFile();
         });
 
+        final MenuItem miTipps = new MenuItem("Hilfedialog");
+        miTipps.setOnAction(a -> new TipsDialog(progData));
+
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
             P2Open.openURL(ProgConst.URL_WEBSITE_HELP,
@@ -89,7 +93,8 @@ public class ProgMenu extends MenuButton {
         miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData).searchNewProgramVersion(true));
 
         final Menu mHelp = new Menu("Hilfe");
-        mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
+        mHelp.getItems().addAll(miTipps, new SeparatorMenuItem(),
+                miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
 
         setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         getStyleClass().addAll("pFuncBtn", "btnProgMenu");

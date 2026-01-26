@@ -51,11 +51,10 @@ public class TipsDialog extends P2DialogExtra {
 
     private final Button btnInfo = new Button(TipsFactory.TIPPS.INFOS.getName());
     private final Button btnGui = new Button(TipsFactory.TIPPS.GUI.getName());
-    private final Button btnFilm = new Button(TipsFactory.TIPPS.FILME.getName());
-    private final Button btnDownload = new Button(TipsFactory.TIPPS.DOWNLOAD.getName());
-    private final Button btnAbo = new Button(TipsFactory.TIPPS.ABO.getName());
+    private final Button btnFilm = new Button(TipsFactory.TIPPS.STATION.getName());
+    private final Button btnFavorite = new Button(TipsFactory.TIPPS.FAVORITE.getName());
+    private final Button btnHistory = new Button(TipsFactory.TIPPS.HISTORY.getName());
     private final Button btnFilter = new Button(TipsFactory.TIPPS.FILTER.getName());
-    private final Button btnSearch = new Button(TipsFactory.TIPPS.SEARCH.getName());
     private final Button btnSet = new Button(TipsFactory.TIPPS.SET.getName());
 
 
@@ -147,7 +146,7 @@ public class TipsDialog extends P2DialogExtra {
 
         btnFilm.getStyleClass().add("pFuncBtn");
         btnFilm.setOnAction(a -> {
-            tips = TipsFactory.TIPPS.FILME;
+            tips = TipsFactory.TIPPS.STATION;
             lblTipsName.setText(tips.getName());
             actTipNo = 0;
             TipData to = tips.getTipsList().get(actTipNo);
@@ -156,27 +155,27 @@ public class TipsDialog extends P2DialogExtra {
         });
         btnFilm.setMaxWidth(Double.MAX_VALUE);
 
-        btnDownload.getStyleClass().add("pFuncBtn");
-        btnDownload.setOnAction(a -> {
-            tips = TipsFactory.TIPPS.DOWNLOAD;
+        btnFavorite.getStyleClass().add("pFuncBtn");
+        btnFavorite.setOnAction(a -> {
+            tips = TipsFactory.TIPPS.FAVORITE;
             lblTipsName.setText(tips.getName());
             actTipNo = 0;
             TipData to = tips.getTipsList().get(actTipNo);
             tipBox.setTips(to);
-            setSel(btnDownload);
+            setSel(btnFavorite);
         });
-        btnDownload.setMaxWidth(Double.MAX_VALUE);
+        btnFavorite.setMaxWidth(Double.MAX_VALUE);
 
-        btnAbo.getStyleClass().add("pFuncBtn");
-        btnAbo.setOnAction(a -> {
-            tips = TipsFactory.TIPPS.ABO;
+        btnHistory.getStyleClass().add("pFuncBtn");
+        btnHistory.setOnAction(a -> {
+            tips = TipsFactory.TIPPS.HISTORY;
             lblTipsName.setText(tips.getName());
             actTipNo = 0;
             TipData to = tips.getTipsList().get(actTipNo);
             tipBox.setTips(to);
-            setSel(btnAbo);
+            setSel(btnHistory);
         });
-        btnAbo.setMaxWidth(Double.MAX_VALUE);
+        btnHistory.setMaxWidth(Double.MAX_VALUE);
 
         btnFilter.getStyleClass().add("pFuncBtn");
         btnFilter.setOnAction(a -> {
@@ -188,17 +187,6 @@ public class TipsDialog extends P2DialogExtra {
             setSel(btnFilter);
         });
         btnFilter.setMaxWidth(Double.MAX_VALUE);
-
-        btnSearch.getStyleClass().add("pFuncBtn");
-        btnSearch.setOnAction(a -> {
-            tips = TipsFactory.TIPPS.SEARCH;
-            lblTipsName.setText(tips.getName());
-            actTipNo = 0;
-            TipData to = tips.getTipsList().get(actTipNo);
-            tipBox.setTips(to);
-            setSel(btnSearch);
-        });
-        btnSearch.setMaxWidth(Double.MAX_VALUE);
 
         btnSet.getStyleClass().add("pFuncBtn");
         btnSet.setOnAction(a -> {
@@ -220,10 +208,9 @@ public class TipsDialog extends P2DialogExtra {
         gridPane1.add(btnInfo, 0, row, 2, 1);
         gridPane1.add(btnGui, 0, ++row, 2, 1);
         gridPane1.add(btnFilm, 0, ++row, 2, 1);
-        gridPane1.add(btnDownload, 0, ++row, 2, 1);
-        gridPane1.add(btnAbo, 0, ++row, 2, 1);
+        gridPane1.add(btnFavorite, 0, ++row, 2, 1);
+        gridPane1.add(btnHistory, 0, ++row, 2, 1);
         gridPane1.add(btnFilter, 0, ++row, 2, 1);
-        gridPane1.add(btnSearch, 0, ++row, 2, 1);
         gridPane1.add(btnSet, 0, ++row, 2, 1);
 
 
@@ -267,10 +254,9 @@ public class TipsDialog extends P2DialogExtra {
         btnInfo.getStyleClass().remove("btnTipsDialogSel");
         btnGui.getStyleClass().remove("btnTipsDialogSel");
         btnFilm.getStyleClass().remove("btnTipsDialogSel");
-        btnDownload.getStyleClass().remove("btnTipsDialogSel");
-        btnAbo.getStyleClass().remove("btnTipsDialogSel");
+        btnFavorite.getStyleClass().remove("btnTipsDialogSel");
+        btnHistory.getStyleClass().remove("btnTipsDialogSel");
         btnFilter.getStyleClass().remove("btnTipsDialogSel");
-        btnSearch.getStyleClass().remove("btnTipsDialogSel");
         btnSet.getStyleClass().remove("btnTipsDialogSel");
 
         btn.getStyleClass().add("btnTipsDialogSel");

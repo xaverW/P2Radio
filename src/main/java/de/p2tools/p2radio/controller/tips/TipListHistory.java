@@ -17,43 +17,38 @@
 
 package de.p2tools.p2radio.controller.tips;
 
-
-import de.p2tools.p2radio.controller.config.ProgConfig;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class TipListInfos {
+public class TipListHistory {
 
-    private TipListInfos() {
+    private TipListHistory() {
     }
 
     public static List<TipData> getTips() {
         List<TipData> pToolTipList = new ArrayList<>();
 
-        pToolTipList.add(TipData.getTipWebsite(ProgConfig.SYSTEM_PROG_OPEN_URL));
-
-        String text = "Über das Menü ist die " +
-                "Funktion zum Zurücksetzen " +
-                "von Programmeinstellungen " +
-                "erreichbar." +
+        String text = "Im Tab History werden alle Sender die schon " +
+                "abgespielt wurden, angezeigt. Sender können wieder " +
+                "gestartet und aus der History gelöscht werden." +
                 "\n\n" +
-                "Zuerst sollten nur die " +
-                "Einstellungen zum Abspielen " +
-                "und Aufzeichnen zurückgesetzt " +
-                "werden." +
-                "\n\n" +
-                "Wenn gar nichts mehr geht, " +
-                "kann das Programm komplett " +
-                "zurückgesetzt werden." +
-                "\n\n" +
-                "Es werden alle Einstellungen " +
-                "zurückgesetzt und gehen " +
-                "verloren!";
-        String image = "/de/p2tools/p2radio/res/tips/info/info-1.png";
+                "In dem Infobereich unter der Tabelle " +
+                "werden Infos zum Sender angezeigt. " +
+                "Links neben der Tabelle kann dieselbe " +
+                "gefiltert werden.";
+        String image = "/de/p2tools/p2radio/res/tips/history/history-1.png";
         TipData pToolTip = new TipData(text, image);
         pToolTipList.add(pToolTip);
 
+        text = "Zuerst kann damit der Sender gestartet und " +
+                "darunter wieder gestoppt werden." +
+                "\n\n" +
+                "Das \"X\" löscht alle in der Tabelle " +
+                "ausgewählte Sender aus der History. Das \"i\" zeigt " +
+                "Infos zum Sender an.";
+        image = "/de/p2tools/p2radio/res/tips/history/history-2.png";
+        pToolTip = new TipData(text, image);
+        pToolTipList.add(pToolTip);
 
         return pToolTipList;
     }

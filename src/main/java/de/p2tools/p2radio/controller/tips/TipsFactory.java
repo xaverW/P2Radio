@@ -7,11 +7,10 @@ public class TipsFactory {
     public enum TIPPS {
         INFOS("Infos", TipListInfos.getTips()),
         GUI("Gui", TipListGui.getTips()),
-        FILME("Filme", TipListFilm.getTips()),
-        DOWNLOAD("Downloads", TipListDownload.getTips()),
-        ABO("Abos", TipListAbo.getTips()),
+        STATION("Sender", TipListStation.getTips()),
+        FAVORITE("Favoriten", TipListFavorite.getTips()),
+        HISTORY("History", TipListHistory.getTips()),
         FILTER("Filter", TipListFilter.getTips()),
-        SEARCH("Suchen", TipListSearch.getTips()),
         SET("Sets", TipListSet.getTips());
 
         private final String name;
