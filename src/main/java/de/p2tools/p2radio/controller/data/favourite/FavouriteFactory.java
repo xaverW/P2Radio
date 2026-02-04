@@ -92,13 +92,13 @@ public class FavouriteFactory {
                 }
             }
         }
+
         if (!addList.isEmpty()) {
             ArrayList<StationData> newFavourites = new ArrayList<>();
             addList.forEach(stationData -> {
-                StationData newStationData = new StationData();
-                newStationData.copyToMe(stationData);
-//                newStationData.setOwn(false); // falls ein "eigener" geklickt ist
-                newFavourites.add(newStationData);
+//                StationData newStationData = new StationData();
+//                newStationData.copyToMe(stationData);
+                newFavourites.add(stationData); // bestehende Station als Favorite hinzufügen
             });
 
             new FavouriteAddDialogController(ProgData.getInstance(), newFavourites, true);

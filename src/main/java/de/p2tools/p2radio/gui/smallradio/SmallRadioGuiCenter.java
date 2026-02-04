@@ -146,6 +146,10 @@ public class SmallRadioGuiCenter extends VBox {
         return ret;
     }
 
+    public void selectPlayingStation() {
+        StartFactory.selectPlayingStation(tableView);
+    }
+
     public void selLastHistory() {
         P2RadioFactory.selLastHistory(tableViewStation);
         P2RadioFactory.selLastHistory(tableViewFavourite);

@@ -111,13 +111,18 @@ public class FavouriteAddDialogController extends P2DialogExtra {
         for (AddFavouriteData addFavouriteData : addFavouriteDto.addFavouriteData) {
             if (addFavouriteData.addNewFavourite) {
                 // dann ein neuer
-                final StationData stationData = addFavouriteData.stationData;
-                progData.favouriteList.addAll(stationData);
-                if (stationData.isOwn()) {
+                final StationData stationData = addFavouriteData.stationData; // ist der neue
+                final StationData org = addFavouriteData.stationDataOrg;
+                org.copyToMe(stationData); // die Änderungen einfügen->SenderListe
+                progData.favouriteList.addAll(org); // und jetzt in die Favoriten einfügen
+
+                if (org.isOwn()) {
                     // nur eigene müsen eingefügt werden, damit sie sofort verfügbar sind
-                    progData.stationList.addAll(stationData);
+                    // kommen nicht aus der SenderListe, sind neue stationData
+                    progData.stationList.addAll(org);
                     changeBlack = true;
                 }
+
             } else {
                 // Änderung
                 addFavouriteData.stationDataOrg.copyToMe(addFavouriteData.stationData);

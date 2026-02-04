@@ -92,6 +92,10 @@ public class HistoryGuiController extends VBox {
         historyGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
 
+    public void selectPlayingStation() {
+        StartFactory.selectPlayingStation(tableView);
+    }
+
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> stationData = getSel();

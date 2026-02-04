@@ -17,6 +17,7 @@
 
 package de.p2tools.p2radio.controller.data.start;
 
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
@@ -27,6 +28,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.dialog.NoSetDialogController;
+import javafx.scene.control.TableView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -103,6 +105,28 @@ public class StartFactory {
             if (wait) {
                 System.out.println("stopStation - wait");
                 P2ToolsFactory.waitWhile(3_000, nowPlayingThread.isRunningProperty());
+            }
+        }
+    }
+
+    public static void selectPlayingStation(TableView<StationData> tableView) {
+        StationData act;
+        if (nowPlayingThread != null && nowPlayingThread.isRunning()) {
+            act = nowPlayingThread.getStationData();
+        } else {
+            act = null;
+        }
+
+        if (act != null) {
+            if (tableView.getItems().contains(act)) {
+                tableView.getSelectionModel().clearSelection();
+                tableView.getSelectionModel().select(act);
+                tableView.scrollTo(act);
+            } else {
+                P2Alert.showInfoAlert("Sender suchen",
+                        "Laufenden Sender markieren",
+                        "Der aktuell laufende Sender " +
+                                "ist nicht in der Liste");
             }
         }
     }

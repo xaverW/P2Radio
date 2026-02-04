@@ -89,6 +89,10 @@ public class FavouriteGuiController extends VBox {
         favouriteGuiPack.stationDataObjectPropertyProperty().setValue(stationData);
     }
 
+    public void selectPlayingStation() {
+        StartFactory.selectPlayingStation(tableView);
+    }
+
     public void playStation() {
         // bezieht sich auf den ausgewählten Favoriten
         final Optional<StationData> favourite = getSel();

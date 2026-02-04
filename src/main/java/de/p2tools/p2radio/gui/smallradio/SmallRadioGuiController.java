@@ -82,6 +82,10 @@ public class SmallRadioGuiController extends P2DialogOnly {
         super.hide();
     }
 
+    public void selectPlayingStation() {
+        smallRadioGuiCenter.selectPlayingStation();
+    }
+
     public void setNextStation() {
         smallRadioGuiCenter.setNextStation();
     }

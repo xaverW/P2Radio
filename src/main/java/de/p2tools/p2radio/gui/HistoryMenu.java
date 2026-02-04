@@ -134,13 +134,16 @@ public class HistoryMenu {
             }
         });
 
+        final MenuItem miAct = new MenuItem("Laufenden Sender selektieren");
+        miAct.setOnAction(e -> progData.historyGuiPack.getHistoryGuiController().selectPlayingStation());
+
         final Menu meAutostart = new Menu("Autostart");
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
         miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
         final MenuItem miOwnAutoStart = new MenuItem("Sender in die AutoStart-Liste kopieren");
         miOwnAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStartOwnList());
         meAutostart.getItems().addAll(miAutoStart, miOwnAutoStart);
-        mb.getItems().addAll(miAddFavourite, meAutostart);
+        mb.getItems().addAll(miAddFavourite, miAct, meAutostart);
 
 
         mb.getItems().add(new SeparatorMenuItem());

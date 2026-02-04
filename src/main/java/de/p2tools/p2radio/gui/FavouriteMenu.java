@@ -117,6 +117,9 @@ public class FavouriteMenu {
         final MenuItem miFavouriteOwn = new MenuItem("Eigenen Sender als Favoriten anlegen");
         miFavouriteOwn.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
 
+        final MenuItem miAct = new MenuItem("Laufenden Sender selektieren");
+        miAct.setOnAction(e -> progData.favouriteGuiPack.getFavouriteGuiController().selectPlayingStation());
+
         final Menu meAutostart = new Menu("Autostart");
         final MenuItem miAutoStart = new MenuItem("Sender als AutoStart auswählen");
         miAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStart());
@@ -125,7 +128,7 @@ public class FavouriteMenu {
         miOwnAutoStart.setOnAction(e -> AutoStartFactory.setStationAutoStartOwnList());
         meAutostart.getItems().addAll(miAutoStart, miOwnAutoStart);
 
-        mb.getItems().addAll(miFavouriteStop, miCopyUrl, miFavouriteOwn, meAutostart);
+        mb.getItems().addAll(miFavouriteStop, miCopyUrl, miFavouriteOwn, miAct, meAutostart);
 
         // Submenü "Favoriten"
         final MenuItem miFavouriteChange = new MenuItem("Favoriten ändern");

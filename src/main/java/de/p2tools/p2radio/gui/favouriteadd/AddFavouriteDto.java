@@ -104,15 +104,14 @@ public class AddFavouriteDto {
     public final Button btnSetOwn = new Button("Als eigenen Sender speichern");
 
 
-    public AddFavouriteDto(ProgData progData, ArrayList<StationData> data, boolean addNew) {
+    public AddFavouriteDto(ProgData progData, ArrayList<StationData> stationData, boolean addNew) {
         // einen neuen anlegen
         this.progData = progData;
 
         if (addNew) {
-            addFavouriteData = InitAddArray.initInfoArrayNewFavourite(data);
+            addFavouriteData = InitAddArray.initInfoArrayNewFavourite(stationData);
         } else {
-//            this.addNewFavourite = false;
-            addFavouriteData = InitAddArray.initInfoArrayFavourite(data);
+            addFavouriteData = InitAddArray.initInfoArrayFavourite(stationData);
         }
 
         initConstValues = new InitConstValues(this);

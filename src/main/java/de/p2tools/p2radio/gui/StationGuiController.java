@@ -82,6 +82,10 @@ public class StationGuiController extends VBox {
         stationGuiPack.stationDataObjectPropertyProperty().setValue(station);
     }
 
+    public void selectPlayingStation() {
+        StartFactory.selectPlayingStation(tableView);
+    }
+
     public void playStation() {
         // Menü/Button: Sender (URL) abspielen
         final Optional<StationData> stationSelection = getSel();
@@ -96,7 +100,6 @@ public class StationGuiController extends VBox {
 
         StartFactory.startStation(sel.get(), psetData);
     }
-
 
     public void playRandomStation() {
         if (tableView.getItems().isEmpty()) {

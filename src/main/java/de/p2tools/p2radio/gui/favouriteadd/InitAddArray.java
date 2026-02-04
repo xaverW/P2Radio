@@ -27,25 +27,26 @@ public class InitAddArray {
     }
 
     public static AddFavouriteData[] initInfoArrayNewFavourite(ArrayList<StationData> list) {
-        // Arr anlegen
+        // Arr anlegen, StationData aus der StationList
         AddFavouriteData[] addFavouriteData = new AddFavouriteData[list.size()];
         for (int i = 0; i < list.size(); ++i) {
             addFavouriteData[i] = new AddFavouriteData();
             addFavouriteData[i].addNewFavourite = true;
-            addFavouriteData[i].stationData = list.get(i); // das sind ja schon Kopien
+            addFavouriteData[i].stationData = list.get(i).getCopy(); // ist die, die angelegt werden soll
+            addFavouriteData[i].stationDataOrg = list.get(i); // ist die ORG
         }
         return addFavouriteData;
     }
 
-    public static AddFavouriteData[] initInfoArrayFavourite(ArrayList<StationData> podcastArrayList) {
+    public static AddFavouriteData[] initInfoArrayFavourite(ArrayList<StationData> list) {
         // Favoriten ändern
         // Arr anlegen
-        AddFavouriteData[] addFavouriteData = new AddFavouriteData[podcastArrayList.size()];
-        for (int i = 0; i < podcastArrayList.size(); ++i) {
+        AddFavouriteData[] addFavouriteData = new AddFavouriteData[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
             addFavouriteData[i] = new AddFavouriteData();
             addFavouriteData[i].addNewFavourite = false;
-            addFavouriteData[i].stationData = podcastArrayList.get(i).getCopy();
-            addFavouriteData[i].stationDataOrg = podcastArrayList.get(i);
+            addFavouriteData[i].stationData = list.get(i).getCopy(); // ist die, die geändert werden soll
+            addFavouriteData[i].stationDataOrg = list.get(i); // ist die ORG
         }
         return addFavouriteData;
     }

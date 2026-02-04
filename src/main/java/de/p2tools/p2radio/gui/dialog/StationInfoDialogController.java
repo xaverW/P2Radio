@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.gui.dialog;
 
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
@@ -32,7 +33,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -48,6 +48,7 @@ public class StationInfoDialogController extends P2DialogExtra {
     private final Button btnStart = new Button("");
     private final Button btnStop = new Button("");
     private final Button btnOk = new Button("_Ok");
+    private final Button btnAct = new Button("Laufender Sender");
     private final Label ivNew = new Label();
     private final Label ivOwn = new Label();
     private final Label ivDouble = new Label();
@@ -100,9 +101,32 @@ public class StationInfoDialogController extends P2DialogExtra {
 
     @Override
     public void make() {
-        getHboxLeft().getChildren().addAll(btnPrev, btnNext, new HBox(), btnStart, btnStop);
+        getHboxLeft().getChildren().addAll(btnAct, P2GuiTools.getHBoxGrower(),
+                btnPrev, btnNext,
+                P2GuiTools.getVDistance(10), btnStart, btnStop);
+
         addOkButton(btnOk);
         btnOk.setOnAction(a -> hide());
+
+        btnAct.setOnAction(e -> {
+            if (ProgConfig.SYSTEM_SMALL_RADIO.getValue()) {
+                //dann ist das kleine Fenster offen
+                progData.smallRadioGuiController.selectPlayingStation();
+
+            } else {
+                switch (ProgConfig.SYSTEM_LAST_TAB_STATION.get()) {
+                    case 0:
+                        progData.stationGuiPack.getStationGuiController().selectPlayingStation();
+                        break;
+                    case 1:
+                        progData.favouriteGuiPack.getFavouriteGuiController().selectPlayingStation();
+                        break;
+                    case 2:
+                    default:
+                        progData.historyGuiPack.getHistoryGuiController().selectPlayingStation();
+                }
+            }
+        });
 
         btnPrev.setTooltip(new Tooltip("Vorherigen Sender in der Tabelle anzeigen"));
         btnPrev.setGraphic(PIconFactory.PICON.BTN_PREV.getFontIcon());
