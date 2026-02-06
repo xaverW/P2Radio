@@ -37,7 +37,7 @@ public class StartPane extends VBox {
     public void makeStart1() {
         HBox hBox = new HBox();
         hBox.setSpacing(25);
-        hBox.setPadding(new Insets(20, 10, 0, 10));
+        hBox.setPadding(new Insets(20, 10, 20, 10));
 
         ImageView iv = new ImageView();
         Image im = getHelpScreen1();

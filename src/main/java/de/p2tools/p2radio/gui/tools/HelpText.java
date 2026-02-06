@@ -295,11 +295,13 @@ public class HelpText {
                     P2LibConst.LINE_SEPARATOR;
 
     public static final String CLICK_COUNT =
-            "Die Klicks eines Radiosenders ist die Anzahl der Starts " +
-                    "dieses Senders. " +
-                    "Dazu schickt jeder User beim Start dieses Senders " +
-                    "einen Ping zum Anbieter dieser Radioliste. So kann man sehen, " +
-                    "wie beliebt ein Sender ist." +
+
+            "In der Tabelle mit den Sendern werden die \"Klicks\" angezeigt. " +
+                    "Das ist die Anzahl der Aufrufe in den letzten 24 Stunden." +
+                    "\n\n" +
+                    "Damit das gezählt werden kann, schickt das Programm einen Ping " +
+                    "beim Start eines Senders an die Website des Radio-Projekts. " +
+                    "So kann man sehen, wie beliebt ein Sender ist." +
                     "\n\n" +
                     "Dazu wird die Website:" +
                     "\n\n" +

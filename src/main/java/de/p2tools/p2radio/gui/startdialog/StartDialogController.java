@@ -54,7 +54,8 @@ public class StartDialogController extends P2DialogExtra {
     private enum State {START_1, START_2, START_3, COLOR, CONFIG}
 
     public StartDialogController() {
-        super(null, null, "Starteinstellungen");
+        super(null, null, "Starteinstellungen",
+                true, false, false, DECO.BORDER_VERY_SMALL);
         init(true);
     }
 
