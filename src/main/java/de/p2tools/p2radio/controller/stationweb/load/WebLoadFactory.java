@@ -64,6 +64,7 @@ public class WebLoadFactory {
     public static boolean loadList(final StationList stationList) {
         boolean ret = false;
         try {
+            // 2x aus der gespeicherten Liste
             String url = StoredRadioDataFactory.getStoredRadioList();
             load(url, stationList);
             if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
@@ -73,7 +74,17 @@ public class WebLoadFactory {
                 P2Log.errorLog(645121547, "Laden von " + url + " hat nicht geklappt");
             }
 
-            // dann nochmal damit
+            stationList.clear(); // und den Rest erst mal löschen
+            url = StoredRadioDataFactory.getStoredRadioList();
+            load(url, stationList);
+            if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
+                //dann hats geklappt
+                return true;
+            } else {
+                P2Log.errorLog(951652347, "Laden von " + url + " hat nicht geklappt");
+            }
+
+            // dann mit den fest hinterlegten
             stationList.clear(); // und den Rest wieder löschen
             load(P2LoadConst.RADIO_LIST_URL_1, stationList);
             if (stationList.size() > ProgConst.STATION_LIST_MIN_SIZE) {
