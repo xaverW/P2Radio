@@ -7,7 +7,7 @@ P2Radio ist ein Programm zum Online-Radio hören. Es verwendet die Senderliste m
 <br />
 
 ## Infos
-Das Programm nutzt den Ordner ".p2Radio" unter Linux und den versteckten Ordner "p2Radio" unter Windows als Konfig-Ordner. Man kann dem Programm auch einen Ordner für die Einstellungen mitgeben (und es z.B. auf einem USB-Stick verwenden):
+Das Programm nutzt den Ordner ".p2Radio" unter Linux/macOs und den versteckten Ordner "p2Radio" unter Windows als Konfig-Ordner. Man kann dem Programm auch einen Ordner für die Einstellungen mitgeben (und es z.B. auf einem USB-Stick verwenden):
 
 ```
 java -jar P2Radio.jar ORDNER
