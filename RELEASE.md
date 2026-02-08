@@ -1,5 +1,14 @@
 # P2Radio
 
+**Version 10**
+* Anpassungen für eine MAC-Version
+* Das Laden der Senderliste wurde überarbeitet
+* Das Programm hat ein ganz neues Icon-Set bekommen. Das sind jetzt Vektorgrafiken. Diese lassen sich verlustfrei skalieren und farblich anpassen. So kann die Optik im Programm an vielen Stellen jetzt geändert werden (-> Einstellungen)
+* Start-Dialog beim ersten Start: Wurde für kleinere Bildschirme angepasst
+* Die Anzahl der Starts eines Sender (Spalte Klicks) kann an den Anbieter der Senderliste gemeldet werden (vorher kommt eine Abfrage in einem Dialog, Einstellungen -> ein/ausschalten, Standardmäßig wird es nicht gemacht)
+* Es gibt einen neuen Hilfe-Dialog -> Menü-Hilfe
+* Es gibt einen neuen Menüpunkt: Aktuellen Sender selektieren (die Tabellenzeile wird dann ausgewählt)
+* ...
 <br />
 
 **Version 9**

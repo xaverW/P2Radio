@@ -20,14 +20,15 @@ https://www.p2tools.de/p2radio/
 <br />
 
 ## Systemvoraussetzungen
-Unterstützt wird Windows und Linux.
+Unterstützt wird Windows, Linux und macOs.
 
-Das Programm benötigt unter Windows und Linux eine aktuelle Java-VM ab Version: Java 17. Für Linux-Benutzer wird OpenJDK empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
+Das Programm benötigt eine aktuelle Java-VM ab Version: Java 17. Für Linux-Benutzer wird OpenJDK empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
 
 <br />
 
 ## Download
-Das Programm wird in fünf Paketen angeboten. Diese unterscheiden sich nur im “Zubehör”, das Programm selbst ist in allen Paketen identisch: 
+Das Programm wird in verschiedenen Paketen angeboten. Diese unterscheiden sich nur im "Zubehör", das Programm selbst ist in allen Paketen identisch:
+<br />
 
 * **P2Radio-XX__Windows==SETUP__DATUM.exe**  
 Mit diesem Programmpaket kann das Programm auf Windows installiert werden: Doppelklick und alles wird eingerichtet, auch ein Startbutton auf dem Desktop. Es muss auch kein Java auf dem System installiert sein. (Die Java-Laufzeitumgebung ist enthalten).
@@ -39,8 +40,11 @@ Das Programmpaket bringt nur das Programm und die benötigten Hilfsprogramme abe
 **P2Radio-XX__Win+Java__DATUM.zip**  
 Diese Programmpakete bringen die Java-Laufzeitumgebung mit und sind nur für das angegebene Betriebssystem: Linux oder Windows. Es muss kein Java auf dem System installiert sein. (Die Java-Laufzeitumgebung liegt im Ordner: "Java" und kommt von jdk.java.net). Zip entpacken und Programm starten.
 
+* **P2Radio-XX__Mac=mit=Java__DATUM.dmg**  
+Das ist ein Programmpaket für macOS (Apple Silicon). Es muss auch kein Java auf dem System installiert sein. (Die Java-Laufzeitumgebung ist enthalten).
+
 * **P2Radio-XX__Raspberry__DATUM.zip**  
-Das ist ein Programmpaket, das auf einem Raspberry verwendet werden kann. Es muss ein aktueller Raspberry mit einer 64Bit CPU mit AArch64 Architektur sein. Zip entpacken und Programm Starten.
+Das ist ein Programmpaket, das auf einem Raspberry verwendet werden kann. Java muss installiert sein und es muss ein aktueller Raspberry mit einer 64Bit CPU mit AArch64 Architektur sein. Zip entpacken und Programm Starten.
 
 zum Download: [github.com/xaverW/P2Radio/releases](https://github.com/xaverW/P2Radio/releases)
 
