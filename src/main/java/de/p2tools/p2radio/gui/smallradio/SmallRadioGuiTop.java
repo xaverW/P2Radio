@@ -66,7 +66,7 @@ public class SmallRadioGuiTop extends HBox {
             ProgQuitFactory.quit();
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
-        btnClose.setGraphic(PIconFactory.PICON.BTn_SWITCH_OFF.getFontIcon());
+        btnClose.setGraphic(PIconFactory.PICON.BTN_SWITCH_OFF.getFontIcon());
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.getStyleClass().add("changeGuiBtn");

@@ -19,7 +19,7 @@ package de.p2tools.p2radio.controller.data.start;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.p2event.P2Event;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2Wait;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.PEvents;
@@ -81,7 +81,7 @@ public class StartFactory {
 
         nowPlayingThread = new PlayingThread(setData, station);
         nowPlayingThread.start();
-        P2ToolsFactory.waitWhile(3_000, nowPlayingThread.isStartingProperty());
+        P2Wait.waitWhile(3_000, nowPlayingThread.isStartingProperty());
 
         ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.REFRESH_TABLE));
     }
@@ -104,7 +104,7 @@ public class StartFactory {
             nowPlayingThread.killProcess();
             if (wait) {
                 System.out.println("stopStation - wait");
-                P2ToolsFactory.waitWhile(3_000, nowPlayingThread.isRunningProperty());
+                P2Wait.waitWhile(3_000, nowPlayingThread.isRunningProperty());
             }
         }
     }

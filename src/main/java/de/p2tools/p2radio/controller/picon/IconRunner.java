@@ -3,6 +3,7 @@ package de.p2tools.p2radio.controller.picon;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.P2ColorFactory;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2Wait;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.application.Platform;
@@ -80,7 +81,7 @@ public class IconRunner {
                     });
                 });
 
-                P2ToolsFactory.pause(pause);
+                P2Wait.pause(pause);
             }
         }).start();
     }

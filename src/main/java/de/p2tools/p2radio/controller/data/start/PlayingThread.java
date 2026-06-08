@@ -20,7 +20,7 @@ package de.p2tools.p2radio.controller.data.start;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2Wait;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.PEvents;
@@ -155,7 +155,7 @@ public class PlayingThread extends Thread {
             }
         } catch (final Exception ex) {
             runningState.set(STATE_STARTED_RUN);
-            P2ToolsFactory.pause(1_000);
+            P2Wait.pause(1_000);
         }
     }
 
@@ -192,7 +192,7 @@ public class PlayingThread extends Thread {
         }
 
         // damit das Programm auch wirklich geschlossen ist
-        P2ToolsFactory.waitWhile(3_000, (a) ->
+        P2Wait.waitWhile(3_000, (a) ->
                 (process != null && process.isAlive()));
         runningState.set(STATE_END);
     }

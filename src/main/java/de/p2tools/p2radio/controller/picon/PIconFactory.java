@@ -59,7 +59,7 @@ public class PIconFactory {
 
         //        ICON_BOOLEAN_ON("gmi-done", 20),
         ICON_BOOLEAN_ON("gmi-done-outline", 18),
-        BTn_SWITCH_OFF("mdi2c-close-circle", 20),
+        BTN_SWITCH_OFF("mdi2c-close-circle", 20),
 
         SMALL_ICON_BIG("mdmz-sports_basketball", 30),
         SMALL_ICON_SMALL("mdmz-sports_basketball", 25),
