@@ -24,10 +24,11 @@ import de.p2tools.p2radio.P2RadioController;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.BlackDataList;
 import de.p2tools.p2radio.controller.data.SetDataList;
+import de.p2tools.p2radio.controller.data.bookmark.BookmarkList;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteList;
 import de.p2tools.p2radio.controller.data.filter.FavouriteFilter;
-import de.p2tools.p2radio.controller.data.filter.HistoryFilter;
+import de.p2tools.p2radio.controller.data.history.HistoryFilter;
 import de.p2tools.p2radio.controller.data.history.HistoryList;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationList;
@@ -38,11 +39,11 @@ import de.p2tools.p2radio.gui.FavouriteGuiPack;
 import de.p2tools.p2radio.gui.HistoryGuiPack;
 import de.p2tools.p2radio.gui.StationGuiPack;
 import de.p2tools.p2radio.gui.dialog.StationInfoDialogController;
-import de.p2tools.p2radio.gui.filter.StationFilterControllerClearFilter;
+import de.p2tools.p2radio.controller.filter.filter.StationFilterControllerClearFilter;
 import de.p2tools.p2radio.gui.smallradio.SmallRadioGuiController;
 import de.p2tools.p2radio.gui.tools.ProgTray;
-import de.p2tools.p2radio.tools.stationlistfilter.StationListFilter;
-import de.p2tools.p2radio.tools.storedfilter.StoredFilters;
+import de.p2tools.p2radio.controller.stationfilter.stationlistfilter.StationListFilter;
+import de.p2tools.p2radio.controller.storedfilter.storedfilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -69,6 +70,7 @@ public class ProgData {
     public PShortCut pShortcut; // verwendete Shortcuts
     public StoredFilters storedFilters; // gespeicherte Filterprofile
     public StationListFilter stationListFilter;
+    public BookmarkList bookmarkList; // Bookmarks
 
     // Gui
     public Stage primaryStage = null;
@@ -142,6 +144,7 @@ public class ProgData {
 
         collectionList = new CollectionList(this);
         stationListFilter = new StationListFilter(this);
+        bookmarkList = new BookmarkList();
 
         filterWorker = new FilterWorker(this);
         progTray = new ProgTray(this);

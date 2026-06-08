@@ -20,7 +20,7 @@ import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterCountHitsFactory;
+import de.p2tools.p2radio.controller.stationfilter.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 

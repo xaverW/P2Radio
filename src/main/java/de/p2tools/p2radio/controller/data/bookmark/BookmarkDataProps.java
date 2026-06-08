@@ -1,0 +1,111 @@
+/*
+ * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * https://www.p2tools.de
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
+ */
+
+package de.p2tools.p2radio.controller.data.bookmark;
+
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.configfile.config.Config_stringProp;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+import java.util.ArrayList;
+
+public class BookmarkDataProps extends P2DataSample<BookmarkData> {
+
+    private final StringProperty channel = new SimpleStringProperty("");
+    private final StringProperty theme = new SimpleStringProperty("");
+    private final StringProperty title = new SimpleStringProperty("");
+    private final StringProperty url = new SimpleStringProperty("");
+
+    public static final String TAG = "BookmarkData";
+
+    BookmarkDataProps() {
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public String getComment() {
+        return "BookmarkData";
+    }
+
+    @Override
+    public Config[] getConfigsArr() {
+        ArrayList<Config> list = new ArrayList<>();
+        list.add(new Config_stringProp("channel", channel));
+        list.add(new Config_stringProp("theme", theme));
+        list.add(new Config_stringProp("title", title));
+        list.add(new Config_stringProp("url", url));
+        return list.toArray(new Config[]{});
+    }
+
+    public String getChannel() {
+        return channel.get();
+    }
+
+    public void setChannel(String channel) {
+        this.channel.set(channel);
+    }
+
+    public StringProperty channelProperty() {
+        return channel;
+    }
+
+    public String getTheme() {
+        return theme.get();
+    }
+
+    public void setTheme(String theme) {
+        this.theme.set(theme);
+    }
+
+    public StringProperty themeProperty() {
+        return theme;
+    }
+
+    public String getTitle() {
+        return title.get();
+    }
+
+    public void setTitle(String title) {
+        this.title.set(title);
+    }
+
+    public StringProperty titleProperty() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url.get();
+    }
+
+    public void setUrl(String url) {
+        this.url.set(url);
+    }
+
+    public StringProperty urlProperty() {
+        return url;
+    }
+
+    @Override
+    public int compareTo(BookmarkData arg0) {
+        return sorter.compare(getUrl(), arg0.getUrl());
+    }
+}

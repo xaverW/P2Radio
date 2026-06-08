@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.filter.FilterFactory;
+import de.p2tools.p2radio.controller.data.filter.FilterFactorySmallGui;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -77,9 +77,9 @@ public class SmallRadioGuiTop extends HBox {
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
         btnClearFilter.setGraphic(P2IconFactory.P2ICON.BTN_CLEAR_FILTER.getFontIcon());
         btnClearFilter.setOnAction(event -> {
-            if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
+            if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_STATION)) {
                 cboGenre.getSelectionModel().select(0);
-            } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
+            } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_FAVOURITE)) {
                 cboGenre.getSelectionModel().select(0);
                 cboCollections.getSelectionModel().select(0);
             } else {
@@ -111,9 +111,9 @@ public class SmallRadioGuiTop extends HBox {
         cboGenre.setVisibleRowCount(25);
         cboGenre.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null) {
-                if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
+                if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_STATION)) {
                     ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.setValue(newValue);
-                } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
+                } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_FAVOURITE)) {
                     ProgConfig.SMALL_RADIO_SELECTED_FAVOURITE_GENRE.setValue(newValue);
                 } else {
                     ProgConfig.SMALL_RADIO_SELECTED_HISTORY_GENRE.setValue(newValue);
@@ -128,11 +128,11 @@ public class SmallRadioGuiTop extends HBox {
     private void setHbCollection() {
         hBoxSearch.getChildren().clear();
 
-        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_STATION)) {
             hBoxSearch.getChildren().addAll(new Label("Genre:"), cboGenre, btnClearFilter);
             cboGenre.setValue(ProgConfig.SMALL_RADIO_SELECTED_STATION_GENRE.getValueSafe());
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_FAVOURITE)) {
             hBoxSearch.getChildren().addAll(new Label("Genre:"), cboGenre,
                     new Label("Sammlung:"), cboCollections, btnClearFilter);
 

@@ -7,6 +7,7 @@ import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2radio.controller.config.ProgColorList;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.bookmark.BookmarkFactory;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteConstants;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.history.HistoryFactory;
@@ -298,6 +299,7 @@ public class TableStationFactory {
                     hbox.getChildren().add(btnPlay);
                 }
 
+
                 if (tableEnum.equals(Table.TABLE_ENUM.STATION) ||
                         tableEnum.equals(Table.TABLE_ENUM.FAVOURITE) ||
                         tableEnum.equals(Table.TABLE_ENUM.HISTORY) ||
@@ -349,6 +351,39 @@ public class TableStationFactory {
                     }
 
                     hbox.getChildren().add(btnStop);
+                }
+
+
+                if (tableEnum.equals(Table.TABLE_ENUM.STATION)) {
+                    final Button btnBookmark;
+                    btnBookmark = new Button("");
+                    btnBookmark.getStyleClass().addAll("pFuncBtn", "btnTable");
+                    if (stationData.isBookmark()) {
+                        btnBookmark.setGraphic(PIconFactory.PICON.TABLE_BOOKMARK_DEL.getFontIcon());
+                    } else {
+                        btnBookmark.setGraphic(PIconFactory.PICON.TABLE_BOOKMARK_ADD.getFontIcon());
+                    }
+                    btnBookmark.setOnAction(e -> {
+                        getTableView().getSelectionModel().clearSelection();
+                        getTableView().getSelectionModel().select(getIndex());
+
+                        if (stationData.isBookmark()) {
+                            BookmarkFactory.removeBookmark(stationData);
+                        } else {
+                            BookmarkFactory.addBookmark(stationData);
+                        }
+
+                        getTableView().refresh();
+                        getTableView().requestFocus();
+                    });
+                    hbox.getChildren().add(btnBookmark);
+                    if (ProgConfig.SYSTEM_SMALL_ROW_TABLE.get()) {
+                        btnBookmark.setMaxHeight(Table.ROW_HEIGHT_MIN);
+                        btnBookmark.setMinHeight(Table.ROW_HEIGHT_MIN);
+                    } else {
+                        btnBookmark.setMaxHeight(Table.ROW_HEIGHT_MAX);
+                        btnBookmark.setMinHeight(Table.ROW_HEIGHT_MAX);
+                    }
                 }
 
                 setGraphic(hbox);

@@ -30,4 +30,5 @@ public class PEvents extends P2Events {
     public static int LOAD_RADIO_LIST_PROGRESS = ++count;
     public static int LOAD_RADIO_LIST_LOADED = ++count;
     public static int LOAD_RADIO_LIST_FINISHED = ++count;
+    public static int EVENT_BOOKMARK_CHANGED = ++count;
 }

@@ -23,7 +23,7 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.ProgConst;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.tools.stationlistfilter.BlackFilterFactory;
+import de.p2tools.p2radio.controller.stationfilter.stationlistfilter.BlackFilterFactory;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;

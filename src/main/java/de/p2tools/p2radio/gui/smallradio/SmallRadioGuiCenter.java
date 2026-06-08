@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.controller.data.filter.FilterFactory;
+import de.p2tools.p2radio.controller.data.filter.FilterFactorySmallGui;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.TableContextMenu;
@@ -203,14 +203,14 @@ public class SmallRadioGuiCenter extends VBox {
     }
 
     private void setFilter() {
-        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
-            filteredListStation.setPredicate(FilterFactory.getStationPredicateSmallGui());
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_STATION)) {
+            filteredListStation.setPredicate(FilterFactorySmallGui.getStationPredicateSmallGui());
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
-            filteredListFavourite.setPredicate(FilterFactory.getFavoritePredicateSmallGui());
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_FAVOURITE)) {
+            filteredListFavourite.setPredicate(FilterFactorySmallGui.getFavoritePredicateSmallGui());
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
-            filteredListHistory.setPredicate(FilterFactory.getHistoryPredicateSmallGui());
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_HISTORY)) {
+            filteredListHistory.setPredicate(FilterFactorySmallGui.getHistoryPredicateSmallGui());
         }
     }
 
@@ -246,15 +246,15 @@ public class SmallRadioGuiCenter extends VBox {
     }
 
     private void loadTable() {
-        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_STATION)) {
+        if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_STATION)) {
             tableView = tableViewStation;
             scrollPane.setContent(tableView);
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_FAVOURITE)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_FAVOURITE)) {
             tableView = tableViewFavourite;
             scrollPane.setContent(tableView);
 
-        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactory.LIST_HISTORY)) {
+        } else if (ProgConfig.SMALL_RADIO_SELECTED_LIST.getValueSafe().equals(FilterFactorySmallGui.LIST_HISTORY)) {
             tableView = tableViewHistory;
             scrollPane.setContent(tableView);
         }

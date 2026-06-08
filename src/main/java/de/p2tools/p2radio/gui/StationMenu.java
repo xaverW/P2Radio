@@ -16,12 +16,14 @@
 
 package de.p2tools.p2radio.gui;
 
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2radio.controller.config.PShortCut;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetData;
+import de.p2tools.p2radio.controller.data.bookmark.BookmarkFactory;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
@@ -32,6 +34,10 @@ import javafx.scene.layout.VBox;
 public class StationMenu {
     final private VBox vBox;
     final private ProgData progData;
+    private static final String FILM_FILTER_BOOKMARK_TEXT = "Alle angelegte Bookmarks anzeigen\n" +
+            "der zweite Klick stellt den\n" +
+            "eingestellten Filter wieder her";
+    private static final String FILM_SHOW_BOOKMARK_TEXT = "Alle Bookmarks in einem Dialog anzeigen";
 
     public StationMenu(VBox vBox) {
         this.vBox = vBox;
@@ -76,6 +82,64 @@ public class StationMenu {
         btFavourite.setOnAction(a -> FavouriteFactory.favouriteStationList());
         btRandom.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playRandomStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
+
+
+        vBoxSpace = new VBox();
+        vBoxSpace.setMaxHeight(10);
+        vBoxSpace.setMinHeight(10);
+        vBox.getChildren().add(vBoxSpace);
+
+        final ToolBarButton btBookmark = new ToolBarButton(vBox,
+                "Bookmarks anlegen", "Bookmarks für die markierten Filme anlegen",
+                PIconFactory.PICON.TOOLBAR_BTN_BOOKMARK_ADD.getFontIcon());
+        final ToolBarButton btDelBookmark = new ToolBarButton(vBox,
+                "Bookmarks löschen", "Bookmarks für die markierten Filme löschen",
+                PIconFactory.PICON.TOOLBAR_BTN_BOOKMARK_DEL.getFontIcon());
+        final ToolBarButton btDelAllBookmark = new ToolBarButton(vBox,
+                "Alle Bookmarks löschen", "Alle angelegten Bookmarks löschen",
+                PIconFactory.PICON.TOOLBAR_BTN_BOOKMARK_DAL_ALL.getFontIcon());
+        final ToolBarButton btFilterBookmark = new ToolBarButton(vBox,
+                "Bookmarks anzeigen", FILM_FILTER_BOOKMARK_TEXT,
+                PIconFactory.PICON.TOOLBAR_BTN_BOOKMARK_SHOW.getFontIcon());
+
+        btBookmark.setOnAction(a -> {
+            BookmarkFactory.addBookmarkList(progData.stationGuiPack.getStationGuiController().getSelList());
+        });
+        btDelBookmark.setOnAction(a -> {
+            BookmarkFactory.removeBookmarkList(progData.stationGuiPack.getStationGuiController().getSelList());
+        });
+        btDelAllBookmark.setOnAction(a -> {
+            BookmarkFactory.deleteAll(progData.primaryStage);
+        });
+
+        btFilterBookmark.setOnAction(a -> {
+//            FilmFilter sf = progData.filterWorkerFilm.getActFilterSettings();
+//            FilmFilter bookmarkFilter = FilmFilterSamples.getBookmarkFilter();
+//
+//            if (sf.isSame(bookmarkFilter)) {
+//                // dann ist der BlackFilter aktiv, dann zurückschalten
+//                if (storedActFilterSettings != null) {
+//                    // dann haben wir einen gespeicherten Filter
+//                    storedActFilterSettings.setOnlyBookmark(false); // falls der eingeschaltet war
+//                    progData.filterWorkerFilm.setActFilterSettings(storedActFilterSettings);
+//                    storedActFilterSettings = null;
+//
+//                } else {
+//                    // dann gibts keinen gespeicherten, dann einfach löschen
+//                    progData.filterWorkerFilm.getActFilterSettings().clearFilter();
+//                }
+//
+//            } else {
+//                // dann ist es ein anderer Filter, Black einschalten und ActFilter merken
+//                storedActFilterSettings = progData.filterWorkerFilm.getActFilterSettings().getCopy();
+//                progData.filterWorkerFilm.setActFilterSettings(bookmarkFilter);
+//            }
+//
+//            progData.filmGuiController.tableView.refresh();
+//            progData.filmGuiController.tableView.requestFocus();
+        });
+
+        vBox.getChildren().add(P2GuiTools.getVDistance(10));
     }
 
     private void initStationMenu() {

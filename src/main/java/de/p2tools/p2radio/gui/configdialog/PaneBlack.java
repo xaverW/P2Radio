@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import de.p2tools.p2radio.tools.stationlistfilter.StationFilterFactory;
+import de.p2tools.p2radio.controller.stationfilter.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
