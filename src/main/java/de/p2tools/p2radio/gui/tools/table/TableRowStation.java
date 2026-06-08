@@ -37,11 +37,11 @@ public class TableRowStation<T extends StationData> extends TableRow<T> {
             setTooltip(null);
 
         } else {
-            StationData stationData = item;
-            final boolean error = stationData.isError();
-            final boolean playing = stationData.isNowPlaying();
-            final boolean fav = stationData.isFavourite();
-            final boolean newStation = stationData.isNewStation();
+            final boolean error = item.isError();
+            final boolean playing = item.isNowPlaying();
+            final boolean fav = item.isFavourite();
+            final boolean newStation = item.isNewStation();
+            final boolean bookmark = item.isBookmark();
 
             setStyle("");
             if (error) {
@@ -64,9 +64,13 @@ public class TableRowStation<T extends StationData> extends TableRow<T> {
                     setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackground());
                 }
 
-            } else if (newStation) {
-                if (ProgColorList.STATION_NEW_BG.isUse()) {
-                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
+//            } else if (newStation) {
+//                if (ProgColorList.STATION_NEW_BG.isUse()) {
+//                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
+//                }
+            } else if (bookmark) {
+                if (ProgColorList.STATION_BOOKMARK_KEY.isUse()) {
+                    setStyle(ProgColorList.STATION_BOOKMARK_KEY.getCssBackground());
                 }
             }
         }

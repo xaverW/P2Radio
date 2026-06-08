@@ -50,8 +50,8 @@ public class ProgConfigUpdate {
             // gibt neue Farben
             ProgColorList.resetAllColorDarkLight();
 
-            ProgColorList.STATION_NEW_BG.setUse(false);
-            ProgColorList.STATION_NEW_KEY.setUse(true);
+//            ProgColorList.STATION_NEW_BG.setUse(false);
+//            ProgColorList.STATION_NEW_KEY.setUse(true);
             ProgColorList.STATION_FAVOURITE_BG.setUse(false);
             ProgColorList.STATION_FAVOURITE_KEY.setUse(true);
 

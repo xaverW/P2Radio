@@ -52,13 +52,14 @@ public class SelectedFilterProps extends P2DataSample<SelectedFilter> {
     private final BooleanProperty onlyNew = new SimpleBooleanProperty(false);
     private final BooleanProperty noFavourites = new SimpleBooleanProperty(false);
     private final BooleanProperty noDoubles = new SimpleBooleanProperty(false);
+    private final BooleanProperty onlyBookmark = new SimpleBooleanProperty(false);
 
     private final BooleanProperty blacklistOn = new SimpleBooleanProperty(false);
     private final BooleanProperty blacklistOnly = new SimpleBooleanProperty(false);
 
     public BooleanProperty[] sfBooleanPropArr = {codecVis, genreVis, countryVis, stationNameVis,
             urlVis, somewhereVis, minMaxBitVis,
-            onlyVis, onlyNew, noFavourites, noDoubles, blacklistOn, blacklistOnly};
+            onlyVis, onlyNew, noFavourites, noDoubles, onlyBookmark, blacklistOn, blacklistOnly};
 
     public StringProperty[] sfStringPropArr = {name, stationName, genre, codec, country, url, somewhere};
     public IntegerProperty[] sfIntegerPropArr = {minBit, maxBit};
@@ -97,6 +98,7 @@ public class SelectedFilterProps extends P2DataSample<SelectedFilter> {
         list.add(new Config_boolProp("onlyNew", SelectedFilterFieldNames.ONLY_NEW, onlyNew));
         list.add(new Config_boolProp("noFavourites", SelectedFilterFieldNames.NO_FAVOURITES, noFavourites));
         list.add(new Config_boolProp("noDoubles", SelectedFilterFieldNames.NO_DOUBLES, noDoubles));
+        list.add(new Config_boolProp("noBookmark", SelectedFilterFieldNames.NO_Bookmark, onlyBookmark));
         list.add(new Config_boolProp("blacklistOn", SelectedFilterFieldNames.BLACKLIST_ON, blacklistOn));
         list.add(new Config_boolProp("blacklistOnly", SelectedFilterFieldNames.BLACKLIST_ONLY, blacklistOnly));
 
@@ -330,6 +332,18 @@ public class SelectedFilterProps extends P2DataSample<SelectedFilter> {
 
     public BooleanProperty noDoublesProperty() {
         return noDoubles;
+    }
+
+    public boolean isOnlyBookmark() {
+        return onlyBookmark.get();
+    }
+
+    public void setOnlyBookmark(boolean onlyBookmark) {
+        this.onlyBookmark.set(onlyBookmark);
+    }
+
+    public BooleanProperty onlyBookmarkProperty() {
+        return onlyBookmark;
     }
 
     public boolean isNoFavourites() {

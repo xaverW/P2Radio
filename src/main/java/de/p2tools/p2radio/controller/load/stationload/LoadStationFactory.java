@@ -4,6 +4,7 @@ import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgData;
+import de.p2tools.p2radio.controller.data.bookmark.BookmarkFactory;
 import de.p2tools.p2radio.controller.data.station.StationListFactory;
 import de.p2tools.p2radio.controller.load.stationweb.WebLoadFactory;
 
@@ -35,6 +36,7 @@ public class LoadStationFactory {
         logList.add("Anzahl doppelte Sender: " + count);
         logList.add("Tags suchen");
         progData.stationList.loadFilterLists();
+        BookmarkFactory.setBookmarks();
 
         progData.pEventHandler.notifyListener(new P2Event(PEvents.LOAD_RADIO_LIST_LOADED,
                 "Blacklist filtern", WebLoadFactory.PROGRESS_INDETERMINATE));

@@ -24,11 +24,34 @@ import de.p2tools.p2radio.controller.data.station.StationData;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BookmarkFactory {
 
     private BookmarkFactory() {
     }
+
+    public static void writeBookmarks() {
+        final BookmarkList bookmarkList = ProgData.getInstance().bookmarkList;
+        bookmarkList.clear();
+        ProgData.getInstance().stationList.forEach(s -> {
+            if (s.isBookmark()) {
+                bookmarkList.add(new BookmarkData(s));
+            }
+        });
+    }
+
+    public static void setBookmarks() {
+        final HashMap<String, BookmarkData> hash = new HashMap<>();
+        final BookmarkList bookmarkList = ProgData.getInstance().bookmarkList;
+        bookmarkList.forEach(b -> hash.put(b.getUrl(), b));
+        ProgData.getInstance().stationList.forEach(s -> {
+            if (hash.containsKey(s.getStationUrl())) {
+                s.setBookmark(true);
+            }
+        });
+    }
+
 
     public static void deleteAll(Stage stage) {
         // aus dem Menü (alle Bookmarks löschen)

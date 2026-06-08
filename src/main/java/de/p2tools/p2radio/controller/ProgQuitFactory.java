@@ -24,6 +24,7 @@ import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.config.ProgInfos;
+import de.p2tools.p2radio.controller.data.bookmark.BookmarkFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import javafx.application.Platform;
 
@@ -64,6 +65,7 @@ public class ProgQuitFactory {
     public static void saveProgConfig() {
         // Tabellen holen
         writeTableWindowSettings();
+        BookmarkFactory.writeBookmarks();
 
         // sind die Programmeinstellungen
         P2Log.sysLog("Alle Programmeinstellungen sichern");
@@ -72,6 +74,7 @@ public class ProgQuitFactory {
         ProgConfig.addConfigData(configFile);
         ConfigWriteFile.writeConfigFile(configFile);
     }
+
 
     private static void writeTableWindowSettings() {
         // Tabelleneinstellungen merken

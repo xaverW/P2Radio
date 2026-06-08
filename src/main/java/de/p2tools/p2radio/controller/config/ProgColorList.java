@@ -29,14 +29,20 @@ public class ProgColorList extends P2ColorList {
     }
 
     // new
-    public static final P2ColorData STATION_NEW_BG = addNewKey("COLOR__STATION_NEW_BG",
-            Color.rgb(210, 210, 255),
-            Color.rgb(210, 210, 255),
-            false, "Neuer Sender, Tabellenzeile");
+//    public static final P2ColorData STATION_NEW_BG = addNewKey("COLOR__STATION_NEW_BG",
+//            Color.rgb(210, 210, 255),
+//            Color.rgb(210, 210, 255),
+//            false, "Neuer Sender, Tabellenzeile");
     public static final P2ColorData STATION_NEW_KEY = addNewKey("COLOR__STATION_NEW",
             Color.rgb(0, 0, 240),
             Color.rgb(0, 0, 240),
             true, "Neuer Sender, Schriftfarbe");
+
+    // bookmark
+    public static final P2ColorData STATION_BOOKMARK_KEY = addNewKey("COLOR__STATION_BOOKMARK",
+            Color.rgb(255, 236, 151),
+            Color.rgb(177, 164, 105),
+            true, "Sender ist ein Bookmark, Tabellenzeile");
 
     // fav
     public static final P2ColorData STATION_FAVOURITE_BG = addNewKey("COLOR__IS_FAVOURITE_BG",

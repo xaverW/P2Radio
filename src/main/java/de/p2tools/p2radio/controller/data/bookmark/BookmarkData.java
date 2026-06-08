@@ -16,24 +16,24 @@
 
 package de.p2tools.p2radio.controller.data.bookmark;
 
-import de.p2tools.p2lib.mediathek.audiodata.AudioData;
+import de.p2tools.p2radio.controller.data.station.StationData;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 public class BookmarkData extends BookmarkDataProps {
 
     private final static FastDateFormat sdf_datum = FastDateFormat.getInstance("dd.MM.yyyy");
-    private AudioData audioData = null;
+    private StationData stationData = null;
 
     public BookmarkData() {
     }
 
-    public BookmarkData(AudioData audioData) {
+    public BookmarkData(StationData stationData) {
         // beim Neuanlegen eines Bookmarks
-        this.audioData = audioData;
-        setChannel(audioData.getChannel());
-        setTheme(audioData.getTheme());
-        setTitle(audioData.getTitle());
-        setUrl(audioData.getUrl());
+        this.stationData = stationData;
+        setChannel(stationData.getStationName());
+        setTheme(stationData.getGenre());
+        setTitle(stationData.getStationName());
+        setUrl(stationData.getStationUrl());
     }
 
     public BookmarkData(String theme, String title, String url) {
@@ -43,11 +43,11 @@ public class BookmarkData extends BookmarkDataProps {
         setUrl(url);
     }
 
-    public AudioData getAudioData() {
-        return audioData;
+    public StationData getStationData() {
+        return stationData;
     }
 
-    public void setAudioData(AudioData audioData) {
-        this.audioData = audioData;
+    public void setStationData(StationData stationData) {
+        this.stationData = stationData;
     }
 }

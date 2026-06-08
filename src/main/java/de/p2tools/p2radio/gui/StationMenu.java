@@ -104,12 +104,15 @@ public class StationMenu {
 
         btBookmark.setOnAction(a -> {
             BookmarkFactory.addBookmarkList(progData.stationGuiPack.getStationGuiController().getSelList());
+            progData.stationGuiPack.getStationGuiController().refreshTable();
         });
         btDelBookmark.setOnAction(a -> {
             BookmarkFactory.removeBookmarkList(progData.stationGuiPack.getStationGuiController().getSelList());
+            progData.stationGuiPack.getStationGuiController().refreshTable();
         });
         btDelAllBookmark.setOnAction(a -> {
             BookmarkFactory.deleteAll(progData.primaryStage);
+            progData.stationGuiPack.getStationGuiController().refreshTable();
         });
 
         btFilterBookmark.setOnAction(a -> {

@@ -29,9 +29,10 @@ public class StationFilterControllerFilter extends VBox {
 
     private final Label lblOnly = new Label("anzeigen");
     private final P2CboCheckBoxBool checkOnly = new P2CboCheckBoxBool();
-    private final String ONLY_NEW = "nur neue";
-    private final String NOT_FAVOURITES = "keine Favoriten";
-    private final String NOT_DOUBLE = "keine doppelten";
+    private final String ONLY_NEW = "Nur neue";
+    private final String NOT_FAVOURITES = "Keine Favoriten";
+    private final String NOT_DOUBLE = "Keine doppelten";
+    private final String NOT_BOOKMARK = "Nur Bookmarks";
 
     private final ProgData progData;
 
@@ -61,9 +62,10 @@ public class StationFilterControllerFilter extends VBox {
     }
 
     private void addCheckFilter() {
-        checkOnly.addItem(ONLY_NEW, "+neu", "nur neue Sender anzeigen", progData.storedFilters.getActFilterSettings().onlyNewProperty());
-        checkOnly.addItem(NOT_FAVOURITES, "-Favorit", "keine Sender aus den Favoriten anzeigen", progData.storedFilters.getActFilterSettings().noFavouritesProperty());
-        checkOnly.addItem(NOT_DOUBLE, "-doppelt", "doppelte Sender nur einmal anzeigen", progData.storedFilters.getActFilterSettings().noDoublesProperty());
+        checkOnly.addItem(ONLY_NEW, "+neu", "Nur neue Sender anzeigen", progData.storedFilters.getActFilterSettings().onlyNewProperty());
+        checkOnly.addItem(NOT_FAVOURITES, "-Favorit", "Keine Sender aus den Favoriten anzeigen", progData.storedFilters.getActFilterSettings().noFavouritesProperty());
+        checkOnly.addItem(NOT_DOUBLE, "-doppelt", "Doppelte Sender nur einmal anzeigen", progData.storedFilters.getActFilterSettings().noDoublesProperty());
+        checkOnly.addItem(NOT_BOOKMARK, "+Bookmark", "Nur Bookmarks anzeigen", progData.storedFilters.getActFilterSettings().onlyBookmarkProperty());
         checkOnly.getStyleClass().add("pCheckComboBox");
 
         VBox vBox = new VBox();

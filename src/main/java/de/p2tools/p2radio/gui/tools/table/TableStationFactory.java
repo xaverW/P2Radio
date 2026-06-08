@@ -398,6 +398,7 @@ public class TableStationFactory {
         final boolean playing = stationData.isNowPlaying();
         final boolean fav = stationData.isFavourite();
         final boolean newStation = stationData.isNewStation();
+        final boolean bookmark = stationData.isBookmark();
 
         tableCell.setStyle("");
         if (playing) {
@@ -423,7 +424,7 @@ public class TableStationFactory {
 
         } else if (newStation) {
             if (ProgColorList.STATION_NEW_KEY.isUse()) {
-                tableCell.setStyle(ProgColorList.STATION_NEW_KEY.getCssFont());
+                tableCell.setStyle(ProgColorList.STATION_NEW_KEY.getCssBackground());
             }
         }
     }

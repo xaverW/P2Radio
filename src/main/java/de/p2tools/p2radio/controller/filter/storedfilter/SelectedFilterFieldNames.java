@@ -42,6 +42,7 @@ public class SelectedFilterFieldNames {
     public static final String ONLY_NEW = "onlyNew";
     public static final String NO_FAVOURITES = "noFavourites";
     public static final String NO_DOUBLES = "noDoubles";
+    public static final String NO_Bookmark = "noBookmark";
 
     public static final String BLACKLIST_ON = "blackListOn";
     public static final String BLACKLIST_ONLY = "blackListOnly";

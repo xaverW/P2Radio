@@ -17,6 +17,7 @@
 package de.p2tools.p2radio.controller.filter.storedfilter;
 
 import de.p2tools.p2radio.controller.data.station.StationData;
+import de.p2tools.p2radio.controller.data.station.StationDataProperty;
 import de.p2tools.p2radio.controller.filter.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -114,6 +115,7 @@ public final class SelectedFilter extends SelectedFilterProps {
         onlyNewProperty().addListener(l -> reportFilterChange());
         noFavouritesProperty().addListener(l -> reportFilterChange());
         noDoublesProperty().addListener(l -> reportFilterChange());
+        onlyBookmarkProperty().addListener(l -> reportFilterChange());
 
         blacklistOnProperty().addListener(l -> reportBlacklistChange());
         blacklistOnlyProperty().addListener(l -> reportBlacklistChange());
@@ -215,13 +217,14 @@ public final class SelectedFilter extends SelectedFilterProps {
         final boolean onlyNew = selectedFilter.isOnlyVis() && selectedFilter.isOnlyNew();
         final boolean noFavourite = selectedFilter.isOnlyVis() && selectedFilter.isNoFavourites();
         final boolean noDouble = selectedFilter.isOnlyVis() && selectedFilter.isNoDoubles();
+        final boolean onlyBookmarks = selectedFilter.isOnlyVis() && selectedFilter.isOnlyBookmark();
         final boolean onlyBlack = selectedFilter.isBlacklistOnly();
 
 
         Predicate<StationData> predicate = station -> true;
 
         if (onlyNew) {
-            predicate = predicate.and(station -> station.isNewStation());
+            predicate = predicate.and(StationDataProperty::isNewStation);
         }
 
         if (noFavourite) {
@@ -232,8 +235,12 @@ public final class SelectedFilter extends SelectedFilterProps {
             predicate = predicate.and(station -> !station.isDoubleUrl());
         }
 
+        if (onlyBookmarks) {
+            predicate = predicate.and(StationDataProperty::isBookmark);
+        }
+
         if (onlyBlack) {
-            predicate = predicate.and(station -> station.isBlackBlocked());
+            predicate = predicate.and(StationDataProperty::isBlackBlocked);
         }
 
         // Bitrate

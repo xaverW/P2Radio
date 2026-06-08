@@ -82,6 +82,10 @@ public class StationGuiController extends VBox {
         stationGuiPack.stationDataObjectPropertyProperty().setValue(station);
     }
 
+    public void refreshTable() {
+        tableView.refresh();
+    }
+
     public void selectPlayingStation() {
         StartFactory.selectPlayingStation(tableView);
     }
