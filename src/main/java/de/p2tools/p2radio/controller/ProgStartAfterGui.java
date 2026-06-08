@@ -24,9 +24,9 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2radio.P2RadioFactory;
 import de.p2tools.p2radio.controller.config.*;
-import de.p2tools.p2radio.controller.stationload.LoadStationFactory;
-import de.p2tools.p2radio.controller.stationlocal.LocalReadFactory;
-import de.p2tools.p2radio.controller.stationweb.load.WebLoadFactory;
+import de.p2tools.p2radio.controller.load.stationload.LoadStationFactory;
+import de.p2tools.p2radio.controller.load.stationlocal.LocalReadFactory;
+import de.p2tools.p2radio.controller.load.stationweb.WebLoadFactory;
 import de.p2tools.p2radio.controller.update.SearchProgramUpdate;
 
 import java.util.ArrayList;

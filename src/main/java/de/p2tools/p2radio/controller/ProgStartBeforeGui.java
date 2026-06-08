@@ -31,7 +31,7 @@ import de.p2tools.p2radio.controller.config.ProgInfos;
 import de.p2tools.p2radio.controller.data.ImportSetDataFactory;
 import de.p2tools.p2radio.controller.data.SetDataList;
 import de.p2tools.p2radio.gui.startdialog.StartDialogController;
-import de.p2tools.p2radio.controller.storedfilter.storedfilter.InitStoredFilter;
+import de.p2tools.p2radio.controller.storedfilter.InitStoredFilter;
 import javafx.application.Platform;
 
 import java.nio.file.Files;

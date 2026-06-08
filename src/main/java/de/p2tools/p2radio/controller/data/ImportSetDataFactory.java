@@ -18,7 +18,7 @@ package de.p2tools.p2radio.controller.data;
 
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2radio.controller.tools.tools.GetFile;
+import de.p2tools.p2radio.controller.tools.GetFile;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;

@@ -20,8 +20,8 @@ import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.storedfilter.storedfilter.SelectedFilter;
-import de.p2tools.p2radio.controller.storedfilter.storedfilter.SelectedFilterFactory;
+import de.p2tools.p2radio.controller.storedfilter.SelectedFilter;
+import de.p2tools.p2radio.controller.storedfilter.SelectedFilterFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

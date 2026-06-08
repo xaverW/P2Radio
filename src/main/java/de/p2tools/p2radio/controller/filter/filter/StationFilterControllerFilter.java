@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.pcbo.P2CboCheckBoxBool;
 import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.stationfilter.stationlistfilter.StationFilterFactory;
+import de.p2tools.p2radio.controller.stationlistfilter.StationFilterFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

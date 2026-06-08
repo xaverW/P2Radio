@@ -21,7 +21,7 @@ import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_boolProp;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.storedfilter.storedfilter.Filter;
+import de.p2tools.p2radio.controller.storedfilter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;

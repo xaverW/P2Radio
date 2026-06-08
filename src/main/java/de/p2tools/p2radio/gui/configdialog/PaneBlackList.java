@@ -29,7 +29,7 @@ import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import de.p2tools.p2radio.controller.stationfilter.stationlistfilter.BlackFilterCountHitsFactory;
+import de.p2tools.p2radio.controller.stationlistfilter.BlackFilterCountHitsFactory;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.ObservableList;
