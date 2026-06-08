@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.data.filter;
+package de.p2tools.p2radio.controller.data.favourite;
 
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;

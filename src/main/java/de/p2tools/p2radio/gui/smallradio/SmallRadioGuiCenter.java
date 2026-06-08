@@ -28,7 +28,7 @@ import de.p2tools.p2radio.controller.config.PEvents;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
-import de.p2tools.p2radio.controller.data.filter.FilterFactorySmallGui;
+import de.p2tools.p2radio.controller.data.favourite.FilterFactorySmallGui;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.gui.TableContextMenu;

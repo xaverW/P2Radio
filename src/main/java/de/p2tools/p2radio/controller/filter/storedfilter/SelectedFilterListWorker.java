@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.storedfilter;
+package de.p2tools.p2radio.controller.filter.storedfilter;
 
 import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import javafx.beans.property.SimpleListProperty;

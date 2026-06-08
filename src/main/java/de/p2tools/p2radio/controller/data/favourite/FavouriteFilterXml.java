@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.data.filter;
+package de.p2tools.p2radio.controller.data.favourite;
 
 
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;

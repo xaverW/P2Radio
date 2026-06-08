@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.storedfilter;
+package de.p2tools.p2radio.controller.filter.storedfilter;
 
 public class SelectedFilterList extends SelectedFilterListWorker {
 }

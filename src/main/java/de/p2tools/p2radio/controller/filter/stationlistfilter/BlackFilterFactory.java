@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.stationlistfilter;
+package de.p2tools.p2radio.controller.filter.stationlistfilter;
 
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.data.BlackData;
 import de.p2tools.p2radio.controller.data.station.StationData;
 import de.p2tools.p2radio.controller.data.station.StationDataProperty;
 import de.p2tools.p2radio.controller.data.station.StationList;
-import de.p2tools.p2radio.controller.storedfilter.Filter;
+import de.p2tools.p2radio.controller.filter.storedfilter.Filter;
 
 import java.util.stream.Stream;
 

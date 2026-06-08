@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.storedfilter;
+package de.p2tools.p2radio.controller.filter.storedfilter;
 
 import java.util.regex.Pattern;
 

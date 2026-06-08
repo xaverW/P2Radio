@@ -24,8 +24,8 @@ import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2radio.controller.data.AutoStartFactory;
 import de.p2tools.p2radio.controller.data.SetFactory;
 import de.p2tools.p2radio.controller.data.collection.CollectionList;
-import de.p2tools.p2radio.controller.data.filter.FilterFactorySmallGui;
-import de.p2tools.p2radio.controller.stationlistfilter.StationFilterFactory;
+import de.p2tools.p2radio.controller.data.favourite.FilterFactorySmallGui;
+import de.p2tools.p2radio.controller.filter.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.*;
 
 public class ProgConfig extends P2DataProgConfig {

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2radio.controller.data;
 
-import de.p2tools.p2radio.controller.storedfilter.Filter;
+import de.p2tools.p2radio.controller.filter.storedfilter.Filter;
 
 public class BlackData extends BlackDataProps {
     public Filter fName = new Filter();

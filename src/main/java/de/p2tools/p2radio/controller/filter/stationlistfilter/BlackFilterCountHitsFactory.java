@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.stationlistfilter;
+package de.p2tools.p2radio.controller.filter.stationlistfilter;
 
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2radio.controller.config.ProgData;

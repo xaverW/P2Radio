@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.filter.filter.FavouriteFilterController;
+import de.p2tools.p2radio.gui.filter.FavouriteFilterController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;

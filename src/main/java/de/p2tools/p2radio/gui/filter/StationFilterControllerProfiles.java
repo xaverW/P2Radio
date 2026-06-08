@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.filter.filter;
+package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
@@ -24,9 +24,9 @@ import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import de.p2tools.p2radio.gui.tools.HelpText;
-import de.p2tools.p2radio.controller.storedfilter.InitStoredFilter;
-import de.p2tools.p2radio.controller.storedfilter.SelectedFilter;
-import de.p2tools.p2radio.controller.storedfilter.SelectedFilterFactory;
+import de.p2tools.p2radio.controller.filter.storedfilter.InitStoredFilter;
+import de.p2tools.p2radio.controller.filter.storedfilter.SelectedFilter;
+import de.p2tools.p2radio.controller.filter.storedfilter.SelectedFilterFactory;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;

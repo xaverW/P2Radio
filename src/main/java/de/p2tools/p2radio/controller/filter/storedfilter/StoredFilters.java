@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.storedfilter;
+package de.p2tools.p2radio.controller.filter.storedfilter;
 
 import de.p2tools.p2radio.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;

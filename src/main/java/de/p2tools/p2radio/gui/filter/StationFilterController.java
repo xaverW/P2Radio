@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.filter.filter;
+package de.p2tools.p2radio.gui.filter;
 
 import javafx.scene.layout.VBox;
 

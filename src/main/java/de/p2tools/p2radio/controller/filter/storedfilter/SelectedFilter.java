@@ -14,10 +14,10 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.storedfilter;
+package de.p2tools.p2radio.controller.filter.storedfilter;
 
 import de.p2tools.p2radio.controller.data.station.StationData;
-import de.p2tools.p2radio.controller.stationlistfilter.StationFilterFactory;
+import de.p2tools.p2radio.controller.filter.stationlistfilter.StationFilterFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 

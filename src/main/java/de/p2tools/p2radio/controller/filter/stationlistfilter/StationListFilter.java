@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2radio.controller.stationlistfilter;
+package de.p2tools.p2radio.controller.filter.stationlistfilter;
 
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;

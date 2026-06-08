@@ -14,13 +14,13 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2radio.controller.filter.filter;
+package de.p2tools.p2radio.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.pcbo.P2CboCheckBoxBool;
 import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2radio.controller.config.ProgData;
-import de.p2tools.p2radio.controller.stationlistfilter.StationFilterFactory;
+import de.p2tools.p2radio.controller.filter.stationlistfilter.StationFilterFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

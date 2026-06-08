@@ -24,7 +24,7 @@ import de.p2tools.p2radio.controller.ProgQuitFactory;
 import de.p2tools.p2radio.controller.config.ProgConfig;
 import de.p2tools.p2radio.controller.config.ProgData;
 import de.p2tools.p2radio.controller.data.collection.CollectionData;
-import de.p2tools.p2radio.controller.data.filter.FilterFactorySmallGui;
+import de.p2tools.p2radio.controller.data.favourite.FilterFactorySmallGui;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
