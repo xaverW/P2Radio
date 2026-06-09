@@ -401,17 +401,18 @@ public class TableStationFactory {
         final boolean bookmark = stationData.isBookmark();
 
         tableCell.setStyle("");
-        if (playing) {
-            if (ProgColorList.STATION_RUN_KEY.isUse()) {
-                tableCell.setStyle(ProgColorList.STATION_RUN_KEY.getCssFont());
-            }
+/*        if (playing) {
+//            if (ProgColorList.STATION_RUN_KEY.isUse()) {
+//                tableCell.setStyle(ProgColorList.STATION_RUN_KEY.getCssFont());
+//            }
 
-        } else if (error) {
+        } else *//*if (error) {
             if (ProgColorList.STATION_ERROR_KEY.isUse()) {
                 tableCell.setStyle(ProgColorList.STATION_ERROR_KEY.getCssFont());
             }
 
-        } else if (fav
+        } else*/
+        if (fav
                 && tableEnum != null
                 && (tableEnum.equals(Table.TABLE_ENUM.STATION)
                 || tableEnum.equals(Table.TABLE_ENUM.HISTORY)
