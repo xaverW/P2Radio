@@ -95,6 +95,7 @@ public class PIconFactory {
         TOOLBAR_BTN_PLAY("mdmz-play_arrow", 25),
         TOOLBAR_BTN_RANDOM("mdi-rotate-3d", 25),
         TOOLBAR_BTN_INFO("mdi-information-variant", 25),
+        TOOLBAR_BTN_SELECT("gmi-filter-tilt-shift", 25),
         TOOLBAR_BTN_PLAY_ALL("gmi-fast-forward", 25),
         TOOLBAR_BTN_RECORDE("gmi-fiber-manual-record", 25),
         TOOLBAR_BTN_DOWNLOAD_CLEAN("mdoal-cleaning_services", 25),

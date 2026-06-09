@@ -72,19 +72,24 @@ public class StationMenu {
         final ToolBarButton btRandom = new ToolBarButton(vBox,
                 "Einen Sender per Zufall starten", "Einen Sender per Zufall starten",
                 PIconFactory.PICON.TOOLBAR_BTN_RANDOM.getFontIcon());
-        final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen",
-                PIconFactory.PICON.TOOLBAR_BTN_INFO.getFontIcon());
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);
         vBoxSpace.setMinHeight(10);
         vBox.getChildren().add(vBoxSpace);
 
+        final ToolBarButton btSelect = new ToolBarButton(vBox,
+                "Laufenden Sender auswählen", "Den laufenden Sender in der Tabelle auswählen",
+                PIconFactory.PICON.TOOLBAR_BTN_SELECT.getFontIcon());
+        final ToolBarButton btInfo = new ToolBarButton(vBox,
+                "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen",
+                PIconFactory.PICON.TOOLBAR_BTN_INFO.getFontIcon());
+
         btPlay.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playStation());
         btStop.setOnAction(a -> StartFactory.stopStation());
         btFavourite.setOnAction(a -> FavouriteFactory.favouriteStationList());
         btRandom.setOnAction(a -> progData.stationGuiPack.getStationGuiController().playRandomStation());
+        btSelect.setOnAction(a -> progData.stationGuiPack.getStationGuiController().selectPlayingStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
 
 

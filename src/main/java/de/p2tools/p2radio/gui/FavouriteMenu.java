@@ -67,6 +67,15 @@ public class FavouriteMenu {
         final ToolBarButton btChange = new ToolBarButton(vBox,
                 "Markierte Favoriten ändern", "Markierte Favoriten ändern",
                 PIconFactory.PICON.TOOLBAR_BTN_ABO_CONFIG.getFontIcon());
+
+        vBoxSpace = new VBox();
+        vBoxSpace.setMaxHeight(10);
+        vBoxSpace.setMinHeight(10);
+        vBox.getChildren().add(vBoxSpace);
+        
+        final ToolBarButton btSelect = new ToolBarButton(vBox,
+                "Laufenden Sender auswählen", "Den laufenden Sender in der Tabelle auswählen",
+                PIconFactory.PICON.TOOLBAR_BTN_SELECT.getFontIcon());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen",
                 PIconFactory.PICON.TOOLBAR_BTN_INFO.getFontIcon());
@@ -76,6 +85,7 @@ public class FavouriteMenu {
         btChange.setOnAction(a -> FavouriteFactory.changeFavourite(true));
         btNew.setOnAction(a -> FavouriteFactory.addOwnStationAsFavourite());
         btDel.setOnAction(a -> FavouriteFactory.deleteFavourite(true));
+        btSelect.setOnAction(a -> progData.favouriteGuiPack.getFavouriteGuiController().selectPlayingStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 

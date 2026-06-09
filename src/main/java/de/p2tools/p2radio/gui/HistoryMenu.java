@@ -65,6 +65,15 @@ public class HistoryMenu {
         final ToolBarButton btDel = new ToolBarButton(vBox,
                 "markierte Sender aus der History löschen", "markierte Sender aus der History löschen",
                 PIconFactory.PICON.TOOLBAR_BTN_ABO_DEL.getFontIcon());
+
+        vBoxSpace = new VBox();
+        vBoxSpace.setMaxHeight(10);
+        vBoxSpace.setMinHeight(10);
+        vBox.getChildren().add(vBoxSpace);
+
+        final ToolBarButton btSelect = new ToolBarButton(vBox,
+                "Laufenden Sender auswählen", "Den laufenden Sender in der Tabelle auswählen",
+                PIconFactory.PICON.TOOLBAR_BTN_SELECT.getFontIcon());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Senderinfo-Dialog anzeigen", "Senderinfo-Dialog anzeigen",
                 PIconFactory.PICON.TOOLBAR_BTN_INFO.getFontIcon());
@@ -72,6 +81,7 @@ public class HistoryMenu {
         btStart.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().playStation());
         btStop.setOnAction(a -> StartFactory.stopStation());
         btDel.setOnAction(a -> HistoryFactory.deleteHistory(true));
+        btSelect.setOnAction(a -> progData.historyGuiPack.getHistoryGuiController().selectPlayingStation());
         btInfo.setOnAction(a -> progData.stationInfoDialogController.toggleShowInfo());
     }
 
