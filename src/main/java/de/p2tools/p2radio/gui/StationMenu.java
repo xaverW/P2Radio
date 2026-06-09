@@ -26,6 +26,9 @@ import de.p2tools.p2radio.controller.data.SetData;
 import de.p2tools.p2radio.controller.data.bookmark.BookmarkFactory;
 import de.p2tools.p2radio.controller.data.favourite.FavouriteFactory;
 import de.p2tools.p2radio.controller.data.start.StartFactory;
+import de.p2tools.p2radio.controller.filter.storedfilter.InitStoredFilter;
+import de.p2tools.p2radio.controller.filter.storedfilter.SelectedFilter;
+import de.p2tools.p2radio.controller.filter.storedfilter.SelectedFilterFactory;
 import de.p2tools.p2radio.controller.picon.PIconFactory;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -38,6 +41,7 @@ public class StationMenu {
             "der zweite Klick stellt den\n" +
             "eingestellten Filter wieder her";
     private static final String FILM_SHOW_BOOKMARK_TEXT = "Alle Bookmarks in einem Dialog anzeigen";
+    private SelectedFilter storedActFilterSettings = null;
 
     public StationMenu(VBox vBox) {
         this.vBox = vBox;
@@ -116,30 +120,27 @@ public class StationMenu {
         });
 
         btFilterBookmark.setOnAction(a -> {
-//            FilmFilter sf = progData.filterWorkerFilm.getActFilterSettings();
-//            FilmFilter bookmarkFilter = FilmFilterSamples.getBookmarkFilter();
-//
-//            if (sf.isSame(bookmarkFilter)) {
-//                // dann ist der BlackFilter aktiv, dann zurückschalten
-//                if (storedActFilterSettings != null) {
-//                    // dann haben wir einen gespeicherten Filter
-//                    storedActFilterSettings.setOnlyBookmark(false); // falls der eingeschaltet war
-//                    progData.filterWorkerFilm.setActFilterSettings(storedActFilterSettings);
-//                    storedActFilterSettings = null;
-//
-//                } else {
-//                    // dann gibts keinen gespeicherten, dann einfach löschen
-//                    progData.filterWorkerFilm.getActFilterSettings().clearFilter();
-//                }
-//
-//            } else {
-//                // dann ist es ein anderer Filter, Black einschalten und ActFilter merken
-//                storedActFilterSettings = progData.filterWorkerFilm.getActFilterSettings().getCopy();
-//                progData.filterWorkerFilm.setActFilterSettings(bookmarkFilter);
-//            }
-//
-//            progData.filmGuiController.tableView.refresh();
-//            progData.filmGuiController.tableView.requestFocus();
+            SelectedFilter sf = progData.storedFilters.getActFilterSettings();
+            SelectedFilter bookmarkFilter = InitStoredFilter.getBookmarkFilter();
+
+            if (SelectedFilterFactory.compareFilterWithoutNameOfFilter(sf, bookmarkFilter)) {
+                // dann ist der BlackFilter aktiv, dann zurückschalten
+                if (storedActFilterSettings != null) {
+                    // dann haben wir einen gespeicherten Filter
+                    storedActFilterSettings.setOnlyBookmark(false); // falls der eingeschaltet war
+                    progData.storedFilters.setActFilterSettings(storedActFilterSettings);
+                    storedActFilterSettings = null;
+
+                } else {
+                    // dann gibts keinen gespeicherten, dann einfach löschen
+                    progData.storedFilters.getActFilterSettings().clearFilter();
+                }
+
+            } else {
+                // dann ist es ein anderer Filter, Black einschalten und ActFilter merken
+                storedActFilterSettings = SelectedFilterFactory.getFilterCopy(progData.storedFilters.getActFilterSettings());
+                progData.storedFilters.setActFilterSettings(bookmarkFilter);
+            }
         });
 
         vBox.getChildren().add(P2GuiTools.getVDistance(10));

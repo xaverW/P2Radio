@@ -21,6 +21,30 @@ import de.p2tools.p2radio.controller.filter.stationlistfilter.StationFilterFacto
 
 public class InitStoredFilter {
 
+
+    public static SelectedFilter getBookmarkFilter() {
+        SelectedFilter sf = new SelectedFilter("nur Bookmarks");
+        sf.clearFilter();
+
+        sf.setStationNameVis(true);
+        sf.setGenreVis(true);
+        sf.setUrlVis(false);
+        sf.setCodecVis(false);
+        sf.setCountryVis(false);
+
+        sf.setMinMaxBitVis(false);
+        sf.setMinBit(0);
+        sf.setMaxBit(StationFilterFactory.FILTER_BITRATE_MAX);
+
+        sf.setOnlyVis(true);
+        sf.setOnlyNew(false);
+        sf.setNoFavourites(false);
+        sf.setNoDoubles(false);
+        sf.setOnlyBookmark(true);
+
+        return sf;
+    }
+
     public static void initFilter() {
         ProgData progData = ProgData.getInstance();
 
@@ -41,6 +65,7 @@ public class InitStoredFilter {
         sf.setOnlyNew(false);
         sf.setNoFavourites(false);
         sf.setNoDoubles(false);
+        sf.setOnlyBookmark(false);
 
         progData.storedFilters.getStoredFilterList().add(sf);
 
@@ -62,6 +87,7 @@ public class InitStoredFilter {
         sf.setOnlyNew(false);
         sf.setNoFavourites(false);
         sf.setNoDoubles(false);
+        sf.setOnlyBookmark(false);
 
         progData.storedFilters.getStoredFilterList().add(sf);
 
@@ -83,6 +109,7 @@ public class InitStoredFilter {
         sf.setOnlyNew(false);
         sf.setNoFavourites(false);
         sf.setNoDoubles(false);
+        sf.setOnlyBookmark(false);
 
         progData.storedFilters.getStoredFilterList().add(sf);
 
@@ -104,6 +131,7 @@ public class InitStoredFilter {
         sf.setOnlyNew(false);
         sf.setNoFavourites(false);
         sf.setNoDoubles(false);
+        sf.setOnlyBookmark(false);
 
         progData.storedFilters.getStoredFilterList().add(sf);
 
@@ -125,7 +153,11 @@ public class InitStoredFilter {
         sf.setOnlyNew(false);
         sf.setNoFavourites(false);
         sf.setNoDoubles(false);
+        sf.setOnlyBookmark(false);
 
         progData.storedFilters.getStoredFilterList().add(sf);
+
+        // ====================================
+        progData.storedFilters.getStoredFilterList().addNewItem(getBookmarkFilter());
     }
 }

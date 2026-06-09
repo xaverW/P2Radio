@@ -49,6 +49,7 @@ public class SelectedFilterFactory {
         sfTo.setOnlyNew(sfFrom.isOnlyNew());
         sfTo.setNoFavourites(sfFrom.isNoFavourites());
         sfTo.setNoDoubles(sfFrom.isNoDoubles());
+        sfTo.setOnlyBookmark(sfFrom.isOnlyBookmark());
 
         sfTo.setBlacklistOn(sfFrom.isBlacklistOn());
         sfTo.setBlacklistOnly(sfFrom.isBlacklistOnly());

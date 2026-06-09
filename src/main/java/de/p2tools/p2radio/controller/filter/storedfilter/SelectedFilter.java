@@ -145,6 +145,7 @@ public final class SelectedFilter extends SelectedFilterProps {
         setOnlyNew(false);
         setNoFavourites(false);
         setNoDoubles(false);
+        setOnlyBookmark(false);
     }
 
     public boolean isTextFilterEmpty() {
