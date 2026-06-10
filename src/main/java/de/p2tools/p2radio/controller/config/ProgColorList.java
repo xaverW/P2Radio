@@ -29,10 +29,6 @@ public class ProgColorList extends P2ColorList {
     }
 
     // new
-//    public static final P2ColorData STATION_NEW_BG = addNewKey("COLOR__STATION_NEW_BG",
-//            Color.rgb(210, 210, 255),
-//            Color.rgb(210, 210, 255),
-//            false, "Neuer Sender, Tabellenzeile");
     public static final P2ColorData STATION_NEW_KEY = addNewKey("COLOR__STATION_NEW",
             Color.rgb(0, 0, 240),
             Color.rgb(0, 0, 240),
@@ -45,10 +41,6 @@ public class ProgColorList extends P2ColorList {
             true, "Sender ist ein Bookmark, Tabellenzeile");
 
     // fav
-//    public static final P2ColorData STATION_FAVOURITE_BG = addNewKey("COLOR__IS_FAVOURITE_BG",
-//            Color.rgb(255, 251, 243),
-//            Color.rgb(255, 251, 243),
-//            false, "Sender ist ein Favorit, Tabellenzeile");
     public static final P2ColorData STATION_FAVOURITE_KEY = addNewKey("COLOR__IS_FAVOURITE",
             Color.rgb(122, 0, 0),
             Color.rgb(122, 0, 0),
@@ -59,20 +51,12 @@ public class ProgColorList extends P2ColorList {
             Color.rgb(198, 255, 198),
             Color.rgb(198, 255, 198),
             true, "Sender läuft, Tabellenzeile");
-//    public static final P2ColorData STATION_RUN_KEY = addNewKey("COLOR__FAVOURITE_RUN",
-//            Color.rgb(0, 0, 0),
-//            Color.rgb(0, 0, 0),
-//            false, "Sender läuft, Schriftfarbe");
 
     // error
     public static final P2ColorData STATION_ERROR_BG = addNewKey("COLOR__FAVOURITE_ERROR_BG",
             Color.rgb(163, 82, 82),
             Color.rgb(163, 82, 82),
             true, "Sender ist fehlerhaft, Tabellenzeile");
-//    public static final P2ColorData STATION_ERROR_KEY = addNewKey("COLOR__FAVOURITE_ERROR",
-//            Color.rgb(0, 0, 0),
-//            Color.rgb(0, 0, 0),
-//            false, "Sender ist fehlerhaft, Schriftfarbe");
 
     public static void setColorTheme() {
         final boolean dark = ProgConfig.SYSTEM_DARK_THEME.get();

@@ -39,8 +39,6 @@ public class TableRowStation<T extends StationData> extends TableRow<T> {
         } else {
             final boolean error = item.isError();
             final boolean playing = item.isNowPlaying();
-            final boolean fav = item.isFavourite();
-            final boolean newStation = item.isNewStation();
             final boolean bookmark = item.isBookmark();
 
             setStyle("");
@@ -54,21 +52,7 @@ public class TableRowStation<T extends StationData> extends TableRow<T> {
                     setStyle(ProgColorList.STATION_RUN_BG.getCssBackground());
                 }
 
-//            } else if (fav
-//                    && (tableEnum.equals(Table.TABLE_ENUM.STATION)
-//                    || tableEnum.equals(Table.TABLE_ENUM.HISTORY)
-//                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_STATION)
-//                    || tableEnum.equals(Table.TABLE_ENUM.SMALL_RADIO_HISTORY))) {
-//
-////                if (ProgColorList.STATION_FAVOURITE_BG.isUse()) {
-////                    setStyle(ProgColorList.STATION_FAVOURITE_BG.getCssBackground());
-////                }
-//
-////            } else if (newStation) {
-////                if (ProgColorList.STATION_NEW_BG.isUse()) {
-////                    setStyle(ProgColorList.STATION_NEW_BG.getCssBackground());
-////                }
-            } else if (bookmark) {
+            } else if (bookmark && tableEnum.equals(Table.TABLE_ENUM.STATION)) {
                 if (ProgColorList.STATION_BOOKMARK_KEY.isUse()) {
                     setStyle(ProgColorList.STATION_BOOKMARK_KEY.getCssBackground());
                 }

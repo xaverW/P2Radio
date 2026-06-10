@@ -163,7 +163,7 @@ public class HistoryGuiController extends VBox {
         Platform.runLater(() -> P2TableFactory.refreshTable(tableView));
 
         tableView.setRowFactory(new P2RowMoveFactory<>(tv -> {
-            TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.STATION);
+            TableRowStation<StationData> row = new TableRowStation<>(Table.TABLE_ENUM.HISTORY);
             row.hoverProperty().addListener((observable) -> {
                 final StationData stationData = row.getItem();
                 if (row.isHover() && stationData != null) { // null bei den leeren Zeilen unterhalb
